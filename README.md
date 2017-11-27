@@ -12,6 +12,9 @@ infrastructure.
 This is example skeleton for adding new object.
 
 - Replace `Object` with your object name.
+- Put struct definitions inside a proper package denoted by group and version
+  in file named `object_types.go`. Replace `object` with lowercased object
+  name.
 - If you create a new group or version edit the last argument of
   `generate-groups.sh` call inside `./scripts/gen.sh`. It has format
   `g1:v5 g2:v1 g3:v1`.
@@ -34,6 +37,10 @@ type Object struct {
 type ObjectSpec struct {
 	FieldName string `json:"fieldName", yaml:"fieldName"`
 }
+
+// ...
+// ...
+// ...
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
