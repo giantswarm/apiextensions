@@ -82,4 +82,3 @@ type NewObjCluster struct {
 	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon" yaml:"dockerDaemon"`
 }
 ```
-
