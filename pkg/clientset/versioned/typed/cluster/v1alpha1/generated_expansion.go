@@ -16,6 +16,8 @@ limitations under the License.
 
 package v1alpha1
 
+type AWSExpansion interface{}
+
 type AzureExpansion interface{}
 
 type KVMExpansion interface{}
