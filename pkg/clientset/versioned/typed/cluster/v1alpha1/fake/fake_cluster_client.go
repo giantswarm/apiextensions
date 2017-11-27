@@ -26,6 +26,10 @@ type FakeClusterV1alpha1 struct {
 	*testing.Fake
 }
 
+func (c *FakeClusterV1alpha1) AWSs(namespace string) v1alpha1.AWSInterface {
+	return &FakeAWSs{c, namespace}
+}
+
 func (c *FakeClusterV1alpha1) Azures(namespace string) v1alpha1.AzureInterface {
 	return &FakeAzures{c, namespace}
 }

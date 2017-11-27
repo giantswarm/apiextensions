@@ -25,12 +25,17 @@ import (
 
 type ClusterV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	AWSsGetter
 	AzuresGetter
 }
 
 // ClusterV1alpha1Client is used to interact with features provided by the cluster.giantswarm.io group.
 type ClusterV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *ClusterV1alpha1Client) AWSs(namespace string) AWSInterface {
+	return newAWSs(c, namespace)
 }
 
 func (c *ClusterV1alpha1Client) Azures(namespace string) AzureInterface {
