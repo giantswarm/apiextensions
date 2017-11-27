@@ -23,15 +23,15 @@ type KVMSpec struct {
 }
 
 type KVMSpecCluster struct {
-	Calico     KVMSpecClusterCalico   `json:"calico" yaml:"calico"`
-	Customer   KVMSpecClusterCustomer `json:"customer" yaml:"customer"`
-	Docker     KVMSpecClusterDocker   `json:"docker" yaml:"docker"`
-	Etcd       KVMSpecClusterEtcd     `json:"etcd" yaml:"etcd"`
-	ID         string                 `json:"id" yaml:"id"`
-	Kubernetes spec.Kubernetes        `json:"kubernetes" yaml:"kubernetes"`
-	Masters    []KVMSpecClusterNode   `json:"masters" yaml:"masters"`
-	Vault      KVMSpecClusterVault    `json:"vault" yaml:"vault"`
-	Workers    []KVMSpecClusterNode   `json:"workers" yaml:"workers"`
+	Calico     KVMSpecClusterCalico     `json:"calico" yaml:"calico"`
+	Customer   KVMSpecClusterCustomer   `json:"customer" yaml:"customer"`
+	Docker     KVMSpecClusterDocker     `json:"docker" yaml:"docker"`
+	Etcd       KVMSpecClusterEtcd       `json:"etcd" yaml:"etcd"`
+	ID         string                   `json:"id" yaml:"id"`
+	Kubernetes KVMSpecClusterKubernetes `json:"kubernetes" yaml:"kubernetes"`
+	Masters    []KVMSpecClusterNode     `json:"masters" yaml:"masters"`
+	Vault      KVMSpecClusterVault      `json:"vault" yaml:"vault"`
+	Workers    []KVMSpecClusterNode     `json:"workers" yaml:"workers"`
 }
 
 type KVMSpecClusterCalico struct {
