@@ -22,4 +22,6 @@ type AzureExpansion interface{}
 
 type CertExpansion interface{}
 
+type IngressExpansion interface{}
+
 type KVMExpansion interface{}
