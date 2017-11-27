@@ -10,10 +10,6 @@ jobs:
         chmod +x ./architect
         ./architect version
     - run: ./architect build
-    - persist_to_workspace:
-        root: .
-        paths:
-        - ./architect
     - deploy:
         command: |
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
