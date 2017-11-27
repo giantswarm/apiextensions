@@ -19,3 +19,5 @@ package v1alpha1
 type AWSExpansion interface{}
 
 type AzureExpansion interface{}
+
+type KVMExpansion interface{}

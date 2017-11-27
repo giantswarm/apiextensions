@@ -34,6 +34,10 @@ func (c *FakeClusterV1alpha1) Azures(namespace string) v1alpha1.AzureInterface {
 	return &FakeAzures{c, namespace}
 }
 
+func (c *FakeClusterV1alpha1) KVMs(namespace string) v1alpha1.KVMInterface {
+	return &FakeKVMs{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeClusterV1alpha1) RESTClient() rest.Interface {
