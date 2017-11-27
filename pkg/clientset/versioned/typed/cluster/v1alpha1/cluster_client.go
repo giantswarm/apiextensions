@@ -27,6 +27,7 @@ type ClusterV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AWSsGetter
 	AzuresGetter
+	CertsGetter
 	KVMsGetter
 }
 
@@ -41,6 +42,10 @@ func (c *ClusterV1alpha1Client) AWSs(namespace string) AWSInterface {
 
 func (c *ClusterV1alpha1Client) Azures(namespace string) AzureInterface {
 	return newAzures(c, namespace)
+}
+
+func (c *ClusterV1alpha1Client) Certs(namespace string) CertInterface {
+	return newCerts(c, namespace)
 }
 
 func (c *ClusterV1alpha1Client) KVMs(namespace string) KVMInterface {

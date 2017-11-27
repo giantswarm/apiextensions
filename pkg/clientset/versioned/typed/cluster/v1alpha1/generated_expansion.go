@@ -20,4 +20,6 @@ type AWSExpansion interface{}
 
 type AzureExpansion interface{}
 
+type CertExpansion interface{}
+
 type KVMExpansion interface{}
