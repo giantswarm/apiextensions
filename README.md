@@ -11,9 +11,9 @@ infrastructure.
 
 This is example skeleton for adding new object.
 
-- Replace `Object` with your object name.
+- Replace `NewObj` with your object name.
 - Put struct definitions inside a proper package denoted by group and version
-  in file named `object_types.go`. Replace `object` with lowercased object
+  in file named `newobj_types.go`. Replace `newobj` with lowercased object
   name.
 - If you create a new group or version edit the last argument of
   `generate-groups.sh` call inside `./scripts/gen.sh`. It has format
@@ -26,15 +26,15 @@ This is example skeleton for adding new object.
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Object godoc.
-type Object struct {
+// NewObj godoc.
+type NewObj struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec              ObjectSpec `json:"spec"`
+	metav1.NewObjMeta `json:"metadata"`
+	Spec              NewObjSpec `json:"spec"`
 }
 
-// ObjectSpec godoc.
-type ObjectSpec struct {
+// NewObjSpec godoc.
+type NewObjSpec struct {
 	FieldName string `json:"fieldName", yaml:"fieldName"`
 }
 
@@ -44,15 +44,15 @@ type ObjectSpec struct {
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ObjectList godoc.
-type ObjectList struct {
+// NewObjList godoc.
+type NewObjList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []Object `json:"items"`
+	Items           []NewObj `json:"items"`
 }
 ```
 
-### Names Conventions
+### Naming Convention
 
 Custom object structs are placed in packages corresponding to the endpoints in
 Kubernetes API. E.g. structs in package
@@ -66,20 +66,20 @@ referenced inside custom object with custom object name.
 Example:
 
 ```go
-type AWS struct {
+type NewObj struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AWSSpec `json:"spec"`
+	Spec              NewObjSpec `json:"spec"`
 }
 
-type AWSSpec struct {
-	Cluster       AWSCluster       `json:"cluster" yaml:"cluster"`
-	VersionBundle AWSVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+type NewObjSpec struct {
+	Cluster       NewObjCluster       `json:"cluster" yaml:"cluster"`
+	VersionBundle NewObjVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
-type AWSCluster struct {
-	Calico       AWSCalico       `json:"calico" yaml:"calico"`
-	DockerDaemon AWSDockerDaemon `json:"dockerDaemon" yaml:"dockerDaemon"`
+type NewObjCluster struct {
+	Calico       NewObjCalico       `json:"calico" yaml:"calico"`
+	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon" yaml:"dockerDaemon"`
 }
 ```
 
