@@ -23,15 +23,15 @@ type AWSSpec struct {
 }
 
 type AWSSpecCluster struct {
-	Calico     AWSSpecClusterCalico   `json:"calico" yaml:"calico"`
-	Customer   AWSSpecClusterCustomer `json:"customer" yaml:"customer"`
-	Docker     AWSSpecClusterDocker   `json:"docker" yaml:"docker"`
-	Etcd       AWSSpecClusterEtcd     `json:"etcd" yaml:"etcd"`
-	ID         string                 `json:"id" yaml:"id"`
-	Kubernetes spec.Kubernetes        `json:"kubernetes" yaml:"kubernetes"`
-	Masters    []AWSSpecClusterNode   `json:"masters" yaml:"masters"`
-	Vault      AWSSpecClusterVault    `json:"vault" yaml:"vault"`
-	Workers    []AWSSpecClusterNode   `json:"workers" yaml:"workers"`
+	Calico     AWSSpecClusterCalico     `json:"calico" yaml:"calico"`
+	Customer   AWSSpecClusterCustomer   `json:"customer" yaml:"customer"`
+	Docker     AWSSpecClusterDocker     `json:"docker" yaml:"docker"`
+	Etcd       AWSSpecClusterEtcd       `json:"etcd" yaml:"etcd"`
+	ID         string                   `json:"id" yaml:"id"`
+	Kubernetes AWSSpecClusterKubernetes `json:"kubernetes" yaml:"kubernetes"`
+	Masters    []AWSSpecClusterNode     `json:"masters" yaml:"masters"`
+	Vault      AWSSpecClusterVault      `json:"vault" yaml:"vault"`
+	Workers    []AWSSpecClusterNode     `json:"workers" yaml:"workers"`
 }
 
 type AWSSpecClusterCalico struct {
@@ -187,6 +187,10 @@ type AWSSpecAWSVPC struct {
 	PublicSubnetCIDR  string   `json:"publicSubnetCidr" yaml:"publicSubnetCidr"`
 	RouteTableNames   []string `json:"routeTableNames" yaml:"routeTableNames"`
 	PeerID            string   `json:"peerId" yaml:"peerId"`
+}
+
+type AWSSpecVersionBundle struct {
+	Version string `json:"version" yaml:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
