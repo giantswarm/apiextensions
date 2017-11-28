@@ -17,7 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/cluster/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
 	"github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
@@ -25,9 +25,8 @@ import (
 
 type ClusterV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	AWSsGetter
-	AzuresGetter
-	KVMsGetter
+	CertsGetter
+	IngressesGetter
 }
 
 // ClusterV1alpha1Client is used to interact with features provided by the cluster.giantswarm.io group.
@@ -35,16 +34,12 @@ type ClusterV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *ClusterV1alpha1Client) AWSs(namespace string) AWSInterface {
-	return newAWSs(c, namespace)
+func (c *ClusterV1alpha1Client) Certs(namespace string) CertInterface {
+	return newCerts(c, namespace)
 }
 
-func (c *ClusterV1alpha1Client) Azures(namespace string) AzureInterface {
-	return newAzures(c, namespace)
-}
-
-func (c *ClusterV1alpha1Client) KVMs(namespace string) KVMInterface {
-	return newKVMs(c, namespace)
+func (c *ClusterV1alpha1Client) Ingresses(namespace string) IngressInterface {
+	return newIngresses(c, namespace)
 }
 
 // NewForConfig creates a new ClusterV1alpha1Client for the given config.

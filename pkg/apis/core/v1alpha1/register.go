@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	group   = "cluster.giantswarm.io"
+	group   = "core.giantswarm.io"
 	version = "v1alpha1"
 )
 
@@ -27,12 +27,10 @@ var (
 // Adds the list of known types to api.Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&AWS{},
-		&AWSList{},
-		&Azure{},
-		&AzureList{},
-		&KVM{},
-		&KVMList{},
+		&Cert{},
+		&CertList{},
+		&Ingress{},
+		&IngressList{},
 	)
 
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
