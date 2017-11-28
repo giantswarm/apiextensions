@@ -1,8 +1,47 @@
 package v1alpha1
 
 import (
+	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+// NewAzureCRD returns a new custom resource definition for Azure. This might
+// look something like the following.
+//
+//     apiVersion: apiextensions.k8s.io/v1beta1
+//     kind: CustomResourceDefinition
+//     metadata:
+//       name: azures.cluster.giantswarm.io
+//     spec:
+//       group: cluster.giantswarm.io
+//       scope: Namespaced
+//       version: v1alpha1
+//       names:
+//         kind: Azure
+//         plural: azures
+//         singular: azure
+//
+func NewAzureCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+	return &apiextensionsv1beta1.CustomResourceDefinition{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
+			Kind:       "CustomResourceDefinition",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "azures.cluster.giantswarm.io",
+		},
+		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
+			Group:   "cluster.giantswarm.io",
+			Scope:   "Namespaced",
+			Version: "v1alpha1",
+			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
+				Kind:     "Azure",
+				Plural:   "azures",
+				Singular: "azure",
+			},
+		},
+	}
+}
 
 // +genclient
 // +genclient:noStatus
