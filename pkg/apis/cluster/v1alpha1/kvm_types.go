@@ -3,8 +3,47 @@ package v1alpha1
 import (
 	"net"
 
+	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+// NewKVMCRD returns a new custom resource definition for KVM. This might look
+// something like the following.
+//
+//     apiVersion: apiextensions.k8s.io/v1beta1
+//     kind: CustomResourceDefinition
+//     metadata:
+//       name: kvms.cluster.giantswarm.io
+//     spec:
+//       group: cluster.giantswarm.io
+//       scope: Namespaced
+//       version: v1alpha1
+//       names:
+//         kind: KVM
+//         plural: kvms
+//         singular: kvm
+//
+func NewKVMCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+	return &apiextensionsv1beta1.CustomResourceDefinition{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
+			Kind:       "CustomResourceDefinition",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "kvms.cluster.giantswarm.io",
+		},
+		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
+			Group:   "cluster.giantswarm.io",
+			Scope:   "Namespaced",
+			Version: "v1alpha1",
+			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
+				Kind:     "KVM",
+				Plural:   "kvms",
+				Singular: "kvm",
+			},
+		},
+	}
+}
 
 // +genclient
 // +genclient:noStatus
