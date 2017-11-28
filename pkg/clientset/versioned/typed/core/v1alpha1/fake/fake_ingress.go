@@ -17,7 +17,7 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/cluster/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -28,13 +28,13 @@ import (
 
 // FakeIngresses implements IngressInterface
 type FakeIngresses struct {
-	Fake *FakeClusterV1alpha1
+	Fake *FakeCoreV1alpha1
 	ns   string
 }
 
-var ingressesResource = schema.GroupVersionResource{Group: "cluster.giantswarm.io", Version: "v1alpha1", Resource: "ingresses"}
+var ingressesResource = schema.GroupVersionResource{Group: "core.giantswarm.io", Version: "v1alpha1", Resource: "ingresses"}
 
-var ingressesKind = schema.GroupVersionKind{Group: "cluster.giantswarm.io", Version: "v1alpha1", Kind: "Ingress"}
+var ingressesKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "Ingress"}
 
 // Get takes name of the ingress, and returns the corresponding ingress object, and an error if there is any.
 func (c *FakeIngresses) Get(name string, options v1.GetOptions) (result *v1alpha1.Ingress, err error) {

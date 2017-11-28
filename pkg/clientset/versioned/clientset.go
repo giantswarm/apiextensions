@@ -18,6 +18,7 @@ package versioned
 
 import (
 	clusterv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/cluster/v1alpha1"
+	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	glog "github.com/golang/glog"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
@@ -29,6 +30,9 @@ type Interface interface {
 	ClusterV1alpha1() clusterv1alpha1.ClusterV1alpha1Interface
 	// Deprecated: please explicitly pick a version if possible.
 	Cluster() clusterv1alpha1.ClusterV1alpha1Interface
+	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
+	// Deprecated: please explicitly pick a version if possible.
+	Core() corev1alpha1.CoreV1alpha1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
@@ -36,6 +40,7 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	clusterV1alpha1 *clusterv1alpha1.ClusterV1alpha1Client
+	coreV1alpha1    *corev1alpha1.CoreV1alpha1Client
 }
 
 // ClusterV1alpha1 retrieves the ClusterV1alpha1Client
@@ -47,6 +52,17 @@ func (c *Clientset) ClusterV1alpha1() clusterv1alpha1.ClusterV1alpha1Interface {
 // Please explicitly pick a version.
 func (c *Clientset) Cluster() clusterv1alpha1.ClusterV1alpha1Interface {
 	return c.clusterV1alpha1
+}
+
+// CoreV1alpha1 retrieves the CoreV1alpha1Client
+func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
+	return c.coreV1alpha1
+}
+
+// Deprecated: Core retrieves the default version of CoreClient.
+// Please explicitly pick a version.
+func (c *Clientset) Core() corev1alpha1.CoreV1alpha1Interface {
+	return c.coreV1alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -69,6 +85,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.coreV1alpha1, err = corev1alpha1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 
 	cs.DiscoveryClient, err = discovery.NewDiscoveryClientForConfig(&configShallowCopy)
 	if err != nil {
@@ -83,6 +103,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.clusterV1alpha1 = clusterv1alpha1.NewForConfigOrDie(c)
+	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -92,6 +113,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.clusterV1alpha1 = clusterv1alpha1.New(c)
+	cs.coreV1alpha1 = corev1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

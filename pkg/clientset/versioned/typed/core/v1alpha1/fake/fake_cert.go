@@ -17,7 +17,7 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/cluster/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -28,13 +28,13 @@ import (
 
 // FakeCerts implements CertInterface
 type FakeCerts struct {
-	Fake *FakeClusterV1alpha1
+	Fake *FakeCoreV1alpha1
 	ns   string
 }
 
-var certsResource = schema.GroupVersionResource{Group: "cluster.giantswarm.io", Version: "v1alpha1", Resource: "certs"}
+var certsResource = schema.GroupVersionResource{Group: "core.giantswarm.io", Version: "v1alpha1", Resource: "certs"}
 
-var certsKind = schema.GroupVersionKind{Group: "cluster.giantswarm.io", Version: "v1alpha1", Kind: "Cert"}
+var certsKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "Cert"}
 
 // Get takes name of the cert, and returns the corresponding cert object, and an error if there is any.
 func (c *FakeCerts) Get(name string, options v1.GetOptions) (result *v1alpha1.Cert, err error) {
