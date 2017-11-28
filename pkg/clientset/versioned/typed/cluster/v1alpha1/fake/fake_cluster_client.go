@@ -26,12 +26,16 @@ type FakeClusterV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeClusterV1alpha1) Certs(namespace string) v1alpha1.CertInterface {
-	return &FakeCerts{c, namespace}
+func (c *FakeClusterV1alpha1) AWSs(namespace string) v1alpha1.AWSInterface {
+	return &FakeAWSs{c, namespace}
 }
 
-func (c *FakeClusterV1alpha1) Ingresses(namespace string) v1alpha1.IngressInterface {
-	return &FakeIngresses{c, namespace}
+func (c *FakeClusterV1alpha1) Azures(namespace string) v1alpha1.AzureInterface {
+	return &FakeAzures{c, namespace}
+}
+
+func (c *FakeClusterV1alpha1) KVMs(namespace string) v1alpha1.KVMInterface {
+	return &FakeKVMs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

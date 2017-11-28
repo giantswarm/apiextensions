@@ -29,7 +29,7 @@ type CoreV1alpha1Interface interface {
 	IngressesGetter
 }
 
-// CoreV1alpha1Client is used to interact with features provided by the  group.
+// CoreV1alpha1Client is used to interact with features provided by the core.giantswarm.io group.
 type CoreV1alpha1Client struct {
 	restClient rest.Interface
 }

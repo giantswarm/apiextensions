@@ -32,9 +32,9 @@ type FakeIngresses struct {
 	ns   string
 }
 
-var ingressesResource = schema.GroupVersionResource{Group: "", Version: "v1alpha1", Resource: "ingresses"}
+var ingressesResource = schema.GroupVersionResource{Group: "core.giantswarm.io", Version: "v1alpha1", Resource: "ingresses"}
 
-var ingressesKind = schema.GroupVersionKind{Group: "", Version: "v1alpha1", Kind: "Ingress"}
+var ingressesKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "Ingress"}
 
 // Get takes name of the ingress, and returns the corresponding ingress object, and an error if there is any.
 func (c *FakeIngresses) Get(name string, options v1.GetOptions) (result *v1alpha1.Ingress, err error) {
