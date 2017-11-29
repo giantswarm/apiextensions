@@ -3,7 +3,6 @@ package v1alpha1
 import (
 	"net"
 
-	"github.com/coreos/flannel/backend"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
