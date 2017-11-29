@@ -13,11 +13,23 @@ This is example skeleton for adding new group and/or version.
 
 - Replace `GROUP` with new group name and `VERSION` with new version name.
 - Create a new package `/pkg/apis/GROUP/VERSION/`.
-- Inside the package create a file `register.go`
+- Inside the package create a file `doc.go` (content below).
+- Inside the package create a file `register.go` (content below).
 - Edit the last argument of `generate-groups.sh` call inside
   `./scripts/gen.sh`. It has format `existingGroup:existingVersion
   GROUP:VERSION`.
 - Add a new object (described in [next paragraph](#adding-a-new-custom-object)).
+
+Example `doc.go` content.
+
+```go
+// +k8s:deepcopy-gen=package,register
+
+// +groupName=GROUP.giantswarm.io
+package VERSION
+```
+
+Example `register.go` content.
 
 ```go
 package VERSION
@@ -106,6 +118,12 @@ type NewObjList struct {
 	Items           []NewObj `json:"items"`
 }
 ```
+
+### Changing Existing Custom Object
+
+- Make the desired changes.
+- Update generated client by calling `./scripts/gen.sh`.
+- Commit all changes, including generated code.
 
 ### Naming Convention
 
