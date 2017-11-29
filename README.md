@@ -36,7 +36,7 @@ const (
 // knownTypes is the full list of objects to register with the scheme. It
 // should conaint all zero values of custom objects and custom object lists
 // in the group version.
-var knownTypes []runtime.Object{
+var knownTypes = []runtime.Object{
 		//&Object{},
 		//&ObjectList{},
 }
@@ -56,7 +56,7 @@ var (
 
 // Adds the list of known types to api.Scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
-	scheme.AddKnownTypes(SchemeGroupVersion, knownTypes)
+	scheme.AddKnownTypes(SchemeGroupVersion, knownTypes...)
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
 	return nil
 }
