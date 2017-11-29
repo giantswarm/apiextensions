@@ -7,6 +7,61 @@ infrastructure.
 
 ## Contributing
 
+### Adding a New Group and/or Version
+
+This is example skeleton for adding new group and/or version.
+
+- Replace `GROUP` with new group name and `VERSION` with new version name.
+- Create a new package `/pkg/apis/GROUP/VERSION/`.
+- Inside the package create a file `register.go`
+- Edit the last argument of `generate-groups.sh` call inside
+  `./scripts/gen.sh`. It has format `existingGroup:existingVersion
+  GROUP:VERSION`.
+- Add a new object (desribed in next paragraph).
+
+```go
+package VERSION
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+)
+
+const (
+	group   = "GROUP.giantswarm.io"
+	version = "VERSION"
+)
+
+// knownTypes is the full list of objects to register with the scheme. It
+// should conaint all zero values of custom objects and custom object lists
+// in the group version.
+var knownTypes []runtime.Object{
+		//&Object{},
+		//&ObjectList{},
+}
+
+// SchemeGroupVersion is group version used to register these objects
+var SchemeGroupVersion = schema.GroupVersion{
+	Group:   group,
+	Version: version,
+}
+
+var (
+	schemeBuilder = runtime.NewSchemeBuilder(addKnownTypes)
+
+	// AddToScheme is used by the generated client.
+	AddToScheme = schemeBuilder.AddToScheme
+)
+
+// Adds the list of known types to api.Scheme.
+func addKnownTypes(scheme *runtime.Scheme) error {
+	scheme.AddKnownTypes(SchemeGroupVersion, knownTypes)
+	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
+	return nil
+}
+```
+
 ### Adding a New Custom Object
 
 This is example skeleton for adding new object.
@@ -15,9 +70,7 @@ This is example skeleton for adding new object.
 - Put struct definitions inside a proper package denoted by group and version
   in file named `newobj_types.go`. Replace `newobj` with lowercased object
   name.
-- If you create a new group or version edit the last argument of
-  `generate-groups.sh` call inside `./scripts/gen.sh`. It has format
-  `g1:v5 g2:v1 g3:v1`.
+- Add `NewObj` and `NewObjList` to `knownTypes` slice in `register.go`
 - Generate client by calling `./scripts/gen.sh`.
 - Commit generated code and all edits to `./scripts/gen.sh`.
 
