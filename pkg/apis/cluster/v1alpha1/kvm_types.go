@@ -214,7 +214,7 @@ type KVMSpecKVMNetwork struct {
 }
 
 type KVMSpecKVMNetworkFlannel struct {
-	VNI string `json:"vni" yaml:"vni"`
+	VNI int `json:"vni" yaml:"vni"`
 }
 
 type KVMSpecKVMNodeController struct {
