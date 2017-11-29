@@ -17,7 +17,7 @@ This is example skeleton for adding new group and/or version.
 - Edit the last argument of `generate-groups.sh` call inside
   `./scripts/gen.sh`. It has format `existingGroup:existingVersion
   GROUP:VERSION`.
-- Add a new object (desribed in next paragraph).
+- Add a new object (described in [next paragraph](#adding-a-new-custom-object)).
 
 ```go
 package VERSION
@@ -66,6 +66,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 
 This is example skeleton for adding new object.
 
+- Make sure group and version of the to add object exists (described in
+  [previous paragraph](#adding-a-new-group-andor-version)).
 - Replace `NewObj` with your object name.
 - Put struct definitions inside a proper package denoted by group and version
   in file named `newobj_types.go`. Replace `newobj` with lowercased object
