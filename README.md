@@ -4,3 +4,5 @@
 
 Package apiextensions provides generated Kubernetes clients for the Giant Swarm
 infrastructure.
+
+After changes be sure to run `scripts/gen.sh`
