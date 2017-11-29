@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	"net"
 
+	"github.com/coreos/flannel/backend"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -181,6 +182,7 @@ type KVMSpecKVM struct {
 	EndpointUpdater KVMSpecKVMEndpointUpdater `json:"endpointUpdater" yaml:"endpointUpdater"`
 	K8sKVM          KVMSpecKVMK8sKVM          `json:"k8sKVM" yaml:"k8sKVM"`
 	Masters         []KVMSpecKVMNode          `json:"masters" yaml:"masters"`
+	Network         KVMSpecKVMNetwork         `json:"network" yaml:"network"`
 	NodeController  KVMSpecKVMNodeController  `json:"nodeController" yaml:"nodeController"`
 	Workers         []KVMSpecKVMNode          `json:"workers" yaml:"workers"`
 }
@@ -206,6 +208,14 @@ type KVMSpecKVMNode struct {
 	CPUs   int     `json:"cpus" yaml:"cpus"`
 	Disk   float64 `json:"disk" yaml:"disk"`
 	Memory string  `json:"memory" yaml:"memory"`
+}
+
+type KVMSpecKVMNetwork struct {
+	Flannel KVMSpecKVMNetworkFlannel `json:"flannel" yaml:"flannel"`
+}
+
+type KVMSpecKVMNetworkFlannel struct {
+	VNI string `json:"vni" yaml:"vni"`
 }
 
 type KVMSpecKVMNodeController struct {
