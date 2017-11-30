@@ -12,7 +12,7 @@ const (
 )
 
 // knownTypes is the full list of objects to register with the scheme. It
-// should conaint all zero values of custom objects and custom object lists
+// should contain all zero values of custom objects and custom object lists
 // in the group version.
 var knownTypes = []runtime.Object{
 	&Cert{},

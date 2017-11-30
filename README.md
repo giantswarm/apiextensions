@@ -46,8 +46,8 @@ const (
 )
 
 // knownTypes is the full list of objects to register with the scheme. It
-// should conaint all zero values of custom objects and custom object lists
-// in the group version.
+// should contain pointers of zero values of all custom objects and custom
+// object lists in the group version.
 var knownTypes = []runtime.Object{
 		//&Object{},
 		//&ObjectList{},
@@ -78,12 +78,12 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 
 This is example skeleton for adding new object.
 
-- Make sure group and version of the to add object exists (described in
+- Make sure group and version of the object to add exists (described in
   [previous paragraph](#adding-a-new-group-andor-version)).
 - Replace `NewObj` with your object name.
 - Put struct definitions inside a proper package denoted by group and version
-  in file named `newobj_types.go`. Replace `newobj` with lowercased object
-  name.
+  in file named `new_obj_types.go`. Replace `new_obj` with lowercased,
+  snakecased object name.
 - Add `NewObj` and `NewObjList` to `knownTypes` slice in `register.go`
 - Generate client by calling `./scripts/gen.sh`.
 - Commit generated code and all edits to `./scripts/gen.sh`.
@@ -104,10 +104,6 @@ type NewObj struct {
 type NewObjSpec struct {
 	FieldName string `json:"fieldName", yaml:"fieldName"`
 }
-
-// ...
-// ...
-// ...
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
