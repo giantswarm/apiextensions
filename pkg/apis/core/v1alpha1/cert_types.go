@@ -54,11 +54,11 @@ type CertConfig struct {
 }
 
 type CertConfigSpec struct {
-	CertConfig    CertConfigSpecCertConfig    `json:"cert" yaml:"cert"`
+	Cert          CertConfigSpecConfig        `json:"cert" yaml:"cert"`
 	VersionBundle CertConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
-type CertConfigSpecCertConfig struct {
+type CertConfigSpecConfig struct {
 	AllowBareDomains bool     `json:"allowBareDomains" yaml:"allowBareDomains"`
 	AltNames         []string `json:"altNames" yaml:"altNames"`
 	ClusterComponent string   `json:"clusterComponent" yaml:"clusterComponent"`
