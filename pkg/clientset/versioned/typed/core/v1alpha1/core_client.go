@@ -26,6 +26,7 @@ import (
 type CoreV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	CertsGetter
+	FlannelsGetter
 	IngressesGetter
 }
 
@@ -36,6 +37,10 @@ type CoreV1alpha1Client struct {
 
 func (c *CoreV1alpha1Client) Certs(namespace string) CertInterface {
 	return newCerts(c, namespace)
+}
+
+func (c *CoreV1alpha1Client) Flannels(namespace string) FlannelInterface {
+	return newFlannels(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) Ingresses(namespace string) IngressInterface {

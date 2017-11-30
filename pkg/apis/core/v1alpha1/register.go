@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&Cert{},
 	&CertList{},
+	&Flannel{},
+	&FlannelList{},
 	&Ingress{},
 	&IngressList{},
 }
