@@ -66,19 +66,19 @@ type IngressConfigSpecGuestCluster struct {
 }
 
 type IngressConfigSpecHostCluster struct {
-	IngressConfigController IngressConfigSpecHostClusterIngressConfigController `json:"ingressController" yaml:"ingressController"`
+	IngressController IngressConfigSpecHostClusterIngressController `json:"ingressController" yaml:"ingressController"`
 }
 
-type IngressConfigSpecHostClusterIngressConfigController struct {
+type IngressConfigSpecHostClusterIngressController struct {
 	ConfigMap string `json:"configMap" yaml:"configMap"`
 	Namespace string `json:"namespace" yaml:"namespace"`
 	Service   string `json:"service" yaml:"service"`
 }
 
 type IngressConfigSpecProtocolPort struct {
-	IngressConfigPort int    `json:"ingressPort" yaml:"ingressPort"`
-	LBPort            int    `json:"lbPort" yaml:"lbPort"`
-	Protocol          string `json:"protocol" yaml:"protocol"`
+	IngressPort int    `json:"ingressPort" yaml:"ingressPort"`
+	LBPort      int    `json:"lbPort" yaml:"lbPort"`
+	Protocol    string `json:"protocol" yaml:"protocol"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

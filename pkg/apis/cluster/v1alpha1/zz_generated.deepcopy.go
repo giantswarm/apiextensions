@@ -91,7 +91,7 @@ func (in *AWSConfigList) DeepCopyObject() runtime.Object {
 func (in *AWSConfigSpec) DeepCopyInto(out *AWSConfigSpec) {
 	*out = *in
 	in.Cluster.DeepCopyInto(&out.Cluster)
-	in.AWSConfig.DeepCopyInto(&out.AWSConfig)
+	in.AWS.DeepCopyInto(&out.AWS)
 	out.VersionBundle = in.VersionBundle
 	return
 }

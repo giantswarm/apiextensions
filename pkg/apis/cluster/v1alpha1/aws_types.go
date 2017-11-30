@@ -57,7 +57,7 @@ type AWSConfig struct {
 
 type AWSConfigSpec struct {
 	Cluster       AWSConfigSpecCluster       `json:"cluster" yaml:"cluster"`
-	AWSConfig     AWSConfigSpecAWS           `json:"aws" yaml:"aws"`
+	AWS           AWSConfigSpecAWS           `json:"aws" yaml:"aws"`
 	VersionBundle AWSConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
