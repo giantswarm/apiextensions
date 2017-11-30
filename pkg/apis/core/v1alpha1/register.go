@@ -15,12 +15,12 @@ const (
 // should contain all zero values of custom objects and custom object lists
 // in the group version.
 var knownTypes = []runtime.Object{
-	&Cert{},
-	&CertList{},
-	&Flannel{},
-	&FlannelList{},
-	&Ingress{},
-	&IngressList{},
+	&CertConfig{},
+	&CertConfigList{},
+	&FlannelConfig{},
+	&FlannelConfigList{},
+	&IngressConfig{},
+	&IngressConfigList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
