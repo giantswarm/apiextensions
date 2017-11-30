@@ -11,15 +11,15 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: flannelConfigs.core.giantswarm.io
+//       name: flannelconfigs.core.giantswarm.io
 //     spec:
 //       group: core.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: FlannelConfig
-//         plural: flannelConfigs
-//         singular: flannelConfig
+//         plural: flannelconfigs
+//         singular: flannelconfig
 //
 func NewFlannelConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -28,7 +28,7 @@ func NewFlannelConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "flannelConfigs.core.giantswarm.io",
+			Name: "flannelconfigs.core.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "core.giantswarm.io",
@@ -36,8 +36,8 @@ func NewFlannelConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "FlannelConfig",
-				Plural:   "flannelConfigs",
-				Singular: "flannelConfig",
+				Plural:   "flannelconfigs",
+				Singular: "flannelconfig",
 			},
 		},
 	}

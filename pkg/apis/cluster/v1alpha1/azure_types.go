@@ -11,15 +11,15 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: azureConfigs.cluster.giantswarm.io
+//       name: azureconfigs.cluster.giantswarm.io
 //     spec:
 //       group: cluster.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: AzureConfig
-//         plural: azureConfigs
-//         singular: azureConfig
+//         plural: azureconfigs
+//         singular: azureconfig
 //
 func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -28,7 +28,7 @@ func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "azureConfigs.cluster.giantswarm.io",
+			Name: "azureconfigs.cluster.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "cluster.giantswarm.io",
@@ -36,8 +36,8 @@ func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "AzureConfig",
-				Plural:   "azureConfigs",
-				Singular: "azureConfig",
+				Plural:   "azureconfigs",
+				Singular: "azureconfig",
 			},
 		},
 	}

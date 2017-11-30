@@ -21,7 +21,7 @@ import (
 //       names:
 //         kind: AWSConfig
 //         plural: awsconfigs
-//         singular: awsConfig
+//         singular: awsconfig
 //
 func NewAWSConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -39,7 +39,7 @@ func NewAWSConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "AWSConfig",
 				Plural:   "awsconfigs",
-				Singular: "awsConfig",
+				Singular: "awsconfig",
 			},
 		},
 	}

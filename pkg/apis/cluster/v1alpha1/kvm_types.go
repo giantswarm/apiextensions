@@ -13,15 +13,15 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: kvmConfigs.cluster.giantswarm.io
+//       name: kvmconfigs.cluster.giantswarm.io
 //     spec:
 //       group: cluster.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: KVMConfig
-//         plural: kvmConfigs
-//         singular: kvmConfig
+//         plural: kvmconfigs
+//         singular: kvmconfig
 //
 func NewKVMConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -30,7 +30,7 @@ func NewKVMConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "kvmConfigs.cluster.giantswarm.io",
+			Name: "kvmconfigs.cluster.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "cluster.giantswarm.io",
@@ -38,8 +38,8 @@ func NewKVMConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "KVMConfig",
-				Plural:   "kvmConfigs",
-				Singular: "kvmConfig",
+				Plural:   "kvmconfigs",
+				Singular: "kvmconfig",
 			},
 		},
 	}

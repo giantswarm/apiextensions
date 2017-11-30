@@ -11,15 +11,15 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: certConfigs.core.giantswarm.io
+//       name: certconfigs.core.giantswarm.io
 //     spec:
 //       group: core.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: CertConfig
-//         plural: certConfigs
-//         singular: certConfig
+//         plural: certconfigs
+//         singular: certconfig
 //
 func NewCertConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -28,7 +28,7 @@ func NewCertConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "certConfigs.core.giantswarm.io",
+			Name: "certconfigs.core.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "core.giantswarm.io",
@@ -36,8 +36,8 @@ func NewCertConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "CertConfig",
-				Plural:   "certConfigs",
-				Singular: "certConfig",
+				Plural:   "certconfigs",
+				Singular: "certconfig",
 			},
 		},
 	}

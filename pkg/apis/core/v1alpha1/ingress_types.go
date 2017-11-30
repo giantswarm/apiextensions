@@ -11,15 +11,15 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: ingressConfigs.core.giantswarm.io
+//       name: ingressconfigs.core.giantswarm.io
 //     spec:
 //       group: core.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: IngressConfig
-//         plural: ingressConfigs
-//         singular: ingressConfig
+//         plural: ingressconfigs
+//         singular: ingressconfig
 //
 func NewIngressConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -28,7 +28,7 @@ func NewIngressConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "ingressConfigs.core.giantswarm.io",
+			Name: "ingressconfigs.core.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "core.giantswarm.io",
@@ -36,8 +36,8 @@ func NewIngressConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "IngressConfig",
-				Plural:   "ingressConfigs",
-				Singular: "ingressConfig",
+				Plural:   "ingressconfigs",
+				Singular: "ingressconfig",
 			},
 		},
 	}
