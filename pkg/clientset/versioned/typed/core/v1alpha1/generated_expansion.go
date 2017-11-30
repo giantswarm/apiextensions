@@ -18,4 +18,6 @@ package v1alpha1
 
 type CertExpansion interface{}
 
+type FlannelExpansion interface{}
+
 type IngressExpansion interface{}

@@ -30,6 +30,10 @@ func (c *FakeCoreV1alpha1) Certs(namespace string) v1alpha1.CertInterface {
 	return &FakeCerts{c, namespace}
 }
 
+func (c *FakeCoreV1alpha1) Flannels(namespace string) v1alpha1.FlannelInterface {
+	return &FakeFlannels{c, namespace}
+}
+
 func (c *FakeCoreV1alpha1) Ingresses(namespace string) v1alpha1.IngressInterface {
 	return &FakeIngresses{c, namespace}
 }
