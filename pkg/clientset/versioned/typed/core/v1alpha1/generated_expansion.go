@@ -16,8 +16,8 @@ limitations under the License.
 
 package v1alpha1
 
-type CertExpansion interface{}
+type CertConfigExpansion interface{}
 
-type FlannelExpansion interface{}
+type FlannelConfigExpansion interface{}
 
-type IngressExpansion interface{}
+type IngressConfigExpansion interface{}

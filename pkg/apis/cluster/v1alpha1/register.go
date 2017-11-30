@@ -15,12 +15,12 @@ const (
 // should contain pointers of zero values of all custom objects and custom
 // object lists in the group version.
 var knownTypes = []runtime.Object{
-	&AWS{},
-	&AWSList{},
-	&Azure{},
-	&AzureList{},
-	&KVM{},
-	&KVMList{},
+	&AWSConfig{},
+	&AWSConfigList{},
+	&AzureConfig{},
+	&AzureConfigList{},
+	&KVMConfig{},
+	&KVMConfigList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
