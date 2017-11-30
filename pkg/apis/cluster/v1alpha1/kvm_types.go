@@ -181,6 +181,7 @@ type KVMSpecKVM struct {
 	EndpointUpdater KVMSpecKVMEndpointUpdater `json:"endpointUpdater" yaml:"endpointUpdater"`
 	K8sKVM          KVMSpecKVMK8sKVM          `json:"k8sKVM" yaml:"k8sKVM"`
 	Masters         []KVMSpecKVMNode          `json:"masters" yaml:"masters"`
+	Network         KVMSpecKVMNetwork         `json:"network" yaml:"network"`
 	NodeController  KVMSpecKVMNodeController  `json:"nodeController" yaml:"nodeController"`
 	Workers         []KVMSpecKVMNode          `json:"workers" yaml:"workers"`
 }
@@ -206,6 +207,14 @@ type KVMSpecKVMNode struct {
 	CPUs   int     `json:"cpus" yaml:"cpus"`
 	Disk   float64 `json:"disk" yaml:"disk"`
 	Memory string  `json:"memory" yaml:"memory"`
+}
+
+type KVMSpecKVMNetwork struct {
+	Flannel KVMSpecKVMNetworkFlannel `json:"flannel" yaml:"flannel"`
+}
+
+type KVMSpecKVMNetworkFlannel struct {
+	VNI int `json:"vni" yaml:"vni"`
 }
 
 type KVMSpecKVMNodeController struct {
