@@ -57,7 +57,7 @@ type KVMConfig struct {
 
 type KVMConfigSpec struct {
 	Cluster       KVMConfigSpecCluster       `json:"cluster" yaml:"cluster"`
-	KVMConfig     KVMConfigSpecKVM           `json:"kvm" yaml:"kvm"`
+	KVM           KVMConfigSpecKVM           `json:"kvm" yaml:"kvm"`
 	VersionBundle KVMConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
