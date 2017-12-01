@@ -939,7 +939,7 @@ func (in *KVMConfigList) DeepCopyObject() runtime.Object {
 func (in *KVMConfigSpec) DeepCopyInto(out *KVMConfigSpec) {
 	*out = *in
 	in.Cluster.DeepCopyInto(&out.Cluster)
-	in.KVMConfig.DeepCopyInto(&out.KVMConfig)
+	in.KVM.DeepCopyInto(&out.KVM)
 	out.VersionBundle = in.VersionBundle
 	return
 }
