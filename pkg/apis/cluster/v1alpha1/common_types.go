@@ -45,6 +45,7 @@ type ClusterEtcd struct {
 
 type ClusterKubernetes struct {
 	API               ClusterKubernetesAPI               `json:"api" yaml:"api"`
+	CloudProvider     string                             `json:"cloudProvider" yaml:"cloudProvider"`
 	DNS               ClusterKubernetesDNS               `json:"dns" yaml:"dns"`
 	Domain            string                             `json:"domain" yaml:"domain"`
 	Hyperkube         ClusterKubernetesHyperkube         `json:"hyperkube" yaml:"hyperkube"`
