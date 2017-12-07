@@ -55,33 +55,33 @@ type AzureConfig struct {
 
 type AzureConfigSpec struct {
 	Cluster        Cluster                       `json:"cluster" yaml:"cluster"`
-	KeyVault       AzureConfigSpecKeyVault       `json:"keyVault"`
-	ResourceGroup  AzureConfigSpecResourceGroup  `json:"resourceGroup"`
-	Storage        AzureConfigSpecStorage        `json:"storage"`
-	VirtualNetwork AzureConfigSpecVirtualNetwork `json:"virtualNetwork"`
-	Masters        []AzureConfigSpecNode         `json:"masters"`
-	Workers        []AzureConfigSpecNode         `json:"workers"`
-	DNSZones       AzureConfigSpecDNSZones       `json:"dnsZones"`
+	KeyVault       AzureConfigSpecKeyVault       `json:"keyVault" yaml:"keyVault"`
+	ResourceGroup  AzureConfigSpecResourceGroup  `json:"resourceGroup" yaml:"resourceGroup"`
+	Storage        AzureConfigSpecStorage        `json:"storage" yaml:"storage"`
+	VirtualNetwork AzureConfigSpecVirtualNetwork `json:"virtualNetwork" yaml:"virtualNetwork"`
+	Masters        []AzureConfigSpecNode         `json:"masters" yaml:"masters"`
+	Workers        []AzureConfigSpecNode         `json:"workers" yaml:"workers"`
+	DNSZones       AzureConfigSpecDNSZones       `json:"dnsZones" yaml:"dnsZones"`
 }
 
 type AzureConfigSpecResourceGroup struct {
-	Location string `json:"location"`
+	Location string `json:"location" yaml:"location"`
 }
 
 // DNSZones contains the DNS Zones of the cluster.
 type AzureConfigSpecDNSZones struct {
 	// API is the DNS Zone for the Kubernetes API.
-	API string `json:"api"`
+	API string `json:"api" yaml:"api"`
 	// Etcd is the DNS Zone for the etcd cluster.
-	Etcd string `json:"etcd"`
+	Etcd string `json:"etcd" yaml:"etcd"`
 	// Ingress is the DNS Zone for the Ingress resource, used for customer traffic.
-	Ingress string `json:"ingress"`
+	Ingress string `json:"ingress" yaml:"ingress"`
 }
 
 type AzureConfigSpecKeyVault struct {
 	// Name is the name of the Azure Key Vault. It must be globally unique,
 	// 3-24 characters in length and contain only (0-9, a-z, A-Z, and -).
-	Name string `json:"name"`
+	Name string `json:"name" yaml:"name"`
 }
 
 type AzureConfigSpecNode struct {
@@ -99,33 +99,33 @@ type AzureConfigSpecNode struct {
 
 type AzureConfigSpecNodeOSImage struct {
 	// Publisher is the image publisher (e.g GiantSwarm)
-	Publisher string `json:"publisher"`
+	Publisher string `json:"publisher" yaml:"publisher"`
 	// Offer is the image offered by the publisher (e.g. CoreOS)
-	Offer string `json:"offer"`
+	Offer string `json:"offer" yaml:"offer"`
 	// SKU is the image SKU (e.g. Alpha)
-	SKU string `json:"sku"`
+	SKU string `json:"sku" yaml:"sku"`
 	// Version is the image version (e.g. 1465.7.0)
-	Version string `json:"version"`
+	Version string `json:"version" yaml:"version"`
 }
 
 type AzureConfigSpecStorage struct {
 	// AccountType is the Azure Storage Account Type.
-	AccountType string `json:"accountType"`
+	AccountType string `json:"accountType" yaml:"accountType"`
 }
 
 type AzureConfigSpecVirtualNetwork struct {
 	// CIDR is the CIDR for the Virtual Network.
-	CIDR string `json:"cidr"`
+	CIDR string `json:"cidr" yaml:"cidr"`
 	// MasterSubnetCIDR is the CIDR for the master subnet,
-	MasterSubnetCIDR string `json:"masterSubnetCIDR"`
+	MasterSubnetCIDR string `json:"masterSubnetCIDR" yaml:"masterSubnetCIDR"`
 	// WorkerSubnetCIDR is the CIDR for the worker subnet,
-	WorkerSubnetCIDR string                                    `json:"workerSubnetCIDR"`
-	LoadBalancer     AzureConfigSpecVirtualNetworkLoadBalancer `json:"loadBalancer"`
+	WorkerSubnetCIDR string                                    `json:"workerSubnetCIDR" yaml:"workerSubnetCIDR"`
+	LoadBalancer     AzureConfigSpecVirtualNetworkLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
 }
 
 type AzureConfigSpecVirtualNetworkLoadBalancer struct {
 	// EtcdCidr is the CIDR for the etcd load balancer.
-	EtcdCIDR string `json:"etcdCIDR"`
+	EtcdCIDR string `json:"etcdCIDR" yaml:"etcdCIDR"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
