@@ -54,22 +54,26 @@ type AzureConfig struct {
 }
 
 type AzureConfigSpec struct {
-	Cluster        Cluster                       `json:"cluster" yaml:"cluster"`
-	KeyVault       AzureConfigSpecKeyVault       `json:"keyVault" yaml:"keyVault"`
-	ResourceGroup  AzureConfigSpecResourceGroup  `json:"resourceGroup" yaml:"resourceGroup"`
-	Storage        AzureConfigSpecStorage        `json:"storage" yaml:"storage"`
-	VirtualNetwork AzureConfigSpecVirtualNetwork `json:"virtualNetwork" yaml:"virtualNetwork"`
-	Masters        []AzureConfigSpecNode         `json:"masters" yaml:"masters"`
-	Workers        []AzureConfigSpecNode         `json:"workers" yaml:"workers"`
-	DNSZones       AzureConfigSpecDNSZones       `json:"dnsZones" yaml:"dnsZones"`
+	Cluster Cluster              `json:"cluster" yaml:"cluster"`
+	Azure   AzureConfigSpecAzure `json:"azure" yaml:"azure"`
 }
 
-type AzureConfigSpecResourceGroup struct {
+type AzureConfigSpecAzure struct {
+	KeyVault       AzureConfigSpecAzureKeyVault       `json:"keyVault" yaml:"keyVault"`
+	ResourceGroup  AzureConfigSpecAzureResourceGroup  `json:"resourceGroup" yaml:"resourceGroup"`
+	Storage        AzureConfigSpecAzureStorage        `json:"storage" yaml:"storage"`
+	VirtualNetwork AzureConfigSpecAzureVirtualNetwork `json:"virtualNetwork" yaml:"virtualNetwork"`
+	Masters        []AzureConfigSpecAzureNode         `json:"masters" yaml:"masters"`
+	Workers        []AzureConfigSpecAzureNode         `json:"workers" yaml:"workers"`
+	DNSZones       AzureConfigSpecAzureDNSZones       `json:"dnsZones" yaml:"dnsZones"`
+}
+
+type AzureConfigSpecAzureResourceGroup struct {
 	Location string `json:"location" yaml:"location"`
 }
 
 // DNSZones contains the DNS Zones of the cluster.
-type AzureConfigSpecDNSZones struct {
+type AzureConfigSpecAzureDNSZones struct {
 	// API is the DNS Zone for the Kubernetes API.
 	API string `json:"api" yaml:"api"`
 	// Etcd is the DNS Zone for the etcd cluster.
@@ -78,13 +82,13 @@ type AzureConfigSpecDNSZones struct {
 	Ingress string `json:"ingress" yaml:"ingress"`
 }
 
-type AzureConfigSpecKeyVault struct {
+type AzureConfigSpecAzureKeyVault struct {
 	// Name is the name of the Azure Key Vault. It must be globally unique,
 	// 3-24 characters in length and contain only (0-9, a-z, A-Z, and -).
 	Name string `json:"name" yaml:"name"`
 }
 
-type AzureConfigSpecNode struct {
+type AzureConfigSpecAzureNode struct {
 	// VMSize is the master vm size (e.g. Standard_A1)
 	VMSize string `json:"vmSize" yaml:"vmSize"`
 	// DataDiskSizeGB is the vm data disk size in GB
@@ -94,10 +98,10 @@ type AzureConfigSpecNode struct {
 	//  AdminSSHKeyData is the vm administrator ssh public key
 	AdminSSHKeyData string `json:"adminSSHKeyData" yaml:"adminSSHKeyData"`
 	// OSImage is the vm OS image object
-	OSImage AzureConfigSpecNodeOSImage `json:"osImage" yaml:"osImage"`
+	OSImage AzureConfigSpecAzureNodeOSImage `json:"osImage" yaml:"osImage"`
 }
 
-type AzureConfigSpecNodeOSImage struct {
+type AzureConfigSpecAzureNodeOSImage struct {
 	// Publisher is the image publisher (e.g GiantSwarm)
 	Publisher string `json:"publisher" yaml:"publisher"`
 	// Offer is the image offered by the publisher (e.g. CoreOS)
@@ -108,22 +112,22 @@ type AzureConfigSpecNodeOSImage struct {
 	Version string `json:"version" yaml:"version"`
 }
 
-type AzureConfigSpecStorage struct {
+type AzureConfigSpecAzureStorage struct {
 	// AccountType is the Azure Storage Account Type.
 	AccountType string `json:"accountType" yaml:"accountType"`
 }
 
-type AzureConfigSpecVirtualNetwork struct {
+type AzureConfigSpecAzureVirtualNetwork struct {
 	// CIDR is the CIDR for the Virtual Network.
 	CIDR string `json:"cidr" yaml:"cidr"`
 	// MasterSubnetCIDR is the CIDR for the master subnet,
 	MasterSubnetCIDR string `json:"masterSubnetCIDR" yaml:"masterSubnetCIDR"`
 	// WorkerSubnetCIDR is the CIDR for the worker subnet,
-	WorkerSubnetCIDR string                                    `json:"workerSubnetCIDR" yaml:"workerSubnetCIDR"`
-	LoadBalancer     AzureConfigSpecVirtualNetworkLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
+	WorkerSubnetCIDR string                                         `json:"workerSubnetCIDR" yaml:"workerSubnetCIDR"`
+	LoadBalancer     AzureConfigSpecAzureVirtualNetworkLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
 }
 
-type AzureConfigSpecVirtualNetworkLoadBalancer struct {
+type AzureConfigSpecAzureVirtualNetworkLoadBalancer struct {
 	// EtcdCidr is the CIDR for the etcd load balancer.
 	EtcdCIDR string `json:"etcdCIDR" yaml:"etcdCIDR"`
 }
