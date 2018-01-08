@@ -54,9 +54,9 @@ type AzureConfig struct {
 }
 
 type AzureConfigSpec struct {
-	Cluster       Cluster                    `json:"cluster" yaml:"cluster"`
-	Azure         AzureConfigSpecAzure       `json:"azure" yaml:"azure"`
-	VersionBundle KVMConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Cluster       Cluster                      `json:"cluster" yaml:"cluster"`
+	Azure         AzureConfigSpecAzure         `json:"azure" yaml:"azure"`
+	VersionBundle AzureConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
 type AzureConfigSpecAzure struct {
