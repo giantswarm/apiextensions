@@ -42,6 +42,10 @@ func (c *FakeCoreV1alpha1) IngressConfigs(namespace string) v1alpha1.IngressConf
 	return &FakeIngressConfigs{c, namespace}
 }
 
+func (c *FakeCoreV1alpha1) NodeConfigs(namespace string) v1alpha1.NodeConfigInterface {
+	return &FakeNodeConfigs{c, namespace}
+}
+
 func (c *FakeCoreV1alpha1) StorageConfigs(namespace string) v1alpha1.StorageConfigInterface {
 	return &FakeStorageConfigs{c, namespace}
 }

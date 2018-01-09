@@ -24,4 +24,6 @@ type FlannelConfigExpansion interface{}
 
 type IngressConfigExpansion interface{}
 
+type NodeConfigExpansion interface{}
+
 type StorageConfigExpansion interface{}
