@@ -29,6 +29,7 @@ type CoreV1alpha1Interface interface {
 	DraughtsmanConfigsGetter
 	FlannelConfigsGetter
 	IngressConfigsGetter
+	NodeConfigsGetter
 	StorageConfigsGetter
 }
 
@@ -51,6 +52,10 @@ func (c *CoreV1alpha1Client) FlannelConfigs(namespace string) FlannelConfigInter
 
 func (c *CoreV1alpha1Client) IngressConfigs(namespace string) IngressConfigInterface {
 	return newIngressConfigs(c, namespace)
+}
+
+func (c *CoreV1alpha1Client) NodeConfigs(namespace string) NodeConfigInterface {
+	return newNodeConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) StorageConfigs(namespace string) StorageConfigInterface {
