@@ -92,7 +92,7 @@ type ClusterVersionBundleSpec struct {
 
 type ClusterComponentVersionSpec struct {
 	Name    string `json:"name"`
-	Version string `json:"name"`
+	Version string `json:"version"`
 }
 
 type ClusterVaultSpec struct {
