@@ -18,6 +18,8 @@ package v1alpha1
 
 type CertConfigExpansion interface{}
 
+type ClusterConfigExpansion interface{}
+
 type DraughtsmanConfigExpansion interface{}
 
 type FlannelConfigExpansion interface{}

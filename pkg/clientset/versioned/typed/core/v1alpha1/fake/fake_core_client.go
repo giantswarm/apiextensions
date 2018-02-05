@@ -30,6 +30,10 @@ func (c *FakeCoreV1alpha1) CertConfigs(namespace string) v1alpha1.CertConfigInte
 	return &FakeCertConfigs{c, namespace}
 }
 
+func (c *FakeCoreV1alpha1) ClusterConfigs(namespace string) v1alpha1.ClusterConfigInterface {
+	return &FakeClusterConfigs{c, namespace}
+}
+
 func (c *FakeCoreV1alpha1) DraughtsmanConfigs(namespace string) v1alpha1.DraughtsmanConfigInterface {
 	return &FakeDraughtsmanConfigs{c, namespace}
 }
