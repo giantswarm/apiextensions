@@ -61,7 +61,6 @@ type ClusterConfigSpec struct {
 	Name              string                     `json:"name,omitempty"`
 	Owner             string                     `json:"owner,omitempty"`
 	VersionBundles    []ClusterVersionBundleSpec `json:"versionBundles,omitempty"`
-	Vault             ClusterVaultSpec           `json:"vault,omitempty"`
 	Workers           []ClusterWorkerSpec        `json:"workers,omitempty"`
 }
 
@@ -93,11 +92,6 @@ type ClusterVersionBundleSpec struct {
 type ClusterComponentVersionSpec struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
-}
-
-type ClusterVaultSpec struct {
-	Address string `json:"address"`
-	Token   string `json:"token"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
