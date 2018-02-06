@@ -58,14 +58,13 @@ type ClusterConfigSpec struct {
 }
 
 type ClusterConfigSpecGuest struct {
-	API               ClusterConfigSpecGuestAPI        `json:"api" yaml:"api"`
-	ID                string                           `json:"id" yaml:"id"`
-	KubernetesVersion string                           `json:"kubernetesVersion,omitempty" yaml:"kubernetesVersion,omitempty"`
-	Masters           []ClusterConfigSpecGuestMaster   `json:"masters,omitempty" yaml:"masters,omitempty"`
-	Name              string                           `json:"name,omitempty" yaml:"name,omitempty"`
-	Owner             string                           `json:"owner,omitempty" yaml:"owner,omitempty"`
-	VersionBundles    []ClusterConfigSpecVersionBundle `json:"versionBundles,omitempty" yaml:"versionBundles,omitempty"`
-	Workers           []ClusterConfigSpecGuestWorker   `json:"workers,omitempty" yaml:"workers,omitempty"`
+	API            ClusterConfigSpecGuestAPI        `json:"api" yaml:"api"`
+	ID             string                           `json:"id" yaml:"id"`
+	Masters        []ClusterConfigSpecGuestMaster   `json:"masters,omitempty" yaml:"masters,omitempty"`
+	Name           string                           `json:"name,omitempty" yaml:"name,omitempty"`
+	Owner          string                           `json:"owner,omitempty" yaml:"owner,omitempty"`
+	VersionBundles []ClusterConfigSpecVersionBundle `json:"versionBundles,omitempty" yaml:"versionBundles,omitempty"`
+	Workers        []ClusterConfigSpecGuestWorker   `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
 type ClusterConfigSpecGuestAPI struct {
