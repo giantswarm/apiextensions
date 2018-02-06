@@ -54,44 +54,66 @@ type ClusterConfig struct {
 }
 
 type ClusterConfigSpec struct {
-	APIEndpoint       string                     `json:"apiEndpoint"`
-	ID                string                     `json:"id"`
-	KubernetesVersion string                     `json:"kubernetesVersion,omitempty"`
-	Masters           []ClusterMasterSpec        `json:"masters,omitempty"`
-	Name              string                     `json:"name,omitempty"`
-	Owner             string                     `json:"owner,omitempty"`
-	VersionBundles    []ClusterVersionBundleSpec `json:"versionBundles,omitempty"`
-	Workers           []ClusterWorkerSpec        `json:"workers,omitempty"`
+	Guest ClusterConfigSpecGuest `json:"guest" yaml:"guest"`
 }
 
-type ClusterMasterSpec struct {
-	ClusterNodeSpec
+type ClusterConfigSpecGuest struct {
+	API               ClusterConfigSpecGuestAPI        `json:"api" yaml:"api"`
+	ID                string                           `json:"id" yaml:"id"`
+	KubernetesVersion string                           `json:"kubernetesVersion,omitempty" yaml:"kubernetesVersion,omitempty"`
+	Masters           []ClusterConfigSpecGuestMaster   `json:"masters,omitempty" yaml:"masters,omitempty"`
+	Name              string                           `json:"name,omitempty" yaml:"name,omitempty"`
+	Owner             string                           `json:"owner,omitempty" yaml:"owner,omitempty"`
+	VersionBundles    []ClusterConfigSpecVersionBundle `json:"versionBundles,omitempty" yaml:"versionBundles,omitempty"`
+	Workers           []ClusterConfigSpecGuestWorker   `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
-type ClusterWorkerSpec struct {
-	ClusterNodeSpec
-	Labels map[string]string `json:"labels"`
+type ClusterConfigSpecGuestAPI struct {
+	Endpoint string `json:"endpoint" yaml:"endpoint"`
 }
 
-type ClusterNodeSpec struct {
-	InstanceType  string  `json:"instanceType,omitempty"`
-	CPUCores      int     `json:"cpuCores,omitempty"`
-	ID            string  `json:"id"`
-	MemorySizeGB  float64 `json:"memorySizeGB,omitempty"`
-	StorageSizeGB float64 `json:"storageSizeGB,omitempty"`
+type ClusterConfigSpecGuestMaster struct {
+	ClusterConfigSpecGuestNode
 }
 
-type ClusterVersionBundleSpec struct {
-	Components   []ClusterComponentVersionSpec `json:"components,omitempty"`
-	Dependencies []ClusterComponentVersionSpec `json:"dependencies,omitempty"`
-	Name         string                        `json:"name"`
-	Version      string                        `json:"version"`
-	WIP          bool                          `json:"wip"`
+type ClusterConfigSpecGuestWorker struct {
+	ClusterConfigSpecGuestNode
+	Labels map[string]string `json:"labels" yaml:"labels"`
 }
 
-type ClusterComponentVersionSpec struct {
-	Name    string `json:"name"`
-	Version string `json:"version"`
+type ClusterConfigSpecGuestNode struct {
+	AWS   ClusterConfigSpecAWS   `json:"aws,omitempty" yaml:"aws,omitempty"`
+	Azure ClusterConfigSpecAzure `json:"azure,omitempty" yaml:"azure,omitempty"`
+	ID    string                 `json:"id" yaml:"id"`
+	KVM   ClusterConfigSpecKVM   `json:"kvm,omitempty" yaml:"kvm,omitempty"`
+}
+
+type ClusterConfigSpecAWS struct {
+	InstanceType string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
+}
+
+type ClusterConfigSpecAzure struct {
+	InstanceType string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
+	VMSize       string `json:"vmSize,omitempty" yaml:"vmSize,omitempty"`
+}
+
+type ClusterConfigSpecKVM struct {
+	CPUCores      int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
+	MemorySizeGB  float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
+	StorageSizeGB float64 `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
+}
+
+type ClusterConfigSpecVersionBundle struct {
+	Components   []ClusterConfigSpecComponentVersion `json:"components,omitempty" yaml:"components,omitempty"`
+	Dependencies []ClusterConfigSpecComponentVersion `json:"dependencies,omitempty" yaml:"dependencies,omitempty"`
+	Name         string                              `json:"name" yaml:"name"`
+	Version      string                              `json:"version" yaml:"version"`
+	WIP          bool                                `json:"wip" yaml:"wip"`
+}
+
+type ClusterConfigSpecComponentVersion struct {
+	Name    string `json:"name" yaml:"name"`
+	Version string `json:"version" yaml:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
