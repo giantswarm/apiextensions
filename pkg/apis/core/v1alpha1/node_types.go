@@ -77,7 +77,15 @@ type NodeConfigSpecGuestClusterAPI struct {
 }
 
 type NodeConfigSpecGuestNode struct {
-	Name string `json:"name" yaml:"name"`
+	// ID is the identifier of the guest cluster's master and worker nodes. In
+	// Kubernetes/Kubectl they are represented as node names. We manage them in an
+	// abstracted way because of provider specific differences.
+	//
+	//     AWS: EC2 instance DNS.
+	//     Azure: ???.
+	//     KVM: host cluster pod name.
+	//
+	ID string `json:"id" yaml:"id"`
 }
 
 type NodeConfigSpecHost struct {
