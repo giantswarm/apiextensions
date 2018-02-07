@@ -58,9 +58,9 @@ type AzureClusterConfigSpec struct {
 }
 
 type AzureClusterConfigSpecGuest struct {
-	CommonGuestConfig `json:",inline" yaml:",inline"`
-	Masters           []AzureClusterConfigSpecGuestMaster `json:"masters,omitempty" yaml:"masters,omitempty"`
-	Workers           []AzureClusterConfigSpecGuestWorker `json:"workers,omitempty" yaml:"workers,omitempty"`
+	ClusterGuestConfig `json:",inline" yaml:",inline"`
+	Masters            []AzureClusterConfigSpecGuestMaster `json:"masters,omitempty" yaml:"masters,omitempty"`
+	Workers            []AzureClusterConfigSpecGuestWorker `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
 type AzureClusterConfigSpecGuestMaster struct {
