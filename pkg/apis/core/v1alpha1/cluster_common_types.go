@@ -13,13 +13,7 @@ type CommonGuestConfigAPI struct {
 }
 
 type CommonGuestConfigVersionBundle struct {
-	Dependencies []CommonGuestConfigVersionBundleComponentVersion `json:"dependencies,omitempty" yaml:"dependencies,omitempty"`
-	Name         string                                           `json:"name" yaml:"name"`
-	Version      string                                           `json:"version" yaml:"version"`
-	WIP          bool                                             `json:"wip" yaml:"wip"`
-}
-
-type CommonGuestConfigVersionBundleComponentVersion struct {
 	Name    string `json:"name" yaml:"name"`
 	Version string `json:"version" yaml:"version"`
+	WIP     bool   `json:"wip" yaml:"wip"`
 }
