@@ -64,12 +64,12 @@ type AWSClusterConfigSpecGuest struct {
 }
 
 type AWSClusterConfigSpecGuestMaster struct {
-	AWSClusterConfigSpecGuestNode
+	AWSClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
 }
 
 type AWSClusterConfigSpecGuestWorker struct {
-	AWSClusterConfigSpecGuestNode
-	Labels map[string]string `json:"labels" yaml:"labels"`
+	AWSClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
+	Labels                        map[string]string `json:"labels" yaml:"labels"`
 }
 type AWSClusterConfigSpecGuestNode struct {
 	ID           string `json:"id" yaml:"id"`
