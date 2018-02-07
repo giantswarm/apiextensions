@@ -16,6 +16,10 @@ limitations under the License.
 
 package v1alpha1
 
+type AWSClusterConfigExpansion interface{}
+
+type AzureClusterConfigExpansion interface{}
+
 type CertConfigExpansion interface{}
 
 type DraughtsmanConfigExpansion interface{}
@@ -23,6 +27,8 @@ type DraughtsmanConfigExpansion interface{}
 type FlannelConfigExpansion interface{}
 
 type IngressConfigExpansion interface{}
+
+type KVMClusterConfigExpansion interface{}
 
 type NodeConfigExpansion interface{}
 
