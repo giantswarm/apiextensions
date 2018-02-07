@@ -26,12 +26,16 @@ type FakeCoreV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeCoreV1alpha1) CertConfigs(namespace string) v1alpha1.CertConfigInterface {
-	return &FakeCertConfigs{c, namespace}
+func (c *FakeCoreV1alpha1) AWSClusterConfigs(namespace string) v1alpha1.AWSClusterConfigInterface {
+	return &FakeAWSClusterConfigs{c, namespace}
 }
 
-func (c *FakeCoreV1alpha1) ClusterConfigs(namespace string) v1alpha1.ClusterConfigInterface {
-	return &FakeClusterConfigs{c, namespace}
+func (c *FakeCoreV1alpha1) AzureClusterConfigs(namespace string) v1alpha1.AzureClusterConfigInterface {
+	return &FakeAzureClusterConfigs{c, namespace}
+}
+
+func (c *FakeCoreV1alpha1) CertConfigs(namespace string) v1alpha1.CertConfigInterface {
+	return &FakeCertConfigs{c, namespace}
 }
 
 func (c *FakeCoreV1alpha1) DraughtsmanConfigs(namespace string) v1alpha1.DraughtsmanConfigInterface {
@@ -44,6 +48,10 @@ func (c *FakeCoreV1alpha1) FlannelConfigs(namespace string) v1alpha1.FlannelConf
 
 func (c *FakeCoreV1alpha1) IngressConfigs(namespace string) v1alpha1.IngressConfigInterface {
 	return &FakeIngressConfigs{c, namespace}
+}
+
+func (c *FakeCoreV1alpha1) KVMClusterConfigs(namespace string) v1alpha1.KVMClusterConfigInterface {
+	return &FakeKVMClusterConfigs{c, namespace}
 }
 
 func (c *FakeCoreV1alpha1) NodeConfigs(namespace string) v1alpha1.NodeConfigInterface {
