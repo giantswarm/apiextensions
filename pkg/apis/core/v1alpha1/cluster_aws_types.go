@@ -58,9 +58,9 @@ type AWSClusterConfigSpec struct {
 }
 
 type AWSClusterConfigSpecGuest struct {
-	CommonGuestConfig
-	Masters []AWSClusterConfigSpecGuestMaster `json:"masters,omitempty" yaml:"masters,omitempty"`
-	Workers []AWSClusterConfigSpecGuestWorker `json:"workers,omitempty" yaml:"workers,omitempty"`
+	CommonGuestConfig `json:",inline" yaml:",inline"`
+	Masters           []AWSClusterConfigSpecGuestMaster `json:"masters,omitempty" yaml:"masters,omitempty"`
+	Workers           []AWSClusterConfigSpecGuestWorker `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
 type AWSClusterConfigSpecGuestMaster struct {
