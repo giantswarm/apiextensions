@@ -25,10 +25,13 @@ import (
 
 type CoreV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	AWSClusterConfigsGetter
+	AzureClusterConfigsGetter
 	CertConfigsGetter
 	DraughtsmanConfigsGetter
 	FlannelConfigsGetter
 	IngressConfigsGetter
+	KVMClusterConfigsGetter
 	NodeConfigsGetter
 	StorageConfigsGetter
 }
@@ -36,6 +39,14 @@ type CoreV1alpha1Interface interface {
 // CoreV1alpha1Client is used to interact with features provided by the core.giantswarm.io group.
 type CoreV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *CoreV1alpha1Client) AWSClusterConfigs(namespace string) AWSClusterConfigInterface {
+	return newAWSClusterConfigs(c, namespace)
+}
+
+func (c *CoreV1alpha1Client) AzureClusterConfigs(namespace string) AzureClusterConfigInterface {
+	return newAzureClusterConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) CertConfigs(namespace string) CertConfigInterface {
@@ -52,6 +63,10 @@ func (c *CoreV1alpha1Client) FlannelConfigs(namespace string) FlannelConfigInter
 
 func (c *CoreV1alpha1Client) IngressConfigs(namespace string) IngressConfigInterface {
 	return newIngressConfigs(c, namespace)
+}
+
+func (c *CoreV1alpha1Client) KVMClusterConfigs(namespace string) KVMClusterConfigInterface {
+	return newKVMClusterConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) NodeConfigs(namespace string) NodeConfigInterface {
