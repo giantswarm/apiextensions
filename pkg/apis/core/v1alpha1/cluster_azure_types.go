@@ -73,9 +73,8 @@ type AzureClusterConfigSpecGuestWorker struct {
 }
 
 type AzureClusterConfigSpecGuestNode struct {
-	ID           string `json:"id" yaml:"id"`
-	InstanceType string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
-	VMSize       string `json:"vmSize,omitempty" yaml:"vmSize,omitempty"`
+	ID     string `json:"id" yaml:"id"`
+	VMSize string `json:"vmSize,omitempty" yaml:"vmSize,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
