@@ -64,12 +64,12 @@ type KVMClusterConfigSpecGuest struct {
 }
 
 type KVMClusterConfigSpecGuestMaster struct {
-	KVMClusterConfigSpecGuestNode
+	KVMClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
 }
 
 type KVMClusterConfigSpecGuestWorker struct {
-	KVMClusterConfigSpecGuestNode
-	Labels map[string]string `json:"labels" yaml:"labels"`
+	KVMClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
+	Labels                        map[string]string `json:"labels" yaml:"labels"`
 }
 
 type KVMClusterConfigSpecGuestNode struct {
