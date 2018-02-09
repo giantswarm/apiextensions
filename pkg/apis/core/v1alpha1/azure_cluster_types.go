@@ -64,12 +64,12 @@ type AzureClusterConfigSpecGuest struct {
 }
 
 type AzureClusterConfigSpecGuestMaster struct {
-	AzureClusterConfigSpecGuestNode
+	AzureClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
 }
 
 type AzureClusterConfigSpecGuestWorker struct {
-	AzureClusterConfigSpecGuestNode
-	Labels map[string]string `json:"labels" yaml:"labels"`
+	AzureClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
+	Labels                          map[string]string `json:"labels" yaml:"labels"`
 }
 
 type AzureClusterConfigSpecGuestNode struct {
