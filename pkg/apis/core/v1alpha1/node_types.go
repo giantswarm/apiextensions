@@ -85,7 +85,7 @@ type NodeConfigSpecGuestNode struct {
 	//     Azure: ???.
 	//     KVM: host cluster pod name.
 	//
-	Name string `json:"id" yaml:"id"`
+	Name string `json:"name" yaml:"name"`
 }
 
 type NodeConfigSpecHost struct {
