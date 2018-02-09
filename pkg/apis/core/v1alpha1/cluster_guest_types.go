@@ -15,5 +15,4 @@ type ClusterGuestConfigAPI struct {
 type ClusterGuestConfigVersionBundle struct {
 	Name    string `json:"name" yaml:"name"`
 	Version string `json:"version" yaml:"version"`
-	WIP     bool   `json:"wip" yaml:"wip"`
 }
