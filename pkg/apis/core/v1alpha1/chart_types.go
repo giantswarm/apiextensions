@@ -1,8 +1,47 @@
 package v1alpha1
 
 import (
+	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+// NewChartConfigCRD returns a new custom resource definition for ChartConfig.
+// This might look something like the following.
+//
+//     apiVersion: apiextensions.k8s.io/v1beta1
+//     kind: CustomResourceDefinition
+//     metadata:
+//       name: certconfigs.core.giantswarm.io
+//     spec:
+//       group: core.giantswarm.io
+//       scope: Namespaced
+//       version: v1alpha1
+//       names:
+//         kind: CertConfig
+//         plural: certconfigs
+//         singular: certconfig
+//
+func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+	return &apiextensionsv1beta1.CustomResourceDefinition{
+		TypeMeta: metav1.TypeMeta{
+			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
+			Kind:       "CustomResourceDefinition",
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name: "chartconfigs.core.giantswarm.io",
+		},
+		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
+			Group:   "core.giantswarm.io",
+			Scope:   "Namespaced",
+			Version: "v1alpha1",
+			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
+				Kind:     "ChartConfig",
+				Plural:   "chartconfigs",
+				Singular: "chartconfig",
+			},
+		},
+	}
+}
 
 // +genclient
 // +genclient:noStatus
