@@ -11,15 +11,15 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: certconfigs.core.giantswarm.io
+//       name: chartconfigs.core.giantswarm.io
 //     spec:
 //       group: core.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
-//         kind: CertConfig
-//         plural: certconfigs
-//         singular: certconfig
+//         kind: ChartConfig
+//         plural: chartconfigs
+//         singular: chartconfig
 //
 func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
