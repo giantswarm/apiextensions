@@ -60,8 +60,10 @@ type ChartConfigSpec struct {
 
 type ChartConfigSpecChart struct {
 	// Channel is the name of the Appr channel to reconcile against.
+	// e.g. 1.0-stable
 	Channel string `json:"channel" yaml:"channel"`
 	// Name is the fully qualified name of the Helm chart to deploy.
+	// e.g. quay.io/giantswarm/chart-operator-chart
 	Name string `json:"name" yaml:"name"`
 }
 
