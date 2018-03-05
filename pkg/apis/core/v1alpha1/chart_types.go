@@ -59,8 +59,10 @@ type ChartConfigSpec struct {
 }
 
 type ChartConfigSpecChart struct {
+	// Channel is the name of the Appr channel to reconcile against.
 	Channel string `json:"channel" yaml:"channel"`
-	Name    string `json:"name" yaml:"name"`
+	// Name is the fully qualified name of the Helm chart to deploy.
+	Name string `json:"name" yaml:"name"`
 }
 
 type ChartConfigSpecVersionBundle struct {
