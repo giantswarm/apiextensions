@@ -67,7 +67,7 @@ type ChartConfigSpecChart struct {
 	Name string `json:"name" yaml:"name"`
 	// Release is the name of the Helm release when the chart is deployed.
 	// e.g. chart-operator
-	Release string `json:"name" yaml:"name"`
+	Release string `json:"release" yaml:"release"`
 }
 
 type ChartConfigSpecVersionBundle struct {
