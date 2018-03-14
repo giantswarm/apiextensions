@@ -1,7 +1,7 @@
 package v1alpha1
 
 type ClusterGuestConfig struct {
-	CommonDomain   string                            `json:"commonDomain" yaml:"commonDomain"`
+	DNSZone        string                            `json:"dnsZone" yaml:"dnsZone"`
 	ID             string                            `json:"id" yaml:"id"`
 	Name           string                            `json:"name,omitempty" yaml:"name,omitempty"`
 	Owner          string                            `json:"owner,omitempty" yaml:"owner,omitempty"`
