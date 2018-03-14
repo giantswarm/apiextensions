@@ -41,18 +41,18 @@ func NewSimpleClientset(objects ...runtime.Object) *Clientset {
 		}
 	}
 
-	fakePtr := testing.Fake{}
+	fakePtr := &testing.Fake{}
 	fakePtr.AddReactor("*", "*", testing.ObjectReaction(o))
 	fakePtr.AddWatchReactor("*", testing.DefaultWatchReactor(watch.NewFake(), nil))
 
-	return &Clientset{fakePtr, &fakediscovery.FakeDiscovery{Fake: &fakePtr}}
+	return &Clientset{fakePtr, &fakediscovery.FakeDiscovery{Fake: fakePtr}}
 }
 
 // Clientset implements clientset.Interface. Meant to be embedded into a
 // struct to get a default implementation. This makes faking out just the method
 // you want to test easier.
 type Clientset struct {
-	testing.Fake
+	*testing.Fake
 	discovery *fakediscovery.FakeDiscovery
 }
 
@@ -64,20 +64,20 @@ var _ clientset.Interface = &Clientset{}
 
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
 func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
-	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
+	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: c.Fake}
 }
 
 // Core retrieves the CoreV1alpha1Client
 func (c *Clientset) Core() corev1alpha1.CoreV1alpha1Interface {
-	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
+	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: c.Fake}
 }
 
 // ProviderV1alpha1 retrieves the ProviderV1alpha1Client
 func (c *Clientset) ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface {
-	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: &c.Fake}
+	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: c.Fake}
 }
 
 // Provider retrieves the ProviderV1alpha1Client
 func (c *Clientset) Provider() providerv1alpha1.ProviderV1alpha1Interface {
-	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: &c.Fake}
+	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: c.Fake}
 }
