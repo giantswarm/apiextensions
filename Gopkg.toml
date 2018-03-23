@@ -20,6 +20,9 @@
 #  name = "github.com/x/y"
 #  version = "2.4.0"
 #
+
+
+
 required = [
   "k8s.io/apimachinery/pkg/apimachinery/registered",
   "k8s.io/code-generator/cmd/client-gen",
@@ -41,16 +44,6 @@ required = [
 
 [[constraint]]
   name = "k8s.io/code-generator"
-  version = "kubernetes-1.9.3"
-
-
-
-[[override]]
-  name = "k8s.io/api"
-  version = "kubernetes-1.9.3"
-
-[[override]]
-  name = "k8s.io/apiserver"
   version = "kubernetes-1.9.3"
 
 
