@@ -66,7 +66,6 @@ type ChartConfigSpecChart struct {
 	// e.g. quay.io/giantswarm/chart-operator-chart
 	Name string `json:"name" yaml:"name"`
 	// Namespace is the namespace where the Helm chart is to be deployed.
-	// This is used to get the current state of the Helm release.
 	// e.g. giantswarm
 	Namespace string `json:"namespace" yaml:"namespace"`
 	// Release is the name of the Helm release when the chart is deployed.
