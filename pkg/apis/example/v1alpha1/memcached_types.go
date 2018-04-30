@@ -15,8 +15,12 @@ type MemcachedConfig struct {
 }
 
 type MemcachedConfigSpec struct {
-	Replicas int    `json:"replicas" yaml:"replicas"`
-	Memory   string `json:"memory" yaml:"memory"`
+	// Replicas is the number of instances of Memcache.
+	Replicas int `json:"replicas" yaml:"replicas"`
+	// e.g. 3
+	// Memory is how much RAM to use for item storage.
+	// e.g. 4G
+	Memory string `json:"memory" yaml:"memory"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
