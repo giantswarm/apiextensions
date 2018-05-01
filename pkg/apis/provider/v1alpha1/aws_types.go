@@ -62,7 +62,7 @@ type AWSConfigSpec struct {
 type AWSConfigSpecAWS struct {
 	API        AWSConfigSpecAWSAPI     `json:"api" yaml:"api"`
 	AZ         string                  `json:"az" yaml:"az"`
-	Credential AWSCredential           `json:"credential" yaml:"credential"`
+	Credential AWSConfigCredential     `json:"credential" yaml:"credential"`
 	Etcd       AWSConfigSpecAWSEtcd    `json:"etcd" yaml:"etcd"`
 	Ingress    AWSConfigSpecAWSIngress `json:"ingress" yaml:"ingress"`
 	Masters    []AWSConfigSpecAWSNode  `json:"masters" yaml:"masters"`
@@ -80,7 +80,7 @@ type AWSConfigSpecAWSAPIELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds" yaml:"idleTimeoutSeconds"`
 }
 
-type AWSCredential struct {
+type AWSConfigCredential struct {
 	Name      string `json:"name" yaml:"name"`
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
