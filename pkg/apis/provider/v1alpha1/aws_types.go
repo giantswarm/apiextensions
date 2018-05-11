@@ -60,15 +60,15 @@ type AWSConfigSpec struct {
 }
 
 type AWSConfigSpecAWS struct {
-	API        AWSConfigSpecAWSAPI       `json:"api" yaml:"api"`
-	AZ         string                    `json:"az" yaml:"az"`
-	Credential AWSConfigCredentialSecret `json:"credential" yaml:"credential"`
-	Etcd       AWSConfigSpecAWSEtcd      `json:"etcd" yaml:"etcd"`
-	Ingress    AWSConfigSpecAWSIngress   `json:"ingress" yaml:"ingress"`
-	Masters    []AWSConfigSpecAWSNode    `json:"masters" yaml:"masters"`
-	Region     string                    `json:"region" yaml:"region"`
-	VPC        AWSConfigSpecAWSVPC       `json:"vpc" yaml:"vpc"`
-	Workers    []AWSConfigSpecAWSNode    `json:"workers" yaml:"workers"`
+	API              AWSConfigSpecAWSAPI       `json:"api" yaml:"api"`
+	AZ               string                    `json:"az" yaml:"az"`
+	CredentialSecret AWSConfigCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
+	Etcd             AWSConfigSpecAWSEtcd      `json:"etcd" yaml:"etcd"`
+	Ingress          AWSConfigSpecAWSIngress   `json:"ingress" yaml:"ingress"`
+	Masters          []AWSConfigSpecAWSNode    `json:"masters" yaml:"masters"`
+	Region           string                    `json:"region" yaml:"region"`
+	VPC              AWSConfigSpecAWSVPC       `json:"vpc" yaml:"vpc"`
+	Workers          []AWSConfigSpecAWSNode    `json:"workers" yaml:"workers"`
 }
 
 type AWSConfigSpecAWSAPI struct {
