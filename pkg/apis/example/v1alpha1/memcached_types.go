@@ -18,8 +18,8 @@ import (
 //	  version: v1alpha1
 //	  names:
 //	    kind: MemcachedConfig
-//	    plural: memcachedconfig
-//	    singular: memcachedconfigs
+//	    plural: memcachedconfigs
+//	    singular: memcachedconfig
 //
 func NewMemcachedConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -36,8 +36,8 @@ func NewMemcachedConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "MemcachedConfig",
-				Plural:   "memcachedconfig",
-				Singular: "memcachedconfigs",
+				Plural:   "memcachedconfigs",
+				Singular: "memcachedconfig",
 			},
 		},
 	}
