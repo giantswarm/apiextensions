@@ -125,7 +125,7 @@ func (in *AWSConfigSpec) DeepCopy() *AWSConfigSpec {
 func (in *AWSConfigSpecAWS) DeepCopyInto(out *AWSConfigSpecAWS) {
 	*out = *in
 	out.API = in.API
-	out.Credential = in.Credential
+	out.CredentialSecret = in.CredentialSecret
 	out.Etcd = in.Etcd
 	out.Ingress = in.Ingress
 	if in.Masters != nil {
