@@ -51,6 +51,7 @@ type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              ChartConfigSpec `json:"spec"`
+	Status            ChartConfigStatus `json:"status"`
 }
 
 type ChartConfigSpec struct {
@@ -83,4 +84,9 @@ type ChartConfigList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 	Items           []ChartConfig `json:"items"`
+}
+
+type ChartConfigStatus struct {
+	// HelmReleaseStatus is the status of the associated chart.
+	HelmReleaseStatus string `json:"helmReleaseStatus"`
 }
