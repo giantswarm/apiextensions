@@ -50,7 +50,7 @@ func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartConfigSpec `json:"spec"`
+	Spec              ChartConfigSpec   `json:"spec"`
 	Status            ChartConfigStatus `json:"status"`
 }
 
