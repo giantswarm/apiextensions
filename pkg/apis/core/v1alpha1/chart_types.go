@@ -39,19 +39,21 @@ func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 				Plural:   "chartconfigs",
 				Singular: "chartconfig",
 			},
+			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			},
 		},
 	}
 }
 
 // +genclient
-// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartConfigSpec   `json:"spec"`
-	Status            ChartConfigStatus `json:"status"`
+	Spec              ChartConfigSpec `json:"spec"`
+	Status            string          `json:"status"`
 }
 
 type ChartConfigSpec struct {
@@ -84,9 +86,4 @@ type ChartConfigList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
 	Items           []ChartConfig `json:"items"`
-}
-
-type ChartConfigStatus struct {
-	// HelmReleaseStatus is the status of the associated chart.
-	HelmReleaseStatus string `json:"helmReleaseStatus"`
 }
