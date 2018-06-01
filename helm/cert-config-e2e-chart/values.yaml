@@ -1,0 +1,6 @@
+clusterName: "test-cluster"
+commonDomain: "aws.gigantic.io"
+ipSans:
+  - "172.31.0.1"
+organizations:
+  - system:masters
