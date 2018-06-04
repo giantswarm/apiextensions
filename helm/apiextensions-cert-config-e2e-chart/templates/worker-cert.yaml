@@ -10,9 +10,9 @@ spec:
   cert:
     clusterID: "{{.Values.clusterName}}"
     clusterComponent: "worker"
-    commonName: "worker.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+    commonName: "worker.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
     altNames:
-    - "{{.Values.clusterName}}.{{.Values.commonDomain}}"
+    - "{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
     - "k8s-master-vm"
     - "kubernetes"
     - "kubernetes.default"

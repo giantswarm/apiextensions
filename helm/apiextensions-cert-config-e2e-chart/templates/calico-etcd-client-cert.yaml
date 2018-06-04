@@ -10,7 +10,7 @@ spec:
   cert:
     clusterID: "{{.Values.clusterName}}"
     clusterComponent: "calico-etcd-client"
-    commonName: "calico.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+    commonName: "calico.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
     altNames:
     ipSans:
     ttl: "720h"

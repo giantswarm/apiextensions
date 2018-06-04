@@ -1,5 +1,5 @@
 clusterName: "test-cluster"
-commonDomain: "aws.gigantic.io"
+commonDomain: "test-host-cluster.eu-central-1.aws.gigantic.io"
 ipSans:
   - "172.31.0.1"
 organizations:

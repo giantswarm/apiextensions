@@ -10,7 +10,7 @@ spec:
   cert:
     clusterID: "{{.Values.clusterName}}"
     clusterComponent: "cluster-operator-api"
-    commonName: "api.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+    commonName: "api.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
     ipSans:
       {{range .Values.ipSans}}
       - {{ . }}
