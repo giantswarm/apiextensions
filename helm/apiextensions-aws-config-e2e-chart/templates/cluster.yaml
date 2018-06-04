@@ -17,7 +17,7 @@ spec:
         extraArgs: "--log-opt max-size=25m --log-opt max-file=2 --log-opt labels=io.kubernetes.container.hash,io.kubernetes.container.name,io.kubernetes.pod.name,io.kubernetes.pod.namespace,io.kubernetes.pod.uid"
 
     etcd:
-      domain: "etcd.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+      domain: "etcd.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
       prefix: "giantswarm.io"
       port: 2379
 
@@ -25,11 +25,11 @@ spec:
       subnet: "192.168.0.0"
       cidr: 16
       mtu: 1500
-      domain: "calico.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+      domain: "calico.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
 
     kubernetes:
       api:
-        domain: "api.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+        domain: "api.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
         insecurePort: 8080
         ip: "172.31.0.1"
         securePort: 443
@@ -47,14 +47,14 @@ spec:
           image: "quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11"
         insecurePort: 30010
         securePort: 30011
-        domain: "ingress.{{.Values.clusterName}}.{{.Values.commonDomain}}"
-        wildcardDomain: "*.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+        domain: "ingress.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
+        wildcardDomain: "*.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
       kubectl:
         docker:
           image: "quay.io/giantswarm/docker-kubectl:f51f93c30d27927d2b33122994c0929b3e6f2432"
       kubelet:
         port: 10250
-        domain: "worker.{{.Values.clusterName}}.{{.Values.commonDomain}}"
+        domain: "worker.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
         altNames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local"
       networkSetup:
         docker:
