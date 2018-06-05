@@ -98,7 +98,6 @@ spec:
       ingress:
         name: "{{.Values.commonDomain}}"
 
-
     # Deprecated since aws-operator v12 resources.
     ingress:
       hostedZones: "{{.Values.aws.apiHostedZone}}"
