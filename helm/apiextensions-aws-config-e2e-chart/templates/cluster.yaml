@@ -74,6 +74,7 @@ spec:
     region: "{{.Values.aws.region}}"
     az: "{{.Values.aws.az}}"
 
+    # Deprecated since aws-operator v12 resources.
     api:
       hostedZones: "{{.Values.aws.apiHostedZone}}"
       elb:
@@ -83,11 +84,22 @@ spec:
       name: "{{.Values.aws.credentialName}}"
       namespace: "{{.Values.aws.credentialNamespace}}"
 
+    # Deprecated since aws-operator v12 resources.
     etcd:
       hostedZones: "{{.Values.aws.apiHostedZone}}"
       elb:
         idleTimeoutSeconds: 3600
 
+    hostedZones:
+      api:
+        name: "{{.Values.commonDomain}}"
+      etcd:
+        name: "{{.Values.commonDomain}}"
+      ingress:
+        name: "{{.Values.commonDomain}}"
+
+
+    # Deprecated since aws-operator v12 resources.
     ingress:
       hostedZones: "{{.Values.aws.apiHostedZone}}"
       elb:
