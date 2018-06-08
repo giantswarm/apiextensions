@@ -8,5 +8,7 @@ spec:
     id: "{{ .Values.guest.id }}"
     name: "{{ .Values.guest.name }}"
     owner: "{{ .Values.guest.owner }}"
+    versionBundles:
+{{ toYaml .Values.guest.versionBundles | indent 4 -}}
   versionBundle:
     version: "{{ .Values.versionBundle.version}}"
