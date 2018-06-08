@@ -9,6 +9,6 @@ spec:
     name: "{{ .Values.guest.name }}"
     owner: "{{ .Values.guest.owner }}"
     versionBundles:
-{{ toYaml .Values.guest.versionBundles | indent 4 -}}
+{{ toYaml .Values.guest.versionBundles | indent 4 }}
   versionBundle:
     version: "{{ .Values.versionBundle.version}}"
