@@ -62,10 +62,23 @@ type ClusterNetworkConfig struct {
 }
 
 type ClusterNetworkConfigSpec struct {
-	MaskBits int `json:"maskBits" yaml:"maskBits"`
+	MaskBits      int                                   `json:"maskBits" yaml:"maskBits"`
+	VersionBundle ClusterNetworkConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+}
+
+type ClusterNetworkConfigSpecVersionBundle struct {
+	Version string `json:"version" yaml:"version"`
 }
 
 type ClusterNetworkConfigStatus struct {
 	IP   string `json:"ip" yaml:"ip"`
 	Mask string `json:"mask" yaml:"mask"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+type ClusterNetworkConfigList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []ClusterNetworkConfig `json:"items"`
 }
