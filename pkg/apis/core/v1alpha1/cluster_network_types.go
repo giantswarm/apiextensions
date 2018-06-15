@@ -43,21 +43,22 @@ func NewClusterNetworkConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition
 				Plural:   "clusternetworkconfigs",
 				Singular: "clusternetworkconfig",
 			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
+			//			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+			//				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			//			},
 		},
 	}
 }
 
 // +genclient
+// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type ClusterNetworkConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ClusterNetworkConfigSpec   `json:"spec" yaml:"spec"`
-	Status            ClusterNetworkConfigStatus `json:"status" yaml:"status"`
+	Spec              ClusterNetworkConfigSpec `json:"spec" yaml:"spec"`
+	//	Status            ClusterNetworkConfigStatus `json:"status" yaml:"status"`
 }
 
 type ClusterNetworkConfigSpec struct {
