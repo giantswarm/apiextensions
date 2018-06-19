@@ -66,20 +66,30 @@ type ClusterNetworkConfigSpec struct {
 }
 
 type ClusterNetworkConfigSpecCluster struct {
+	// ID contains Cluster ID of the guest cluster this ClusterNetworkConfig is
+	// created for.
 	ID      string                                 `json:"id" yaml:"id"`
 	Network ClusterNetworkConfigSpecClusterNetwork `json:"network" yaml:"network"`
 }
 
 type ClusterNetworkConfigSpecClusterNetwork struct {
+	// MaskBits is the number of ones in network mask that defines the
+	// requested guest cluster network size. E.g. MaskBits:24 requests /24
+	// network that can contain at max. 254 hosts minus environment specific
+	// restrictions.
 	MaskBits int `json:"maskBits" yaml:"maskBits"`
 }
 
 type ClusterNetworkConfigSpecVersionBundle struct {
+	// Version contains version bundle version for cluster-operator network
+	// controller implementation.
 	Version string `json:"version" yaml:"version"`
 }
 
 type ClusterNetworkConfigStatus struct {
-	IP   string `json:"ip" yaml:"ip"`
+	// IP contains the network IP for allocated guest cluster subnet.
+	IP string `json:"ip" yaml:"ip"`
+	// Mask contains the network mask for allocated guest cluster subnet.
 	Mask string `json:"mask" yaml:"mask"`
 }
 
