@@ -12,5 +12,5 @@ azure:
   calicoSubnetCIDR: "10.42.128.0/17"
   cidr: "10.42.0.0/16"
   masterSubnetCIDR: "10.42.0.0/24"
-  workerSubnetCIDR: "10.42.1.0/24"
   vpnSubnetCIDR: "10.42.2.0/24"
+  workerSubnetCIDR: "10.42.1.0/24"
