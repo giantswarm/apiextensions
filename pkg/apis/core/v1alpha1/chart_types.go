@@ -71,6 +71,9 @@ type ChartConfigSpecChart struct {
 	// Release is the name of the Helm release when the chart is deployed.
 	// e.g. chart-operator
 	Release string `json:"release" yaml:"release"`
+	// Values are the custom values passed to chart when the chart is deployed.
+	// e.g. replicaCount: 3
+	Values map[string]interface{} `json:"values" yaml:"values"`
 }
 
 type ChartConfigSpecVersionBundle struct {
