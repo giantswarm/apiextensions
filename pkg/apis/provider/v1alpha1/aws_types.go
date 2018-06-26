@@ -132,11 +132,16 @@ type AWSConfigSpecAWSNode struct {
 }
 
 type AWSConfigSpecAWSVPC struct {
-	CIDR              string   `json:"cidr" yaml:"cidr"`
-	PrivateSubnetCIDR string   `json:"privateSubnetCidr" yaml:"privateSubnetCidr"`
-	PublicSubnetCIDR  string   `json:"publicSubnetCidr" yaml:"publicSubnetCidr"`
-	RouteTableNames   []string `json:"routeTableNames" yaml:"routeTableNames"`
-	PeerID            string   `json:"peerId" yaml:"peerId"`
+	CIDR              string                             `json:"cidr" yaml:"cidr"`
+	PrivateSubnetCIDR string                             `json:"privateSubnetCidr" yaml:"privateSubnetCidr"`
+	PublicSubnetCIDR  string                             `json:"publicSubnetCidr" yaml:"publicSubnetCidr"`
+	RouteTableNames   AWSConfigSpecAWSVPCRouteTableNames `json:"routeTableNames" yaml:"routeTableNames"`
+	PeerID            string                             `json:"peerId" yaml:"peerId"`
+}
+
+type AWSConfigSpecAWSVPCRouteTableNames struct {
+	Private string `json:"private" yaml:"private"`
+	Public  string `json:"public" yaml:"public"`
 }
 
 type AWSConfigSpecVersionBundle struct {
