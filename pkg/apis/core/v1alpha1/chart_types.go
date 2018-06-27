@@ -85,7 +85,7 @@ type ChartConfigSpecConfigMap struct {
 	Namespace string `json:"namespace" yaml:"namespace"`
 	// ResourceVersion is the Kubernetes resource version of the configmap.
 	// Used to detect if the configmap has changed. e.g. 12345
-	ResourceVersion string `json:"resourceVersion" yaml:"resourceVersion`
+	ResourceVersion string `json:"resourceVersion" yaml:"resourceVersion"`
 }
 
 type ChartConfigSpecVersionBundle struct {
