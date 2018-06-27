@@ -83,6 +83,10 @@ type ChartConfigSpecConfigMap struct {
 	// Namespace is the namespace of the values config map.
 	// e.g. kube-system
 	Namespace string `json:"namespace" yaml:"namespace"`
+	// ResourceVersion is the Kubernetes resource version of the configmap.
+	// This is used by chart-operator to detect if the configmap has changed.
+	// e.g. 12345
+	ResourceVersion string `json:"resourceVersion" yaml:"resourceVersion`
 }
 
 type ChartConfigSpecVersionBundle struct {
