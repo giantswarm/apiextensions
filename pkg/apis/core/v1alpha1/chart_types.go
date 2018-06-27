@@ -84,8 +84,7 @@ type ChartConfigSpecConfigMap struct {
 	// e.g. kube-system
 	Namespace string `json:"namespace" yaml:"namespace"`
 	// ResourceVersion is the Kubernetes resource version of the configmap.
-	// This is used by chart-operator to detect if the configmap has changed.
-	// e.g. 12345
+	// Used to detect if the configmap has changed. e.g. 12345
 	ResourceVersion string `json:"resourceVersion" yaml:"resourceVersion`
 }
 
