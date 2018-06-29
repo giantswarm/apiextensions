@@ -20,6 +20,8 @@ import (
 //         kind: AzureConfig
 //         plural: azureconfigs
 //         singular: azureconfig
+//       subresources:
+//         status: {}
 //
 func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -39,6 +41,9 @@ func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 				Plural:   "azureconfigs",
 				Singular: "azureconfig",
 			},
+			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			},
 		},
 	}
 }
@@ -50,7 +55,8 @@ func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type AzureConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AzureConfigSpec `json:"spec"`
+	Spec              AzureConfigSpec   `json:"spec"`
+	Status            AzureConfigStatus `json:"status" yaml:"status"`
 }
 
 type AzureConfigSpec struct {
@@ -109,6 +115,10 @@ type AzureConfigSpecAzureNode struct {
 
 type AzureConfigSpecVersionBundle struct {
 	Version string `json:"version" yaml:"version"`
+}
+
+type AzureConfigStatus struct {
+	Cluster StatusCluster `json:"cluster" yaml:"cluster"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
