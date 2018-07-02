@@ -96,6 +96,7 @@ type AzureConfigSpecAzureVirtualNetwork struct {
 	// CIDR is the CIDR for the Virtual Network.
 	CIDR string `json:"cidr" yaml:"cidr"`
 
+	// TODO: remove Master, Worker and Calico subnet cidr after v2 is deleted.
 	// MasterSubnetCIDR is the CIDR for the master subnet.
 	MasterSubnetCIDR string `json:"masterSubnetCIDR" yaml:"masterSubnetCIDR"`
 	// WorkerSubnetCIDR is the CIDR for the worker subnet.
