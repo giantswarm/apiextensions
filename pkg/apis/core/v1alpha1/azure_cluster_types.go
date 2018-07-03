@@ -74,8 +74,11 @@ type AzureClusterConfigSpecGuestWorker struct {
 }
 
 type AzureClusterConfigSpecGuestNode struct {
-	ID     string `json:"id" yaml:"id"`
-	VMSize string `json:"vmSize,omitempty" yaml:"vmSize,omitempty"`
+	ID            string  `json:"id" yaml:"id"`
+	CPUCores      int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
+	MemorySizeGB  float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
+	StorageSizeGB float64 `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
+	VMSize        string  `json:"vmSize,omitempty" yaml:"vmSize,omitempty"`
 }
 
 type AzureClusterConfigSpecVersionBundle struct {

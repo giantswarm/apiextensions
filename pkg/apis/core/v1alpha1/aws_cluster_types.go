@@ -62,6 +62,7 @@ type AWSClusterConfigSpecGuest struct {
 	ClusterGuestConfig `json:",inline" yaml:",inline"`
 	CredentialSecret   AWSClusterConfigSpecGuestCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	Masters            []AWSClusterConfigSpecGuestMaster         `json:"masters,omitempty" yaml:"masters,omitempty"`
+	ResourceTags       map[string]string                         `json:"resourceTags,omitempty" yaml:"resourceTags,omitempty"`
 	Workers            []AWSClusterConfigSpecGuestWorker         `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
@@ -82,8 +83,11 @@ type AWSClusterConfigSpecGuestWorker struct {
 	Labels                        map[string]string `json:"labels" yaml:"labels"`
 }
 type AWSClusterConfigSpecGuestNode struct {
-	ID           string `json:"id" yaml:"id"`
-	InstanceType string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
+	ID            string  `json:"id" yaml:"id"`
+	CPUCores      int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
+	InstanceType  string  `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
+	MemorySizeGB  float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
+	StorageSizeGB float64 `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
 }
 
 type AWSClusterConfigSpecVersionBundle struct {
