@@ -54,8 +54,8 @@ func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type AzureConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AzureConfigSpec    `json:"spec"`
-	Status            *AzureConfigStatus `json:"status" yaml:"status"`
+	Spec              AzureConfigSpec   `json:"spec"`
+	Status            AzureConfigStatus `json:"status" yaml:"status"`
 }
 
 type AzureConfigSpec struct {
@@ -116,7 +116,7 @@ type AzureConfigSpecVersionBundle struct {
 }
 
 type AzureConfigStatus struct {
-	Cluster *StatusCluster `json:"cluster" yaml:"cluster"`
+	Cluster StatusCluster `json:"cluster" yaml:"cluster"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
