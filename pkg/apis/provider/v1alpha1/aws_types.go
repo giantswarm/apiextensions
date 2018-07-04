@@ -54,8 +54,8 @@ func NewAWSConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type AWSConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AWSConfigSpec   `json:"spec"`
-	Status            AWSConfigStatus `json:"status" yaml:"status"`
+	Spec              AWSConfigSpec    `json:"spec"`
+	Status            *AWSConfigStatus `json:"status" yaml:"status"`
 }
 
 type AWSConfigSpec struct {
@@ -149,7 +149,7 @@ type AWSConfigSpecVersionBundle struct {
 }
 
 type AWSConfigStatus struct {
-	Cluster StatusCluster `json:"cluster" yaml:"cluster"`
+	Cluster *StatusCluster `json:"cluster" yaml:"cluster"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
