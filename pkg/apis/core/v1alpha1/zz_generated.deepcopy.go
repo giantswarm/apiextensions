@@ -112,13 +112,6 @@ func (in *AWSClusterConfigSpecGuest) DeepCopyInto(out *AWSClusterConfigSpecGuest
 		*out = make([]AWSClusterConfigSpecGuestMaster, len(*in))
 		copy(*out, *in)
 	}
-	if in.ResourceTags != nil {
-		in, out := &in.ResourceTags, &out.ResourceTags
-		*out = make(map[string]string, len(*in))
-		for key, val := range *in {
-			(*out)[key] = val
-		}
-	}
 	if in.Workers != nil {
 		in, out := &in.Workers, &out.Workers
 		*out = make([]AWSClusterConfigSpecGuestWorker, len(*in))

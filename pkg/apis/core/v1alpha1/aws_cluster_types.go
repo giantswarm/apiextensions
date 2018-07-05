@@ -62,7 +62,6 @@ type AWSClusterConfigSpecGuest struct {
 	ClusterGuestConfig `json:",inline" yaml:",inline"`
 	CredentialSecret   AWSClusterConfigSpecGuestCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	Masters            []AWSClusterConfigSpecGuestMaster         `json:"masters,omitempty" yaml:"masters,omitempty"`
-	ResourceTags       map[string]string                         `json:"resourceTags,omitempty" yaml:"resourceTags,omitempty"`
 	Workers            []AWSClusterConfigSpecGuestWorker         `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
