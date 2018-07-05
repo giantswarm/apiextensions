@@ -82,11 +82,9 @@ type AWSClusterConfigSpecGuestWorker struct {
 	Labels                        map[string]string `json:"labels" yaml:"labels"`
 }
 type AWSClusterConfigSpecGuestNode struct {
-	ID            string  `json:"id" yaml:"id"`
-	CPUCores      int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
-	InstanceType  string  `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
-	MemorySizeGB  float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
-	StorageSizeGB float64 `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
+	ID                     string `json:"id" yaml:"id"`
+	ClusterGuestConfigNode `json:",inline" yaml:",inline"`
+	InstanceType           string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
 }
 
 type AWSClusterConfigSpecVersionBundle struct {

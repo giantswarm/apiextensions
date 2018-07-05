@@ -13,6 +13,12 @@ type ClusterGuestConfig struct {
 	VersionBundles []ClusterGuestConfigVersionBundle `json:"versionBundles,omitempty" yaml:"versionBundles,omitempty"`
 }
 
+type ClusterGuestConfigNode struct {
+	CPUCores      int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
+	MemorySizeGB  float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
+	StorageSizeGB float64 `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
+}
+
 type ClusterGuestConfigVersionBundle struct {
 	Name    string `json:"name" yaml:"name"`
 	Version string `json:"version" yaml:"version"`
