@@ -3,6 +3,10 @@ package v1alpha1
 import "time"
 
 const (
+	ClusterVersionLimit = 5
+)
+
+const (
 	StatusClusterStatusFalse = "False"
 	StatusClusterStatusTrue  = "True"
 )
