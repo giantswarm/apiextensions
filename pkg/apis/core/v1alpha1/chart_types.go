@@ -52,8 +52,8 @@ func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartConfigSpec `json:"spec"`
-	Status            string          `json:"status"`
+	Spec              ChartConfigSpec   `json:"spec"`
+	Status            ChartConfigStatus `json:"status"`
 }
 
 type ChartConfigSpec struct {
@@ -78,6 +78,12 @@ type ChartConfigSpecChart struct {
 
 type ChartConfigSpecVersionBundle struct {
 	Version string `json:"version" yaml:"version"`
+}
+
+type ChartConfigStatus struct {
+	// ReleaseStatus is the status of the Helm releases when the chart is
+	// deployed, e.g. DEPLOYED.
+	ReleaseStatus string `json:"releaseStatus" yaml:"releaseStatus"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
