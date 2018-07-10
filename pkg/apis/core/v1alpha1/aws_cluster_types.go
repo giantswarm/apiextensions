@@ -82,9 +82,8 @@ type AWSClusterConfigSpecGuestWorker struct {
 	Labels                        map[string]string `json:"labels" yaml:"labels"`
 }
 type AWSClusterConfigSpecGuestNode struct {
-	ID                     string `json:"id" yaml:"id"`
-	ClusterGuestConfigNode `json:",inline" yaml:",inline"`
-	InstanceType           string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
+	ID           string `json:"id" yaml:"id"`
+	InstanceType string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
 }
 
 type AWSClusterConfigSpecVersionBundle struct {
