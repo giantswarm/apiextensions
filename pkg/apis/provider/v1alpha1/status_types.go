@@ -36,9 +36,7 @@ type StatusClusterCondition struct {
 // StatusClusterNetwork expresses the network segment that is allocated for a
 // guest cluster.
 type StatusClusterNetwork struct {
-	CIDR              string `json:"cidr" yaml:"cidr"`
-	PrivateSubnetCIDR string `json:"privateSubnetCidr" yaml:"privateSubnetCidr"`
-	PublicSubnetCIDR  string `json:"publicSubnetCidr" yaml:"publicSubnetCidr"`
+	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
 // StatusClusterVersion expresses the versions in which a guest cluster was and
