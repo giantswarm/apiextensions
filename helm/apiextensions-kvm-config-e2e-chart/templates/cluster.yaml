@@ -1,0 +1,86 @@
+apiVersion: provider.giantswarm.io/v1alpha1
+kind: KVMConfig
+metadata:
+  name: "{{ .Values.clusterName }}"
+spec:
+  kvm:
+    endpointUpdater:
+      docker:
+        image: "quay.io/giantswarm/k8s-endpoint-updater:d92b6f452add9c4694b27141cf3c2578de1442f1"
+    k8sKVM:
+      docker:
+        image: "quay.io/giantswarm/k8s-kvm:dff62e2b9050b8c16b0fe0a837af113b62db9c0a"
+      storageType: "hostPath"
+    masters:
+    - cpus: 2
+      disk: 20
+      memory: 2G
+    network:
+      flannel:
+        vni: 40
+    nodeController:
+      docker:
+        image: "quay.io/giantswarm/kvm-operator-node-controller:e63163a2fc0a34a519cdd5c787b3e2e4cbadd5a2"
+    workers:
+    - cpus: 2
+      disk: 20
+      memory: 2G
+    - cpus: 2
+      disk: 20
+      memory: 2G
+    - cpus: 2
+      disk: 20
+      memory: 2G
+  cluster:
+    calico:
+      cidr: 16
+      domain: "calico.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+      mtu: 1430
+      subnet: "192.168.0.0"
+    customer:
+      id: "example-customer"
+    docker:
+      daemon:
+        cidr: "172.17.0.1/16"
+    etcd:
+      domain: "etcd.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+      port: 2379
+      prefix: "giantswarm.io"
+    id: "{{ .Values.clusterName }}"
+    kubernetes:
+      api:
+        altNames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local"
+        clusterIPRange: 172.31.0.0/16"
+        domain: "api.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+        insecurePort: 8080
+        ip: "172.31.0.1"
+        securePort: 443
+      cloudProvider: ""
+      dns:
+        ip: "172.31.0.10"
+      domain: "cluster.local"
+      ingressController:
+        insecurePort: 30010
+        securePort: 30011
+        domain: "ingress.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+        wildcardDomain: "*.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+      kubelet:
+        altNames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local"
+        domain: "worker.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+        port: 10250
+      networkSetup:
+        docker:
+          image: "quay.io/giantswarm/k8s-setup-network-environment:1f4ffc52095ac368847ce3428ea99b257003d9b9"
+      ssh:
+        userList:
+        - name: "{{ .Values.sshUser }}"
+          publicKey: "{{ .Values.sshPublicKey }}"
+    masters:
+    - id: f4mfe
+    version: ""
+    workers:
+    - id: dfnh4
+    - id: dfnh5
+    - id: dfnh6
+  versionBundle:
+    version: "{{.Values.versionBundleVersion}}"
