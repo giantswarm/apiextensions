@@ -26,6 +26,7 @@ type StatusCluster struct {
 	// conditional state of a guest cluster. This may reflect the status of the
 	// guest cluster being updating or being up to date.
 	Conditions []StatusClusterCondition `json:"conditions" yaml:"conditions"`
+	Network    StatusClusterNetwork     `json:"network" yaml:"network"`
 	// Nodes is a list of guest cluster node information reflecting the current
 	// state of the guest cluster nodes.
 	Nodes []StatusClusterNode `json:"nodes" yaml:"nodes"`
@@ -43,6 +44,12 @@ type StatusClusterCondition struct {
 	// Type may be Creating, Created, Scaling, Scaled, Draining, Drained,
 	// Deleting, Deleted.
 	Type string `json:"type" yaml:"type"`
+}
+
+// StatusClusterNetwork expresses the network segment that is allocated for a
+// guest cluster.
+type StatusClusterNetwork struct {
+	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
 // StatusClusterNode holds information about a guest cluster node.
