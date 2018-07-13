@@ -55,40 +55,14 @@ type NodeConfig struct {
 }
 
 type NodeConfigSpec struct {
-	Guest         NodeConfigSpecGuest         `json:"guest" yaml:"guest"`
-	VersionBundle NodeConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Patch NodeConfigSpecPatch `json:"patch" yaml:"patch"`
 }
 
-type NodeConfigSpecGuest struct {
-	Cluster NodeConfigSpecGuestCluster `json:"cluster" yaml:"cluster"`
-	Node    NodeConfigSpecGuestNode    `json:"node" yaml:"node"`
-}
-
-type NodeConfigSpecGuestCluster struct {
-	API NodeConfigSpecGuestClusterAPI `json:"api" yaml:"api"`
-	// ID is the guest cluster ID of which a node should be drained.
-	ID string `json:"id" yaml:"id"`
-}
-
-type NodeConfigSpecGuestClusterAPI struct {
-	// Endpoint is the guest cluster API endpoint.
-	Endpoint string `json:"endpoint" yaml:"endpoint"`
-}
-
-type NodeConfigSpecGuestNode struct {
-	// Name is the identifier of the guest cluster's master and worker nodes. In
-	// Kubernetes/Kubectl they are represented as node names. The names are manage
-	// in an abstracted way because of provider specific differences.
-	//
-	//     AWS: EC2 instance DNS.
-	//     Azure: VM name.
-	//     KVM: host cluster pod name.
-	//
-	Name string `json:"name" yaml:"name"`
-}
-
-type NodeConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+type NodeConfigSpecPatch struct {
+	// SelfLink is the self link of the provider config CR. This is used by the
+	// node-operator to patch the status of the provider config CR. Without the
+	// self link the node-operator would not know which runtime object to patch.
+	SelfLink string `json:"selfLink" yaml:"selfLink"`
 }
 
 type NodeConfigStatus struct {
@@ -97,10 +71,8 @@ type NodeConfigStatus struct {
 
 // NodeConfigStatusCondition expresses a condition in which a node may is.
 type NodeConfigStatusCondition struct {
-	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
-	// Type may be Pending, Ready, Draining, Drained.
-	Type string `json:"type" yaml:"type"`
+	Type   string `json:"type" yaml:"type"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
