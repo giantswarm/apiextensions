@@ -4,6 +4,9 @@ metadata:
   name: "{{ .Values.clusterName }}"
 spec:
   azure:
+    credentialSecret:
+      name: "credential-default"
+      namespace: "giantswarm"
     dnsZones:
       api:
         name: "{{ .Values.commonDomain }}"
