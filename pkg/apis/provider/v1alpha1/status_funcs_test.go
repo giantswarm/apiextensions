@@ -102,17 +102,18 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 	testCases := []struct {
 		Name             string
 		Versions         []StatusClusterVersion
-		Date             time.Time
-		Version          string
+		Version          StatusClusterVersion
 		Limit            int
 		ExpectedVersions []StatusClusterVersion
 	}{
 		{
 			Name:     "case 0: list with zero items results in a list with one item",
 			Versions: []StatusClusterVersion{},
-			Date:     time.Unix(10, 0),
-			Version:  "1.0.0",
-			Limit:    3,
+			Version: StatusClusterVersion{
+				Date:   time.Unix(10, 0),
+				Semver: "1.0.0",
+			},
+			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
 					Date:   time.Unix(10, 0),
@@ -128,9 +129,11 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Semver: "1.0.0",
 				},
 			},
-			Date:    time.Unix(20, 0),
-			Version: "1.1.0",
-			Limit:   3,
+			Version: StatusClusterVersion{
+				Date:   time.Unix(20, 0),
+				Semver: "1.1.0",
+			},
+			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
 					Date:   time.Unix(10, 0),
@@ -154,9 +157,11 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Semver: "1.1.0",
 				},
 			},
-			Date:    time.Unix(30, 0),
-			Version: "1.5.0",
-			Limit:   3,
+			Version: StatusClusterVersion{
+				Date:   time.Unix(30, 0),
+				Semver: "1.5.0",
+			},
+			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
 					Date:   time.Unix(10, 0),
@@ -188,9 +193,11 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Semver: "1.5.0",
 				},
 			},
-			Date:    time.Unix(40, 0),
-			Version: "3.0.0",
-			Limit:   3,
+			Version: StatusClusterVersion{
+				Date:   time.Unix(40, 0),
+				Semver: "3.0.0",
+			},
+			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
 					Date:   time.Unix(20, 0),
@@ -230,9 +237,11 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Semver: "3.2.0",
 				},
 			},
-			Date:    time.Unix(60, 0),
-			Version: "3.3.0",
-			Limit:   3,
+			Version: StatusClusterVersion{
+				Date:   time.Unix(60, 0),
+				Semver: "3.3.0",
+			},
+			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
 					Date:   time.Unix(40, 0),
@@ -272,9 +281,11 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Semver: "1.5.0",
 				},
 			},
-			Date:    time.Unix(60, 0),
-			Version: "3.3.0",
-			Limit:   3,
+			Version: StatusClusterVersion{
+				Date:   time.Unix(60, 0),
+				Semver: "3.3.0",
+			},
+			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
 					Date:   time.Unix(40, 0),
@@ -293,7 +304,7 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		versions := withVersion(tc.Versions, tc.Date, tc.Version, tc.Limit)
+		versions := withVersion(tc.Versions, tc.Version, tc.Limit)
 
 		if !reflect.DeepEqual(versions, tc.ExpectedVersions) {
 			t.Fatalf("expected %#v got %#v", tc.ExpectedVersions, versions)
