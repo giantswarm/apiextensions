@@ -53,9 +53,10 @@ spec:
         docker:
           image: "quay.io/giantswarm/docker-kubectl:f51f93c30d27927d2b33122994c0929b3e6f2432"
       kubelet:
-        port: 10250
-        domain: "worker.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
         altNames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local"
+        domain: "worker.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
+        labels: "giantswarm.io/provider=aws,aws-operator.giantswarm.io/version={{ .Values.versionBundleVersion }}"
+        port: 10250
       networkSetup:
         docker:
           image: "quay.io/giantswarm/k8s-setup-network-environment:1f4ffc52095ac368847ce3428ea99b257003d9b9"

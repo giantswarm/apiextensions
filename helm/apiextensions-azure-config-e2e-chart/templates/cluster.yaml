@@ -64,6 +64,7 @@ spec:
       kubelet:
         altNames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local"
         domain: "worker.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"
+        labels: "giantswarm.io/provider=azure,azure-operator.giantswarm.io/version={{ .Values.versionBundleVersion }}"
         port: 10250
       networkSetup:
         docker:
