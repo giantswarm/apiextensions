@@ -5,6 +5,16 @@ import (
 )
 
 type Cluster struct {
+	// BaseDomain is the root zone domain. The operator creates
+	// "{{ .ID }}.k8s.{{ .BaseDomain }}" DNS zone for the cluster and then
+	// create delegation to the newly created zone from the root zone. The
+	// newly created zone contains following records:
+	//
+	//	- ALIAS api.{{ .ID }}.k8s.{{ .BaseDomain }}
+	//	- CNAME etcd.{{ .ID }}.k8s.{{ .BaseDomain }}
+	//	- ALIAS ingress.{{ .ID }}.k8s.{{ .BaseDomain }}
+	//	- CNAME *.{{ .ID }}.k8s.{{ .BaseDomain }}
+	BaseDomain string            `json:"baseDomain" yaml:"baseDomain"`
 	Calico     ClusterCalico     `json:"calico" yaml:"calico"`
 	Customer   ClusterCustomer   `json:"customer" yaml:"customer"`
 	Docker     ClusterDocker     `json:"docker" yaml:"docker"`
