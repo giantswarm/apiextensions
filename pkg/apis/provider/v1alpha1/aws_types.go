@@ -78,10 +78,10 @@ type AWSConfigSpecAWS struct {
 	// aws-operator@v14.
 	//
 	// Issue: https://github.com/giantswarm/giantswarm/issues/2383
-	API         AWSConfigSpecAWSAPI         `json:"api" yaml:"api"`
-	Etcd        AWSConfigSpecAWSEtcd        `json:"etcd" yaml:"etcd"`
-	Ingress     AWSConfigSpecAWSIngress     `json:"ingress" yaml:"ingress"`
-	HostedZones AWSConfigSpecAWSHostedZones `json:"hostedZones" yaml:"hostedZones"`
+	API         AWSConfigSpecAWSAPI         `json:"api,omitempty" yaml:"api,omitempty"`
+	Etcd        AWSConfigSpecAWSEtcd        `json:"etcd,omitempty" yaml:"etcd,omitempty"`
+	Ingress     AWSConfigSpecAWSIngress     `json:"ingress,omitempty" yaml:"ingress,omitempty"`
+	HostedZones AWSConfigSpecAWSHostedZones `json:"hostedZones,omitempty" yaml:"hostedZones,omitempty"`
 }
 
 // AWSConfigSpecAWSAPI deprecated since aws-operator v14 resources.
