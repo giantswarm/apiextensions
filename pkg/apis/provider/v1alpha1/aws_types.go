@@ -73,58 +73,59 @@ type AWSConfigSpecAWS struct {
 	VPC     AWSConfigSpecAWSVPC    `json:"vpc" yaml:"vpc"`
 	Workers []AWSConfigSpecAWSNode `json:"workers" yaml:"workers"`
 
-	// TODO delete with: aws-operator@v13
+	// TODO delete with: aws-operator@v15
 	// Delete fields below with its types. They are unused from
-	// aws-operator@v14.
+	// aws-operator@v15.
 	//
-	// Issue: https://github.com/giantswarm/giantswarm/issues/2383
+	// Issue: https://github.com/giantswarm/giantswarm/issues/3862
+
 	API         AWSConfigSpecAWSAPI         `json:"api,omitempty" yaml:"api,omitempty"`
 	Etcd        AWSConfigSpecAWSEtcd        `json:"etcd,omitempty" yaml:"etcd,omitempty"`
 	Ingress     AWSConfigSpecAWSIngress     `json:"ingress,omitempty" yaml:"ingress,omitempty"`
 	HostedZones AWSConfigSpecAWSHostedZones `json:"hostedZones,omitempty" yaml:"hostedZones,omitempty"`
 }
 
-// AWSConfigSpecAWSAPI deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSAPI is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSAPI struct {
 	HostedZones string                 `json:"hostedZones" yaml:"hostedZones"`
 	ELB         AWSConfigSpecAWSAPIELB `json:"elb" yaml:"elb"`
 }
 
-// AWSConfigSpecAWSAPIELB deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSAPIELB is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSAPIELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds" yaml:"idleTimeoutSeconds"`
 }
 
-// AWSConfigSpecAWSEtcd deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSEtcd is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSEtcd struct {
 	HostedZones string                  `json:"hostedZones" yaml:"hostedZones"`
 	ELB         AWSConfigSpecAWSEtcdELB `json:"elb" yaml:"elb"`
 }
 
-// AWSConfigSpecAWSEtcdELB deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSEtcdELB is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSEtcdELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds" yaml:"idleTimeoutSeconds"`
 }
 
-// AWSConfigSpecAWSHostedZones deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSHostedZones is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSHostedZones struct {
 	API     AWSConfigSpecAWSHostedZonesZone `json:"api" yaml:"api"`
 	Etcd    AWSConfigSpecAWSHostedZonesZone `json:"etcd" yaml:"etcd"`
 	Ingress AWSConfigSpecAWSHostedZonesZone `json:"ingress" yaml:"ingress"`
 }
 
-// AWSConfigSpecAWSHostedZonesZone deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSHostedZonesZone is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSHostedZonesZone struct {
 	Name string `json:"name" yaml:"name"`
 }
 
-// AWSConfigSpecAWSIngress deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSIngress is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSIngress struct {
 	HostedZones string                     `json:"hostedZones" yaml:"hostedZones"`
 	ELB         AWSConfigSpecAWSIngressELB `json:"elb" yaml:"elb"`
 }
 
-// AWSConfigSpecAWSIngressELB deprecated since aws-operator v14 resources.
+// AWSConfigSpecAWSIngressELB is deprecated since aws-operator v15 resources.
 type AWSConfigSpecAWSIngressELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds" yaml:"idleTimeoutSeconds"`
 }
