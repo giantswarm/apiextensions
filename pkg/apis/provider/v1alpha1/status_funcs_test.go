@@ -98,6 +98,57 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 	}
 }
 
+func Test_Provider_Status_withCondition(t *testing.T) {
+	testCases := []struct {
+		Name               string
+		Conditions         []StatusClusterCondition
+		Search             string
+		Replace            string
+		Status             string
+		ExpectedConditions []StatusClusterCondition
+	}{
+		{
+			Name:       "case 0",
+			Conditions: []StatusClusterCondition{},
+			Search:     StatusClusterTypeCreating,
+			Replace:    StatusClusterTypeCreated,
+			Status:     StatusClusterStatusTrue,
+			ExpectedConditions: []StatusClusterCondition{
+				{
+					Status: StatusClusterStatusTrue,
+					Type:   StatusClusterTypeCreated,
+				},
+			},
+		},
+		{
+			Name: "case 1",
+			Conditions: []StatusClusterCondition{
+				{
+					Status: StatusClusterStatusTrue,
+					Type:   StatusClusterTypeCreating,
+				},
+			},
+			Search:  StatusClusterTypeCreating,
+			Replace: StatusClusterTypeCreated,
+			Status:  StatusClusterStatusTrue,
+			ExpectedConditions: []StatusClusterCondition{
+				{
+					Status: StatusClusterStatusTrue,
+					Type:   StatusClusterTypeCreated,
+				},
+			},
+		},
+	}
+
+	for _, tc := range testCases {
+		conditions := withCondition(tc.Conditions, tc.Search, tc.Replace, tc.Status)
+
+		if !reflect.DeepEqual(conditions, tc.ExpectedConditions) {
+			t.Fatalf("expected %#v got %#v", tc.ExpectedConditions, conditions)
+		}
+	}
+}
+
 func Test_Provider_Status_withVersion(t *testing.T) {
 	testCases := []struct {
 		Name             string
