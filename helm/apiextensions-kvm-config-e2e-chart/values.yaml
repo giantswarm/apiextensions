@@ -12,5 +12,3 @@ kvm:
     httpTargetPort: 30010
     httpsNodePort: 301488
     httpsTargetPort: 30011
-
-
