@@ -62,7 +62,7 @@ spec:
 
     masters:
     - id: "master-1"
-   workers:
+    workers:
     - id: "worker-1"
     - id: "worker-2"
     - id: "worker-3"
