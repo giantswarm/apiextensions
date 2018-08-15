@@ -98,5 +98,11 @@ spec:
     - cpus: 2
       disk: 20
       memory: 2G
+    - cpus: 2
+      disk: 20
+      memory: 2G
+    - cpus: 2
+      disk: 20
+      memory: 2G
   versionBundle:
     version: "{{.Values.versionBundleVersion}}"
