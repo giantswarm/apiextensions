@@ -65,7 +65,6 @@ spec:
     workers:
     - id: "worker-1"
     - id: "worker-2"
-    - id: "worker-3"
     vault:
       address: https://vault.gastropod.gridscale.kvm.gigantic.io:8200
       token: 5623b042-fa62-416b-a252-190a164c0439
@@ -95,9 +94,6 @@ spec:
       nodePort: {{.Values.kvm.ingress.httpsNodePort}}
       targetPort: {{.Values.kvm.ingress.httpsTargetPort}}
     workers:
-    - cpus: 2
-      disk: 20
-      memory: 2G
     - cpus: 2
       disk: 20
       memory: 2G
