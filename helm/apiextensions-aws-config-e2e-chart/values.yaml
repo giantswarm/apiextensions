@@ -9,8 +9,8 @@ aws:
   region: "eu-central-1"
   az: "eu-central-1a"
   ami: "ami-d60ad6b9"
-  instanceTypeMaster: "m3.large"
-  instanceTypeWorker: "m3.large"
+  instanceTypeMaster: "m5.large"
+  instanceTypeWorker: "m5.large"
 
   networkCIDR: "10.1.12.0/24"
   privateSubnetCIDR: "10.1.12.0/25"
