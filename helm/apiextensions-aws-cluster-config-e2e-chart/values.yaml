@@ -2,6 +2,9 @@ guest:
   name: "test-cluster"
   dnsZone: "test-cluster.aws.giantswarm.io"
   id: "test-cluster"
+  aws:
+    instanceTypeMaster: "m5.large"
+    instanceTypeWorker: "m5.large"
   owner: "giantswarm"
   versionBundles:
   - name: aws-operator
