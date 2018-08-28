@@ -352,13 +352,35 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 				},
 			},
 		},
+		{
+			Name: "case 6: list with one item results in a list with one item in case the version already exists",
+			Versions: []StatusClusterVersion{
+				{
+					Date:   time.Unix(10, 0),
+					Semver: "1.0.0",
+				},
+			},
+			Version: StatusClusterVersion{
+				Date:   time.Unix(20, 0),
+				Semver: "1.0.0",
+			},
+			Limit: 3,
+			ExpectedVersions: []StatusClusterVersion{
+				{
+					Date:   time.Unix(10, 0),
+					Semver: "1.0.0",
+				},
+			},
+		},
 	}
 
 	for _, tc := range testCases {
-		versions := withVersion(tc.Versions, tc.Version, tc.Limit)
+		t.Run(tc.Name, func(t *testing.T) {
+			versions := withVersion(tc.Versions, tc.Version, tc.Limit)
 
-		if !reflect.DeepEqual(versions, tc.ExpectedVersions) {
-			t.Fatalf("expected %#v got %#v", tc.ExpectedVersions, versions)
-		}
+			if !reflect.DeepEqual(versions, tc.ExpectedVersions) {
+				t.Fatalf("expected %#v got %#v", tc.ExpectedVersions, versions)
+			}
+		})
 	}
 }
