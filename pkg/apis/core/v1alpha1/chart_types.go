@@ -70,8 +70,8 @@ type ChartConfigSpecChart struct {
 	// ConfigMap references a config map containing values that should be
 	// applied to the chart.
 	ConfigMap ChartConfigSpecConfigMap `json:"configMap" yaml:"configMap"`
-	// CustomConfigMap references a config map containing custom values that should be
-	// applied to the chart.
+	// CustomConfigMap references a config map containing custom values.
+	// These custom values are specified by the user to override default values.
 	CustomConfigMap ChartConfigSpecConfigMap `json:"customConfigMap" yaml:"customConfigMap"`
 	// Name is the name of the Helm chart to deploy,
 	// e.g. kubernetes-node-exporter.
