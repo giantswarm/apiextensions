@@ -50,7 +50,7 @@ spec:
       kubelet:
         altNames: kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local
         domain: worker.{{.Values.clusterName}}.{{.Values.baseDomain}}
-        labels: kvm-operator.giantswarm.io/version=2.5.0,giantswarm.io/provider=kvm
+        labels: kvm-operator.giantswarm.io/version={{.Values.versionBundleVersion}},giantswarm.io/provider=kvm
         port: 10250
       networkSetup:
         docker:
