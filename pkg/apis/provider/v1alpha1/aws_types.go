@@ -132,9 +132,8 @@ type AWSConfigSpecAWSIngressELB struct {
 }
 
 type AWSConfigSpecAWSNode struct {
-	ImageID            string `json:"imageID" yaml:"imageID"`
-	InstanceType       string `json:"instanceType" yaml:"instanceType"`
-	DockerVolumeSizeGB int    `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	ImageID      string `json:"imageID" yaml:"imageID"`
+	InstanceType string `json:"instanceType" yaml:"instanceType"`
 }
 
 type AWSConfigSpecAWSVPC struct {

@@ -74,10 +74,9 @@ type KVMClusterConfigSpecGuestWorker struct {
 }
 
 type KVMClusterConfigSpecGuestNode struct {
-	ID            string  `json:"id" yaml:"id"`
-	CPUCores      int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
-	MemorySizeGB  float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
-	StorageSizeGB float64 `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
+	ID           string  `json:"id" yaml:"id"`
+	CPUCores     int     `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
+	MemorySizeGB float64 `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
 }
 
 type KVMClusterConfigSpecVersionBundle struct {

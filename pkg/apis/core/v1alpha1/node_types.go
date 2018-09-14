@@ -84,11 +84,20 @@ type NodeConfigSpecGuestNode struct {
 	//     Azure: VM name.
 	//     KVM: host cluster pod name.
 	//
-	Name string `json:"name" yaml:"name"`
+	Name    string `json:"name" yaml:"name"`
+	Volumes NodeConfigSpecNodeVolumes
 }
 
 type NodeConfigSpecVersionBundle struct {
 	Version string `json:"version" yaml:"version"`
+}
+
+type NodeConfigSpecNodeVolumes struct {
+	Docker NodeConfigSpecNodeVolume `json:"docker"`
+}
+
+type NodeConfigSpecNodeVolume struct {
+	SizeGB float64 `json:"size_gb"`
 }
 
 type NodeConfigStatus struct {
