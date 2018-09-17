@@ -55,11 +55,11 @@ type Release struct {
 }
 
 type ReleaseSpec struct {
-	Operator      OperatorSpecGuest        `json:"operator" yaml:"operator"`
+	Operator      ReleaseSpecOperator      `json:"operator" yaml:"operator"`
 	VersionBundle ReleaseSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
-type OperatorSpecGuest struct {
+type ReleaseSpecOperator struct {
 	Name    string `json:"cluster" yaml:"name"`
 	Version string `json:"node" yaml:"version"`
 }
