@@ -1,35 +1,33 @@
 apiVersion: "provider.giantswarm.io/v1alpha1"
 kind: KVMConfig
 metadata:
-  name: {{.Values.clusterName}}
+  name: {{.Values.cluster.id}}
   labels:
-    clusterID: {{.Values.clusterName}}
+    giantswarm.io/cluster: {{.Values.cluster.id}}
 spec:
   cluster:
-    version: "{{.Values.clusterVersion}}"
-
-    id: "{{.Values.clusterName}}"
+    id: "{{.Values.cluster.id}}"
 
     customer:
       id: "example-customer"
 
     calico:
       cidr: 16
-      domain: calico.{{.Values.clusterName}}.{{.Values.baseDomain}}
+      domain: calico.{{.Values.cluster.id}}.{{.Values.baseDomain}}
       mtu: 1430
       subnet: 192.168.0.0
     docker:
       daemon:
         cidr: 172.17.0.1/16
     etcd:
-      domain: etcd.{{.Values.clusterName}}.{{.Values.baseDomain}}
+      domain: etcd.{{.Values.cluster.id}}.{{.Values.baseDomain}}
       port: 443
       prefix: giantswarm.io
     kubernetes:
       api:
         altNames: kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local
         clusterIPRange: 172.31.0.0/16
-        domain: api.{{.Values.clusterName}}.{{.Values.baseDomain}}
+        domain: api.{{.Values.cluster.id}}.{{.Values.baseDomain}}
         insecurePort: 8080
         ip: 172.31.0.1
         securePort: 443
@@ -43,18 +41,15 @@ spec:
       ingressController:
         docker:
           image: quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11
-        domain: ingress.{{.Values.clusterName}}.{{.Values.baseDomain}}
+        domain: ingress.{{.Values.cluster.id}}.{{.Values.baseDomain}}
         insecurePort: 30010
         securePort: 30011
-        wildcardDomain: '*.sxn4o.{{.Values.clusterName}}.{{.Values.baseDomain}}'
+        wildcardDomain: '*.sxn4o.{{.Values.cluster.id}}.{{.Values.baseDomain}}'
       kubelet:
         altNames: kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local
-        domain: worker.{{.Values.clusterName}}.{{.Values.baseDomain}}
-        labels: kvm-operator.giantswarm.io/version={{.Values.versionBundleVersion}},giantswarm.io/provider=kvm
+        domain: worker.{{.Values.cluster.id}}.{{.Values.baseDomain}}
+        labels: kvm-operator.giantswarm.io/version={{.Values.versionBundle.version}},giantswarm.io/provider=kvm
         port: 10250
-      networkSetup:
-        docker:
-          image: quay.io/giantswarm/k8s-setup-network-environment:1f4ffc52095ac368847ce3428ea99b257003d9b9
       ssh:
         userList:
         - name: "{{.Values.sshUser}}"
@@ -69,12 +64,7 @@ spec:
       address: https://vault.gastropod.gridscale.kvm.gigantic.io:8200
       token: 5623b042-fa62-416b-a252-190a164c0439
   kvm:
-    endpointUpdater:
-      docker:
-        image: quay.io/giantswarm/k8s-endpoint-updater:d92b6f452add9c4694b27141cf3c2578de1442f1
     k8sKVM:
-      docker:
-        image: quay.io/giantswarm/k8s-kvm:dff62e2b9050b8c16b0fe0a837af113b62db9c0a
       storageType: hostPath
     masters:
     - cpus: 2
@@ -83,9 +73,6 @@ spec:
     network:
       flannel:
         vni: {{.Values.kvm.vni}}
-    nodeController:
-      docker:
-        image: quay.io/giantswarm/kvm-operator-node-controller:e63163a2fc0a34a519cdd5c787b3e2e4cbadd5a2
     'portMappings yaml:':
     - name: ingress-http
       nodePort: {{.Values.kvm.ingress.httpNodePort}}
@@ -101,4 +88,4 @@ spec:
       disk: 20
       memory: 2G
   versionBundle:
-    version: "{{.Values.versionBundleVersion}}"
+    version: "{{.Values.versionBundle.version}}"
