@@ -37,6 +37,7 @@ type ReleasesGetter interface {
 type ReleaseInterface interface {
 	Create(*v1alpha1.Release) (*v1alpha1.Release, error)
 	Update(*v1alpha1.Release) (*v1alpha1.Release, error)
+	UpdateStatus(*v1alpha1.Release) (*v1alpha1.Release, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha1.Release, error)
@@ -114,6 +115,22 @@ func (c *releases) Update(release *v1alpha1.Release) (result *v1alpha1.Release, 
 		Namespace(c.ns).
 		Resource("releases").
 		Name(release.Name).
+		Body(release).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *releases) UpdateStatus(release *v1alpha1.Release) (result *v1alpha1.Release, err error) {
+	result = &v1alpha1.Release{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("releases").
+		Name(release.Name).
+		SubResource("status").
 		Body(release).
 		Do().
 		Into(result)

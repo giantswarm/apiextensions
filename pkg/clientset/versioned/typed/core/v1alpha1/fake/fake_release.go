@@ -100,6 +100,18 @@ func (c *FakeReleases) Update(release *v1alpha1.Release) (result *v1alpha1.Relea
 	return obj.(*v1alpha1.Release), err
 }
 
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeReleases) UpdateStatus(release *v1alpha1.Release) (*v1alpha1.Release, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(releasesResource, "status", c.ns, release), &v1alpha1.Release{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.Release), err
+}
+
 // Delete takes name of the release and deletes it. Returns an error if one occurs.
 func (c *FakeReleases) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.

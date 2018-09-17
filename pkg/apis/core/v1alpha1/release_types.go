@@ -20,6 +20,8 @@ import (
 //         kind: Release
 //         plural: releases
 //         singular: release
+//       subresources:
+//         status: {}
 //
 func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -39,12 +41,14 @@ func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 				Plural:   "releases",
 				Singular: "release",
 			},
+			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			},
 		},
 	}
 }
 
 // +genclient
-// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type Release struct {
