@@ -8,4 +8,4 @@ spec:
     name: "{{ .Values.operator.name }}"
     version: "{{ .Values.operator.version }}"
   versionBundle:
-    version: "{{ .Values.versionBundleVersion }}"
+    version: "{{ .Values.versionBundle.version }}"

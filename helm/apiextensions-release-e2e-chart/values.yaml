@@ -2,4 +2,5 @@ namespace: "giantswarm"
 operator:
   name: "test-operator"
   version: "0.1.0"
-versionBundleVersion: "0.1.0"
+versionBundle:
+  version: "0.1.0"
