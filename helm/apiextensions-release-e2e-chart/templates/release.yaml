@@ -1,0 +1,11 @@
+apiVersion: "core.giantswarm.io/v1alpha1"
+kind: Release
+metadata:
+  name: "{{ .Values.operator.name }}"
+  namespace: "{{ .Values.namespace }}"
+spec:
+  operator:
+    name: "{{ .Values.operator.name }}"
+    version: "{{ .Values.operator.version }}"
+  versionBundle:
+    version: "{{ .Values.versionBundle.version }}"
