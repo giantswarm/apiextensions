@@ -54,7 +54,7 @@ func NewClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	}
 }
 
-func NewTypeMeta() metav1.TypeMeta {
+func NewClusterTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: version,
 		Kind:       kindCluster,
@@ -77,14 +77,6 @@ type Cluster struct {
 // be filled with appropriate default values which are then propagated into the
 // CR status.
 type ClusterSpec struct {
-	// Cluster holds cluster specific configuration.
-	Cluster ClusterSpecCluster `json:"cluster" yaml:"cluster"`
-	// Release holds release specific configuration.
-	Release ClusterSpecRelease `json:"release" yaml:"release"`
-}
-
-// ClusterSpecCluster holds cluster specific configuration users provide.
-type ClusterSpecCluster struct {
 	// Description is the optional cluster description users can provide. If left
 	// blank a cluster description will be generated. The cluster description is
 	// propagated into the CR status.
@@ -92,10 +84,6 @@ type ClusterSpecCluster struct {
 	// Organization is the mandatory cluster organization in which a tenant
 	// cluster will be scoped into.
 	Organization string `json:"organization" yaml:"organization"`
-}
-
-// ClusterSpecRelease holds release specific configuration.
-type ClusterSpecRelease struct {
 	// Version is the optional release version users can provide. If left blank
 	// the current default release version will be used. The release version is
 	// propagated into the CR status.
@@ -112,8 +100,6 @@ type ClusterStatus struct {
 	Cluster ClusterStatusCluster `json:"cluster" yaml:"cluster"`
 	// Conditions is a list of status conditions.
 	Conditions []ClusterStatusCondition `json:"conditions" yaml:"conditions"`
-	// Release holds release specific status information.
-	Release ClusterStatusRelease `json:"release" yaml:"release"`
 }
 
 // ClusterStatusCluster holds cluster specific status information.
@@ -121,6 +107,9 @@ type ClusterStatusCluster struct {
 	// Description is the propagated cluster description users can provide or the
 	// system generates automatically if left blank.
 	Description string `json:"description" yaml:"description"`
+	// Version is the propagated release version users can provide or the system
+	// sets to the current default release version.
+	Version string `json:"version" yaml:"version"`
 }
 
 // ClusterStatusCondition holds a specific status condition describing certain
@@ -130,13 +119,6 @@ type ClusterStatusCondition struct {
 	Status string `json:"status" yaml:"status"`
 	// Type may be Creating, Created, Updating, Updated, or Deleting.
 	Type string `json:"type" yaml:"type"`
-}
-
-// ClusterStatusRelease holds release specific status information.
-type ClusterStatusRelease struct {
-	// Version is the propagated release version users can provide or the system
-	// sets to the current default release version.
-	Version string `json:"version" yaml:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
