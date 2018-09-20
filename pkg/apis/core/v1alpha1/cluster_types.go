@@ -102,11 +102,17 @@ type ClusterStatus struct {
 	Conditions []ClusterStatusCondition `json:"conditions" yaml:"conditions"`
 }
 
-// ClusterStatusCluster holds cluster specific status information.
+// ClusterStatusCluster holds cluster specific status information. Some of the
+// fields from this structure may move back to the spec in the future once we
+// make more use of mutating admission controllers for defaulting reasons. For
+// instance the cluster ID and version are candidates for this.
 type ClusterStatusCluster struct {
 	// Description is the propagated cluster description users can provide or the
 	// system generates automatically if left blank.
 	Description string `json:"description" yaml:"description"`
+	// ID is the internal cluster ID automatically generated upon cluster
+	// creation.
+	ID string `json:"id" yaml:"id"`
 	// Version is the propagated release version users can provide or the system
 	// sets to the current default release version.
 	Version string `json:"version" yaml:"version"`
