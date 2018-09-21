@@ -106,7 +106,7 @@ type ReleaseSpec struct {
 	Active        bool                     `json:"active" yaml:"active"`
 	Authorities   []ReleaseSpecAuthority   `json:"authorities" yaml:"authorities"`
 	Date          DeepCopyTime             `json:"date" yaml:"date"`
-	Version       string                   `json:"node" yaml:"version"`
+	Version       string                   `json:"version" yaml:"version"`
 	VersionBundle ReleaseSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
@@ -129,7 +129,7 @@ type ReleaseStatus struct {
 type ReleaseStatusCondition struct {
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
-	// Type may be Pending, Ready, Draining, Drained.
+	// Type is not yet specified.
 	Type string `json:"type" yaml:"type"`
 }
 
