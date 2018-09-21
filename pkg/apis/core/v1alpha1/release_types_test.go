@@ -28,6 +28,7 @@ func Test_Core_Release_DeepCopy_YAML(t *testing.T) {
         - name: cluster-operator
           version: 0.7.0
         date: 2018-08-16T18:00:00Z
+        provider: azure
         version: 2.0.0
       `),
 			ExpectedDateMonth: time.August,
@@ -81,6 +82,7 @@ func Test_Core_Release_DeepCopy_JSON(t *testing.T) {
             }
           ],
           "date": "2018-08-16T18:00:00Z",
+          "provider": "azure",
           "version": "2.0.0"
         }
       `),

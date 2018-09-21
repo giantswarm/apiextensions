@@ -82,6 +82,7 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 //       - name: cluster-operator
 //         version: 0.7.0
 //       date: "0001-01-01T00:00:00Z"
+//       provider: "azure"
 //       version: "2.0.0"
 //       versionBundle:
 //         version: "0.1.0"
@@ -101,6 +102,7 @@ type ReleaseSpec struct {
 	Active        bool                     `json:"active" yaml:"active"`
 	Authorities   []ReleaseSpecAuthority   `json:"authorities" yaml:"authorities"`
 	Date          DeepCopyTime             `json:"date" yaml:"date"`
+	Provider      string                   `json:"provider" yaml:"provider"`
 	Version       string                   `json:"version" yaml:"version"`
 	VersionBundle ReleaseSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
