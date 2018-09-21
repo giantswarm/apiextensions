@@ -5,6 +5,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+const (
+	kindRelease = "Release"
+)
+
 // NewReleaseCRD returns a new custom resource definition for Release. This
 // might look something like the following.
 //
@@ -48,6 +52,13 @@ func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	}
 }
 
+func NewReleaseTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: version,
+		Kind:       kindRelease,
+	}
+}
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
@@ -59,13 +70,18 @@ type Release struct {
 }
 
 type ReleaseSpec struct {
-	Operator      ReleaseSpecOperator      `json:"operator" yaml:"operator"`
+	Active        bool                     `json:"active" yaml:"active"`
+	Authorities   []ReleaseSpecAuthority   `json:"authorities" yaml:"authorities"`
+	Date          DeepCopyTime             `json:"date" yaml:"date"`
+	Version       string                   `json:"node" yaml:"version"`
 	VersionBundle ReleaseSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
-type ReleaseSpecOperator struct {
-	Name    string `json:"cluster" yaml:"name"`
-	Version string `json:"node" yaml:"version"`
+type ReleaseSpecAuthority struct {
+	Endpoint DeepCopyURL `json:"endpoint" yaml:"endpoint"`
+	Name     string      `json:"name" yaml:"name"`
+	Provider string      `json:"provider" yaml:"provider"`
+	Version  string      `json:"version" yaml:"version"`
 }
 
 type ReleaseSpecVersionBundle struct {
