@@ -93,7 +93,7 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 //     status:
 //       conditions:
 //       - status: True
-//         type: InUse
+//         type: ExampleCondition
 //
 type Release struct {
 	metav1.TypeMeta   `json:",inline"`
