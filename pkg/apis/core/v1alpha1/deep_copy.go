@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"net/url"
 	"time"
-
-	"github.com/giantswarm/microerror"
 )
 
 // DeepCopyTime implements the deep copy logic for time.Time which the k8s
@@ -40,12 +38,12 @@ func (in *DeepCopyURL) UnmarshalJSON(b []byte) error {
 	var s string
 	err := json.Unmarshal(b, &s)
 	if err != nil {
-		return microerror.Mask(err)
+		return err
 	}
 
 	u, err := url.Parse(s)
 	if err != nil {
-		return microerror.Mask(err)
+		return err
 	}
 
 	*in = DeepCopyURL{u}
@@ -57,12 +55,12 @@ func (in *DeepCopyURL) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	var s string
 	err := unmarshal(&s)
 	if err != nil {
-		return microerror.Mask(err)
+		return err
 	}
 
 	u, err := url.Parse(s)
 	if err != nil {
-		return microerror.Mask(err)
+		return err
 	}
 
 	*in = DeepCopyURL{u}
