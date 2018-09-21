@@ -5,10 +5,10 @@ import (
 	"strings"
 )
 
-func (a ReleaseSpecAuthority) ApprChannelName() string {
-	return fmt.Sprintf("%s-%s", a.Name, strings.Replace(a.Version, ".", "-", -1))
+func (a ReleaseSpecAuthority) HelmChartName() string {
+	return fmt.Sprintf("%s-chart", a.HelmReleaseName())
 }
 
 func (a ReleaseSpecAuthority) HelmReleaseName() string {
-	return fmt.Sprintf("%s-chart", a.Name)
+	return fmt.Sprintf("%s-%s", a.Name, strings.Replace(a.Version, ".", "-", -1))
 }
