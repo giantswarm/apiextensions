@@ -62,6 +62,39 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// Release represents a Giant Swarm release used to describe the managed
+// versiones of tenant clusters. This might look something like the following.
+//
+//     typemeta:
+//       apiversion: "v1alpha1"
+//       kind: "Release"
+//     objectmeta:
+//       name: "2.0.0"
+//     spec:
+//       active: false
+//       authorities:
+//       - endpoint: http://azure-operator:8000
+//         name: azure-operator
+//         version: 2.0.0
+//       - endpoint: http://cert-operator:8000
+//         name: cert-operator
+//         version: 0.1.0
+//       - endpoint: http://chart-operator:8000
+//         name: chart-operator
+//         version: 0.3.0
+//       - endpoint: http://cluster-operator:8000
+//         name: cluster-operator
+//         provider: azure
+//         version: 0.7.0
+//       date: "0001-01-01T00:00:00Z"
+//       version: "2.0.0"
+//       versionBundle:
+//         version: "0.1.0"
+//     status:
+//       conditions:
+//       - status: True
+//         type: InUse
+//
 type Release struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
