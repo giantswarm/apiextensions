@@ -73,18 +73,13 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 //     spec:
 //       active: false
 //       authorities:
-//       - endpoint: http://azure-operator:8000
-//         name: azure-operator
+//       - name: azure-operator
 //         version: 2.0.0
-//       - endpoint: http://cert-operator:8000
-//         name: cert-operator
+//       - name: cert-operator
 //         version: 0.1.0
-//       - endpoint: http://chart-operator:8000
-//         name: chart-operator
+//       - name: chart-operator
 //         version: 0.3.0
-//       - endpoint: http://cluster-operator:8000
-//         name: cluster-operator
-//         provider: azure
+//       - name: cluster-operator
 //         version: 0.7.0
 //       date: "0001-01-01T00:00:00Z"
 //       version: "2.0.0"
@@ -111,10 +106,8 @@ type ReleaseSpec struct {
 }
 
 type ReleaseSpecAuthority struct {
-	Endpoint DeepCopyURL `json:"endpoint" yaml:"endpoint"`
-	Name     string      `json:"name" yaml:"name"`
-	Provider string      `json:"provider" yaml:"provider"`
-	Version  string      `json:"version" yaml:"version"`
+	Name    string `json:"name" yaml:"name"`
+	Version string `json:"version" yaml:"version"`
 }
 
 type ReleaseSpecVersionBundle struct {
