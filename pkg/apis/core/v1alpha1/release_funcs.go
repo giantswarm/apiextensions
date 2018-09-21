@@ -9,6 +9,6 @@ func (a ReleaseSpecAuthority) ApprChannelName() string {
 	return fmt.Sprintf("%s-%s", a.Name, strings.Replace(a.Version, ".", "-", -1))
 }
 
-func (a ReleaseSpecAuthority) HelmChartName() string {
+func (a ReleaseSpecAuthority) HelmReleaseName() string {
 	return fmt.Sprintf("%s-chart", a.Name)
 }
