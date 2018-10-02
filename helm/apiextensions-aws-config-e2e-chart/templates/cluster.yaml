@@ -2,6 +2,8 @@ apiVersion: "provider.giantswarm.io/v1alpha1"
 kind: AWSConfig
 metadata:
   name: {{.Values.clusterName}}
+  labels:
+    giantswarm.io/cluster: "{{ .Values.clusterName }}"
 spec:
   cluster:
     version: "{{.Values.clusterVersion}}"

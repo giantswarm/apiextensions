@@ -2,6 +2,8 @@ apiVersion: "core.giantswarm.io/v1alpha1"
 kind: AWSClusterConfig
 metadata:
   name: {{ .Values.guest.name }}
+  labels:
+    giantswarm.io/cluster: "{{ .Values.guest.id }}"
 spec:
   guest:
     dnsZone: "{{ .Values.guest.dnsZone }}"
