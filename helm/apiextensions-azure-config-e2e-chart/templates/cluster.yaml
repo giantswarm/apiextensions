@@ -2,6 +2,8 @@ apiVersion: "provider.giantswarm.io/v1alpha1"
 kind: AzureConfig
 metadata:
   name: "{{ .Values.clusterName }}"
+  labels:
+    giantswarm.io/cluster: "{{ .Values.clusterName }}"
 spec:
   azure:
     credentialSecret:

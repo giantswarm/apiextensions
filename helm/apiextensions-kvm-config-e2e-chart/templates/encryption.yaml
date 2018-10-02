@@ -4,6 +4,7 @@ metadata:
   labels:
     clusterID: {{.Values.cluster.id}}
     clusterKey: encryption
+    giantswarm.io/cluster: {{.Values.cluster.id}}
   name: {{.Values.cluster.id}}-encryption
 type: Opaque
 data:

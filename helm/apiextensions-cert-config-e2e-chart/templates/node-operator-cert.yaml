@@ -6,6 +6,8 @@ metadata:
   labels:
     clusterID: "{{.Values.clusterName}}"
     clusterComponent: "node-operator"
+    giantswarm.io/certificate: "node-operator"
+    giantswarm.io/cluster: "{{.Values.clusterName}}"
 spec:
   cert:
     clusterID: "{{.Values.clusterName}}"

@@ -4,6 +4,7 @@ metadata:
   name: {{.Values.clusterName}}
   labels:
     clusterID: {{.Values.clusterName}}
+    giantswarm.io/cluster: "{{.Values.clusterName}}"
 spec:
   bridge:
     docker:
@@ -34,4 +35,3 @@ spec:
       image: quay.io/giantswarm/flannel-network-health:3b77d6fa5249b809d719c4d99efcd45f6991dce7
   versionBundle:
     version: "{{.Values.versionBundleVersion}}"
-
