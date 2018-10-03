@@ -50,6 +50,9 @@ spec:
         domain: worker.{{.Values.cluster.id}}.{{.Values.baseDomain}}
         labels: kvm-operator.giantswarm.io/version={{.Values.versionBundle.version}},giantswarm.io/provider=kvm
         port: 10250
+      networkSetup:
+        docker:
+          image: quay.io/giantswarm/k8s-setup-network-environment:1f4ffc52095ac368847ce3428ea99b257003d9b9
       ssh:
         userList:
         - name: "{{.Values.sshUser}}"
