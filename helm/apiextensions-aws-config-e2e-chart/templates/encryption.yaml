@@ -5,6 +5,7 @@ metadata:
     clusterID: {{.Values.clusterName}}
     clusterKey: encryption
   name: {{.Values.clusterName}}-encryption
+  namespace: default
 type: Opaque
 data:
   encryption: {{.Values.encryptionKey}}
