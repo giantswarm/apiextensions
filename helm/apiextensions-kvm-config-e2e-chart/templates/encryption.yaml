@@ -6,6 +6,7 @@ metadata:
     clusterKey: encryption
     giantswarm.io/cluster: {{.Values.cluster.id}}
   name: {{.Values.cluster.id}}-encryption
+  namespace: default
 type: Opaque
 data:
   encryption: {{.Values.encryptionKey}}
