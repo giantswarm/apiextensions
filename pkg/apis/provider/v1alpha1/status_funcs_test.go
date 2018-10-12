@@ -99,6 +99,8 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 }
 
 func Test_Provider_Status_withCondition(t *testing.T) {
+	testTime := time.Unix(20, 0)
+
 	testCases := []struct {
 		Name               string
 		Conditions         []StatusClusterCondition
@@ -115,8 +117,9 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Status:     StatusClusterStatusTrue,
 			ExpectedConditions: []StatusClusterCondition{
 				{
-					Status: StatusClusterStatusTrue,
-					Type:   StatusClusterTypeCreated,
+					LastTransitionTime: DeepCopyTime{testTime},
+					Status:             StatusClusterStatusTrue,
+					Type:               StatusClusterTypeCreated,
 				},
 			},
 		},
@@ -124,8 +127,9 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Name: "case 1",
 			Conditions: []StatusClusterCondition{
 				{
-					Status: StatusClusterStatusTrue,
-					Type:   StatusClusterTypeCreating,
+					LastTransitionTime: DeepCopyTime{testTime},
+					Status:             StatusClusterStatusTrue,
+					Type:               StatusClusterTypeCreating,
 				},
 			},
 			Search:  StatusClusterTypeCreating,
@@ -133,18 +137,19 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Status:  StatusClusterStatusTrue,
 			ExpectedConditions: []StatusClusterCondition{
 				{
-					Status: StatusClusterStatusTrue,
-					Type:   StatusClusterTypeCreated,
+					LastTransitionTime: DeepCopyTime{testTime},
+					Status:             StatusClusterStatusTrue,
+					Type:               StatusClusterTypeCreated,
 				},
 			},
 		},
 	}
 
 	for _, tc := range testCases {
-		conditions := withCondition(tc.Conditions, tc.Search, tc.Replace, tc.Status)
+		conditions := withCondition(tc.Conditions, tc.Search, tc.Replace, tc.Status, testTime)
 
 		if !reflect.DeepEqual(conditions, tc.ExpectedConditions) {
-			t.Fatalf("expected %#v got %#v", tc.ExpectedConditions, conditions)
+			t.Fatalf("%s: expected %#v got %#v", tc.Name, tc.ExpectedConditions, conditions)
 		}
 	}
 }
