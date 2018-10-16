@@ -14,10 +14,7 @@ const (
 // knownTypes is the full list of objects to register with the scheme. It
 // should contain pointers of zero values of all custom objects and custom
 // object lists in the group version.
-var knownTypes = []runtime.Object{
-//&Object{},
-//&ObjectList{},
-}
+var knownTypes = []runtime.Object{}
 
 // SchemeGroupVersion is group version used to register these objects
 var SchemeGroupVersion = schema.GroupVersion{
