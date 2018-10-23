@@ -72,15 +72,15 @@ type AWSConfigSpecAWS struct {
 	//
 	AZ string `json:"az" yaml:"az"`
 	// AvailabilityZones is a list of AWS availability zone references defining
-	// where to run the tenant cluster's worker nodes. Must hold 1, 2 or 4
-	// elements. This limitation is due to binary IP range splitting and the
-	// useful usage of availability zones.
+	// where to run the tenant cluster's worker nodes. There are limitations on
+	// availability zones settings due to binary IP range splitting. When for
+	// instance choosing 3 availability zones, the configured IP range will be
+	// split into 4 ranges and thus one of it will not be able to be utilized.
+	// Such limitations have to be considered when designing the network topology
+	// and configuring tenant cluster HA via Azs. The elements of the list might
+	// look something like this.
 	//
-	//     1 element means no AZ HA. All workers run within the same AZ.
-	//
-	//     2 elements mean normal AZ HA. All workers run within 2 different AZs.
-	//
-	//     4 elements mean high AZ HA. All workers run within 4 different AZs.
+	//     eu-west-1a, eu-west-1b
 	//
 	AvailabilityZones []string             `json:"availabilityZones" yaml:"availabilityZones"`
 	CredentialSecret  CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
