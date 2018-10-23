@@ -68,7 +68,7 @@ type AWSConfigSpecAWS struct {
 	API AWSConfigSpecAWSAPI `json:"api" yaml:"api"`
 	// TODO remove the deprecated AZ field due to AvailabilityZones.
 	//
-	//     issue
+	//     https://github.com/giantswarm/giantswarm/issues/4507
 	//
 	AZ string `json:"az" yaml:"az"`
 	// AvailabilityZones is a list of AWS availability zone references defining
