@@ -77,7 +77,7 @@ type AWSConfigSpecAWS struct {
 	// instance choosing 3 availability zones, the configured IP range will be
 	// split into 4 ranges and thus one of it will not be able to be utilized.
 	// Such limitations have to be considered when designing the network topology
-	// and configuring tenant cluster HA via Azs. The elements of the list might
+	// and configuring tenant cluster HA via AZs. The elements of the list might
 	// look something like this.
 	//
 	//     eu-west-1a, eu-west-1b
