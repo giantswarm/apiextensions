@@ -65,10 +65,26 @@ type AWSConfigSpec struct {
 }
 
 type AWSConfigSpecAWS struct {
-	API              AWSConfigSpecAWSAPI  `json:"api" yaml:"api"`
-	AZ               string               `json:"az" yaml:"az"`
-	CredentialSecret CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
-	Etcd             AWSConfigSpecAWSEtcd `json:"etcd" yaml:"etcd"`
+	API AWSConfigSpecAWSAPI `json:"api" yaml:"api"`
+	// TODO remove the deprecated AZ field due to AvailabilityZones.
+	//
+	//     issue
+	//
+	AZ string `json:"az" yaml:"az"`
+	// AvailabilityZones is a list of AWS availability zone references defining
+	// where to run the tenant cluster's worker nodes. Must hold 1, 2 or 4
+	// elements. This limitation is due to binary IP range splitting and the
+	// useful usage of availability zones.
+	//
+	//     1 element means no AZ HA. All workers run within the same AZ.
+	//
+	//     2 elements mean normal AZ HA. All workers run within 2 different AZs.
+	//
+	//     4 elements mean high AZ HA. All workers run within 4 different AZs.
+	//
+	AvailabilityZones []string             `json:"availabilityZones" yaml:"availabilityZones"`
+	CredentialSecret  CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
+	Etcd              AWSConfigSpecAWSEtcd `json:"etcd" yaml:"etcd"`
 
 	// HostedZones is AWS hosted zones names in the host cluster account.
 	// For each zone there will be "CLUSTER_ID.k8s" NS record created in
