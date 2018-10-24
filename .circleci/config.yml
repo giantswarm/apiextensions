@@ -15,6 +15,21 @@ jobs:
     - run:
         name: ensure code generation has been executed
         command: |
+          go get github.com/golang/glog
+          go get github.com/spf13/pflag
+          go get k8s.io/code-generator/cmd/client-gen/args
+          go get k8s.io/code-generator/cmd/client-gen/generators
+          go get k8s.io/code-generator/cmd/deepcopy-gen/args
+          go get k8s.io/code-generator/cmd/defaulter-gen/args
+          go get k8s.io/code-generator/cmd/informer-gen/args
+          go get k8s.io/code-generator/cmd/informer-gen/generators
+          go get k8s.io/code-generator/cmd/lister-gen/args
+          go get k8s.io/code-generator/cmd/lister-gen/generators
+          go get k8s.io/code-generator/pkg/util
+          go get k8s.io/gengo/args
+          go get k8s.io/gengo/examples/deepcopy-gen/generators
+          go get k8s.io/gengo/examples/defaulter-gen/generators
+
           ./scripts/gen.sh
           git diff --exit-code
           if ["$?" == "1"]; do
