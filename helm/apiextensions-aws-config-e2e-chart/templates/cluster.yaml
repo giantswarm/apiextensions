@@ -76,6 +76,15 @@ spec:
 
   aws:
     region: "{{.Values.aws.region}}"
+    availabilityZones:
+      {{ range .Values.aws.availabilityZones }}
+      - {{ . }}
+      {{ end }}
+    # TODO the az field is deprecated after no resource packages v18 in the
+    # aws-operator exist anymore.
+    #
+    #     https://github.com/giantswarm/giantswarm/issues/4507
+    #
     az: "{{.Values.aws.az}}"
 
     # Deprecated since aws-operator v12 resources.
