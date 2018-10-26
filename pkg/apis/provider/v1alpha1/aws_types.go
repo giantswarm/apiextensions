@@ -79,6 +79,15 @@ type AWSConfigSpecAWS struct {
 	// it will not be able to be utilized. Such limitations have to be considered
 	// when designing the network topology and configuring tenant cluster HA via
 	// AvailabilityZones.
+	//
+	// The selection and usage of the actual availability zones for the created
+	// tenant cluster is randomized. In case there are 4 availability zones
+	// provided in the used region and the user selects 2 availability zones, the
+	// actually used availability zones in which tenant cluster workload is put
+	// into will tend to be different across tenant cluster creations. This is
+	// done in order to provide more HA during single availability zone failures.
+	// In case a specific availability zone fails, not all tenant clusters will be
+	// affected due to the described selection process.
 	AvailabilityZones int                  `json:"availabilityZones" yaml:"availabilityZones"`
 	CredentialSecret  CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
 	Etcd              AWSConfigSpecAWSEtcd `json:"etcd" yaml:"etcd"`
