@@ -71,18 +71,15 @@ type AWSConfigSpecAWS struct {
 	//     https://github.com/giantswarm/giantswarm/issues/4507
 	//
 	AZ string `json:"az" yaml:"az"`
-	// AvailabilityZones is a list of AWS availability zone references defining
-	// where to run the tenant cluster's worker nodes. There are limitations on
-	// availability zones settings due to binary IP range splitting. When for
-	// instance choosing 3 availability zones, the configured IP range will be
-	// split into 4 ranges and thus one of it will not be able to be utilized.
-	// Such limitations have to be considered when designing the network topology
-	// and configuring tenant cluster HA via AZs. The elements of the list might
-	// look something like this.
-	//
-	//     eu-west-1a, eu-west-1b
-	//
-	AvailabilityZones []string             `json:"availabilityZones" yaml:"availabilityZones"`
+	// AvailabilityZones is the number of AWS availability zones used to spread
+	// the tenant cluster's worker nodes across. There are limitations on
+	// availability zone settings due to binary IP range splitting and provider
+	// specific region capabilities. When for instance choosing 3 availability
+	// zones, the configured IP range will be split into 4 ranges and thus one of
+	// it will not be able to be utilized. Such limitations have to be considered
+	// when designing the network topology and configuring tenant cluster HA via
+	// AvailabilityZones.
+	AvailabilityZones int                  `json:"availabilityZones" yaml:"availabilityZones"`
 	CredentialSecret  CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
 	Etcd              AWSConfigSpecAWSEtcd `json:"etcd" yaml:"etcd"`
 
