@@ -7,6 +7,13 @@ versionBundleVersion: "0.1.0"
 updateEnabled: true
 aws:
   region: "eu-central-1"
+  availabilityZones:
+  - "eu-central-1a"
+  # TODO the az field is deprecated after no resource packages v18 in the
+  # aws-operator exist anymore.
+  #
+  #     https://github.com/giantswarm/giantswarm/issues/4507
+  #
   az: "eu-central-1a"
   ami: "ami-d60ad6b9"
   instanceTypeMaster: "m5.large"
