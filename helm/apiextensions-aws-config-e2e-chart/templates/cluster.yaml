@@ -76,10 +76,7 @@ spec:
 
   aws:
     region: "{{.Values.aws.region}}"
-    availabilityZones:
-      {{ range .Values.aws.availabilityZones }}
-      - {{ . | quote }}
-      {{ end }}
+    availabilityZones: {{ .Values.aws.availabilityZones }}
     # TODO the az field is deprecated after no resource packages v18 in the
     # aws-operator exist anymore.
     #
