@@ -7,8 +7,7 @@ versionBundleVersion: "0.1.0"
 updateEnabled: true
 aws:
   region: "eu-central-1"
-  availabilityZones:
-  - "eu-central-1a"
+  availabilityZones: 1
   # TODO the az field is deprecated after no resource packages v18 in the
   # aws-operator exist anymore.
   #
