@@ -36,9 +36,6 @@ spec:
       dns:
         ip: 172.31.0.10
       domain: cluster.local
-      hyperkube:
-        docker:
-          image: quay.io/giantswarm/hyperkube:v1.11.2
       ingressController:
         docker:
           image: quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11
