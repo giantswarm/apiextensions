@@ -106,8 +106,12 @@ type StatusClusterResourceCondition struct {
 // StatusClusterVersion expresses the versions in which a guest cluster was and
 // may still be.
 type StatusClusterVersion struct {
-	// Date is the time of the given guest cluster version being updated. Note
-	// that Date is deprecated due to LastTransitionTime and LastHeartbeatTime.
+	// TODO date is deprecated due to LastTransitionTime and LastHeartbeatTime.
+	// This can be removed ones the new properties are properly used in all tenant
+	// clusters.
+	//
+	//     https://github.com/giantswarm/giantswarm/issues/3988
+	//
 	Date time.Time `json:"date" yaml:"date"`
 	// LastHeartbeatTime is the last time we got an update on a given condition.
 	LastHeartbeatTime DeepCopyTime `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
