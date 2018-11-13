@@ -67,7 +67,15 @@ type StatusClusterNetwork struct {
 
 // StatusClusterNode holds information about a guest cluster node.
 type StatusClusterNode struct {
-	Name    string `json:"name" yaml:"name"`
+	// LastHeartbeatTime is the last time we got an update on a given condition.
+	LastHeartbeatTime DeepCopyTime `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
+	// LastTransitionTime is the last time the condition transitioned from one
+	// status to another.
+	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	// Name referrs to a tenant cluster node name.
+	Name string `json:"name" yaml:"name"`
+	// Version referrs to the version used by the node as mandated by the provider
+	// operator.
 	Version string `json:"version" yaml:"version"`
 }
 
@@ -98,8 +106,14 @@ type StatusClusterResourceCondition struct {
 // StatusClusterVersion expresses the versions in which a guest cluster was and
 // may still be.
 type StatusClusterVersion struct {
-	// Date is the time of the given guest cluster version being updated.
+	// Date is the time of the given guest cluster version being updated. Note
+	// that Date is deprecated due to LastTransitionTime and LastHeartbeatTime.
 	Date time.Time `json:"date" yaml:"date"`
+	// LastHeartbeatTime is the last time we got an update on a given condition.
+	LastHeartbeatTime DeepCopyTime `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
+	// LastTransitionTime is the last time the condition transitioned from one
+	// status to another.
+	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Semver is some semver version, e.g. 1.0.0.
 	Semver string `json:"semver" yaml:"semver"`
 }
