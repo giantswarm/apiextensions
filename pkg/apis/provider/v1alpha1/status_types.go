@@ -86,7 +86,7 @@ type StatusClusterNode struct {
 // its own implementation and means in order to fulfil its premise.
 type StatusClusterResource struct {
 	Conditions []StatusClusterResourceCondition `json:"conditions" yaml:"conditions"`
-	Name       string                           `json:"status" yaml:"status"`
+	Name       string                           `json:"name" yaml:"name"`
 }
 
 // StatusClusterResourceCondition expresses the conditions in which an
