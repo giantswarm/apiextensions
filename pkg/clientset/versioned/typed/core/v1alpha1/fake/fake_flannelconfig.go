@@ -62,7 +62,7 @@ func (c *FakeFlannelConfigs) List(opts v1.ListOptions) (result *v1alpha1.Flannel
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.FlannelConfigList{}
+	list := &v1alpha1.FlannelConfigList{ListMeta: obj.(*v1alpha1.FlannelConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.FlannelConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

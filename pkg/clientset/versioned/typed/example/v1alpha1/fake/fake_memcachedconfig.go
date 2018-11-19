@@ -62,7 +62,7 @@ func (c *FakeMemcachedConfigs) List(opts v1.ListOptions) (result *v1alpha1.Memca
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.MemcachedConfigList{}
+	list := &v1alpha1.MemcachedConfigList{ListMeta: obj.(*v1alpha1.MemcachedConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.MemcachedConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

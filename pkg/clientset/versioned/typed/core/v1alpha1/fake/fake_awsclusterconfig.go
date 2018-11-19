@@ -62,7 +62,7 @@ func (c *FakeAWSClusterConfigs) List(opts v1.ListOptions) (result *v1alpha1.AWSC
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.AWSClusterConfigList{}
+	list := &v1alpha1.AWSClusterConfigList{ListMeta: obj.(*v1alpha1.AWSClusterConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.AWSClusterConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

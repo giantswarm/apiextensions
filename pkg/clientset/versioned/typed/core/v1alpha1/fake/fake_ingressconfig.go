@@ -62,7 +62,7 @@ func (c *FakeIngressConfigs) List(opts v1.ListOptions) (result *v1alpha1.Ingress
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.IngressConfigList{}
+	list := &v1alpha1.IngressConfigList{ListMeta: obj.(*v1alpha1.IngressConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.IngressConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

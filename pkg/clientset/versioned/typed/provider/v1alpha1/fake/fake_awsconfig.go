@@ -62,7 +62,7 @@ func (c *FakeAWSConfigs) List(opts v1.ListOptions) (result *v1alpha1.AWSConfigLi
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.AWSConfigList{}
+	list := &v1alpha1.AWSConfigList{ListMeta: obj.(*v1alpha1.AWSConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.AWSConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

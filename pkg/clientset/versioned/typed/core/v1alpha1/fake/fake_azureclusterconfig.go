@@ -62,7 +62,7 @@ func (c *FakeAzureClusterConfigs) List(opts v1.ListOptions) (result *v1alpha1.Az
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.AzureClusterConfigList{}
+	list := &v1alpha1.AzureClusterConfigList{ListMeta: obj.(*v1alpha1.AzureClusterConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.AzureClusterConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

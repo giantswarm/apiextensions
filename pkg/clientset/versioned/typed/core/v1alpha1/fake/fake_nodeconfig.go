@@ -62,7 +62,7 @@ func (c *FakeNodeConfigs) List(opts v1.ListOptions) (result *v1alpha1.NodeConfig
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.NodeConfigList{}
+	list := &v1alpha1.NodeConfigList{ListMeta: obj.(*v1alpha1.NodeConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.NodeConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

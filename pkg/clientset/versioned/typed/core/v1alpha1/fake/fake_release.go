@@ -62,7 +62,7 @@ func (c *FakeReleases) List(opts v1.ListOptions) (result *v1alpha1.ReleaseList, 
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.ReleaseList{}
+	list := &v1alpha1.ReleaseList{ListMeta: obj.(*v1alpha1.ReleaseList).ListMeta}
 	for _, item := range obj.(*v1alpha1.ReleaseList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)

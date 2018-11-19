@@ -62,7 +62,7 @@ func (c *FakeKVMConfigs) List(opts v1.ListOptions) (result *v1alpha1.KVMConfigLi
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.KVMConfigList{}
+	list := &v1alpha1.KVMConfigList{ListMeta: obj.(*v1alpha1.KVMConfigList).ListMeta}
 	for _, item := range obj.(*v1alpha1.KVMConfigList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
