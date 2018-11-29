@@ -37,7 +37,6 @@ type ClusterDockerDaemon struct {
 type ClusterEtcd struct {
 	AltNames string `json:"altNames" yaml:"altNames"`
 	Domain   string `json:"domain" yaml:"domain"`
-	Port     int    `json:"port" yaml:"port"`
 	Prefix   string `json:"prefix" yaml:"prefix"`
 }
 
