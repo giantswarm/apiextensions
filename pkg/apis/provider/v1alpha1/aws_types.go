@@ -178,6 +178,7 @@ type AWSConfigStatus struct {
 
 type AWSConfigStatusAWS struct {
 	AvailabilityZones []AWSConfigStatusAWSAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
+	NodePools         []AWSConfigStatusAWSNodePool
 }
 
 type AWSConfigStatusAWSAvailabilityZone struct {
@@ -196,6 +197,17 @@ type AWSConfigStatusAWSAvailabilityZoneSubnetPrivate struct {
 
 type AWSConfigStatusAWSAvailabilityZoneSubnetPublic struct {
 	CIDR string `json:"cidr" yaml:"cidr"`
+}
+
+type AWSConfigStatusAWSNodePool struct {
+	ID   string                         `json:"id" yaml:"id"`
+	Size AWSConfigStatusAWSNodePoolSize `json:"size" yaml:"size"`
+}
+
+type AWSConfigStatusAWSNodePoolSize struct {
+	Desired int `json:"desired" yaml:"desired"`
+	Max     int `json:"max" yaml:"max"`
+	Min     int `json:"min" yaml:"min"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
