@@ -206,8 +206,6 @@ type AWSConfigStatusAWSNodePool struct {
 
 type AWSConfigStatusAWSNodePoolSize struct {
 	Desired int `json:"desired" yaml:"desired"`
-	Max     int `json:"max" yaml:"max"`
-	Min     int `json:"min" yaml:"min"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
