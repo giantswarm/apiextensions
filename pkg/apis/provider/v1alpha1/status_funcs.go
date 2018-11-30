@@ -5,6 +5,15 @@ import (
 	"time"
 )
 
+func NewStatusClusterNode(name string, version string) StatusClusterNode {
+	return StatusClusterNode{
+		LastHeartbeatTime:  DeepCopyTime{time.Now()},
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Name:               name,
+		Version:            version,
+	}
+}
+
 func (s StatusCluster) HasCreatedCondition() bool {
 	return hasCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeCreated)
 }
@@ -66,7 +75,13 @@ func (s StatusCluster) WithDeletingCondition() []StatusClusterCondition {
 }
 
 func (s StatusCluster) WithNewVersion(version string) []StatusClusterVersion {
-	return withVersion(s.Versions, StatusClusterVersion{Date: time.Now(), Semver: version}, ClusterVersionLimit)
+	newVersion := StatusClusterVersion{
+		LastHeartbeatTime:  DeepCopyTime{time.Now()},
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Semver:             version,
+	}
+
+	return withVersion(s.Versions, newVersion, ClusterVersionLimit)
 }
 
 func (s StatusCluster) WithUpdatedCondition() []StatusClusterCondition {
@@ -100,6 +115,7 @@ func hasVersion(versions []StatusClusterVersion, search string) bool {
 func withCondition(conditions []StatusClusterCondition, search string, replace string, status string, t time.Time) []StatusClusterCondition {
 	newConditions := []StatusClusterCondition{
 		{
+			LastHeartbeatTime:  DeepCopyTime{t},
 			LastTransitionTime: DeepCopyTime{t},
 			Status:             status,
 			Type:               replace,
