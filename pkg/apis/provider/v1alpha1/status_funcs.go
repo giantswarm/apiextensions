@@ -14,6 +14,30 @@ func NewStatusClusterNode(name string, version string) StatusClusterNode {
 	}
 }
 
+func (s StatusCluster) GetCreatedCondition() StatusClusterCondition {
+	return getCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeCreated)
+}
+
+func (s StatusCluster) GetCreatingCondition() StatusClusterCondition {
+	return getCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeCreating)
+}
+
+func (s StatusCluster) GetDeletedCondition() StatusClusterCondition {
+	return getCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeDeleted)
+}
+
+func (s StatusCluster) GetDeletingCondition() StatusClusterCondition {
+	return getCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeDeleting)
+}
+
+func (s StatusCluster) GetUpdatedCondition() StatusClusterCondition {
+	return getCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeUpdated)
+}
+
+func (s StatusCluster) GetUpdatingCondition() StatusClusterCondition {
+	return getCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeUpdating)
+}
+
 func (s StatusCluster) HasCreatedCondition() bool {
 	return hasCondition(s.Conditions, StatusClusterStatusTrue, StatusClusterTypeCreated)
 }
@@ -90,6 +114,16 @@ func (s StatusCluster) WithUpdatedCondition() []StatusClusterCondition {
 
 func (s StatusCluster) WithUpdatingCondition() []StatusClusterCondition {
 	return withCondition(s.Conditions, StatusClusterTypeUpdated, StatusClusterTypeUpdating, StatusClusterStatusTrue, time.Now())
+}
+
+func getCondition(conditions []StatusClusterCondition, s string, t string) StatusClusterCondition {
+	for _, c := range conditions {
+		if c.Status == s && c.Type == t {
+			return c
+		}
+	}
+
+	return StatusClusterCondition{}
 }
 
 func hasCondition(conditions []StatusClusterCondition, s string, t string) bool {
