@@ -188,7 +188,6 @@ type AWSConfigStatus struct {
 
 type AWSConfigStatusAWS struct {
 	AvailabilityZones []AWSConfigStatusAWSAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
-	ASG               []AWSConfigStatusAWSASG              `json:"asg" yaml:"asg"`
 }
 
 type AWSConfigStatusAWSAvailabilityZone struct {
@@ -207,11 +206,6 @@ type AWSConfigStatusAWSAvailabilityZoneSubnetPrivate struct {
 
 type AWSConfigStatusAWSAvailabilityZoneSubnetPublic struct {
 	CIDR string `json:"cidr" yaml:"cidr"`
-}
-
-type AWSConfigStatusAWSASG struct {
-	ID   string `json:"id" yaml:"id"`
-	Size int    `json:"size" yaml:"size"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
