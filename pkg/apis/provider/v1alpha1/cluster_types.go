@@ -12,7 +12,6 @@ type Cluster struct {
 	ID         string            `json:"id" yaml:"id"`
 	Kubernetes ClusterKubernetes `json:"kubernetes" yaml:"kubernetes"`
 	Masters    []ClusterNode     `json:"masters" yaml:"masters"`
-	NodePools  []ClusterNodePool `json:"nodePools" yaml:"nodePools"`
 	Version    string            `json:"version" yaml:"version"`
 	Workers    []ClusterNode     `json:"workers" yaml:"workers"`
 }
@@ -105,14 +104,4 @@ type ClusterKubernetesSSHUser struct {
 
 type ClusterNode struct {
 	ID string `json:"id" yaml:"id"`
-}
-
-type ClusterNodePool struct {
-	ID   string              `json:"id" yaml:"id"`
-	Size ClusterNodePoolSize `json:"size" yaml:"size"`
-}
-
-type ClusterNodePoolSize struct {
-	Max int `json:"max" yaml:"max"`
-	Min int `json:"min" yaml:"min"`
 }

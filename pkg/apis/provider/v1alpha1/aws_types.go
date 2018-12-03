@@ -88,9 +88,11 @@ type AWSConfigSpecAWS struct {
 	// done in order to provide more HA during single availability zone failures.
 	// In case a specific availability zone fails, not all tenant clusters will be
 	// affected due to the described selection process.
-	AvailabilityZones int                  `json:"availabilityZones" yaml:"availabilityZones"`
-	CredentialSecret  CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
-	Etcd              AWSConfigSpecAWSEtcd `json:"etcd" yaml:"etcd"`
+	AvailabilityZones int `json:"availabilityZones" yaml:"availabilityZones"`
+	// ASG contains configuration for current worker's ASG.
+	ASG              AWSConfigSpecAWSASG  `json:"asg" yaml:"asg"`
+	CredentialSecret CredentialSecret     `json:"credentialSecret" yaml:"credentialSecret"`
+	Etcd             AWSConfigSpecAWSEtcd `json:"etcd" yaml:"etcd"`
 
 	// HostedZones is AWS hosted zones names in the host cluster account.
 	// For each zone there will be "CLUSTER_ID.k8s" NS record created in
@@ -119,6 +121,14 @@ type AWSConfigSpecAWSAPI struct {
 // AWSConfigSpecAWSAPIELB deprecated since aws-operator v12 resources.
 type AWSConfigSpecAWSAPIELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds" yaml:"idleTimeoutSeconds"`
+}
+
+// AWSConfigSpecAWSASG contains configuration for worker's ASG.
+type AWSConfigSpecAWSASG struct {
+	// Max defines maximum number of nodes where worker's ASG can scale up to.
+	Max int `json:"max" yaml:"max"`
+	// Min defines minimum number of nodes required to be present in worker's ASG.
+	Min int `json:"min" yaml:"min"`
 }
 
 // AWSConfigSpecAWSEtcd deprecated since aws-operator v12 resources.
@@ -178,7 +188,7 @@ type AWSConfigStatus struct {
 
 type AWSConfigStatusAWS struct {
 	AvailabilityZones []AWSConfigStatusAWSAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
-	NodePools         []AWSConfigStatusAWSNodePool
+	ASG               []AWSConfigStatusAWSASG              `json:"asg" yaml:"asg"`
 }
 
 type AWSConfigStatusAWSAvailabilityZone struct {
@@ -199,13 +209,9 @@ type AWSConfigStatusAWSAvailabilityZoneSubnetPublic struct {
 	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
-type AWSConfigStatusAWSNodePool struct {
-	ID   string                         `json:"id" yaml:"id"`
-	Size AWSConfigStatusAWSNodePoolSize `json:"size" yaml:"size"`
-}
-
-type AWSConfigStatusAWSNodePoolSize struct {
-	Desired int `json:"desired" yaml:"desired"`
+type AWSConfigStatusAWSASG struct {
+	ID   string `json:"id" yaml:"id"`
+	Size int    `json:"size" yaml:"size"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
