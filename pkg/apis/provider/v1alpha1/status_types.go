@@ -107,7 +107,7 @@ type StatusClusterResourceCondition struct {
 // StatusClusterScaling expresses the current status of desired number of
 // worker nodes in guest cluster.
 type StatusClusterScaling struct {
-	Size int `json:"size" yaml:"size"`
+	DesiredCapacity int `json:"desiredCapacity" yaml:"desiredCapacity"`
 }
 
 // StatusClusterVersion expresses the versions in which a guest cluster was and
