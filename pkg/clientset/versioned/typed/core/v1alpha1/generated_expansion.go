@@ -20,7 +20,7 @@ package v1alpha1
 
 type AWSClusterConfigExpansion interface{}
 
-type AppCatalogConfigExpansion interface{}
+type AppCatalogExpansion interface{}
 
 type AzureClusterConfigExpansion interface{}
 

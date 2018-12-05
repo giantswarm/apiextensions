@@ -28,7 +28,7 @@ import (
 type CoreV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AWSClusterConfigsGetter
-	AppCatalogConfigsGetter
+	AppCatalogsGetter
 	AzureClusterConfigsGetter
 	CertConfigsGetter
 	ChartConfigsGetter
@@ -52,8 +52,8 @@ func (c *CoreV1alpha1Client) AWSClusterConfigs(namespace string) AWSClusterConfi
 	return newAWSClusterConfigs(c, namespace)
 }
 
-func (c *CoreV1alpha1Client) AppCatalogConfigs(namespace string) AppCatalogConfigInterface {
-	return newAppCatalogConfigs(c, namespace)
+func (c *CoreV1alpha1Client) AppCatalogs(namespace string) AppCatalogInterface {
+	return newAppCatalogs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) AzureClusterConfigs(namespace string) AzureClusterConfigInterface {
