@@ -32,6 +32,10 @@ func (c *FakeCoreV1alpha1) AWSClusterConfigs(namespace string) v1alpha1.AWSClust
 	return &FakeAWSClusterConfigs{c, namespace}
 }
 
+func (c *FakeCoreV1alpha1) AppCatalogConfigs(namespace string) v1alpha1.AppCatalogConfigInterface {
+	return &FakeAppCatalogConfigs{c, namespace}
+}
+
 func (c *FakeCoreV1alpha1) AzureClusterConfigs(namespace string) v1alpha1.AzureClusterConfigInterface {
 	return &FakeAzureClusterConfigs{c, namespace}
 }

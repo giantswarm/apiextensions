@@ -28,6 +28,7 @@ import (
 type CoreV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AWSClusterConfigsGetter
+	AppCatalogConfigsGetter
 	AzureClusterConfigsGetter
 	CertConfigsGetter
 	ChartConfigsGetter
@@ -49,6 +50,10 @@ type CoreV1alpha1Client struct {
 
 func (c *CoreV1alpha1Client) AWSClusterConfigs(namespace string) AWSClusterConfigInterface {
 	return newAWSClusterConfigs(c, namespace)
+}
+
+func (c *CoreV1alpha1Client) AppCatalogConfigs(namespace string) AppCatalogConfigInterface {
+	return newAppCatalogConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) AzureClusterConfigs(namespace string) AzureClusterConfigInterface {
