@@ -33,7 +33,7 @@ func NewAppCatalogConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
+			Scope:   "Cluster",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "AppCatalogConfig",
@@ -47,7 +47,7 @@ func NewAppCatalogConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type AppCatalogConfig struct {
+type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AppCatalogConfigSpec `json:"spec"`
@@ -55,23 +55,23 @@ type AppCatalogConfig struct {
 }
 
 type AppCatalogConfigSpec struct {
-	AppCatalog    AppCatalogConfigSpecAppCatalog    `json:"appcatalog" yaml:"appcatalog"`
+	AppCatalog    AppCatalogSpec                    `json:"appCatalog" yaml:"appCatalog"`
 	VersionBundle AppCatalogConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
-type AppCatalogConfigSpecAppCatalog struct {
+type AppCatalogSpec struct {
 	// Title is the name of the app catalog for this CR
-	// e.g. Prometheus for Giant Swarm
+	// e.g. Catalog of Apps by Giant Swarm
 	Title       string `json:"title" yaml:"title"`
 	Description string `json:"description" yaml:"description"`
 	// CatalogStorage references a map containing values that should be
 	// applied to the appcatalog.
-	CatalogStorage AppCatalogStorage `json:"catalogStorage" yaml:"catalogStorage"`
+	CatalogStorage AppCatalogSpecCatalogStorage `json:"catalogStorage" yaml:"catalogStorage"`
 	// LogoURL contains the links for logo image file for this app catalog
 	LogoURL string `json:"logoURL" yaml:"logoURL"`
 }
 
-type AppCatalogStorage struct {
+type AppCatalogSpecCatalogStorage struct {
 	// Type indicates which package type would use for this AppCatalog
 	// e.g. helm
 	Type string `json:"type" yaml:"type"`
@@ -89,5 +89,5 @@ type AppCatalogConfigSpecVersionBundle struct {
 type AppCatalogConfigList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []AppCatalogConfig `json:"items"`
+	Items           []AppCatalog `json:"items"`
 }
