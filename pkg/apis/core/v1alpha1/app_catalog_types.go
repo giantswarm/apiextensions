@@ -21,7 +21,6 @@ import (
 //         plural: appcatalogs
 //         singular: appcatalog
 //
-
 func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
@@ -50,16 +49,10 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppCatalogSpec   `json:"spec"`
-	Status            AppCatalogStatus `json:"status"`
+	Spec              AppCatalogSpec `json:"spec"`
 }
 
 type AppCatalogSpec struct {
-	AppCatalog    AppCatalogResource                `json:"appCatalog" yaml:"appCatalog"`
-	VersionBundle AppCatalogConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
-}
-
-type AppCatalogResource struct {
 	// Title is the name of the app catalog for this CR
 	// e.g. Catalog of Apps by Giant Swarm
 	Title       string `json:"title" yaml:"title"`
@@ -82,12 +75,6 @@ type AppCatalogSpecCatalogStorage struct {
 
 type AppCatalogConfigSpecVersionBundle struct {
 	Version string `json:"version" yaml:"version"`
-}
-
-type AppCatalogStatus struct {
-	// ReleaseStatus is the status of the Helm release when the chart is
-	// installed, e.g. DEPLOYED.
-	ReleaseStatus string `json:"releaseStatus" yaml:"releaseStatus"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
