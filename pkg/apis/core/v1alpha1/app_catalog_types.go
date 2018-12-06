@@ -5,7 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// NewAppCatalogConfigCRD returns a new custom resource definition for AppCatalogConfig.
+// NewAppCatalogCRD returns a new custom resource definition for AppCatalogConfig.
 // This might look something like the following.
 //
 //     apiVersion: apiextensions.k8s.io/v1beta1
@@ -71,10 +71,6 @@ type AppCatalogSpecCatalogStorage struct {
 	// URL is the link to where this AppCatalog's repository is located
 	// e.g. https://giantswarm.github.com/app-catalog/.
 	URL string `json:"URL" yaml:"URL"`
-}
-
-type AppCatalogConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
