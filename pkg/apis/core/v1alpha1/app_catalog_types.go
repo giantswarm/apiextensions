@@ -11,34 +11,34 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: appcatalogconfigs.core.giantswarm.io
+//       name: appcatalog.app.giantswarm.io
 //     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
+//       group: app.giantswarm.io
+//       scope: Cluster
 //       version: v1alpha1
 //       names:
-//         kind: AppCatalogConfig
-//         plural: appcatalogconfigs
-//         singular: appcatalogconfig
+//         kind: AppCatalog
+//         plural: appcatalogs
+//         singular: appcatalog
 //
 
-func NewAppCatalogConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "appcatalogconfigs.core.giantswarm.io",
+			Name: "appcatalogs.app.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
+			Group:   "app.giantswarm.io",
 			Scope:   "Cluster",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AppCatalogConfig",
-				Plural:   "appcatalogconfigs",
-				Singular: "appcatalogconfig",
+				Kind:     "AppCatalog",
+				Plural:   "appcatalogs",
+				Singular: "appcatalog",
 			},
 		},
 	}
@@ -50,16 +50,16 @@ func NewAppCatalogConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppCatalogConfigSpec `json:"spec"`
-	Status            ChartConfigStatus    `json:"status"`
-}
-
-type AppCatalogConfigSpec struct {
-	AppCatalog    AppCatalogSpec                    `json:"appCatalog" yaml:"appCatalog"`
-	VersionBundle AppCatalogConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Spec              AppCatalogSpec   `json:"spec"`
+	Status            AppCatalogStatus `json:"status"`
 }
 
 type AppCatalogSpec struct {
+	AppCatalog    AppCatalogResource                `json:"appCatalog" yaml:"appCatalog"`
+	VersionBundle AppCatalogConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+}
+
+type AppCatalogResource struct {
 	// Title is the name of the app catalog for this CR
 	// e.g. Catalog of Apps by Giant Swarm
 	Title       string `json:"title" yaml:"title"`
@@ -72,16 +72,22 @@ type AppCatalogSpec struct {
 }
 
 type AppCatalogSpecCatalogStorage struct {
-	// Type indicates which package type would use for this AppCatalog
+	// Type indicates which repository type would be used for this AppCatalog
 	// e.g. helm
 	Type string `json:"type" yaml:"type"`
-	// URL is the link where this AppCatalog's package file have been located
-	// e.g. kube-system.
+	// URL is the link to where this AppCatalog's repository is located
+	// e.g. https://giantswarm.github.com/app-catalog/.
 	URL string `json:"URL" yaml:"URL"`
 }
 
 type AppCatalogConfigSpecVersionBundle struct {
 	Version string `json:"version" yaml:"version"`
+}
+
+type AppCatalogStatus struct {
+	// ReleaseStatus is the status of the Helm release when the chart is
+	// installed, e.g. DEPLOYED.
+	ReleaseStatus string `json:"releaseStatus" yaml:"releaseStatus"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
