@@ -41,8 +41,8 @@ var knownTypes = []runtime.Object{
 	&ReleaseList{},
 	&StorageConfig{},
 	&StorageConfigList{},
-	&AppCatalogConfig{},
-	&AppCatalogConfigList{},
+	&AppCatalog{},
+	&AppCatalogList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
