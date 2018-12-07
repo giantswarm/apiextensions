@@ -65,7 +65,7 @@ type AppCatalogSpec struct {
 }
 
 type AppCatalogSpecCatalogStorage struct {
-	// Type indicates which repository type would be used for this AppCatalog
+	// Type indicates which repository type would be used for this AppCatalog.
 	// e.g. helm
 	Type string `json:"type" yaml:"type"`
 	// URL is the link to where this AppCatalog's repository is located
