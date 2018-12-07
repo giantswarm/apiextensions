@@ -18,28 +18,4 @@ limitations under the License.
 
 package v1alpha1
 
-type AWSClusterConfigExpansion interface{}
-
-type AzureClusterConfigExpansion interface{}
-
-type CertConfigExpansion interface{}
-
-type ChartConfigExpansion interface{}
-
-type ClusterExpansion interface{}
-
-type DrainerConfigExpansion interface{}
-
-type DraughtsmanConfigExpansion interface{}
-
-type FlannelConfigExpansion interface{}
-
-type IngressConfigExpansion interface{}
-
-type KVMClusterConfigExpansion interface{}
-
-type NodeConfigExpansion interface{}
-
-type ReleaseExpansion interface{}
-
-type StorageConfigExpansion interface{}
+type AppCatalogExpansion interface{}
