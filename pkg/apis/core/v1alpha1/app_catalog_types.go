@@ -5,7 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// NewAppCatalogCRD returns a new custom resource definition for AppCatalogConfig.
+// NewAppCatalogCRD returns a new custom resource definition for AppCatalog.
 // This might look something like the following.
 //
 //     apiVersion: apiextensions.k8s.io/v1beta1
