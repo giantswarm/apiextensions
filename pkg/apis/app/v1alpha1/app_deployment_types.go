@@ -14,12 +14,12 @@ import (
 //       name: appdeployment.app.giantswarm.io
 //     spec:
 //       group: app.giantswarm.io
-//       scope: Cluster
+//       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: AppDeployment
 //         plural: appdeployments
-//         singular: appdeployments
+//         singular: appdeployment
 //
 func NewAppDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -54,12 +54,12 @@ type AppDeployment struct {
 
 type AppDeploymentSpec struct {
 	// Catalog is the name of the app deployment for this CR
-	// e.g. giant-swarm
+	// e.g. prometheus
 	Catalog string `json:"catalog" yaml:"catalog"`
 	App     string `json:"app" yaml:"app"`
 	// Release is the version of this app which we would like to use.
 	Release string `json:"release" yaml:"release"`
-	// KubeContext is the tenant cluster-based context name which point to specific kubeConfig as well.
+	// KubeContext is the context name inside tenant cluster which point to specific kubeConfig as well.
 	KubeContext string `json:"kubeContext" yaml:"kubeContext"`
 	// Namespace is the tenant cluster-based namespace where this app would be eventually located.
 	Namespace string                  `json:"namespace" yaml:"namespace"`
