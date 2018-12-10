@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&AppCatalog{},
 	&AppCatalogList{},
+	&AppDeployment{},
+	&AppDeploymentList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
