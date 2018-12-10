@@ -32,6 +32,10 @@ func (c *FakeAppV1alpha1) AppCatalogs(namespace string) v1alpha1.AppCatalogInter
 	return &FakeAppCatalogs{c, namespace}
 }
 
+func (c *FakeAppV1alpha1) AppDeployments(namespace string) v1alpha1.AppDeploymentInterface {
+	return &FakeAppDeployments{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeAppV1alpha1) RESTClient() rest.Interface {

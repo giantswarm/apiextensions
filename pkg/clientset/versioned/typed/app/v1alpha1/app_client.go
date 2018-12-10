@@ -28,6 +28,7 @@ import (
 type AppV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AppCatalogsGetter
+	AppDeploymentsGetter
 }
 
 // AppV1alpha1Client is used to interact with features provided by the app.giantswarm.io group.
@@ -37,6 +38,10 @@ type AppV1alpha1Client struct {
 
 func (c *AppV1alpha1Client) AppCatalogs(namespace string) AppCatalogInterface {
 	return newAppCatalogs(c, namespace)
+}
+
+func (c *AppV1alpha1Client) AppDeployments(namespace string) AppDeploymentInterface {
+	return newAppDeployments(c, namespace)
 }
 
 // NewForConfig creates a new AppV1alpha1Client for the given config.
