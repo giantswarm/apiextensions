@@ -60,6 +60,22 @@ func NewAppDeploymentTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// Example of AppDeployment CR as below.
+//
+//     apiVersion: app.giantswarm.io/v1alpha1
+//     kind: AppDeployment
+//     metadata:
+//       name: “My-Cool-Prometheus”
+//       namespace: “12345”
+//     spec:
+//       catalog: "giant-swarm"
+//       app: “kubernetes-prometheus”
+//       release: 1.0.0
+//       kubeContext: “giantswarm-12345”
+//       namespace: “monitoring”
+//     status:
+//       releaseStatus: “DEPLOYED”
+//
 type AppDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
