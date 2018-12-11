@@ -60,7 +60,7 @@ func NewAppDeploymentTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Example of AppDeployment CR as below.
+// AppDeployment CR example as below.
 //
 //     apiVersion: app.giantswarm.io/v1alpha1
 //     kind: AppDeployment

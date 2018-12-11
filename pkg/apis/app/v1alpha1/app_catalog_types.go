@@ -46,7 +46,7 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Example of AppCatalog CR as below.
+// AppCatalog CR example as below.
 //
 //     apiVersion: app.giantswarm.io/v1alpha1
 //     kind: AppCatalog
@@ -54,10 +54,10 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //       name: "giant-swarm"
 //     spec:
 //       title: "Giant Swarm"
-//       description: “Catalog of Apps by Giant Swarm"
+//       description: “Catalog of Apps by Giant Swarm."
 //       catalogStorage:
 //         type: "helm"
-//         URL: "https://giantswarm.github.com/app-catalog/"
+//         URL: "https://github.com/giantswarm/app-catalog/"
 //       logoURL: "https://s.giantswarm.io/..."
 //
 type AppCatalog struct {
