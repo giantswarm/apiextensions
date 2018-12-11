@@ -54,14 +54,19 @@ type AppDeployment struct {
 
 type AppDeploymentSpec struct {
 	// Catalog is the name of the app deployment for this CR
-	// e.g. prometheus
+	// e.g. giant-swarm
 	Catalog string `json:"catalog" yaml:"catalog"`
-	App     string `json:"app" yaml:"app"`
+	// App is the name of the appCatalog CR which we would like to install
+	// e.g. kubernetes-prometheus
+	App string `json:"app" yaml:"app"`
 	// Release is the version of this app which we would like to use.
+	// e.g. 1.0.0
 	Release string `json:"release" yaml:"release"`
 	// KubeContext is the context name inside tenant cluster which point to specific kubeConfig as well.
+	// e.g. giantswarm-12345
 	KubeContext string `json:"kubeContext" yaml:"kubeContext"`
 	// Namespace is the tenant cluster-based namespace where this app would be eventually located.
+	// e.g. monitoring
 	Namespace string                  `json:"namespace" yaml:"namespace"`
 	Status    AppDeploymentSpecStatus `json:"status" yaml:"status"`
 }
