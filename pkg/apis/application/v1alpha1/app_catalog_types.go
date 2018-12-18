@@ -11,9 +11,9 @@ import (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: appcatalog.app.giantswarm.io
+//       name: appcatalog.application.giantswarm.io
 //     spec:
-//       group: app.giantswarm.io
+//       group: application.giantswarm.io
 //       scope: Cluster
 //       version: v1alpha1
 //       names:
@@ -28,10 +28,10 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "appcatalogs.app.giantswarm.io",
+			Name: "appcatalogs.application.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "app.giantswarm.io",
+			Group:   "application.giantswarm.io",
 			Scope:   "Cluster",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
@@ -48,7 +48,7 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 
 // AppCatalog CR example as below.
 //
-//     apiVersion: app.giantswarm.io/v1alpha1
+//     apiVersion: application.giantswarm.io/v1alpha1
 //     kind: AppCatalog
 //     metadata:
 //       name: "giant-swarm"
@@ -67,14 +67,14 @@ type AppCatalog struct {
 }
 
 type AppCatalogSpec struct {
-	// Title is the name of the app catalog for this CR
+	// Title is the name of the application catalog for this CR
 	// e.g. Catalog of Apps by Giant Swarm
 	Title       string `json:"title" yaml:"title"`
 	Description string `json:"description" yaml:"description"`
 	// CatalogStorage references a map containing values that should be
 	// applied to the appcatalog.
 	CatalogStorage AppCatalogSpecCatalogStorage `json:"catalogStorage" yaml:"catalogStorage"`
-	// LogoURL contains the links for logo image file for this app catalog
+	// LogoURL contains the links for logo image file for this application catalog
 	LogoURL string `json:"logoURL" yaml:"logoURL"`
 }
 

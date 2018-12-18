@@ -15,9 +15,9 @@ const (
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: appdeployment.app.giantswarm.io
+//       name: appdeployment.application.giantswarm.io
 //     spec:
-//       group: app.giantswarm.io
+//       group: application.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
@@ -32,10 +32,10 @@ func NewAppDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "appdeployments.app.giantswarm.io",
+			Name: "appdeployments.application.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "app.giantswarm.io",
+			Group:   "application.giantswarm.io",
 			Scope:   "Namespaced",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
@@ -62,14 +62,14 @@ func NewAppDeploymentTypeMeta() metav1.TypeMeta {
 
 // AppDeployment CR example as below.
 //
-//     apiVersion: app.giantswarm.io/v1alpha1
+//     apiVersion: application.giantswarm.io/v1alpha1
 //     kind: AppDeployment
 //     metadata:
 //       name: “My-Cool-Prometheus”
 //       namespace: “12345”
 //     spec:
 //       catalog: "giant-swarm"
-//       app: “kubernetes-prometheus”
+//       application: “kubernetes-prometheus”
 //       release: 1.0.0
 //       kubeContext: “giantswarm-12345”
 //       namespace: “monitoring”
@@ -83,19 +83,19 @@ type AppDeployment struct {
 }
 
 type AppDeploymentSpec struct {
-	// Catalog is the name of the app catalog this deployment belongs to.
+	// Catalog is the name of the application catalog this deployment belongs to.
 	// e.g. giant-swarm
 	Catalog string `json:"catalog" yaml:"catalog"`
-	// App is the name of the app to be deployed.
+	// App is the name of the application to be deployed.
 	// e.g. kubernetes-prometheus
-	App string `json:"app" yaml:"app"`
-	// Release is the version of this app which we would like to use.
+	App string `json:"application" yaml:"application"`
+	// Release is the version of this application which we would like to use.
 	// e.g. 1.0.0
 	Release string `json:"release" yaml:"release"`
-	// KubeContext is the context name for the Kubernetes cluster where the app should be deployed.
+	// KubeContext is the context name for the Kubernetes cluster where the application should be deployed.
 	// e.g. giantswarm-12345
 	KubeContext string `json:"kubeContext" yaml:"kubeContext"`
-	// Namespace is the namespace where the app should be deployed.
+	// Namespace is the namespace where the application should be deployed.
 	// e.g. monitoring
 	Namespace string                  `json:"namespace" yaml:"namespace"`
 	Status    AppDeploymentSpecStatus `json:"status" yaml:"status"`
