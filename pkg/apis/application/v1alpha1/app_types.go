@@ -65,7 +65,7 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //     apiVersion: application.giantswarm.io/v1alpha1
 //     kind: App
 //     metadata:
-//       name: “My-Cool-Prometheus”
+//       name: "My-Cool-Prometheus"
 //       namespace: “12345”
 //     spec:
 //       app: “kubernetes-prometheus”
