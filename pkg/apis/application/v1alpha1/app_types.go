@@ -6,42 +6,42 @@ import (
 )
 
 const (
-	kindAppDeployment = "AppDeployment"
+	kindApp = "App"
 )
 
-// NewAppDeploymentCRD returns a new custom resource definition for AppDeployment.
+// NewAppCRD returns a new custom resource definition for App.
 // This might look something like the following.
 //
 //     apiVersion: apiextensions.k8s.io/v1beta1
 //     kind: CustomResourceDefinition
 //     metadata:
-//       name: appdeployment.application.giantswarm.io
+//       name: app.application.giantswarm.io
 //     spec:
 //       group: application.giantswarm.io
 //       scope: Namespaced
 //       version: v1alpha1
 //       names:
-//         kind: AppDeployment
-//         plural: appdeployments
-//         singular: appdeployment
+//         kind: App
+//         plural: apps
+//         singular: app
 //
-func NewAppDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+func NewAppCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
 			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "appdeployments.application.giantswarm.io",
+			Name: "apps.application.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "application.giantswarm.io",
 			Scope:   "Namespaced",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AppDeployment",
-				Plural:   "appdeployments",
-				Singular: "appdeployment",
+				Kind:     "App",
+				Plural:   "apps",
+				Singular: "app",
 			},
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
@@ -50,65 +50,78 @@ func NewAppDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	}
 }
 
-func NewAppDeploymentTypeMeta() metav1.TypeMeta {
+func NewAppTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: version,
-		Kind:       kindAppDeployment,
+		Kind:       kindApp,
 	}
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AppDeployment CR example as below.
+// App CR example as below.
 //
 //     apiVersion: application.giantswarm.io/v1alpha1
-//     kind: AppDeployment
+//     kind: App
 //     metadata:
 //       name: “My-Cool-Prometheus”
 //       namespace: “12345”
 //     spec:
+//       app: “kubernetes-prometheus”
 //       catalog: "giant-swarm"
-//       application: “kubernetes-prometheus”
-//       release: 1.0.0
-//       kubeContext: “giantswarm-12345”
 //       namespace: “monitoring”
+//       release: 1.0.0
+//
+//       kubeConfig:
+//		  secret:
+//		    name: "giantswarm-12345"
+//		    namespace: "12345"
+//
 //     status:
 //       releaseStatus: “DEPLOYED”
 //
-type AppDeployment struct {
+type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppDeploymentSpec `json:"spec"`
+	Spec              AppSpec `json:"spec"`
 }
 
-type AppDeploymentSpec struct {
-	// Catalog is the name of the application catalog this deployment belongs to.
-	// e.g. giant-swarm
-	Catalog string `json:"catalog" yaml:"catalog"`
+type AppSpec struct {
 	// App is the name of the application to be deployed.
 	// e.g. kubernetes-prometheus
 	App string `json:"application" yaml:"application"`
+	// Catalog is the name of the application catalog this app belongs to.
+	// e.g. giant-swarm
+	Catalog string `json:"catalog" yaml:"catalog"`
+	// Namespace is the namespace where the application should be deployed.
+	// e.g. monitoring
+	Namespace string `json:"namespace" yaml:"namespace"`
 	// Release is the version of this application which we would like to use.
 	// e.g. 1.0.0
 	Release string `json:"release" yaml:"release"`
-	// KubeContext is the context name for the Kubernetes cluster where the application should be deployed.
-	// e.g. giantswarm-12345
-	KubeContext string `json:"kubeContext" yaml:"kubeContext"`
-	// Namespace is the namespace where the application should be deployed.
-	// e.g. monitoring
-	Namespace string                  `json:"namespace" yaml:"namespace"`
-	Status    AppDeploymentSpecStatus `json:"status" yaml:"status"`
+	// KubeConfig is the name of secret resource  which represent specific k8s cluster where the application could be deployed.
+	KubeConfig AppSpecKubeConfig `json:"kubeConfig" yaml:"kubeConfig"`
+	Status     AppSpecStatus     `json:"status" yaml:"status"`
 }
 
-type AppDeploymentSpecStatus struct {
+type AppSpecKubeConfig struct {
+	Secret AppSpecSecret `json:"secret" yaml:"secret"`
+}
+
+type AppSpecSecret struct {
+	Name      string `json:"name" yaml:"name"`
+	Namespace string `json:"namespace" yaml:"namespace"`
+}
+
+type AppSpecStatus struct {
 	ReleaseStatus string `json:"releaseStatus" yaml:"releaseStatus"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type AppDeploymentList struct {
+type AppList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []AppDeployment `json:"items"`
+	Items           []App `json:"items"`
 }
