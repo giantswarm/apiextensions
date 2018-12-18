@@ -18,6 +18,6 @@ limitations under the License.
 
 package v1alpha1
 
-type AppCatalogExpansion interface{}
+type AppExpansion interface{}
 
-type AppDeploymentExpansion interface{}
+type AppCatalogExpansion interface{}

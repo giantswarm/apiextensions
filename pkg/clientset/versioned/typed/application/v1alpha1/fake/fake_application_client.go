@@ -28,12 +28,12 @@ type FakeApplicationV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeApplicationV1alpha1) AppCatalogs(namespace string) v1alpha1.AppCatalogInterface {
-	return &FakeAppCatalogs{c, namespace}
+func (c *FakeApplicationV1alpha1) Apps(namespace string) v1alpha1.AppInterface {
+	return &FakeApps{c, namespace}
 }
 
-func (c *FakeApplicationV1alpha1) AppDeployments(namespace string) v1alpha1.AppDeploymentInterface {
-	return &FakeAppDeployments{c, namespace}
+func (c *FakeApplicationV1alpha1) AppCatalogs(namespace string) v1alpha1.AppCatalogInterface {
+	return &FakeAppCatalogs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
