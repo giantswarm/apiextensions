@@ -68,18 +68,19 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //       name: "My-Cool-Prometheus"
 //       namespace: “12345”
 //     spec:
-//       app: “kubernetes-prometheus”
+//       name: “kubernetes-prometheus”
 //       catalog: "giant-swarm"
 //       namespace: “monitoring”
 //       release: 1.0.0
 //
 //       kubeConfig:
-//		  secret:
-//		    name: "giantswarm-12345"
-//		    namespace: "12345"
+//         secret:
+//          name: "giantswarm-12345"
+//          namespace: "12345"
 //
 //     status:
-//       releaseStatus: “DEPLOYED”
+//       release:
+//         status: “DEPLOYED”
 //
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -88,9 +89,9 @@ type App struct {
 }
 
 type AppSpec struct {
-	// App is the name of the application to be deployed.
+	// Name is the name of the application to be deployed.
 	// e.g. kubernetes-prometheus
-	App string `json:"application" yaml:"application"`
+	Name string `json:"name" yaml:"name"`
 	// Catalog is the name of the application catalog this app belongs to.
 	// e.g. giant-swarm
 	Catalog string `json:"catalog" yaml:"catalog"`
@@ -115,7 +116,11 @@ type AppSpecSecret struct {
 }
 
 type AppSpecStatus struct {
-	ReleaseStatus string `json:"releaseStatus" yaml:"releaseStatus"`
+	Release AppSpecStatusRelease `json:"release" yaml:"release"`
+}
+
+type AppSpecStatusRelease struct {
+	Status string `json:"status" yaml:"status"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
