@@ -57,7 +57,7 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //       description: “Catalog of Apps by Giant Swarm."
 //       catalogStorage:
 //         type: "helm"
-//         URL: "https://github.com/giantswarm/app-catalog/"
+//         URL: "https://giantswarm.github.com/app-catalog/"
 //       logoURL: "https://s.giantswarm.io/..."
 //
 type AppCatalog struct {
