@@ -19,7 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/app/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
 	scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
@@ -53,7 +53,7 @@ type appDeployments struct {
 }
 
 // newAppDeployments returns a AppDeployments
-func newAppDeployments(c *AppV1alpha1Client, namespace string) *appDeployments {
+func newAppDeployments(c *ApplicationV1alpha1Client, namespace string) *appDeployments {
 	return &appDeployments{
 		client: c.RESTClient(),
 		ns:     namespace,

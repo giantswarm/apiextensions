@@ -19,7 +19,7 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/app/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -30,13 +30,13 @@ import (
 
 // FakeAppDeployments implements AppDeploymentInterface
 type FakeAppDeployments struct {
-	Fake *FakeAppV1alpha1
+	Fake *FakeApplicationV1alpha1
 	ns   string
 }
 
-var appdeploymentsResource = schema.GroupVersionResource{Group: "app.giantswarm.io", Version: "v1alpha1", Resource: "appdeployments"}
+var appdeploymentsResource = schema.GroupVersionResource{Group: "application.giantswarm.io", Version: "v1alpha1", Resource: "appdeployments"}
 
-var appdeploymentsKind = schema.GroupVersionKind{Group: "app.giantswarm.io", Version: "v1alpha1", Kind: "AppDeployment"}
+var appdeploymentsKind = schema.GroupVersionKind{Group: "application.giantswarm.io", Version: "v1alpha1", Kind: "AppDeployment"}
 
 // Get takes name of the appDeployment, and returns the corresponding appDeployment object, and an error if there is any.
 func (c *FakeAppDeployments) Get(name string, options v1.GetOptions) (result *v1alpha1.AppDeployment, err error) {
