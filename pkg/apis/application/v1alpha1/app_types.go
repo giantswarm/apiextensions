@@ -101,7 +101,7 @@ type AppSpec struct {
 	// Release is the version of this application which we would like to use.
 	// e.g. 1.0.0
 	Release string `json:"release" yaml:"release"`
-	// KubeConfig is the name of secret resource  which represent specific k8s cluster where the application could be deployed.
+	// KubeConfig is the kubeconfig that should be used to connect to the cluster when deploying the app.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig" yaml:"kubeConfig"`
 }
 
