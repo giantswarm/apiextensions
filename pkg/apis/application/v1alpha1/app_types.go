@@ -79,13 +79,13 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //          namespace: "12345"
 //
 //     status:
-//       release:
-//         status: “DEPLOYED”
+//       app: “DEPLOYED”
 //
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppSpec `json:"spec"`
+	Spec              AppSpec   `json:"spec"`
+	Status            AppStatus `json:"status" yaml:"status"`
 }
 
 type AppSpec struct {
@@ -103,24 +103,19 @@ type AppSpec struct {
 	Release string `json:"release" yaml:"release"`
 	// KubeConfig is the name of secret resource  which represent specific k8s cluster where the application could be deployed.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig" yaml:"kubeConfig"`
-	Status     AppSpecStatus     `json:"status" yaml:"status"`
 }
 
 type AppSpecKubeConfig struct {
-	Secret AppSpecSecret `json:"secret" yaml:"secret"`
+	Secret AppSpecKubeConfigSecret `json:"secret" yaml:"secret"`
 }
 
-type AppSpecSecret struct {
+type AppSpecKubeConfigSecret struct {
 	Name      string `json:"name" yaml:"name"`
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
 
-type AppSpecStatus struct {
-	Release AppSpecStatusRelease `json:"release" yaml:"release"`
-}
-
-type AppSpecStatusRelease struct {
-	Status string `json:"status" yaml:"status"`
+type AppStatus struct {
+	App string `json:"app" yaml:"app"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
