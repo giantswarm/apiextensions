@@ -98,7 +98,7 @@ type AppSpec struct {
 	// Namespace is the namespace where the application should be deployed.
 	// e.g. monitoring
 	Namespace string `json:"namespace" yaml:"namespace"`
-	// Release is the version of this application which we would like to use.
+	// Release is the version of the app that should be deployed.
 	// e.g. 1.0.0
 	Release string `json:"release" yaml:"release"`
 	// KubeConfig is the kubeconfig that should be used to connect to the cluster when deploying the app.
