@@ -37,6 +37,7 @@ type AppsGetter interface {
 type AppInterface interface {
 	Create(*v1alpha1.App) (*v1alpha1.App, error)
 	Update(*v1alpha1.App) (*v1alpha1.App, error)
+	UpdateStatus(*v1alpha1.App) (*v1alpha1.App, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha1.App, error)
@@ -114,6 +115,22 @@ func (c *apps) Update(app *v1alpha1.App) (result *v1alpha1.App, err error) {
 		Namespace(c.ns).
 		Resource("apps").
 		Name(app.Name).
+		Body(app).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *apps) UpdateStatus(app *v1alpha1.App) (result *v1alpha1.App, err error) {
+	result = &v1alpha1.App{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("apps").
+		Name(app.Name).
+		SubResource("status").
 		Body(app).
 		Do().
 		Into(result)
