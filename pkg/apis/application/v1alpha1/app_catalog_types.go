@@ -67,14 +67,14 @@ type AppCatalog struct {
 }
 
 type AppCatalogSpec struct {
-	// Title is the name of the application catalog for this CR
+	// Title is the name of the app catalog for this CR
 	// e.g. Catalog of Apps by Giant Swarm
 	Title       string `json:"title" yaml:"title"`
 	Description string `json:"description" yaml:"description"`
 	// CatalogStorage references a map containing values that should be
 	// applied to the appcatalog.
 	CatalogStorage AppCatalogSpecCatalogStorage `json:"catalogStorage" yaml:"catalogStorage"`
-	// LogoURL contains the links for logo image file for this application catalog
+	// LogoURL contains the links for logo image file for this app catalog
 	LogoURL string `json:"logoURL" yaml:"logoURL"`
 }
 

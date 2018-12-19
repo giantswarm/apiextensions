@@ -106,6 +106,7 @@ type AppSpec struct {
 }
 
 type AppSpecKubeConfig struct {
+	// Secret is the reference of a secret object which contains clusters info and IDs
 	Secret AppSpecKubeConfigSecret `json:"secret" yaml:"secret"`
 }
 
