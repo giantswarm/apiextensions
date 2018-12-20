@@ -91,12 +91,14 @@ type AppSpecKubeConfig struct {
 
 type AppSpecKubeConfigSecret struct {
 	// Name is the name of the secret containing the kubeconfig.
-	Name      string `json:"name" yaml:"name"`
+	Name string `json:"name" yaml:"name"`
+	// Namespace is the namespace of the secret containing the kubeconfig.
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
 
 type AppStatus struct {
-	App string `json:"app" yaml:"app"`
+	// Status is the status of the deployed app.
+	Status string `json:"status" yaml:"status"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
