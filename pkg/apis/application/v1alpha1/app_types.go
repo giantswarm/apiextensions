@@ -90,6 +90,7 @@ type AppSpecKubeConfig struct {
 }
 
 type AppSpecKubeConfigSecret struct {
+	// Name is the name of the secret containing the kubeconfig.
 	Name      string `json:"name" yaml:"name"`
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
