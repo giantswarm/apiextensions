@@ -68,9 +68,6 @@ type Chart struct {
 }
 
 type ChartSpec struct {
-	// ChartURL is the URL for the Helm chart tarball to be deployed.
-	// e.g. https://path/to/prom-1-0-0.tgz"
-	ChartURL string `json:"chartURL" yaml:"chartURL"`
 	// Config is the config to be applied when the chart is deployed.
 	Config ChartSpecConfig `json:"config" yaml:"config"`
 	// Name is the name of the Helm chart to be deployed.
@@ -82,6 +79,9 @@ type ChartSpec struct {
 	// Namespace is the namespace where the chart should be deployed.
 	// e.g. monitoring
 	Namespace string `json:"namespace" yaml:"namespace"`
+	// TarballURL is the URL for the Helm chart tarball to be deployed.
+	// e.g. https://path/to/prom-1-0-0.tgz"
+	TarballURL string `json:"tarballURL" yaml:"tarballURL"`
 }
 type ChartSpecConfig struct {
 	// ConfigMap references a config map containing values that should be
