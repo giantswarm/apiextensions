@@ -36,6 +36,10 @@ func (c *FakeApplicationV1alpha1) AppCatalogs(namespace string) v1alpha1.AppCata
 	return &FakeAppCatalogs{c, namespace}
 }
 
+func (c *FakeApplicationV1alpha1) Charts(namespace string) v1alpha1.ChartInterface {
+	return &FakeCharts{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeApplicationV1alpha1) RESTClient() rest.Interface {
