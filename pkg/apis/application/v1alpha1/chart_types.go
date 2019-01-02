@@ -83,6 +83,7 @@ type ChartSpec struct {
 	// e.g. https://path/to/prom-1-0-0.tgz"
 	TarballURL string `json:"tarballURL" yaml:"tarballURL"`
 }
+
 type ChartSpecConfig struct {
 	// ConfigMap references a config map containing values that should be
 	// applied to the chart.
@@ -106,7 +107,7 @@ type ChartSpecConfigConfigMap struct {
 
 type ChartSpecConfigSecret struct {
 	// Name is the name of the secret containing chart values to apply,
-	// e.g. node-exporter-chart-secret.
+	// e.g. prometheus-chart-secret.
 	Name string `json:"name" yaml:"name"`
 	// Namespace is the namespace of the secret,
 	// e.g. kube-system.
