@@ -24,7 +24,6 @@
 
 
 required = [
-  "k8s.io/apimachinery/pkg/apimachinery/registered",
   "k8s.io/code-generator/cmd/client-gen",
 ]
 
@@ -32,19 +31,19 @@ required = [
 
 [[constraint]]
   name = "k8s.io/apiextensions-apiserver"
-  version = "kubernetes-1.10.4"
+  version = "kubernetes-1.13.1"
 
 [[constraint]]
   name = "k8s.io/apimachinery"
-  version = "kubernetes-1.10.4"
+  version = "kubernetes-1.13.1"
 
 [[constraint]]
   name = "k8s.io/client-go"
-  version = "kubernetes-1.10.4"
+  version = "kubernetes-1.13.1"
 
 [[constraint]]
   name = "k8s.io/code-generator"
-  version = "kubernetes-1.10.4"
+  version = "kubernetes-1.13.1"
 
 
 
