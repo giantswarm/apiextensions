@@ -62,7 +62,7 @@ type AppCatalogSpec struct {
 	CatalogStorage AppCatalogSpecCatalogStorage `json:"catalogStorage" yaml:"catalogStorage"`
 	// Config is the config to be applied when apps belonging to this
 	// catalog are deployed.
-	Config AppCatalogSpecConfig  `json:"config" yaml:"config"`
+	Config AppCatalogSpecConfig `json:"config" yaml:"config"`
 	// LogoURL contains the links for logo image file for this app catalog
 	LogoURL string `json:"logoURL" yaml:"logoURL"`
 }
