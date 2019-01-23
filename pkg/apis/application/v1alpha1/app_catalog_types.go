@@ -43,6 +43,30 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	}
 }
 
+// AppCatalog CRs might look something like the following.
+//
+// apiVersion: application.giantswarm.io/v1alpha1
+// kind: AppCatalog
+// metadata:
+//   name: “giantswarm”
+//   labels:
+//     app-operator.giantswarm.io/version: "1.0.0"
+//
+// spec:
+//   title: “Giant Swarm”
+//   description: “Catalog of Apps by Giant Swarm”
+//   catalogStorage:
+//     type: "helm"
+//     URL: “https://giantswarm.github.com/app-catalog/”
+//   config:
+//     configMap:
+//       name: "app-catalog-values"
+//       namespace: "giantswarm"
+//    secret:
+//      name: "app-catalog-secrets"
+//      namespace: "giantswarm"
+//  logoURL: “https://s.giantswarm.io/...”
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
