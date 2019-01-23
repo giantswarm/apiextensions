@@ -43,6 +43,9 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	}
 }
 
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
 // AppCatalog CRs might look something like the following.
 //
 //    apiVersion: application.giantswarm.io/v1alpha1
@@ -66,10 +69,6 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //          name: "app-catalog-secrets"
 //          namespace: "giantswarm"
 //      logoURL: “https://s.giantswarm.io/...”
-
-// +genclient
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
