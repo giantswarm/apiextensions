@@ -65,14 +65,14 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //    apiVersion: application.giantswarm.io/v1alpha1
 //    kind: App
 //    metadata:
-//      name: “prometheus”
+//      name: “prometheus"
 //      labels:
 //        app-operator.giantswarm.io/version: "1.0.0"
 //
 //    spec:
 //      catalog: "giantswarm"
-//      name: “prometheus”
-//      namespace: “monitoring”
+//      name: “prometheus"
+//      namespace: “monitoring"
 //      version: "1.0.0"
 //      config:
 //        configMap:
@@ -85,7 +85,7 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //          context:
 //            name: "giantswarm-12345"
 //          secret:
-//            name: “giantswarm-12345”
+//            name: “giantswarm-12345"
 //            namespace: "giantswarm"
 //          userConfig:
 //            configMap:
