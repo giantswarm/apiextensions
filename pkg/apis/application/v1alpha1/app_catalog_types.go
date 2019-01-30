@@ -51,16 +51,16 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //    apiVersion: application.giantswarm.io/v1alpha1
 //    kind: AppCatalog
 //    metadata:
-//      name: “giantswarm”
+//      name: "giantswarm"
 //      labels:
 //        app-operator.giantswarm.io/version: "1.0.0"
 //
 //    spec:
-//      title: “Giant Swarm”
-//      description: “Catalog of Apps by Giant Swarm”
+//      title: "Giant Swarm"
+//      description: "Catalog of Apps by Giant Swarm"
 //      catalogStorage:
 //        type: "helm"
-//        URL: “https://giantswarm.github.com/app-catalog/”
+//        URL: "https://giantswarm.github.com/app-catalog/"
 //      config:
 //        configMap:
 //          name: "app-catalog-values"
@@ -68,7 +68,7 @@ func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //        secret:
 //          name: "app-catalog-secrets"
 //          namespace: "giantswarm"
-//      logoURL: “https://s.giantswarm.io/...”
+//      logoURL: "https://s.giantswarm.io/..."
 //
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
