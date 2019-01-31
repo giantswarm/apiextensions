@@ -17,13 +17,8 @@ configMap:
   values:
     Installation:
       V1:
-        Secret:
-          API:
-            SecretYaml: |
-              service:
-                api:
-                  token:
-                    webapp: "test"
+        API:
+          Address: "https://api.g8s.gollum.westeurope.azure.gigantic.io"
 
 namespace: "giantswarm"
 
