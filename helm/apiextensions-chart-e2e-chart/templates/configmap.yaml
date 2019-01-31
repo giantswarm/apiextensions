@@ -6,4 +6,3 @@ metadata:
 data:
   values: |
     {{ .Values.configMap }}
-
