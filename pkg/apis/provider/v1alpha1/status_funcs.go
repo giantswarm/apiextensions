@@ -75,7 +75,7 @@ func (s StatusCluster) LatestVersion() string {
 	latest := s.Versions[0]
 
 	for _, v := range s.Versions {
-		if latest.Date.Before(v.Date) {
+		if latest.LastTransitionTime.Before(v.LastTransitionTime.Time) {
 			latest = v
 		}
 	}
@@ -221,7 +221,7 @@ func withVersion(versions []StatusClusterVersion, version StatusClusterVersion, 
 		start = len(versions) - limit + 1
 	}
 
-	sort.Sort(sortClusterStatusVersionsByDate(versions))
+	sort.Sort(sortClusterStatusVersionsByLastTransitionTime(versions))
 
 	for i := start; i < len(versions); i++ {
 		newVersions = append(newVersions, versions[i])

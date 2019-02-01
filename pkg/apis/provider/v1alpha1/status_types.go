@@ -1,7 +1,5 @@
 package v1alpha1
 
-import "time"
-
 const (
 	ClusterVersionLimit = 5
 )
@@ -115,13 +113,6 @@ type StatusClusterScaling struct {
 // StatusClusterVersion expresses the versions in which a guest cluster was and
 // may still be.
 type StatusClusterVersion struct {
-	// TODO date is deprecated due to LastTransitionTime and LastHeartbeatTime.
-	// This can be removed ones the new properties are properly used in all tenant
-	// clusters.
-	//
-	//     https://github.com/giantswarm/giantswarm/issues/3988
-	//
-	Date time.Time `json:"date" yaml:"date"`
 	// LastHeartbeatTime is the last time we got an update on a given condition.
 	LastHeartbeatTime DeepCopyTime `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
 	// LastTransitionTime is the last time the condition transitioned from one
