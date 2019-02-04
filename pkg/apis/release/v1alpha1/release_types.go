@@ -18,6 +18,92 @@ const (
 
 type ReleaseChangelogKind string
 
+var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
+	// See http://json-schema.org/learn.
+	OpenAPIV3Schema: &apiextensionsv1beta1.JSONSchemaProps{
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"spec": {
+				Type: "object",
+				Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+					"changelog": {
+						Type: "array",
+						Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
+							Schema: &apiextensionsv1beta1.JSONSchemaProps{
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"component": {
+										Type:      "string",
+										MinLength: toInt64P(3),
+									},
+									"description": {
+										Type:      "string",
+										MinLength: toInt64P(3),
+									},
+									"kind": {
+										Enum: []apiextensionsv1beta1.JSON{
+											{Raw: []byte("added")},
+											{Raw: []byte("changed")},
+											{Raw: []byte("deprecated")},
+											{Raw: []byte("fixed")},
+											{Raw: []byte("removed")},
+											{Raw: []byte("security")},
+										},
+									},
+								},
+								Required: []string{
+									"component",
+									"description",
+									"kind",
+								},
+							},
+						},
+						MinItems: toInt64P(1),
+					},
+					"components": {
+						Type: "array",
+						Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
+							Schema: &apiextensionsv1beta1.JSONSchemaProps{
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"name": {
+										Type:      "string",
+										MinLength: toInt64P(3),
+									},
+									"version": {
+										Type:      "string",
+										MinLength: toInt64P(5),
+									},
+								},
+							},
+						},
+						MinItems: toInt64P(1),
+					},
+					"parentVersion": {
+						Type:    "string",
+						Pattern: `^\d+\.\d+\.\d+$`,
+					},
+					"version": {
+						Type:      "string",
+						MinLength: toInt64P(5),
+					},
+				},
+				Required: []string{
+					"changelog",
+					"components",
+					"parentVersion",
+					"version",
+				},
+			},
+			"status": {
+				Type: "object",
+				Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+					"cycle": NewReleaseCycleCRD().Spec.Validation.OpenAPIV3Schema.Properties["spec"],
+				},
+			},
+		},
+	},
+}
+
 func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
@@ -39,91 +125,7 @@ func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
 			},
-			Validation: &apiextensionsv1beta1.CustomResourceValidation{
-				// See http://json-schema.org/learn.
-				OpenAPIV3Schema: &apiextensionsv1beta1.JSONSchemaProps{
-					Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-						"spec": {
-							Type: "object",
-							Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-								"changelog": {
-									Type: "array",
-									Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
-										Schema: &apiextensionsv1beta1.JSONSchemaProps{
-											Type: "object",
-											Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-												"component": {
-													Type:      "string",
-													MinLength: toInt64P(3),
-												},
-												"description": {
-													Type:      "string",
-													MinLength: toInt64P(3),
-												},
-												"kind": {
-													Enum: []apiextensionsv1beta1.JSON{
-														{Raw: []byte("added")},
-														{Raw: []byte("changed")},
-														{Raw: []byte("deprecated")},
-														{Raw: []byte("fixed")},
-														{Raw: []byte("removed")},
-														{Raw: []byte("security")},
-													},
-												},
-											},
-											Required: []string{
-												"component",
-												"description",
-												"kind",
-											},
-										},
-									},
-									MinItems: toInt64P(1),
-								},
-								"components": {
-									Type: "array",
-									Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
-										Schema: &apiextensionsv1beta1.JSONSchemaProps{
-											Type: "object",
-											Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-												"name": {
-													Type:      "string",
-													MinLength: toInt64P(3),
-												},
-												"version": {
-													Type:      "string",
-													MinLength: toInt64P(5),
-												},
-											},
-										},
-									},
-									MinItems: toInt64P(1),
-								},
-								"parentVersion": {
-									Type:    "string",
-									Pattern: `^\d+\.\d+\.\d+$`,
-								},
-								"version": {
-									Type:      "string",
-									MinLength: toInt64P(5),
-								},
-							},
-							Required: []string{
-								"changelog",
-								"components",
-								"parentVersion",
-								"version",
-							},
-						},
-						"status": {
-							Type: "object",
-							Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-								"cycle": NewReleaseCycleCRD().Spec.Validation.OpenAPIV3Schema.Properties["spec"],
-							},
-						},
-					},
-				},
-			},
+			Validation: releaseCRDValidation,
 		},
 	}
 }

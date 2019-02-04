@@ -16,6 +16,51 @@ const (
 
 type ReleaseCyclePhase string
 
+var releaseCycleValidation = &apiextensionsv1beta1.CustomResourceValidation{
+	// See http://json-schema.org/learn.
+	OpenAPIV3Schema: &apiextensionsv1beta1.JSONSchemaProps{
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"spec": {
+				Type: "object",
+				Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+					"disabledDate": {
+						Type:   "string",
+						Format: "date",
+					},
+					"enabledDate": {
+						Type:   "string",
+						Format: "date",
+					},
+					"phase": {
+						Enum: []apiextensionsv1beta1.JSON{
+							{Raw: []byte("upcoming")},
+							{Raw: []byte("enabled")},
+							{Raw: []byte("disabled")},
+							{Raw: []byte("eol")},
+						},
+					},
+					"release": {
+						Type: "object",
+						Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+							"name": {
+								Type:      "string",
+								MinLength: toInt64P(3),
+							},
+						},
+					},
+				},
+				Required: []string{
+					"phase",
+					"release",
+				},
+			},
+			"status": {
+				Type: "object",
+			},
+		},
+	},
+}
+
 func NewReleaseCycleCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
@@ -37,50 +82,7 @@ func NewReleaseCycleCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
 			},
-			Validation: &apiextensionsv1beta1.CustomResourceValidation{
-				// See http://json-schema.org/learn.
-				OpenAPIV3Schema: &apiextensionsv1beta1.JSONSchemaProps{
-					Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-						"spec": {
-							Type: "object",
-							Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-								"disabledDate": {
-									Type:   "string",
-									Format: "date",
-								},
-								"enabledDate": {
-									Type:   "string",
-									Format: "date",
-								},
-								"phase": {
-									Enum: []apiextensionsv1beta1.JSON{
-										{Raw: []byte("upcoming")},
-										{Raw: []byte("enabled")},
-										{Raw: []byte("disabled")},
-										{Raw: []byte("eol")},
-									},
-								},
-								"release": {
-									Type: "object",
-									Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-										"name": {
-											Type:      "string",
-											MinLength: toInt64P(3),
-										},
-									},
-								},
-							},
-							Required: []string{
-								"phase",
-								"release",
-							},
-						},
-						"status": {
-							Type: "object",
-						},
-					},
-				},
-			},
+			Validation: releaseCycleValidation,
 		},
 	}
 }
