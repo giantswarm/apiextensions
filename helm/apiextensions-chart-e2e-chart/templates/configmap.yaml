@@ -5,4 +5,4 @@ metadata:
   namespace: "{{ .Values.chart.config.configMap.namespace }}"
 data:
   values: |
-    {{ .Values.configMap }}
+    {{ .Values.configMap.values }}
