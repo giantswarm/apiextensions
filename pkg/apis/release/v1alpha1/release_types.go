@@ -42,12 +42,12 @@ var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 									},
 									"kind": {
 										Enum: []apiextensionsv1beta1.JSON{
-											{Raw: []byte("added")},
-											{Raw: []byte("changed")},
-											{Raw: []byte("deprecated")},
-											{Raw: []byte("fixed")},
-											{Raw: []byte("removed")},
-											{Raw: []byte("security")},
+											{Raw: []byte(`"added"`)},
+											{Raw: []byte(`"changed"`)},
+											{Raw: []byte(`"deprecated"`)},
+											{Raw: []byte(`"fixed"`)},
+											{Raw: []byte(`"removed"`)},
+											{Raw: []byte(`"security"`)},
 										},
 									},
 								},
@@ -105,6 +105,103 @@ var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 	},
 }
 
+// NewReleaseCRD looks like following.
+//
+//	kind: CustomResourceDefinition
+//	apiVersion: apiextensions.k8s.io/v1beta1
+//	metadata:
+//	  name: releases.release.giantswarm.io
+//	spec:
+//	  group: release.giantswarm.io
+//	  version: v1alpha1
+//	  names:
+//	    plural: releases
+//	    singular: release
+//	    kind: Release
+//	  scope: Cluster
+//	  validation:
+//	    openAPIV3Schema:
+//	      properties:
+//	        spec:
+//	          type: object
+//	          required:
+//	            - changelog
+//	            - components
+//	            - parentVersion
+//	            - version
+//	          properties:
+//	            changelog:
+//	              type: array
+//	              minItems: 1
+//	              items:
+//	                type: object
+//	                required:
+//	                  - component
+//	                  - description
+//	                  - kind
+//	                properties:
+//	                  component:
+//	                    type: string
+//	                    minLength: 3
+//	                  description:
+//	                    type: string
+//	                    minLength: 3
+//	                  kind:
+//	                    enum:
+//	                      - added
+//	                      - changed
+//	                      - deprecated
+//	                      - fixed
+//	                      - removed
+//	                      - security
+//	            components:
+//	              type: array
+//	              minItems: 1
+//	              items:
+//	                type: object
+//	                properties:
+//	                  name:
+//	                    type: string
+//	                    minLength: 3
+//	                  version:
+//	                    type: string
+//	                    minLength: 5
+//	            parentVersion:
+//	              type: string
+//	              pattern: "^\\d+\\.\\d+\\.\\d+$"
+//	            version:
+//	              type: string
+//	              minLength: 5
+//	        status:
+//	          type: object
+//	          properties:
+//	            cycle:
+//	              type: object
+//	              required:
+//	                - phase
+//	                - release
+//	              properties:
+//	                disabledDate:
+//	                  type: string
+//	                  format: date
+//	                enabledDate:
+//	                  type: string
+//	                  format: date
+//	                phase:
+//	                  enum:
+//	                  - upcoming
+//	                  - enabled
+//	                  - disabled
+//	                  - eol
+//	                release:
+//	                  type: object
+//	                  properties:
+//	                    name:
+//	                      type: string
+//	                      minLength: 3
+//	  subresources:
+//	    status: {}
+//
 func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

@@ -34,10 +34,10 @@ var releaseCycleValidation = &apiextensionsv1beta1.CustomResourceValidation{
 					},
 					"phase": {
 						Enum: []apiextensionsv1beta1.JSON{
-							{Raw: []byte("upcoming")},
-							{Raw: []byte("enabled")},
-							{Raw: []byte("disabled")},
-							{Raw: []byte("eol")},
+							{Raw: []byte(`"upcoming"`)},
+							{Raw: []byte(`"enabled"`)},
+							{Raw: []byte(`"disabled"`)},
+							{Raw: []byte(`"eol"`)},
 						},
 					},
 					"release": {
@@ -62,6 +62,52 @@ var releaseCycleValidation = &apiextensionsv1beta1.CustomResourceValidation{
 	},
 }
 
+// NewReleaseCycleCRD looks like following.
+//
+//	kind: CustomResourceDefinition
+//	apiVersion: apiextensions.k8s.io/v1beta1
+//	metadata:
+//	  name: releasecycles.release.giantswarm.io
+//	spec:
+//	  group: release.giantswarm.io
+//	  version: v1alpha1
+//	  names:
+//	    plural: releasecycles
+//	    singular: releasecycle
+//	    kind: ReleaseCycle
+//	  scope: Cluster
+//	  subresources:
+//	    status: {}
+//	  validation:
+//	    openAPIV3Schema:
+//	      properties:
+//	        spec:
+//	          type: object
+//	          required:
+//	            - phase
+//	            - release
+//	          properties:
+//	            disabledDate:
+//	              type: string
+//	              format: date
+//	            enabledDate:
+//	              type: string
+//	              format: date
+//	            phase:
+//	              enum:
+//	                - upcoming
+//	                - enabled
+//	                - disabled
+//	                - eol
+//	            release:
+//	              type: object
+//	              properties:
+//	                name:
+//	                  type: string
+//	                  minLength: 3
+//	        status:
+//	          type: object
+//
 func NewReleaseCycleCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
