@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	"github.com/giantswarm/to"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -33,11 +34,11 @@ var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
 									"component": {
 										Type:      "string",
-										MinLength: toInt64P(3),
+										MinLength: to.Int64P(3),
 									},
 									"description": {
 										Type:      "string",
-										MinLength: toInt64P(3),
+										MinLength: to.Int64P(3),
 									},
 									"kind": {
 										Enum: []apiextensionsv1beta1.JSON{
@@ -57,7 +58,7 @@ var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 								},
 							},
 						},
-						MinItems: toInt64P(1),
+						MinItems: to.Int64P(1),
 					},
 					"components": {
 						Type: "array",
@@ -67,16 +68,16 @@ var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
 									"name": {
 										Type:      "string",
-										MinLength: toInt64P(3),
+										MinLength: to.Int64P(3),
 									},
 									"version": {
 										Type:      "string",
-										MinLength: toInt64P(5),
+										MinLength: to.Int64P(5),
 									},
 								},
 							},
 						},
-						MinItems: toInt64P(1),
+						MinItems: to.Int64P(1),
 					},
 					"parentVersion": {
 						Type:    "string",
@@ -84,7 +85,7 @@ var releaseCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 					},
 					"version": {
 						Type:      "string",
-						MinLength: toInt64P(5),
+						MinLength: to.Int64P(5),
 					},
 				},
 				Required: []string{

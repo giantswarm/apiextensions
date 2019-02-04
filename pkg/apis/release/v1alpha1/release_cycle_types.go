@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	"github.com/giantswarm/to"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -44,7 +45,7 @@ var releaseCycleValidation = &apiextensionsv1beta1.CustomResourceValidation{
 						Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
 							"name": {
 								Type:      "string",
-								MinLength: toInt64P(3),
+								MinLength: to.Int64P(3),
 							},
 						},
 					},
