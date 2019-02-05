@@ -240,7 +240,7 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 
 // Release CRs might look something like the following.
 //
-//	apiVersion: "release.giantswarm.io/v1"
+//	apiVersion: "release.giantswarm.io/v1alpha1"
 //	kind: "Release"
 //	metadata:
 //	  name: "aws.v6.1.0"
