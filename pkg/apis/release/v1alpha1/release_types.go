@@ -238,6 +238,37 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// Release CRs might look something like the following.
+//
+//	apiVersion: "release.giantswarm.io/v1"
+//	kind: "Release"
+//	metadata:
+//	  name: "aws.v6.1.0"
+//	  labels:
+//	    giantswarm.io/managed-by: "app-operator"
+//	    giantswarm.io/provider: "aws"
+//	spec:
+//	  changelog:
+//	    - component: "cloudconfig"
+//	      description: "Replace cloudinit with ignition."
+//	      kind: "changed"
+//	  components:
+//	    - name: "aws-operator"
+//	      version: "4.6.0"
+//	    - name: "cert-operator"
+//	      version: "0.1.0"
+//	    - name: "chart-operator"
+//	      version: "0.5.0"
+//	    - name: "cluster-operator"
+//	      version: "0.10.0"
+//	  parentVersion: "6.2.1"
+//	  version: "6.1.0"
+//	status:
+//	  cycle:
+//	    phase: "eol"
+//	    enabledDate: 2019-01-08
+//	    disabledDate: 2019-01-12
+//
 type Release struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
 	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`
