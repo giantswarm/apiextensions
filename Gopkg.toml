@@ -28,6 +28,9 @@ required = [
 ]
 
 
+[[constraint]]
+  branch = "master"
+  name = "github.com/giantswarm/to"
 
 [[constraint]]
   name = "k8s.io/apiextensions-apiserver"
