@@ -26,11 +26,11 @@ var releaseCycleValidation = &apiextensionsv1beta1.CustomResourceValidation{
 				Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
 					"disabledDate": {
 						Type:   "string",
-						Format: "date",
+						Format: "date-time",
 					},
 					"enabledDate": {
 						Type:   "string",
-						Format: "date",
+						Format: "date-time",
 					},
 					"phase": {
 						Enum: []apiextensionsv1beta1.JSON{
