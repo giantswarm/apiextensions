@@ -1,0 +1,23 @@
+app:
+  name: "myapp"
+  namespace: "giantswarm"
+  config:
+    configMap:
+      name: "app-values"
+      namespace: "giantswarm"
+    secret:
+      name: "app-secrets"
+      namespace: "giantswarm"
+
+appCatalog:
+  title: "myapp-catalog"
+  description: "giantswarm app catalog"
+  logoUrl: "http://giantswarm.com/catalog-logo.png"
+  storage:
+    type: "helm"
+    url: "https://giantswarm.github.com/sample-catalog/"
+
+namespace: "default"
+appOperator:
+  version: "1.0.0"
+
