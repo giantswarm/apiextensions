@@ -33,6 +33,10 @@ required = [
   name = "github.com/giantswarm/to"
 
 [[constraint]]
+  name = "github.com/google/go-cmp"
+  version = "=0.2.0"
+
+[[constraint]]
   name = "k8s.io/apiextensions-apiserver"
   version = "kubernetes-1.13.2"
 
