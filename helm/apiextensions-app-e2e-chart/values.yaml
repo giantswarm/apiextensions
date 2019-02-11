@@ -1,0 +1,38 @@
+appOperator:
+  version: "1.0.0"
+
+app:
+  name: "myapp"
+  namespace: "giantswarm"
+  config:
+    configMap:
+      name: "app-values"
+      namespace: "giantswarm"
+    secret:
+      name: "app-secrets"
+      namespace: "giantswarm"
+
+appCatalog:
+  title: "myapp-catalog"
+  description: "giantswarm app catalog"
+  logoUrl: "http://giantswarm.com/catalog-logo.png"
+  storage:
+    type: "helm"
+    url: "https://giantswarm.github.com/sample-catalog/"
+
+configMap:
+  values:
+    Installation:
+      V1:
+        API:
+          Address: "https://api.g8s.gollum.westeurope.azure.gigantic.io"
+
+namespace: "default"
+
+secret:
+  values:
+    Installation:
+      V1:
+        Secret:
+          API:
+            token: "test"
