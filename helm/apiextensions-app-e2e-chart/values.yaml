@@ -1,3 +1,6 @@
+appOperator:
+  version: "1.0.0"
+
 app:
   name: "myapp"
   namespace: "giantswarm"
@@ -17,7 +20,19 @@ appCatalog:
     type: "helm"
     url: "https://giantswarm.github.com/sample-catalog/"
 
-namespace: "default"
-appOperator:
-  version: "1.0.0"
+configMap:
+  values:
+    Installation:
+      V1:
+        API:
+          Address: "https://api.g8s.gollum.westeurope.azure.gigantic.io"
 
+namespace: "default"
+
+secret:
+  values:
+    Installation:
+      V1:
+        Secret:
+          API:
+            token: "test"
