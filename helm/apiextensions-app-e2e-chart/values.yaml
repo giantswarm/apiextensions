@@ -4,6 +4,7 @@ appOperator:
 app:
   name: "myapp"
   namespace: "giantswarm"
+  catalog: "myapp-catalog"
   config:
     configMap:
       name: "app-values"
@@ -11,6 +12,7 @@ app:
     secret:
       name: "app-secrets"
       namespace: "giantswarm"
+  version: "1.0.0"
 
 appCatalog:
   title: "myapp-catalog"
