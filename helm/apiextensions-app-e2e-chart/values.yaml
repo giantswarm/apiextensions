@@ -15,6 +15,7 @@ app:
   version: "1.0.0"
 
 appCatalog:
+  name: "myapp-catalog"
   title: "myapp-catalog"
   description: "giantswarm app catalog"
   logoUrl: "http://giantswarm.com/catalog-logo.png"
