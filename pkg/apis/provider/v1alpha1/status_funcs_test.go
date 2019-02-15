@@ -87,6 +87,35 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 			},
 			ExpectedSemver: "3.0.0",
 		},
+		{
+			Name: "case 5",
+			StatusCluster: StatusCluster{
+				Versions: []StatusClusterVersion{
+					{
+						LastTransitionTime: DeepCopyTime{
+							time.Unix(20, 0),
+						},
+						Date:   time.Time{},
+						Semver: "2.0.0",
+					},
+					{
+						LastTransitionTime: DeepCopyTime{
+							time.Unix(30, 0),
+						},
+						Date:   time.Time{},
+						Semver: "3.0.0",
+					},
+					{
+						LastTransitionTime: DeepCopyTime{
+							time.Unix(10, 0),
+						},
+						Date:   time.Time{},
+						Semver: "1.0.0",
+					},
+				},
+			},
+			ExpectedSemver: "3.0.0",
+		},
 	}
 
 	for _, tc := range testCases {
