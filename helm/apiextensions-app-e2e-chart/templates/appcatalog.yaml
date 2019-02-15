@@ -11,7 +11,7 @@ spec:
   logoURL: "{{ .Values.appCatalog.logoUrl }}"
   storage:
     type: "{{ .Values.appCatalog.storage.type }}"
-    url: "{{ .Values.appCatalog.storage.url }}"
+    URL: "{{ .Values.appCatalog.storage.url }}"
   {{- if .Values.appCatalog.config }}
   config:
     {{- if .Values.appCatalog.config.configMap }}
