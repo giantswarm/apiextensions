@@ -117,7 +117,6 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Status:     StatusClusterStatusTrue,
 			ExpectedConditions: []StatusClusterCondition{
 				{
-					LastHeartbeatTime:  DeepCopyTime{testTime},
 					LastTransitionTime: DeepCopyTime{testTime},
 					Status:             StatusClusterStatusTrue,
 					Type:               StatusClusterTypeCreated,
@@ -128,7 +127,6 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Name: "case 1",
 			Conditions: []StatusClusterCondition{
 				{
-					LastHeartbeatTime:  DeepCopyTime{testTime},
 					LastTransitionTime: DeepCopyTime{testTime},
 					Status:             StatusClusterStatusTrue,
 					Type:               StatusClusterTypeCreating,
@@ -139,7 +137,6 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Status:  StatusClusterStatusTrue,
 			ExpectedConditions: []StatusClusterCondition{
 				{
-					LastHeartbeatTime:  DeepCopyTime{testTime},
 					LastTransitionTime: DeepCopyTime{testTime},
 					Status:             StatusClusterStatusTrue,
 					Type:               StatusClusterTypeCreated,
