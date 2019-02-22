@@ -84,6 +84,7 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //        kubeConfig:
 //          context:
 //            name: "giantswarm-12345"
+//          inCluster: false
 //          secret:
 //            name: "giantswarm-12345"
 //            namespace: "giantswarm"
@@ -156,8 +157,18 @@ type AppSpecConfigSecret struct {
 }
 
 type AppSpecKubeConfig struct {
+	// Context is the kubeconfig context.
+	Context AppSpecKubeConfigContext `json:"context" yaml:"context"`
+	// InCluster is a flag for whether to use InCluster credentials.
+	InCluster bool `json:"inCluster" yaml:"inCluster"`
 	// Secret references a secret containing the kubconfig.
 	Secret AppSpecKubeConfigSecret `json:"secret" yaml:"secret"`
+}
+
+type AppSpecKubeConfigContext struct {
+	// Name is the name of the kubeconfig context.
+	// e.g. giantswarm-12345.
+	Name string `json:"name" yaml:"name"`
 }
 
 type AppSpecKubeConfigSecret struct {
