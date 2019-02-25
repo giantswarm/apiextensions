@@ -5,6 +5,10 @@ app:
   name: "myapp"
   namespace: "giantswarm"
   catalog: "myapp-catalog"
+  kubeconfig:
+    inCluster: "false"
+    name: "kubeconfig-secret"
+    namespace: "default"
   config:
     configMap:
       name: "app-values"

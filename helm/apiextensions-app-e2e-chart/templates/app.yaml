@@ -12,6 +12,7 @@ spec:
   namespace: "{{ .Values.app.namespace }}"
   {{- if .Values.app.kubeconfig}}
   kubeConfig:
+    inCluster: "{{ .Values.app.kubeconfig.inCluster }}"
     secret:
       name: "{{ .Values.app.kubeconfig.name }}"
       namespace: "{{ .Values.app.kubeconfig.namespace }}"
