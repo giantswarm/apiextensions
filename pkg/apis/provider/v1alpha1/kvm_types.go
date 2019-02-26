@@ -133,7 +133,7 @@ type KVMConfigStatus struct {
 }
 
 type KVMConfigStatusKVM struct {
-	// NodeIndexes is a map from nodeID -> nodeIndex.
+	// NodeIndexes is a map from nodeID -> nodeIndex. This is used to create deterministic iSCSI initiator names.
 	NodeIndexes map[string]int `json:"nodeIndexes" yaml:"nodeIndexes"`
 }
 
