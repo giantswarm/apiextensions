@@ -6,7 +6,7 @@ app:
   namespace: "giantswarm"
   catalog: "myapp-catalog"
   kubeconfig:
-    inCluster: "false"
+    inCluster: "true"
     name: "kubeconfig-secret"
     namespace: "default"
   config:
