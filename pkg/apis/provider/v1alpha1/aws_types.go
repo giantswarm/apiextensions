@@ -177,8 +177,9 @@ type AWSConfigStatus struct {
 }
 
 type AWSConfigStatusAWS struct {
-	AvailabilityZones []AWSConfigStatusAWSAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
 	AutoScalingGroup  AWSConfigStatusAWSAutoScalingGroup   `json:"autoScalingGroup" yaml:"autoScalingGroup"`
+	AvailabilityZones []AWSConfigStatusAWSAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
+	VPC               AWSConfigStatusAWSVPC                `json:"vpc" yaml:"vpc"`
 }
 
 type AWSConfigStatusAWSAutoScalingGroup struct {
@@ -188,6 +189,15 @@ type AWSConfigStatusAWSAutoScalingGroup struct {
 type AWSConfigStatusAWSAvailabilityZone struct {
 	Name   string                                   `json:"name" yaml:"name"`
 	Subnet AWSConfigStatusAWSAvailabilityZoneSubnet `json:"subnet" yaml:"subnet"`
+}
+
+type AWSConfigStatusAWSVPC struct {
+	RouteTables []AWSConfigStatusAWSVPCRouteTable `json:"routeTables" yaml:"routeTables"`
+}
+
+type AWSConfigStatusAWSVPCRouteTable struct {
+	ID   string `json:"id" yaml:"id"`
+	Name string `json:"name" yaml:"name"`
 }
 
 type AWSConfigStatusAWSAvailabilityZoneSubnet struct {
