@@ -1,19 +1,11 @@
 clusterName: "test-cluster"
 commonDomain: "test-host-cluster.eu-central-1.aws.gigantic.io"
-sshUser: "test-user"
-sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAYQCurvzg5Ia54kb3NZapA6yP00//+Jt6XJNeC7Seq3TeCqMR9x7Snalj19r0lWok1PkRgDo1PXj+3y53zo/wqBrPqN4cQqp00R06kNfnhAgesaRMvYhuyVRQQbfXV5gQg8M= dummy-key"
 encryptionKey: "QitRZGlWeW5WOFo2YmdvMVRwQUQ2UWoxRHZSVEF4MmovajlFb05sT1AzOD0="
 versionBundleVersion: "0.1.0"
 updateEnabled: true
 aws:
   region: "eu-central-1"
   availabilityZones: 1
-  # TODO the az field is deprecated after no resource packages v18 in the
-  # aws-operator exist anymore.
-  #
-  #     https://github.com/giantswarm/giantswarm/issues/4507
-  #
-  az: "eu-central-1a"
   ami: "ami-d60ad6b9"
   instanceTypeMaster: "m4.large"
   instanceTypeWorker: "m4.large"
