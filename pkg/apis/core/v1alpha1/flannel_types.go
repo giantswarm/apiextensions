@@ -86,9 +86,10 @@ type FlannelConfigSpecBridgeSpecNTP struct {
 }
 
 type FlannelConfigSpecCluster struct {
-	ID        string `json:"id" yaml:"id"`
-	Customer  string `json:"customer" yaml:"customer"`
-	Namespace string `json:"namespace" yaml:"namespace"`
+	BaseDomain string `json:"baseDomain" yaml:"baseDomain"`
+	ID         string `json:"id" yaml:"id"`
+	Customer   string `json:"customer" yaml:"customer"`
+	Namespace  string `json:"namespace" yaml:"namespace"`
 }
 
 type FlannelConfigSpecFlannel struct {
