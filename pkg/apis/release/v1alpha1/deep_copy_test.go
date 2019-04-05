@@ -23,7 +23,7 @@ func Test_DeepCopyDate_MarshalJSON(t *testing.T) {
 			errorMatcher: nil,
 		},
 		{
-			name:         "case 1: valid date, zeroed hour",
+			name:         "case 1: valid date, non-zeroed hour",
 			inputDate:    "2019-04-05T12:05:17Z",
 			expectedJSON: `{"testDate":"2019-04-05"}`,
 			errorMatcher: nil,
