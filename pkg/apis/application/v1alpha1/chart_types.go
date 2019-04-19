@@ -153,6 +153,8 @@ type ChartStatus struct {
 	AppVersion string `json:"appVersion" yaml:"appVersion"`
 	// Release is the status of the Helm release for the deployed chart.
 	Release ChartStatusRelease `json:"release" yaml:"release"`
+	// Values is the status of the values for the deployed chart.
+        Values ChartStatusValues `json:"values" yaml:"values"`
 	// Version is the value of the Version field in the Chart.yaml of the
 	// deployed chart.
 	// e.g. 1.0.0.
@@ -165,6 +167,12 @@ type ChartStatusRelease struct {
 	// Status is the status of the deployed chart,
 	// e.g. DEPLOYED.
 	Status string `json:"status" yaml:"status"`
+}
+
+type ChartStatusValues struct {
+       // MD5Checksum is the MD5 checksum of the values for the deployed chart,
+       // e.g. 1ee001c5286ca00fdf64d9660c04bde2.
+       MD5Checksum string `json:"md5Checksum" yaml:"md5Checksum"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
