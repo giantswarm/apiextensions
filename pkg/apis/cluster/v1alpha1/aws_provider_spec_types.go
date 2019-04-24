@@ -21,7 +21,7 @@ import (
 //         claims:
 //           username: email
 //           groups: groups
-//         clientId: foobar-dex-client
+//         clientID: foobar-dex-client
 //         issuerUrl: https://dex.8y5kc.fr-east-1.foobar.example.com
 //       versionBundle:
 //         version: 4.9.0
