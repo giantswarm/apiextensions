@@ -6,8 +6,8 @@ import (
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClusterSpec is the structure put into the provider spec of the Cluster API's
-// Cluster type. There it is tracked as serialized raw extension.
+// AWSProviderSpec is the structure put into the provider spec of the Cluster
+// API's Cluster type. There it is tracked as serialized raw extension.
 //
 //     kind: CustomSpec
 //     apiVersion: aws.provider.giantswarm.io/v1beta1
@@ -22,7 +22,7 @@ import (
 //           username: email
 //           groups: groups
 //         clientId: foobar-dex-client
-//         issuerUrl: https://dex.3m3ut.fr-east-1.foobar.example.com
+//         issuerUrl: https://dex.8y5kc.fr-east-1.foobar.example.com
 //       versionBundle:
 //         version: 4.9.0
 //     provider:
@@ -33,7 +33,7 @@ import (
 //         instanceType: m4.large
 //       region: eu-central-1
 //
-type ClusterSpec struct {
+type AWSProviderSpec struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Cluster           ClusterSpecCluster  `json:"cluster" yaml:"cluster"`

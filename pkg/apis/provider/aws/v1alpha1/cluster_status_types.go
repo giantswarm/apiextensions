@@ -6,8 +6,8 @@ import (
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClusterStatus is the structure put into the provider status of the Cluster
-// API's Cluster type. There it is tracked as serialized raw extension.
+// AWSProviderStatus is the structure put into the provider status of the
+// Cluster API's Cluster type. There it is tracked as serialized raw extension.
 //
 //     kind: CustomStatus
 //     apiVersion: aws.provider.giantswarm.io/v1beta1
@@ -25,7 +25,7 @@ import (
 //       network:
 //         cidr: 10.1.6.0/24
 //
-type ClusterStatus struct {
+type AWSProviderStatus struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Cluster           ClusterStatusCluster  `json:"cluster" yaml:"cluster"`
