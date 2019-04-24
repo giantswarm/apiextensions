@@ -13,5 +13,5 @@ cd ${dir}/../vendor/k8s.io/code-generator && ./generate-groups.sh \
     "deepcopy" \
     github.com/giantswarm/apiextensions/pkg \
     github.com/giantswarm/apiextensions/pkg/apis \
-    "provider/aws:v1alpha1" \
+    "cluster:v1alpha1" \
     --go-header-file ${dir}/boilerplate.go.txt

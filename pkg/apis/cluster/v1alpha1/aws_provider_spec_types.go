@@ -9,7 +9,7 @@ import (
 // AWSProviderSpec is the structure put into the provider spec of the Cluster
 // API's Cluster type. There it is tracked as serialized raw extension.
 //
-//     kind: CustomSpec
+//     kind: AWSProviderSpec
 //     apiVersion: aws.provider.giantswarm.io/v1beta1
 //     metadata:
 //       name: 8y5kc

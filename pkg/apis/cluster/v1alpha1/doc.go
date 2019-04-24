@@ -1,4 +1,4 @@
 // +k8s:deepcopy-gen=package,register
 
-// +groupName=aws.provider.giantswarm.io
+// +groupName=cluster.giantswarm.io
 package v1alpha1

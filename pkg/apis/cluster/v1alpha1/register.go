@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	group   = "aws.provider.giantswarm.io"
+	group   = "cluster.giantswarm.io"
 	version = "v1alpha1"
 )
 
