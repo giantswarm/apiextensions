@@ -10,7 +10,7 @@ import (
 // API's Cluster type. There it is tracked as serialized raw extension.
 //
 //     kind: AWSProviderSpec
-//     apiVersion: aws.provider.giantswarm.io/v1beta1
+//     apiVersion: cluster.giantswarm.io/v1alpha1
 //     metadata:
 //       name: 8y5kc
 //     cluster:
