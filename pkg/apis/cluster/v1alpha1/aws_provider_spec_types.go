@@ -22,7 +22,7 @@ import (
 //           username: email
 //           groups: groups
 //         clientID: foobar-dex-client
-//         issuerUrl: https://dex.8y5kc.fr-east-1.foobar.example.com
+//         issuerURL: https://dex.8y5kc.fr-east-1.foobar.example.com
 //       versionBundle:
 //         version: 4.9.0
 //     provider:
