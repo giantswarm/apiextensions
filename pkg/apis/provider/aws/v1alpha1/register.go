@@ -15,8 +15,8 @@ const (
 // should contain pointers of zero values of all custom objects and custom
 // object lists in the group version.
 var knownTypes = []runtime.Object{
-	&ClusterSpec{},
-	&ClusterStatus{},
+	&AWSProviderSpec{},
+	&AWSProviderStatus{},
 }
 
 // SchemeGroupVersion is group version used to register these objects

@@ -36,47 +36,47 @@ import (
 type AWSProviderSpec struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Cluster           ClusterSpecCluster  `json:"cluster" yaml:"cluster"`
-	Provider          ClusterSpecProvider `json:"provider" yaml:"provider"`
+	Cluster           AWSProviderSpecCluster  `json:"cluster" yaml:"cluster"`
+	Provider          AWSProviderSpecProvider `json:"provider" yaml:"provider"`
 }
 
-type ClusterSpecCluster struct {
-	Description   string                          `json:"description" yaml:"description"`
-	DNS           ClusterSpecClusterDNS           `json:"dns" yaml:"dns"`
-	OIDC          ClusterSpecClusterOIDC          `json:"oidc" yaml:"oidc"`
-	VersionBundle ClusterSpecClusterVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+type AWSProviderSpecCluster struct {
+	Description   string                              `json:"description" yaml:"description"`
+	DNS           AWSProviderSpecClusterDNS           `json:"dns" yaml:"dns"`
+	OIDC          AWSProviderSpecClusterOIDC          `json:"oidc" yaml:"oidc"`
+	VersionBundle AWSProviderSpecClusterVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
 
-type ClusterSpecClusterDNS struct {
+type AWSProviderSpecClusterDNS struct {
 	Domain string `json:"domain" yaml:"domain"`
 }
 
-type ClusterSpecClusterOIDC struct {
-	Claims    ClusterSpecClusterOIDCClaims `json:"claims" yaml:"claims"`
-	ClientID  string                       `json:"clientID" yaml:"clientID"`
-	IssuerURL string                       `json:"issuerURL" yaml:"issuerURL"`
+type AWSProviderSpecClusterOIDC struct {
+	Claims    AWSProviderSpecClusterOIDCClaims `json:"claims" yaml:"claims"`
+	ClientID  string                           `json:"clientID" yaml:"clientID"`
+	IssuerURL string                           `json:"issuerURL" yaml:"issuerURL"`
 }
 
-type ClusterSpecClusterOIDCClaims struct {
+type AWSProviderSpecClusterOIDCClaims struct {
 	Username string `json:"username" yaml:"username"`
 	Groups   string `json:"groups" yaml:"groups"`
 }
 
-type ClusterSpecClusterVersionBundle struct {
+type AWSProviderSpecClusterVersionBundle struct {
 	Version string `json:"version" yaml:"version"`
 }
 
-type ClusterSpecProvider struct {
-	CredentialSecret ClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
-	Master           ClusterSpecProviderMaster           `json:"master" yaml:"master"`
-	Region           string                              `json:"region" yaml:"region"`
+type AWSProviderSpecProvider struct {
+	CredentialSecret AWSProviderSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
+	Master           AWSProviderSpecProviderMaster           `json:"master" yaml:"master"`
+	Region           string                                  `json:"region" yaml:"region"`
 }
 
-type ClusterSpecProviderCredentialSecret struct {
+type AWSProviderSpecProviderCredentialSecret struct {
 	Name      string `json:"name" yaml:"name"`
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
 
-type ClusterSpecProviderMaster struct {
+type AWSProviderSpecProviderMaster struct {
 	InstanceType string `json:"instanceType" yaml:"instanceType"`
 }

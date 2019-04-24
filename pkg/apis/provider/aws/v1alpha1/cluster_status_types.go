@@ -28,30 +28,30 @@ import (
 type AWSProviderStatus struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Cluster           ClusterStatusCluster  `json:"cluster" yaml:"cluster"`
-	Provider          ClusterStatusProvider `json:"provider" yaml:"provider"`
+	Cluster           AWSProviderStatusCluster  `json:"cluster" yaml:"cluster"`
+	Provider          AWSProviderStatusProvider `json:"provider" yaml:"provider"`
 }
 
-type ClusterStatusCluster struct {
-	Conditions []ClusterStatusClusterCondition `json:"conditions" yaml:"conditions"`
-	ID         string                          `json:"id" yaml:"id"`
-	Versions   []ClusterStatusClusterVersion   `json:"versions" yaml:"versions"`
+type AWSProviderStatusCluster struct {
+	Conditions []AWSProviderStatusClusterCondition `json:"conditions" yaml:"conditions"`
+	ID         string                              `json:"id" yaml:"id"`
+	Versions   []AWSProviderStatusClusterVersion   `json:"versions" yaml:"versions"`
 }
 
-type ClusterStatusClusterCondition struct {
+type AWSProviderStatusClusterCondition struct {
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	Type               string       `json:"type" yaml:"type"`
 }
 
-type ClusterStatusClusterVersion struct {
+type AWSProviderStatusClusterVersion struct {
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	Version            string       `json:"version" yaml:"version"`
 }
 
-type ClusterStatusProvider struct {
-	Network ClusterStatusProviderNetwork `json:"network" yaml:"network"`
+type AWSProviderStatusProvider struct {
+	Network AWSProviderStatusProviderNetwork `json:"network" yaml:"network"`
 }
 
-type ClusterStatusProviderNetwork struct {
+type AWSProviderStatusProviderNetwork struct {
 	CIDR string `json:"cidr" yaml:"cidr"`
 }
