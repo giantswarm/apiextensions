@@ -39,7 +39,7 @@ type AWSMachineDeploymentSpec struct {
 
 type AWSMachineDeploymentSpecNodePool struct {
 	Description   string                                        `json:"description" yaml:"description"`
-	Machine       AWSMachineDeploymentSpecNodePoolMachine       `json:"master" yaml:"master"`
+	Machine       AWSMachineDeploymentSpecNodePoolMachine       `json:"machine" yaml:"machine"`
 	Scaling       AWSMachineDeploymentSpecNodePoolScaling       `json:"scaling" yaml:"scaling"`
 	VersionBundle AWSMachineDeploymentSpecNodePoolVersionBundle `json:"versionBundle" yaml:"versionBundle"`
 }
