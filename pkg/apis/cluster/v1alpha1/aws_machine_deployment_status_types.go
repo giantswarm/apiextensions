@@ -48,7 +48,7 @@ type AWSMachineDeploymentStatusCluster struct {
 
 type AWSMachineDeploymentStatusNodePool struct {
 	ID       string                                      `json:"id" yaml:"id"`
-	Scaling  AWSMachineDeploymentStatusNodePoolScaling   `json:"nodePool" yaml:"nodePool"`
+	Scaling  AWSMachineDeploymentStatusNodePoolScaling   `json:"scaling" yaml:"scaling"`
 	Versions []AWSMachineDeploymentStatusNodePoolVersion `json:"versions" yaml:"versions"`
 }
 
@@ -81,9 +81,9 @@ type AWSMachineDeploymentStatusProviderAvailabilityZoneSubnet struct {
 }
 
 type AWSMachineDeploymentStatusProviderAvailabilityZoneSubnetPrivate struct {
-	CIDR string `json:"string" yaml:"string"`
+	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
 type AWSMachineDeploymentStatusProviderAvailabilityZoneSubnetPublic struct {
-	CIDR string `json:"string" yaml:"string"`
+	CIDR string `json:"cidr" yaml:"cidr"`
 }
