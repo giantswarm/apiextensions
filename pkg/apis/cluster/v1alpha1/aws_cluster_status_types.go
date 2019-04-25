@@ -6,10 +6,10 @@ import (
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AWSProviderStatus is the structure put into the provider status of the
+// AWSClusterStatus is the structure put into the provider status of the
 // Cluster API's Cluster type. There it is tracked as serialized raw extension.
 //
-//     kind: AWSProviderStatus
+//     kind: AWSClusterStatus
 //     apiVersion: cluster.giantswarm.io/v1alpha1
 //     metadata:
 //       name: 8y5kc
@@ -25,33 +25,33 @@ import (
 //       network:
 //         cidr: 10.1.6.0/24
 //
-type AWSProviderStatus struct {
+type AWSClusterStatus struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Cluster           AWSProviderStatusCluster  `json:"cluster" yaml:"cluster"`
-	Provider          AWSProviderStatusProvider `json:"provider" yaml:"provider"`
+	Cluster           AWSClusterStatusCluster  `json:"cluster" yaml:"cluster"`
+	Provider          AWSClusterStatusProvider `json:"provider" yaml:"provider"`
 }
 
-type AWSProviderStatusCluster struct {
-	Conditions []AWSProviderStatusClusterCondition `json:"conditions" yaml:"conditions"`
-	ID         string                              `json:"id" yaml:"id"`
-	Versions   []AWSProviderStatusClusterVersion   `json:"versions" yaml:"versions"`
+type AWSClusterStatusCluster struct {
+	Conditions []AWSClusterStatusClusterCondition `json:"conditions" yaml:"conditions"`
+	ID         string                             `json:"id" yaml:"id"`
+	Versions   []AWSClusterStatusClusterVersion   `json:"versions" yaml:"versions"`
 }
 
-type AWSProviderStatusClusterCondition struct {
+type AWSClusterStatusClusterCondition struct {
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	Type               string       `json:"type" yaml:"type"`
 }
 
-type AWSProviderStatusClusterVersion struct {
+type AWSClusterStatusClusterVersion struct {
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	Version            string       `json:"version" yaml:"version"`
 }
 
-type AWSProviderStatusProvider struct {
-	Network AWSProviderStatusProviderNetwork `json:"network" yaml:"network"`
+type AWSClusterStatusProvider struct {
+	Network AWSClusterStatusProviderNetwork `json:"network" yaml:"network"`
 }
 
-type AWSProviderStatusProviderNetwork struct {
+type AWSClusterStatusProviderNetwork struct {
 	CIDR string `json:"cidr" yaml:"cidr"`
 }
