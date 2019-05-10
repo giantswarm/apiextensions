@@ -56,8 +56,6 @@ orbs:
                       exit 1
                   fi
 
-                  echo_red "${CIRCLE_SHA1}"
-
       tag-master-branch:
         steps:
           - run:
