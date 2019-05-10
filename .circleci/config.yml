@@ -42,8 +42,8 @@ orbs:
               fi
 
       tag-master-branch:
+        description: "When on master branch tag the commit with content of the VERSION file"
         steps:
-          description: "When on master branch tag the commit with content of the VERSION file"
           - run: |
               set -o errexit
               set -o nounset
