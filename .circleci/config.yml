@@ -4,6 +4,7 @@ orbs:
   version:
     commands:
       check-file-changes:
+        description: "Checks if files ./VERSION and ./CHANGELOG.md are modified."
         steps:
           - run: |
               set -o errexit
@@ -31,6 +32,7 @@ orbs:
 
       tag-master-branch:
         steps:
+          description: "When on master branch tags the commit with content of the ./VERSION file."
           - run: |
               set -o errexit
               set -o nounset
