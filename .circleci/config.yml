@@ -1,4 +1,26 @@
-version: 2
+version: 2.1
+
+orbs:
+  version:
+    commands:
+      check:
+        steps:
+          - run: |
+              echo "printing VERSION file"
+              cat VERSION
+              echo "printed VERSION file"
+
+    executors:
+      alpine:
+        docker:
+          - image: alpine:3.9
+
+    jobs:
+      version:
+        executor: alpine
+        steps:
+          - check
+
 jobs:
   build:
     machine: true
@@ -17,3 +39,10 @@ jobs:
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
             ./architect deploy
           fi
+
+workflows:
+  version-check-build:
+    jobs:
+      - version/check:
+          name: version-check
+      - build
