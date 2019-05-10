@@ -1,6 +1,5 @@
 version: 2.1
 
-
 orbs:
   version:
     commands:
@@ -17,7 +16,7 @@ orbs:
           - image: alpine:3.9
 
     jobs:
-      version:
+      check:
         executor: alpine
         steps:
           - check
