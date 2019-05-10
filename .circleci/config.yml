@@ -11,11 +11,11 @@ orbs:
               set -o pipefail
 
               if [ ! -f ./VERSION ]; then
-                  echo "stopping execution: file ./VERSION"
+                  echo "stopping execution: file ./VERSION does not exist"
                   exit 0
               fi
               if [ ! -f ./CHANGELOG.md ]; then
-                  echo "file ./CHANGELOG.md does not exist" >&2
+                  echo "stopping execution: file ./CHANGELOG.md does not exist" >&2
                   exit 0
               fi
 
@@ -37,7 +37,7 @@ orbs:
               set -o pipefail
 
               if [ ! -f ./VERSION ]; then
-                  echo "stopping execution: file ./VERSION"
+                  echo "stopping execution: file ./VERSION does not exist"
                   exit 0
               fi
               if [ "${CIRCLE_BRANCH}" != "master" ]; then
