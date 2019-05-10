@@ -57,6 +57,7 @@ orbs:
       check:
         executor: alpine
         steps:
+          - checkout
           - check-file-changes
           - tag-master-branch
 
