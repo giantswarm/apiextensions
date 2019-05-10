@@ -4,7 +4,7 @@ orbs:
   version:
     commands:
       check-file-changes:
-        description: "Checks if files ./VERSION and ./CHANGELOG.md are modified."
+        description: "Check if files VERSION and CHANGELOG.md are modified"
         steps:
           - run: |
               set -o errexit
@@ -15,24 +15,35 @@ orbs:
                   echo "stopping execution: file ./VERSION does not exist"
                   exit 0
               fi
+
+              # CHANGELOG.md file must exist when VERSION file exists.
               if [ ! -f ./CHANGELOG.md ]; then
-                  echo "stopping execution: file ./CHANGELOG.md does not exist" >&2
-                  exit 0
+                  echo "error: file ./CHANGELOG.md does not exist" >&2
+                  exit 1
               fi
 
-              if git diff --name-only HEAD~1 -- ./VERSION | grep -v VERSION; then
+              # On the master branch the head is previous commit. On a feature
+              # branch it's the master branch.
+              head="master"
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                  head="HEAD~1"
+              fi
+
+              # Check if VERSION file was changed.
+              if git diff --name-only $head -- ./VERSION | grep -v VERSION; then
                   echo "file ./VERSION did not change in this PR" >&2
                   exit 1
               fi
 
-              if git diff --name-only HEAD~1 -- ./CHANGELOG.md | grep -v CHANGELOG.md ; then
+              # Check if CHAGNELOG.md file was changed.
+              if git diff --name-only $head -- ./CHANGELOG.md | grep -v CHANGELOG.md ; then
                   echo "file ./CHANGELOG.md did not change in this PR" >&2
                   exit 1
               fi
 
       tag-master-branch:
         steps:
-          description: "When on master branch tags the commit with content of the ./VERSION file."
+          description: "When on master branch tag the commit with content of the VERSION file"
           - run: |
               set -o errexit
               set -o nounset
