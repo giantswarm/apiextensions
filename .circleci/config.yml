@@ -56,6 +56,34 @@ orbs:
                       exit 1
                   fi
 
+      validate-version-file:
+        steps:
+          - run:
+              name: "Check if VERSION file contains valid version"
+              command: |
+                  set -o errexit
+                  set -o nounset
+                  set -o pipefail
+
+                  echo_green() {
+                      echo -e "\e[32m${1}"
+                  }
+                  echo_red() {
+                      echo -e "\e[31m${1}"
+                  }
+                  echo_yellow() {
+                      echo -e "\e[33m${1}"
+                  }
+
+                  regexp='^v[0-9]+\.[0-9]+\.[0-9]+(-[.a-z0-9]+)?$'
+
+                  if cat ./VERSION | grep -E "${regexp}" ; then
+                      echo_green "ok: version '$(cat ./VERSION)' from file VERSION is in semver format"
+                  else
+                      echo_red "error: version '$(cat ./VERSION)' from file VERSION is not in semver format ${regexp}" >&2
+                      exit 1
+                  fi
+
       tag-master-branch:
         steps:
           - run:
@@ -93,16 +121,24 @@ orbs:
 
 
     executors:
-      alpine:
+      my-executor:
         docker:
           - image: circleci/golang:1.12.4
 
     jobs:
-      check:
-        executor: alpine
+      validate:
+        executor: my-executor
         steps:
           - checkout
           - check-file-changes
+          - validate-version-file
+
+      push-tag:
+        executor: my-executor
+        steps:
+          - checkout
+          - check-file-changes
+          - validate-version-file
           - tag-master-branch
 
 jobs:
@@ -127,6 +163,8 @@ jobs:
 workflows:
   version-check-build:
     jobs:
-      - version/check:
-          name: version-check
       - build
+      - version/validate:
+          name: version-validate
+      - version/push-tag:
+          name: version-tag
