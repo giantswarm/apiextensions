@@ -10,12 +10,12 @@ orbs:
               set -o nounset
               set -o pipefail
 
-              if [ ! -r ./VERSION ]; then
-                  echo "stopping execution: file ./VERSION does not exist or is not readable"
+              if [ ! -f ./VERSION ]; then
+                  echo "stopping execution: file ./VERSION"
                   exit 0
               fi
-              if [ ! -r ./CHANGELOG.md ]; then
-                  echo "file ./CHANGELOG.md does not exist or is not readable" >&2
+              if [ ! -f ./CHANGELOG.md ]; then
+                  echo "file ./CHANGELOG.md does not exist" >&2
                   exit 0
               fi
 
@@ -36,8 +36,8 @@ orbs:
               set -o nounset
               set -o pipefail
 
-              if [ ! -r ./VERSION ]; then
-                  echo "stopping execution: file ./VERSION does not exist or is not readable"
+              if [ ! -f ./VERSION ]; then
+                  echo "stopping execution: file ./VERSION"
                   exit 0
               fi
               if [ "${CIRCLE_BRANCH}" != "master" ]; then
