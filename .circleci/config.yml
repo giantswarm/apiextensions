@@ -33,6 +33,11 @@ orbs:
               if git diff --name-only $head -- ./VERSION | grep VERSION ; then
                   echo "file VERSION changed in this PR"
               else
+                  echo "----> git diff --name-only $head -- ./VERSION"
+                  git diff --name-only $head -- ./VERSION
+                  echo "----> git diff --name-only $head"
+                  git diff --name-only $head
+                  echo
                   echo "file VERSION did not change in this PR" >&2
                   exit 1
               fi
