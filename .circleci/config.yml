@@ -6,7 +6,7 @@ orbs:
       check-file-changes:
         steps:
           - name: "Check if files VERSION and CHANGELOG.md are modified"
-          - command: |
+            command: |
                 set -o errexit
                 set -o nounset
                 set -o pipefail
@@ -58,7 +58,7 @@ orbs:
 
       tag-master-branch:
         steps:
-          - namme: "When on master branch tag the commit with content of the VERSION file"
+          - name: "When on master branch tag the commit with content of the VERSION file"
             command: |
                 set -o errexit
                 set -o nounset
