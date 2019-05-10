@@ -64,7 +64,7 @@ orbs:
     executors:
       alpine:
         docker:
-          - image: alpine:3.9
+          - image: circleci/golang:1.12.4
 
     jobs:
       check:
