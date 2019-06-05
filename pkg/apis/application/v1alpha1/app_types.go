@@ -194,8 +194,8 @@ type AppSpecUserConfigConfigMap struct {
 	// Name is the name of the config map containing user values to apply,
 	// e.g. prometheus-user-values.
 	Name string `json:"name" yaml:"name"`
-	// Namespace is the namespace of the user values config map,
-	// e.g. monitoring.
+	// Namespace is the namespace of the user values config map on the control plane,
+	// e.g. 123ab.
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
 
