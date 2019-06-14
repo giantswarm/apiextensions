@@ -1,19 +1,19 @@
 package v1alpha1
 
-// CommonStatusCluster is shared type to contain provider independent cluster status
+// CommonClusterStatus is shared type to contain provider independent cluster status
 // information.
-type CommonStatusCluster struct {
-	Conditions []CommonStatusClusterCondition `json:"conditions" yaml:"conditions"`
+type CommonClusterStatus struct {
+	Conditions []CommonClusterStatusCondition `json:"conditions" yaml:"conditions"`
 	ID         string                         `json:"id" yaml:"id"`
-	Versions   []CommonStatusClusterVersion   `json:"versions" yaml:"versions"`
+	Versions   []CommonClusterStatusVersion   `json:"versions" yaml:"versions"`
 }
 
-type CommonStatusClusterCondition struct {
+type CommonClusterStatusCondition struct {
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	Type               string       `json:"type" yaml:"type"`
 }
 
-type CommonStatusClusterVersion struct {
+type CommonClusterStatusVersion struct {
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	Version            string       `json:"version" yaml:"version"`
 }
