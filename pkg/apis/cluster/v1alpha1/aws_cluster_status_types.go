@@ -28,7 +28,7 @@ import (
 type AWSClusterStatus struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Cluster           StatusCluster            `json:"cluster" yaml:"cluster"`
+	Cluster           CommonStatusCluster      `json:"cluster" yaml:"cluster"`
 	Provider          AWSClusterStatusProvider `json:"provider" yaml:"provider"`
 }
 
