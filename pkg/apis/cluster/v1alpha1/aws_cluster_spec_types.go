@@ -25,7 +25,7 @@ import (
 //           username: email
 //           groups: groups
 //         clientID: foobar-dex-client
-//         issuerURL: https://dex.gatekeeper.fr-east-1.aws.example.com
+//         issuerURL: https://dex.gatekeeper.eu-central-1.aws.example.com
 //     provider:
 //       credentialSecret:
 //         name: credential-default
