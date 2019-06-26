@@ -142,7 +142,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			ExpectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{testTime},
-					Type:               ClusterStatusConditionCreated,
+					Condition:          ClusterStatusConditionCreated,
 				},
 			},
 		},
@@ -151,7 +151,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{testTime},
-					Type:               ClusterStatusConditionCreating,
+					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			Search:  ClusterStatusConditionCreating,
@@ -159,7 +159,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			ExpectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{testTime},
-					Type:               ClusterStatusConditionCreated,
+					Condition:          ClusterStatusConditionCreated,
 				},
 			},
 		},
