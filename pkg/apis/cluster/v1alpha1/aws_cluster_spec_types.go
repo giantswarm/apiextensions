@@ -16,7 +16,6 @@ import (
 //         aws-operator.giantswarm.io/version: 6.2.0
 //         cluster-operator.giantswarm.io/version: 0.17.0
 //         giantswarm.io/cluster: "8y5kc"
-//         giantswarm.io/customer: "giantswarm"
 //         giantswarm.io/organization: "giantswarm"
 //         release.giantswarm.io/version: 7.3.1
 //       name: 8y5kc
