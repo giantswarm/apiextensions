@@ -50,7 +50,7 @@ const (
 	//     - lastTransitionTime: "2018-10-29T02:09:20.393986006Z"
 	//       version: 3.3.3
 	//
-	ClusterVersionLimit = 5
+	ClusterVersionLimit = 15
 )
 
 const (
