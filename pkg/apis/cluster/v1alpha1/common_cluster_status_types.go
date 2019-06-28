@@ -36,7 +36,9 @@ const (
 	ClusterConditionLimit = 5
 	// ClusterVersionLimit is the maximum amount of versions tracked in the
 	// version list of a tenant cluster's status. The limit here is applied to the
-	// total amount of the list's number of entries.
+	// total amount of the list's number of entries. For instance a cluster having
+	// transitioned through 6 cluster upgrades throughout its lifetime will only
+	// track 5 versions in its version list.
 	//
 	//     versions:
 	//     - lastTransitionTime: "2019-02-14T11:18:25.212331926Z"
