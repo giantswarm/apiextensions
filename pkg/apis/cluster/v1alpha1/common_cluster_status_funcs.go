@@ -74,19 +74,39 @@ func (s CommonClusterStatus) LatestVersion() string {
 }
 
 func (s CommonClusterStatus) WithCreatedCondition() []CommonClusterStatusCondition {
-	return withCondition(s.Conditions, ClusterStatusConditionCreating, ClusterStatusConditionCreated, time.Now())
+	newCondition := CommonClusterStatusCondition{
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Condition:          ClusterStatusConditionCreated,
+	}
+
+	return withCondition(s.Conditions, newCondition, ClusterConditionLimit)
 }
 
 func (s CommonClusterStatus) WithCreatingCondition() []CommonClusterStatusCondition {
-	return withCondition(s.Conditions, ClusterStatusConditionCreated, ClusterStatusConditionCreating, time.Now())
+	newCondition := CommonClusterStatusCondition{
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Condition:          ClusterStatusConditionCreating,
+	}
+
+	return withCondition(s.Conditions, newCondition, ClusterConditionLimit)
 }
 
 func (s CommonClusterStatus) WithDeletedCondition() []CommonClusterStatusCondition {
-	return withCondition(s.Conditions, ClusterStatusConditionDeleting, ClusterStatusConditionDeleted, time.Now())
+	newCondition := CommonClusterStatusCondition{
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Condition:          ClusterStatusConditionDeleted,
+	}
+
+	return withCondition(s.Conditions, newCondition, ClusterConditionLimit)
 }
 
 func (s CommonClusterStatus) WithDeletingCondition() []CommonClusterStatusCondition {
-	return withCondition(s.Conditions, ClusterStatusConditionDeleted, ClusterStatusConditionDeleting, time.Now())
+	newCondition := CommonClusterStatusCondition{
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Condition:          ClusterStatusConditionDeleting,
+	}
+
+	return withCondition(s.Conditions, newCondition, ClusterConditionLimit)
 }
 
 func (s CommonClusterStatus) WithNewVersion(version string) []CommonClusterStatusVersion {
@@ -99,11 +119,21 @@ func (s CommonClusterStatus) WithNewVersion(version string) []CommonClusterStatu
 }
 
 func (s CommonClusterStatus) WithUpdatedCondition() []CommonClusterStatusCondition {
-	return withCondition(s.Conditions, ClusterStatusConditionUpdating, ClusterStatusConditionUpdated, time.Now())
+	newCondition := CommonClusterStatusCondition{
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Condition:          ClusterStatusConditionUpdated,
+	}
+
+	return withCondition(s.Conditions, newCondition, ClusterConditionLimit)
 }
 
 func (s CommonClusterStatus) WithUpdatingCondition() []CommonClusterStatusCondition {
-	return withCondition(s.Conditions, ClusterStatusConditionUpdated, ClusterStatusConditionUpdating, time.Now())
+	newCondition := CommonClusterStatusCondition{
+		LastTransitionTime: DeepCopyTime{time.Now()},
+		Condition:          ClusterStatusConditionUpdating,
+	}
+
+	return withCondition(s.Conditions, newCondition, ClusterConditionLimit)
 }
 
 func getCondition(conditions []CommonClusterStatusCondition, condition string) CommonClusterStatusCondition {
@@ -136,23 +166,137 @@ func hasVersion(versions []CommonClusterStatusVersion, search string) bool {
 	return false
 }
 
-func withCondition(conditions []CommonClusterStatusCondition, search string, replace string, t time.Time) []CommonClusterStatusCondition {
-	newConditions := []CommonClusterStatusCondition{
-		{
-			LastTransitionTime: DeepCopyTime{t},
-			Condition:          replace,
+func isConditionPair(a CommonClusterStatusCondition, b CommonClusterStatusCondition) bool {
+	conditionPairs := [][]string{
+		[]string{
+			ClusterStatusConditionCreated,
+			ClusterStatusConditionCreating,
+		},
+		[]string{
+			ClusterStatusConditionDeleted,
+			ClusterStatusConditionDeleting,
+		},
+		[]string{
+			ClusterStatusConditionUpdated,
+			ClusterStatusConditionUpdating,
 		},
 	}
 
-	for _, c := range conditions {
-		if c.Condition == search {
-			continue
+	for _, p := range conditionPairs {
+		if p[0] == a.Condition && p[1] == b.Condition {
+			return true
 		}
-
-		newConditions = append(newConditions, c)
+		if p[1] == a.Condition && p[0] == b.Condition {
+			return true
+		}
 	}
 
-	return newConditions
+	return false
+}
+
+func withCondition(conditions []CommonClusterStatusCondition, condition CommonClusterStatusCondition, limit int) []CommonClusterStatusCondition {
+	// We create a new list which acts like a copy so the input parameters are not
+	// manipulated.
+	var newConditions []CommonClusterStatusCondition
+	{
+		for _, c := range conditions {
+			newConditions = append(newConditions, c)
+		}
+		newConditions = append([]CommonClusterStatusCondition{condition}, newConditions...)
+	}
+
+	// The new list is sorted to have the first item being the oldest. This is to
+	// have an easier grouping mechanism below. When the first item of a new pair
+	// is added, it would throw of the grouping when the order would be kept as
+	// given.
+	sort.Sort(sortClusterStatusConditionsByDate(newConditions))
+
+	// The conditions are grouped into their corresponding pairs of transitioning
+	// states. Associated Creating/Created, Updating/Updated and Deleting/Deleted
+	// conditions are put together.
+	var conditionGroups [][]CommonClusterStatusCondition
+	for len(newConditions) > 0 {
+		var g []CommonClusterStatusCondition
+
+		for _, c := range newConditions {
+			// If the list only contains one item anymore, we process it separately
+			// here and be done. Otherwhise the pruning of the list below panics due
+			// to the range calculations.
+			if len(newConditions) == 1 {
+				g = append(g, c)
+				newConditions = []CommonClusterStatusCondition{}
+				break
+			}
+
+			// Put the first item from the top of the list into the group and drop
+			// the grouped item from the list.
+			if len(g) == 0 {
+				g = append(g, c)
+				newConditions = newConditions[1:len(newConditions)]
+				continue
+			}
+
+			// When we find the second item of the pair we are done for this group.
+			if len(g) == 1 {
+				if isConditionPair(g[0], c) {
+					g = append(g, c)
+					newConditions = newConditions[1:len(newConditions)]
+				}
+				break
+			}
+		}
+
+		conditionGroups = append(conditionGroups, g)
+	}
+
+	// The pairs are now grouped. When there are only three group kinds for
+	// create/update/delete, conditionPairs has a length of 3. Each of the groups
+	// has then as many pairs as grouped together. Below these groups are limited.
+	var conditionPairs [][]CommonClusterStatusCondition
+	for len(conditionGroups) > 0 {
+		var p []CommonClusterStatusCondition
+
+		for _, g := range conditionGroups {
+			if len(p) == 0 {
+				p = append(p, g...)
+				conditionGroups = conditionGroups[1:len(conditionGroups)]
+				continue
+			}
+
+			if len(g) >= 1 {
+				if isConditionPair(p[0], g[0]) || isConditionPair(p[1], g[0]) {
+					p = append(p, g...)
+					conditionGroups = conditionGroups[1:len(conditionGroups)]
+				}
+			}
+		}
+
+		conditionPairs = append(conditionPairs, p)
+	}
+
+	// Here the list is finally flattened again and its pairs are limitted to the
+	// input parameter.
+	var limittedList []CommonClusterStatusCondition
+	for _, p := range conditionPairs {
+		// We cmpute the pair limit here for the total number of items. This is why
+		// we multiply by 2. When the limit is 5, we want to track for instance 5
+		// Updating/Updated pairs. Additionally when there is an item of a new pair
+		// and the list must be capped, the additional odd of the new item has to be
+		// considered when computing the limit. This results in an additional pair
+		// being dropped. Test case 6 demonstrates that.
+		l := (limit * 2) - (len(p) % 2)
+		if len(p) < l {
+			l = len(p)
+		}
+
+		limittedList = append(limittedList, p[len(p)-l:len(p)]...)
+	}
+
+	// We reverse the list order to have the item with the highest timestamp at
+	// the top again.
+	sort.Sort(sort.Reverse(sortClusterStatusConditionsByDate(limittedList)))
+
+	return limittedList
 }
 
 // withVersion computes a list of version history using the given list and new

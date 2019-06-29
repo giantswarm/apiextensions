@@ -2,8 +2,11 @@ package v1alpha1
 
 import (
 	"reflect"
+	"strconv"
 	"testing"
 	"time"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func Test_Provider_Status_LatestVersion(t *testing.T) {
@@ -125,52 +128,358 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 }
 
 func Test_Provider_Status_withCondition(t *testing.T) {
-	testTime := time.Unix(20, 0)
-
 	testCases := []struct {
-		Name               string
-		Conditions         []CommonClusterStatusCondition
-		Search             string
-		Replace            string
-		ExpectedConditions []CommonClusterStatusCondition
+		name               string
+		conditions         []CommonClusterStatusCondition
+		condition          CommonClusterStatusCondition
+		limit              int
+		expectedConditions []CommonClusterStatusCondition
 	}{
 		{
-			Name:       "case 0",
-			Conditions: []CommonClusterStatusCondition{},
-			Search:     ClusterStatusConditionCreating,
-			Replace:    ClusterStatusConditionCreated,
-			ExpectedConditions: []CommonClusterStatusCondition{
+			name:       "case 0: the creation of the tenant cluster starts",
+			conditions: []CommonClusterStatusCondition{},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+				Condition:          ClusterStatusConditionCreating,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: DeepCopyTime{testTime},
-					Condition:          ClusterStatusConditionCreated,
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 		},
 		{
-			Name: "case 1",
-			Conditions: []CommonClusterStatusCondition{
+			name: "case 1: the creation of the tenant cluster ends",
+			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: DeepCopyTime{testTime},
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			Search:  ClusterStatusConditionCreating,
-			Replace: ClusterStatusConditionCreated,
-			ExpectedConditions: []CommonClusterStatusCondition{
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+				Condition:          ClusterStatusConditionCreated,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: DeepCopyTime{testTime},
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 2: the first update of the tenant cluster starts",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+				Condition:          ClusterStatusConditionUpdating,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 3: the first update of the tenant cluster ends",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+				Condition:          ClusterStatusConditionUpdated,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 4: the second update of the tenant cluster starts",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+				Condition:          ClusterStatusConditionUpdating,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 5: the second update of the tenant cluster ends",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+				Condition:          ClusterStatusConditionUpdated,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 6: the third update of the tenant cluster starts",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
+				Condition:          ClusterStatusConditionUpdating,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 7: the third update of the tenant cluster ends",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
+				Condition:          ClusterStatusConditionUpdated,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 		},
 	}
 
-	for _, tc := range testCases {
-		conditions := withCondition(tc.Conditions, tc.Search, tc.Replace, testTime)
+	for i, tc := range testCases {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
+			conditions := withCondition(tc.conditions, tc.condition, tc.limit)
 
-		if !reflect.DeepEqual(conditions, tc.ExpectedConditions) {
-			t.Fatalf("%s: expected %#v got %#v", tc.Name, tc.ExpectedConditions, conditions)
-		}
+			if !reflect.DeepEqual(conditions, tc.expectedConditions) {
+				t.Fatalf("\n\n%s\n", cmp.Diff(conditions, tc.expectedConditions))
+			}
+		})
 	}
 }
 
