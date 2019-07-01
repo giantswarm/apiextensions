@@ -146,6 +146,19 @@ func getCondition(conditions []CommonClusterStatusCondition, condition string) C
 	return CommonClusterStatusCondition{}
 }
 
+func getConditionForPair(a CommonClusterStatusCondition) string {
+	for _, p := range conditionPairs {
+		if p[0] == a.Condition {
+			return p[1]
+		}
+		if p[1] == a.Condition {
+			return p[0]
+		}
+	}
+
+	return ""
+}
+
 func hasCondition(conditions []CommonClusterStatusCondition, condition string) bool {
 	for _, c := range conditions {
 		if c.Condition == condition {
@@ -167,21 +180,6 @@ func hasVersion(versions []CommonClusterStatusVersion, search string) bool {
 }
 
 func isConditionPair(a CommonClusterStatusCondition, b CommonClusterStatusCondition) bool {
-	conditionPairs := [][]string{
-		[]string{
-			ClusterStatusConditionCreated,
-			ClusterStatusConditionCreating,
-		},
-		[]string{
-			ClusterStatusConditionDeleted,
-			ClusterStatusConditionDeleting,
-		},
-		[]string{
-			ClusterStatusConditionUpdated,
-			ClusterStatusConditionUpdating,
-		},
-	}
-
 	for _, p := range conditionPairs {
 		if p[0] == a.Condition && p[1] == b.Condition {
 			return true
@@ -196,13 +194,28 @@ func isConditionPair(a CommonClusterStatusCondition, b CommonClusterStatusCondit
 
 func withCondition(conditions []CommonClusterStatusCondition, condition CommonClusterStatusCondition, limit int) []CommonClusterStatusCondition {
 	// We create a new list which acts like a copy so the input parameters are not
-	// manipulated.
+	// manipulated. Here we also prepend the given condition and inject certain
+	// missing conditions in case the condition list gets out of sync
+	// unintendedly due to any eventual bugs. Test case 8 demonstrates that.
 	var newConditions []CommonClusterStatusCondition
 	{
+		if len(conditions) > 0 && conditions[0].Condition == condition.Condition {
+			injected := CommonClusterStatusCondition{
+				// The implication of unintendedly untracked conditions is that the
+				// automatically added condition does not obtain a reasonable timestamp.
+				// Here we take the timestamp of the new condition we want to track and
+				// substract one nano second from it to keep the order intact.
+				LastTransitionTime: DeepCopyTime{condition.LastTransitionTime.Add(-(1 * time.Nanosecond))},
+				Condition:          getConditionForPair(condition),
+			}
+			newConditions = append(newConditions, injected)
+		}
+
+		newConditions = append(newConditions, condition)
+
 		for _, c := range conditions {
 			newConditions = append(newConditions, c)
 		}
-		newConditions = append([]CommonClusterStatusCondition{condition}, newConditions...)
 	}
 
 	// The new list is sorted to have the first item being the oldest. This is to

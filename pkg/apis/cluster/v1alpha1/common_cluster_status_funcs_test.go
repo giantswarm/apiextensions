@@ -470,6 +470,122 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "case 8: the second update of the tenant cluster starts before the first ended",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+				Condition:          ClusterStatusConditionUpdating,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				// This Updated condition is added automatically when adding the
+				// Updating condition twice. That way any failure tracking the
+				// conditions properly would be fixed on reconciliation to keep the
+				// integrity of the condition list. Only unfortunate effect is that the
+				// tracked timestamp for the automatically added condition is off and
+				// does not reflect the truth.
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, -1)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
+		{
+			name: "case 9: the fourth update of the tenant cluster starts before the thrird ended",
+			conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+			condition: CommonClusterStatusCondition{
+				LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
+				Condition:          ClusterStatusConditionUpdating,
+			},
+			limit: 2,
+			expectedConditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				// This Updated condition is added automatically when adding the
+				// Updating condition twice. That way any failure tracking the
+				// conditions properly would be fixed on reconciliation to keep the
+				// integrity of the condition list. Only unfortunate effect is that the
+				// tracked timestamp for the automatically added condition is off and
+				// does not reflect the truth.
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(90, -1)},
+					Condition:          ClusterStatusConditionUpdated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
+					Condition:          ClusterStatusConditionUpdating,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
+					Condition:          ClusterStatusConditionCreated,
+				},
+				{
+					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
+					Condition:          ClusterStatusConditionCreating,
+				},
+			},
+		},
 	}
 
 	for i, tc := range testCases {
