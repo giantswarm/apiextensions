@@ -301,7 +301,7 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 	// input parameter.
 	var limittedList []CommonClusterStatusCondition
 	for _, p := range conditionPairs {
-		// We cmpute the pair limit here for the total number of items. This is why
+		// We compute the pair limit here for the total number of items. This is why
 		// we multiply by 2. When the limit is 5, we want to track for instance 5
 		// Updating/Updated pairs. Additionally when there is an item of a new pair
 		// and the list must be capped, the additional odd of the new item has to be
