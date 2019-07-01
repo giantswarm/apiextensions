@@ -521,12 +521,12 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Limit: 3,
 			ExpectedVersions: []CommonClusterStatusVersion{
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
-					Version:            "1.0.0",
-				},
-				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
 					Version:            "1.1.0",
+				},
+				{
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
+					Version:            "1.0.0",
 				},
 			},
 		},
@@ -549,16 +549,16 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Limit: 3,
 			ExpectedVersions: []CommonClusterStatusVersion{
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
-					Version:            "1.0.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(30, 0)},
+					Version:            "1.5.0",
 				},
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
 					Version:            "1.1.0",
 				},
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(30, 0)},
-					Version:            "1.5.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
+					Version:            "1.0.0",
 				},
 			},
 		},
@@ -585,16 +585,16 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Limit: 3,
 			ExpectedVersions: []CommonClusterStatusVersion{
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
-					Version:            "1.1.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
+					Version:            "3.0.0",
 				},
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(30, 0)},
 					Version:            "1.5.0",
 				},
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
-					Version:            "3.0.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
+					Version:            "1.1.0",
 				},
 			},
 		},
@@ -629,16 +629,16 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Limit: 3,
 			ExpectedVersions: []CommonClusterStatusVersion{
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
-					Version:            "3.0.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
+					Version:            "3.3.0",
 				},
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(50, 0)},
 					Version:            "3.2.0",
 				},
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
-					Version:            "3.3.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
+					Version:            "3.0.0",
 				},
 			},
 		},
@@ -673,16 +673,16 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Limit: 3,
 			ExpectedVersions: []CommonClusterStatusVersion{
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
-					Version:            "3.0.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
+					Version:            "3.3.0",
 				},
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(50, 0)},
 					Version:            "3.2.0",
 				},
 				{
-					LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
-					Version:            "3.3.0",
+					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
+					Version:            "3.0.0",
 				},
 			},
 		},
@@ -708,12 +708,12 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 	}
 
-	for _, tc := range testCases {
-		t.Run(tc.Name, func(t *testing.T) {
+	for i, tc := range testCases {
+		t.Run(strconv.Itoa(i), func(t *testing.T) {
 			versions := withVersion(tc.Versions, tc.Version, tc.Limit)
 
 			if !reflect.DeepEqual(versions, tc.ExpectedVersions) {
-				t.Fatalf("expected %#v got %#v", tc.ExpectedVersions, versions)
+				t.Fatalf("\n\n%s\n", cmp.Diff(versions, tc.ExpectedVersions))
 			}
 		})
 	}

@@ -300,27 +300,32 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 }
 
 // withVersion computes a list of version history using the given list and new
-// version structure to append. withVersion also limits total amount of elements
-// in the list by cutting off the tail with respect to the limit parameter.
+// version structure to append. withVersion also limits the total amount of
+// elements in the list by cutting off the tail with respect to the limit
+// parameter.
 func withVersion(versions []CommonClusterStatusVersion, version CommonClusterStatusVersion, limit int) []CommonClusterStatusVersion {
 	if hasVersion(versions, version.Version) {
 		return versions
 	}
 
+	// Create a copy to not manipulate the input list.
 	var newVersions []CommonClusterStatusVersion
-
-	start := 0
-	if len(versions) >= limit {
-		start = len(versions) - limit + 1
+	for _, v := range versions {
+		newVersions = append(newVersions, v)
 	}
 
-	sort.Sort(sortClusterStatusVersionsByDate(versions))
+	// Sort the versions in a way that the newest version, namely the one with the
+	// highest timestamp, is at the top of the list.
+	sort.Sort(sort.Reverse(sortClusterStatusVersionsByDate(newVersions)))
 
-	for i := start; i < len(versions); i++ {
-		newVersions = append(newVersions, versions[i])
+	// Calculate the index for capping the list in the next step.
+	l := limit - 1
+	if len(newVersions) < l {
+		l = len(newVersions)
 	}
 
-	newVersions = append(newVersions, version)
+	// Cap the list and prepend the new version.
+	newVersions = append([]CommonClusterStatusVersion{version}, newVersions[0:l]...)
 
 	return newVersions
 }
