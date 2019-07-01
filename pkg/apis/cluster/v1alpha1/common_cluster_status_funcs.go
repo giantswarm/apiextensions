@@ -192,6 +192,16 @@ func isConditionPair(a CommonClusterStatusCondition, b CommonClusterStatusCondit
 	return false
 }
 
+// withCondition takes a list of status conditions and manages the given list
+// according to the condition to add on top and the given limit argument. The
+// limit argument should always only be given by ClusterConditionLimit. Also see
+// the godoc there. The limit is applied to condition pairs as defined by
+// conditionPairs. Internally the given conditions list is copied so that the
+// input arguments are not manipulated by accident. One specific functionality
+// of withCondition is that incomplete condition pairs are completed
+// automatically as this may happen due to unexpected behaviour in the callers
+// environment. For more information on implementation details read the inline
+// comments of the code.
 func withCondition(conditions []CommonClusterStatusCondition, condition CommonClusterStatusCondition, limit int) []CommonClusterStatusCondition {
 	// We create a new list which acts like a copy so the input parameters are not
 	// manipulated. Here we also prepend the given condition and inject certain
