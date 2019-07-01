@@ -30,6 +30,9 @@ import (
 //         clientID: foobar-dex-client
 //         issuerURL: https://dex.gatekeeper.eu-central-1.aws.example.com
 //     provider:
+//       availabilityZones:
+//         - eu-central-1a
+//         - eu-central-1b
 //       credentialSecret:
 //         name: credential-default
 //         namespace: giantswarm
@@ -67,9 +70,10 @@ type AWSClusterSpecClusterOIDCClaims struct {
 }
 
 type AWSClusterSpecProvider struct {
-	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
-	Master           AWSClusterSpecProviderMaster           `json:"master" yaml:"master"`
-	Region           string                                 `json:"region" yaml:"region"`
+	AvailabilityZones []string                               `json:"availabilityZones" yaml:"availabilityZones"`
+	CredentialSecret  AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
+	Master            AWSClusterSpecProviderMaster           `json:"master" yaml:"master"`
+	Region            string                                 `json:"region" yaml:"region"`
 }
 
 type AWSClusterSpecProviderCredentialSecret struct {
