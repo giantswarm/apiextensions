@@ -206,10 +206,10 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //          secret:
 //            name: "giantswarm-12345"
 //            namespace: "giantswarm"
-//          userConfig:
-//            configMap:
-//              name: "prometheus-user-values"
-//              namespace: "monitoring"
+//        userConfig:
+//          configMap:
+//            name: "prometheus-user-values"
+//            namespace: "monitoring"
 //
 //    status:
 // 	appVersion: "2.4.3" # Optional value from Chart.yaml with the version of the deployed app.
