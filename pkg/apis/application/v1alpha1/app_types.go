@@ -129,18 +129,95 @@ var appCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
 // NewAppCRD returns a new custom resource definition for App.
 // This might look something like the following.
 //
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: apps.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: App
-//         plural: apps
-//         singular: app
+// apiVersion: apiextensions.k8s.io/v1beta1
+// kind: CustomResourceDefinition
+// spec:
+//   group: application.giantswarm.io
+//   names:
+//     kind: App
+//     listKind: AppList
+//     plural: apps
+//     singular: app
+//   scope: Namespaced
+//   subresources:
+//     status: {}
+//   validation:
+//     openAPIV3Schema:
+//       properties:
+//         spec:
+//           properties:
+//             catalog:
+//               minLength: 3
+//               type: string
+//             config:
+//               properties:
+//                 configMap:
+//                   properties:
+//                     name:
+//                       minLength: 3
+//                       type: string
+//                     namespace:
+//                       minLength: 3
+//                       type: string
+//                   type: object
+//                 secret:
+//                   properties:
+//                     name:
+//                       minLength: 3
+//                       type: string
+//                     namespace:
+//                       minLength: 3
+//                       type: string
+//                   type: object
+//               type: object
+//             kubeConfig:
+//               properties:
+//                 context:
+//                   minLength: 3
+//                   type: string
+//                 inCluster:
+//                   type: boolean
+//                 secret:
+//                   properties:
+//                     name:
+//                       minLength: 3
+//                       type: string
+//                     namespace:
+//                       minLength: 3
+//                       type: string
+//                   type: object
+//               type: object
+//             name:
+//               minLength: 3
+//               type: string
+//             namespace:
+//               minLength: 3
+//               type: string
+//             userConfig:
+//               properties:
+//                 configMap:
+//                   properties:
+//                     name:
+//                       minLength: 3
+//                       type: string
+//                     namespace:
+//                       minLength: 3
+//                       type: string
+//                   type: object
+//                 secret:
+//                   properties:
+//                     name:
+//                       minLength: 3
+//                       type: string
+//                     namespace:
+//                       minLength: 3
+//                       type: string
+//                   type: object
+//               type: object
+//             version:
+//               pattern: ^\d+\.\d+\.\d+$
+//               type: string
+//           type: object
 //
 func NewAppCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
