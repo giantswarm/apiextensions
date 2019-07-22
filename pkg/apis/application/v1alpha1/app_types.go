@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	"github.com/giantswarm/to"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -8,6 +9,122 @@ import (
 const (
 	kindApp = "App"
 )
+
+var appCRDValidation = &apiextensionsv1beta1.CustomResourceValidation{
+	// See http://json-schema.org/learn.
+	OpenAPIV3Schema: &apiextensionsv1beta1.JSONSchemaProps{
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"spec": {
+				Type: "object",
+				Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+					"catalog": {
+						Type:      "string",
+						MinLength: to.Int64P(3),
+					},
+					"config": {
+						Type: "object",
+						Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+							"configMap": {
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"name": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+									"namespace": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+								},
+							},
+							"secret": {
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"name": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+									"namespace": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+								},
+							},
+						},
+					},
+					"kubeConfig": {
+						Type: "object",
+						Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+							"inCluster": {
+								Type: "boolean",
+							},
+							"context": {
+								Type:      "string",
+								MinLength: to.Int64P(3),
+							},
+							"secret": {
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"name": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+									"namespace": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+								},
+							},
+						},
+					},
+					"name": {
+						Type:      "string",
+						MinLength: to.Int64P(3),
+					},
+					"namespace": {
+						Type:      "string",
+						MinLength: to.Int64P(3),
+					},
+					"userConfig": {
+						Type: "object",
+						Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+							"configMap": {
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"name": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+									"namespace": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+								},
+							},
+							"secret": {
+								Type: "object",
+								Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+									"name": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+									"namespace": {
+										Type:      "string",
+										MinLength: to.Int64P(3),
+									},
+								},
+							},
+						},
+					},
+					"version": {
+						Type:    "string",
+						Pattern: `^\d+\.\d+\.\d+$`,
+					},
+				},
+			},
+		},
+	},
+}
 
 // NewAppCRD returns a new custom resource definition for App.
 // This might look something like the following.
@@ -46,6 +163,7 @@ func NewAppCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
 			},
+			Validation: appCRDValidation,
 		},
 	}
 }
