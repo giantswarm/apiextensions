@@ -11,46 +11,46 @@ const appCatalogCRDValidationSchema = `
 openAPIV3Schema:
   type: object
   properties:
-	spec:
-	  type: object
-	  properties:
-		title:
-		  type: string
-		description:
-		  type: string
-		config:
-		  type: object
-		  properties:
-			configMap:
-			  type: object
-			  properties:
-			    name:
-				  type: string
-				namespace:
-				  type: string
-			  required: ["name", "namespace"]
-			secret:
-			  type: object
-			  properties:
-				name:
-				  type: string
-				namespace:
-				  type: string
-			  required: ["name", "namespace"]
-		logoURL:
-		  type: string
-		  format: uri
-		storage:
-		  type: object
-		  properties:
-			type:
-			  type: string
-			  enum:
-				- helm
-			URL:
-			  type: string
-			  format: uri
-	  required: ["title", "description", "logoURL", "storage"]
+    spec:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        config:
+          type: object
+          properties:
+            configMap:
+              type: object
+              properties:
+                name:
+                  type: string
+                namespace:
+                  type: string
+              required: ["name", "namespace"]
+            secret:
+              type: object
+              properties:
+                name:
+                  type: string
+                namespace:
+                  type: string
+              required: ["name", "namespace"]
+        logoURL:
+          type: string
+          format: uri
+        storage:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - helm
+            URL:
+              type: string
+              format: uri
+      required: ["title", "description", "logoURL", "storage"]
 `
 
 var appCatalogCRDValidation *apiextensionsv1beta1.CustomResourceValidation
