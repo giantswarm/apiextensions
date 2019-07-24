@@ -1,9 +1,105 @@
 package v1alpha1
 
 import (
+	"encoding/json"
+
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+const appCatalogCRDJSON = `
+{
+	"apiVersion": "apiextensions.k8s.io/v1beta1",
+	"kind": "CustomResourceDefinition",
+	"metadata": {
+		"name": "appcatalogs.application.giantswarm.io"
+	},
+	"spec": {
+		"group": "application.giantswarm.io",
+		"scope": "Cluster",
+		"version": "v1alpha1",
+		"names": {
+			"kind": "AppCatalog",
+			"plural": "appcatalogs",
+			"singular": "appcatalog"
+		},
+		"validation": {
+			"openAPIV3Schema": {
+				"type": "object",
+				"properties": {
+					"spec": {
+						"type": "object",
+						"properties": {
+							"title": {
+								"type": "string"
+							},
+							"description": {
+								"type": "string"
+							},
+							"config": {
+								"type": "object",
+								"properties": {
+									"configMap": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"namespace": {
+												"type": "string"
+											}
+										},
+										"required": ["name", "namespace"]
+									},
+									"secret": {
+										"type": "object",
+										"properties": {
+											"name": {
+												"type": "string"
+											},
+											"namespace": {
+												"type": "string"
+											}
+										},
+										"required": ["name", "namespace"]
+									}
+								}
+							},
+							"logoURL": {
+								"type": "string",
+								"format": "uri"
+							},
+							"storage": {
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"enum": ["helm"]
+									},
+									"URL": {
+										"type": "string",
+										"format": "uri"
+									}
+								}
+							}
+						},
+						"required": ["title", "description", "logoURL", "storage"]
+					}
+				}
+			}
+		}
+	}
+}
+`
+
+var appCatalogCRD *apiextensionsv1beta1.CustomResourceDefinition
+
+func init() {
+	err := json.Unmarshal([]byte(appCatalogCRDJSON), &appCatalogCRD)
+	if err != nil {
+		panic(err)
+	}
+}
 
 // NewAppCatalogCRD returns a new custom resource definition for AppCatalog.
 // This might look something like the following.
@@ -22,25 +118,7 @@ import (
 //         singular: appcatalog
 //
 func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "appcatalogs.application.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "application.giantswarm.io",
-			Scope:   "Cluster",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AppCatalog",
-				Plural:   "appcatalogs",
-				Singular: "appcatalog",
-			},
-		},
-	}
+	return appCatalogCRD.DeepCopy()
 }
 
 // +genclient
