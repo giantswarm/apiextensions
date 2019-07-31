@@ -30,6 +30,14 @@ required = [
 
 [[constraint]]
   branch = "master"
+  name = "github.com/giantswarm/microerror"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/giantswarm/operatorkit"
+
+[[constraint]]
+  branch = "master"
   name = "github.com/giantswarm/to"
 
 [[constraint]]
