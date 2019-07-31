@@ -30,6 +30,14 @@ required = [
 
 [[constraint]]
   branch = "master"
+  name = "github.com/giantswarm/microerror"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/giantswarm/operatorkit"
+
+[[constraint]]
+  branch = "master"
   name = "github.com/giantswarm/to"
 
 [[constraint]]
@@ -66,6 +74,3 @@ required = [
     name = "k8s.io/gengo"
     unused-packages = false
 
-[[constraint]]
-  branch = "master"
-  name = "github.com/giantswarm/microerror"
