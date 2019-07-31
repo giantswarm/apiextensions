@@ -65,3 +65,7 @@ required = [
 [[prune.project]]
     name = "k8s.io/gengo"
     unused-packages = false
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/giantswarm/microerror"
