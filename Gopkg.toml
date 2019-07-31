@@ -73,4 +73,3 @@ required = [
 [[prune.project]]
     name = "k8s.io/gengo"
     unused-packages = false
-
