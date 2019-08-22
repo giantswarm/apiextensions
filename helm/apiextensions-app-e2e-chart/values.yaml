@@ -1,34 +1,47 @@
 appOperator:
   version: "1.0.0"
 
-app:
-  name: "myapp"
-  namespace: "giantswarm"
-  catalog: "myapp-catalog"
-  kubeconfig:
-    inCluster: "true"
-    name: "kubeconfig-secret"
-    namespace: "default"
-  config:
-    configMap:
-      name: "app-values"
-      namespace: "giantswarm"
-    secret:
-      name: "app-secrets"
-      namespace: "giantswarm"
-  version: "1.0.0"
+apps:
+  - name: "myapp"
+    namespace: "giantswarm"
+    catalog: "myapp-catalog"
+    kubeconfig:
+      inCluster: "true"
+      name: "kubeconfig-secret"
+      namespace: "default"
+    config:
+      configMap:
+        name: "app-values"
+        namespace: "giantswarm"
+      secret:
+        name: "app-secrets"
+        namespace: "giantswarm"
+    version: "1.0.0"
+  - name: "chart-operator"
+    namespace: "giantswarm"
+    catalog: "giantswarm-catalog"
+    kubeconfig:
+      inCluster: "true"
+    version: "0.9.0"
 
-appCatalog:
-  name: "myapp-catalog"
-  title: "myapp-catalog"
-  description: "giantswarm app catalog"
-  logoUrl: "http://giantswarm.com/catalog-logo.png"
-  storage:
-    type: "helm"
-    url: "https://giantswarm.github.com/sample-catalog/"
+appCatalogs:
+  - name: "myapp-catalog"
+    title: "myapp-catalog"
+    description: "giantswarm myapp catalog"
+    logoUrl: "http://giantswarm.com/catalog-logo.png"
+    storage:
+      type: "helm"
+      url: "https://giantswarm.github.com/sample-catalog/"
+  - name: "giantswarm-catalog"
+    title: "giantswarm-catalog"
+    description: "giantswarm catalog"
+    logoUrl: "http://giantswarm.com/catalog-logo.png"
+    storage:
+      type: "helm"
+      url: "https://giantswarm.github.com/giantswarm-catalog/"
 
-configMap:
-  values:
+configMaps:
+  app-values: |
     Installation:
       V1:
         API:
@@ -36,8 +49,8 @@ configMap:
 
 namespace: "default"
 
-secret:
-  values:
+secrets:
+  app-secrets:
     Installation:
       V1:
         Secret:
