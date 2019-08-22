@@ -1,33 +1,38 @@
+{{- range .Values.apps }}
 apiVersion: "application.giantswarm.io/v1alpha1"
 kind: App
 metadata:
-  name: "{{ .Values.app.name }}"
-  namespace: "{{ .Values.namespace }}"
+  name: "{{ .name }}"
+  namespace: "{{ .namespace }}"
   labels:
-    app: "{{ .Values.app.name }}"
-    app-operator.giantswarm.io/version: "{{ .Values.appOperator.version }}"
+    app: "{{ .name }}"
+    app-operator.giantswarm.io/version: "{{ .version }}"
 spec:
-  catalog: "{{ .Values.app.catalog }}"
-  name: "{{ .Values.app.name }}"
-  namespace: "{{ .Values.app.namespace }}"
-  {{- if .Values.app.kubeconfig}}
+  catalog: "{{ .catalog }}"
+  name: "{{ .name }}"
+  namespace: "{{ .namespace }}"
+  {{- if .kubeconfig}}
   kubeConfig:
-    inCluster: {{ .Values.app.kubeconfig.inCluster }}
+    inCluster: {{ .kubeconfig.inCluster }}
+    {{- if not .kubeconfig.inCluster }}
     secret:
-      name: "{{ .Values.app.kubeconfig.name }}"
-      namespace: "{{ .Values.app.kubeconfig.namespace }}"
+      name: "{{ .kubeconfig.name }}"
+      namespace: "{{ .kubeconfig.namespace }}"
+    {{- end }}
   {{- end }}
-  {{- if .Values.app.config}}
+  {{- if .config}}
+  version: "{{ .version }}"
   config:
-    {{- if .Values.app.config.configMap }}
+    {{- if .config.configMap }}
     configMap:
-      name: "{{ .Values.app.config.configMap.name }}"
-      namespace: "{{ .Values.app.config.configMap.namespace }}"
+      name: "{{ .config.configMap.name }}"
+      namespace: "{{ .config.configMap.namespace }}"
     {{- end }}
-    {{- if .Values.app.config.secret }}
+    {{- if .config.secret }}
     secret:
-      name: "{{ .Values.app.config.secret.name }}"
-      namespace: "{{ .Values.app.config.secret.namespace }}"
+      name: "{{ .config.secret.name }}"
+      namespace: "{{ .config.secret.namespace }}"
     {{- end }}
   {{- end }}
-  version: "{{ .Values.app.version }}"
+---
+{{- end }}

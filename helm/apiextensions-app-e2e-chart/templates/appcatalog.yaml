@@ -1,27 +1,29 @@
+{{- range .Values.appCatalogs }}
 apiVersion: "application.giantswarm.io/v1alpha1"
 kind: AppCatalog
 metadata:
-  name: "{{ .Values.appCatalog.name }}"
-  namespace: "{{ .Values.namespace }}"
+  name: "{{ .name }}"
   labels:
-    app-operator.giantswarm.io/version: "{{ .Values.appOperator.version }}"
+    app-operator.giantswarm.io/version: "{{ $.Values.appOperator.version }}"
 spec:
-  title: "{{ .Values.appCatalog.title }}"
-  description: "{{ .Values.appCatalog.description }}"
-  logoURL: "{{ .Values.appCatalog.logoUrl }}"
+  title: "{{ .title }}"
+  description: "{{ .description }}"
+  logoURL: "{{ .logoUrl }}"
   storage:
-    type: "{{ .Values.appCatalog.storage.type }}"
-    URL: "{{ .Values.appCatalog.storage.url }}"
-  {{- if .Values.appCatalog.config }}
+    type: "{{ .storage.type }}"
+    URL: "{{ .storage.url }}"
+  {{- if .config }}
   config:
-    {{- if .Values.appCatalog.config.configMap }}
+    {{- if .config.configMap }}
     configMap:
-      name: "{{ .Values.appcatalog.config.configMap.name }}"
-      namespace: "{{ .Values.appcatalog.config.configMap.namespace }}"
+      name: "{{ .config.configMap.name }}"
+      namespace: "{{ .config.configMap.namespace }}"
     {{- end }}
-    {{- if .Values.appCatalog.config.secret }}
+    {{- if .config.secret }}
     secret:
-      name: "{{ .Values.appCatalog.config.secret.name }}"
-      namespace: "{{ .Values.appCatalog.config.secret.namespace }}"
+      name: "{{ .config.secret.name }}"
+      namespace: "{{ .config.secret.namespace }}"
     {{- end }}
   {{- end }}
+---
+{{- end }}

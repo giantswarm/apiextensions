@@ -1,10 +1,13 @@
-{{ if .Values.app.config.configMap.name }}
+{{- range .Values.apps }}
+  {{- if .config }}
+    {{ if (.config.configMap.name) and (index $.Values.configMaps .config.configMap.name) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "{{ .Values.app.config.configMap.name }}"
-  namespace: "{{ .Values.app.config.configMap.namespace }}"
-data:
-  values: |
-    {{ .Values.configMap.values }}
-{{ end }}
+  name: "{{ .config.configMap.name }}"
+  namespace: "{{ .config.configMap.namespace }}"
+  values: {{ toYaml (index $.Values.configMaps .config.configMap.name) | indent 2 }}
+---
+    {{ end }}
+  {{- end }}
+{{- end }}
