@@ -6,7 +6,7 @@ metadata:
   namespace: "{{ .namespace }}"
   labels:
     app: "{{ .name }}"
-    app-operator.giantswarm.io/version: "{{ .version }}"
+    app-operator.giantswarm.io/version: "{{ $.Values.appOperator.version  }}"
 spec:
   catalog: "{{ .catalog }}"
   name: "{{ .name }}"
@@ -21,7 +21,6 @@ spec:
     {{- end }}
   {{- end }}
   {{- if .config}}
-  version: "{{ .version }}"
   config:
     {{- if .config.configMap }}
     configMap:
@@ -34,5 +33,6 @@ spec:
       namespace: "{{ .config.secret.namespace }}"
     {{- end }}
   {{- end }}
+  version: "{{ .version }}"
 ---
 {{- end }}
