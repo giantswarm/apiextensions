@@ -6,7 +6,9 @@ kind: ConfigMap
 metadata:
   name: "{{ .config.configMap.name }}"
   namespace: "{{ .config.configMap.namespace }}"
-  values: {{ toYaml (index $.Values.configMaps .config.configMap.name) | indent 2 }}
+data:
+  values: |
+{{ toYaml (index $.Values.configMaps .config.configMap.name) | indent 4}}
 ---
     {{ end }}
   {{- end }}

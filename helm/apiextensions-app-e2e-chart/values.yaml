@@ -41,7 +41,7 @@ appCatalogs:
       url: "https://giantswarm.github.com/giantswarm-catalog/"
 
 configMaps:
-  app-values: |
+  app-values:
     Installation:
       V1:
         API:
