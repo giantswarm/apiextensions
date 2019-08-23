@@ -16,8 +16,8 @@ spec:
     inCluster: {{ .kubeConfig.inCluster }}
     {{- if not .kubeConfig.inCluster }}
     secret:
-      name: "{{ .kubeConfig.name }}"
-      namespace: "{{ .kubeConfig.namespace }}"
+      name: "{{ .kubeConfig.secret.name }}"
+      namespace: "{{ .kubeConfig.secret.namespace }}"
     {{- end }}
   {{- end }}
   {{- if .config}}
