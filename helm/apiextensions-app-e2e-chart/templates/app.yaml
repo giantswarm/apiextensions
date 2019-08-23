@@ -11,10 +11,10 @@ spec:
   catalog: "{{ .catalog }}"
   name: "{{ .name }}"
   namespace: "{{ .namespace }}"
-  {{- if .kubeconfig}}
+  {{- if .kubeConfig}}
   kubeConfig:
-    inCluster: {{ .kubeconfig.inCluster }}
-    {{- if not .kubeconfig.inCluster }}
+    inCluster: {{ .kubeConfig.inCluster }}
+    {{- if not .kubeConfig.inCluster }}
     secret:
       name: "{{ .kubeconfig.name }}"
       namespace: "{{ .kubeconfig.namespace }}"
