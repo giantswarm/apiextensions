@@ -7,8 +7,9 @@ apps:
     catalog: "myapp-catalog"
     kubeConfig:
       inCluster: "true"
-      name: "kubeconfig-secret"
-      namespace: "default"
+      secret:
+        name: "kubeconfig-secret"
+        namespace: "default"
     config:
       configMap:
         name: "app-values"
