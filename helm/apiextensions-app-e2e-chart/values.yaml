@@ -18,12 +18,6 @@ apps:
         name: "app-secrets"
         namespace: "giantswarm"
     version: "1.0.0"
-  - name: "chart-operator"
-    namespace: "giantswarm"
-    catalog: "giantswarm-catalog"
-    kubeConfig:
-      inCluster: "true"
-    version: "0.9.0"
 
 appCatalogs:
   - name: "myapp-catalog"
@@ -33,13 +27,6 @@ appCatalogs:
     storage:
       type: "helm"
       url: "https://giantswarm.github.com/sample-catalog/"
-  - name: "giantswarm-catalog"
-    title: "giantswarm-catalog"
-    description: "giantswarm catalog"
-    logoUrl: "http://giantswarm.com/catalog-logo.png"
-    storage:
-      type: "helm"
-      url: "https://giantswarm.github.com/giantswarm-catalog/"
 
 configMaps:
   app-values:
