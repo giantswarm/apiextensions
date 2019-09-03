@@ -131,7 +131,7 @@ func NewAppCatalogTypeMeta() metav1.TypeMeta {
 //        secret:
 //          name: "app-catalog-secrets"
 //          namespace: "giantswarm"
-//      logoURL: "https://s.giantswarm.io/..."
+//      logoURL: "/images/repo_icons/incubator.png"
 //      storage:
 //        type: "helm"
 //        URL: "https://giantswarm.github.com/app-catalog/"
