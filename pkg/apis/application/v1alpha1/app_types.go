@@ -178,10 +178,10 @@ func NewAppTypeMeta() metav1.TypeMeta {
 //      version: "1.1.0" # Required value from Chart.yaml with the version of the chart.
 //
 type App struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppSpec   `json:"spec"`
-	Status            AppStatus `json:"status" yaml:"status"`
+	metav1.TypeMeta   `json:",inline" yaml:",inline"`
+	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`
+	Spec              AppSpec   `json:"spec,omitempty" yaml:"spec,omitempty"`
+	Status            AppStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 type AppSpec struct {
@@ -189,7 +189,7 @@ type AppSpec struct {
 	// e.g. giantswarm
 	Catalog string `json:"catalog" yaml:"catalog"`
 	// Config is the config to be applied when the app is deployed.
-	Config AppSpecConfig `json:"config" yaml:"config"`
+	Config *AppSpecConfig `json:"config,omitempty" yaml:"config,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
 	// the app.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig" yaml:"kubeConfig"`
@@ -200,7 +200,7 @@ type AppSpec struct {
 	// e.g. monitoring
 	Namespace string `json:"namespace" yaml:"namespace"`
 	// UserConfig is the user config to be applied when the app is deployed.
-	UserConfig AppSpecUserConfig `json:"userConfig" yaml:"userConfig"`
+	UserConfig *AppSpecUserConfig `json:"userConfig,omitempty" yaml:"userConfig,omitempty"`
 	// Version is the version of the app that should be deployed.
 	// e.g. 1.0.0
 	Version string `json:"version" yaml:"version"`
@@ -238,9 +238,9 @@ type AppSpecKubeConfig struct {
 	// context name and secret should not be set.
 	InCluster bool `json:"inCluster" yaml:"inCluster"`
 	// Context is the kubeconfig context.
-	Context AppSpecKubeConfigContext `json:"context" yaml:"context"`
+	Context *AppSpecKubeConfigContext `json:"context,omitempty" yaml:"context,omitempty"`
 	// Secret references a secret containing the kubconfig.
-	Secret AppSpecKubeConfigSecret `json:"secret" yaml:"secret"`
+	Secret *AppSpecKubeConfigSecret `json:"secret,omitempty" yaml:"secret,omitempty"`
 }
 
 type AppSpecKubeConfigContext struct {
@@ -291,13 +291,13 @@ type AppStatus struct {
 	// component being deployed.
 	// e.g. 0.21.0.
 	// https://docs.helm.sh/developing_charts/#the-chart-yaml-file
-	AppVersion string `json:"appVersion" yaml:"appVersion"`
+	AppVersion string `json:"appVersion,omitempty" yaml:"appVersion,omitempty"`
 	// Release is the status of the Helm release for the deployed app.
-	Release AppStatusRelease `json:"release" yaml:"release"`
+	Release *AppStatusRelease `json:"release,omitempty" yaml:"release,omitempty"`
 	// Version is the value of the Version field in the Chart.yaml of the
 	// deployed app.
 	// e.g. 1.0.0.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version,omitempty" yaml:"version,omitempty"`
 }
 
 type AppStatusRelease struct {
