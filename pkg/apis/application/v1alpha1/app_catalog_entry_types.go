@@ -31,22 +31,14 @@ spec:
         spec:
           type: object
           properties:
-            apps:
+            name:
+              type: string
+            versions:
               type: array
               items:
-                types: object
-                properties:
-                  name:
-                    type: string
-                  description:
-                    type: string
-                  versions:
-                    type: array
-                    items:
-                      type: string
-                      pattern: "^v.+"
-                required: ["name", "description", "versions"]
-          required: ["apps"]
+                type: string
+                pattern: "^v.+"
+          required: ["description", "versions"]
 `
 
 var appCatalogEntryCRD *apiextensionsv1beta1.CustomResourceDefinition
@@ -94,21 +86,15 @@ func NewAppCatalogEntryTypeMeta() metav1.TypeMeta {
 //    apiVersion: application.giantswarm.io/v1alpha1
 //    kind: AppCatalogEntry
 //    metadata:
-//      name: "giantswarm"
+//      name: "chart-operator"
 //      labels:
 //        app-operator.giantswarm.io/version: "1.0.0"
 //
 //    spec:
-//      apps:
-//        - name: chart-operator:
-//          description: A Helm chart for the chart-operator
-//          versions:
-//            - v0.9.0
-//            - v0.9.1
-//        - name: kube-state-metrics:
-//          description: A Helm chart for the Kubernetes kube-state-metrics service
-//          versions:
-//            - v1.0.0
+//      description: A Helm chart for the chart-operator
+//      versions:
+//        - v0.9.0
+//        - v0.9.1
 //
 type AppCatalogEntry struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -118,11 +104,6 @@ type AppCatalogEntry struct {
 
 type AppCatalogEntrySpec struct {
 	// Apps is the list which contains app name and available version list
-	Apps []AppCatalogEntrySpecVersionList
-}
-
-type AppCatalogEntrySpecVersionList struct {
-	Name        string
 	Description string
 	Versions    []string
 }
