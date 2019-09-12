@@ -29,6 +29,7 @@ type ApplicationV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AppsGetter
 	AppCatalogsGetter
+	AppCatalogEntriesGetter
 	ChartsGetter
 }
 
@@ -43,6 +44,10 @@ func (c *ApplicationV1alpha1Client) Apps(namespace string) AppInterface {
 
 func (c *ApplicationV1alpha1Client) AppCatalogs() AppCatalogInterface {
 	return newAppCatalogs(c)
+}
+
+func (c *ApplicationV1alpha1Client) AppCatalogEntries() AppCatalogEntryInterface {
+	return newAppCatalogEntries(c)
 }
 
 func (c *ApplicationV1alpha1Client) Charts(namespace string) ChartInterface {
