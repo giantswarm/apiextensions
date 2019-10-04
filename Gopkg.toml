@@ -29,16 +29,12 @@ required = [
 
 
 [[constraint]]
+  branch = "master"
   name = "github.com/ghodss/yaml"
-  version = "=1.0.0"
 
 [[constraint]]
   name = "github.com/google/go-cmp"
   version = "=0.2.0"
-
-[[constraint]]
-  name = "gopkg.in/yaml.v2"
-  version = "=2.2.2"
 
 [[constraint]]
   name = "k8s.io/apiextensions-apiserver"
