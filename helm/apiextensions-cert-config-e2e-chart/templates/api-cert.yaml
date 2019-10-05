@@ -21,6 +21,7 @@ spec:
     - "kubernetes.default.svc"
     - "kubernetes.default.svc.cluster.local"
     - "master.{{.Values.clusterName}}"
+    - "internal-api.{{.Values.clusterName}}.k8s.{{.Values.commonDomain}}"
     ipSans:
       {{range .Values.ipSans}}
       - {{ . }}
