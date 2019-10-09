@@ -5,12 +5,12 @@
 Package apiextensions provides generated Kubernetes clients for the Giant Swarm
 infrastructure.
 
-## Contributing
-
 ## Golang version
 
 The supported version of golang to be used with this project is ~1.11 (tested 1.11.13).
 Using other GO versions could cause the gen.sh script to fail.
+
+## Contributing
 
 ### Adding a New Group and/or Version
 
