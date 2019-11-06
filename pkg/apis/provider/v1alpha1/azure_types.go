@@ -114,6 +114,8 @@ type AzureConfigSpecAzureNode struct {
 	VMSize string `json:"vmSize" yaml:"vmSize"`
 	// Size of a volume mounted to /var/lib/docker.
 	DockerVolumeSizeGB int `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	// Size of a volume mounted to /
+	RootVolumeSizeGB int `json:"rootVolumeSizeGB" yaml:"rootVolumeSizeGB"`
 }
 
 type AzureConfigSpecVersionBundle struct {
