@@ -123,7 +123,16 @@ type AzureConfigSpecVersionBundle struct {
 }
 
 type AzureConfigStatus struct {
-	Cluster StatusCluster `json:"cluster" yaml:"cluster"`
+	Cluster  StatusCluster             `json:"cluster" yaml:"cluster"`
+	Provider AzureConfigStatusProvider `json:"provider" yaml:"provider"`
+}
+
+type AzureConfigStatusProvider struct {
+	IngressLB AzureConfigStatusProviderIngressLB `json:"ingressLB" yaml:"ingressLB"`
+}
+
+type AzureConfigStatusProviderIngressLB struct {
+	PublicIPName string `json:"publicIPName" yaml:"publicIPName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
