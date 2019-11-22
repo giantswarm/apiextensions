@@ -1,4 +1,4 @@
-package v1alpha1
+package v1alpha2
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -7,16 +7,16 @@ import (
 )
 
 const (
-	group   = "cluster.giantswarm.io"
-	version = "v1alpha1"
+	group   = "infrastructure.giantswarm.io"
+	version = "v1alpha2"
 )
 
 // knownTypes is the full list of objects to register with the scheme. It
 // should contain pointers of zero values of all custom objects and custom
 // object lists in the group version.
 var knownTypes = []runtime.Object{
-	&AWSClusterSpec{},
-	&AWSClusterStatus{},
+	&AWSCluster{},
+	&AWSClusterList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects

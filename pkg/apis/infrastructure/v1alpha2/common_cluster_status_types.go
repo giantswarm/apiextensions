@@ -1,4 +1,4 @@
-package v1alpha1
+package v1alpha2
 
 const (
 	// ClusterConditionLimit is the maximum amount of conditions tracked in the

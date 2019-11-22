@@ -1,4 +1,4 @@
-package v1alpha1
+package v1alpha2
 
 import (
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
@@ -15,7 +15,7 @@ import (
 //     spec:
 //       group: cluster.k8s.io
 //       scope: Namespaced
-//       version: v1alpha1
+//       version: v1alpha2
 //       names:
 //         kind: Cluster
 //         plural: clusters
@@ -45,7 +45,7 @@ func NewClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
 			},
-			Version: "v1alpha1",
+			Version: "v1alpha2",
 		},
 	}
 }
@@ -61,7 +61,7 @@ func NewClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //     spec:
 //       group: cluster.k8s.io
 //       scope: Namespaced
-//       version: v1alpha1
+//       version: v1alpha2
 //       names:
 //         kind: MachineDeployment
 //         plural: machinedeployments
@@ -91,7 +91,7 @@ func NewMachineDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
 			},
-			Version: "v1alpha1",
+			Version: "v1alpha2",
 		},
 	}
 }
