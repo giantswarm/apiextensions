@@ -128,10 +128,14 @@ type AzureConfigStatus struct {
 }
 
 type AzureConfigStatusProvider struct {
-	IngressLB AzureConfigStatusProviderIngressLB `json:"ingressLB" yaml:"ingressLB"`
+	Ingress AzureConfigStatusProviderIngress `json:"ingress" yaml:"ingress"`
 }
 
-type AzureConfigStatusProviderIngressLB struct {
+type AzureConfigStatusProviderIngress struct {
+	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
+}
+
+type AzureConfigStatusProviderIngressLoadBalancer struct {
 	PublicIPName string `json:"publicIPName" yaml:"publicIPName"`
 }
 
