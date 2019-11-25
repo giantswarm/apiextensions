@@ -1,9 +1,7 @@
 package v1alpha2
 
 import (
-	"fmt"
-
-	yaml "gopkg.in/yaml.v2"
+	"github.com/ghodss/yaml"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -107,7 +105,6 @@ var awsClusterCRD *apiextensionsv1beta1.CustomResourceDefinition
 
 func init() {
 	err := yaml.Unmarshal([]byte(awsClusterCRDYAML), &awsClusterCRD)
-	fmt.Printf("%#v\n", awsClusterCRDYAML)
 	if err != nil {
 		panic(err)
 	}
