@@ -32,6 +32,10 @@ func (c *FakeInfrastructureV1alpha2) AWSClusters() v1alpha2.AWSClusterInterface 
 	return &FakeAWSClusters{c}
 }
 
+func (c *FakeInfrastructureV1alpha2) AWSMachineDeployments() v1alpha2.AWSMachineDeploymentInterface {
+	return &FakeAWSMachineDeployments{c}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeInfrastructureV1alpha2) RESTClient() rest.Interface {

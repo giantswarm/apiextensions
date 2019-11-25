@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&AWSCluster{},
 	&AWSClusterList{},
+	&AWSMachineDeployment{},
+	&AWSMachineDeploymentList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects

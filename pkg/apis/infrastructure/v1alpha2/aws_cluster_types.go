@@ -131,8 +131,8 @@ func NewAWSClusterTypeMeta() metav1.TypeMeta {
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
 //
-//     kind: AWSCluster
 //     apiVersion: infrastructure.giantswarm.io/v1alpha2
+//     kind: AWSCluster
 //     metadata:
 //       labels:
 //         aws-operator.giantswarm.io/version: 6.2.0

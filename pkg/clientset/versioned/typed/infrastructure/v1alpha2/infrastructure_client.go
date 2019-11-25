@@ -27,6 +27,7 @@ import (
 type InfrastructureV1alpha2Interface interface {
 	RESTClient() rest.Interface
 	AWSClustersGetter
+	AWSMachineDeploymentsGetter
 }
 
 // InfrastructureV1alpha2Client is used to interact with features provided by the infrastructure group.
@@ -36,6 +37,10 @@ type InfrastructureV1alpha2Client struct {
 
 func (c *InfrastructureV1alpha2Client) AWSClusters() AWSClusterInterface {
 	return newAWSClusters(c)
+}
+
+func (c *InfrastructureV1alpha2Client) AWSMachineDeployments() AWSMachineDeploymentInterface {
+	return newAWSMachineDeployments(c)
 }
 
 // NewForConfig creates a new InfrastructureV1alpha2Client for the given config.
