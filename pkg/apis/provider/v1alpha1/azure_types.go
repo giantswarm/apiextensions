@@ -65,9 +65,10 @@ type AzureConfigSpec struct {
 }
 
 type AzureConfigSpecAzure struct {
-	CredentialSecret CredentialSecret                   `json:"credentialSecret" yaml:"credentialSecret"`
-	DNSZones         AzureConfigSpecAzureDNSZones       `json:"dnsZones" yaml:"dnsZones"`
-	VirtualNetwork   AzureConfigSpecAzureVirtualNetwork `json:"virtualNetwork" yaml:"virtualNetwork"`
+	AvailabilityZones int                                `json:"availabilityZones" yaml:"availabilityZones"`
+	CredentialSecret  CredentialSecret                   `json:"credentialSecret" yaml:"credentialSecret"`
+	DNSZones          AzureConfigSpecAzureDNSZones       `json:"dnsZones" yaml:"dnsZones"`
+	VirtualNetwork    AzureConfigSpecAzureVirtualNetwork `json:"virtualNetwork" yaml:"virtualNetwork"`
 
 	Masters []AzureConfigSpecAzureNode `json:"masters" yaml:"masters"`
 	Workers []AzureConfigSpecAzureNode `json:"workers" yaml:"workers"`
@@ -123,6 +124,7 @@ type AzureConfigSpecVersionBundle struct {
 }
 
 type AzureConfigStatus struct {
+	Azure    AzureConfigStatusAzure    `json: "azure" yaml: "azure"`
 	Cluster  StatusCluster             `json:"cluster" yaml:"cluster"`
 	Provider AzureConfigStatusProvider `json:"provider" yaml:"provider"`
 }
@@ -137,6 +139,28 @@ type AzureConfigStatusProviderIngress struct {
 
 type AzureConfigStatusProviderIngressLoadBalancer struct {
 	PublicIPName string `json:"publicIPName" yaml:"publicIPName"`
+}
+
+type AzureConfigStatusAzure struct {
+	AvailabilityZones []AzureConfigStatusAzureAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
+}
+
+type AzureConfigStatusAzureAvailabilityZone struct {
+	Name   string                                       `json:"name" yaml:"name"`
+	Subnet AzureConfigStatusAzureAvailabilityZoneSubnet `json:"subnet" yaml:"subnet"`
+}
+
+type AzureConfigStatusAzureAvailabilityZoneSubnet struct {
+	Private AzureConfigStatusAzureAvailabilityZoneSubnetPrivate `json:"private" yaml:"private"`
+	Public  AzureConfigStatusAzureAvailabilityZoneSubnetPublic  `json:"public" yaml:"public"`
+}
+
+type AzureConfigStatusAzureAvailabilityZoneSubnetPrivate struct {
+	CIDR string `json:"cidr" yaml:"cidr"`
+}
+
+type AzureConfigStatusAzureAvailabilityZoneSubnetPublic struct {
+	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
