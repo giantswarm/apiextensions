@@ -538,12 +538,12 @@ func (in *AzureConfigSpecAzure) DeepCopyInto(out *AzureConfigSpecAzure) {
 	}
 	out.CredentialSecret = in.CredentialSecret
 	out.DNSZones = in.DNSZones
-	out.VirtualNetwork = in.VirtualNetwork
 	if in.Masters != nil {
 		in, out := &in.Masters, &out.Masters
 		*out = make([]AzureConfigSpecAzureNode, len(*in))
 		copy(*out, *in)
 	}
+	out.VirtualNetwork = in.VirtualNetwork
 	if in.Workers != nil {
 		in, out := &in.Workers, &out.Workers
 		*out = make([]AzureConfigSpecAzureNode, len(*in))
