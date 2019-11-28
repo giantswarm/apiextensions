@@ -142,25 +142,7 @@ type AzureConfigStatusProviderIngressLoadBalancer struct {
 }
 
 type AzureConfigStatusAzure struct {
-	AvailabilityZones []AzureConfigStatusAzureAvailabilityZone `json:"availabilityZones" yaml:"availabilityZones"`
-}
-
-type AzureConfigStatusAzureAvailabilityZone struct {
-	Name   string                                       `json:"name" yaml:"name"`
-	Subnet AzureConfigStatusAzureAvailabilityZoneSubnet `json:"subnet" yaml:"subnet"`
-}
-
-type AzureConfigStatusAzureAvailabilityZoneSubnet struct {
-	Private AzureConfigStatusAzureAvailabilityZoneSubnetPrivate `json:"private" yaml:"private"`
-	Public  AzureConfigStatusAzureAvailabilityZoneSubnetPublic  `json:"public" yaml:"public"`
-}
-
-type AzureConfigStatusAzureAvailabilityZoneSubnetPrivate struct {
-	CIDR string `json:"cidr" yaml:"cidr"`
-}
-
-type AzureConfigStatusAzureAvailabilityZoneSubnetPublic struct {
-	CIDR string `json:"cidr" yaml:"cidr"`
+	AvailabilityZones []int `json:"availabilityZones" yaml:"availabilityZones"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
