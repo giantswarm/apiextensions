@@ -124,7 +124,7 @@ type AzureConfigSpecVersionBundle struct {
 }
 
 type AzureConfigStatus struct {
-	Azure    AzureConfigStatusAzure    `json: "azure" yaml: "azure"`
+	Azure    AzureConfigStatusAzure    `json:"azure" yaml:"azure"`
 	Cluster  StatusCluster             `json:"cluster" yaml:"cluster"`
 	Provider AzureConfigStatusProvider `json:"provider" yaml:"provider"`
 }
