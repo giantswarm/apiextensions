@@ -5,13 +5,14 @@ module k8s.io/code-generator
 go 1.12
 
 require (
-	github.com/gogo/protobuf v0.0.0-20171007142547-342cbe0a0415
-	github.com/spf13/pflag v1.0.1
-	golang.org/x/tools v0.0.0-20190328211700-ab21143f2384 // indirect
+	github.com/giantswarm/apiextensions v0.0.0-20191127105149-7788d0c28a5e // indirect
+	github.com/gogo/protobuf v1.2.2-0.20190723190241-65acae22fc9d
+	github.com/spf13/pflag v1.0.5
 	gonum.org/v1/gonum v0.0.0-20190331200053-3d26580ed485
-	gonum.org/v1/netlib v0.0.0-20190331212654-76723241ea4e // indirect
-	k8s.io/gengo v0.0.0-20190116091435-f8a0810f38af
-	k8s.io/klog v0.3.1
+	k8s.io/apiextensions-apiserver v0.0.0-20191121021419-88daf26ec3b8 // indirect
+	k8s.io/apimachinery v0.0.0-20191123233150-4c4803ed55e3 // indirect
+	k8s.io/gengo v0.0.0-20190822140433-26a664648505
+	k8s.io/klog v1.0.0
 )
 
 replace (
