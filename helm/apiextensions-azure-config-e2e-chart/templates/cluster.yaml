@@ -32,6 +32,15 @@ spec:
       masterSubnetCIDR: "{{ .Values.azure.masterSubnetCIDR }}"
       workerSubnetCIDR: "{{ .Values.azure.workerSubnetCIDR }}"
   cluster:
+    {{ $azs := splitList " " .Values.azure.availabilityZones }}
+    {{- if (ne .Values.azure.availabilityZones "") and gt (len $azs) 0 -}}
+    availabilityZones:
+    {{ range $azs -}}
+    - {{ . }}
+    {{ end -}}
+    {{ else -}}
+    availabilityZones: []
+    {{ end -}}
     calico:
       cidr: 16
       domain: "calico.{{ .Values.clusterName }}.k8s.{{ .Values.commonDomain }}"

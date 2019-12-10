@@ -6,6 +6,8 @@ sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAYQCurvzg5Ia54kb3NZapA6yP00//+
 encryptionKey: "QitRZGlWeW5WOFo2YmdvMVRwQUQ2UWoxRHZSVEF4MmovajlFb05sT1AzOD0="
 versionBundleVersion: 0.1.0
 azure:
+  # Space separated list of AZs, e.g availabilityZones: "1 3"
+  availabilityZones: ""
   location: "westeurope"
   vmSizeMaster: "Standard_A1"
   vmSizeWorker: "Standard_A1"
