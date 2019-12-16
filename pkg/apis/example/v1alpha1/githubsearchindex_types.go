@@ -1,8 +1,6 @@
 package v1alpha1
 
 import (
-	"time"
-
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -80,8 +78,8 @@ type SearchIndexSpec struct {
 }
 
 type SearchIndexStatus struct {
-	LastCommitSHA  string    `json:"lastCommitSHA"`
-	LastCommitTime time.Time `json:"lastCommitTime"`
+	LastCommitSHA  string       `json:"lastCommitSHA"`
+	LastCommitTime DeepCopyTime `json:"lastCommitTime"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
