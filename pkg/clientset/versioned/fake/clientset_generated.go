@@ -22,6 +22,8 @@ import (
 	clientset "github.com/giantswarm/apiextensions/pkg/clientset/versioned"
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
 	fakeapplicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1/fake"
+	examplev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2"
+	fakeexamplev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2/fake"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1/fake"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
@@ -89,6 +91,11 @@ var _ clientset.Interface = &Clientset{}
 // ApplicationV1alpha1 retrieves the ApplicationV1alpha1Client
 func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface {
 	return &fakeapplicationv1alpha1.FakeApplicationV1alpha1{Fake: &c.Fake}
+}
+
+// ExampleV1alpha2 retrieves the ExampleV1alpha2Client
+func (c *Clientset) ExampleV1alpha2() examplev1alpha2.ExampleV1alpha2Interface {
+	return &fakeexamplev1alpha2.FakeExampleV1alpha2{Fake: &c.Fake}
 }
 
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
