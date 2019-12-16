@@ -23,6 +23,7 @@ import (
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
+	diagnosticv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/diagnostic/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/provider/v1alpha1"
@@ -36,6 +37,7 @@ type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
+	DiagnosticV1alpha1() diagnosticv1alpha1.DiagnosticV1alpha1Interface
 	ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface
@@ -48,6 +50,7 @@ type Clientset struct {
 	*discovery.DiscoveryClient
 	applicationV1alpha1    *applicationv1alpha1.ApplicationV1alpha1Client
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
+	diagnosticV1alpha1     *diagnosticv1alpha1.DiagnosticV1alpha1Client
 	exampleV1alpha1        *examplev1alpha1.ExampleV1alpha1Client
 	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
 	providerV1alpha1       *providerv1alpha1.ProviderV1alpha1Client
@@ -62,6 +65,11 @@ func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
 func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return c.coreV1alpha1
+}
+
+// DiagnosticV1alpha1 retrieves the DiagnosticV1alpha1Client
+func (c *Clientset) DiagnosticV1alpha1() diagnosticv1alpha1.DiagnosticV1alpha1Interface {
+	return c.diagnosticV1alpha1
 }
 
 // ExampleV1alpha1 retrieves the ExampleV1alpha1Client
@@ -113,6 +121,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.diagnosticV1alpha1, err = diagnosticv1alpha1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.exampleV1alpha1, err = examplev1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -143,6 +155,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.NewForConfigOrDie(c)
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
+	cs.diagnosticV1alpha1 = diagnosticv1alpha1.NewForConfigOrDie(c)
 	cs.exampleV1alpha1 = examplev1alpha1.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
 	cs.providerV1alpha1 = providerv1alpha1.NewForConfigOrDie(c)
@@ -157,6 +170,7 @@ func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.New(c)
 	cs.coreV1alpha1 = corev1alpha1.New(c)
+	cs.diagnosticV1alpha1 = diagnosticv1alpha1.New(c)
 	cs.exampleV1alpha1 = examplev1alpha1.New(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
 	cs.providerV1alpha1 = providerv1alpha1.New(c)

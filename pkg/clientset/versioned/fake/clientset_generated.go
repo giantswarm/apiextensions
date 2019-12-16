@@ -24,6 +24,8 @@ import (
 	fakeapplicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1/fake"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1/fake"
+	diagnosticv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/diagnostic/v1alpha1"
+	fakediagnosticv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/diagnostic/v1alpha1/fake"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
 	fakeexamplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1/fake"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
@@ -94,6 +96,11 @@ func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
 func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
+}
+
+// DiagnosticV1alpha1 retrieves the DiagnosticV1alpha1Client
+func (c *Clientset) DiagnosticV1alpha1() diagnosticv1alpha1.DiagnosticV1alpha1Interface {
+	return &fakediagnosticv1alpha1.FakeDiagnosticV1alpha1{Fake: &c.Fake}
 }
 
 // ExampleV1alpha1 retrieves the ExampleV1alpha1Client
