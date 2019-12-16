@@ -32,6 +32,10 @@ func (c *FakeExampleV1alpha1) MemcachedConfigs(namespace string) v1alpha1.Memcac
 	return &FakeMemcachedConfigs{c, namespace}
 }
 
+func (c *FakeExampleV1alpha1) SearchIndexes(namespace string) v1alpha1.SearchIndexInterface {
+	return &FakeSearchIndexes{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeExampleV1alpha1) RESTClient() rest.Interface {
