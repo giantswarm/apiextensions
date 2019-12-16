@@ -32,6 +32,10 @@ func (c *FakeProviderV1alpha1) AWSConfigs(namespace string) v1alpha1.AWSConfigIn
 	return &FakeAWSConfigs{c, namespace}
 }
 
+func (c *FakeProviderV1alpha1) AWSTagLists(namespace string) v1alpha1.AWSTagListInterface {
+	return &FakeAWSTagLists{c, namespace}
+}
+
 func (c *FakeProviderV1alpha1) AzureConfigs(namespace string) v1alpha1.AzureConfigInterface {
 	return &FakeAzureConfigs{c, namespace}
 }

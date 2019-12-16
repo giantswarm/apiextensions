@@ -27,6 +27,7 @@ import (
 type ProviderV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AWSConfigsGetter
+	AWSTagListsGetter
 	AzureConfigsGetter
 	KVMConfigsGetter
 }
@@ -38,6 +39,10 @@ type ProviderV1alpha1Client struct {
 
 func (c *ProviderV1alpha1Client) AWSConfigs(namespace string) AWSConfigInterface {
 	return newAWSConfigs(c, namespace)
+}
+
+func (c *ProviderV1alpha1Client) AWSTagLists(namespace string) AWSTagListInterface {
+	return newAWSTagLists(c, namespace)
 }
 
 func (c *ProviderV1alpha1Client) AzureConfigs(namespace string) AzureConfigInterface {

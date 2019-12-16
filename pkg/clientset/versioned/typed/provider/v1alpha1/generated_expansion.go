@@ -20,6 +20,8 @@ package v1alpha1
 
 type AWSConfigExpansion interface{}
 
+type AWSTagListExpansion interface{}
+
 type AzureConfigExpansion interface{}
 
 type KVMConfigExpansion interface{}

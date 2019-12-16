@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&AWSConfig{},
 	&AWSConfigList{},
+	&AWSTagList{},
+	&AWSTagListList{},
 	&AzureConfig{},
 	&AzureConfigList{},
 	&KVMConfig{},
