@@ -219,7 +219,7 @@ type AWSClusterSpecProviderMaster struct {
 }
 
 type AWSClusterStatus struct {
-	Cluster  CommonClusterStatus      `json:"cluster" yaml:"cluster"`
+	CommonClusterStatus
 	Provider AWSClusterStatusProvider `json:"provider" yaml:"provider"`
 }
 
