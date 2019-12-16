@@ -31,7 +31,7 @@ func NewG8sBootstrapConfigConfigCRD() *apiextensionsv1beta1.CustomResourceDefini
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type G8sBootsrapConfig struct {
+type G8sBootstrapConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              G8sBootstrapSpec   `json:"spec"`
@@ -66,5 +66,5 @@ type G8sBootstrapStatus struct {
 type G8sBootstrapConfigList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []G8sBootsrapConfig `json:"items"`
+	Items           []G8sBootstrapConfig `json:"items"`
 }

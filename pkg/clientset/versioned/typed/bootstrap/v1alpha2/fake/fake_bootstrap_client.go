@@ -28,8 +28,8 @@ type FakeExampleV1alpha2 struct {
 	*testing.Fake
 }
 
-func (c *FakeExampleV1alpha2) G8sBootsrapConfigs(namespace string) v1alpha2.G8sBootsrapConfigInterface {
-	return &FakeG8sBootsrapConfigs{c, namespace}
+func (c *FakeExampleV1alpha2) G8sBootstrapConfigs(namespace string) v1alpha2.G8sBootstrapConfigInterface {
+	return &FakeG8sBootstrapConfigs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

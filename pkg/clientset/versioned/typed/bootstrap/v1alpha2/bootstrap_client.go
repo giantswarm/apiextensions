@@ -26,7 +26,7 @@ import (
 
 type ExampleV1alpha2Interface interface {
 	RESTClient() rest.Interface
-	G8sBootsrapConfigsGetter
+	G8sBootstrapConfigsGetter
 }
 
 // ExampleV1alpha2Client is used to interact with features provided by the example.giantswarm.io group.
@@ -34,8 +34,8 @@ type ExampleV1alpha2Client struct {
 	restClient rest.Interface
 }
 
-func (c *ExampleV1alpha2Client) G8sBootsrapConfigs(namespace string) G8sBootsrapConfigInterface {
-	return newG8sBootsrapConfigs(c, namespace)
+func (c *ExampleV1alpha2Client) G8sBootstrapConfigs(namespace string) G8sBootstrapConfigInterface {
+	return newG8sBootstrapConfigs(c, namespace)
 }
 
 // NewForConfig creates a new ExampleV1alpha2Client for the given config.
