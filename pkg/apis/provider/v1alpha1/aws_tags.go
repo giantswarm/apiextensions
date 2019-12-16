@@ -5,7 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// NewAWSTagListCRD returns a new custom resource definition for AWSConfig. This
+// NewAWSTagListCRD returns a new custom resource definition for <span class="x x-first x-last">AWSTagList</span>. This
 // might look something like the following.
 //
 //     apiVersion: apiextensions.k8s.io/v1beta1
