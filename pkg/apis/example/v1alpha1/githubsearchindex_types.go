@@ -11,7 +11,7 @@ import (
 //   apiVersion: apiextensions.k8s.io/v1beta1
 //   kind: CustomResourceDefinition
 //   metadata:
-//   name: searchindex.githubsearch.giantswarm.io
+//   name: searchindices.githubsearch.giantswarm.io
 //   spec:
 //     group: githubsearch.giantswarm.io
 //     scope: Namespaced
@@ -42,7 +42,7 @@ func NewGithubSearchIndexCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "searchindex.githubsearch.giantswarm.io",
+			Name: "searchindices.githubsearch.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   "githubsearch.giantswarm.io",
