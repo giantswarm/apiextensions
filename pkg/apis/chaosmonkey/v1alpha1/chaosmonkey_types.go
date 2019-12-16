@@ -51,17 +51,17 @@ type ChaosMonkeyConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              ChaosMonkeyConfigSpec `json:"spec"`
-	Status            ChaosMonkeyStatus `json:"status"`
+	Status            ChaosMonkeyStatus     `json:"status"`
 }
 
 type ChaosMonkeyConfigSpec struct {
-        // StartTime is the beginning of the period when pods can be killed.
+	// StartTime is the beginning of the period when pods can be killed.
 	StartTime int `json:"starttime" yaml:"starttime"`
 	// EndTime is the end of the period when pods can be killed.
 	EndTime int `json:"endtime" yaml:"endtime"`
 	// DryRun logs what actions would have been taken.
 	DryRun bool `json:"dryrun" yaml:"dryrun"`
-        // NamespaceBlacklist is a list of namespaces to ignore
+	// NamespaceBlacklist is a list of namespaces to ignore
 	NamespaceBlacklist []string `json:"namespaceblacklist" yaml:"namespaceblacklist"`
 }
 
