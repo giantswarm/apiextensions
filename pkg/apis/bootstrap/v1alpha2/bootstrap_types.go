@@ -39,7 +39,7 @@ type G8sBootstrapConfig struct {
 }
 
 type G8sBootstrapSpec struct {
-	G8sVersion string `json:"g8sVersion,omitempty`
+	G8sVersion string `json:"g8sVersion,omitempty"`
 }
 
 // G8sBootstrapStatus
