@@ -34,6 +34,8 @@ import (
 //  status:
 //      lastCommitSHA: 1f6baaad653e433e2b6e78bd3fb6c062d8c52679
 //      lastCommitTime: 2019-12-16T11:02:14Z
+//      indexerJobStarted: 2019-12-18T12:00:00Z
+//      indexerJobName: indexer-giantswarm-giantswarm
 //
 func NewGithubSearchIndexCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -78,8 +80,10 @@ type GitHubSearchIndexSpec struct {
 }
 
 type GitHubSearchIndexStatus struct {
-	LastCommitSHA  string       `json:"lastCommitSHA"`
-	LastCommitTime DeepCopyTime `json:"lastCommitTime"`
+	LastCommitSHA     string       `json:"lastCommitSHA"`
+	LastCommitTime    DeepCopyTime `json:"lastCommitTime"`
+	IndexerJobStarted DeepCopyTime `json:"indexerJobStarted"`
+	IndexerJobName    string       `json:"indexerJobName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
