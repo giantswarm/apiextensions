@@ -65,7 +65,7 @@ type DNSNetworkPolicySpec struct {
 	Domains []string `json:"domains" yaml:"domains"`
 	// targetNetworkPolicy is an existing network policy in the object namespace,
 	// which is updated with resolved domains IP addresses.
-	// e.g. memcached-network-policu
+	// e.g. memcached-network-policy
 	TargetNetworkPolicy string `json:"targetNetworkPolicy" yaml:"targetNetworkPolicy"`
 }
 
