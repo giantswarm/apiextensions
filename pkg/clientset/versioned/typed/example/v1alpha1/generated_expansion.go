@@ -18,6 +18,6 @@ limitations under the License.
 
 package v1alpha1
 
-type MemcachedConfigExpansion interface{}
+type GitHubSearchIndexExpansion interface{}
 
-type SearchIndexExpansion interface{}
+type MemcachedConfigExpansion interface{}

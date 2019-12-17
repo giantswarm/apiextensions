@@ -26,8 +26,8 @@ import (
 
 type ExampleV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	GitHubSearchIndexesGetter
 	MemcachedConfigsGetter
-	SearchIndexesGetter
 }
 
 // ExampleV1alpha1Client is used to interact with features provided by the example.giantswarm.io group.
@@ -35,12 +35,12 @@ type ExampleV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *ExampleV1alpha1Client) MemcachedConfigs(namespace string) MemcachedConfigInterface {
-	return newMemcachedConfigs(c, namespace)
+func (c *ExampleV1alpha1Client) GitHubSearchIndexes(namespace string) GitHubSearchIndexInterface {
+	return newGitHubSearchIndexes(c, namespace)
 }
 
-func (c *ExampleV1alpha1Client) SearchIndexes(namespace string) SearchIndexInterface {
-	return newSearchIndexes(c, namespace)
+func (c *ExampleV1alpha1Client) MemcachedConfigs(namespace string) MemcachedConfigInterface {
+	return newMemcachedConfigs(c, namespace)
 }
 
 // NewForConfig creates a new ExampleV1alpha1Client for the given config.

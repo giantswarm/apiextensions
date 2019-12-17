@@ -11,25 +11,25 @@ import (
 //   apiVersion: apiextensions.k8s.io/v1beta1
 //   kind: CustomResourceDefinition
 //   metadata:
-//   name: searchindices.githubsearch.giantswarm.io
+//   name: githubsearchindices.example.giantswarm.io
 //   spec:
-//     group: githubsearch.giantswarm.io
+//     group: example.giantswarm.io
 //     scope: Namespaced
 //     version: v1alpha1
 //     names:
-//       kind: SearchIndex
-//       plural: searchindices
-//       singular: searchindex
+//       kind: GitHubSearchIndex
+//       plural: githubsearchindices
+//       singular: githubsearchindex
 //
 // An example CR:
 //
-//  apiVersion: githubsearch.giantswarm.io/v1alpha1
-//  kind: SearchIndex
+//  apiVersion: example.giantswarm.io/v1alpha1
+//  kind: GitHubSearchIndex
 //  metadata:
 //      name: giantswarm-giantswarm-indexer
 //      labels: github-search-index-operator.giantswarm.io/version: "1.0.0"
 //  spec:
-//      repository: giantswarm/giantswarm
+//      repository: https://github.com/giantswarm/giantswarm.git
 //      esIndexName: documents
 //  status:
 //      lastCommitSHA: 1f6baaad653e433e2b6e78bd3fb6c062d8c52679
@@ -42,16 +42,16 @@ func NewGithubSearchIndexCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "searchindices.githubsearch.giantswarm.io",
+			Name: "githubsearchindices.example.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "githubsearch.giantswarm.io",
+			Group:   "example.giantswarm.io",
 			Scope:   "Namespaced",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "SearchIndex",
-				Plural:   "searchindices",
-				Singular: "searchindex",
+				Kind:     "GitHubSearchIndex",
+				Plural:   "githubsearchindices",
+				Singular: "githubsearchindex",
 			},
 		},
 	}
@@ -61,14 +61,14 @@ func NewGithubSearchIndexCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type SearchIndex struct {
+type GitHubSearchIndex struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              SearchIndexSpec   `json:"spec"`
-	Status            SearchIndexStatus `json:"status"`
+	Spec              GitHubSearchIndexSpec   `json:"spec"`
+	Status            GitHubSearchIndexStatus `json:"status"`
 }
 
-type SearchIndexSpec struct {
+type GitHubSearchIndexSpec struct {
 	// Repository is the org/repo name combination.
 	// For a git URL of https://github.com/giantswarm/giantswarm.git, use "giantswarm/giantswarm".
 	Repository string `json:"repository"`
@@ -77,15 +77,15 @@ type SearchIndexSpec struct {
 	EsIndexName string `json:"esIndexName"`
 }
 
-type SearchIndexStatus struct {
+type GitHubSearchIndexStatus struct {
 	LastCommitSHA  string       `json:"lastCommitSHA"`
 	LastCommitTime DeepCopyTime `json:"lastCommitTime"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type SearchIndexList struct {
+type GitHubSearchIndexList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []SearchIndex `json:"items"`
+	Items           []GitHubSearchIndex `json:"items"`
 }

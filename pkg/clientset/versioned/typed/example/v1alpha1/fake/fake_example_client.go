@@ -28,12 +28,12 @@ type FakeExampleV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeExampleV1alpha1) MemcachedConfigs(namespace string) v1alpha1.MemcachedConfigInterface {
-	return &FakeMemcachedConfigs{c, namespace}
+func (c *FakeExampleV1alpha1) GitHubSearchIndexes(namespace string) v1alpha1.GitHubSearchIndexInterface {
+	return &FakeGitHubSearchIndexes{c, namespace}
 }
 
-func (c *FakeExampleV1alpha1) SearchIndexes(namespace string) v1alpha1.SearchIndexInterface {
-	return &FakeSearchIndexes{c, namespace}
+func (c *FakeExampleV1alpha1) MemcachedConfigs(namespace string) v1alpha1.MemcachedConfigInterface {
+	return &FakeMemcachedConfigs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
