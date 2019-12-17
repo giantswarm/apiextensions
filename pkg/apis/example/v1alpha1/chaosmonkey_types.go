@@ -66,7 +66,7 @@ type ChaosMonkeyConfigSpec struct {
 }
 
 type ChaosMonkeyStatus struct {
-	// todo
+	LastUpdateTime DeepCopyTime `json:"lastUpdateTime" yaml:"lastUpdateTime"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
