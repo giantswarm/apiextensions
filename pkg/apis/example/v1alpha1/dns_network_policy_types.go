@@ -20,6 +20,8 @@ import (
 //	    kind: DNSNetworkPolicy
 //	    plural: dnsnetworkpolicies
 //	    singular: dnsnetworkpolicy
+//    subresources:
+//      status: {}
 //
 func NewDNSNetworkPolicyCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -39,18 +41,21 @@ func NewDNSNetworkPolicyCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 				Plural:   "dnsnetworkpolicies",
 				Singular: "dnsnetworkpolicy",
 			},
+			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			},
 		},
 	}
 }
 
 // +genclient
-// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type DNSNetworkPolicy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              DNSNetworkPolicySpec `json:"spec"`
+	Spec              DNSNetworkPolicySpec   `json:"spec" yaml:"status"`
+	Status            DNSNetworkPolicyStatus `json:"status" yaml:"status"`
 }
 
 type DNSNetworkPolicySpec struct {
@@ -62,6 +67,14 @@ type DNSNetworkPolicySpec struct {
 	// which is updated with resolved domains IP addresses.
 	// e.g. memcached-network-policu
 	TargetNetworkPolicy string `json:"targetNetworkPolicy" yaml:"targetNetworkPolicy"`
+}
+
+// DNSNetworkPolicyStatus holds information about last successful update of the target
+// network policy.
+// Fields here are automatically filled and can only ever be read.
+type DNSNetworkPolicyStatus struct {
+	// LastTargetNetworkPolicyUpdateTime is the last time targetNetworkPolicy was updated.
+	LastTargetNetworkPolicyUpdateTime DeepCopyTime `json:"lastTargetNetworkPolicyUpdateTime" yaml:"lastTargetNetworkPolicyUpdateTime"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
