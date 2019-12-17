@@ -118,7 +118,7 @@ type NewObjList struct {
 ### Changing Existing Custom Object
 
 - Make the desired changes.
-- Update generated client by calling `./scripts/gen.sh`.
+- Update generated client by calling `./scripts/gen.sh`. (If the command fails with `can't load package: ...` try running it with: `GO111MODULE=off ./scripts/gen.sh`).
 - Commit all changes, including generated code.
 
 ### Naming Convention
