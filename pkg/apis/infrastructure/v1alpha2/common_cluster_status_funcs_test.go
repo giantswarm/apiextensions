@@ -11,21 +11,21 @@ import (
 
 func Test_Provider_Status_LatestVersion(t *testing.T) {
 	testCases := []struct {
-		Name                       string
-		CommonClusterStatusCluster CommonClusterStatusCluster
-		ExpectedVersion            string
+		Name                string
+		CommonClusterStatus CommonClusterStatus
+		ExpectedVersion     string
 	}{
 		{
 			Name: "case 0",
-			CommonClusterStatusCluster: CommonClusterStatusCluster{
-				Versions: []CommonClusterStatusClusterVersion{},
+			CommonClusterStatus: CommonClusterStatus{
+				Versions: []CommonClusterStatusVersion{},
 			},
 			ExpectedVersion: "",
 		},
 		{
 			Name: "case 1",
-			CommonClusterStatusCluster: CommonClusterStatusCluster{
-				Versions: []CommonClusterStatusClusterVersion{
+			CommonClusterStatus: CommonClusterStatus{
+				Versions: []CommonClusterStatusVersion{
 					{
 						LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 						Version:            "1.0.0",
@@ -36,8 +36,8 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 		},
 		{
 			Name: "case 2",
-			CommonClusterStatusCluster: CommonClusterStatusCluster{
-				Versions: []CommonClusterStatusClusterVersion{
+			CommonClusterStatus: CommonClusterStatus{
+				Versions: []CommonClusterStatusVersion{
 					{
 						LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 						Version:            "1.0.0",
@@ -52,8 +52,8 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 		},
 		{
 			Name: "case 3",
-			CommonClusterStatusCluster: CommonClusterStatusCluster{
-				Versions: []CommonClusterStatusClusterVersion{
+			CommonClusterStatus: CommonClusterStatus{
+				Versions: []CommonClusterStatusVersion{
 					{
 						LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 						Version:            "1.0.0",
@@ -72,8 +72,8 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 		},
 		{
 			Name: "case 4",
-			CommonClusterStatusCluster: CommonClusterStatusCluster{
-				Versions: []CommonClusterStatusClusterVersion{
+			CommonClusterStatus: CommonClusterStatus{
+				Versions: []CommonClusterStatusVersion{
 					{
 						LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
 						Version:            "2.0.0",
@@ -92,8 +92,8 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 		},
 		{
 			Name: "case 5",
-			CommonClusterStatusCluster: CommonClusterStatusCluster{
-				Versions: []CommonClusterStatusClusterVersion{
+			CommonClusterStatus: CommonClusterStatus{
+				Versions: []CommonClusterStatusVersion{
 					{
 						LastTransitionTime: DeepCopyTime{
 							time.Unix(20, 0),
@@ -119,7 +119,7 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		semver := tc.CommonClusterStatusCluster.LatestVersion()
+		semver := tc.CommonClusterStatus.LatestVersion()
 
 		if semver != tc.ExpectedVersion {
 			t.Fatalf("expected %#v got %#v", tc.ExpectedVersion, semver)
@@ -130,20 +130,20 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 func Test_Provider_Status_withCondition(t *testing.T) {
 	testCases := []struct {
 		name               string
-		conditions         []CommonClusterStatusClusterCondition
-		condition          CommonClusterStatusClusterCondition
+		conditions         []CommonClusterStatusCondition
+		condition          CommonClusterStatusCondition
 		limit              int
-		expectedConditions []CommonClusterStatusClusterCondition
+		expectedConditions []CommonClusterStatusCondition
 	}{
 		{
 			name:       "case 0: the creation of the tenant cluster starts",
-			conditions: []CommonClusterStatusClusterCondition{},
-			condition: CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{},
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
 				Condition:          ClusterStatusConditionCreating,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
@@ -152,18 +152,18 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 1: the creation of the tenant cluster ends",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
 				Condition:          ClusterStatusConditionCreated,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
@@ -176,7 +176,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 2: the first update of the tenant cluster starts",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
@@ -186,12 +186,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -208,7 +208,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 3: the first update of the tenant cluster ends",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -222,12 +222,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
 				Condition:          ClusterStatusConditionUpdated,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
@@ -248,7 +248,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 4: the second update of the tenant cluster starts",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
@@ -266,12 +266,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -296,7 +296,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 5: the second update of the tenant cluster ends",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -318,12 +318,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
 				Condition:          ClusterStatusConditionUpdated,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
@@ -352,7 +352,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 6: the third update of the tenant cluster starts",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
@@ -378,12 +378,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -408,7 +408,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 7: the third update of the tenant cluster ends",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -438,12 +438,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
 				Condition:          ClusterStatusConditionUpdated,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
 					Condition:          ClusterStatusConditionUpdated,
@@ -472,7 +472,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 8: the second update of the tenant cluster starts before the first ended",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -486,12 +486,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -522,7 +522,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		},
 		{
 			name: "case 9: the fourth update of the tenant cluster starts before the thrird ended",
-			conditions: []CommonClusterStatusClusterCondition{
+			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -552,12 +552,12 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
-			condition: CommonClusterStatusClusterCondition{
+			condition: CommonClusterStatusCondition{
 				LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
-			expectedConditions: []CommonClusterStatusClusterCondition{
+			expectedConditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: DeepCopyTime{time.Unix(90, 0)},
 					Condition:          ClusterStatusConditionUpdating,
@@ -602,20 +602,20 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 func Test_Provider_Status_withVersion(t *testing.T) {
 	testCases := []struct {
 		Name             string
-		Versions         []CommonClusterStatusClusterVersion
-		Version          CommonClusterStatusClusterVersion
+		Versions         []CommonClusterStatusVersion
+		Version          CommonClusterStatusVersion
 		Limit            int
-		ExpectedVersions []CommonClusterStatusClusterVersion
+		ExpectedVersions []CommonClusterStatusVersion
 	}{
 		{
 			Name:     "case 0: list with zero items results in a list with one item",
-			Versions: []CommonClusterStatusClusterVersion{},
-			Version: CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{},
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 				Version:            "1.0.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
@@ -624,18 +624,18 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 		{
 			Name: "case 1: list with one item results in a list with two items",
-			Versions: []CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
 				},
 			},
-			Version: CommonClusterStatusClusterVersion{
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
 				Version:            "1.1.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
 					Version:            "1.1.0",
@@ -648,7 +648,7 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 		{
 			Name: "case 2: list with two items results in a list with three items",
-			Versions: []CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
@@ -658,12 +658,12 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Version:            "1.1.0",
 				},
 			},
-			Version: CommonClusterStatusClusterVersion{
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(30, 0)},
 				Version:            "1.5.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(30, 0)},
 					Version:            "1.5.0",
@@ -680,7 +680,7 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 		{
 			Name: "case 3: list with three items results in a list with three items due to limit",
-			Versions: []CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
@@ -694,12 +694,12 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Version:            "1.5.0",
 				},
 			},
-			Version: CommonClusterStatusClusterVersion{
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
 				Version:            "3.0.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
 					Version:            "3.0.0",
@@ -716,7 +716,7 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 		{
 			Name: "case 4: list with five items results in a list with three items due to limit",
-			Versions: []CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
@@ -738,12 +738,12 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Version:            "3.2.0",
 				},
 			},
-			Version: CommonClusterStatusClusterVersion{
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
 				Version:            "3.3.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
 					Version:            "3.3.0",
@@ -760,7 +760,7 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 		{
 			Name: "case 5: same as 4 but checking items are ordered by date before cutting off",
-			Versions: []CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(40, 0)},
 					Version:            "3.0.0",
@@ -782,12 +782,12 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 					Version:            "1.5.0",
 				},
 			},
-			Version: CommonClusterStatusClusterVersion{
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
 				Version:            "3.3.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(60, 0)},
 					Version:            "3.3.0",
@@ -804,18 +804,18 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 		},
 		{
 			Name: "case 6: list with one item results in a list with one item in case the version already exists",
-			Versions: []CommonClusterStatusClusterVersion{
+			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
 				},
 			},
-			Version: CommonClusterStatusClusterVersion{
+			Version: CommonClusterStatusVersion{
 				LastTransitionTime: DeepCopyTime{Time: time.Unix(20, 0)},
 				Version:            "1.0.0",
 			},
 			Limit: 3,
-			ExpectedVersions: []CommonClusterStatusClusterVersion{
+			ExpectedVersions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: DeepCopyTime{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",
