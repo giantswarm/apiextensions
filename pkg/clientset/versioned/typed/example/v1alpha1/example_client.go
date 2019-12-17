@@ -26,12 +26,17 @@ import (
 
 type ExampleV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	DNSNetworkPoliciesGetter
 	MemcachedConfigsGetter
 }
 
 // ExampleV1alpha1Client is used to interact with features provided by the example.giantswarm.io group.
 type ExampleV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *ExampleV1alpha1Client) DNSNetworkPolicies(namespace string) DNSNetworkPolicyInterface {
+	return newDNSNetworkPolicies(c, namespace)
 }
 
 func (c *ExampleV1alpha1Client) MemcachedConfigs(namespace string) MemcachedConfigInterface {

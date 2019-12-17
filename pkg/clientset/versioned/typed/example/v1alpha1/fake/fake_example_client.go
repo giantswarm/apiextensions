@@ -28,6 +28,10 @@ type FakeExampleV1alpha1 struct {
 	*testing.Fake
 }
 
+func (c *FakeExampleV1alpha1) DNSNetworkPolicies(namespace string) v1alpha1.DNSNetworkPolicyInterface {
+	return &FakeDNSNetworkPolicies{c, namespace}
+}
+
 func (c *FakeExampleV1alpha1) MemcachedConfigs(namespace string) v1alpha1.MemcachedConfigInterface {
 	return &FakeMemcachedConfigs{c, namespace}
 }
