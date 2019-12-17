@@ -16,6 +16,7 @@ const (
 // object lists in the group version.
 var knownTypes = []runtime.Object{
 	&MemcachedConfig{},
+	&ChaosMonkeyConfig{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
