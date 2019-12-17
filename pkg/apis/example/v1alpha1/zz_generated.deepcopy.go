@@ -115,6 +115,7 @@ func (in *GitHubSearchIndexSpec) DeepCopy() *GitHubSearchIndexSpec {
 func (in *GitHubSearchIndexStatus) DeepCopyInto(out *GitHubSearchIndexStatus) {
 	*out = *in
 	in.LastCommitTime.DeepCopyInto(&out.LastCommitTime)
+	in.IndexerJobStarted.DeepCopyInto(&out.IndexerJobStarted)
 	return
 }
 
