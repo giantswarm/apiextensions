@@ -11,7 +11,7 @@ import (
 //	apiVersion: apiextensions.k8s.io/v1beta1
 //	kind: CustomResourceDefinition
 //	metadata:
-//	  name: chaosmonkeyconfigs.provider.giantswarm.io
+//	  name: chaosmonkeyconfigs.example.giantswarm.io
 //	spec:
 //	  group: example.giantswarm.io
 //	  scope: Namespaced
@@ -28,10 +28,10 @@ func NewChaosMonkeyConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "chaosmonkeyconfigs.giantswarm.io",
+			Name: "chaosmonkeyconfigs.example.giantswarm.io",
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "giantswarm.io",
+			Group:   "example.giantswarm.io",
 			Scope:   "Namespaced",
 			Version: "v1alpha1",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
