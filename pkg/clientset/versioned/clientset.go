@@ -22,7 +22,6 @@ import (
 	"fmt"
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
-	giantswarmv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/chaosmonkey/v1alpha1"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
@@ -36,7 +35,6 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface
-	GiantswarmV1alpha1() giantswarmv1alpha1.GiantswarmV1alpha1Interface
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
 	ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
@@ -49,7 +47,6 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	applicationV1alpha1    *applicationv1alpha1.ApplicationV1alpha1Client
-	giantswarmV1alpha1     *giantswarmv1alpha1.GiantswarmV1alpha1Client
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
 	exampleV1alpha1        *examplev1alpha1.ExampleV1alpha1Client
 	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
@@ -60,11 +57,6 @@ type Clientset struct {
 // ApplicationV1alpha1 retrieves the ApplicationV1alpha1Client
 func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface {
 	return c.applicationV1alpha1
-}
-
-// GiantswarmV1alpha1 retrieves the GiantswarmV1alpha1Client
-func (c *Clientset) GiantswarmV1alpha1() giantswarmv1alpha1.GiantswarmV1alpha1Interface {
-	return c.giantswarmV1alpha1
 }
 
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
@@ -117,10 +109,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-	cs.giantswarmV1alpha1, err = giantswarmv1alpha1.NewForConfig(&configShallowCopy)
-	if err != nil {
-		return nil, err
-	}
 	cs.coreV1alpha1, err = corev1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -154,7 +142,6 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.NewForConfigOrDie(c)
-	cs.giantswarmV1alpha1 = giantswarmv1alpha1.NewForConfigOrDie(c)
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
 	cs.exampleV1alpha1 = examplev1alpha1.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
@@ -169,7 +156,6 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.New(c)
-	cs.giantswarmV1alpha1 = giantswarmv1alpha1.New(c)
 	cs.coreV1alpha1 = corev1alpha1.New(c)
 	cs.exampleV1alpha1 = examplev1alpha1.New(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
