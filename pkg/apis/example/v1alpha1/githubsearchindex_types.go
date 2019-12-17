@@ -69,8 +69,8 @@ type GitHubSearchIndex struct {
 }
 
 type GitHubSearchIndexSpec struct {
-	// Repository is the org/repo name combination.
-	// For a git URL of https://github.com/giantswarm/giantswarm.git, use "giantswarm/giantswarm".
+	// Repository is the full repository URL, including .git suffix.
+	// Example: "https://github.com/giantswarm/giantswarm.git"
 	Repository string `json:"repository"`
 
 	// EsIndexName is the name of the index to use in Elasticsearch.
