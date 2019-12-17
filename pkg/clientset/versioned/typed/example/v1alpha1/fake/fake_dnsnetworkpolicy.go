@@ -100,6 +100,18 @@ func (c *FakeDNSNetworkPolicies) Update(dNSNetworkPolicy *v1alpha1.DNSNetworkPol
 	return obj.(*v1alpha1.DNSNetworkPolicy), err
 }
 
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeDNSNetworkPolicies) UpdateStatus(dNSNetworkPolicy *v1alpha1.DNSNetworkPolicy) (*v1alpha1.DNSNetworkPolicy, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(dnsnetworkpoliciesResource, "status", c.ns, dNSNetworkPolicy), &v1alpha1.DNSNetworkPolicy{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.DNSNetworkPolicy), err
+}
+
 // Delete takes name of the dNSNetworkPolicy and deletes it. Returns an error if one occurs.
 func (c *FakeDNSNetworkPolicies) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.

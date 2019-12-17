@@ -39,6 +39,7 @@ type DNSNetworkPoliciesGetter interface {
 type DNSNetworkPolicyInterface interface {
 	Create(*v1alpha1.DNSNetworkPolicy) (*v1alpha1.DNSNetworkPolicy, error)
 	Update(*v1alpha1.DNSNetworkPolicy) (*v1alpha1.DNSNetworkPolicy, error)
+	UpdateStatus(*v1alpha1.DNSNetworkPolicy) (*v1alpha1.DNSNetworkPolicy, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha1.DNSNetworkPolicy, error)
@@ -126,6 +127,22 @@ func (c *dNSNetworkPolicies) Update(dNSNetworkPolicy *v1alpha1.DNSNetworkPolicy)
 		Namespace(c.ns).
 		Resource("dnsnetworkpolicies").
 		Name(dNSNetworkPolicy.Name).
+		Body(dNSNetworkPolicy).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *dNSNetworkPolicies) UpdateStatus(dNSNetworkPolicy *v1alpha1.DNSNetworkPolicy) (result *v1alpha1.DNSNetworkPolicy, err error) {
+	result = &v1alpha1.DNSNetworkPolicy{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("dnsnetworkpolicies").
+		Name(dNSNetworkPolicy.Name).
+		SubResource("status").
 		Body(dNSNetworkPolicy).
 		Do().
 		Into(result)
