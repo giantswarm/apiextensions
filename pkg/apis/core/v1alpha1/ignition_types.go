@@ -74,8 +74,61 @@ type Ignition struct {
 // IgnitionSpec is the interface which defines the input parameters for
 // a newly rendered g8s ignition template.
 type IgnitionSpec struct {
+	BaseDomain string                 `json:"basedomain" yaml:"basedomain"`
+	Calico     IgnitionSpecCalico     `json:"calico" yaml:"calico"`
+	Etcd       IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
+	Ingress    IgnitionSpecIngress    `json:"ingress" yaml:"ingress"`
+	Kubernetes IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
 	// Defines the provider which should be rendered.
-	Provider string `json:"provider" yaml:"provider"`
+	Provider string               `json:"provider" yaml:"provider"`
+	Registry IgnitionSpecRegistry `json:"registry" yaml:"registry"`
+	SSO      IgnitionSpecSSO      `json:"sso" yaml:"sso"`
+}
+
+type IgnitionSpecCalico struct {
+	CIDR    string `json:"cidr" yaml:"cidr"`
+	Disable bool   `json:"disable" yaml:"disable"`
+	MTU     string `json:"mtu" yaml:"mtu"`
+	Subnet  string `json:"subnet" yaml:"subnet"`
+}
+
+type IgnitionSpecEtcd struct {
+	Domain string `json:"domain" yaml:"domain"`
+	Port   int    `json:"port" yaml:"port"`
+	Prefix string `json:"prefix" yaml:"prefix"`
+}
+
+type IgnitionSpecIngress struct {
+	Disable bool `json:"disable" yaml:"disable"`
+}
+
+type IgnitionSpecKubernetes struct {
+	API     IgnitionSpecKubernetesAPI     `json:"api" yaml:"api"`
+	DNS     IgnitionSpecKubernetesDNS     `json:"dns" yaml:"dns"`
+	Domain  string                        `json:"domain" yaml:"domain"`
+	Kubelet IgnitionSpecKubernetesKubelet `json:"kubelet" yaml:"kubelet"`
+	Image   string                        `json:"image" yaml:"image"`
+	IPRange string                        `json:"iprange" yaml:"iprange"`
+}
+
+type IgnitionSpecKubernetesAPI struct {
+	Domain     string `json:"domain" yaml:"domain"`
+	SecurePort int    `json:"secureport" yaml:"secureport"`
+}
+
+type IgnitionSpecKubernetesDNS struct {
+	IP string `json:"ip" yaml:"ip"`
+}
+
+type IgnitionSpecKubernetesKubelet struct {
+	Domain string `json:"domain" yaml:"domain"`
+}
+
+type IgnitionSpecRegistry struct {
+	Domain string `json:"domain" yaml:"domain"`
+}
+type IgnitionSpecSSO struct {
+	PublicKey string `json:"publicKey" yaml:"publicKey"`
 }
 
 // IgnitionStatus holds the rendering result.
