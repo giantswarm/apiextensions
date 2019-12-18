@@ -84,11 +84,18 @@ This is example skeleton for adding new object.
 - Put struct definitions inside a proper package denoted by group and version
   in file named `new_obj_types.go`. Replace `new_obj` with lowercased,
   snakecased object name.
+- Replace `VERSION` with your API verion
 - Add `NewObj` and `NewObjList` to `knownTypes` slice in `register.go`
 - Generate client by calling `./scripts/gen.sh`.
 - Commit generated code and all edits to `./scripts/gen.sh`.
 
 ```go
+package VERSION
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
