@@ -47,7 +47,6 @@ spec:
                       type: string
                     resourceVersion:
                       type: string
-                  required: ["name", "namespace"]
                 secret:
                   type: object
                   properties:
@@ -57,19 +56,21 @@ spec:
                       type: string
                     resourceVersion:
                       type: string
-                  required: ["name", "namespace"]
             logoURL:
               type: string
+			  format: uri
             storage:
               type: object 
               properties:
                 type:
                   type: string
+				  enum: ["helm"]
+				  default: helm
                 URL:
                   type: string
                   format: uri 
               required: ["type", "URL"]
-          required: ["title", "description", "storage"]
+          required: ["title", "storage"]
 `
 
 var appCatalogCRD *apiextensionsv1beta1.CustomResourceDefinition
