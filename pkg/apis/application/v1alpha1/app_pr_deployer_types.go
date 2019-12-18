@@ -105,7 +105,6 @@ func NewAppPRDeployerTypeMeta() metav1.TypeMeta {
 // 					appCR:
 // 						name: ""  // No App CR created yet since checksPassed is false
 //
-
 type AppPRDeployer struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

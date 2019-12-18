@@ -22,4 +22,6 @@ type AppExpansion interface{}
 
 type AppCatalogExpansion interface{}
 
+type AppPRDeployerExpansion interface{}
+
 type ChartExpansion interface{}
