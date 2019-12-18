@@ -55,6 +55,9 @@ func NewGithubSearchIndexCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 				Plural:   "githubsearchindices",
 				Singular: "githubsearchindex",
 			},
+			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			},
 		},
 	}
 }
