@@ -39,6 +39,7 @@ type GitHubSearchIndexesGetter interface {
 type GitHubSearchIndexInterface interface {
 	Create(*v1alpha1.GitHubSearchIndex) (*v1alpha1.GitHubSearchIndex, error)
 	Update(*v1alpha1.GitHubSearchIndex) (*v1alpha1.GitHubSearchIndex, error)
+	UpdateStatus(*v1alpha1.GitHubSearchIndex) (*v1alpha1.GitHubSearchIndex, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha1.GitHubSearchIndex, error)
@@ -126,6 +127,22 @@ func (c *gitHubSearchIndexes) Update(gitHubSearchIndex *v1alpha1.GitHubSearchInd
 		Namespace(c.ns).
 		Resource("githubsearchindexes").
 		Name(gitHubSearchIndex.Name).
+		Body(gitHubSearchIndex).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *gitHubSearchIndexes) UpdateStatus(gitHubSearchIndex *v1alpha1.GitHubSearchIndex) (result *v1alpha1.GitHubSearchIndex, err error) {
+	result = &v1alpha1.GitHubSearchIndex{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("githubsearchindexes").
+		Name(gitHubSearchIndex.Name).
+		SubResource("status").
 		Body(gitHubSearchIndex).
 		Do().
 		Into(result)

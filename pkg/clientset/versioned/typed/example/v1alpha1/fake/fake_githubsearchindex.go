@@ -100,6 +100,18 @@ func (c *FakeGitHubSearchIndexes) Update(gitHubSearchIndex *v1alpha1.GitHubSearc
 	return obj.(*v1alpha1.GitHubSearchIndex), err
 }
 
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeGitHubSearchIndexes) UpdateStatus(gitHubSearchIndex *v1alpha1.GitHubSearchIndex) (*v1alpha1.GitHubSearchIndex, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(githubsearchindexesResource, "status", c.ns, gitHubSearchIndex), &v1alpha1.GitHubSearchIndex{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.GitHubSearchIndex), err
+}
+
 // Delete takes name of the gitHubSearchIndex and deletes it. Returns an error if one occurs.
 func (c *FakeGitHubSearchIndexes) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
