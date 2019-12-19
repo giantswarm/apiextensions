@@ -49,6 +49,7 @@ spec:
                       type: string
                     namespace:
                       type: string
+                  required: ["name", "namespace"]
                 secret:
                   type: object
                   properties:
@@ -56,6 +57,7 @@ spec:
                       type: string
                     namespace:
                       type: string
+                  required: ["name", "namespace"]
             kubeConfig:
               type: object
               properties:
@@ -66,6 +68,7 @@ spec:
                   properties:
                     name:
                       type: string
+                  required: ["name"]
                 secret:
                   type: object
                   properties:
@@ -74,7 +77,7 @@ spec:
                     namespace:
                       type: string
                   required: ["name", "namespace"]
-				requried: ["inCluster"]
+              requried: ["inCluster"]
             userConfig:
               type: object
               properties:
@@ -85,6 +88,7 @@ spec:
                       type: string
                     namespace:
                       type: string
+                  required: ["name", "namespace"]
                 secret:
                   type: object
                   properties:
@@ -92,7 +96,9 @@ spec:
                       type: string
                     namespace:
                       type: string
+                  required: ["name", "namespace"]
           required: ["catalog", "name", "namespace", "version"]
+      required: ["spec"]
 `
 
 var appCRD *apiextensionsv1beta1.CustomResourceDefinition
