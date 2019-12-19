@@ -47,6 +47,7 @@ spec:
                       type: string
                     resourceVersion:
                       type: string
+                  required: ["name", "namespace"]
                 secret:
                   type: object
                   properties:
@@ -56,6 +57,7 @@ spec:
                       type: string
                     resourceVersion:
                       type: string
+                  required: ["name", "namespace"]
             logoURL:
               type: string
 			  format: uri
@@ -71,6 +73,7 @@ spec:
                   format: uri 
               required: ["type", "URL"]
           required: ["title", "storage"]
+      required: ["spec"]
 `
 
 var appCatalogCRD *apiextensionsv1beta1.CustomResourceDefinition
