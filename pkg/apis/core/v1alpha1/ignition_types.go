@@ -76,6 +76,7 @@ type Ignition struct {
 type IgnitionSpec struct {
 	BaseDomain string                 `json:"basedomain" yaml:"basedomain"`
 	Calico     IgnitionSpecCalico     `json:"calico" yaml:"calico"`
+	ClusterID  string                 `json:"clusterid" yaml:"clusterid"`
 	Etcd       IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
 	Ingress    IgnitionSpecIngress    `json:"ingress" yaml:"ingress"`
 	Kubernetes IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
