@@ -21,9 +21,9 @@ func NewG8sBootstrapConfigConfigCRD() *apiextensionsv1beta1.CustomResourceDefini
 			Scope:   "Namespaced",
 			Version: "v1alpha2",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "G8sBootstrapConfigConfig",
-				Plural:   "G8sBootstrapConfigconfigs",
-				Singular: "G8sBootstrapConfigconfig",
+				Kind:     "g8sbootstrapconfig",
+				Plural:   "g8sbootstrapconfigs",
+				Singular: "g8sbootstrapconfig",
 			},
 		},
 	}
