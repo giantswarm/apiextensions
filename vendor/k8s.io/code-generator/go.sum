@@ -69,6 +69,7 @@ github.com/giantswarm/apiextensions v0.0.0-20191203102439-4a323ea2f664 h1:fxMRUl
 github.com/giantswarm/apiextensions v0.0.0-20191203102439-4a323ea2f664/go.mod h1:zHLSgCszRMdZUzwmfOibzcyfRC89ygwAQlpXcukgZuc=
 github.com/giantswarm/apiextensions v0.0.0-20191213075442-71155aa0f5b7 h1:IgncMKb9x7L75rd0GSOrGboxrZIYrVo9vjA0VqhF/ec=
 github.com/giantswarm/apiextensions v0.0.0-20191213075442-71155aa0f5b7/go.mod h1:zHLSgCszRMdZUzwmfOibzcyfRC89ygwAQlpXcukgZuc=
+github.com/giantswarm/apiextensions v0.0.0-20191217135035-29482fb3d774 h1:2fWk7PaobHA5954O/26CTrgfPNPfkBhE/lFh4t0OX44=
 github.com/globalsign/mgo v0.0.0-20180905125535-1ca0a4f7cbcb/go.mod h1:xkRDCp4j0OGD1HRkm4kmhM+pmpv3AKq5SU7GMg4oO/Q=
 github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8/go.mod h1:xkRDCp4j0OGD1HRkm4kmhM+pmpv3AKq5SU7GMg4oO/Q=
 github.com/go-kit/kit v0.8.0/go.mod h1:xBxKIO96dXMWWy0MnWVtmwkA9/13aqxPnvrjFYMA2as=
