@@ -48,7 +48,7 @@ func NewMemcachedConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type MemcachedConfig struct {
-	metav1.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:",inline"`
 	Spec              MemcachedConfigSpec `json:"spec"`
 }
 
