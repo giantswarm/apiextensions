@@ -60,14 +60,14 @@ spec:
                   required: ["name", "namespace"]
             logoURL:
               type: string
-			  format: uri
+              format: uri
             storage:
               type: object 
               properties:
                 type:
                   type: string
-				  enum: ["helm"]
-				  default: helm
+                  enum: ["helm"]
+                  default: helm
                 URL:
                   type: string
                   format: uri 
