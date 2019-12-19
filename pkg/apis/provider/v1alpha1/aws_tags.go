@@ -59,8 +59,7 @@ type AWSTagList struct {
 }
 
 type AWSTagListSpec struct {
-	ClusterIDCollection []string `json:"clusters" yaml:"clusters"`
-	TagCollection       []AWSTag `json:"value" yaml:"aws"`
+	TagCollection []AWSTag `json:"tags" yaml:"tags"`
 }
 
 type AWSTag struct {
