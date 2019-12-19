@@ -16,6 +16,7 @@ const (
 // object lists in the group version.
 var knownTypes = []runtime.Object{
 	&G8sBootstrapConfig{},
+	&G8sBootstrapConfigList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
