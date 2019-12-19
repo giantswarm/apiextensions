@@ -77,7 +77,7 @@ spec:
                     namespace:
                       type: string
                   required: ["name", "namespace"]
-              requried: ["inCluster"]
+              required: ["inCluster"]
             userConfig:
               type: object
               properties:
