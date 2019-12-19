@@ -20,7 +20,7 @@ spec:
   scope: Namespaced
   version: v1alpha1
   names:
-    kind: AppPrDeployer
+    kind: AppPRDeployer
     plural: appprdeployers
     singular: appprdeployer
   subresources:
