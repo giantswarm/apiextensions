@@ -14,15 +14,15 @@ const appPRDeployerCRDYAML = `
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: appprdeployer.application.giantswarm.io
+  name: appprdeployers.application.giantswarm.io
 spec:
   group: application.giantswarm.io
   scope: Namespaced
   version: v1alpha1
   names:
-    kind: App
-    plural: apps
-    singular: app
+    kind: AppPrDeployer
+    plural: appprdeployers
+    singular: appprdeployer
   subresources:
     status: {}
   validation:
@@ -39,22 +39,6 @@ func init() {
 	}
 }
 
-// NewAppPRDeployerCRD returns a new custom resource definition for App.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: appprdeployer.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: AppPRDeployer
-//         plural: appprdeployers
-//         singular: appprdeployer
-//
 func NewAppPRDeployerCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return appPRDeployerCRD.DeepCopy()
 }
