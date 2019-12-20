@@ -22,6 +22,7 @@ import (
 	"fmt"
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
+	bootstrapV1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2"
 	examplev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
@@ -42,6 +43,7 @@ type Interface interface {
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface
 	ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface
+	BootstrapV1alpha2() bootstrapV1alpha2.G8sBootstrapConfigInterface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
