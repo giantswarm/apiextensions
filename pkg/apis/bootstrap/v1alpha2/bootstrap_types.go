@@ -6,6 +6,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+const (
+	kindBootstrap = "G8sBootstrapConfig"
+)
+
 // NewG8sBootstrapConfigConfigCRD returns a new G8sBootstrapConfigConfigCRD
 func NewG8sBootstrapConfigConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
@@ -21,11 +25,18 @@ func NewG8sBootstrapConfigConfigCRD() *apiextensionsv1beta1.CustomResourceDefini
 			Scope:   "Namespaced",
 			Version: "v1alpha2",
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "G8sBootstrapConfig",
+				Kind:     kindBootstrap,
 				Plural:   "g8sbootstrapconfigs",
 				Singular: "g8sbootstrapconfig",
 			},
 		},
+	}
+}
+
+func NewG8sBootstrapConfigTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: version,
+		Kind:       kindBootstrap,
 	}
 }
 
