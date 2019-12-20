@@ -112,6 +112,7 @@ type IgnitionSpecDockerNetworkSetup struct {
 
 type IgnitionSpecEtcd struct {
 	Domain string `json:"domain" yaml:"domain"`
+	Image  string `json:"image" yaml:"image"`
 	Port   int    `json:"port" yaml:"port"`
 	Prefix string `json:"prefix" yaml:"prefix"`
 }
