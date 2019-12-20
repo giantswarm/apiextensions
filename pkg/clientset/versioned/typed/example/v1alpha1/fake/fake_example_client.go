@@ -28,10 +28,6 @@ type FakeExampleV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeExampleV1alpha1) ChaosMonkeyConfigs(namespace string) v1alpha1.ChaosMonkeyConfigInterface {
-	return &FakeChaosMonkeyConfigs{c, namespace}
-}
-
 func (c *FakeExampleV1alpha1) MemcachedConfigs(namespace string) v1alpha1.MemcachedConfigInterface {
 	return &FakeMemcachedConfigs{c, namespace}
 }
