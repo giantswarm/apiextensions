@@ -74,12 +74,16 @@ type Ignition struct {
 // IgnitionSpec is the interface which defines the input parameters for
 // a newly rendered g8s ignition template.
 type IgnitionSpec struct {
-	BaseDomain string                 `json:"basedomain" yaml:"basedomain"`
-	Calico     IgnitionSpecCalico     `json:"calico" yaml:"calico"`
-	ClusterID  string                 `json:"clusterid" yaml:"clusterid"`
-	Etcd       IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
-	Ingress    IgnitionSpecIngress    `json:"ingress" yaml:"ingress"`
-	Kubernetes IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
+	APIServerEncryptionKey  string                 `json:"apiserverencryptionkey" yaml:"apiserverencryptionkey"`
+	BaseDomain              string                 `json:"basedomain" yaml:"basedomain"`
+	Calico                  IgnitionSpecCalico     `json:"calico" yaml:"calico"`
+	ClusterID               string                 `json:"clusterid" yaml:"clusterid"`
+	DisableEncryptionAtREST bool                   `json:"disableencryptionatrest" yaml:"disableencryptionatrest"`
+	Docker                  IgnitionSpecDocker     `json:"docker" yaml:"docker"`
+	Etcd                    IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
+	Extension               IgnitionSpecExtension  `json:"extension" yaml:"extension"`
+	Ingress                 IgnitionSpecIngress    `json:"ingress" yaml:"ingress"`
+	Kubernetes              IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
 	// Defines the provider which should be rendered.
 	Provider string               `json:"provider" yaml:"provider"`
 	Registry IgnitionSpecRegistry `json:"registry" yaml:"registry"`
@@ -93,10 +97,71 @@ type IgnitionSpecCalico struct {
 	Subnet  string `json:"subnet" yaml:"subnet"`
 }
 
+type IgnitionSpecDocker struct {
+	Daemon       IgnitionSpecDockerDaemon       `json:"daemon" yaml:"daemon"`
+	NetworkSetup IgnitionSpecDockerNetworkSetup `json:"networksetup" yaml:"networksetup"`
+}
+
+type IgnitionSpecDockerDaemon struct {
+	CIDR string `json:"cidr" yaml:"cidr"`
+}
+
+type IgnitionSpecDockerNetworkSetup struct {
+	Image string `json:"image" yaml:"image"`
+}
+
 type IgnitionSpecEtcd struct {
 	Domain string `json:"domain" yaml:"domain"`
 	Port   int    `json:"port" yaml:"port"`
 	Prefix string `json:"prefix" yaml:"prefix"`
+}
+
+type IgnitionSpecExtension struct {
+	Files []IgnitionSpecExtensionFile `json:"files" yaml:"files"`
+	Units []IgnitionSpecExtensionUnit `json:"units" yaml:"units"`
+	Users []IgnitionSpecExtensionUser `json:"users" yaml:"users"`
+}
+
+type IgnitionSpecExtensionFile struct {
+	Content  string                            `json:"content" yaml:"content"`
+	Metadata IgnitionSpecExtensionFileMetadata `json:"metadata" yaml:"metadata"`
+}
+
+type IgnitionSpecExtensionFileMetadata struct {
+	Compression bool                                   `json:"compression" yaml:"compression"`
+	Owner       IgnitionSpecExtensionFileMetadataOwner `json:"owner" yaml:"owner"`
+	Path        string                                 `json:"path" yaml:"path"`
+	Permissions int                                    `json:"permissions" yaml:"permissions"`
+}
+
+type IgnitionSpecExtensionFileMetadataOwner struct {
+	Group IgnitionSpecExtensionFileMetadataOwnerGroup `json:"group" yaml:"group"`
+	User  IgnitionSpecExtensionFileMetadataOwnerUser  `json:"user" yaml:"user"`
+}
+
+type IgnitionSpecExtensionFileMetadataOwnerUser struct {
+	ID   string `json:"id" yaml:"id"`
+	Name string `json:"name" yaml:"name"`
+}
+
+type IgnitionSpecExtensionFileMetadataOwnerGroup struct {
+	ID   string `json:"id" yaml:"id"`
+	Name string `json:"name" yaml:"name"`
+}
+
+type IgnitionSpecExtensionUnit struct {
+	Content  string                            `json:"content" yaml:"content"`
+	Metadata IgnitionSpecExtensionUnitMetadata `json:"metadata" yaml:"metadata"`
+}
+
+type IgnitionSpecExtensionUnitMetadata struct {
+	Enabled bool   `json:"enabled" yaml:"enabled"`
+	Name    string `json:"name" yaml:"name"`
+}
+
+type IgnitionSpecExtensionUser struct {
+	Name      string `json:"name" yaml:"name"`
+	PublicKey string `json:"publickey" yaml:"publickey"`
 }
 
 type IgnitionSpecIngress struct {
