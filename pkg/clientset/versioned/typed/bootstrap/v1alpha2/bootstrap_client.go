@@ -24,22 +24,22 @@ import (
 	rest "k8s.io/client-go/rest"
 )
 
-type ExampleV1alpha2Interface interface {
+type BootstrapV1alpha2Interface interface {
 	RESTClient() rest.Interface
 	G8sBootstrapConfigsGetter
 }
 
 // ExampleV1alpha2Client is used to interact with features provided by the example.giantswarm.io group.
-type ExampleV1alpha2Client struct {
+type BootstrapV1alpha2Client struct {
 	restClient rest.Interface
 }
 
-func (c *ExampleV1alpha2Client) G8sBootstrapConfigs(namespace string) G8sBootstrapConfigInterface {
+func (c *BootstrapV1alpha2Client) G8sBootstrapConfigs(namespace string) G8sBootstrapConfigInterface {
 	return newG8sBootstrapConfigs(c, namespace)
 }
 
-// NewForConfig creates a new ExampleV1alpha2Client for the given config.
-func NewForConfig(c *rest.Config) (*ExampleV1alpha2Client, error) {
+// NewForConfig creates a new BootstrapV1alpha2Client for the given config.
+func NewForConfig(c *rest.Config) (*BootstrapV1alpha2Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
@@ -48,12 +48,12 @@ func NewForConfig(c *rest.Config) (*ExampleV1alpha2Client, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &ExampleV1alpha2Client{client}, nil
+	return &BootstrapV1alpha2Client{client}, nil
 }
 
-// NewForConfigOrDie creates a new ExampleV1alpha2Client for the given config and
+// NewForConfigOrDie creates a new BootstrapV1alpha2Client for the given config and
 // panics if there is an error in the config.
-func NewForConfigOrDie(c *rest.Config) *ExampleV1alpha2Client {
+func NewForConfigOrDie(c *rest.Config) *BootstrapV1alpha2Client {
 	client, err := NewForConfig(c)
 	if err != nil {
 		panic(err)
@@ -61,9 +61,9 @@ func NewForConfigOrDie(c *rest.Config) *ExampleV1alpha2Client {
 	return client
 }
 
-// New creates a new ExampleV1alpha2Client for the given RESTClient.
-func New(c rest.Interface) *ExampleV1alpha2Client {
-	return &ExampleV1alpha2Client{c}
+// New creates a new BootstrapV1alpha2Client for the given RESTClient.
+func New(c rest.Interface) *BootstrapV1alpha2Client {
+	return &BootstrapV1alpha2Client{c}
 }
 
 func setConfigDefaults(config *rest.Config) error {
@@ -81,7 +81,7 @@ func setConfigDefaults(config *rest.Config) error {
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *ExampleV1alpha2Client) RESTClient() rest.Interface {
+func (c *BootstrapV1alpha2Client) RESTClient() rest.Interface {
 	if c == nil {
 		return nil
 	}

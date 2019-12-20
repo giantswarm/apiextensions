@@ -56,7 +56,7 @@ type g8sBootstrapConfigs struct {
 }
 
 // newG8sBootstrapConfigs returns a G8sBootstrapConfigs
-func newG8sBootstrapConfigs(c *ExampleV1alpha2Client, namespace string) *g8sBootstrapConfigs {
+func newG8sBootstrapConfigs(c *BootstrapV1alpha2Client, namespace string) *g8sBootstrapConfigs {
 	return &g8sBootstrapConfigs{
 		client: c.RESTClient(),
 		ns:     namespace,
