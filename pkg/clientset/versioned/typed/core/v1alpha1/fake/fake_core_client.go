@@ -60,6 +60,10 @@ func (c *FakeCoreV1alpha1) FlannelConfigs(namespace string) v1alpha1.FlannelConf
 	return &FakeFlannelConfigs{c, namespace}
 }
 
+func (c *FakeCoreV1alpha1) Ignitions(namespace string) v1alpha1.IgnitionInterface {
+	return &FakeIgnitions{c, namespace}
+}
+
 func (c *FakeCoreV1alpha1) IngressConfigs(namespace string) v1alpha1.IngressConfigInterface {
 	return &FakeIngressConfigs{c, namespace}
 }
