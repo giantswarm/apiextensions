@@ -56,9 +56,9 @@ type ChaosMonkeyConfig struct {
 
 type ChaosMonkeyConfigSpec struct {
 	// StartTime is the beginning of the period when pods can be killed.
-	StartTime DeepCopyTime `json:"startTime" yaml:"startTime"`
+	StartTime string `json:"startTime" yaml:"startTime"`
 	// EndTime is the end of the period when pods can be killed.
-	EndTime DeepCopyTime `json:"endTime" yaml:"endTime"`
+	EndTime string `json:"endTime" yaml:"endTime"`
 	// DryRun logs what actions would have been taken.
 	DryRun bool `json:"dryRun" yaml:"dryRun"`
 	// NamespaceBlacklist is a list of namespaces to ignore
