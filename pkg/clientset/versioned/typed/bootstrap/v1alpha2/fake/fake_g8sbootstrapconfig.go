@@ -30,13 +30,13 @@ import (
 
 // FakeG8sBootstrapConfigs implements G8sBootstrapConfigInterface
 type FakeG8sBootstrapConfigs struct {
-	Fake *FakeExampleV1alpha2
+	Fake *FakeBootstrapV1alpha2
 	ns   string
 }
 
-var g8sbootstrapconfigsResource = schema.GroupVersionResource{Group: "example.giantswarm.io", Version: "v1alpha2", Resource: "g8sbootstrapconfigs"}
+var g8sbootstrapconfigsResource = schema.GroupVersionResource{Group: "bootstrap.giantswarm.io", Version: "v1alpha2", Resource: "g8sbootstrapconfigs"}
 
-var g8sbootstrapconfigsKind = schema.GroupVersionKind{Group: "example.giantswarm.io", Version: "v1alpha2", Kind: "G8sBootstrapConfig"}
+var g8sbootstrapconfigsKind = schema.GroupVersionKind{Group: "bootstrap.giantswarm.io", Version: "v1alpha2", Kind: "G8sBootstrapConfig"}
 
 // Get takes name of the g8sBootstrapConfig, and returns the corresponding g8sBootstrapConfig object, and an error if there is any.
 func (c *FakeG8sBootstrapConfigs) Get(name string, options v1.GetOptions) (result *v1alpha2.G8sBootstrapConfig, err error) {

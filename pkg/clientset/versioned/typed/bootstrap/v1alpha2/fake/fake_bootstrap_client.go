@@ -24,17 +24,17 @@ import (
 	testing "k8s.io/client-go/testing"
 )
 
-type FakeExampleV1alpha2 struct {
+type FakeBootstrapV1alpha2 struct {
 	*testing.Fake
 }
 
-func (c *FakeExampleV1alpha2) G8sBootstrapConfigs(namespace string) v1alpha2.G8sBootstrapConfigInterface {
+func (c *FakeBootstrapV1alpha2) G8sBootstrapConfigs(namespace string) v1alpha2.G8sBootstrapConfigInterface {
 	return &FakeG8sBootstrapConfigs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
-func (c *FakeExampleV1alpha2) RESTClient() rest.Interface {
+func (c *FakeBootstrapV1alpha2) RESTClient() rest.Interface {
 	var ret *rest.RESTClient
 	return ret
 }

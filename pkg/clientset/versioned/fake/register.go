@@ -20,7 +20,7 @@ package fake
 
 import (
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
-	examplev1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/bootstrap/v1alpha2"
+	bootstrapv1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/bootstrap/v1alpha2"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
@@ -38,7 +38,7 @@ var codecs = serializer.NewCodecFactory(scheme)
 var parameterCodec = runtime.NewParameterCodec(scheme)
 var localSchemeBuilder = runtime.SchemeBuilder{
 	applicationv1alpha1.AddToScheme,
-	examplev1alpha2.AddToScheme,
+	bootstrapv1alpha2.AddToScheme,
 	corev1alpha1.AddToScheme,
 	examplev1alpha1.AddToScheme,
 	infrastructurev1alpha2.AddToScheme,

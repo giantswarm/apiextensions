@@ -29,7 +29,7 @@ type BootstrapV1alpha2Interface interface {
 	G8sBootstrapConfigsGetter
 }
 
-// ExampleV1alpha2Client is used to interact with features provided by the example.giantswarm.io group.
+// BootstrapV1alpha2Client is used to interact with features provided by the bootstrap.giantswarm.io group.
 type BootstrapV1alpha2Client struct {
 	restClient rest.Interface
 }

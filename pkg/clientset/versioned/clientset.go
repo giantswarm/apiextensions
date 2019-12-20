@@ -22,8 +22,7 @@ import (
 	"fmt"
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
-	bootstrapV1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2"
-	examplev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2"
+	bootstrapv1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/bootstrap/v1alpha2"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
@@ -37,13 +36,12 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface
-	ExampleV1alpha2() examplev1alpha2.ExampleV1alpha2Interface
+	BootstrapV1alpha2() bootstrapv1alpha2.BootstrapV1alpha2Interface
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
 	ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface
 	ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface
-	BootstrapV1alpha2() bootstrapV1alpha2.G8sBootstrapConfigInterface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
@@ -51,7 +49,7 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	applicationV1alpha1    *applicationv1alpha1.ApplicationV1alpha1Client
-	exampleV1alpha2        *examplev1alpha2.ExampleV1alpha2Client
+	bootstrapV1alpha2      *bootstrapv1alpha2.BootstrapV1alpha2Client
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
 	exampleV1alpha1        *examplev1alpha1.ExampleV1alpha1Client
 	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
@@ -64,9 +62,9 @@ func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha
 	return c.applicationV1alpha1
 }
 
-// ExampleV1alpha2 retrieves the ExampleV1alpha2Client
-func (c *Clientset) ExampleV1alpha2() examplev1alpha2.ExampleV1alpha2Interface {
-	return c.exampleV1alpha2
+// BootstrapV1alpha2 retrieves the BootstrapV1alpha2Client
+func (c *Clientset) BootstrapV1alpha2() bootstrapv1alpha2.BootstrapV1alpha2Interface {
+	return c.bootstrapV1alpha2
 }
 
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
@@ -119,7 +117,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-	cs.exampleV1alpha2, err = examplev1alpha2.NewForConfig(&configShallowCopy)
+	cs.bootstrapV1alpha2, err = bootstrapv1alpha2.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -156,7 +154,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.NewForConfigOrDie(c)
-	cs.exampleV1alpha2 = examplev1alpha2.NewForConfigOrDie(c)
+	cs.bootstrapV1alpha2 = bootstrapv1alpha2.NewForConfigOrDie(c)
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
 	cs.exampleV1alpha1 = examplev1alpha1.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
@@ -171,7 +169,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.New(c)
-	cs.exampleV1alpha2 = examplev1alpha2.New(c)
+	cs.bootstrapV1alpha2 = bootstrapv1alpha2.New(c)
 	cs.coreV1alpha1 = corev1alpha1.New(c)
 	cs.exampleV1alpha1 = examplev1alpha1.New(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
