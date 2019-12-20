@@ -191,7 +191,8 @@ type IgnitionSpecKubernetesKubelet struct {
 }
 
 type IgnitionSpecRegistry struct {
-	Domain string `json:"domain" yaml:"domain"`
+	Domain               string `json:"domain" yaml:"domain"`
+	PullProgressDeadline string `json:"pullprogressdeadline" yaml:"pullprogressdeadline"`
 }
 type IgnitionSpecSSO struct {
 	PublicKey string `json:"publicKey" yaml:"publicKey"`
