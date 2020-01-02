@@ -29,6 +29,9 @@ func NewG8sBootstrapConfigConfigCRD() *apiextensionsv1beta1.CustomResourceDefini
 				Plural:   "g8sbootstrapconfigs",
 				Singular: "g8sbootstrapconfig",
 			},
+			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
+				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			},
 		},
 	}
 }
