@@ -67,7 +67,6 @@ spec:
                 type:
                   enum:
                   - S3
-                  default: S3
                 s3:
                   type: object
                   properties:
@@ -93,10 +92,8 @@ spec:
               - Running
               - Completed
               - Failed
-              default: Pending
             attempts:
               type: integer
-              default: 0
             startedTimestamp:
               type: string
               format: date-time
