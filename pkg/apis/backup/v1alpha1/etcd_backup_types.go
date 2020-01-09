@@ -4,7 +4,6 @@ import (
 	"gopkg.in/yaml.v2"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"time"
 )
 
 const etcdBackupCRDYAML = `
@@ -201,9 +200,9 @@ type EtcdBackupStatus struct {
 	// Attempts number of backup attempts made
 	Attempts int8 `json:"attempts" yaml:"attempts"`
 	// Timestamp when the first attempt was made
-	StartedTimestamp time.Time `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
+	StartedTimestamp DeepCopyTime `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
-	FinishedTimestamp time.Time `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
+	FinishedTimestamp DeepCopyTime `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
