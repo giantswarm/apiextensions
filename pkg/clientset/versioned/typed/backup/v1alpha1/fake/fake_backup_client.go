@@ -28,8 +28,8 @@ type FakeBackupV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeBackupV1alpha1) EtcdBackups() v1alpha1.EtcdBackupInterface {
-	return &FakeEtcdBackups{c}
+func (c *FakeBackupV1alpha1) ETCDBackups() v1alpha1.ETCDBackupInterface {
+	return &FakeETCDBackups{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

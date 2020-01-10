@@ -164,14 +164,14 @@ func NewEtcdBackupCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type EtcdBackup struct {
+type ETCDBackup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              EtcdBackupSpec   `json:"spec"`
-	Status            EtcdBackupStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              ETCDBackupSpec   `json:"spec"`
+	Status            ETCDBackupStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
-type EtcdBackupSpec struct {
+type ETCDBackupSpec struct {
 	// GuestBackup is a boolean indicating if the tenant clusters have to be backupped
 	GuestBackup bool `json:"guestBackup" yaml:"guestBackup"`
 	// [mandatory] Prefix to use in etcd filenames
@@ -209,9 +209,9 @@ type S3Settings struct {
 	Region string `json:"region" yaml:"region"`
 }
 
-type EtcdBackupStatus struct {
+type ETCDBackupStatus struct {
 	// array for the state of the backup for all instances
-	Instances []EtcdInstanceBackupStatus `json:"instances" yaml:"instances"`
+	Instances []ETCDInstanceBackupStatus `json:"instances" yaml:"instances"`
 	// Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status" yaml:"status"`
 	// Timestamp when the first attempt was made
@@ -220,7 +220,7 @@ type EtcdBackupStatus struct {
 	FinishedTimestamp DeepCopyTime `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
 }
 
-type EtcdInstanceBackupStatus struct {
+type ETCDInstanceBackupStatus struct {
 	// Name of the tenant cluster or 'Control Plane'
 	Name string `json:"name" yaml:"name"`
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
@@ -234,8 +234,8 @@ type EtcdInstanceBackupStatus struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-type EtcdBackupList struct {
+type ETCDBackupList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []EtcdBackup `json:"items"`
+	Items           []ETCDBackup `json:"items"`
 }

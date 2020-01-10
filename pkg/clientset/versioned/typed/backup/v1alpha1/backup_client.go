@@ -26,7 +26,7 @@ import (
 
 type BackupV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	EtcdBackupsGetter
+	ETCDBackupsGetter
 }
 
 // BackupV1alpha1Client is used to interact with features provided by the backup.giantswarm.io group.
@@ -34,8 +34,8 @@ type BackupV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *BackupV1alpha1Client) EtcdBackups() EtcdBackupInterface {
-	return newEtcdBackups(c)
+func (c *BackupV1alpha1Client) ETCDBackups() ETCDBackupInterface {
+	return newETCDBackups(c)
 }
 
 // NewForConfig creates a new BackupV1alpha1Client for the given config.

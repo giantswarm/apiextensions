@@ -28,29 +28,29 @@ import (
 	testing "k8s.io/client-go/testing"
 )
 
-// FakeEtcdBackups implements EtcdBackupInterface
-type FakeEtcdBackups struct {
+// FakeETCDBackups implements ETCDBackupInterface
+type FakeETCDBackups struct {
 	Fake *FakeBackupV1alpha1
 }
 
 var etcdbackupsResource = schema.GroupVersionResource{Group: "backup.giantswarm.io", Version: "v1alpha1", Resource: "etcdbackups"}
 
-var etcdbackupsKind = schema.GroupVersionKind{Group: "backup.giantswarm.io", Version: "v1alpha1", Kind: "EtcdBackup"}
+var etcdbackupsKind = schema.GroupVersionKind{Group: "backup.giantswarm.io", Version: "v1alpha1", Kind: "ETCDBackup"}
 
-// Get takes name of the etcdBackup, and returns the corresponding etcdBackup object, and an error if there is any.
-func (c *FakeEtcdBackups) Get(name string, options v1.GetOptions) (result *v1alpha1.EtcdBackup, err error) {
+// Get takes name of the eTCDBackup, and returns the corresponding eTCDBackup object, and an error if there is any.
+func (c *FakeETCDBackups) Get(name string, options v1.GetOptions) (result *v1alpha1.ETCDBackup, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootGetAction(etcdbackupsResource, name), &v1alpha1.EtcdBackup{})
+		Invokes(testing.NewRootGetAction(etcdbackupsResource, name), &v1alpha1.ETCDBackup{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.EtcdBackup), err
+	return obj.(*v1alpha1.ETCDBackup), err
 }
 
-// List takes label and field selectors, and returns the list of EtcdBackups that match those selectors.
-func (c *FakeEtcdBackups) List(opts v1.ListOptions) (result *v1alpha1.EtcdBackupList, err error) {
+// List takes label and field selectors, and returns the list of ETCDBackups that match those selectors.
+func (c *FakeETCDBackups) List(opts v1.ListOptions) (result *v1alpha1.ETCDBackupList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootListAction(etcdbackupsResource, etcdbackupsKind, opts), &v1alpha1.EtcdBackupList{})
+		Invokes(testing.NewRootListAction(etcdbackupsResource, etcdbackupsKind, opts), &v1alpha1.ETCDBackupList{})
 	if obj == nil {
 		return nil, err
 	}
@@ -59,8 +59,8 @@ func (c *FakeEtcdBackups) List(opts v1.ListOptions) (result *v1alpha1.EtcdBackup
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &v1alpha1.EtcdBackupList{ListMeta: obj.(*v1alpha1.EtcdBackupList).ListMeta}
-	for _, item := range obj.(*v1alpha1.EtcdBackupList).Items {
+	list := &v1alpha1.ETCDBackupList{ListMeta: obj.(*v1alpha1.ETCDBackupList).ListMeta}
+	for _, item := range obj.(*v1alpha1.ETCDBackupList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -68,64 +68,64 @@ func (c *FakeEtcdBackups) List(opts v1.ListOptions) (result *v1alpha1.EtcdBackup
 	return list, err
 }
 
-// Watch returns a watch.Interface that watches the requested etcdBackups.
-func (c *FakeEtcdBackups) Watch(opts v1.ListOptions) (watch.Interface, error) {
+// Watch returns a watch.Interface that watches the requested eTCDBackups.
+func (c *FakeETCDBackups) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(etcdbackupsResource, opts))
 }
 
-// Create takes the representation of a etcdBackup and creates it.  Returns the server's representation of the etcdBackup, and an error, if there is any.
-func (c *FakeEtcdBackups) Create(etcdBackup *v1alpha1.EtcdBackup) (result *v1alpha1.EtcdBackup, err error) {
+// Create takes the representation of a eTCDBackup and creates it.  Returns the server's representation of the eTCDBackup, and an error, if there is any.
+func (c *FakeETCDBackups) Create(eTCDBackup *v1alpha1.ETCDBackup) (result *v1alpha1.ETCDBackup, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateAction(etcdbackupsResource, etcdBackup), &v1alpha1.EtcdBackup{})
+		Invokes(testing.NewRootCreateAction(etcdbackupsResource, eTCDBackup), &v1alpha1.ETCDBackup{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.EtcdBackup), err
+	return obj.(*v1alpha1.ETCDBackup), err
 }
 
-// Update takes the representation of a etcdBackup and updates it. Returns the server's representation of the etcdBackup, and an error, if there is any.
-func (c *FakeEtcdBackups) Update(etcdBackup *v1alpha1.EtcdBackup) (result *v1alpha1.EtcdBackup, err error) {
+// Update takes the representation of a eTCDBackup and updates it. Returns the server's representation of the eTCDBackup, and an error, if there is any.
+func (c *FakeETCDBackups) Update(eTCDBackup *v1alpha1.ETCDBackup) (result *v1alpha1.ETCDBackup, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateAction(etcdbackupsResource, etcdBackup), &v1alpha1.EtcdBackup{})
+		Invokes(testing.NewRootUpdateAction(etcdbackupsResource, eTCDBackup), &v1alpha1.ETCDBackup{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.EtcdBackup), err
+	return obj.(*v1alpha1.ETCDBackup), err
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeEtcdBackups) UpdateStatus(etcdBackup *v1alpha1.EtcdBackup) (*v1alpha1.EtcdBackup, error) {
+func (c *FakeETCDBackups) UpdateStatus(eTCDBackup *v1alpha1.ETCDBackup) (*v1alpha1.ETCDBackup, error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateSubresourceAction(etcdbackupsResource, "status", etcdBackup), &v1alpha1.EtcdBackup{})
+		Invokes(testing.NewRootUpdateSubresourceAction(etcdbackupsResource, "status", eTCDBackup), &v1alpha1.ETCDBackup{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.EtcdBackup), err
+	return obj.(*v1alpha1.ETCDBackup), err
 }
 
-// Delete takes name of the etcdBackup and deletes it. Returns an error if one occurs.
-func (c *FakeEtcdBackups) Delete(name string, options *v1.DeleteOptions) error {
+// Delete takes name of the eTCDBackup and deletes it. Returns an error if one occurs.
+func (c *FakeETCDBackups) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteAction(etcdbackupsResource, name), &v1alpha1.EtcdBackup{})
+		Invokes(testing.NewRootDeleteAction(etcdbackupsResource, name), &v1alpha1.ETCDBackup{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeEtcdBackups) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+func (c *FakeETCDBackups) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	action := testing.NewRootDeleteCollectionAction(etcdbackupsResource, listOptions)
 
-	_, err := c.Fake.Invokes(action, &v1alpha1.EtcdBackupList{})
+	_, err := c.Fake.Invokes(action, &v1alpha1.ETCDBackupList{})
 	return err
 }
 
-// Patch applies the patch and returns the patched etcdBackup.
-func (c *FakeEtcdBackups) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.EtcdBackup, err error) {
+// Patch applies the patch and returns the patched eTCDBackup.
+func (c *FakeETCDBackups) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.ETCDBackup, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(etcdbackupsResource, name, pt, data, subresources...), &v1alpha1.EtcdBackup{})
+		Invokes(testing.NewRootPatchSubresourceAction(etcdbackupsResource, name, pt, data, subresources...), &v1alpha1.ETCDBackup{})
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*v1alpha1.EtcdBackup), err
+	return obj.(*v1alpha1.ETCDBackup), err
 }
