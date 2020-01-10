@@ -86,23 +86,41 @@ spec:
         status:
           type: object
           properties:
-            phase:
+            status:
               enum:
               - Pending
               - Running
               - Completed
               - Failed
-            attempts:
-              type: integer
             startedTimestamp:
               type: string
               format: date-time
             finishedTimestamp:
               type: string
               format: date-time
+            instances:
+              type: object
+              properties:
+                attempts:
+                  type: integer
+                status:
+                  enum:
+                  - Pending
+                  - Running
+                  - Completed
+                  - Failed
+                startedTimestamp:
+                  type: string
+                  format: date-time
+                finishedTimestamp:
+                  type: string
+                  format: date-time
+              required:
+          	  - status
+              - attempts
           required:
-          - phase
-          - attempts
+          - status
+          - instances
   additionalPrinterColumns:
   - name: guestBackup
     type: boolean
@@ -112,10 +130,10 @@ spec:
     type: string
     description: The destination storage
     JSONPath: .spec.storage.type
-  - name: Phase
+  - name: Status
     type: string
-    description: The phase this backup is in
-    JSONPath: .status.phase
+    description: The status this backup is in
+    JSONPath: .status.status
   - name: Started
     type: date
     description: The date the backup has been first attempted
@@ -192,8 +210,21 @@ type S3Settings struct {
 }
 
 type EtcdBackupStatus struct {
-	// Phase of this backup job (can be 'Pending', 'Running'. 'Completed', 'Failed'
-	Phase string `json:"phase" yaml:"phase"`
+	// array for the state of the backup for all instances
+	Instances []EtcdInstanceBackupStatus `json:"instances" yaml:"instances"`
+	// Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+	Status string `json:"status" yaml:"status"`
+	// Timestamp when the first attempt was made
+	StartedTimestamp DeepCopyTime `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
+	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
+	FinishedTimestamp DeepCopyTime `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
+}
+
+type EtcdInstanceBackupStatus struct {
+	// Name of the tenant cluster or 'Control Plane'
+	Name string `json:"name" yaml:"name"`
+	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+	Status string `json:"status" yaml:"status"`
 	// Attempts number of backup attempts made
 	Attempts int8 `json:"attempts" yaml:"attempts"`
 	// Timestamp when the first attempt was made
