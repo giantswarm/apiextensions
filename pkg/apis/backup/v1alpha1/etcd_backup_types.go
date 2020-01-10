@@ -116,7 +116,7 @@ spec:
                   type: string
                   format: date-time
               required:
-          	  - status
+              - status
               - attempts
           required:
           - status
