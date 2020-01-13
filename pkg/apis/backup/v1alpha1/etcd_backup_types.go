@@ -99,25 +99,27 @@ spec:
               type: string
               format: date-time
             instances:
-              type: object
-              properties:
-                attempts:
-                  type: integer
-                status:
-                  enum:
-                  - Pending
-                  - Running
-                  - Completed
-                  - Failed
-                startedTimestamp:
-                  type: string
-                  format: date-time
-                finishedTimestamp:
-                  type: string
-                  format: date-time
-              required:
-              - status
-              - attempts
+              type: array
+              items:
+                type: object
+                properties:
+                  attempts:
+                    type: integer
+                  status:
+                    enum:
+                    - Pending
+                    - Running
+                    - Completed
+                    - Failed
+                  startedTimestamp:
+                    type: string
+                    format: date-time
+                  finishedTimestamp:
+                    type: string
+                    format: date-time
+                required:
+                - status
+                - attempts
           required:
           - status
           - instances
