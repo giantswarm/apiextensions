@@ -144,10 +144,6 @@ spec:
     type: date
     description: The date the backup has been last attempted
     JSONPath: .status.finishedTimestamp
-  - name: Attempts
-    type: date
-    description: The number of backups attempted
-    JSONPath: .status.attempts
 `
 
 var etcdBackupCRD *apiextensionsv1beta1.CustomResourceDefinition
