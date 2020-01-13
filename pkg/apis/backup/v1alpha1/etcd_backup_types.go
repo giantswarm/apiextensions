@@ -117,6 +117,8 @@ spec:
                   finishedTimestamp:
                     type: string
                     format: date-time
+                  latestError:
+                    type: string
                 required:
                 - status
                 - attempts
@@ -229,6 +231,8 @@ type ETCDInstanceBackupStatus struct {
 	StartedTimestamp DeepCopyTime `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
 	FinishedTimestamp DeepCopyTime `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
+	// Latest backup error message
+	LatestError string `json:"latestError,omitempty" yaml:"latestError,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
