@@ -40,6 +40,8 @@ spec:
             etcdV2:
               type: object
               properties:
+                enabled:
+                  type: boolean
                 dataDir:
                   type: string
                   pattern: "^/"
@@ -48,6 +50,8 @@ spec:
             etcdV3:
               type: object
               properties:
+                enabled:
+                  type: boolean
                 endpoints:
                   type: string
                 cacert:
@@ -119,9 +123,37 @@ spec:
                     format: date-time
                   latestError:
                     type: string
-                required:
-                - status
-                - attempts
+                  etcdV2:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                      dataDir:
+                        type: string
+                        pattern: "^/"
+                      required:
+                      - dataDir
+                  etcdV3:
+                    type: object
+                    properties:
+                      enabled:
+                        type: boolean
+                      endpoints:
+                        type: string
+                      cacert:
+                        type: string
+                      cert:
+                        type: string
+                      key:
+                        type: string
+                    required:
+                    - endpoints
+                    - cacert
+                    - cert
+                    - key
+                      required:
+                      - status
+                      - attempts
           required:
           - status
           - instances
@@ -187,10 +219,12 @@ type ETCDBackupSpec struct {
 }
 
 type ETCDv2Settings struct {
+	Enabled bool   `json:"enabled" yaml:"enabled"`
 	DataDir string `json:"dataDir" yaml:"dataDir"`
 }
 
 type ETCDv3Settings struct {
+	Enabled   bool   `json:"enabled" yaml:"enabled"`
 	Endpoints string `json:"endpoints" yaml:"endpoints"`
 	CaCert    string `json:"cacert" yaml:"cacert"`
 	Cert      string `json:"cert" yaml:"cert"`
