@@ -45,8 +45,6 @@ spec:
                 dataDir:
                   type: string
                   pattern: "^/"
-              required:
-              - dataDir
             etcdV3:
               type: object
               properties:
@@ -60,11 +58,6 @@ spec:
                   type: string
                 key:
                   type: string
-              required:
-              - endpoints
-              - cacert
-              - cert
-              - key
             storage:
               type: object
               properties:
@@ -131,8 +124,6 @@ spec:
                       dataDir:
                         type: string
                         pattern: "^/"
-                      required:
-                      - dataDir
                   etcdV3:
                     type: object
                     properties:
@@ -151,9 +142,11 @@ spec:
                     - cacert
                     - cert
                     - key
-                      required:
-                      - status
-                      - attempts
+                required:
+                - status
+                - attempts
+                - etcdV2
+                - etcdV3
           required:
           - status
           - instances
