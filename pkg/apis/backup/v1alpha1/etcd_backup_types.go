@@ -223,6 +223,10 @@ type ETCDBackupStatus struct {
 type ETCDInstanceBackupStatus struct {
 	// Name of the tenant cluster or 'Control Plane'
 	Name string `json:"name" yaml:"name"`
+	// ETCDv2 backup settings
+	ETCDv2 ETCDv2Settings `json:"etcdV2" yaml:"etcdV2"`
+	// ETCDv3 backup settings
+	ETCDv3 ETCDv3Settings `json:"etcdV3" yaml:"etcdV3"`
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status" yaml:"status"`
 	// Attempts number of backup attempts made
