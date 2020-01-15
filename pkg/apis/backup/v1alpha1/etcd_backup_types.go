@@ -58,21 +58,6 @@ spec:
                   type: string
                 key:
                   type: string
-            storage:
-              type: object
-              properties:
-                type:
-                  enum:
-                  - S3
-                s3:
-                  type: object
-                  properties:
-                    bucket:
-                      type: string
-                    region:
-                      type: string
-              required:
-              - type
           required:
           - guestBackup
           - prefix
@@ -155,10 +140,6 @@ spec:
     type: boolean
     description: Wether guest backups are backed up or not.
     JSONPath: .spec.guestBackup
-  - name: Storage
-    type: string
-    description: The destination storage
-    JSONPath: .spec.storage.type
   - name: Status
     type: string
     description: The status this backup is in
@@ -207,8 +188,6 @@ type ETCDBackupSpec struct {
 	ETCDv2 ETCDv2Settings `json:"etcdV2" yaml:"etcdV2"`
 	// ETCDv3 backup settings
 	ETCDv3 ETCDv3Settings `json:"etcdV3" yaml:"etcdV3"`
-	// Settings for the backup storage
-	Storage StorageSettings `json:"storage" yaml:"storage"`
 }
 
 type ETCDv2Settings struct {
@@ -222,18 +201,6 @@ type ETCDv3Settings struct {
 	CaCert    string `json:"cacert" yaml:"cacert"`
 	Cert      string `json:"cert" yaml:"cert"`
 	Key       string `json:"key" yaml:"key"`
-}
-
-type StorageSettings struct {
-	// Storage type: only allowed value is "S3"
-	Type string `json:"type" yaml:"type"`
-	// Configuration for storage type: "S3"
-	S3 S3Settings `json:"s3,omitempty" yaml:"s3,omitempty"`
-}
-
-type S3Settings struct {
-	Bucket string `json:"bucket" yaml:"bucket"`
-	Region string `json:"region" yaml:"region"`
 }
 
 type ETCDBackupStatus struct {
