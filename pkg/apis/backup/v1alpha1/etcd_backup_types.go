@@ -64,7 +64,6 @@ spec:
           - provider
           - etcdV2
           - etcdV3
-          - storage
         status:
           type: object
           properties:
