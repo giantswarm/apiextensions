@@ -44,7 +44,6 @@ spec:
                   type: boolean
                 dataDir:
                   type: string
-                  pattern: "^/"
             etcdV3:
               type: object
               properties:
@@ -107,7 +106,6 @@ spec:
                         type: boolean
                       dataDir:
                         type: string
-                        pattern: "^/"
                   etcdV3:
                     type: object
                     properties:
