@@ -2,7 +2,10 @@
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cd ${dir}/../vendor/k8s.io/code-generator && ./generate-groups.sh \
+rm -rf vendor
+git clone git@github.com:kubernetes/code-generator.git vendor/kubernetes/code-generator
+
+cd ${dir}/../vendor/kubernetes/code-generator && ./generate-groups.sh \
     "deepcopy,client" \
     github.com/giantswarm/apiextensions/pkg \
     github.com/giantswarm/apiextensions/pkg/apis \
