@@ -84,7 +84,7 @@ spec:
                 type: object
                 properties:
                   name:
-                    type: integer
+                    type: string
                   attempts:
                     type: integer
                   status:
