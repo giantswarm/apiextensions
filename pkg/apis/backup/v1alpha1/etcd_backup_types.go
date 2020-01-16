@@ -83,6 +83,8 @@ spec:
               items:
                 type: object
                 properties:
+                  name:
+                    type: integer
                   attempts:
                     type: integer
                   status:
@@ -99,36 +101,10 @@ spec:
                     format: date-time
                   latestError:
                     type: string
-                  etcdV2:
-                    type: object
-                    properties:
-                      enabled:
-                        type: boolean
-                      dataDir:
-                        type: string
-                  etcdV3:
-                    type: object
-                    properties:
-                      enabled:
-                        type: boolean
-                      endpoints:
-                        type: string
-                      cacert:
-                        type: string
-                      cert:
-                        type: string
-                      key:
-                        type: string
-                    required:
-                    - endpoints
-                    - cacert
-                    - cert
-                    - key
                 required:
+                - name
                 - status
                 - attempts
-                - etcdV2
-                - etcdV3
           required:
           - status
           - instances
@@ -214,10 +190,6 @@ type ETCDBackupStatus struct {
 type ETCDInstanceBackupStatus struct {
 	// Name of the tenant cluster or 'Control Plane'
 	Name string `json:"name" yaml:"name"`
-	// ETCDv2 backup settings
-	ETCDv2 ETCDv2Settings `json:"etcdV2" yaml:"etcdV2"`
-	// ETCDv3 backup settings
-	ETCDv3 ETCDv3Settings `json:"etcdV3" yaml:"etcdV3"`
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status" yaml:"status"`
 	// Attempts number of backup attempts made
