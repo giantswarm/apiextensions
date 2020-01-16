@@ -13,8 +13,8 @@ require (
 	golang.org/x/sys v0.0.0-20191206220618-eeba5f6aabab // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
 	gopkg.in/yaml.v2 v2.2.7 // indirect
-	k8s.io/apiextensions-apiserver v0.17.1
-	k8s.io/apimachinery v0.17.1
-	k8s.io/client-go v0.17.1
+	k8s.io/apiextensions-apiserver v0.16.5-beta.1
+	k8s.io/apimachinery v0.16.5-beta.1
+	k8s.io/client-go v0.16.5-beta.1
 	sigs.k8s.io/yaml v1.1.0
 )
