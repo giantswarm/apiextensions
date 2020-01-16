@@ -29,30 +29,8 @@ spec:
           properties:
             guestBackup:
               type: boolean
-            etcdV2:
-              type: object
-              properties:
-                enabled:
-                  type: boolean
-                dataDir:
-                  type: string
-            etcdV3:
-              type: object
-              properties:
-                enabled:
-                  type: boolean
-                endpoints:
-                  type: string
-                cacert:
-                  type: string
-                cert:
-                  type: string
-                key:
-                  type: string
           required:
           - guestBackup
-          - etcdV2
-          - etcdV3
         status:
           type: object
           properties:
@@ -143,23 +121,6 @@ type ETCDBackup struct {
 type ETCDBackupSpec struct {
 	// GuestBackup is a boolean indicating if the tenant clusters have to be backupped
 	GuestBackup bool `json:"guestBackup" yaml:"guestBackup"`
-	// ETCDv2 backup settings
-	ETCDv2 ETCDv2Settings `json:"etcdV2" yaml:"etcdV2"`
-	// ETCDv3 backup settings
-	ETCDv3 ETCDv3Settings `json:"etcdV3" yaml:"etcdV3"`
-}
-
-type ETCDv2Settings struct {
-	Enabled bool   `json:"enabled" yaml:"enabled"`
-	DataDir string `json:"dataDir" yaml:"dataDir"`
-}
-
-type ETCDv3Settings struct {
-	Enabled   bool   `json:"enabled" yaml:"enabled"`
-	Endpoints string `json:"endpoints" yaml:"endpoints"`
-	CaCert    string `json:"cacert" yaml:"cacert"`
-	Cert      string `json:"cert" yaml:"cert"`
-	Key       string `json:"key" yaml:"key"`
 }
 
 type ETCDBackupStatus struct {
