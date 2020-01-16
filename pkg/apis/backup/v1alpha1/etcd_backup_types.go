@@ -29,14 +29,6 @@ spec:
           properties:
             guestBackup:
               type: boolean
-            prefix:
-              type: string
-              pattern: "^[a-z0-9A-Z]+$"
-            provider:
-              enum:
-              - aws
-              - azure
-              - kvm
             etcdV2:
               type: object
               properties:
@@ -59,8 +51,6 @@ spec:
                   type: string
           required:
           - guestBackup
-          - prefix
-          - provider
           - etcdV2
           - etcdV3
         status:
@@ -153,10 +143,6 @@ type ETCDBackup struct {
 type ETCDBackupSpec struct {
 	// GuestBackup is a boolean indicating if the tenant clusters have to be backupped
 	GuestBackup bool `json:"guestBackup" yaml:"guestBackup"`
-	// [mandatory] Prefix to use in etcd filenames
-	Prefix string `json:"prefix" yaml:"prefix"`
-	// [mandatory] Provider (aws, azure or kvm)
-	Provider string `json:"provider" yaml:"provider"`
 	// ETCDv2 backup settings
 	ETCDv2 ETCDv2Settings `json:"etcdV2" yaml:"etcdV2"`
 	// ETCDv3 backup settings
