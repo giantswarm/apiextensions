@@ -15,7 +15,7 @@ import (
 //	metadata:
 //	  name: g8sControlPlanes.core.giantswarm.io
 //	spec:
-//	  group: core.giantswarm.io
+//	  group: infrastructure.giantswarm.io
 //	  scope: Namespaced
 //	  version: v1alpha1
 //	  names:
