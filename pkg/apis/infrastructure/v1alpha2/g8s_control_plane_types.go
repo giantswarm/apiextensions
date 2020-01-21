@@ -42,6 +42,8 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 //	kind: CustomResourceDefinition
 //	metadata:
 //	  name: g8sControlPlanes.core.giantswarm.io
+//	  annotations:
+//		giantswarm.io/docs:
 //	spec:
 //	  group: infrastructure.giantswarm.io
 //	  scope: Namespaced
