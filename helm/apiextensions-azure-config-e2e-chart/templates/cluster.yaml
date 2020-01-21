@@ -7,6 +7,14 @@ metadata:
     giantswarm.io/cluster: "{{ .Values.clusterName }}"
 spec:
   azure:
+    {{ if gt (len .Values.azure.availabilityZones) 0 -}}
+    availabilityZones:
+    {{ range .Values.azure.availabilityZones -}}
+    - {{ . }}
+    {{ end -}}
+    {{ else -}}
+    availabilityZones: []
+    {{ end -}}
     credentialSecret:
       name: "credential-default"
       namespace: "giantswarm"

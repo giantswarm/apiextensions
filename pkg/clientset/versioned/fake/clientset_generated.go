@@ -26,6 +26,8 @@ import (
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1/fake"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
 	fakeexamplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1/fake"
+	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
+	fakeinfrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2/fake"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/provider/v1alpha1"
 	fakeproviderv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/provider/v1alpha1/fake"
 	releasev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/release/v1alpha1"
@@ -49,7 +51,7 @@ func NewSimpleClientset(objects ...runtime.Object) *Clientset {
 		}
 	}
 
-	cs := &Clientset{}
+	cs := &Clientset{tracker: o}
 	cs.discovery = &fakediscovery.FakeDiscovery{Fake: &cs.Fake}
 	cs.AddReactor("*", "*", testing.ObjectReaction(o))
 	cs.AddWatchReactor("*", func(action testing.Action) (handled bool, ret watch.Interface, err error) {
@@ -71,10 +73,15 @@ func NewSimpleClientset(objects ...runtime.Object) *Clientset {
 type Clientset struct {
 	testing.Fake
 	discovery *fakediscovery.FakeDiscovery
+	tracker   testing.ObjectTracker
 }
 
 func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 	return c.discovery
+}
+
+func (c *Clientset) Tracker() testing.ObjectTracker {
+	return c.tracker
 }
 
 var _ clientset.Interface = &Clientset{}
@@ -84,18 +91,8 @@ func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha
 	return &fakeapplicationv1alpha1.FakeApplicationV1alpha1{Fake: &c.Fake}
 }
 
-// Application retrieves the ApplicationV1alpha1Client
-func (c *Clientset) Application() applicationv1alpha1.ApplicationV1alpha1Interface {
-	return &fakeapplicationv1alpha1.FakeApplicationV1alpha1{Fake: &c.Fake}
-}
-
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
 func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
-	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
-}
-
-// Core retrieves the CoreV1alpha1Client
-func (c *Clientset) Core() corev1alpha1.CoreV1alpha1Interface {
 	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
 }
 
@@ -104,9 +101,9 @@ func (c *Clientset) ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface {
 	return &fakeexamplev1alpha1.FakeExampleV1alpha1{Fake: &c.Fake}
 }
 
-// Example retrieves the ExampleV1alpha1Client
-func (c *Clientset) Example() examplev1alpha1.ExampleV1alpha1Interface {
-	return &fakeexamplev1alpha1.FakeExampleV1alpha1{Fake: &c.Fake}
+// InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
+func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
+	return &fakeinfrastructurev1alpha2.FakeInfrastructureV1alpha2{Fake: &c.Fake}
 }
 
 // ProviderV1alpha1 retrieves the ProviderV1alpha1Client
@@ -114,17 +111,7 @@ func (c *Clientset) ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interfac
 	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: &c.Fake}
 }
 
-// Provider retrieves the ProviderV1alpha1Client
-func (c *Clientset) Provider() providerv1alpha1.ProviderV1alpha1Interface {
-	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: &c.Fake}
-}
-
 // ReleaseV1alpha1 retrieves the ReleaseV1alpha1Client
 func (c *Clientset) ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface {
-	return &fakereleasev1alpha1.FakeReleaseV1alpha1{Fake: &c.Fake}
-}
-
-// Release retrieves the ReleaseV1alpha1Client
-func (c *Clientset) Release() releasev1alpha1.ReleaseV1alpha1Interface {
 	return &fakereleasev1alpha1.FakeReleaseV1alpha1{Fake: &c.Fake}
 }
