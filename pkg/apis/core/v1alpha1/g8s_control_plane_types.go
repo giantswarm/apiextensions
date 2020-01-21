@@ -63,7 +63,7 @@ type G8sControlPlane struct {
 type G8sControlPlaneSpec struct {
 	// Replicas is the number replicas of the master node.
 	Replicas int `json:"replicas" yaml:"replicas"`
-	// InfrastructureReference is a required reference to provider-specific
+	// InfrastructureRef is a required reference to provider-specific
 	// Infrastructure.
 	InfrastructureReference string `json:"infrastructureReference"`
 }
