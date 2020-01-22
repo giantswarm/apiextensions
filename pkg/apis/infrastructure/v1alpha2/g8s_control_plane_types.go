@@ -5,6 +5,7 @@ import (
 
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	corev1 "k8s.io/kubernetes/pkg/apis/core"
 )
 
 func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
@@ -67,10 +68,10 @@ type G8sControlPlaneSpec struct {
 	Replicas int `json:"replicas" yaml:"replicas"`
 	// InfrastructureRef is a required reference to provider-specific
 	// Infrastructure.
-	InfrastructureReference string `json:"infrastructureReference"`
+	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 
-// KubeadmControlPlaneStatus defines the observed state of G8sControlPlane.
+// // G8sControlPlaneStatus defines the observed state of G8sControlPlane. defines the observed state of G8sControlPlane.
 type G8sControlPlaneStatus struct {
 	// Selector is the label selector in string format to avoid introspection
 	// by clients, and is used to provide the CRD-based integration for the
