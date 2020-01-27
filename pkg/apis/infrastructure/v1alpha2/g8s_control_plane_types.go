@@ -34,6 +34,7 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 }
 
 // +genclient
+// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // G8sControlPlane defines the ControlPlane (Master nodes) of a
@@ -71,7 +72,7 @@ type G8sControlPlaneSpec struct {
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 
-// // G8sControlPlaneStatus defines the observed state of G8sControlPlane. defines the observed state of G8sControlPlane.
+// G8sControlPlaneStatus defines the observed state of G8sControlPlane.
 type G8sControlPlaneStatus struct {
 	// Selector is the label selector in string format to avoid introspection
 	// by clients, and is used to provide the CRD-based integration for the
