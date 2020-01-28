@@ -21,3 +21,5 @@ package v1alpha2
 type AWSClusterExpansion interface{}
 
 type AWSMachineDeploymentExpansion interface{}
+
+type G8sControlPlaneExpansion interface{}
