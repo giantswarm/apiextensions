@@ -4,13 +4,10 @@ go 1.13
 
 require (
 	github.com/google/go-cmp v0.3.0
-	github.com/spf13/pflag v1.0.5
 	k8s.io/apiextensions-apiserver v0.17.2
 	k8s.io/apimachinery v0.17.2
 	k8s.io/client-go v11.0.0+incompatible
 	k8s.io/code-generator v0.16.6
-	k8s.io/gengo v0.0.0-20190822140433-26a664648505
-	k8s.io/klog v1.0.0
 	sigs.k8s.io/yaml v1.1.0
 )
 
