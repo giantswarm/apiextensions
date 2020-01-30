@@ -81,8 +81,6 @@ spec:
         docker:
           image: "quay.io/giantswarm/k8s-setup-network-environment:1f4ffc52095ac368847ce3428ea99b257003d9b9"
       ssh:
-        userList:
-        - name: "{{ .Values.sshUser }}"
-          publicKey: "{{ .Values.sshPublicKey }}"
+        userList: "{{ .Values.sshUserList }}"
   versionBundle:
     version: "{{ .Values.versionBundleVersion }}"
