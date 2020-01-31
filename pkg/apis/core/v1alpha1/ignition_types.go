@@ -201,10 +201,10 @@ type IgnitionSpecSSO struct {
 
 // IgnitionStatus holds the rendering result.
 type IgnitionStatus struct {
-	ConfigMap IgnitionStatusConfigMap `json:"template" yaml:"template"`
+	Secret IgnitionStatusSecret `json:"template" yaml:"template"`
 }
 
-type IgnitionStatusConfigMap struct {
+type IgnitionStatusSecret struct {
 	// Name is the name of the config map containing the rendered ignition.
 	Name string `json:"name" yaml:"name"`
 	// Namespace is the namespace of the config map containing the rendered ignition.
