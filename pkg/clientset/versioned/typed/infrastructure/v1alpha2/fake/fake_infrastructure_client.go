@@ -36,10 +36,6 @@ func (c *FakeInfrastructureV1alpha2) AWSMachineDeployments(namespace string) v1a
 	return &FakeAWSMachineDeployments{c, namespace}
 }
 
-func (c *FakeInfrastructureV1alpha2) G8sControlPlanes(namespace string) v1alpha2.G8sControlPlaneInterface {
-	return &FakeG8sControlPlanes{c, namespace}
-}
-
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeInfrastructureV1alpha2) RESTClient() rest.Interface {

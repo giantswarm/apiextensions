@@ -8,6 +8,10 @@ import (
 	corev1 "k8s.io/kubernetes/pkg/apis/core"
 )
 
+// +genclient
+// +genclient:noStatus
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
 func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
@@ -32,10 +36,6 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 		},
 	}
 }
-
-// +genclient
-// +genclient:noStatus
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // G8sControlPlane defines the ControlPlane (Master nodes) of a
 // Giant Swarm Tenant Cluster

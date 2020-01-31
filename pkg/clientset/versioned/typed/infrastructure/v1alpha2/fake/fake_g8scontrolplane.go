@@ -100,6 +100,18 @@ func (c *FakeG8sControlPlanes) Update(g8sControlPlane *v1alpha2.G8sControlPlane)
 	return obj.(*v1alpha2.G8sControlPlane), err
 }
 
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeG8sControlPlanes) UpdateStatus(g8sControlPlane *v1alpha2.G8sControlPlane) (*v1alpha2.G8sControlPlane, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(g8scontrolplanesResource, "status", c.ns, g8sControlPlane), &v1alpha2.G8sControlPlane{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha2.G8sControlPlane), err
+}
+
 // Delete takes name of the g8sControlPlane and deletes it. Returns an error if one occurs.
 func (c *FakeG8sControlPlanes) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.

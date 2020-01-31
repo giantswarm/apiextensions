@@ -39,6 +39,7 @@ type G8sControlPlanesGetter interface {
 type G8sControlPlaneInterface interface {
 	Create(*v1alpha2.G8sControlPlane) (*v1alpha2.G8sControlPlane, error)
 	Update(*v1alpha2.G8sControlPlane) (*v1alpha2.G8sControlPlane, error)
+	UpdateStatus(*v1alpha2.G8sControlPlane) (*v1alpha2.G8sControlPlane, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha2.G8sControlPlane, error)
@@ -126,6 +127,22 @@ func (c *g8sControlPlanes) Update(g8sControlPlane *v1alpha2.G8sControlPlane) (re
 		Namespace(c.ns).
 		Resource("g8scontrolplanes").
 		Name(g8sControlPlane.Name).
+		Body(g8sControlPlane).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *g8sControlPlanes) UpdateStatus(g8sControlPlane *v1alpha2.G8sControlPlane) (result *v1alpha2.G8sControlPlane, err error) {
+	result = &v1alpha2.G8sControlPlane{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("g8scontrolplanes").
+		Name(g8sControlPlane.Name).
+		SubResource("status").
 		Body(g8sControlPlane).
 		Do().
 		Into(result)
