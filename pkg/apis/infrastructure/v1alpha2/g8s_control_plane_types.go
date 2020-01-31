@@ -8,10 +8,6 @@ import (
 	corev1 "k8s.io/kubernetes/pkg/apis/core"
 )
 
-// +genclient
-// +genclient:noStatus
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-
 func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
@@ -19,7 +15,7 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Kind:       "CustomResourceDefinition",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: fmt.Sprintf("g8sControlPlanes.%s", group),
+			Name: fmt.Sprintf("g8scontrolplanes.%s", group),
 		},
 		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
 			Group:   group,
@@ -27,8 +23,8 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 			Version: version,
 			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
 				Kind:     "G8sControlPlane",
-				Plural:   "g8sControlPlanes",
-				Singular: "g8sControlPlane",
+				Plural:   "g8scontrolplanes",
+				Singular: "g8scontrolplane",
 			},
 			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
 				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
@@ -37,29 +33,12 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	}
 }
 
-// G8sControlPlane defines the ControlPlane (Master nodes) of a
-// Giant Swarm Tenant Cluster
-//
-//	apiVersion: apiextensions.k8s.io/v1beta1
-//	kind: CustomResourceDefinition
-//	metadata:
-//	  name: g8sControlPlanes.core.giantswarm.io
-//	  annotations:
-//		giantswarm.io/docs:
-//	spec:
-//	  group: infrastructure.giantswarm.io
-//	  scope: Namespaced
-//	  version: v1alpha1
-//	  names:
-//	    kind: G8sControlPlane
-//	    plural: g8sControlPlanes
-//	    singular: g8sControlPlane
-//    subresources:
-//      status: {}
-//
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              G8sControlPlaneSpec   `json:"spec"`
 	Status            G8sControlPlaneStatus `json:"status"`
 }
