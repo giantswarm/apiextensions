@@ -201,7 +201,10 @@ type IgnitionSpecSSO struct {
 
 // IgnitionStatus holds the rendering result.
 type IgnitionStatus struct {
-	Secret IgnitionStatusSecret `json:"template" yaml:"template"`
+	DataSecretName IgnitionStatusSecret `json:"dataSecretName" yaml:"dataSecretName"`
+	FailureReason  string               `json:"failureReason" yaml:"failureReason"`
+	FailureMessage string               `json:"failureMessage" yaml:"failureMessage"`
+	Ready          bool                 `json:"ready" yaml:"ready"`
 }
 
 type IgnitionStatusSecret struct {
