@@ -78,7 +78,7 @@ type IgnitionSpec struct {
 	BaseDomain              string                 `json:"basedomain" yaml:"basedomain"`
 	Calico                  IgnitionSpecCalico     `json:"calico" yaml:"calico"`
 	ClusterID               string                 `json:"clusterid" yaml:"clusterid"`
-	DisableEncryptionAtREST bool                   `json:"disableencryptionatrest" yaml:"disableencryptionatrest"`
+	DisableEncryptionAtRest bool                   `json:"disableencryptionatrest" yaml:"disableencryptionatrest"`
 	Docker                  IgnitionSpecDocker     `json:"docker" yaml:"docker"`
 	Etcd                    IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
 	Extension               IgnitionSpecExtension  `json:"extension" yaml:"extension"`
