@@ -78,11 +78,12 @@ type IgnitionSpec struct {
 	BaseDomain              string                 `json:"basedomain" yaml:"basedomain"`
 	Calico                  IgnitionSpecCalico     `json:"calico" yaml:"calico"`
 	ClusterID               string                 `json:"clusterid" yaml:"clusterid"`
-	DisableEncryptionAtREST bool                   `json:"disableencryptionatrest" yaml:"disableencryptionatrest"`
+	DisableEncryptionAtRest bool                   `json:"disableencryptionatrest" yaml:"disableencryptionatrest"`
 	Docker                  IgnitionSpecDocker     `json:"docker" yaml:"docker"`
 	Etcd                    IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
 	Extension               IgnitionSpecExtension  `json:"extension" yaml:"extension"`
 	Ingress                 IgnitionSpecIngress    `json:"ingress" yaml:"ingress"`
+	IsMaster                bool                   `json:"ismaster" yaml:"ismaster"`
 	Kubernetes              IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
 	// Defines the provider which should be rendered.
 	Provider string               `json:"provider" yaml:"provider"`
@@ -201,10 +202,13 @@ type IgnitionSpecSSO struct {
 
 // IgnitionStatus holds the rendering result.
 type IgnitionStatus struct {
-	ConfigMap IgnitionStatusConfigMap `json:"template" yaml:"template"`
+	DataSecret     IgnitionStatusSecret `json:"dataSecretName" yaml:"dataSecretName"`
+	FailureReason  string               `json:"failureReason" yaml:"failureReason"`
+	FailureMessage string               `json:"failureMessage" yaml:"failureMessage"`
+	Ready          bool                 `json:"ready" yaml:"ready"`
 }
 
-type IgnitionStatusConfigMap struct {
+type IgnitionStatusSecret struct {
 	// Name is the name of the config map containing the rendered ignition.
 	Name string `json:"name" yaml:"name"`
 	// Namespace is the namespace of the config map containing the rendered ignition.
