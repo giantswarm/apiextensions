@@ -41,6 +41,13 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return g8sControlPlaneCRD.DeepCopy()
 }
 
+func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindG8sControlPlane,
+	}
+}
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
