@@ -27,6 +27,7 @@ import (
 type InfrastructureV1alpha2Interface interface {
 	RESTClient() rest.Interface
 	AWSClustersGetter
+	AWSControlPlanesGetter
 	AWSMachineDeploymentsGetter
 	G8sControlPlanesGetter
 }
@@ -38,6 +39,10 @@ type InfrastructureV1alpha2Client struct {
 
 func (c *InfrastructureV1alpha2Client) AWSClusters(namespace string) AWSClusterInterface {
 	return newAWSClusters(c, namespace)
+}
+
+func (c *InfrastructureV1alpha2Client) AWSControlPlanes(namespace string) AWSControlPlaneInterface {
+	return newAWSControlPlanes(c, namespace)
 }
 
 func (c *InfrastructureV1alpha2Client) AWSMachineDeployments(namespace string) AWSMachineDeploymentInterface {
