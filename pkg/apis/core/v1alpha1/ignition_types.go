@@ -83,6 +83,7 @@ type IgnitionSpec struct {
 	Etcd                    IgnitionSpecEtcd       `json:"etcd" yaml:"etcd"`
 	Extension               IgnitionSpecExtension  `json:"extension" yaml:"extension"`
 	Ingress                 IgnitionSpecIngress    `json:"ingress" yaml:"ingress"`
+	IsMaster                bool                   `json:"ismaster" yaml:"ismaster"`
 	Kubernetes              IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
 	// Defines the provider which should be rendered.
 	Provider string               `json:"provider" yaml:"provider"`
