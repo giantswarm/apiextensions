@@ -36,6 +36,24 @@ func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// G8sControlPlane defines the ControlPlane (Master nodes) of a
+// Giant Swarm Tenant Cluster
+//
+//	apiVersion: apiextensions.k8s.io/v1beta1
+//	kind: CustomResourceDefinition
+//	metadata:
+//	  name: g8sControlPlanes.core.giantswarm.io
+//	spec:
+//	  group: infrastructure.giantswarm.io
+//	  scope: Namespaced
+//	  version: v1alpha1
+//	  names:
+//	    kind: G8sControlPlane
+//	    plural: g8sControlPlanes
+//	    singular: g8sControlPlane
+//    subresources:
+//      status: {}
+//
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
@@ -92,12 +110,6 @@ type G8sControlPlaneStatus struct {
 	// receive requests.
 	// +optional
 	Ready bool `json:"ready"`
-
-	// FailureReason indicates that there is a terminal problem reconciling the
-	// state, and will be set to a token value suitable for
-	// programmatic interpretation.
-	// +optional
-	FailureReason error `json:"failureReason,omitempty"`
 
 	// ErrorMessage indicates that there is a terminal problem reconciling the
 	// state, and will be set to a descriptive error message.
