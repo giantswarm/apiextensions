@@ -54,20 +54,18 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 // G8sControlPlane defines the ControlPlane (Master nodes) of a
 // Giant Swarm Tenant Cluster
 //
-//	apiVersion: apiextensions.k8s.io/v1beta1
-//	kind: CustomResourceDefinition
+//	apiVersion: infrastructure.giantswarm.io/v1alpha2
+//	kind: G8sControlPlane
 //	metadata:
-//	  name: g8sControlPlanes.core.giantswarm.io
+//    labels:
+//      label1: ????
+//	  name: ????
 //	spec:
-//	  group: infrastructure.giantswarm.io
-//	  scope: Namespaced
-//	  version: v1alpha1
-//	  names:
-//	    kind: G8sControlPlane
-//	    plural: g8sControlPlanes
-//	    singular: g8sControlPlane
-//    subresources:
-//      status: {}
+//    replicas: 3
+//    //TODO LH infrastructureRef ?
+//  status:
+//    replicas: 3
+//    readyReplicas: 3
 //
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
