@@ -1,6 +1,8 @@
 package v1alpha2
 
 import (
+	"fmt"
+
 	"github.com/ghodss/yaml"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -24,24 +26,19 @@ spec:
   scope: Namespaced
   subresources:
     status: {}
-  versions:
-  - name: v1alpha2
-	served: true
-	storage: true
-	schema :
-      openAPIV3Schema:
-        properties:
-          spec:
-            properties:
-			  availabilityZones:
-			    items:
-			      type: string
-			    type: array
-              instanceType:
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            availabilityZones:
+              items:
                 type: string
-			type: object
-  conversion:
-    strategy: None
+              type: array
+            instanceType:
+              type: string
+        type: object
+  version: v1alpha2
 `
 
 var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
@@ -49,6 +46,7 @@ var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
 func init() {
 	err := yaml.Unmarshal([]byte(awsControlPlaneCRDYAML), &awsControlPlaneCRD)
 	if err != nil {
+		fmt.Println(err)
 		panic(err)
 	}
 }
@@ -96,7 +94,7 @@ type AWSControlPlane struct {
 }
 
 type AWSControlPlaneSpec struct {
-	AvailabilityZones []string `json:"availabilityZone" yaml:"availabilityZones"`
+	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
 	InstanceType      string   `json:"instanceType" yaml:"instanceType"`
 }
 
