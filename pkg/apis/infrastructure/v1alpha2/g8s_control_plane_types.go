@@ -90,10 +90,7 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 //      kind: ???
 //      namespace: ???
 //      name: ???
-//      uid: ???
 //      apiVersion: ???
-//      resourceVersion: ???
-//      fieldPath: ???
 //  status:
 //    replicas: 3
 //    readyReplicas: 3
