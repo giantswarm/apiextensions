@@ -33,10 +33,10 @@ spec:
         properties:
           spec:
             properties:
-              availabilityZones:
+			  availabilityZones:
+			    items:
+			      type: string
 			    type: array
-				  items:
-				    type: string
               instanceType:
                 type: string
 			type: object
