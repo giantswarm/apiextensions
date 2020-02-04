@@ -92,9 +92,9 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 //    replicas: 3
 //    infrastructureRef:
 //      kind: AWSControlPlane
-//      namespace: infrastructure.giantswarm.io
-//      name: awscontrolplanes.infrastructure.giantswarm.io
-//      apiVersion: v1apha2
+//      namespace: default
+//      name: 5f3kb
+//      apiVersion: infrastructure.giantswarm.io/v1alpha2
 //  status:
 //    replicas: 3
 //    readyReplicas: 3
