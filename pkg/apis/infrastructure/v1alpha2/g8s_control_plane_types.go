@@ -19,38 +19,37 @@ metadata:
 spec:
   group: infrastructure.giantswarm.io
   scope: Namespaced
-  version: v1alpha1
   names:
     kind: G8sControlPlane
     plural: g8sControlPlanes
     singular: g8sControlPlane
   subresources:
     status: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        spec:
-          properties:
-            replicas:
-              type: int
-            infrastructureRef:
-              properties:
-                kind:
-                  type: string
-                namespace:
-                  type: string
-                name:
-                  type: string
-                uid:
-                  type: string
-                apiVersion:
-                  type: string
-                resourceVersion:
-                  type: string
-                fieldPath:
-                  type: string
-              type: object
-          type: object
+  versions:
+  - name: v1alpha2
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              replicas:
+                type: int
+              infrastructureRef:
+                properties:
+                  kind:
+                    type: string
+                  namespace:
+                    type: string
+                  name:
+                    type: string
+                  apiVersion:
+                    type: string
+                type: object
+            type: object
+  conversion:
+    strategy: None
 `
 
 var g8sControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
