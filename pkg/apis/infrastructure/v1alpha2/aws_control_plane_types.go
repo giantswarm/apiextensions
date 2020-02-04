@@ -26,19 +26,24 @@ spec:
   scope: Namespaced
   subresources:
     status: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        spec:
-          properties:
-            availabilityZones:
-              items:
+  versions:
+    - name: v1alpha2
+      served: true
+      storage: true
+      schema :
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              availabilityZones:
+                items:
+                  type: string
+                type: array
+              instanceType:
                 type: string
-              type: array
-            instanceType:
-              type: string
-        type: object
-  version: v1alpha2
+            type: object
+  conversion:
+    strategy: None
 `
 
 var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
