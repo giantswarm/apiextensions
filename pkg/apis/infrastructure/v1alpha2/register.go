@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&AWSCluster{},
 	&AWSClusterList{},
+	&AWSControlPlane{},
+	&AWSControlPlaneList{},
 	&AWSMachineDeployment{},
 	&AWSMachineDeploymentList{},
 	&G8sControlPlane{},
