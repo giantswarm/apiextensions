@@ -82,15 +82,19 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 //	kind: G8sControlPlane
 //	metadata:
 //    labels:
-//      label1: ???
-//	  name: ???
+//      aws-operator.giantswarm.io/version: 6.2.0
+//      cluster-operator.giantswarm.io/version:0.17.0
+//      giantswarm.io/cluster: "8y5kc"
+//      giantswarm.io/organization: "giantswarm"
+//      release.giantswarm.io/version: 7.3.1
+//    name: 8y5kc
 //	spec:
 //    replicas: 3
 //    infrastructureRef:
-//      kind: ???
-//      namespace: ???
-//      name: ???
-//      apiVersion: ???
+//      kind: AWSControlPlane
+//      namespace: infrastructure.giantswarm.io
+//      name: awscontrolplanes.infrastructure.giantswarm.io
+//      apiVersion: v1apha2
 //  status:
 //    replicas: 3
 //    readyReplicas: 3
