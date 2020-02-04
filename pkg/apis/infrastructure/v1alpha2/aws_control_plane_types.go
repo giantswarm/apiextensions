@@ -24,17 +24,24 @@ spec:
   scope: Namespaced
   subresources:
     status: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        spec:
-          properties:
-            availabilityZone:
-              type: string
-            instanceType:
-              type: string
-          type: object
-  version: v1alpha2
+  versions:
+  - name: v1alpha2
+	served: true
+	storage: true
+	schema :
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              availabilityZones:
+			    type: array
+				  items:
+				    type: string
+              instanceType:
+                type: string
+			type: object
+  conversion:
+    strategy: None
 `
 
 var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
@@ -65,9 +72,14 @@ func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 //     apiVersion: infrastructure.giantswarm.io/v1alpha2
 //     kind: AWSControlPlane
 //	   metadata:
+//       annotations:
+//		   giantswarm.io/docs:
 //       labels:
-//         label1: ????
-//	     name: ????
+//         aws-operator.giantswarm.io/version: 6.2.0
+//         giantswarm.io/cluster: "8y5kc"
+//         giantswarm.io/organization: "giantswarm"
+//         release.giantswarm.io/version: 7.3.1
+//       name: 8y5kc
 //     spec:
 //       availabilityZones: eu-central-1a
 //       instanceType: m4.large
