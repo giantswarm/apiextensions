@@ -81,7 +81,10 @@ func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 //         release.giantswarm.io/version: 7.3.1
 //       name: 8y5kc
 //     spec:
-//       availabilityZones: eu-central-1a
+//       availabilityZones:
+//         - eu-central-1a
+//         - eu-central-1b
+//         - eu-central-1c
 //       instanceType: m4.large
 //     status:
 //
