@@ -21,7 +21,7 @@ spec:
   scope: Namespaced
   names:
     kind: G8sControlPlane
-    plural: g8sControlPlanes
+    plural: g8scontrolplanes
     singular: g8sControlPlane
   subresources:
     status: {}
