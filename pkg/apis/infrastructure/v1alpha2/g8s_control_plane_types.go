@@ -15,7 +15,7 @@ const g8sControlPlaneCRDYAML = `
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: g8sControlPlanes.core.giantswarm.io
+  name: g8scontrolplanes.infrastructure.giantswarm.io
 spec:
   group: infrastructure.giantswarm.io
   scope: Namespaced
