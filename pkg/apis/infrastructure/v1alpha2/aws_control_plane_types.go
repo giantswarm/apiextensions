@@ -74,7 +74,7 @@ func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 //
 //     apiVersion: infrastructure.giantswarm.io/v1alpha2
 //     kind: AWSControlPlane
-//	   metadata:
+//	 metadata:
 //       annotations:
 //		   giantswarm.io/docs:
 //       labels:
