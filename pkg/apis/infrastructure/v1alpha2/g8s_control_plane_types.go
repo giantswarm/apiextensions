@@ -22,7 +22,7 @@ spec:
   names:
     kind: G8sControlPlane
     plural: g8scontrolplanes
-    singular: g8sControlPlane
+    singular: g8scontrolplane
   subresources:
     status: {}
   versions:
