@@ -83,7 +83,7 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 //	metadata:
 //    labels:
 //      aws-operator.giantswarm.io/version: 6.2.0
-//      cluster-operator.giantswarm.io/version:0.17.0
+//      cluster-operator.giantswarm.io/version: 0.17.0
 //      giantswarm.io/cluster: "8y5kc"
 //      giantswarm.io/organization: "giantswarm"
 //      release.giantswarm.io/version: 7.3.1
