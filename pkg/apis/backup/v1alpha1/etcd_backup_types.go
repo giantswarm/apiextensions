@@ -53,26 +53,52 @@ spec:
                 properties:
                   name:
                     type: string
-                  attempts:
-                    type: integer
-                  status:
-                    enum:
-                    - Pending
-                    - Running
-                    - Completed
-                    - Failed
-                  startedTimestamp:
-                    type: string
-                    format: date-time
-                  finishedTimestamp:
-                    type: string
-                    format: date-time
-                  latestError:
-                    type: string
+                  v2:
+                    type: object
+                    properties:
+                      attempts:
+                        type: integer
+                      status:
+                        enum:
+                        - Pending
+                        - Running
+                        - Completed
+                        - Failed
+                      startedTimestamp:
+                        type: string
+                        format: date-time
+                      finishedTimestamp:
+                        type: string
+                        format: date-time
+                      latestError:
+                        type: string
+                    required:
+                    - attempts
+                    - status
+				  v3:
+                    type: object
+                    properties:
+                      attempts:
+                        type: integer
+                      status:
+                        enum:
+                        - Pending
+                        - Running
+                        - Completed
+                        - Failed
+                      startedTimestamp:
+                        type: string
+                        format: date-time
+                      finishedTimestamp:
+                        type: string
+                        format: date-time
+                      latestError:
+                        type: string
+                    required:
+                    - attempts
+                    - status
                 required:
                 - name
-                - status
-                - attempts
           required:
           - status
           - instances
@@ -137,6 +163,13 @@ type ETCDBackupStatus struct {
 type ETCDInstanceBackupStatus struct {
 	// Name of the tenant cluster or 'Control Plane'
 	Name string `json:"name" yaml:"name"`
+	// Status of the V2 backup for this instance
+	V2 VersionedETCDInstanceBackupStatus `json:"v2" yaml:"v2"`
+	// Status of the V3 backup for this instance
+	V3 VersionedETCDInstanceBackupStatus `json:"v3" yaml:"v3"`
+}
+
+type VersionedETCDInstanceBackupStatus struct {
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status" yaml:"status"`
 	// Attempts number of backup attempts made
