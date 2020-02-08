@@ -308,16 +308,14 @@
   version = "kubernetes-1.16.3"
 
 [[projects]]
-  digest = "1:c591ae1414e5b2ad40f2fb1759223f08ff9f5a03b590a2d3f6a5049f4328a15e"
+  digest = "1:0e19fcb1e00416b4288d99f7c1cbfebdc037093fc4806fce07d42e5f922dac66"
   name = "k8s.io/apimachinery"
   packages = [
     "pkg/api/errors",
     "pkg/api/meta",
     "pkg/api/resource",
-    "pkg/apis/meta/internalversion",
     "pkg/apis/meta/v1",
     "pkg/apis/meta/v1/unstructured",
-    "pkg/apis/meta/v1beta1",
     "pkg/conversion",
     "pkg/conversion/queryparams",
     "pkg/fields",
@@ -432,14 +430,6 @@
   revision = "bf4fb3bd569c8c84504d856598edbc66c10d8744"
 
 [[projects]]
-  digest = "1:54428549fab97a5d289d373b5f2419b996e56f1b02d3f4e01753de808bb2854f"
-  name = "k8s.io/kubernetes"
-  packages = ["pkg/apis/core"]
-  pruneopts = "UT"
-  revision = "59603c6e503c87169aea6106f57b9f242f64df89"
-  version = "v1.17.2"
-
-[[projects]]
   branch = "master"
   digest = "1:01dbe4c86aa758aaa7502784c7e81642f3f0995c0fd6a094a8daaf5cb962ac73"
   name = "k8s.io/utils"
@@ -464,6 +454,7 @@
   input-imports = [
     "github.com/ghodss/yaml",
     "github.com/google/go-cmp/cmp",
+    "k8s.io/api/core/v1",
     "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
     "k8s.io/apimachinery/pkg/labels",
@@ -479,7 +470,6 @@
     "k8s.io/client-go/testing",
     "k8s.io/client-go/util/flowcontrol",
     "k8s.io/code-generator/cmd/client-gen",
-    "k8s.io/kubernetes/pkg/apis/core",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
