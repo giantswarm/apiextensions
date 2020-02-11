@@ -90,17 +90,25 @@ var (
 // CommonClusterStatus is shared type to contain provider independent cluster
 // status information.
 type CommonClusterStatus struct {
+	// One or several conditions that are currently applicable to the cluster.
 	Conditions []CommonClusterStatusCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
-	ID         string                         `json:"id" yaml:"id"`
-	Versions   []CommonClusterStatusVersion   `json:"versions,omitempty" yaml:"versions,omitempty"`
+	// Identifier of the cluster.
+	ID string `json:"id" yaml:"id"`
+	// Release versions the cluster used so far.
+	Versions []CommonClusterStatusVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
 }
 
 type CommonClusterStatusCondition struct {
+	// Time the condition occurred.
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
-	Condition          string       `json:"condition" yaml:"condition"`
+	// Condition string, e. g. `Creating`, `Created`, `Upgraded`
+	Condition string `json:"condition" yaml:"condition"`
 }
 
 type CommonClusterStatusVersion struct {
+	// Time the cluster assumed the given version.
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
-	Version            string       `json:"version" yaml:"version"`
+	// Semantic version number of
+	// TODO: is this the aws-operator or the release?
+	Version string `json:"version" yaml:"version"`
 }
