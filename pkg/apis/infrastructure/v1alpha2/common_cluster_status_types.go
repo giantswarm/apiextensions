@@ -98,6 +98,7 @@ type CommonClusterStatus struct {
 	Versions []CommonClusterStatusVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
 }
 
+// CommonClusterStatusCondition explains the current condition(s) of the cluster.
 type CommonClusterStatusCondition struct {
 	// Time the condition occurred.
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
@@ -105,10 +106,10 @@ type CommonClusterStatusCondition struct {
 	Condition string `json:"condition" yaml:"condition"`
 }
 
+// CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.
 type CommonClusterStatusVersion struct {
 	// Time the cluster assumed the given version.
 	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
-	// Semantic version number of
-	// TODO: is this the aws-operator or the release?
+	// The aws-operator version responsible for handling the cluster.
 	Version string `json:"version" yaml:"version"`
 }
