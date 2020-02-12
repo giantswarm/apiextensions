@@ -8,6 +8,7 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apiextensions-apiserver/pkg/apiserver/validation"
+	"sort"
 	"testing"
 )
 
@@ -22,29 +23,36 @@ func Test_NewReleaseCRD(t *testing.T) {
 	}
 }
 
+func sortErrors(errors []*errors.Validation) {
+	sort.Slice(errors, func(i, j int) bool { return errors[i].Name < errors[j].Name })
+}
+
 func Test_ReleaseCRValidation(t *testing.T) {
 	testCases := []struct {
 		name   string
-		errors []error
+		errors []*errors.Validation
 		cr     Release
 	}{
 		{
 			name: "case 0: empty release is invalid",
-			cr:   Release{
+			cr: Release{
 				TypeMeta: NewReleaseTypeMeta(),
 			},
-			errors: []error{
-				&errors.Validation{
-					Name: "spec.apps",
-					In:   "body",
+			errors: []*errors.Validation{
+				{
+					Name:  "spec.apps",
+					In:    "body",
+					Value: "null",
 				},
-				&errors.Validation{
-					Name: "spec.components",
-					In:   "body",
+				{
+					Name:  "spec.components",
+					In:    "body",
+					Value: "null",
 				},
-				&errors.Validation{
-					Name: "spec.version",
-					In:   "body",
+				{
+					Name:  "spec.version",
+					In:    "body",
+					Value: nil,
 				},
 			},
 		},
@@ -96,9 +104,20 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			t.Fatalf("\n\n%s\n", cmp.Diff(len(result.Errors), len(tc.errors)))
 		}
 
+		var validationErrors []*errors.Validation
+		for _, err := range result.Errors {
+			validationErrors = append(validationErrors, err.(*errors.Validation))
+		}
+		if validationErrors == nil {
+			continue
+		}
+
+		sortErrors(validationErrors)
+		sortErrors(tc.errors)
+
 		for i := range result.Errors {
-			if !cmp.Equal(result.Errors[i], tc.errors[i], opts...) {
-				t.Errorf("\n\n%s\n", cmp.Diff(result.Errors[i], tc.errors[i], opts...))
+			if !cmp.Equal(validationErrors[i], tc.errors[i], opts...) {
+				t.Errorf("\n\n%s\n", cmp.Diff(validationErrors[i], tc.errors[i], opts...))
 			}
 		}
 	}

@@ -23,7 +23,7 @@ var (
 		Pattern: semverPattern,
 	}
 	appsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type: "array",
+		Type: "object",
 		Required: []string{
 			"name",
 			"version",
@@ -35,7 +35,7 @@ var (
 		},
 	}
 	componentsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type:     "array",
+		Type: "object",
 		Required: []string{
 			"name",
 			"version",
@@ -60,13 +60,13 @@ var (
 				},
 			},
 			"components": {
-				Type: "array",
+				Type:     "array",
 				MinItems: to.Int64P(1),
 				Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
 					Schema: &componentsPropertySchema,
 				},
 			},
-			"version":    versionPropertySchema,
+			"version": versionPropertySchema,
 		},
 	}
 )

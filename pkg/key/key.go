@@ -45,10 +45,10 @@ func NewCRD(kind, group, version string, scope v1beta1.ResourceScope, schema v1b
 		},
 		ObjectMeta: CRDObjectMeta(kind, group),
 		Spec: v1beta1.CustomResourceDefinitionSpec{
-			Group: group,
-			Scope: scope,
+			Group:                 group,
+			Scope:                 scope,
 			PreserveUnknownFields: &preserve, // Deprecated, remove when moving to v1.CustomResourceDefinition
-			Names: KindNames(kind),
+			Names:                 KindNames(kind),
 			Versions: []v1beta1.CustomResourceDefinitionVersion{
 				{
 					Name:    version,
