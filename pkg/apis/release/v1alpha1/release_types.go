@@ -13,6 +13,14 @@ const (
 	semverPattern = `^(=|>=|<=|=>|=<|>|<|!=|~|~>|\^)?(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 )
 
+type ReleaseStatus string
+
+var (
+	StatusDeprecated ReleaseStatus = "deprecated"
+	StatusActive     ReleaseStatus = "active"
+	StatusWIP        ReleaseStatus = "wip"
+)
+
 var (
 	namePropertySchema = apiextensionsv1beta1.JSONSchemaProps{
 		Type:      "string",
@@ -21,6 +29,10 @@ var (
 	versionPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
 		Type:    "string",
 		Pattern: semverPattern,
+	}
+	statusPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
+		Type:    "string",
+		Pattern: "^(active|deprecated|wip)$",
 	}
 	appsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
 		Type: "object",
@@ -50,6 +62,7 @@ var (
 		Required: []string{
 			"components",
 			"apps",
+			"status",
 			"version",
 		},
 		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
@@ -66,6 +79,7 @@ var (
 					Schema: &componentsPropertySchema,
 				},
 			},
+			"status":  statusPropertySchema,
 			"version": versionPropertySchema,
 		},
 	}
@@ -106,6 +120,7 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 //	  components:
 //	    - name: "kubernetes"
 //	      version: "1.18.0-alpha.3"
+//    status: active
 //	  version: "13.0.0"
 //
 type Release struct {
@@ -119,6 +134,8 @@ type ReleaseSpec struct {
 	Apps []ReleaseSpecApp `json:"apps" yaml:"apps"`
 	// Components describes components used in this release.
 	Components []ReleaseSpecComponent `json:"components" yaml:"components"`
+	// Status indicates the status of the release: deprecated, active, or wip.
+	Status ReleaseStatus `json:"status" yaml:"status"`
 	// Version is the version of the release.
 	Version string `json:"version" yaml:"version"`
 }

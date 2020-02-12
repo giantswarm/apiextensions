@@ -50,6 +50,11 @@ func Test_ReleaseCRValidation(t *testing.T) {
 					Value: "null",
 				},
 				{
+					Name:  "spec.status",
+					In:    "body",
+					Value: nil,
+				},
+				{
 					Name:  "spec.version",
 					In:    "body",
 					Value: nil,
@@ -74,6 +79,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 							Version: "1.18.0",
 						},
 					},
+					Status:  StatusActive,
 					Version: "13.1.2",
 				},
 			},
