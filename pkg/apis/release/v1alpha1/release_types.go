@@ -1,125 +1,84 @@
 package v1alpha1
 
 import (
-	"github.com/ghodss/yaml"
+	"github.com/giantswarm/apiextensions/pkg/key"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/to"
 )
 
 const (
-	kindRelease = "Release"
-
-	ChangelogKindAdded      ReleaseChangelogKind = "added"
-	ChangelogKindChanged    ReleaseChangelogKind = "changed"
-	ChangelogKindDeprecated ReleaseChangelogKind = "deprecated"
-	ChangelogKindFixed      ReleaseChangelogKind = "fixed"
-	ChangelogKindRemoved    ReleaseChangelogKind = "removed"
-	ChangelogKindSecurity   ReleaseChangelogKind = "security"
+	kindRelease   = "Release"
+	semverPattern = `^(=|>=|<=|=>|=<|>|<|!=|~|~>|\^)?(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 )
 
-const releaseCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: releases.release.giantswarm.io
-spec:
-  group: release.giantswarm.io
-  scope: Cluster
-  version: v1alpha1
-  names:
-    kind: Release
-    plural: releases
-    singular: release
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      properties:
-        spec:
-          type: object
-          properties:
-            changelog:
-              type: array
-              minItems: 1
-              items:
-                type: object
-                properties:
-                  component:
-                    type: string
-                    minLength: 3
-                  description:
-                    type: string
-                    minLength: 3
-                  kind:
-                    enum:
-                    - added
-                    - changed
-                    - deprecated
-                    - fixed
-                    - removed
-                    - security
-                required:
-                - component
-                - description
-                - kind
-            components:
-              type: array
-              minItems: 1
-              items:
-                type: object
-                properties:
-                  name:
-                    type: string
-                    minLength: 3
-                  version:
-                    type: string
-                    minLength: 5
-            parentVersion:
-              type: string
-              pattern: "^\\d+\\.\\d+\\.\\d+$"
-            version:
-              type: string
-              minLength: 5
-          required:
-          - changelog
-          - components
-          - parentVersion
-          - version
-        status:
-          type: object
-          properties:
-            cycle:
-              type: object
-              properties:
-                disabledDate:
-                  type: string
-                  format: date
-                enabledDate:
-                  type: string
-                  format: date
-                phase:
-                  enum:
-                  - upcoming
-                  - enabled
-                  - disabled
-                  - eol
-              required:
-              - phase
-`
-
-type ReleaseChangelogKind string
-
-var releaseCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(releaseCRDYAML), &releaseCRD)
-	if err != nil {
-		panic(err)
+var (
+	namePropertySchema = apiextensionsv1beta1.JSONSchemaProps{
+		Type:      "string",
+		MinLength: to.Int64P(1),
 	}
-}
+	versionPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
+		Type:    "string",
+		Pattern: semverPattern,
+	}
+	appsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
+		Type: "array",
+		Required: []string{
+			"name",
+			"version",
+		},
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"name":             namePropertySchema,
+			"version":          versionPropertySchema,
+			"componentVersion": versionPropertySchema,
+		},
+	}
+	componentsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
+		Type:     "array",
+		Required: []string{
+			"name",
+			"version",
+		},
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"name":    namePropertySchema,
+			"version": versionPropertySchema,
+		},
+	}
+	specPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
+		Type: "object",
+		Required: []string{
+			"components",
+			"apps",
+			"version",
+		},
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"apps": {
+				Type: "array",
+				Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
+					Schema: &appsPropertySchema,
+				},
+			},
+			"components": {
+				Type: "array",
+				MinItems: to.Int64P(1),
+				Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
+					Schema: &componentsPropertySchema,
+				},
+			},
+			"version":    versionPropertySchema,
+		},
+	}
+)
 
+// NewReleaseCRD returns a new custom resource definition for Release.
 func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return releaseCRD.DeepCopy()
+	schema := apiextensionsv1beta1.JSONSchemaProps{
+		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
+			"spec": specPropertySchema,
+		},
+	}
+	return key.NewCRD(kindRelease, group, version, "Cluster", schema)
 }
 
 func NewReleaseTypeMeta() metav1.TypeMeta {
@@ -138,79 +97,46 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 //	apiVersion: "release.giantswarm.io/v1alpha1"
 //	kind: "Release"
 //	metadata:
-//	  name: "aws.v6.1.0"
-//	  labels:
-//	    giantswarm.io/managed-by: "app-operator"
-//	    giantswarm.io/provider: "aws"
+//	  name: "v6.1.0"
 //	spec:
-//	  changelog:
-//	    - component: "cloudconfig"
-//	      description: "Replace cloudinit with ignition."
-//	      kind: "changed"
+//    apps:
+//	    - name: "net-exporter"
+//	      version: "1.0.0"
+//        componentVersion: "0.2.0"
 //	  components:
-//	    - name: "aws-operator"
-//	      version: "4.6.0"
-//	    - name: "cert-operator"
-//	      version: "0.1.0"
-//	    - name: "chart-operator"
-//	      version: "0.5.0"
-//	    - name: "cluster-operator"
-//	      version: "0.10.0"
-//	  parentVersion: "6.0.1"
-//	  version: "6.1.0"
-//	status:
-//	  cycle:
-//	    phase: "eol"
-//	    enabledDate: 2019-01-08
-//	    disabledDate: 2019-01-12
+//	    - name: "kubernetes"
+//	      version: "1.18.0-alpha.3"
+//	  version: "13.0.0"
 //
 type Release struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
 	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`
-	Spec              ReleaseSpec   `json:"spec" yaml:"spec"`
-	Status            ReleaseStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              ReleaseSpec `json:"spec" yaml:"spec"`
 }
 
 type ReleaseSpec struct {
-	// Changelog is the changelog since ParentVersion.
-	Changelog []ReleaseSpecChangelogEntry `json:"changelog" yaml:"changelog"`
-	// Components describes components managing this release.
+	// Apps describes apps used in this release.
+	Apps []ReleaseSpecApp `json:"apps" yaml:"apps"`
+	// Components describes components used in this release.
 	Components []ReleaseSpecComponent `json:"components" yaml:"components"`
-	// ParentVersion is a version from which the changes in changelog are
-	// described. We need that because we may introduce bug fixes after
-	// next major release and then taking previous semver version may not
-	// render correct changelog. This should always be in the semver format
-	// without the "v" prefix.
-	ParentVersion string `json:"parentVersion" yaml:"parentVersion"`
-	// Version is the version of the release. Releases with semver version
-	// (without the "v" prefix) are taken from control-plane AppCatalog.
-	// All other releases are taken from control-plane-test AppCatalog.
+	// Version is the version of the release.
 	Version string `json:"version" yaml:"version"`
 }
-
-type ReleaseSpecChangelogEntry struct {
-	// Component name.
-	Component string `json:"component" yaml:"component"`
-	// Description of the component changes expressed in full sentence.
-	Description string `json:"description" yaml:"description"`
-	// Kind of the component changes. It can be one of: "added", "changed",
-	// "deprecated", "fixed", "removed", "security".
-	Kind ReleaseChangelogKind `json:"kind" yaml:"kind"`
-}
-
-type ReleaseSpecChangelogEntryKind string
 
 type ReleaseSpecComponent struct {
-	// Name of the release component.
+	// Name of the component.
 	Name string `json:"name" yaml:"name"`
-	// Version of the release component.
+	// Version of the component.
 	Version string `json:"version" yaml:"version"`
 }
 
-type ReleaseStatus struct {
-	// Cycle is the most recent observed copy of the specification of the
-	// ReleaseCycle CR referencing this Release CR.
-	Cycle ReleaseCycleSpec `json:"cycle,omitempty" yaml:"cycle,omitempty"`
+type ReleaseSpecApp struct {
+	// Name of the app.
+	Name string `json:"name" yaml:"name"`
+	// Version of the app.
+	Version string `json:"version" yaml:"version"`
+	// Version of the upstream component used in the app.
+	ComponentVersion string `json:"componentVersion" yaml:"componentVersion"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
