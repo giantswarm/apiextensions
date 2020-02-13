@@ -2,9 +2,10 @@ package v1alpha1
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/giantswarm/to"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
-	"strings"
 )
 
 const (
