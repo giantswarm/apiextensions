@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/go-openapi/errors"
-	_ "github.com/go-openapi/validate"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
