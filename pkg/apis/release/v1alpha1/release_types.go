@@ -4,84 +4,23 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"github.com/giantswarm/to"
 )
 
 const (
-	kindRelease   = "Release"
-	semverPattern = `^(=|>=|<=|=>|=<|>|<|!=|~|~>|\^)?(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
+	kindRelease = "Release"
 )
 
-type ReleaseStatus string
+type ReleaseState string
 
 var (
-	StatusDeprecated ReleaseStatus = "deprecated"
-	StatusActive     ReleaseStatus = "active"
-	StatusWIP        ReleaseStatus = "wip"
-)
+	StateActive     ReleaseState = "active"
+	StateDeprecated ReleaseState = "deprecated"
+	StateWIP        ReleaseState = "wip"
 
-var (
-	namePropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type:      "string",
-		MinLength: to.Int64P(1),
-	}
-	versionPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type:    "string",
-		Pattern: semverPattern,
-	}
-	statusPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type:    "string",
-		Pattern: "^(active|deprecated|wip)$",
-	}
-	appsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type: "object",
-		Required: []string{
-			"name",
-			"version",
-		},
-		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-			"name":             namePropertySchema,
-			"version":          versionPropertySchema,
-			"componentVersion": versionPropertySchema,
-		},
-	}
-	componentsPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type: "object",
-		Required: []string{
-			"name",
-			"version",
-		},
-		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-			"name":    namePropertySchema,
-			"version": versionPropertySchema,
-		},
-	}
-	specPropertySchema = apiextensionsv1beta1.JSONSchemaProps{
-		Type: "object",
-		Required: []string{
-			"components",
-			"apps",
-			"status",
-			"version",
-		},
-		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-			"apps": {
-				Type: "array",
-				Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
-					Schema: &appsPropertySchema,
-				},
-			},
-			"components": {
-				Type:     "array",
-				MinItems: to.Int64P(1),
-				Items: &apiextensionsv1beta1.JSONSchemaPropsOrArray{
-					Schema: &componentsPropertySchema,
-				},
-			},
-			"status":  statusPropertySchema,
-			"version": versionPropertySchema,
-		},
+	validStates = []string{
+		string(StateActive),
+		string(StateDeprecated),
+		string(StateWIP),
 	}
 )
 
@@ -108,20 +47,20 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 
 // Release CRs might look something like the following.
 //
-//	apiVersion: "release.giantswarm.io/v1alpha1"
-//	kind: "Release"
+//	apiVersion: release.giantswarm.io/v1alpha1
+//	kind: Release
 //	metadata:
-//	  name: "v6.1.0"
+//	  name: 13.0.0
 //	spec:
+//	  version: 13.0.0
+//    state: active
 //    apps:
-//	    - name: "net-exporter"
-//	      version: "1.0.0"
-//        componentVersion: "0.2.0"
+//	    - name: net-exporter
+//	      version: 1.0.0
+//        componentVersion: 0.2.0
 //	  components:
-//	    - name: "kubernetes"
-//	      version: "1.18.0-alpha.3"
-//    status: active
-//	  version: "13.0.0"
+//	    - name: kubernetes
+//	      version: 1.18.0-alpha.3
 //
 type Release struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
@@ -134,8 +73,8 @@ type ReleaseSpec struct {
 	Apps []ReleaseSpecApp `json:"apps" yaml:"apps"`
 	// Components describes components used in this release.
 	Components []ReleaseSpecComponent `json:"components" yaml:"components"`
-	// Status indicates the status of the release: deprecated, active, or wip.
-	Status ReleaseStatus `json:"status" yaml:"status"`
+	// State indicates the availability of the release: deprecated, active, or wip.
+	State ReleaseState `json:"state" yaml:"state"`
 	// Version is the version of the release.
 	Version string `json:"version" yaml:"version"`
 }
@@ -148,12 +87,12 @@ type ReleaseSpecComponent struct {
 }
 
 type ReleaseSpecApp struct {
+	// Version of the upstream component used in the app.
+	ComponentVersion string `json:"componentVersion" yaml:"componentVersion"`
 	// Name of the app.
 	Name string `json:"name" yaml:"name"`
 	// Version of the app.
 	Version string `json:"version" yaml:"version"`
-	// Version of the upstream component used in the app.
-	ComponentVersion string `json:"componentVersion" yaml:"componentVersion"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

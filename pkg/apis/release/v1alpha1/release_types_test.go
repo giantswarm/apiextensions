@@ -1,6 +1,9 @@
 package v1alpha1
 
 import (
+	"sort"
+	"testing"
+
 	"github.com/go-openapi/errors"
 	_ "github.com/go-openapi/validate"
 	"github.com/google/go-cmp/cmp"
@@ -8,8 +11,6 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apiextensions-apiserver/pkg/apiserver/validation"
-	"sort"
-	"testing"
 )
 
 func Test_NewReleaseCRD(t *testing.T) {
@@ -50,7 +51,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 					Value: "null",
 				},
 				{
-					Name:  "spec.status",
+					Name:  "spec.state",
 					In:    "body",
 					Value: nil,
 				},
@@ -66,6 +67,8 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			cr: Release{
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
+					State:   StateActive,
+					Version: "13.1.2",
 					Apps: []ReleaseSpecApp{
 						{
 							Name:             "test-app",
@@ -79,11 +82,125 @@ func Test_ReleaseCRValidation(t *testing.T) {
 							Version: "1.18.0",
 						},
 					},
-					Status:  StatusActive,
-					Version: "13.1.2",
 				},
 			},
 			errors: nil,
+		},
+		{
+			name: "case 2: one component is required",
+			cr: Release{
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State:   StateActive,
+					Version: "13.1.2",
+					Apps: []ReleaseSpecApp{
+						{
+							Name:             "test-app",
+							Version:          "1.0.0",
+							ComponentVersion: "2.0.0",
+						},
+					},
+					Components: []ReleaseSpecComponent{},
+				},
+			},
+			errors: []*errors.Validation{
+				{
+					Name:  "spec.components",
+					In:    "body",
+					Value: nil,
+				},
+			},
+		},
+		{
+			name: "case 3: zero apps is valid",
+			cr: Release{
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State:   StateActive,
+					Version: "13.1.2",
+					Apps:    []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "1.18.0",
+						},
+					},
+				},
+			},
+			errors: nil,
+		},
+		{
+			name: "case 4: non semver version is invalid",
+			cr: Release{
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State:   StateActive,
+					Version: "13.1.2",
+					Apps:    []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "bad",
+						},
+					},
+				},
+			},
+			errors: []*errors.Validation{
+				{
+					Name: "spec.components.version",
+					In:   "body",
+				},
+			},
+		},
+		{
+			name: "case 5: semver with leading v is invalid",
+			cr: Release{
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State:   StateActive,
+					Version: "v13.1.2",
+					Apps:    []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "v1.18.0",
+						},
+					},
+				},
+			},
+			errors: []*errors.Validation{
+				{
+					Name: "spec.version",
+					In:   "body",
+				},
+				{
+					Name: "spec.components.version",
+					In:   "body",
+				},
+			},
+		},
+		{
+			name: "case 6: unexpected release state is invalid",
+			cr: Release{
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State:   "bad",
+					Version: "13.1.2",
+					Apps:    []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "1.18.0",
+						},
+					},
+				},
+			},
+			errors: []*errors.Validation{
+				{
+					Name: "spec.state",
+					In:   "body",
+				},
+			},
 		},
 	}
 	crd := NewReleaseCRD()
@@ -107,7 +224,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		result := validator.Validate(tc.cr)
 
 		if !cmp.Equal(len(result.Errors), len(tc.errors)) {
-			t.Fatalf("\n\n%s\n", cmp.Diff(len(result.Errors), len(tc.errors)))
+			t.Fatalf("\n\n%s %s\n", tc.name, cmp.Diff(len(result.Errors), len(tc.errors)))
 		}
 
 		var validationErrors []*errors.Validation
@@ -123,7 +240,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 
 		for i := range result.Errors {
 			if !cmp.Equal(validationErrors[i], tc.errors[i], opts...) {
-				t.Errorf("\n\n%s\n", cmp.Diff(validationErrors[i], tc.errors[i], opts...))
+				t.Errorf("\n\n%s %d %s\n", tc.name, i, cmp.Diff(validationErrors[i], tc.errors[i], opts...))
 			}
 		}
 	}
