@@ -47,20 +47,20 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 
 // Release CRs might look something like the following.
 //
-//	apiVersion: release.giantswarm.io/v1alpha1
-//	kind: Release
-//	metadata:
-//	  name: 13.0.0
-//	spec:
-//	  version: 13.0.0
+//  apiVersion: release.giantswarm.io/v1alpha1
+//  kind: Release
+//  metadata:
+//    name: 13.0.0
+//  spec:
+//    version: 13.0.0
 //    state: active
 //    apps:
-//	    - name: net-exporter
-//	      version: 1.0.0
+//      - name: net-exporter
+//        version: 1.0.0
 //        componentVersion: 0.2.0
-//	  components:
-//	    - name: kubernetes
-//	      version: 1.18.0-alpha.3
+//    components:
+//      - name: kubernetes
+//        version: 1.18.0-alpha.3
 //
 type Release struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
