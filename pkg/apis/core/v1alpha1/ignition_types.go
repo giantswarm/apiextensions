@@ -194,7 +194,7 @@ type IgnitionSpecExtensionUnit struct {
 	// Content is the string containing a systemd unit with optional go-template-style replacements.
 	Content string `json:"content" yaml:"content"`
 	// Metadata is the filesystem metadata of the given file.
-	Metadata IgnitionSpecExtensionFileMetadata `json:"metadata" yaml:"metadata"`
+	Metadata IgnitionSpecExtensionUnitMetadata `json:"metadata" yaml:"metadata"`
 }
 
 type IgnitionSpecExtensionUnitMetadata struct {
