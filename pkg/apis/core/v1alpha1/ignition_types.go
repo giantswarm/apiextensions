@@ -227,6 +227,8 @@ type IgnitionSpecKubernetes struct {
 	Kubelet IgnitionSpecKubernetesKubelet `json:"kubelet" yaml:"kubelet"`
 	// IPRange is the range of IPs used for pod networking.
 	IPRange string `json:"iprange" yaml:"iprange"`
+	// OIDC hold configuration which will be applied to the apiserver OIDC flags.
+	OIDC IgnitionSpecOIDC `json:"oidc" yaml:"oidc"`
 }
 
 type IgnitionSpecKubernetesAPI struct {
@@ -261,6 +263,8 @@ type IgnitionSpecSSO struct {
 }
 
 type IgnitionSpecOIDC struct {
+	// Enabled indicates that the OIDC settings should be applied when true.
+	Enabled bool `json:"enabled" yaml:"enabled"`
 	// The client ID for the OpenID Connect client, must be set if IssuerURL is set.
 	ClientID string `json:"clientId" yaml:"clientId"`
 	// The URL of the OpenID issuer, only HTTPS scheme will be accepted.
