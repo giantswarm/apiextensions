@@ -219,6 +219,8 @@ type IgnitionSpecIngress struct {
 type IgnitionSpecKubernetes struct {
 	// API holds information about the desired TC Kubernetes API.
 	API IgnitionSpecKubernetesAPI `json:"api" yaml:"api"`
+	// CloudProvider is the provider upon which the cluster is running. It is passed to API server as a flag.
+	CloudProvider string `json:"cloudProvider" yaml:"cloudProvider"`
 	// DNS hold information about the in-cluster DNS service.
 	DNS IgnitionSpecKubernetesDNS `json:"dns" yaml:"dns"`
 	// Domain is the domain used for services running in the cluster. Usually this is "cluster.local".
