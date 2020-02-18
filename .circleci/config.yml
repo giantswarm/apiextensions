@@ -118,12 +118,12 @@ orbs:
           - go-test-legacy
           - go-cache-save
       go-build-legacy:
-        executor: machine
+        machine: true
         steps:
           - checkout
           - go-build-legacy
       go-deploy-legacy:
-        executor: machine
+        machine: true
         steps:
           - checkout
           - go-deploy-legacy
