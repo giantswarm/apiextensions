@@ -87,9 +87,9 @@ orbs:
                   -e CIRCLECI \
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
-                  -v $PWD:/src \
+                  -v $PWD:/go/src/github.com/giantswarm/apiextensions \
                   -v /var/run/docker.sock:/var/run/docker.sock \
-                  -w /src \
+                  -w /go/src/github.com/giantswarm/apiextensions \
                   quay.io/giantswarm/architect build
       go-deploy-legacy:
         steps:
@@ -102,9 +102,9 @@ orbs:
                   -e CIRCLECI \
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
-                  -v $PWD:/src \
+                  -v $PWD:/go/src/github.com/giantswarm/apiextensions \
                   -v /var/run/docker.sock:/var/run/docker.sock \
-                  -w /src \
+                  -w /go/src/github.com/giantswarm/apiextensions \
                   quay.io/giantswarm/architect deploy
     executors:
       architect:
