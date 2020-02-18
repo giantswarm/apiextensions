@@ -4,7 +4,7 @@ orbs:
 
 jobs:
   test:
-    working_directory: /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+    working_directory: /home/circleci/go/src/github.com/giantswarm/apiextensions
     environment:
       GOPATH: /home/circleci/go
     machine: true
@@ -14,30 +14,25 @@ jobs:
           name: Dep ensure
           command: |
             go get github.com/golang/dep/cmd/dep
-            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             /home/circleci/go/bin/dep ensure && git diff --exit-code
       - run:
           name: Check if imports are properly sorted
           command: |
             go get golang.org/x/tools/cmd/goimports
-            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-            if [[ -n $(/home/circleci/go/bin/goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
-              then /home/circleci/go/bin/goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
+            if [[ -n $(/home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -l .) ]];
+              then /home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -d . && exit 1;
             fi
       - run:
           name: Go fmt
           command:  |
-            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             gofmt -d ./pkg
       - run:
           name: Go vet
           command:  |
-            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             CGO_ENABLED=0 go vet ./...
       - run:
           name: Go test
           command: |
-            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             CGO_ENABLED=0 go test ./...
   build:
     machine: true
