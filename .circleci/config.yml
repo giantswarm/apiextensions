@@ -81,13 +81,31 @@ orbs:
           - run:
               name: Building Using Architect
               command: |
-                docker run -v $PWD:/src -v /var/run/docker.sock:/var/run/docker.sock -w /src quay.io/giantswarm/architect build
+                docker run \
+                  -e CIRCLE_PROJECT_REPONAME \
+                  -e CIRCLE_PROJECT_USERNAME \
+                  -e CIRCLECI \
+                  -e QUAY_USERNAME \
+                  -e QUAY_PASSWORD \
+                  -v $PWD:/src \
+                  -v /var/run/docker.sock:/var/run/docker.sock \
+                  -w /src \
+                  quay.io/giantswarm/architect build
       go-deploy-legacy:
         steps:
           - run:
               name: Deploying Using Architect
               command: |
-                docker run -v $PWD:/src -v /var/run/docker.sock:/var/run/docker.sock -w /src quay.io/giantswarm/architect deploy
+                docker run \
+                  -e CIRCLE_PROJECT_REPONAME \
+                  -e CIRCLE_PROJECT_USERNAME \
+                  -e CIRCLECI \
+                  -e QUAY_USERNAME \
+                  -e QUAY_PASSWORD \
+                  -v $PWD:/src \
+                  -v /var/run/docker.sock:/var/run/docker.sock \
+                  -w /src \
+                  quay.io/giantswarm/architect deploy
     executors:
       architect:
         docker:
