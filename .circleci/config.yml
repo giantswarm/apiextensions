@@ -130,6 +130,12 @@ orbs:
           - go-cache-restore
           - go-build-legacy
           - go-cache-save
+      go-deploy-legacy:
+        executor: architect
+        steps:
+          - go-cache-restore
+          - go-deploy-legacy
+          - go-cache-save
 
 workflows:
   workflow:
