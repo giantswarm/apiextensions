@@ -118,17 +118,11 @@ orbs:
           - go-test-legacy
           - go-cache-save
       go-build-legacy:
-        parameters:
-          working_directory:
-            type: string
         executor: machine
         steps:
           - checkout
           - go-build-legacy
       go-deploy-legacy:
-        parameters:
-          working_directory:
-            type: string
         executor: machine
         steps:
           - checkout
