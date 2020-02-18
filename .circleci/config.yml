@@ -61,13 +61,13 @@ orbs:
                   then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
                 fi
           - run:
-              name: Restor Vendor
-              command: |
-                git checkout vendor/
-          - run:
               name: Go Fmt
               command: |
                 test -z $(gofmt -l .) || gofmt -d .
+          - run:
+              name: Restor Vendor
+              command: |
+                git checkout vendor/
           - run:
               name: Go Vet
               command: |
