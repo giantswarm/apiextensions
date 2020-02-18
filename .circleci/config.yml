@@ -109,7 +109,7 @@ orbs:
           - "buildTimestamp" in RFC-3339 format in UTC time zone.
           - "gitSHA" SHA of the built commit.
           - "version" produced by `architect project version` command.
-        executor: architect-legacy
+        executor: architect
         working_directory: << parameters.working_directory >>
         steps:
           - checkout
