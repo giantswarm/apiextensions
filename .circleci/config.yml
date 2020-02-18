@@ -91,12 +91,13 @@ orbs:
         steps:
           - go-test
           - run:
-            name: Compile Binary
-            command: |
-              CGO_ENABLED=0 GOOS="<< parameters.os >>" go build -ldflags "$(cat .ldflags)" -o << parameters.binary >> . || true
-          - run: Display Version Info
-            command: |
-              [[ "<< parameters.os >>" == "linux" ]] && ./<< parameters.binary >> version || true
+              name: Compile Binary
+              command: |
+                CGO_ENABLED=0 GOOS="<< parameters.os >>" go build -ldflags "$(cat .ldflags)" -o << parameters.binary >> . || true
+          - run:
+              name: Display Version Info
+              command: |
+                [[ "<< parameters.os >>" == "linux" ]] && ./<< parameters.binary >> version || true
       go-deploy-legacy:
         - steps:
             name: Deploy using architect
