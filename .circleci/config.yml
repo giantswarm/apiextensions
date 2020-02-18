@@ -51,3 +51,11 @@ jobs:
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
             ./architect deploy
           fi
+
+workflows:
+  test:
+    jobs:
+      - test:
+          name: Test
+      - build:
+          name: Build
