@@ -7,7 +7,6 @@ jobs:
     working_directory: /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     environment:
       GOPATH: /home/circleci/go
-      PATH: $PATH:$GOPATH/bin
     machine: true
     steps:
       - checkout
@@ -15,13 +14,13 @@ jobs:
           name: Dep ensure
           command: |
             go get github.com/golang/dep/cmd/dep
-            dep ensure && git diff --exit-code
+            /home/circleci/go/bin/dep ensure && git diff --exit-code
       - run:
           name: Check if imports are properly sorted
           command: |
             go get golang.org/x/tools/cmd/goimports
             if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
-              then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
+              then /home/circleci/go/bin/goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
             fi
       - run:
           name: Go fmt
