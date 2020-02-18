@@ -57,6 +57,8 @@ workflows:
   test:
     jobs:
       - test:
-          name: Test
+          name: Test apiextensions
       - build:
-          name: Build
+          name: Build apiextensions
+          requires:
+            - Test apiextensions
