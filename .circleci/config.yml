@@ -4,6 +4,9 @@ orbs:
 
 jobs:
   test:
+    working_directory: ~/project/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+    environment:
+      GOPATH: ~/project/go
     machine: true
     steps:
       - checkout
