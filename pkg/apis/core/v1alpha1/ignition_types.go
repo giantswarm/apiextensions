@@ -11,8 +11,36 @@ const (
 	kindIgnition = "Ignition"
 )
 
-// NewIgnitionCRD returns a new custom resource definition for an ignition.
-// Ignitions contain a rendered ignition template specific to nodes in a particular cluster.
+// NewIgnitionCRD returns a new custom resource definition for an Ignition resource.
+// Ignitions contain a rendered ignition template specific to nodes or groups of nodes
+// in a particular cluster.
+//
+// The YAML for this CRD is as follows:
+/*
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: ignitions.core.giantswarm.io
+spec:
+  additionalPrinterColumns:
+    - JSONPath: '{.status.ready}'
+      description: Indicates that the ignition secret has been successfully rendered and is ready to be used
+      format: boolean
+      name: ready
+      type: boolean
+  group: core.giantswarm.io
+  names:
+    kind: Ignition
+    plural: ignitions
+    singular: ignition
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+*/
 func NewIgnitionCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
@@ -55,13 +83,86 @@ func NewIgnitionCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 
 func NewIgnitionTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
-		APIVersion: version,
+		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindIgnition,
 	}
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// Ignition is a Kubernetes resource (CR) which follows the Ignition CRD defined above.
+//
+// A sample YAML for this CR is as follows:
+/*
+apiVersion: core.giantswarm.io/v1alpha1
+kind: Ignition
+metadata:
+  name: abc12-master
+  namespace: default
+spec:
+  apiServerEncryptionKey: ""
+  baseDomain: ""
+  calico:
+    cidr: ""
+    disable: false
+    mtu: ""
+    subnet: ""
+  clusterID: abc12
+  disableEncryptionAtRest: false
+  docker:
+    daemon:
+      cidr: ""
+    networkSetup:
+      image: ""
+  etcd:
+    domain: ""
+    port: 0
+    prefix: ""
+  extension:
+    files: null
+    units: null
+    users: null
+  ingress:
+    disable: false
+  isMaster: false
+  kubernetes:
+    api:
+      domain: ""
+      securePort: 0
+    cloudProvider: ""
+    dns:
+      ip: ""
+    domain: ""
+    ipRange: ""
+    kubelet:
+      domain: ""
+    oidc:
+      clientID: ""
+      enabled: false
+      groupsClaim: ""
+      groupsPrefix: ""
+      issuerUrl: ""
+      usernameClaim: ""
+      usernamePrefix: ""
+  provider: ""
+  registry:
+    domain: ""
+    pullProgressDeadline: ""
+  sso:
+    publicKey: ""
+status:
+  dataSecretName:
+    name: ""
+    namespace: ""
+    resourceVersion: ""
+  failureMessage: ""
+  failureReason: ""
+  ready: false
+  verification:
+    algorithm: ""
+    hash: ""
+*/
 
 type Ignition struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -74,17 +175,17 @@ type Ignition struct {
 // a newly rendered g8s ignition template.
 type IgnitionSpec struct {
 	// APIServerEncryptionKey is used in EncryptionConfiguration to encrypt Kubernetes secrets at rest.
-	APIServerEncryptionKey string `json:"apiserverencryptionkey" yaml:"apiserverencryptionkey"`
+	APIServerEncryptionKey string `json:"apiServerEncryptionKey" yaml:"apiServerEncryptionKey"`
 	// BaseDomain is the base domain for all cluster services.
 	// For test installations, this may be in the form
 	// <clusterId>.k8s.<installation>.<region>.<provider>.gigantic.io.
-	BaseDomain string `json:"basedomain" yaml:"basedomain"`
+	BaseDomain string `json:"baseDomain" yaml:"baseDomain"`
 	// Calico provides configuration for all calico-related services.
 	Calico IgnitionSpecCalico `json:"calico" yaml:"calico"`
 	// ClusterID is the name of the tenant cluster to be created.
-	ClusterID string `json:"clusterid" yaml:"clusterid"`
+	ClusterID string `json:"clusterID" yaml:"clusterID"`
 	// DisableEncryptionAtRest will disable secret encryption at rest when set to true.
-	DisableEncryptionAtRest bool `json:"disableencryptionatrest" yaml:"disableencryptionatrest"`
+	DisableEncryptionAtRest bool `json:"disableEncryptionAtRest" yaml:"disableEncryptionAtRest"`
 	// Docker provides configuration for all calico-related services.
 	Docker IgnitionSpecDocker `json:"docker" yaml:"docker"`
 	// Etcd provides configuration for all etcd-related services.
@@ -94,7 +195,7 @@ type IgnitionSpec struct {
 	// Ingress provides configuration for all ingress-related services.
 	Ingress IgnitionSpecIngress `json:"ingress" yaml:"ingress"`
 	// IsMaster determines if the rendered ignition should contain master-specific configuration.
-	IsMaster bool `json:"ismaster" yaml:"ismaster"`
+	IsMaster bool `json:"isMaster" yaml:"isMaster"`
 	// Kubernetes provides configuration for all Kubernetes-related services.
 	Kubernetes IgnitionSpecKubernetes `json:"kubernetes" yaml:"kubernetes"`
 	// Defines the provider which should be rendered.
@@ -106,13 +207,13 @@ type IgnitionSpec struct {
 }
 
 type IgnitionSpecCalico struct {
-	// CIDR is the CIDR-component of the overlay network. Combined with Subnet below.
+	// CIDR is the CIDR-component of the IPv4 overlay subnetwork. Combined with Subnet below.
 	CIDR string `json:"cidr" yaml:"cidr"`
 	// Disable can be set to true to disable Calico setup.
 	Disable bool `json:"disable" yaml:"disable"`
 	// MTU is the maximum size of packets sent over Calico in bytes.
 	MTU string `json:"mtu" yaml:"mtu"`
-	// Subnet is the IP-component of the overlay network. Combined with CIDR above.
+	// Subnet is the IP-component of the IPv4 overlay subnetwork. Combined with CIDR above.
 	Subnet string `json:"subnet" yaml:"subnet"`
 }
 
@@ -120,7 +221,7 @@ type IgnitionSpecDocker struct {
 	// Daemon provides information about the Docker daemon running on TC nodes.
 	Daemon IgnitionSpecDockerDaemon `json:"daemon" yaml:"daemon"`
 	// NetworkSetup provides the Docker image to be used for network environment setup.
-	NetworkSetup IgnitionSpecDockerNetworkSetup `json:"networksetup" yaml:"networksetup"`
+	NetworkSetup IgnitionSpecDockerNetworkSetup `json:"networkSetup" yaml:"networkSetup"`
 }
 
 type IgnitionSpecDockerDaemon struct {
@@ -208,7 +309,7 @@ type IgnitionSpecExtensionUser struct {
 	// Name is the name of the user to be added to the node via ignition.
 	Name string `json:"name" yaml:"name"`
 	// PublicKey is the public key of the user to be added to the node via ignition.
-	PublicKey string `json:"publickey" yaml:"publickey"`
+	PublicKey string `json:"publicKey" yaml:"publicKey"`
 }
 
 type IgnitionSpecIngress struct {
@@ -228,7 +329,7 @@ type IgnitionSpecKubernetes struct {
 	// Kubelet holds information about the kubelet running on nodes.
 	Kubelet IgnitionSpecKubernetesKubelet `json:"kubelet" yaml:"kubelet"`
 	// IPRange is the range of IPs used for pod networking.
-	IPRange string `json:"iprange" yaml:"iprange"`
+	IPRange string `json:"ipRange" yaml:"ipRange"`
 	// OIDC hold configuration which will be applied to the apiserver OIDC flags.
 	OIDC IgnitionSpecOIDC `json:"oidc" yaml:"oidc"`
 }
@@ -237,7 +338,7 @@ type IgnitionSpecKubernetesAPI struct {
 	// Domain is the domain of the API server.
 	Domain string `json:"domain" yaml:"domain"`
 	// Secure port is the port on which the API will listen.
-	SecurePort int `json:"secureport" yaml:"secureport"`
+	SecurePort int `json:"securePort" yaml:"securePort"`
 }
 
 type IgnitionSpecKubernetesDNS struct {
@@ -256,7 +357,7 @@ type IgnitionSpecRegistry struct {
 	Domain string `json:"domain" yaml:"domain"`
 	// Pull progress deadline is a string representing a duration to be used as a deadline
 	// for pulling images.
-	PullProgressDeadline string `json:"pullprogressdeadline" yaml:"pullprogressdeadline"`
+	PullProgressDeadline string `json:"pullProgressDeadline" yaml:"pullProgressDeadline"`
 }
 
 type IgnitionSpecSSO struct {
@@ -268,7 +369,7 @@ type IgnitionSpecOIDC struct {
 	// Enabled indicates that the OIDC settings should be applied when true.
 	Enabled bool `json:"enabled" yaml:"enabled"`
 	// The client ID for the OpenID Connect client, must be set if IssuerURL is set.
-	ClientID string `json:"clientId" yaml:"clientId"`
+	ClientID string `json:"clientID" yaml:"clientId"`
 	// The URL of the OpenID issuer, only HTTPS scheme will be accepted.
 	// If set, it will be used to verify the OIDC JSON Web Token (JWT).
 	IssuerURL string `json:"issuerUrl" yaml:"issuerUrl"`
