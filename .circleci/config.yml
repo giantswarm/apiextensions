@@ -5,26 +5,38 @@ orbs:
     commands:
       tools-info:
         steps:
-          - run: |
-              architect version
-          - run: |
-              echo $BASH_VERSION
-          - run: |
-              git version
-          - run: |
-              go version
-          - run: |
-              helm version -c
+          - run:
+              name: Architect Version
+              command: |
+                architect version
+          - run:
+              name: Bash Version
+              command: |
+                echo $BASH_VERSION
+          - run:
+              name: Git Version
+              command: |
+                git version
+          - run:
+              name: Go Version
+              command: |
+                go version
+          - run:
+              name: Helm Version
+              command: |
+                helm version -c
+      go-cache-save:
+        steps:
+          - save_cache:
+              key: go-build-v1-legacy-{{ checksum "Gopkg.lock" }}
+              paths:
+                - "/go/pkg/dep"
       go-cache-restore:
         steps:
           - restore_cache:
               keys:
-                - go-build-dep-{{ checksum "Gopkg.lock" }}
+                - go-build-v1-legacy-{{ checksum "Gopkg.lock" }}
       go-test-legacy:
-        parameters:
-          pkg:
-            default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
-            type: "string"
         steps:
           - run:
               name: Install dep
@@ -34,22 +46,6 @@ orbs:
               name: Dep ensure
               command: |
                 /home/circleci/go/bin/dep ensure && git diff --exit-code
-          - run:
-              name: Configure Basic ldflags
-              command: |
-                echo -n "-w -linkmode 'auto' -extldflags '-static'" > .ldflags
-          - run:
-              name: Add Timestamp To ldflags
-              command: |
-                echo -n " -X '<< parameters.pkg >>.buildTimestamp=$(date --utc '+%FT%TZ')'" >> .ldflags
-          - run:
-              name: Add SHA to ldflags
-              command: |
-                echo -n " -X '<< parameters.pkg >>.gitSHA=${CIRCLE_SHA1}'" >> .ldflags
-          - run:
-              name: Show Final ldflags
-              command: |
-                echo "\"$(cat .ldflags)\""
           - run:
               name: Install goimports
               command: |
@@ -71,18 +67,8 @@ orbs:
           - run:
               name: Go Test
               command: |
-                CGO_ENABLED=0 go test  -ldflags "$(cat .ldflags)" ./...
-      go-cache-save:
-        steps:
-          - save_cache:
-              key: go-build-v1-legacy-{{ checksum "Gopkg.lock" }}
-              paths:
-                - "/go/pkg/dep"
+                CGO_ENABLED=0 go test ./...
       go-build-legacy:
-        parameters:
-          pkg:
-            default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
-            type: "string"
         steps:
           - go-test-legacy:
               pkg: <<parameters.pkg>>
@@ -95,15 +81,17 @@ orbs:
           - run:
               name: Deploy using architect
               command: |
-                  architect deploy
+                architect deploy
     executors:
       architect:
-        working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
         docker:
           - entrypoint: /bin/bash
             image: quay.io/giantswarm/architect:latest
     jobs:
       go-test-legacy:
+        parameters:
+          working_directory:
+            type: string
         description: |
           This job checks if `dep ensure` makes any changes indicating that the dependencies
           are out of sync and runs goimports to ensure that imports are correctly sorted
@@ -116,6 +104,7 @@ orbs:
           - "gitSHA" SHA of the built commit.
           - "version" produced by `architect project version` command.
         executor: architect
+        working_directory: << parameters.working_directory >>
         steps:
           - checkout
           - tools-info
@@ -123,7 +112,11 @@ orbs:
           - go-test-legacy
           - go-cache-save
       go-build-legacy:
+        parameters:
+          working_directory:
+            type: string
         executor: architect
+        working_directory: << parameters.working_directory >>
         steps:
           - checkout
           - tools-info
@@ -131,7 +124,11 @@ orbs:
           - go-build-legacy
           - go-cache-save
       go-deploy-legacy:
+        parameters:
+          working_directory:
+            type: string
         executor: architect
+        working_directory: << parameters.working_directory >>
         steps:
           - go-cache-restore
           - go-deploy-legacy
@@ -142,8 +139,10 @@ workflows:
     jobs:
       - architect/go-build-legacy:
           name: go-build-apiextensions
+          working_directory: /go/src/github.com/giantswarm/apiextensions
       - architect/go-deploy-legacy:
           name: go-deploy-apiextensions
+          working_directory: /go/src/github.com/giantswarm/apiextensions
           requires:
             - go-build-apiextensions
           filters:
