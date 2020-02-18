@@ -19,13 +19,13 @@ jobs:
           name: Check if imports are properly sorted
           command: |
             go get golang.org/x/tools/cmd/goimports
-            if [[ -n $(/home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -l ./pkg) ]];
-              then /home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -d ./pkg && exit 1;
+            if [[ -n $(/home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -l ./pkg/apis) ]];
+              then /home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -d ./pkg/apis && exit 1;
             fi
       - run:
           name: Go fmt
           command:  |
-            gofmt -d ./pkg
+            gofmt -d ./pkg/apis
       - run:
           name: Go vet
           command:  |
