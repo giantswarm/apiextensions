@@ -9,6 +9,7 @@ jobs:
       - run:
           name: Dep ensure
           command: |
+            curl https://github.com/golang/dep/releases/latest/download/dep-linux-amd64 -o dep
             dep ensure && git diff --exit-code
       - run:
           name: Check if imports are properly sorted
