@@ -275,9 +275,16 @@ type IgnitionSpecOIDC struct {
 	// The OpenID claim to use as the user name. Note that claims other
 	// than the default ('sub') is not guaranteed to be unique and immutable.
 	UsernameClaim string `json:"usernameClaim" yaml:"usernameClaim"`
+	// If provided, all usernames will be prefixed with this value. If not provided, username
+	// claims other than 'email' are prefixed by the issuer URL to avoid clashes. To skip any
+	// prefixing, provide the value '-'.
+	UsernamePrefix string `json:"usernamePrefix" yaml:"usernamePrefix"`
 	// If provided, the name of a custom OpenID Connect claim for specifying
 	// user groups. The claim value is expected to be a string or JSON encoded array of strings.
 	GroupsClaim string `json:"groupsClaim" yaml:"groupsClaim"`
+	// If provided, all groups will be prefixed with this value to prevent conflicts with other
+	// authentication strategies.
+	GroupsPrefix string `json:"groupsPrefix" yaml:"groupsPrefix"`
 }
 
 // IgnitionStatus holds the rendering result.
