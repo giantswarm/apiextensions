@@ -4,9 +4,9 @@ orbs:
 
 jobs:
   test:
-    working_directory: $HOME/project/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+    working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     environment:
-      GOPATH: $HOME/project/go
+      GOPATH: /go
     machine: true
     steps:
       - checkout
