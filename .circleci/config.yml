@@ -45,7 +45,7 @@ orbs:
           - run:
               name: Dep ensure
               command: |
-                /home/circleci/go/bin/dep ensure && git diff --exit-code
+                dep ensure && git diff --exit-code
           - run:
               name: Install goimports
               command: |
