@@ -7,7 +7,9 @@ jobs:
     working_directory: /home/circleci/go/src/github.com/giantswarm/apiextensions
     environment:
       GOPATH: /home/circleci/go
-    machine: true
+    docker:
+      - entrypoint: /bin/bash
+        image: quay.io/giantswarm/architect:latest
     steps:
       - checkout
       - run:
