@@ -88,10 +88,6 @@ orbs:
               name: Compile Binary
               command: |
                 architect build
-          - run:
-              name: Display Version Info
-              command: |
-                [[ "<< parameters.os >>" == "linux" ]] && ./<< parameters.binary >> version || true
       go-deploy-legacy:
         steps:
           - run:
