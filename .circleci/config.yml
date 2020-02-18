@@ -6,23 +6,23 @@ orbs:
       tools-info:
         steps:
           - run:
-              name: Architect Version
+              name: Showing Architect Version
               command: |
                 architect version
           - run:
-              name: Bash Version
+              name: Showing Bash Version
               command: |
                 echo $BASH_VERSION
           - run:
-              name: Git Version
+              name: Showing Git Version
               command: |
                 git version
           - run:
-              name: Go Version
+              name: Showing Go Version
               command: |
                 go version
           - run:
-              name: Helm Version
+              name: Showing Helm Version
               command: |
                 helm version -c
       go-cache-save:
@@ -39,61 +39,60 @@ orbs:
       go-test-legacy:
         steps:
           - run:
-              name: Install dep
+              name: Installing Dep
               command: |
                 go get github.com/golang/dep/cmd/dep
           - run:
-              name: Dep ensure
+              name: Running Dep Ensure
               command: |
                 dep ensure && git diff --exit-code
           - run:
-              name: Install goimports
+              name: Installing Goimports
               command: |
                 go get golang.org/x/tools/cmd/goimports
           - run:
-              name: Delete Vendor
+              name: Deleting Vendor Directory
               command: |
                 rm -rf vendor/
           - run:
-              name: Check If Imports Are Properly Sorted
+              name: Ensuring Imports Are Properly Sorted
               command: |
                 if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
                   then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
                 fi
           - run:
-              name: Go Fmt
+              name: Running Go Fmt
               command: |
                 test -z $(gofmt -l .) || gofmt -d .
           - run:
-              name: Restor Vendor
+              name: Restoring Vendor Directory
               command: |
                 git checkout vendor/
           - run:
-              name: Go Vet
+              name: Running Go Vet
               command: |
                 CGO_ENABLED=0 go vet ./...
           - run:
-              name: Go Test
+              name: Running Go Test
               command: |
                 CGO_ENABLED=0 go test ./...
       go-build-legacy:
         steps:
-          - go-test-legacy
           - run:
-              name: Compile Binary
+              name: Building Using Architect
               command: |
-                architect build
+                docker run -v $PWD:/src -v /var/run/docker.sock:/var/run/docker.sock -w /src quay.io/giantswarm/architect build
       go-deploy-legacy:
         steps:
           - run:
-              name: Deploy using architect
+              name: Deploying Using Architect
               command: |
-                architect deploy
+                docker run -v $PWD:/src -v /var/run/docker.sock:/var/run/docker.sock -w /src quay.io/giantswarm/architect deploy
     executors:
       architect:
         docker:
           - entrypoint: /bin/bash
-            image: quay.io/giantswarm/architect:latest
+            image: quay.io/giantswarm/architect
     jobs:
       go-test-legacy:
         parameters:
@@ -110,7 +109,7 @@ orbs:
           - "buildTimestamp" in RFC-3339 format in UTC time zone.
           - "gitSHA" SHA of the built commit.
           - "version" produced by `architect project version` command.
-        executor: architect
+        executor: architect-legacy
         working_directory: << parameters.working_directory >>
         steps:
           - checkout
@@ -122,34 +121,31 @@ orbs:
         parameters:
           working_directory:
             type: string
-        executor: architect
-        working_directory: << parameters.working_directory >>
+        executor: machine
         steps:
           - checkout
-          - tools-info
-          - go-cache-restore
           - go-build-legacy
-          - go-cache-save
       go-deploy-legacy:
         parameters:
           working_directory:
             type: string
-        executor: architect
-        working_directory: << parameters.working_directory >>
+        executor: machine
         steps:
-          - go-cache-restore
+          - checkout
           - go-deploy-legacy
-          - go-cache-save
 
 workflows:
   workflow:
     jobs:
+      - architect/go-test-legacy:
+          name: go-test-apiextensions
+          working_directory: /go/src/github.com/giantswarm/apiextensions
       - architect/go-build-legacy:
           name: go-build-apiextensions
-          working_directory: /go/src/github.com/giantswarm/apiextensions
+          requires:
+            - go-test-apiextensions
       - architect/go-deploy-legacy:
           name: go-deploy-apiextensions
-          working_directory: /go/src/github.com/giantswarm/apiextensions
           requires:
             - go-build-apiextensions
           filters:
