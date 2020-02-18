@@ -70,8 +70,7 @@ orbs:
                 CGO_ENABLED=0 go test ./...
       go-build-legacy:
         steps:
-          - go-test-legacy:
-              pkg: <<parameters.pkg>>
+          - go-test-legacy
           - run:
               name: Compile Binary
               command: |
