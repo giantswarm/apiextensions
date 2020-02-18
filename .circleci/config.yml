@@ -10,7 +10,7 @@ jobs:
           name: Dep ensure
           command: |
             go get github.com/golang/dep/cmd/dep
-            ./dep ensure && git diff --exit-code
+            dep ensure && git diff --exit-code
       - run:
           name: Check if imports are properly sorted
           command: |
