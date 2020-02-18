@@ -21,7 +21,6 @@ orbs:
               keys:
                 - go-build-dep-{{ checksum "Gopkg.lock" }}
       go-test-dep:
-        working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
         parameters:
           pkg:
             default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
@@ -109,6 +108,7 @@ orbs:
         docker:
           - entrypoint: /bin/bash
             image: quay.io/giantswarm/architect:latest
+            working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
     jobs:
       go-test-dep:
         description: |
