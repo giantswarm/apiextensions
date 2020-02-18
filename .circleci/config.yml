@@ -99,10 +99,11 @@ orbs:
               command: |
                 [[ "<< parameters.os >>" == "linux" ]] && ./<< parameters.binary >> version || true
       go-deploy-legacy:
-        - steps:
-            name: Deploy using architect
-            command: |
-                architect deploy
+        steps:
+          - run:
+              name: Deploy using architect
+              command: |
+                  architect deploy
     executors:
       architect:
         docker:
