@@ -88,7 +88,7 @@ orbs:
             default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
             type: "string"
         steps:
-          - go-test
+          - go-test-dep
           - run:
               name: Compile Binary
               command: |
@@ -129,9 +129,40 @@ orbs:
           - go-cache-restore
           - go-test-dep
           - go-cache-save
+      go-build-dep:
+        description: |
+          It does everything that go-test
+          (https://circleci.com/orbs/registry/orb/giantswarm/architect#jobs-go-test)
+          job does and runs `go build` against the codebase on top of that. It injects
+          all the variables go-test job does into the produced binary.
+
+          The job produces static binary named after the repository name. It is
+          persisted to workspace under "./" path.
+        parameters:
+          binary:
+            description: "Name of the binary produced by the job. It is also persisted to the workspace."
+            type: "string"
+          os:
+            default: "linux"
+            description: "The target Operating System for the binary. Must be one of \"linux\", \"darwin\"."
+            type: enum
+            enum: ["linux", "darwin"]
+        executor: architect
+        steps:
+          - checkout
+          - tools-info
+          - go-cache-restore
+          - go-build-dep:
+              binary: << parameters.binary >>
+              os: << parameters.os >>
+          - go-cache-save
+          - persist_to_workspace:
+              root: .
+              paths:
+                - ./<< parameters.binary >>
 
 workflows:
-  test:
+  workflow:
     jobs:
       - architect/go-build-dep:
           name: go-build-apiextensions
