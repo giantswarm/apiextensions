@@ -51,11 +51,19 @@ orbs:
               command: |
                 go get golang.org/x/tools/cmd/goimports
           - run:
+              name: Delete Vendor
+              command: |
+                rm -rf vendor/
+          - run:
               name: Check If Imports Are Properly Sorted
               command: |
                 if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
                   then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
                 fi
+          - run:
+              name: Restor Vendor
+              command: |
+                git checkout vendor/
           - run:
               name: Go Fmt
               command: |
