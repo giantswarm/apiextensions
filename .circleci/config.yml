@@ -6,6 +6,7 @@ jobs:
   test:
     machine: true
     steps:
+      - checkout
       - run:
           name: Dep ensure
           command: |
