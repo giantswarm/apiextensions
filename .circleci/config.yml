@@ -10,6 +10,7 @@ jobs:
           name: Dep ensure
           command: |
             curl https://github.com/golang/dep/releases/latest/download/dep-linux-amd64 -o dep
+            chmod +x dep
             dep ensure && git diff --exit-code
       - run:
           name: Check if imports are properly sorted
@@ -57,8 +58,8 @@ workflows:
   test:
     jobs:
       - test:
-          name: Test apiextensions
+          name: Test
       - build:
-          name: Build apiextensions
+          name: Build
           requires:
-            - Test apiextensions
+            - Test
