@@ -14,27 +14,30 @@ jobs:
           name: Dep ensure
           command: |
             go get github.com/golang/dep/cmd/dep
-            pwd
             cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             /home/circleci/go/bin/dep ensure && git diff --exit-code
       - run:
           name: Check if imports are properly sorted
           command: |
             go get golang.org/x/tools/cmd/goimports
-            if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
+            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+            if [[ -n $(/home/circleci/go/bin/goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
               then /home/circleci/go/bin/goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
             fi
       - run:
           name: Go fmt
           command:  |
+            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             gofmt -d ./pkg
       - run:
           name: Go vet
           command:  |
+            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             CGO_ENABLED=0 go vet ./...
       - run:
           name: Go test
           command: |
+            cd /home/circleci/go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
             CGO_ENABLED=0 go test ./...
   build:
     machine: true
