@@ -23,6 +23,7 @@ orbs:
       go-test-legacy:
         parameters:
           pkg:
+            default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
             type: "string"
         steps:
           - run:
@@ -83,7 +84,8 @@ orbs:
             default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
             type: "string"
         steps:
-          - go-test-legacy
+          - go-test-legacy:
+              pkg: <<parameters.pkg>>
           - run:
               name: Compile Binary
               command: |
