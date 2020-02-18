@@ -3,6 +3,31 @@ orbs:
   architect: giantswarm/architect@0.5.3
 
 jobs:
+  test:
+    steps:
+      - run:
+          name: Dep ensure
+          command: |
+            dep ensure && git diff --exit-code
+      - run:
+          name: Check if imports are properly sorted
+          command: |
+            go get golang.org/x/tools/cmd/goimports
+            if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
+              then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
+            fi
+      - run:
+          name: Go fmt
+          command:  |
+            gofmt -d ./pkg
+      - run:
+          name: Go vet
+          command:  |
+            CGO_ENABLED=0 go vet ./...
+      - run:
+          name: Go test
+          command: |
+            CGO_ENABLED=0 go test ./...
   build:
     machine: true
     steps:
@@ -25,11 +50,3 @@ jobs:
           if [ "${CIRCLE_BRANCH}" == "master" ]; then
             ./architect deploy
           fi
-
-workflows:
-  test:
-    jobs:
-      - architect/go-test:
-          name: go-test-apiextensions
-      - build:
-          name: go-build-apiextensions
