@@ -88,7 +88,7 @@ orbs:
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
                   -e CGO_ENABLED=0 \
-                  -v $PWD:/go/src/github.com/giantswarm/apiextensions \
+                  -v $PWD/project:/go/src/github.com/giantswarm/apiextensions \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -w /go/src/github.com/giantswarm/apiextensions \
                   quay.io/giantswarm/architect build
@@ -104,7 +104,7 @@ orbs:
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
                   -e CGO_ENABLED=0 \
-                  -v $PWD:/go/src/github.com/giantswarm/apiextensions \
+                  -v $PWD/project:/go/src/github.com/giantswarm/apiextensions \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -w /go/src/github.com/giantswarm/apiextensions \
                   quay.io/giantswarm/architect deploy
