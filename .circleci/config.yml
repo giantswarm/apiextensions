@@ -1,70 +1,142 @@
 version: 2.1
+
 orbs:
-  architect: giantswarm/architect@0.5.3
+  architect:
+    commands:
+      tools-info:
+        steps:
+          - run: |
+              architect version
+          - run: |
+              echo $BASH_VERSION
+          - run: |
+              git version
+          - run: |
+              go version
+          - run: |
+              helm version -c
+      go-cache-restore:
+        steps:
+          - restore_cache:
+              keys:
+                - go-build-dep-{{ checksum "Gopkg.lock" }}
+      go-test-dep:
+        working_directory: /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+        parameters:
+          pkg:
+            default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
+            type: "string"
+        steps:
+          - run:
+              name: Install dep
+              command: |
+                go get github.com/golang/dep/cmd/dep
+          - run:
+              name: Dep ensure
+              command: |
+                /home/circleci/go/bin/dep ensure && git diff --exit-code
+          - run:
+              name: Configure Basic ldflags
+              command: |
+                echo -n "-w -linkmode 'auto' -extldflags '-static'" > .ldflags
+          - run:
+              name: Add Timestamp To ldflags
+              command: |
+                echo -n " -X '<< parameters.pkg >>.buildTimestamp=$(date --utc '+%FT%TZ')'" >> .ldflags
+          - run:
+              name: Add SHA to ldflags
+              command: |
+                echo -n " -X '<< parameters.pkg >>.gitSHA=${CIRCLE_SHA1}'" >> .ldflags
+          - run:
+              name: Show Final ldflags
+              command: |
+                echo "\"$(cat .ldflags)\""
+          - run:
+              name: Install goimports
+              command: |
+                go get golang.org/x/tools/cmd/goimports
+          - run:
+              name: Check If Imports Are Properly Sorted
+              command: |
+                if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
+                  then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
+                fi
+          - run:
+              name: Go Fmt
+              command: |
+                test -z $(gofmt -l .) || gofmt -d .
+          - run:
+              name: Go Vet
+              command: |
+                CGO_ENABLED=0 go vet ./...
+          - run:
+              name: Go Test
+              command: |
+                CGO_ENABLED=0 go test  -ldflags "$(cat .ldflags)" ./...
+      go-cache-save:
+        steps:
+          - save_cache:
+              key: go-build-dep-{{ checksum "Gopkg.lock" }}
+              paths:
+                - "/go/pkg/dep"
+      go-build-dep:
+        parameters:
+          binary:
+            type: "string"
+          os:
+            type: "string"
+          pkg:
+            default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
+            type: "string"
+        steps:
+          - go-test
+          - run:
+            name: Compile Binary
+            command: |
+              CGO_ENABLED=0 GOOS="<< parameters.os >>" go build -ldflags "$(cat .ldflags)" -o << parameters.binary >> . || true
+          - run: Display Version Info
+            command: |
+              [[ "<< parameters.os >>" == "linux" ]] && ./<< parameters.binary >> version || true
+      go-deploy-legacy:
+        - steps:
+            name: Deploy using architect
+            command: |
+                architect deploy
+    executors:
+      architect:
+        docker:
+          - entrypoint: /bin/bash
+            image: quay.io/giantswarm/architect:latest
+    jobs:
+      go-test-dep:
+        description: |
+          This job checks if `dep ensure` makes any changes indicating that the dependencies
+          are out of sync and runs goimports to ensure that imports are correctly sorted
+          and grouped. After this, code is checked for correct formatting by `go fmt`
+          checked for semantic issues with `go vet` and for passing unit tests with
+          `go test` It also injects following variables into the
+          "github.com/ORGANIZATION/REPOSITORY/pkg/project" package for testing:
 
-jobs:
-  test:
-    working_directory: /home/circleci/go/src/github.com/giantswarm/apiextensions
-    environment:
-      GOPATH: /home/circleci/go
-    docker:
-      - entrypoint: /bin/bash
-        image: quay.io/giantswarm/architect:latest
-    steps:
-      - checkout
-      - run:
-          name: Dep ensure
-          command: |
-            go get github.com/golang/dep/cmd/dep
-            /home/circleci/go/bin/dep ensure && git diff --exit-code
-      - run:
-          name: Check if imports are properly sorted
-          command: |
-            go get golang.org/x/tools/cmd/goimports
-            if [[ -n $(/home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -l ./pkg/apis) ]];
-              then /home/circleci/go/bin/goimports -local github.com/giantswarm/apiextensions -d ./pkg/apis && exit 1;
-            fi
-      - run:
-          name: Go fmt
-          command:  |
-            gofmt -d ./pkg/apis
-      - run:
-          name: Go vet
-          command:  |
-            CGO_ENABLED=0 go vet ./...
-      - run:
-          name: Go test
-          command: |
-            CGO_ENABLED=0 go test ./...
-  build:
-    machine: true
-    steps:
-    - checkout
-
-    - run:
-        name: Install architect
-        command: |
-          wget -q $(curl -sS -H "Authorization: token $RELEASE_TOKEN" https://api.github.com/repos/giantswarm/architect/releases/latest | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
-          chmod +x ./architect
-          ./architect version
-    - run:
-        name: Build using architect
-        command: ./architect build
-    - store_test_results:
-        path: /tmp/results
-    - deploy:
-        name: Deploy using architect
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            ./architect deploy
-          fi
+          - "buildTimestamp" in RFC-3339 format in UTC time zone.
+          - "gitSHA" SHA of the built commit.
+          - "version" produced by `architect project version` command.
+        executor: architect
+        steps:
+          - checkout
+          - tools-info
+          - go-cache-restore
+          - go-test-dep
+          - go-cache-save
 
 workflows:
   test:
     jobs:
-      - test:
-          name: Test
-      - build:
-          name: Build
+      - architect/go-build-dep:
+          name: go-build-apiextensions
+      - architect/go-deploy-legacy:
+          name: go-deploy-apiextensions
           requires:
-            - Test
+            - go-build-apiextensions
+          filters:
+            branches:
+              only: master
