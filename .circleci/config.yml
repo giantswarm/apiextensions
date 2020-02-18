@@ -20,7 +20,7 @@ orbs:
           - restore_cache:
               keys:
                 - go-build-dep-{{ checksum "Gopkg.lock" }}
-      go-test-dep:
+      go-test-legacy:
         parameters:
           pkg:
             default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
@@ -75,10 +75,10 @@ orbs:
       go-cache-save:
         steps:
           - save_cache:
-              key: go-build-dep-{{ checksum "Gopkg.lock" }}
+              key: go-build-v1-legacy-{{ checksum "Gopkg.lock" }}
               paths:
                 - "/go/pkg/dep"
-      go-build-dep:
+      go-build-legacy:
         parameters:
           binary:
             type: "string"
@@ -88,11 +88,11 @@ orbs:
             default: "github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pkg/project"
             type: "string"
         steps:
-          - go-test-dep
+          - go-test-legacy
           - run:
               name: Compile Binary
               command: |
-                CGO_ENABLED=0 GOOS="<< parameters.os >>" go build -ldflags "$(cat .ldflags)" -o << parameters.binary >> . || true
+                architect build
           - run:
               name: Display Version Info
               command: |
@@ -110,7 +110,7 @@ orbs:
           - entrypoint: /bin/bash
             image: quay.io/giantswarm/architect:latest
     jobs:
-      go-test-dep:
+      go-test-legacy:
         description: |
           This job checks if `dep ensure` makes any changes indicating that the dependencies
           are out of sync and runs goimports to ensure that imports are correctly sorted
@@ -127,9 +127,9 @@ orbs:
           - checkout
           - tools-info
           - go-cache-restore
-          - go-test-dep
+          - go-test-legacy
           - go-cache-save
-      go-build-dep:
+      go-build-legacy:
         description: |
           It does everything that go-test
           (https://circleci.com/orbs/registry/orb/giantswarm/architect#jobs-go-test)
@@ -152,19 +152,13 @@ orbs:
           - checkout
           - tools-info
           - go-cache-restore
-          - go-build-dep:
-              binary: << parameters.binary >>
-              os: << parameters.os >>
+          - go-build-legacy
           - go-cache-save
-          - persist_to_workspace:
-              root: .
-              paths:
-                - ./<< parameters.binary >>
 
 workflows:
   workflow:
     jobs:
-      - architect/go-build-dep:
+      - architect/go-build-legacy:
           name: go-build-apiextensions
       - architect/go-deploy-legacy:
           name: go-deploy-apiextensions
