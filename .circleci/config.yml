@@ -4,6 +4,7 @@ orbs:
 
 jobs:
   test:
+    machine: true
     steps:
       - run:
           name: Dep ensure
