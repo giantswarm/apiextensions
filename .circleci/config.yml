@@ -87,6 +87,7 @@ orbs:
                   -e CIRCLECI \
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
+                  -e CGO_ENABLED=0 \
                   -v $PWD:/go/src/github.com/giantswarm/apiextensions \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -w /go/src/github.com/giantswarm/apiextensions \
@@ -102,6 +103,7 @@ orbs:
                   -e CIRCLECI \
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
+                  -e CGO_ENABLED=0 \
                   -v $PWD:/go/src/github.com/giantswarm/apiextensions \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -w /go/src/github.com/giantswarm/apiextensions \
