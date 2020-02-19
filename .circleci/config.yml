@@ -140,17 +140,11 @@ orbs:
           - go-test-legacy
           - go-cache-save
       go-build-legacy:
-        parameters:
-          working_directory:
-            type: string
         machine: true
         steps:
           - checkout
           - go-build-legacy
       go-deploy-legacy:
-        parameters:
-          working_directory:
-            type: string
         machine: true
         steps:
           - checkout
