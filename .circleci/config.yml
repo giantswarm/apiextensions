@@ -88,7 +88,7 @@ orbs:
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
                   -e CGO_ENABLED=0 \
-                  -v $PWD/project:/go/src/github.com/giantswarm/apiextensions \
+                  -v /go:/go \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -w /go/src/github.com/giantswarm/apiextensions \
                   quay.io/giantswarm/architect build
@@ -104,7 +104,7 @@ orbs:
                   -e QUAY_USERNAME \
                   -e QUAY_PASSWORD \
                   -e CGO_ENABLED=0 \
-                  -v $PWD/project:/go/src/github.com/giantswarm/apiextensions \
+                  -v /go:/go \
                   -v /var/run/docker.sock:/var/run/docker.sock \
                   -w /go/src/github.com/giantswarm/apiextensions \
                   quay.io/giantswarm/architect deploy
@@ -138,12 +138,20 @@ orbs:
           - go-test-legacy
           - go-cache-save
       go-build-legacy:
+        parameters:
+          working_directory:
+            type: string
         machine: true
+        working_directory: << parameters.working_directory >>
         steps:
           - checkout
           - go-build-legacy
       go-deploy-legacy:
+        parameters:
+          working_directory:
+            type: string
         machine: true
+        working_directory: << parameters.working_directory >>
         steps:
           - checkout
           - go-deploy-legacy
@@ -156,10 +164,12 @@ workflows:
           working_directory: /go/src/github.com/giantswarm/apiextensions
       - architect/go-build-legacy:
           name: go-build-apiextensions
+          working_directory: /go/src/github.com/giantswarm/apiextensions
           requires:
             - go-test-apiextensions
       - architect/go-deploy-legacy:
           name: go-deploy-apiextensions
+          working_directory: /go/src/github.com/giantswarm/apiextensions
           requires:
             - go-build-apiextensions
           filters:
