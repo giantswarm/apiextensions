@@ -133,22 +133,23 @@ orbs:
           - checkout
           - go-architect:
               command: << parameters.command >>
-      description: |
-        This job checks if `dep ensure` makes any changes indicating that the dependencies
-        are out of sync and runs goimports to ensure that imports are correctly sorted
-        and grouped. After this, code is checked for correct formatting by `go fmt`
-        checked for semantic issues with `go vet` and for passing unit tests with
-        `go test`.
-      executor: architect
-      steps:
-        - checkout
-        - tools-info
-        - go-cache-restore:
-            lockfile: Gopkg.lock
-        - go-test-legacy
-        - go-cache-save:
-            lockfile: Gopkg.lock
-      working_directory: /go/src/project
+      go-test-legacy:
+        description: |
+          This job checks if `dep ensure` makes any changes indicating that the dependencies
+          are out of sync and runs goimports to ensure that imports are correctly sorted
+          and grouped. After this, code is checked for correct formatting by `go fmt`
+          checked for semantic issues with `go vet` and for passing unit tests with
+          `go test`.
+        executor: architect
+        steps:
+          - checkout
+          - tools-info
+          - go-cache-restore:
+              lockfile: Gopkg.lock
+          - go-test-legacy
+          - go-cache-save:
+              lockfile: Gopkg.lock
+        working_directory: /go/src/project
 
 workflows:
   workflow:
