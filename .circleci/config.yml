@@ -41,6 +41,7 @@ orbs:
           - run:
               name: Configure Go Environment
               command: |
+                mkdir -p /go/src/github.com/${CIRCLE_PROJECT_USERNAME}
                 ln -s /go/src/project /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
                 cd /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
           - run:
