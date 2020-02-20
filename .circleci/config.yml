@@ -112,6 +112,7 @@ orbs:
                   quay.io/giantswarm/architect deploy
     executors:
       architect:
+        working_directory: /go/src/project
         docker:
           - entrypoint: /bin/bash
             image: quay.io/giantswarm/architect
