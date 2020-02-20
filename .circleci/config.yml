@@ -132,7 +132,7 @@ orbs:
         steps:
           - checkout
           - go-architect:
-            command: << parameters.command >>
+              command: << parameters.command >>
       description: |
         This job checks if `dep ensure` makes any changes indicating that the dependencies
         are out of sync and runs goimports to ensure that imports are correctly sorted
@@ -144,10 +144,10 @@ orbs:
         - checkout
         - tools-info
         - go-cache-restore:
-          lockfile: Gopkg.lock
+            lockfile: Gopkg.lock
         - go-test-legacy
         - go-cache-save:
-          lockfile: Gopkg.lock
+            lockfile: Gopkg.lock
       working_directory: /go/src/project
 
 workflows:
