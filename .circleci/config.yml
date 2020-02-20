@@ -132,12 +132,7 @@ orbs:
           are out of sync and runs goimports to ensure that imports are correctly sorted
           and grouped. After this, code is checked for correct formatting by `go fmt`
           checked for semantic issues with `go vet` and for passing unit tests with
-          `go test` It also injects following variables into the
-          "github.com/ORGANIZATION/REPOSITORY/pkg/project" package for testing:
-
-          - "buildTimestamp" in RFC-3339 format in UTC time zone.
-          - "gitSHA" SHA of the built commit.
-          - "version" produced by `architect project version` command.
+          `go test`.
         executor: architect
         steps:
           - checkout
@@ -146,11 +141,17 @@ orbs:
           - go-test-legacy
           - go-cache-save
       go-build-legacy:
+        description: |
+          This job builds the current project from a container using the `latest` architect image
+          and calling `./architect build`.
         machine: true
         steps:
           - checkout
           - go-build-legacy
       go-deploy-legacy:
+        description: |
+          This job deploys the current project from a container using the `latest` architect image
+          and calling `./architect deploy`.
         machine: true
         steps:
           - checkout
