@@ -78,10 +78,12 @@ orbs:
           - run:
               name: Running Go Vet
               command: |
+                cd /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
                 CGO_ENABLED=0 go vet ./...
           - run:
               name: Running Go Test
               command: |
+                cd /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
                 CGO_ENABLED=0 go test ./...
       go-build-legacy:
         steps:
