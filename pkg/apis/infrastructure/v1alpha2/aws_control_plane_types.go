@@ -70,31 +70,31 @@ func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AWSControlPlane is the infrastructure provider referenced in ControlPlane CRs.
+// AWSControlPlane is the infrastructure provider referenced in ControlPlane
+// CRs.
 //
 //     apiVersion: infrastructure.giantswarm.io/v1alpha2
 //     kind: AWSControlPlane
 //     metadata:
 //       annotations:
-//         giantswarm.io/docs:
+//         giantswarm.io/docs: https://docs.giantswarm.io/reference/awscontrolplanes.infrastructure.giantswarm.io/v1alpha2/
 //       labels:
-//         aws-operator.giantswarm.io/version: 6.2.0
-//         giantswarm.io/cluster: "8y5kc"
-//         giantswarm.io/organization: "giantswarm"
-//         release.giantswarm.io/version: 7.3.1
+//         aws-operator.giantswarm.io/version: "6.2.0"
+//         giantswarm.io/cluster: 8y5kc
+//         giantswarm.io/organization: giantswarm
+//         release.giantswarm.io/version: "7.3.1"
 //       name: 8y5kc
 //       ownerReference:
-//         kind: G8sControlPlane
-//         namespace: default
-//         name: 8y5kc
 //         apiVersion: infrastructure.giantswarm.io/v1alpha2
+//         kind: G8sControlPlane
+//         name: 8y5kc
+//         namespace: default
 //     spec:
 //       availabilityZones:
 //         - eu-central-1a
 //         - eu-central-1b
 //         - eu-central-1c
 //       instanceType: m4.large
-//     status:
 //
 type AWSControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
