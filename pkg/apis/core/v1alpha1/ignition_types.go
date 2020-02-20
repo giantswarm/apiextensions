@@ -1,8 +1,7 @@
 package v1alpha1
 
 import (
-	"fmt"
-
+	"github.com/ghodss/yaml"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -11,23 +10,19 @@ const (
 	kindIgnition = "Ignition"
 )
 
-// NewIgnitionCRD returns a new custom resource definition for an Ignition resource.
-// Ignitions contain a rendered ignition template specific to nodes or groups of nodes
-// in a particular cluster.
-//
-// The YAML for this CRD is as follows:
-/*
-apiVersion: apiextensions.k8s.io/v1beta1
+const ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
+  creationTimestamp: null
   name: ignitions.core.giantswarm.io
 spec:
   additionalPrinterColumns:
-    - JSONPath: '{.status.ready}'
-      description: Indicates that the ignition secret has been successfully rendered and is ready to be used
-      format: boolean
-      name: ready
-      type: boolean
+  - JSONPath: '{.status.ready}'
+    description: Indicates that the ignition secret has been successfully rendered
+      and is ready to be used
+    format: boolean
+    name: ready
+    type: boolean
   group: core.giantswarm.io
   names:
     kind: Ignition
@@ -35,50 +30,33 @@ spec:
     singular: ignition
   scope: Namespaced
   versions:
-    - name: v1alpha1
-      served: true
-      storage: true
-      subresources:
-        status: {}
-*/
-func NewIgnitionCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: fmt.Sprintf("ignitions.%s", group),
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group: group,
-			Scope: "Namespaced",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     kindIgnition,
-				Plural:   "ignitions",
-				Singular: "ignition",
-			},
-			AdditionalPrinterColumns: []apiextensionsv1beta1.CustomResourceColumnDefinition{
-				{
-					Name:        "ready",
-					Type:        "boolean",
-					Format:      "boolean",
-					Description: "Indicates that the ignition secret has been successfully rendered and is ready to be used",
-					JSONPath:    "{.status.ready}",
-				},
-			},
-			Versions: []apiextensionsv1beta1.CustomResourceDefinitionVersion{
-				{
-					Name:    version,
-					Served:  true,
-					Storage: true,
-					Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-						Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-					},
-				},
-			},
-		},
+  - name: v1alpha1
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: null
+  storedVersions: null
+`
+
+var ignitionCRD *apiextensionsv1beta1.CustomResourceDefinition
+
+func init() {
+	err := yaml.Unmarshal([]byte(ignitionCRDYAML), &ignitionCRD)
+	if err != nil {
+		panic(err)
 	}
+}
+
+// NewIgnitionCRD returns a new custom resource definition for an Ignition resource.
+// Ignitions contain a rendered ignition template specific to nodes or groups of nodes
+// in a particular cluster.
+func NewIgnitionCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+	return ignitionCRD.DeepCopy()
 }
 
 func NewIgnitionTypeMeta() metav1.TypeMeta {
@@ -91,79 +69,7 @@ func NewIgnitionTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Ignition is a Kubernetes resource (CR) which follows the Ignition CRD defined above.
-//
-// A sample YAML for this CR is as follows:
-/*
-apiVersion: core.giantswarm.io/v1alpha1
-kind: Ignition
-metadata:
-  name: abc12-master
-  namespace: default
-spec:
-  apiServerEncryptionKey: ""
-  baseDomain: ""
-  calico:
-    cidr: ""
-    disable: false
-    mtu: ""
-    subnet: ""
-  clusterID: abc12
-  disableEncryptionAtRest: false
-  docker:
-    daemon:
-      cidr: ""
-    networkSetup:
-      image: ""
-  etcd:
-    domain: ""
-    port: 0
-    prefix: ""
-  extension:
-    files: null
-    units: null
-    users: null
-  ingress:
-    disable: false
-  isMaster: false
-  kubernetes:
-    api:
-      domain: ""
-      securePort: 0
-    cloudProvider: ""
-    dns:
-      ip: ""
-    domain: ""
-    ipRange: ""
-    kubelet:
-      domain: ""
-    oidc:
-      clientID: ""
-      enabled: false
-      groupsClaim: ""
-      groupsPrefix: ""
-      issuerUrl: ""
-      usernameClaim: ""
-      usernamePrefix: ""
-  provider: ""
-  registry:
-    domain: ""
-    pullProgressDeadline: ""
-  sso:
-    publicKey: ""
-status:
-  dataSecretName:
-    name: ""
-    namespace: ""
-    resourceVersion: ""
-  failureMessage: ""
-  failureReason: ""
-  ready: false
-  verification:
-    algorithm: ""
-    hash: ""
-*/
-
+// Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.
 type Ignition struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
