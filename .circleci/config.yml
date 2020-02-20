@@ -39,14 +39,17 @@ orbs:
       go-test-legacy:
         steps:
           - run:
+              name: Configure Go Environment
+              command: |
+                ln -s /go/src/project /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+                cd /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+          - run:
               name: Installing Dep
               command: |
                 go get github.com/golang/dep/cmd/dep
           - run:
               name: Running Dep Ensure
               command: |
-                export DEPPROJECTROOT=github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-                echo $DEPPROJECTROOT
                 dep ensure && git diff --exit-code
           - run:
               name: Installing Goimports
