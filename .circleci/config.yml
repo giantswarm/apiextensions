@@ -45,6 +45,8 @@ orbs:
           - run:
               name: Running Dep Ensure
               command: |
+                export DEPPROJECTROOT=github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+                echo $DEPPROJECTROOT
                 dep ensure && git diff --exit-code
           - run:
               name: Installing Goimports
