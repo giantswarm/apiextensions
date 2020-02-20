@@ -3,39 +3,46 @@ version: 2.1
 orbs:
   architect:
     commands:
-      tools-info:
+      go-architect:
+        parameters:
+          command:
+            type: "string"
         steps:
           - run:
-              name: Showing Architect Version
+              name: Deploying Using Architect
               command: |
-                architect version
-          - run:
-              name: Showing Bash Version
-              command: |
-                echo $BASH_VERSION
-          - run:
-              name: Showing Git Version
-              command: |
-                git version
-          - run:
-              name: Showing Go Version
-              command: |
-                go version
-          - run:
-              name: Showing Helm Version
-              command: |
-                helm version -c
-      go-cache-save:
-        steps:
-          - save_cache:
-              key: go-build-v1-legacy-{{ checksum "Gopkg.lock" }}
-              paths:
-                - "/go/pkg/dep"
+                docker run \
+                  -e CIRCLE_PROJECT_REPONAME \
+                  -e CIRCLE_PROJECT_USERNAME \
+                  -e CIRCLECI \
+                  -e QUAY_USERNAME \
+                  -e QUAY_PASSWORD \
+                  -e DEPLOYMENT_EVENTS_TOKEN \
+                  -e CGO_ENABLED=0 \
+                  -v /home/circleci/project:/home/circleci/project \
+                  -v /var/run/docker.sock:/var/run/docker.sock \
+                  -w /home/circleci/project \
+                  quay.io/giantswarm/architect << parameters.command >>
       go-cache-restore:
+        parameters:
+          lockfile:
+            type: "string"
+            default: "go.sum"
         steps:
           - restore_cache:
               keys:
-                - go-build-v1-legacy-{{ checksum "Gopkg.lock" }}
+                - go-build-go-mod-v1-{{ checksum << parameters.lockfile >> }}
+      go-cache-save:
+        parameters:
+          lockfile:
+            type: "string"
+            default: "go.sum"
+        steps:
+          - save_cache:
+              key: go-build-go-mod-v1-{{ checksum << parameters.lockfile >> }}
+              paths:
+                - "/go/pkg/dep"
+                - "/go/pkg/mod"
       go-test-legacy:
         steps:
           - run:
@@ -85,91 +92,79 @@ orbs:
               command: |
                 cd /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
                 CGO_ENABLED=0 go test ./...
-      go-build-legacy:
+      tools-info:
         steps:
           - run:
-              name: Building Using Architect
+              name: Showing Architect Version
               command: |
-                docker run \
-                  -e CIRCLE_PROJECT_REPONAME \
-                  -e CIRCLE_PROJECT_USERNAME \
-                  -e CIRCLECI \
-                  -e QUAY_USERNAME \
-                  -e QUAY_PASSWORD \
-                  -e DEPLOYMENT_EVENTS_TOKEN \
-                  -e CGO_ENABLED=0 \
-                  -v /home/circleci/project:/home/circleci/project \
-                  -v /var/run/docker.sock:/var/run/docker.sock \
-                  -w /home/circleci/project \
-                  quay.io/giantswarm/architect build
-      go-deploy-legacy:
-        steps:
+                architect version
           - run:
-              name: Deploying Using Architect
+              name: Showing Bash Version
               command: |
-                docker run \
-                  -e CIRCLE_PROJECT_REPONAME \
-                  -e CIRCLE_PROJECT_USERNAME \
-                  -e CIRCLECI \
-                  -e QUAY_USERNAME \
-                  -e QUAY_PASSWORD \
-                  -e DEPLOYMENT_EVENTS_TOKEN \
-                  -e CGO_ENABLED=0 \
-                  -v /home/circleci/project:/home/circleci/project \
-                  -v /var/run/docker.sock:/var/run/docker.sock \
-                  -w /home/circleci/project \
-                  quay.io/giantswarm/architect deploy
+                echo $BASH_VERSION
+          - run:
+              name: Showing Git Version
+              command: |
+                git version
+          - run:
+              name: Showing Go Version
+              command: |
+                go version
+          - run:
+              name: Showing Helm Version
+              command: |
+                helm version -c
     executors:
       architect:
-        working_directory: /go/src/project
         docker:
           - entrypoint: /bin/bash
-            image: quay.io/giantswarm/architect
+            image: quay.io/giantswarm/architect:latest
     jobs:
-      go-test-legacy:
+      go-architect:
         description: |
-          This job checks if `dep ensure` makes any changes indicating that the dependencies
-          are out of sync and runs goimports to ensure that imports are correctly sorted
-          and grouped. After this, code is checked for correct formatting by `go fmt`
-          checked for semantic issues with `go vet` and for passing unit tests with
-          `go test`.
-        executor: architect
-        steps:
-          - checkout
-          - tools-info
-          - go-cache-restore
-          - go-test-legacy
-          - go-cache-save
-      go-build-legacy:
-        description: |
-          This job builds the current project from a container using the `latest` architect image
-          and calling `./architect build`.
+          This job runs the given command for the current project from a container
+          using the `latest` architect image and ultimately calling `architect <command>`.
         machine: true
+        parameters:
+          command:
+            description: "Command to be run by architect. Should usually be 'build' or 'deploy'."
+            type: "string"
         steps:
           - checkout
-          - go-build-legacy
-      go-deploy-legacy:
-        description: |
-          This job deploys the current project from a container using the `latest` architect image
-          and calling `./architect deploy`.
-        machine: true
-        steps:
-          - checkout
-          - go-deploy-legacy
+          - go-architect:
+            command: << parameters.command >>
+      description: |
+        This job checks if `dep ensure` makes any changes indicating that the dependencies
+        are out of sync and runs goimports to ensure that imports are correctly sorted
+        and grouped. After this, code is checked for correct formatting by `go fmt`
+        checked for semantic issues with `go vet` and for passing unit tests with
+        `go test`.
+      executor: architect
+      steps:
+        - checkout
+        - tools-info
+        - go-cache-restore:
+          lockfile: Gopkg.lock
+        - go-test-legacy
+        - go-cache-save:
+          lockfile: Gopkg.lock
+      working_directory: /go/src/project
 
 workflows:
   workflow:
     jobs:
       - architect/go-test-legacy:
-          name: go-test-apiextensions
-      - architect/go-build-legacy:
-          name: go-build-apiextensions
+          name: test
+      - architect/go-architect:
+          name: build
+          command: build
           requires:
-            - go-test-apiextensions
-      - architect/go-deploy-legacy:
-          name: go-deploy-apiextensions
+            - test
+      - architect/go-architect:
+          name: deploy
+          command: deploy
           requires:
-            - go-build-apiextensions
+            - build
           filters:
             branches:
               only: master
