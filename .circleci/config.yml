@@ -31,7 +31,7 @@ orbs:
         steps:
           - restore_cache:
               keys:
-                - go-build-go-mod-v1-{{ checksum << parameters.lockfile >> }}
+                - go-build-go-mod-v1-{{ checksum "<< parameters.lockfile >>" }}
       go-cache-save:
         parameters:
           lockfile:
@@ -39,7 +39,7 @@ orbs:
             default: "go.sum"
         steps:
           - save_cache:
-              key: go-build-go-mod-v1-{{ checksum << parameters.lockfile >> }}
+              key: go-build-go-mod-v1-{{ checksum "<< parameters.lockfile >>" }}
               paths:
                 - "/go/pkg/dep"
                 - "/go/pkg/mod"
