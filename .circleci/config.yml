@@ -117,9 +117,6 @@ orbs:
             image: quay.io/giantswarm/architect
     jobs:
       go-test-legacy:
-        parameters:
-          working_directory:
-            type: string
         description: |
           This job checks if `dep ensure` makes any changes indicating that the dependencies
           are out of sync and runs goimports to ensure that imports are correctly sorted
@@ -132,7 +129,6 @@ orbs:
           - "gitSHA" SHA of the built commit.
           - "version" produced by `architect project version` command.
         executor: architect
-        working_directory: << parameters.working_directory >>
         steps:
           - checkout
           - tools-info
@@ -155,7 +151,6 @@ workflows:
     jobs:
       - architect/go-test-legacy:
           name: go-test-apiextensions
-          working_directory: /go/src/github.com/giantswarm/apiextensions
       - architect/go-build-legacy:
           name: go-build-apiextensions
           requires:
