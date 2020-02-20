@@ -43,7 +43,6 @@ orbs:
               command: |
                 mkdir -p /go/src/github.com/${CIRCLE_PROJECT_USERNAME}
                 ln -s /go/src/project /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
-                cd /go/src/github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
           - run:
               name: Installing Dep
               command: |
@@ -51,6 +50,7 @@ orbs:
           - run:
               name: Running Dep Ensure
               command: |
+                export DEPPROJECTROOT=github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
                 dep ensure && git diff --exit-code
           - run:
               name: Installing Goimports
@@ -63,8 +63,9 @@ orbs:
           - run:
               name: Ensuring Imports Are Properly Sorted
               command: |
-                if [[ -n $(goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -l .) ]];
-                  then goimports -local github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} -d . && exit 1;
+                export PACKAGE=github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}
+                if [[ -n $(goimports -local $PACKAGE -l .) ]];
+                  then goimports -local $PACKAGE -d . && exit 1;
                 fi
           - run:
               name: Running Go Fmt
