@@ -1,0 +1,67 @@
+apiVersion: core.giantswarm.io/v1alpha1
+kind: Ignition
+metadata:
+  creationTimestamp: null
+  name: example
+spec:
+  apiServerEncryptionKey: ""
+  baseDomain: ""
+  calico:
+    cidr: ""
+    disable: false
+    mtu: ""
+    subnet: ""
+  clusterID: ""
+  disableEncryptionAtRest: false
+  docker:
+    daemon:
+      cidr: ""
+    networkSetup:
+      image: ""
+  etcd:
+    domain: ""
+    port: 0
+    prefix: ""
+  extension:
+    files: null
+    units: null
+    users: null
+  ingress:
+    disable: false
+  isMaster: false
+  kubernetes:
+    api:
+      domain: ""
+      securePort: 0
+    cloudProvider: ""
+    dns:
+      ip: ""
+    domain: ""
+    ipRange: ""
+    kubelet:
+      domain: ""
+    oidc:
+      clientID: ""
+      enabled: false
+      groupsClaim: ""
+      groupsPrefix: ""
+      issuerUrl: ""
+      usernameClaim: ""
+      usernamePrefix: ""
+  provider: ""
+  registry:
+    domain: ""
+    pullProgressDeadline: ""
+  sso:
+    publicKey: ""
+status:
+  dataSecretName:
+    name: ""
+    namespace: ""
+    resourceVersion: ""
+  failureMessage: ""
+  failureReason: ""
+  ready: false
+  verification:
+    algorithm: ""
+    hash: ""
