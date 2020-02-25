@@ -9,6 +9,7 @@ chart:
       name: "mychart-secrets"
       namespace: "default"
   tarballURL: "https://giantswarm.github.io/sample-catalog/kubernetes-test-app-chart-0.6.8.tgz"
+  version: "0.6.8"
 
 chartOperator:
   version: "1.0.0"
