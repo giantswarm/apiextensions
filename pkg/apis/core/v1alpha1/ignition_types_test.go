@@ -22,7 +22,7 @@ var (
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_GenerateYAML(t *testing.T) {
+func Test_GenerateIgnitionYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string

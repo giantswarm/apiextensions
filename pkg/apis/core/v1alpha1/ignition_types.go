@@ -8,21 +8,18 @@ import (
 
 const (
 	kindIgnition = "Ignition"
-)
-
-const ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
+	ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
   name: ignitions.core.giantswarm.io
 spec:
   additionalPrinterColumns:
-  - JSONPath: '{.status.ready}'
-    description: Indicates that the ignition secret has been successfully rendered
-      and is ready to be used
-    format: boolean
-    name: ready
-    type: boolean
+    - jsonPath: .status.ready
+      description: Indicates that the ignition secret has been successfully rendered
+        and is ready to be used
+      name: ready
+      type: boolean
   group: core.giantswarm.io
   names:
     kind: Ignition
@@ -31,13 +28,22 @@ spec:
     shortNames:
     - "ign"
   scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+          properties:
+            apiServerEncryptionKey:
+              type: string
   versions:
   - name: v1alpha1
     served: true
     storage: true
-    subresources:
-      status: {}
-`
+`)
 
 var ignitionCRD *apiextensionsv1beta1.CustomResourceDefinition
 
