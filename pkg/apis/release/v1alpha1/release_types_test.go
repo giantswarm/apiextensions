@@ -52,11 +52,6 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			},
 			errors: []*errors.Validation{
 				{
-					Name:  "metadata.name",
-					In:    "body",
-					Value: nil,
-				},
-				{
 					Name:  "spec.apps",
 					In:    "body",
 					Value: "null",

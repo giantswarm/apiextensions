@@ -11,7 +11,7 @@ const (
 	releaseCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: Release.release.giantswarm.io
+  name: releases.release.giantswarm.io
 spec:
   group: release.giantswarm.io
   names:
@@ -24,13 +24,12 @@ spec:
   scope: Cluster
   validation:
     openAPIV3Schema:
+      type: object
       required:
       - metadata
       properties:
         metadata:
           type: object
-          required:
-          - name
           properties:
             name:
               pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
