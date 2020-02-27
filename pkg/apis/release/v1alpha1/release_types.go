@@ -22,67 +22,67 @@ spec:
     - rel
   preserveUnknownFields: false
   scope: Cluster
+  validation:
+    openAPIV3Schema:
+      required:
+      - metadata
+      properties:
+        metadata:
+          type: object
+          required:
+          - name
+          properties:
+            name:
+              pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+              type: string
+        spec:
+          properties:
+            apps:
+              items:
+                properties:
+                  componentVersion:
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                    type: string
+                  name:
+                    minLength: 1
+                    type: string
+                  version:
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                    type: string
+                required:
+                - name
+                - version
+                type: object
+              type: array
+            components:
+              items:
+                properties:
+                  name:
+                    minLength: 1
+                    type: string
+                  version:
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                    type: string
+                required:
+                - name
+                - version
+                type: object
+              minItems: 1
+              type: array
+            state:
+              pattern: ^(active|deprecated|wip)$
+              type: string
+            version:
+              pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+              type: string
+          required:
+          - components
+          - apps
+          - state
+          - version
+          type: object
   versions:
   - name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        required:
-        - metadata
-        properties:
-          metadata:
-            type: object
-            required:
-            - name
-            properties:
-              name:
-                pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
-                type: string
-          spec:
-            properties:
-              apps:
-                items:
-                  properties:
-                    componentVersion:
-                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-                      type: string
-                    name:
-                      minLength: 1
-                      type: string
-                    version:
-                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-                      type: string
-                  required:
-                  - name
-                  - version
-                  type: object
-                type: array
-              components:
-                items:
-                  properties:
-                    name:
-                      minLength: 1
-                      type: string
-                    version:
-                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-                      type: string
-                  required:
-                  - name
-                  - version
-                  type: object
-                minItems: 1
-                type: array
-              state:
-                pattern: ^(active|deprecated|wip)$
-                type: string
-              version:
-                pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
-                type: string
-            required:
-            - components
-            - apps
-            - state
-            - version
-            type: object
     served: true
     storage: true
 `

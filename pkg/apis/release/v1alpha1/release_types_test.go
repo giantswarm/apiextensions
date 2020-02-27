@@ -313,7 +313,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 	crd := NewReleaseCRD()
 
 	var v apiextensions.CustomResourceValidation
-	err := v1beta1.Convert_v1beta1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crd.Spec.Versions[0].Schema, &v, nil)
+	err := v1beta1.Convert_v1beta1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crd.Spec.Validation, &v, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
