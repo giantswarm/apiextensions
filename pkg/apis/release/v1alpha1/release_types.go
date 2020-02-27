@@ -11,7 +11,6 @@ const (
 	releaseCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  creationTimestamp: null
   name: Release.release.giantswarm.io
 spec:
   group: release.giantswarm.io
