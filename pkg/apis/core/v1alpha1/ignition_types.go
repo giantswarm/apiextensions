@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	kindIgnition = "Ignition"
+	kindIgnition    = "Ignition"
 	ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
@@ -43,7 +43,8 @@ spec:
   - name: v1alpha1
     served: true
     storage: true
-`)
+`
+)
 
 var ignitionCRD *apiextensionsv1beta1.CustomResourceDefinition
 
