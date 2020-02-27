@@ -22,6 +22,12 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
+var (
+	_, b, _, _ = goruntime.Caller(0)
+	root       = filepath.Dir(b)
+	update     = flag.Bool("update", false, "update generated YAMLs")
+)
+
 func Test_NewReleaseCRD(t *testing.T) {
 	crd := NewReleaseCRD()
 	if crd == nil {
@@ -31,10 +37,6 @@ func Test_NewReleaseCRD(t *testing.T) {
 	if crd.Name == "" {
 		t.Error("Release CRD name was empty.")
 	}
-}
-
-func sortErrors(errors []*errors.Validation) {
-	sort.Slice(errors, func(i, j int) bool { return errors[i].Name < errors[j].Name })
 }
 
 func Test_ReleaseCRValidation(t *testing.T) {
@@ -276,8 +278,8 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			},
 			errors: []*errors.Validation{
 				{
-					Name:  "metadata.name",
-					In:    "body",
+					Name: "metadata.name",
+					In:   "body",
 				},
 			},
 		},
@@ -302,8 +304,8 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			},
 			errors: []*errors.Validation{
 				{
-					Name:  "metadata.name",
-					In:    "body",
+					Name: "metadata.name",
+					In:   "body",
 				},
 			},
 		},
@@ -351,14 +353,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 	}
 }
 
-
-var (
-	_, b, _, _ = goruntime.Caller(0)
-	root       = filepath.Dir(b)
-	update     = flag.Bool("update", false, "update generated YAMLs")
-)
-
-func Test_GenerateYAML(t *testing.T) {
+func Test_GenerateReleaseYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
@@ -422,4 +417,8 @@ func Test_GenerateYAML(t *testing.T) {
 			}
 		})
 	}
+}
+
+func sortErrors(errors []*errors.Validation) {
+	sort.Slice(errors, func(i, j int) bool { return errors[i].Name < errors[j].Name })
 }

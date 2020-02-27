@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	kindRelease = "Release"
+	kindRelease    = "Release"
 	releaseCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
@@ -86,7 +86,8 @@ spec:
             type: object
     served: true
     storage: true
-`)
+`
+)
 
 type ReleaseState string
 
