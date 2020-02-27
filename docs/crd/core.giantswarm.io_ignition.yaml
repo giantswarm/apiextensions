@@ -15,6 +15,8 @@ spec:
   names:
     kind: Ignition
     plural: ignitions
+    shortNames:
+    - ign
     singular: ignition
   scope: Namespaced
   versions:

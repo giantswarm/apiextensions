@@ -1,9 +1,9 @@
 package v1alpha1
 
 import (
-	"github.com/ghodss/yaml"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/yaml"
 )
 
 const (
@@ -28,6 +28,8 @@ spec:
     kind: Ignition
     plural: ignitions
     singular: ignition
+    shortNames:
+    - "ign"
   scope: Namespaced
   versions:
   - name: v1alpha1
@@ -35,18 +37,12 @@ spec:
     storage: true
     subresources:
       status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: null
-  storedVersions: null
 `
 
 var ignitionCRD *apiextensionsv1beta1.CustomResourceDefinition
 
 func init() {
-	err := yaml.Unmarshal([]byte(ignitionCRDYAML), &ignitionCRD)
+	err := yaml.UnmarshalStrict([]byte(ignitionCRDYAML), &ignitionCRD)
 	if err != nil {
 		panic(err)
 	}

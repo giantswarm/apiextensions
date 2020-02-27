@@ -7,16 +7,17 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"runtime"
+	goruntime "runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
 
 var (
-	_, b, _, _ = runtime.Caller(0)
+	_, b, _, _ = goruntime.Caller(0)
 	root       = filepath.Dir(b)
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
@@ -25,7 +26,7 @@ func Test_GenerateYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
-		resource interface{}
+		resource runtime.Object
 	}{
 		{
 			category: "crd",
@@ -35,7 +36,7 @@ func Test_GenerateYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_ignition.yaml", group, version),
-			resource: Ignition{
+			resource: &Ignition{
 				ObjectMeta: v1.ObjectMeta{
 					Name: "example",
 				},
@@ -55,7 +56,7 @@ func Test_GenerateYAML(t *testing.T) {
 	}
 
 	for i, tc := range testCases {
-		t.Run(fmt.Sprintf("case %d: %s", i, tc.name), func(t *testing.T) {
+		t.Run(fmt.Sprintf("case %d: generates %s successfully", i, tc.name), func(t *testing.T) {
 			rendered, err := yaml.Marshal(tc.resource)
 			if err != nil {
 				t.Fatal(err)
