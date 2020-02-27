@@ -1,14 +1,92 @@
 package v1alpha1
 
 import (
-	"github.com/giantswarm/apiextensions/pkg/key"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/yaml"
 )
 
 const (
 	kindRelease = "Release"
-)
+	releaseCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: Release.release.giantswarm.io
+spec:
+  group: release.giantswarm.io
+  names:
+    kind: Release
+    plural: releases
+    singular: release
+    shortNames:
+    - rel
+  preserveUnknownFields: false
+  scope: Cluster
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        required:
+        - metadata
+        properties:
+          metadata:
+            type: object
+            required:
+            - name
+            properties:
+              name:
+                pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+                type: string
+          spec:
+            properties:
+              apps:
+                items:
+                  properties:
+                    componentVersion:
+                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                      type: string
+                    name:
+                      minLength: 1
+                      type: string
+                    version:
+                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                      type: string
+                  required:
+                  - name
+                  - version
+                  type: object
+                type: array
+              components:
+                items:
+                  properties:
+                    name:
+                      minLength: 1
+                      type: string
+                    version:
+                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                      type: string
+                  required:
+                  - name
+                  - version
+                  type: object
+                minItems: 1
+                type: array
+              state:
+                pattern: ^(active|deprecated|wip)$
+                type: string
+              version:
+                pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                type: string
+            required:
+            - components
+            - apps
+            - state
+            - version
+            type: object
+    served: true
+    storage: true
+`)
 
 type ReleaseState string
 
@@ -16,22 +94,20 @@ var (
 	StateActive     ReleaseState = "active"
 	StateDeprecated ReleaseState = "deprecated"
 	StateWIP        ReleaseState = "wip"
-
-	validStates = []string{
-		string(StateActive),
-		string(StateDeprecated),
-		string(StateWIP),
-	}
 )
+
+var releaseCRD *apiextensionsv1beta1.CustomResourceDefinition
+
+func init() {
+	err := yaml.UnmarshalStrict([]byte(releaseCRDYAML), &releaseCRD)
+	if err != nil {
+		panic(err)
+	}
+}
 
 // NewReleaseCRD returns a new custom resource definition for Release.
 func NewReleaseCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	schema := apiextensionsv1beta1.JSONSchemaProps{
-		Properties: map[string]apiextensionsv1beta1.JSONSchemaProps{
-			"spec": specPropertySchema,
-		},
-	}
-	return key.NewCRD(kindRelease, group, version, "Cluster", schema)
+	return releaseCRD.DeepCopy()
 }
 
 func NewReleaseTypeMeta() metav1.TypeMeta {
@@ -45,23 +121,6 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Release CRs might look something like the following.
-//
-//  apiVersion: release.giantswarm.io/v1alpha1
-//  kind: Release
-//  metadata:
-//    name: 13.0.0
-//  spec:
-//    version: 13.0.0
-//    state: active
-//    apps:
-//      - name: net-exporter
-//        version: 1.0.0
-//        componentVersion: 0.2.0
-//    components:
-//      - name: kubernetes
-//        version: 1.18.0-alpha.3
-//
 type Release struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
 	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`

@@ -1,0 +1,10 @@
+apiVersion: release.giantswarm.io/v1alpha1
+kind: Release
+metadata:
+  creationTimestamp: null
+  name: example
+spec:
+  apps: null
+  components: null
+  state: ""
+  version: ""
