@@ -194,6 +194,8 @@ type ChartStatus struct {
 	// e.g. 0.21.0.
 	// https://docs.helm.sh/developing_charts/#the-chart-yaml-file
 	AppVersion string `json:"appVersion" yaml:"appVersion"`
+	// LastReconciled is the time when the app was last reconciled by chart-operator.
+	LastReconciled DeepCopyTime `json:"lastReconciled" yaml:"lastReconciled"`
 	// Reason is the description of the last status of helm release when the chart is
 	// not installed successfully, e.g. deploy resource already exists.
 	Reason string `json:"reason,omitempty" yaml:"reason,omitempty"`

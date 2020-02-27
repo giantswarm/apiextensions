@@ -303,6 +303,8 @@ type AppStatus struct {
 type AppStatusRelease struct {
 	// LastDeployed is the time when the app was last deployed.
 	LastDeployed DeepCopyTime `json:"lastDeployed" yaml:"lastDeployed"`
+	// LastReconciled is the time when the app was last reconciled by app-operator.
+	LastReconciled DeepCopyTime `json:"lastReconciled" yaml:"lastReconciled"`
 	// Reason is the description of the last status of helm release when the app is
 	// not installed successfully, e.g. deploy resource already exists.
 	Reason string `json:"reason,omitempty" yaml:"reason,omitempty"`
