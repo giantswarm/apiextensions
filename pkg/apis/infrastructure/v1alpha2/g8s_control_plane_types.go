@@ -26,6 +26,17 @@ spec:
   subresources:
     status: {}
   versions:
+  - name: v1alpha1
+    served: false
+    storage: false
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              replicas:
+                type: int
+            type: object
   - name: v1alpha2
     served: true
     storage: true
@@ -75,29 +86,31 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// G8sControlPlane defines the ControlPlane (Master nodes) of a
-// Giant Swarm Tenant Cluster
+// G8sControlPlane defines the Control Plane Nodes (Kubernetes Master Nodes) of
+// a Giant Swarm Tenant Cluster
 //
-//	apiVersion: infrastructure.giantswarm.io/v1alpha2
-//	kind: G8sControlPlane
-//	metadata:
-//    labels:
-//      aws-operator.giantswarm.io/version: 6.2.0
-//      cluster-operator.giantswarm.io/version: 0.17.0
-//      giantswarm.io/cluster: "8y5kc"
-//      giantswarm.io/organization: "giantswarm"
-//      release.giantswarm.io/version: 7.3.1
-//    name: 8y5kc
-//	spec:
-//    replicas: 3
-//    infrastructureRef:
-//      kind: AWSControlPlane
-//      namespace: default
-//      name: 5f3kb
-//      apiVersion: infrastructure.giantswarm.io/v1alpha2
-//  status:
-//    replicas: 3
-//    readyReplicas: 3
+//     apiVersion: infrastructure.giantswarm.io/v1alpha2
+//     kind: G8sControlPlane
+//     metadata:
+//       annotations:
+//         giantswarm.io/docs: https://docs.giantswarm.io/reference/g8scontrolplanes.infrastructure.giantswarm.io/v1alpha2/
+//       labels:
+//         aws-operator.giantswarm.io/version: "6.2.0"
+//         cluster-operator.giantswarm.io/version: "0.17.0"
+//         giantswarm.io/cluster: 8y5kc
+//         giantswarm.io/organization: giantswarm
+//         release.giantswarm.io/version: "7.3.1"
+//       name: 8y5kc
+//     spec:
+//       infrastructureRef:
+//         apiVersion: infrastructure.giantswarm.io/v1alpha2
+//         kind: AWSControlPlane
+//         name: 5f3kb
+//         namespace: default
+//       replicas: 3
+//     status:
+//       readyReplicas: 3
+//       replicas: 3
 //
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
