@@ -81,7 +81,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps: []ReleaseSpecApp{
 						{
@@ -108,7 +108,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps: []ReleaseSpecApp{
 						{
@@ -136,7 +136,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps:    []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -157,7 +157,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps:    []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -183,7 +183,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "v13.1.2",
 					Apps:    []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -239,7 +239,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps:    []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -260,7 +260,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps:    []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -286,7 +286,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   StateActive,
+					State:   stateActive,
 					Version: "13.1.2",
 					Apps:    []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -364,9 +364,23 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 			name:     fmt.Sprintf("%s_%s_release.yaml", group, version),
 			resource: &Release{
 				ObjectMeta: v1.ObjectMeta{
-					Name: "example",
+					Name: "v12.0.0",
+					Annotations: map[string]string{
+						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/releases.release.giantswarm.io/v1alpha1/",
+					},
 				},
 				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					Apps:       []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "1.18.0",
+						},
+					},
+					State:      stateWIP,
+					Version:    "12.0.0",
+				},
 			},
 		},
 	}

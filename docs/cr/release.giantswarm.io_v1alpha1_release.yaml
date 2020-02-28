@@ -1,10 +1,14 @@
 apiVersion: release.giantswarm.io/v1alpha1
 kind: Release
 metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/releases.release.giantswarm.io/v1alpha1/
   creationTimestamp: null
-  name: example
+  name: v12.0.0
 spec:
-  apps: null
-  components: null
-  state: ""
-  version: ""
+  apps: []
+  components:
+  - name: kubernetes
+    version: 1.18.0
+  state: wip
+  version: 12.0.0

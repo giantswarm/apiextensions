@@ -11,41 +11,71 @@ const (
 	releaseCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
+  creationTimestamp: null
   name: releases.release.giantswarm.io
 spec:
+  additionalPrinterColumns:
+    - name: Kubernetes version
+      type: string
+      description: Version of the kubernetes component in this release
+      JSONPath: .spec.components[?(@.name=="kubernetes")].version
+    - name: State
+      type: string
+      description: State of the release
+      JSONPath: .spec.state
+    - name: Age
+      type: date
+      description: Time since release creation
+      JSONPath: .metadata.creationTimestamp
   group: release.giantswarm.io
   names:
     kind: Release
     plural: releases
-    singular: release
     shortNames:
     - rel
+    singular: release
   preserveUnknownFields: false
   scope: Cluster
   validation:
     openAPIV3Schema:
-      type: object
-      required:
-      - metadata
+      description: |
+        A Release holds information about a particular version of the Giant Swarm platform which
+        can be used as a target for creation or upgrade of a cluster. It is a tested package
+        comprising a particular Kubernetes version along with compatible Giant Swarm operators,
+        monitoring, and default apps.
       properties:
         metadata:
-          type: object
           properties:
             name:
               pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
               type: string
+          type: object
         spec:
+          description: |
+            Spec holds the data defining the desired state of a release.
           properties:
             apps:
+              description: |
+                Apps is a list of Giant Swarm-managed apps which will be installed by default
+                on clusters created with this release version.
               items:
                 properties:
                   componentVersion:
+                    description: |
+                      Component version is the upstream version of this app. It may be empty if this
+                      is a Giant Swarm developed app.
                     pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
                     type: string
                   name:
+                    description: |
+                      Name is the name of the app.
                     minLength: 1
                     type: string
                   version:
+                    description: |
+                      Version is the internal version of the app managed by Giant Swarm. Because apps
+                      may be released without upstream changes, this will generally differ from the
+                      component version.
                     pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
                     type: string
                 required:
@@ -54,12 +84,18 @@ spec:
                 type: object
               type: array
             components:
+              description: |
+                Components is a list of internal and upstream components making up the core of the cluster.
               items:
                 properties:
                   name:
+                    description: |
+                      Name is the name of the component.
                     minLength: 1
                     type: string
                   version:
+                    description: |
+                      Version is the semantic version of the component.
                     pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
                     type: string
                 required:
@@ -69,10 +105,17 @@ spec:
               minItems: 1
               type: array
             state:
+              description: |
+                State indicates how this release should be used. "wip" means the release is a work
+                in progress. "deprecated" means old clusters using this version will continue to function
+                but new clusters should use a more recent release. "active" means this is a current
+                supported release.
               pattern: ^(active|deprecated|wip)$
               type: string
             version:
-              pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+              description: |
+                Semantic version of the release.
+              pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
               type: string
           required:
           - components
@@ -80,6 +123,9 @@ spec:
           - state
           - version
           type: object
+      required:
+      - metadata
+      type: object
   versions:
   - name: v1alpha1
     served: true
@@ -90,12 +136,11 @@ spec:
 type ReleaseState string
 
 var (
-	StateActive     ReleaseState = "active"
-	StateDeprecated ReleaseState = "deprecated"
-	StateWIP        ReleaseState = "wip"
+	stateActive     ReleaseState = "active"
+	stateDeprecated ReleaseState = "deprecated"
+	stateWIP        ReleaseState = "wip"
+	releaseCRD *apiextensionsv1beta1.CustomResourceDefinition
 )
-
-var releaseCRD *apiextensionsv1beta1.CustomResourceDefinition
 
 func init() {
 	err := yaml.UnmarshalStrict([]byte(releaseCRDYAML), &releaseCRD)
