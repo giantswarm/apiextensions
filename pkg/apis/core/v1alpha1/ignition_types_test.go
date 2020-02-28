@@ -25,17 +25,20 @@ var (
 func Test_GenerateIgnitionYAML(t *testing.T) {
 	testCases := []struct {
 		category string
+		filename string
 		name     string
 		resource runtime.Object
 	}{
 		{
 			category: "crd",
-			name:     fmt.Sprintf("%s_ignition.yaml", group),
+			filename: fmt.Sprintf("%s_ignition.yaml", group),
+			name:     fmt.Sprintf("%s_ignition.yaml is generated successfully", group),
 			resource: NewIgnitionCRD(),
 		},
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_ignition.yaml", group, version),
+			filename: fmt.Sprintf("%s_%s_ignition.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_ignition.yaml is generate successfully", group, version),
 			resource: &Ignition{
 				ObjectMeta: v1.ObjectMeta{
 					Name: "example",
@@ -56,26 +59,20 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 	}
 
 	for i, tc := range testCases {
-		t.Run(fmt.Sprintf("case %d: generates %s successfully", i, tc.name), func(t *testing.T) {
+		t.Run(fmt.Sprintf("case %d: %s", i, tc.name), func(t *testing.T) {
 			rendered, err := yaml.Marshal(tc.resource)
 			if err != nil {
 				t.Fatal(err)
 			}
-			directory := filepath.Join(docs, tc.category)
-			path := filepath.Join(directory, tc.name)
 
+			path := filepath.Join(docs, tc.category, tc.filename)
 			if *update {
-				if _, err := os.Stat(directory); os.IsNotExist(err) {
-					err = os.Mkdir(directory, 0755)
-					if err != nil {
-						t.Fatal(err)
-					}
-				}
 				err := ioutil.WriteFile(path, rendered, 0644)
 				if err != nil {
 					t.Fatal(err)
 				}
 			}
+
 			goldenFile, err := ioutil.ReadFile(path)
 			if err != nil {
 				t.Fatal(err)
