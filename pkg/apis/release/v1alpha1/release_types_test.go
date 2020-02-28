@@ -371,15 +371,15 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					Apps:       []ReleaseSpecApp{},
+					Apps: []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
 							Version: "1.18.0",
 						},
 					},
-					State:      stateWIP,
-					Version:    "12.0.0",
+					State:   stateWIP,
+					Version: "12.0.0",
 				},
 			},
 		},

@@ -139,7 +139,7 @@ var (
 	stateActive     ReleaseState = "active"
 	stateDeprecated ReleaseState = "deprecated"
 	stateWIP        ReleaseState = "wip"
-	releaseCRD *apiextensionsv1beta1.CustomResourceDefinition
+	releaseCRD      *apiextensionsv1beta1.CustomResourceDefinition
 )
 
 func init() {
