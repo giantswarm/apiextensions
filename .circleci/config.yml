@@ -8,12 +8,12 @@ workflows:
     jobs:
       - architect/go-test-legacy:
           name: test
-      - architect/go-architect:
+      - architect/go-architect-legacy:
           name: build
           command: build
           requires:
             - test
-      - architect/go-architect:
+      - architect/go-architect-legacy:
           name: deploy
           command: deploy
           requires:
