@@ -73,6 +73,9 @@ func NewIgnitionTypeMeta() metav1.TypeMeta {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.
+//
+// An example Ignition resource can be viewed here
+// https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_ignition.yaml
 type Ignition struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
