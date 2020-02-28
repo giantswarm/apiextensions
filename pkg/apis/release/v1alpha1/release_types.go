@@ -164,6 +164,10 @@ func NewReleaseTypeMeta() metav1.TypeMeta {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
+// Release is a Kubernetes resource (CR) which is based on the Release CRD defined above.
+//
+// An example Release resource can be viewed here
+// https://github.com/giantswarm/apiextensions/blob/master/docs/cr/release.giantswarm.io_v1alpha1_release.yaml
 type Release struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
 	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`
