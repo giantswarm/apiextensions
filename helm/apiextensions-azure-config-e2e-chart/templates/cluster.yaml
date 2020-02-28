@@ -5,6 +5,7 @@ metadata:
   namespace: "default"
   labels:
     giantswarm.io/cluster: "{{ .Values.clusterName }}"
+    azure-operator.giantswarm.io/version: "{{ .Values.versionBundleVersion }}"
 spec:
   azure:
     {{ if gt (len .Values.azure.availabilityZones) 0 -}}
