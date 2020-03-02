@@ -1,52 +1,55 @@
 package v1alpha1
 
 import (
-	"github.com/ghodss/yaml"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/yaml"
 )
 
 const (
-	kindIgnition = "Ignition"
-)
-
-const ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
+	kindIgnition    = "Ignition"
+	ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
   name: ignitions.core.giantswarm.io
 spec:
   additionalPrinterColumns:
-  - JSONPath: '{.status.ready}'
-    description: Indicates that the ignition secret has been successfully rendered
-      and is ready to be used
-    format: boolean
-    name: ready
-    type: boolean
+    - jsonPath: .status.ready
+      description: Indicates that the ignition secret has been successfully rendered
+        and is ready to be used
+      name: ready
+      type: boolean
   group: core.giantswarm.io
   names:
     kind: Ignition
     plural: ignitions
     singular: ignition
+    shortNames:
+    - "ign"
   scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      type: object
+      properties:
+        spec:
+          type: object
+          properties:
+            apiServerEncryptionKey:
+              type: string
   versions:
   - name: v1alpha1
     served: true
     storage: true
-    subresources:
-      status: {}
-status:
-  acceptedNames:
-    kind: ""
-    plural: ""
-  conditions: null
-  storedVersions: null
 `
+)
 
 var ignitionCRD *apiextensionsv1beta1.CustomResourceDefinition
 
 func init() {
-	err := yaml.Unmarshal([]byte(ignitionCRDYAML), &ignitionCRD)
+	err := yaml.UnmarshalStrict([]byte(ignitionCRDYAML), &ignitionCRD)
 	if err != nil {
 		panic(err)
 	}
@@ -70,6 +73,9 @@ func NewIgnitionTypeMeta() metav1.TypeMeta {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.
+//
+// An example Ignition resource can be viewed here
+// https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_ignition.yaml
 type Ignition struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
