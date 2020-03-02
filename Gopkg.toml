@@ -56,6 +56,9 @@ required = [
   name = "k8s.io/api"
   version = "kubernetes-1.16.3"
 
+[[override]]
+  name = "github.com/go-openapi/validate"
+  version = "=0.19.2"
 
 
 [prune]
