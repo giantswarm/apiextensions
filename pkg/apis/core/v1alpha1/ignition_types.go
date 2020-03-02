@@ -157,11 +157,11 @@ type IgnitionSpecEtcd struct {
 
 type IgnitionSpecExtension struct {
 	// Files is an optional array of files which will be rendered and added to the final node ignition.
-	Files []IgnitionSpecExtensionFile `json:"files" yaml:"files"`
+	Files []IgnitionSpecExtensionFile `json:"files,omitempty" yaml:"files"`
 	// Files is an optional array of systemd units which will be rendered and added to the final node ignition.
-	Units []IgnitionSpecExtensionUnit `json:"units" yaml:"units"`
+	Units []IgnitionSpecExtensionUnit `json:"units,omitempty" yaml:"units"`
 	// Files is an optional array of users which will be added to the final node ignition.
-	Users []IgnitionSpecExtensionUser `json:"users" yaml:"users"`
+	Users []IgnitionSpecExtensionUser `json:"users,omitempty" yaml:"users"`
 }
 
 type IgnitionSpecExtensionFile struct {

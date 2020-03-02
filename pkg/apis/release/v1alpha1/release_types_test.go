@@ -5,8 +5,8 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"path/filepath"
+	"regexp"
 	goruntime "runtime"
 	"sort"
 	"testing"
@@ -366,7 +366,7 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 				ObjectMeta: v1.ObjectMeta{
 					Name: "v12.0.0",
 					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/releases.release.giantswarm.io/v1alpha1/",
+						"giantswarm.io/docs": "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1?tab=doc#Release",
 					},
 				},
 				TypeMeta: NewReleaseTypeMeta(),
@@ -386,15 +386,6 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 	}
 
 	docs := filepath.Join(root, "..", "..", "..", "..", "docs")
-	if *update {
-		if _, err := os.Stat(docs); os.IsNotExist(err) {
-			err = os.Mkdir(docs, 0755)
-			if err != nil {
-				t.Fatal(err)
-			}
-		}
-	}
-
 	for i, tc := range testCases {
 		t.Run(fmt.Sprintf("case %d: generates %s successfully", i, tc.name), func(t *testing.T) {
 			rendered, err := yaml.Marshal(tc.resource)
@@ -404,13 +395,12 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 			directory := filepath.Join(docs, tc.category)
 			path := filepath.Join(directory, tc.name)
 
+			// We don't want a status in the docs YAML for the CR and CRD so that they work with `kubectl create -f <file>.yaml`.
+			// This just strips off the top level `status:` and everything following.
+			re := regexp.MustCompile(`(?ms)^status:.*$`)
+			rendered = re.ReplaceAll(rendered, []byte(""))
+
 			if *update {
-				if _, err := os.Stat(directory); os.IsNotExist(err) {
-					err = os.Mkdir(directory, 0755)
-					if err != nil {
-						t.Fatal(err)
-					}
-				}
 				err := ioutil.WriteFile(path, rendered, 0644)
 				if err != nil {
 					t.Fatal(err)
