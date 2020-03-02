@@ -2,7 +2,7 @@ apiVersion: release.giantswarm.io/v1alpha1
 kind: Release
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/releases.release.giantswarm.io/v1alpha1/
+    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1?tab=doc#Release
   creationTimestamp: null
   name: v12.0.0
 spec:
