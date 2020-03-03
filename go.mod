@@ -4,6 +4,7 @@ go 1.13
 
 require (
 	github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
+	github.com/go-openapi/errors v0.19.2
 	github.com/google/go-cmp v0.3.0
 	k8s.io/api v0.16.6
 	k8s.io/apiextensions-apiserver v0.16.6
