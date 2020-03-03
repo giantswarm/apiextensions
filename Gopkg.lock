@@ -50,14 +50,6 @@
   revision = "25d852aebe32c875e9c044af3eef9c7dc6bc777f"
 
 [[projects]]
-  branch = "master"
-  digest = "1:5613edec666c3b6d357f27b9072806d9f783e405cf167f04d6a9ce48dd4590a9"
-  name = "github.com/giantswarm/to"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "f2078541ec95746f9e8631c944a16592d185b2d7"
-
-[[projects]]
   digest = "1:59e98a91b61e51b9457ee4e13a128f207bd66871cc84bef92a779a7d82711e93"
   name = "github.com/go-openapi/analysis"
   packages = [
@@ -615,7 +607,6 @@
   analyzer-version = 1
   input-imports = [
     "github.com/ghodss/yaml",
-    "github.com/giantswarm/to",
     "github.com/go-openapi/errors",
     "github.com/google/go-cmp/cmp",
     "github.com/google/go-cmp/cmp/cmpopts",
