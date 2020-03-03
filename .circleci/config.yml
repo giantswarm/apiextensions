@@ -6,5 +6,5 @@ orbs:
 workflows:
   workflow:
     jobs:
-      - architect/go-build:
-          name: build
+      - architect/go-test:
+          name: go-test-apiextensions
