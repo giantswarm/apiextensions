@@ -1,0 +1,35 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: ignitions.core.giantswarm.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .status.ready
+    description: Indicates that the ignition secret has been successfully rendered
+      and is ready to be used
+    name: ready
+    type: boolean
+  group: core.giantswarm.io
+  names:
+    kind: Ignition
+    plural: ignitions
+    shortNames:
+    - ign
+    singular: ignition
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          properties:
+            apiServerEncryptionKey:
+              type: string
+          type: object
+      type: object
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
