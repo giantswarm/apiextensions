@@ -1,19 +1,23 @@
-version: 2
-jobs:
-  build:
-    machine: true
-    steps:
-    - checkout
+version: 2.1
 
-    - run: |
-        wget -q $(curl -sS -H "Authorization: token $RELEASE_TOKEN" https://api.github.com/repos/giantswarm/architect/releases/latest | grep browser_download_url | head -n 1 | cut -d '"' -f 4)
-        chmod +x ./architect
-        ./architect version
-    - run: ./architect build
-    - store_test_results:
-        path: /tmp/results
-    - deploy:
-        command: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            ./architect deploy
-          fi
+orbs:
+  architect: giantswarm/architect@0.7.0
+
+workflows:
+  workflow:
+    jobs:
+      - architect/go-test-legacy:
+          name: test
+      - architect/go-architect-legacy:
+          name: build
+          command: build
+          requires:
+            - test
+      - architect/go-architect-legacy:
+          name: deploy
+          command: deploy
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
