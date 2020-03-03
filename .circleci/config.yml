@@ -8,3 +8,16 @@ workflows:
     jobs:
       - architect/go-test:
           name: go-test-apiextensions
+      - architect/go-architect-legacy:
+          name: go-build-apiextensions
+          command: build
+          requires:
+            - go-test-apiextensions
+      - architect/go-architect-legacy:
+          name: go-deploy-apiextensions
+          command: deploy
+          requires:
+            - go-build-apiextensions
+          filters:
+            branches:
+              only: master
