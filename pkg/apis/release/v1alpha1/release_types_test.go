@@ -10,6 +10,7 @@ import (
 	goruntime "runtime"
 	"sort"
 	"testing"
+	"time"
 
 	"github.com/go-openapi/errors"
 	"github.com/google/go-cmp/cmp"
@@ -67,9 +68,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 					Value: nil,
 				},
 				{
-					Name:  "spec.version",
+					Name:  "spec.date",
 					In:    "body",
-					Value: nil,
+					Value: "null",
 				},
 			},
 		},
@@ -81,8 +82,8 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
 					Apps: []ReleaseSpecApp{
 						{
 							Name:             "test-app",
@@ -108,8 +109,8 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
 					Apps: []ReleaseSpecApp{
 						{
 							Name:             "test-app",
@@ -136,9 +137,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -157,9 +158,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -183,9 +184,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "v13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -195,10 +196,6 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 			},
 			errors: []*errors.Validation{
-				{
-					Name: "spec.version",
-					In:   "body",
-				},
 				{
 					Name: "spec.components.version",
 					In:   "body",
@@ -213,9 +210,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   "bad",
-					Version: "13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: "bad",
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -239,9 +236,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -260,9 +257,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -286,9 +283,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:   stateActive,
-					Version: "13.1.2",
-					Apps:    []ReleaseSpecApp{},
+					State: stateActive,
+					Date:  &DeepCopyTime{time.Now()},
+					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
 							Name:    "kubernetes",
@@ -326,7 +323,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		result := validator.Validate(tc.cr)
 
 		if !cmp.Equal(len(result.Errors), len(tc.errors)) {
-			t.Errorf("\n\n%s %s\n", tc.name, cmp.Diff(len(result.Errors), len(tc.errors)))
+			t.Fatalf("\n\n%s %s\n", tc.name, cmp.Diff(len(result.Errors), len(tc.errors)))
 		}
 
 		var validationErrors []*errors.Validation
@@ -348,6 +345,97 @@ func Test_ReleaseCRValidation(t *testing.T) {
 	}
 }
 
+func newReleaseExampleCR() *Release {
+	cr := NewReleaseCR()
+	cr.Name = "v11.2.0"
+	cr.Spec = ReleaseSpec{
+		Apps: []ReleaseSpecApp{
+			{
+				Name:    "cert-exporter",
+				Version: "1.2.1",
+			},
+			{
+				Name:    "chart-operator",
+				Version: "0.11.4",
+			},
+			{
+				Name:             "coredns",
+				ComponentVersion: "1.6.5",
+				Version:          "1.1.3",
+			},
+			{
+				Name:             "kube-state-metrics",
+				ComponentVersion: "1.9.2",
+				Version:          "1.0.2",
+			},
+			{
+				Name:             "metrics-server",
+				ComponentVersion: "0.3.3",
+				Version:          "1.0.0",
+			},
+			{
+				Name:    "net-exporter",
+				Version: "1.6.0",
+			},
+			{
+				Name:             "nginx-ingress-controller",
+				ComponentVersion: "0.29.0",
+				Version:          "1.5.0",
+			},
+			{
+				Name:             "node-exporter",
+				ComponentVersion: "0.18.1",
+				Version:          "1.2.0",
+			},
+		},
+		Components: []ReleaseSpecComponent{
+			{
+				Name:    "app-operator",
+				Version: "1.0.0",
+			},
+			{
+				Name:    "cert-operator",
+				Version: "0.1.0",
+			},
+			{
+				Name:    "cluster-operator",
+				Version: "0.23.1",
+			},
+			{
+				Name:    "flannel-operator",
+				Version: "0.2.0",
+			},
+			{
+				Name:    "kvm-operator",
+				Version: "3.10.0",
+			},
+			{
+				Name:    "kubernetes",
+				Version: "1.16.3",
+			},
+			{
+				Name:    "containerlinux",
+				Version: "2247.6",
+			},
+			{
+				Name:    "coredns",
+				Version: "1.6.5",
+			},
+			{
+				Name:    "calico",
+				Version: "3.10.1",
+			},
+			{
+				Name:    "etcd",
+				Version: "3.3.17",
+			},
+		},
+		Date:  &DeepCopyTime{time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
+		State: stateActive,
+	}
+	return cr
+}
+
 func Test_GenerateReleaseYAML(t *testing.T) {
 	testCases := []struct {
 		category string
@@ -362,26 +450,7 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_release.yaml", group, version),
-			resource: &Release{
-				ObjectMeta: v1.ObjectMeta{
-					Name: "v12.0.0",
-					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1?tab=doc#Release",
-					},
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					Apps: []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0",
-						},
-					},
-					State:   stateWIP,
-					Version: "12.0.0",
-				},
-			},
+			resource: newReleaseExampleCR(),
 		},
 	}
 
@@ -397,8 +466,8 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 
 			// We don't want a status in the docs YAML for the CR and CRD so that they work with `kubectl create -f <file>.yaml`.
 			// This just strips off the top level `status:` and everything following.
-			re := regexp.MustCompile(`(?ms)^status:.*$`)
-			rendered = re.ReplaceAll(rendered, []byte(""))
+			statusRegex := regexp.MustCompile(`(?ms)^status:.*$`)
+			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
 				err := ioutil.WriteFile(path, rendered, 0644)
