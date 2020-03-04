@@ -15,8 +15,7 @@ spec:
   subresources:
     status: {}
   versions:
-    -
-      name: v1alpha1
+    - name: v1alpha1
       served: false
       storage: false
       schema:
@@ -29,8 +28,7 @@ spec:
               properties:
                 replicas:
                   type: integer
-    -
-      name: v1alpha2
+    - name: v1alpha2
       served: true
       storage: true
       schema:
