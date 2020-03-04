@@ -1,0 +1,3 @@
+name: apiextensions
+version: 0.1.0
+description: API Extension objects like CRDs to be used in Control Planes.
