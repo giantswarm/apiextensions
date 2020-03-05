@@ -13,7 +13,7 @@ spec:
     description: State of the release
     name: State
     type: string
-  - JSONPath: .metadata.creationTimestamp
+  - JSONPath: .spec.date
     description: Time since release creation
     name: Age
     type: date
@@ -94,6 +94,9 @@ spec:
                 type: object
               minItems: 1
               type: array
+            date:
+              format: date-time
+              type: string
             state:
               description: |
                 State indicates how this release should be used. "wip" means the release is a work
@@ -102,16 +105,11 @@ spec:
                 supported release.
               pattern: ^(active|deprecated|wip)$
               type: string
-            version:
-              description: |
-                Semantic version of the release.
-              pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
-              type: string
           required:
           - components
           - apps
           - state
-          - version
+          - date
           type: object
       required:
       - metadata
