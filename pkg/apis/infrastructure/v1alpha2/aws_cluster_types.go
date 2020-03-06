@@ -7,7 +7,9 @@ import (
 )
 
 const (
-	kindAWSCluster = "AWSCluster"
+	crDocsAnnotation            = "giantswarm.io/docs"
+	kindAWSCluster              = "AWSCluster"
+	awsClusterDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster"
 )
 
 const awsClusterCRDYAML = `
@@ -73,6 +75,18 @@ func NewAWSClusterTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindAWSCluster,
+	}
+}
+
+// NewAWSClusterCR returns an AWSCluster Custom Resource.
+func NewAWSClusterCR() *AWSCluster {
+	return &AWSCluster{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: awsClusterDocumentationLink,
+			},
+		},
+		TypeMeta: NewAWSClusterTypeMeta(),
 	}
 }
 
