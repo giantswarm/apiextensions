@@ -1,24 +1,10 @@
-typemeta:
-  kind: AWSCluster
-  apiversion: infrastructure.giantswarm.io/v1alpha2
-objectmeta:
-  name: g8kw3
-  generatename: ""
-  namespace: ""
-  selflink: ""
-  uid: ""
-  resourceversion: ""
-  generation: 0
-  creationtimestamp: "0001-01-01T00:00:00Z"
-  deletiontimestamp: null
-  deletiongraceperiodseconds: null
-  labels: {}
+apiVersion: infrastructure.giantswarm.io/v1alpha2
+kind: AWSCluster
+metadata:
   annotations:
     giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster
-  ownerreferences: []
-  finalizers: []
-  clustername: ""
-  managedfields: []
+  creationTimestamp: null
+  name: g8kw3
 spec:
   cluster:
     description: Dev cluster
@@ -26,8 +12,8 @@ spec:
       domain: ""
     oidc:
       claims:
-        username: ""
         groups: ""
+        username: ""
       clientID: ""
       issuerURL: ""
   provider:
