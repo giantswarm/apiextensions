@@ -9,18 +9,18 @@ spec:
   cluster:
     description: Dev cluster
     dns:
-      domain: ""
+      domain: g8s.example.com
     oidc:
       claims:
-        groups: ""
-        username: ""
-      clientID: ""
-      issuerURL: ""
+        groups: groups-field
+        username: username-field
+      clientID: some-example-client-id
+      issuerURL: https://idp.example.com/
   provider:
     credentialSecret:
-      name: ""
-      namespace: ""
+      name: example-credential
+      namespace: example-namespace
     master:
-      availabilityZone: ""
-      instanceType: ""
+      availabilityZone: eu-central-1b
+      instanceType: m5.2xlarge
     region: eu-central-1

@@ -18,7 +18,13 @@ import (
 var (
 	_, b, _, _ = goruntime.Caller(0)
 	root       = filepath.Dir(b)
-	update     = flag.Bool("update", false, "update generated YAMLs")
+
+	// This flag allows to call the tests like
+	//
+	//   go test -v ./pkg/apis/infrastructure/v1alpha2 -update
+	//
+	// to create/overwrite the YAML files in /docs/crd and /docs/cr.
+	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
 func Test_NewAWSClusterCRD(t *testing.T) {
@@ -84,19 +90,35 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 
 func newAWSClusterExampleCR() *AWSCluster {
 	cr := NewAWSClusterCR()
+
 	cr.Name = "g8kw3"
 	cr.Spec = AWSClusterSpec{
 		Cluster: AWSClusterSpecCluster{
 			Description: "Dev cluster",
-			DNS:         AWSClusterSpecClusterDNS{},
-			OIDC:        AWSClusterSpecClusterOIDC{},
+			DNS: AWSClusterSpecClusterDNS{
+				Domain: "g8s.example.com",
+			},
+			OIDC: AWSClusterSpecClusterOIDC{
+				Claims: AWSClusterSpecClusterOIDCClaims{
+					Username: "username-field",
+					Groups:   "groups-field",
+				},
+				ClientID:  "some-example-client-id",
+				IssuerURL: "https://idp.example.com/",
+			},
 		},
 		Provider: AWSClusterSpecProvider{
-			CredentialSecret: AWSClusterSpecProviderCredentialSecret{},
-			Master:           AWSClusterSpecProviderMaster{},
-			Region:           "eu-central-1",
+			CredentialSecret: AWSClusterSpecProviderCredentialSecret{
+				Name:      "example-credential",
+				Namespace: "example-namespace",
+			},
+			Master: AWSClusterSpecProviderMaster{
+				AvailabilityZone: "eu-central-1b",
+				InstanceType:     "m5.2xlarge",
+			},
+			Region: "eu-central-1",
 		},
-		//Date:  &DeepCopyTime{time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
 	}
+
 	return cr
 }
