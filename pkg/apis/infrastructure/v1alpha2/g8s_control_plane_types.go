@@ -15,8 +15,6 @@ const g8sControlPlaneCRDYAML = `
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  annotation:
-    helm.sh/hook: crd-install
   name: g8scontrolplanes.infrastructure.giantswarm.io
 spec:
   conversion:
