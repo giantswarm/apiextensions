@@ -1,0 +1,26 @@
+apiVersion: infrastructure.giantswarm.io/v1alpha2
+kind: AWSCluster
+metadata:
+  annotations:
+    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster
+  creationTimestamp: null
+  name: g8kw3
+spec:
+  cluster:
+    description: Dev cluster
+    dns:
+      domain: g8s.example.com
+    oidc:
+      claims:
+        groups: groups-field
+        username: username-field
+      clientID: some-example-client-id
+      issuerURL: https://idp.example.com/
+  provider:
+    credentialSecret:
+      name: example-credential
+      namespace: example-namespace
+    master:
+      availabilityZone: eu-central-1b
+      instanceType: m5.2xlarge
+    region: eu-central-1
