@@ -7,7 +7,9 @@ import (
 )
 
 const (
-	kindApp = "App"
+	crDocsAnnotation     = "giantswarm.io/docs"
+	kindApp              = "App"
+	appDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#App"
 )
 
 const appCRDYAML = `
@@ -131,6 +133,18 @@ func NewAppTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindApp,
+	}
+}
+
+// NewAppCR returns an App Custom Resource.
+func NewAppCR() *App {
+	return &App{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: appDocumentationLink,
+			},
+		},
+		TypeMeta: NewAppTypeMeta(),
 	}
 }
 
