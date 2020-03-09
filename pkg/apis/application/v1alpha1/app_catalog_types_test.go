@@ -42,12 +42,12 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}{
 		{
 			category: "crd",
-			name:     fmt.Sprintf("%s_awscluster.yaml", group),
+			name:     fmt.Sprintf("%s_appcatalog.yaml", group),
 			resource: NewAppCatalogCRD(),
 		},
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_awscluster.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", group, version),
 			resource: newAppCatalogExampleCR(),
 		},
 	}
