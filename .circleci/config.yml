@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@dev:move-lint-to-test-jobs
+  architect: giantswarm/architect@dev:move-lint-to-test-jobs # Test lint
 
 workflows:
   workflow:
