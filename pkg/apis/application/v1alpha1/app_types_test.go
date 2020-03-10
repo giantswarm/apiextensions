@@ -2,29 +2,15 @@ package v1alpha1
 
 import (
 	"bytes"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
-	goruntime "runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
-)
-
-var (
-	_, b, _, _ = goruntime.Caller(0)
-	root       = filepath.Dir(b)
-
-	// This flag allows to call the tests like
-	//
-	//   go test -v ./pkg/apis/application/v1alpha1 -update
-	//
-	// to create/overwrite the YAML files in /docs/crd and /docs/cr.
-	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
 func Test_NewAppCRD(t *testing.T) {
