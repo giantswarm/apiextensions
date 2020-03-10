@@ -2,10 +2,12 @@ package v1alpha1
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
+	goruntime "runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -13,17 +15,26 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewAppCRD(t *testing.T) {
-	crd := NewAppCRD()
+var (
+	_, b, _, _ = goruntime.Caller(0)
+	root       = filepath.Dir(b)
+
+	// This flag allows to call the tests like
+	//
+	//   go test -v ./pkg/apis/infrastructure/v1alpha2 -update
+	//
+	// to create/overwrite the YAML files in /docs/crd and /docs/cr.
+	update = flag.Bool("update", false, "update generated YAMLs")
+)
+
+func Test_NewAppCatalogCRD(t *testing.T) {
+	crd := NewAppCatalogCRD()
 	if crd == nil {
-		t.Error("App CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("App CRD name was empty.")
+		t.Error("AppCatalog CRD was nil.")
 	}
 }
 
-func Test_GenerateAppYAML(t *testing.T) {
+func Test_GenerateAppCatalogYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
@@ -31,13 +42,13 @@ func Test_GenerateAppYAML(t *testing.T) {
 	}{
 		{
 			category: "crd",
-			name:     fmt.Sprintf("%s_app.yaml", group),
-			resource: NewAppCRD(),
+			name:     fmt.Sprintf("%s_appcatalog.yaml", group),
+			resource: NewAppCatalogCRD(),
 		},
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_app.yaml", group, version),
-			resource: newAppExampleCR(),
+			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", group, version),
+			resource: newAppCatalogExampleCR(),
 		},
 	}
 
@@ -74,44 +85,27 @@ func Test_GenerateAppYAML(t *testing.T) {
 	}
 }
 
-func newAppExampleCR() *App {
-	cr := NewAppCR()
+func newAppCatalogExampleCR() *AppCatalog {
+	cr := NewAppCatalogCR()
 
-	cr.Name = "prometheus"
-	cr.Spec = AppSpec{
-		Name:      "prometheus",
-		Namespace: "monitoring",
-		Version:   "1.0.0",
-		Catalog:   "my-catalog",
-		Config: AppSpecConfig{
-			ConfigMap: AppSpecConfigConfigMap{
+	cr.Name = "my-app-catalog"
+	cr.Spec = AppCatalogSpec{
+		Title:       "My App Catalog",
+		Description: "Applications we provide for all sorts of purposes.",
+		Config: AppCatalogSpecConfig{
+			ConfigMap: AppCatalogSpecConfigConfigMap{
 				Name:      "my-configmap",
-				Namespace: "monitoring",
+				Namespace: "my-namespace",
 			},
-			Secret: AppSpecConfigSecret{
+			Secret: AppCatalogSpecConfigSecret{
 				Name:      "my-secret",
-				Namespace: "monitoring",
+				Namespace: "my-namespace",
 			},
 		},
-		KubeConfig: AppSpecKubeConfig{
-			InCluster: false,
-			Context: AppSpecKubeConfigContext{
-				Name: "my-context-name",
-			},
-			Secret: AppSpecKubeConfigSecret{
-				Name:      "my-kubeconfig-secret",
-				Namespace: "monitoring",
-			},
-		},
-		UserConfig: AppSpecUserConfig{
-			ConfigMap: AppSpecUserConfigConfigMap{
-				Name:      "my-userconfig-configmap",
-				Namespace: "monitoring",
-			},
-			Secret: AppSpecUserConfigSecret{
-				Name:      "my-userconfig-secret",
-				Namespace: "monitoring",
-			},
+		LogoURL: "https://my-org.github.com/logo.png",
+		Storage: AppCatalogSpecStorage{
+			Type: "helm",
+			URL:  "https://my-org.github.com/my-app-catalog/",
 		},
 	}
 

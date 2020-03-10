@@ -7,7 +7,6 @@ import (
 )
 
 const (
-	crDocsAnnotation     = "giantswarm.io/docs"
 	kindApp              = "App"
 	appDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#App"
 )
