@@ -100,7 +100,7 @@ spec:
               type: object
             name:
               description: |
-                Name of this App in the AppCatalog.
+                Name of this App.
               type: string
             namespace:
               description: |
