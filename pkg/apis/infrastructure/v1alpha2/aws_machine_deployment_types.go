@@ -88,6 +88,18 @@ func NewAWSMachineDeploymentTypeMeta() metav1.TypeMeta {
 	}
 }
 
+// NewAWSMachineDeploymentCR returns an AWSMachineDeployment Custom Resource.
+func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
+	return &AWSMachineDeployment{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: awsClusterDocumentationLink,
+			},
+		},
+		TypeMeta: NewAWSMachineDeploymentTypeMeta(),
+	}
+}
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
