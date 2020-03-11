@@ -24,17 +24,21 @@ spec:
   scope: Namespaced
   subresources:
     status: {}
+  version: v1alpha2
   validation:
     openAPIV3Schema:
       properties:
         spec:
+          type: object
           properties:
             nodePool:
+              type: object
               properties:
                 description:
-                  maxLength: 100
                   type: string
+                  maxLength: 100
                 machine:
+                  type: object
                   properties:
                     dockerVolumeSizeGB:
                       format: int32
@@ -42,8 +46,8 @@ spec:
                     kubeletVolumeSizeGB:
                       format: int32
                       type: integer
-                  type: object
                 scaling:
+                  type: object
                   properties:
                     max:
                       format: int32
@@ -51,9 +55,8 @@ spec:
                     min:
                       format: int32
                       type: integer
-                  type: object
-              type: object
             provider:
+              type: object
               properties:
                 availabilityZones:
                   items:
@@ -63,9 +66,6 @@ spec:
                   properties:
                     instanceType:
                       type: string
-              type: object
-          type: object
-  version: v1alpha2
 `
 
 var awsMachineDeploymentCRD *apiextensionsv1beta1.CustomResourceDefinition
