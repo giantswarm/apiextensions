@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fixed CRD OpenAPISchemas.
+  - AWSCluster
+  - AWSMachineDeployment
+  - AWSControlPlane
+  - G8SControlPlane
 
 ## [0.1.0] - 2020-03-05
 
