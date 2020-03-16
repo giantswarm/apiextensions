@@ -19,10 +19,11 @@ limitations under the License.
 package v1alpha1
 
 import (
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1"
-	"github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
 	serializer "k8s.io/apimachinery/pkg/runtime/serializer"
 	rest "k8s.io/client-go/rest"
+
+	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1"
+	"github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
 )
 
 type ReleaseV1alpha1Interface interface {
