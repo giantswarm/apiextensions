@@ -6,6 +6,7 @@ func Test_NewReleaseCycleCRD(t *testing.T) {
 	crd := NewReleaseCycleCRD()
 	if crd == nil {
 		t.Error("ReleaseCycle CRD was nil.")
+		return
 	}
 	if crd.Name == "" {
 		t.Error("ReleaseCycle CRD name was empty.")
