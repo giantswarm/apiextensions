@@ -1,0 +1,120 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: releases.release.giantswarm.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.components[?(@.name=="kubernetes")].version
+    description: Version of the kubernetes component in this release
+    name: Kubernetes version
+    type: string
+  - JSONPath: .spec.state
+    description: State of the release
+    name: State
+    type: string
+  - JSONPath: .spec.date
+    description: Time since release creation
+    name: Age
+    type: date
+  group: release.giantswarm.io
+  names:
+    kind: Release
+    plural: releases
+    shortNames:
+    - rel
+    singular: release
+  preserveUnknownFields: false
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      description: |
+        A Release holds information about a particular version of the Giant Swarm platform which
+        can be used as a target for creation or upgrade of a cluster. It is a tested package
+        comprising a particular Kubernetes version along with compatible Giant Swarm operators,
+        monitoring, and default apps.
+      properties:
+        metadata:
+          properties:
+            name:
+              pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+              type: string
+          type: object
+        spec:
+          description: |
+            Spec holds the data defining the desired state of a release.
+          properties:
+            apps:
+              description: |
+                Apps is a list of Giant Swarm-managed apps which will be installed by default
+                on clusters created with this release version.
+              items:
+                properties:
+                  componentVersion:
+                    description: |
+                      Component version is the upstream version of this app. It may be empty if this
+                      is a Giant Swarm developed app.
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                    type: string
+                  name:
+                    description: |
+                      Name is the name of the app.
+                    minLength: 1
+                    type: string
+                  version:
+                    description: |
+                      Version is the internal version of the app managed by Giant Swarm. Because apps
+                      may be released without upstream changes, this will generally differ from the
+                      component version.
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                    type: string
+                required:
+                - name
+                - version
+                type: object
+              type: array
+            components:
+              description: |
+                Components is a list of internal and upstream components making up the core of the cluster.
+              items:
+                properties:
+                  name:
+                    description: |
+                      Name is the name of the component.
+                    minLength: 1
+                    type: string
+                  version:
+                    description: |
+                      Version is the semantic version of the component.
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                    type: string
+                required:
+                - name
+                - version
+                type: object
+              minItems: 1
+              type: array
+            date:
+              format: date-time
+              type: string
+            state:
+              description: |
+                State indicates how this release should be used. "wip" means the release is a work
+                in progress. "deprecated" means old clusters using this version will continue to function
+                but new clusters should use a more recent release. "active" means this is a current
+                supported release.
+              pattern: ^(active|deprecated|wip)$
+              type: string
+          required:
+          - components
+          - apps
+          - state
+          - date
+          type: object
+      required:
+      - metadata
+      type: object
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
