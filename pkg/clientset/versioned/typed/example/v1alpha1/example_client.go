@@ -68,7 +68,7 @@ func New(c rest.Interface) *ExampleV1alpha1Client {
 	return &ExampleV1alpha1Client{c}
 }
 
-func setConfigDefaults(config *rest.Config) error {
+func setConfigDefaults(config *rest.Config) error { //nolint:unparam
 	gv := v1alpha1.SchemeGroupVersion
 	config.GroupVersion = &gv
 	config.APIPath = "/apis"
