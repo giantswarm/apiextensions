@@ -7,6 +7,16 @@ infrastructure.
 
 ## Contributing
 
+### Branches
+
+- `master`
+    - To be used with all Kubernetes 1.16+ operators with CAPI v1alpha2+.
+    - Includes all of the latest CRDs/CRs.
+- `legacy-1-15`
+    - To be used with legacy Kubernetes 1.15 operators only with CAPI v1alpha1.
+    - Currently includes these backported CRDs/CRs (and should be kept up to date when changed in `master`):
+      - Release
+
 ### Adding a New Group and/or Version
 
 This is example skeleton for adding new group and/or version.
