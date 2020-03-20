@@ -9,11 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.2] - 2020-03-20
 
+### Added
+
+- Add kube-proxy configuration to Cluster type in provider.giantswarm.io/v1alpha1.
+
+### Fixed
+
 - Fixed CRD OpenAPISchemas.
   - App
   - AppCatalog
   - Chart
-- Add kube-proxy configuration to Cluster type in provider.giantswarm.io/v1alpha1.
 
 ## [0.1.1] - 2020-03-12
 
