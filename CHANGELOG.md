@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Switch from dep to Go modules.
 
+### Fixed
+
+- Fixed CRD OpenAPISchemas.
+  - App
+  - AppCatalog
+  - Chart
+
 
 
 ## [0.1.2] - 2020-03-20
