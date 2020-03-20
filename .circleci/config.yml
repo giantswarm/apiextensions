@@ -1,23 +1,28 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@0.7.0
+  architect: giantswarm/architect@0.8.3
 
 workflows:
   workflow:
     jobs:
       - architect/go-test:
-          name: go-test-apiextensions
+          name: go-test
+          filters:
+            # Trigger job also on git tag.
+            tags:
+              only: /^v.*/
+
       - architect/go-architect-legacy:
-          name: go-build-apiextensions
+          name: go-build
           command: build
           requires:
-            - go-test-apiextensions
+            - go-test
       - architect/go-architect-legacy:
-          name: go-deploy-apiextensions
+          name: go-deploy
           command: deploy
           requires:
-            - go-build-apiextensions
+            - go-build
           filters:
             branches:
               only: master
