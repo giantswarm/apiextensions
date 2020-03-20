@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [0.2.0] - 2020-03-20
+
 ### Changed
 
 - Switch from dep to Go modules.
@@ -48,7 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...HEAD
-[0.1.2]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0...v0.1.1
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...v0.2.0
+[0.1.2]: https://github.com/giantswarm/apiextensions/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/giantswarm/apiextensions/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0
