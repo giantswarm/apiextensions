@@ -1,0 +1,99 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: awsmachinedeployments.infrastructure.giantswarm.io
+spec:
+  conversion:
+    strategy: None
+  group: infrastructure.giantswarm.io
+  names:
+    kind: AWSMachineDeployment
+    plural: awsmachinedeployments
+    singular: awsmachinedeployment
+  scope: Namespaced
+  subresources:
+    status: {}
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        type: object
+    served: false
+    storage: false
+  - name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              nodePool:
+                description: |
+                  General node pool configuration.
+                properties:
+                  description:
+                    description: |
+                      User-friendly description of the node pool, e. g. to inform about the purpose.
+                    maxLength: 100
+                    type: string
+                  machine:
+                    properties:
+                      dockerVolumeSizeGB:
+                        description: |
+                          Size of the volume reserved for Docker images and overlay file systems
+                          of Docker containers. Unit: 1 GB = 1,000,000,000 Bytes.
+                        format: int32
+                        type: integer
+                      kubeletVolumeSizeGB:
+                        description: |
+                          Size of the volume reserved for the kubelet, which can be used by Pods
+                          via volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.
+                        format: int32
+                        type: integer
+                    type: object
+                  scaling:
+                    description: |
+                      Configures the size of the node pool, in terms of the number of worker
+                      nodes it can have, as a range. The actual number of worker nodes will
+                      be determined by cluster-autoscaler within the configured range.
+                      Setting the minimum and maximum to the same number effectively disables
+                      autoscaling.
+                    properties:
+                      max:
+                        description: |
+                          Maximum number of worker nodes in this node pool.
+                        format: int32
+                        type: integer
+                      min:
+                        description: |
+                          Minimum number of worker nodes in this node pool.
+                        format: int32
+                        type: integer
+                    type: object
+                type: object
+              provider:
+                description: |
+                  Configuration specific to AWS.
+                properties:
+                  availabilityZones:
+                    description: |
+                      Name(s) of the availability zone(s) to use for worker nodes. Using multiple
+                      availability zones results in higher resilience but can also result in
+                      higher cost due to network traffic between availability zones.
+                    items:
+                      type: string
+                    type: array
+                  worker:
+                    description: |
+                      Specification of worker nodes.
+                    properties:
+                      instanceType:
+                        description: |
+                          AWS EC2 instance type name to use for the worker nodes in this node pool.
+                        type: string
+                    type: object
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
