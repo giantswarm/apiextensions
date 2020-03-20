@@ -7,11 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.2] - 2020-03-20
+### Changed
 
-### Added
-
-- Add kube-proxy configuration to Cluster type in provider.giantswarm.io/v1alpha1.
+- Switch from dep to Go modules.
 
 ### Fixed
 
@@ -19,6 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - App
   - AppCatalog
   - Chart
+
+
+
+## [0.1.2] - 2020-03-20
+
+### Added
+
+- Add kube-proxy configuration to Cluster type in provider.giantswarm.io/v1alpha1.
+
+
 
 ## [0.1.1] - 2020-03-12
 
@@ -30,13 +38,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - AWSControlPlane
   - G8SControlPlane
 
+
+
 ## [0.1.0] - 2020-03-05
 
 ### Added
 
 - First release.
 
+
+
 [Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...HEAD
-[0.1.2]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.2
-[0.1.1]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.1
+[0.1.2]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0

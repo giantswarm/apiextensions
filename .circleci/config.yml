@@ -6,18 +6,23 @@ orbs:
 workflows:
   workflow:
     jobs:
-      - architect/go-test-legacy:
-          name: test
+      - architect/go-test:
+          name: go-test
+          filters:
+            # Trigger job also on git tag.
+            tags:
+              only: /^v.*/
+
       - architect/go-architect-legacy:
-          name: build
+          name: go-build
           command: build
           requires:
-            - test
+            - go-test
       - architect/go-architect-legacy:
-          name: deploy
+          name: go-deploy
           command: deploy
           requires:
-            - build
+            - go-build
           filters:
             branches:
               only: master
