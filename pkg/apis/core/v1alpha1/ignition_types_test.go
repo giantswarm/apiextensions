@@ -49,7 +49,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 				},
 				Spec: IgnitionSpec{
 					APIServerEncryptionKey: "5fd466f48df84f47bb8006b68f0355ba",
-					BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.giantswarm.io",
+					BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
 					Calico: IgnitionSpecCalico{
 						CIDR:    "16",
 						Disable: false,
@@ -67,7 +67,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 						},
 					},
 					Etcd: IgnitionSpecEtcd{
-						Domain: "https://etcd.abc12.k8s.example.eu-west-1.aws.giantswarm.io",
+						Domain: "https://etcd.abc12.k8s.example.eu-west-1.aws.gigantic.io",
 						Port:   2379,
 						Prefix: "",
 					},
@@ -82,16 +82,16 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 					IsMaster: true,
 					Kubernetes: IgnitionSpecKubernetes{
 						API: IgnitionSpecKubernetesAPI{
-							Domain:     "https://abc12.k8s.example.eu-west-1.aws.giantswarm.io",
+							Domain:     "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
 							SecurePort: 443,
 						},
 						CloudProvider: "aws",
 						DNS: IgnitionSpecKubernetesDNS{
 							IP: "10.1.2.3/32",
 						},
-						Domain: "https://abc12.k8s.example.eu-west-1.aws.giantswarm.io",
+						Domain: "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
 						Kubelet: IgnitionSpecKubernetesKubelet{
-							Domain: "https://abc12.k8s.example.eu-west-1.aws.giantswarm.io",
+							Domain: "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
 						},
 						IPRange: "10.2.3.4/24",
 						OIDC: IgnitionSpecOIDC{

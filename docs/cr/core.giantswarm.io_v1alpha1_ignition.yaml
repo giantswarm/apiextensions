@@ -7,7 +7,7 @@ metadata:
   name: abc12-master
 spec:
   apiServerEncryptionKey: 5fd466f48df84f47bb8006b68f0355ba
-  baseDomain: https://abc12.k8s.example.eu-west-1.aws.giantswarm.io
+  baseDomain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
   calico:
     cidr: "16"
     disable: false
@@ -21,7 +21,7 @@ spec:
     networkSetup:
       image: quay.io/giantswarm/k8s-setup-network-environment
   etcd:
-    domain: https://etcd.abc12.k8s.example.eu-west-1.aws.giantswarm.io
+    domain: https://etcd.abc12.k8s.example.eu-west-1.aws.gigantic.io
     port: 2379
     prefix: ""
   extension: {}
@@ -30,15 +30,15 @@ spec:
   isMaster: true
   kubernetes:
     api:
-      domain: https://abc12.k8s.example.eu-west-1.aws.giantswarm.io
+      domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
       securePort: 443
     cloudProvider: aws
     dns:
       ip: 10.1.2.3/32
-    domain: https://abc12.k8s.example.eu-west-1.aws.giantswarm.io
+    domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
     ipRange: 10.2.3.4/24
     kubelet:
-      domain: https://abc12.k8s.example.eu-west-1.aws.giantswarm.io
+      domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
     oidc:
       clientID: abc12
       enabled: true

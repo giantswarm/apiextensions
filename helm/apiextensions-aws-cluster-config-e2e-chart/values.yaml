@@ -1,6 +1,6 @@
 guest:
   name: "test-cluster"
-  dnsZone: "test-cluster.aws.giantswarm.io"
+  dnsZone: "test-cluster.aws.gigantic.io"
   id: "test-cluster"
   aws:
     instanceTypeMaster: "m5.large"
