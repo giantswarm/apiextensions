@@ -10,10 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Switch from dep to Go modules.
-- Fixed CRD OpenAPISchemas.
-  - App
-  - AppCatalog
-  - Chart
+
+
+
+## [0.1.2] - 2020-03-20
+
+### Added
+
+- Add kube-proxy configuration to Cluster type in provider.giantswarm.io/v1alpha1.
 
 
 
@@ -35,6 +39,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - First release.
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.1.1...HEAD
+
+
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0
