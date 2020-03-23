@@ -2,6 +2,7 @@
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+export GOPATH=$(go env GOPATH)
 cd ${dir}/../vendor/k8s.io/code-generator && ./generate-groups.sh \
     "deepcopy,client" \
     github.com/giantswarm/apiextensions/pkg \
@@ -15,6 +16,7 @@ cd "$dir/.." || exit
 if [ ! -x "$(command -v goimports)" ]; then
   echo "goimports not found, downloading to $GOPATH/bin using 'go get'"
   go get golang.org/x/tools/cmd/goimports
+  export PATH=$PATH:$GOPATH/bin
 fi
 echo "Fixing imports in-place with goimports"
-"$GOPATH"/bin/goimports -local github.com/giantswarm/apiextensions -w ./pkg
+goimports -local github.com/giantswarm/apiextensions -w ./pkg
