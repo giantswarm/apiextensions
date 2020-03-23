@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export GOPATH=$(go env GOPATH) # ensure that GOPATH is defined for generate-groups.sh
+go mod tidy # ensure that code-generator is cached in $GOPATH/pkg/mod for generate-groups.sh
 
 bash "$(go list -m -f '{{.Dir}}' k8s.io/code-generator)/generate-groups.sh"  \
     "deepcopy,client" \
