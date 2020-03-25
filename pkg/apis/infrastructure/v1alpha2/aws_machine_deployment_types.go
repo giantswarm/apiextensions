@@ -102,12 +102,12 @@ spec:
                   spotInstanceConfiguration:
                     description: |
                       Configuration for the usage of spot instances as the ASG configuration.
-                    type: object
                     properties:
                       enabled:
                         description: |
                           Determines if spot instances should be used.
                         type: boolean
+                    type: object
                   worker:
                     type: object
                     description: |
@@ -183,7 +183,6 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 //         availabilityZones:
 //           - eu-central-1a
 //         spotInstanceConfiguration:
-//           enabled: true
 //         worker:
 //           instanceType: m4.xlarge
 //

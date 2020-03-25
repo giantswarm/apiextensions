@@ -83,6 +83,15 @@ spec:
                     items:
                       type: string
                     type: array
+                  spotInstanceConfiguration:
+                    description: |
+                      Configuration for the usage of spot instances as the ASG configuration.
+                    properties:
+                      enabled:
+                        description: |
+                          Determines if spot instances should be used.
+                        type: boolean
+                    type: object
                   worker:
                     description: |
                       Specification of worker nodes.
