@@ -7,9 +7,11 @@ import (
 )
 
 const (
-	crDocsAnnotation           = "giantswarm.io/docs"
-	kindAWSConfig              = "AWSConfig"
-	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/"
+	crDocsAnnotation = "giantswarm.io/docs"
+	kindAWSConfig    = "AWSConfig"
+	// TODO: Change to https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/
+	// after the docs have been published for the first time.
+	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
 )
 
 const awsConfigCRDYAML = `
