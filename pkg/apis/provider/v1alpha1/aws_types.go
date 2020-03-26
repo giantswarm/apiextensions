@@ -331,48 +331,55 @@ spec:
                       long, with characters from the range a-z and 0-9.
                     type: string
                   kubernetes:
-                    description: TODO
+                    description: |
+                      Various Kubernetes configuration items.
                     type: object
                     properties:
                       api:
-                        description: TODO
+                        description: |
+                          Configuration for the Kubernetes api-server.
                         type: object
                         properties:
                           clusterIPRange:
-                            description: TODO
+                            description: |
+                              IP range to use for ClusterIP, in CIDR notation.
                             type: string
                           domain:
-                            description: TODO
+                            description: |
+                              Fully qualified host name of the API server.
                             type: string
                           securePort:
-                            description: TODO
+                            description: |
+                              Port number for HTTPS access to the API.
                             type: int
                       cloudProvider:
-                        description: TODO
+                        description: Name of the cloud provider. Must be 'aws'.
                         type: string
                       dns:
-                        description: TODO
+                        description: DNS configuration.
                         type: object
                         properties:
                           ip:
                             description: TODO
                             type: string
                       domain:
-                        description: TODO
+                        description: Domain name to use internally within the cluster.
                         type: string
                       ingressController:
-                        description: TODO
+                        description: |
+                          Configuration of the Ingress Controller.
                         type: object
                         properties:
                           docker:
-                            description: TODO
+                            description: Ingress Controller Docker configuration.
                             type: object
                             properties:
                               image:
-                                description: TODO
+                                description: Docker image for the Ingress Controller.
                                 type: string
                           domain:
-                            description: TODO
+                            description: |
+                              Fully qualified host name the Ingress load balancer is listening on.
                             type: string
                           insecurePort:
                             description: TODO
@@ -388,10 +395,12 @@ spec:
                         type: object
                         properties:
                           altNames:
-                            description: TODO
+                            description: |
+                              Alternative internal DNS names to access the API server.
                             type: string
                           domain:
-                            description: TODO
+                            description: |
+                              DNS suffix to use for worker nodes.
                             type: string
                           labels:
                             description: TODO
@@ -408,34 +417,44 @@ spec:
                             type: object
                             properties:
                               image:
-                                description: TODO
+                                description: |
+                                  Docker image for setting up the network environment.
                                 type: string
                           kubeProxy:
-                            description: TODO
+                            description: |
+                              kubeProxy configuration.
                             type: object
                             properties:
                               conntrackMaxPerCore:
                                 description: TODO
                                 type: int
                       ssh:
-                        description: TODO
+                        description: |
+                          SSH access configuration applied to master and worker nodes
+                          of the tenant cluster.
                         type: object
                         properties:
                           userList:
-                            description: TODO
+                            description: |
+                              List of SSH users with access to the nodes.
                             type: array
                             items:
-                              description: TODO
+                              description: |
+                                An individual SSH user with access.
                               type: object
                               properties:
                                 name:
-                                  description: TODO
+                                  description: |
+                                    Posix username to assign to the user logging in with
+                                    the given SSH public key.
                                   type: string
                                 publicKey:
-                                  description: TODO
+                                  description: |
+                                    SSH public key in Base64 encoding.
                                   type: string
                   masters:
-                    description: TODO
+                    description: |
+                      Configuration of master nodes.
                     type: array
                     items:
                       description: TODO
@@ -445,27 +464,37 @@ spec:
                           description: TODO
                           type: string
                   scaling:
-                    description: TODO
+                    description: |
+                      Configuration of worker node scaling. The cluster-autoscaler
+                      sets the actual number of worker nodes in the cluster based
+                      on the 'min' and 'max' value.
                     type: object
                     properties:
                       min:
-                        description: TODO
+                        description: |
+                          Minimum amount of worker nodes. Lower limit of the
+                          autoscaling range.
                         type: int
                       max:
-                        description: TODO
+                        description: |
+                          Maximum amount of worker nodes. Upper limit of the
+                          autoscaling range.
                         type: int
                   version:
                     description: TODO
                     type: string
                   workers:
-                    description: TODO
+                    description: |
+                      List of worker nodes with configuration.
                     type: array
                     items:
-                      description: TODO
+                      description: |
+                        Configuration of an individual worker node.
                       type: object
                       properties:
                         id:
-                          description: TODO
+                          description: |
+                            Unique identifier of the worker node.
                           type: string
               versionBundle:
                 description: TODO
