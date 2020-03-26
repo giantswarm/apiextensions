@@ -3,7 +3,47 @@ package v1alpha1
 import (
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/yaml"
 )
+
+const (
+	crDocsAnnotation           = "giantswarm.io/docs"
+	kindAWSConfig              = "AWSConfig"
+	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/"
+)
+
+const awsConfigCRDYAML = `
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: awsconfigs.provider.giantswarm.io
+spec:
+  conversion:
+    strategy: None
+  group: provider.giantswarm.io
+  names:
+    kind: AWSConfig
+    listKind: AWSConfigList
+    plural: awsconfigs
+    singular: awsconfig
+  preserveUnknownFields: true
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+    subresources:
+      status: {}
+`
+
+var awsConfigCRD *apiextensionsv1beta1.CustomResourceDefinition
+
+func init() {
+	err := yaml.Unmarshal([]byte(awsConfigCRDYAML), &awsConfigCRD)
+	if err != nil {
+		panic(err)
+	}
+}
 
 // NewAWSConfigCRD returns a new custom resource definition for AWSConfig. This
 // might look something like the following.
@@ -24,27 +64,26 @@ import (
 //         status: {}
 //
 func NewAWSConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
+	return awsConfigCRD.DeepCopy()
+}
+
+// NewAWSClusterTypeMeta returns the populated metav1 metadata object for this CRD.
+func NewAWSClusterTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindAWSConfig,
+	}
+}
+
+// NewAWSConfigCR returns a custom resource of type AWSConfig.
+func NewAWSConfigCR() *AWSConfig {
+	return &AWSConfig{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "awsconfigs.provider.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "provider.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AWSConfig",
-				Plural:   "awsconfigs",
-				Singular: "awsconfig",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
+			Annotations: map[string]string{
+				crDocsAnnotation: awsConfigDocumentationLink,
 			},
 		},
+		TypeMeta: NewAWSClusterTypeMeta(),
 	}
 }
 
