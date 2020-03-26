@@ -5,7 +5,14 @@ import (
 
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	clusterapiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
 	"sigs.k8s.io/yaml"
+)
+
+const (
+	kindCluster = "Cluster"
+	// TODO: Change to this CRD's docs URL once published.
+	clusterDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
 )
 
 const clusterCRDYAML = `
@@ -64,6 +71,25 @@ func init() {
 //
 func NewClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return clusterCRD.DeepCopy()
+}
+
+func NewClusterTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindCluster,
+	}
+}
+
+// NewClusterCR returns a Cluster Custom Resource.
+func NewClusterCR() *clusterapiv1alpha2.Cluster {
+	return &clusterapiv1alpha2.Cluster{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: clusterDocumentationLink,
+			},
+		},
+		TypeMeta: NewClusterTypeMeta(),
+	}
 }
 
 // NewMachineDeploymentCRD returns a new custom resource definition for
