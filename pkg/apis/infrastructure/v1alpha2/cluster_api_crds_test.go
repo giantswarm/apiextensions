@@ -81,8 +81,16 @@ func newClusterExampleCR() *clusterapiv1alpha2.Cluster {
 
 	cr.Name = "ca1p0"
 	cr.Spec = clusterapiv1alpha2.ClusterSpec{
-		ClusterNetwork:    &clusterapiv1alpha2.ClusterNetwork{},
-		InfrastructureRef: &corev1.ObjectReference{},
+		// ClusterNetwork does not occur in our practice, so leaving it empty.
+		//ClusterNetwork:    &clusterapiv1alpha2.ClusterNetwork{},
+		InfrastructureRef: &corev1.ObjectReference{
+			APIVersion:      "infrastructure.giantswarm.io/v1alpha2",
+			Kind:            "AWSCluster",
+			Name:            "ca1p0",
+			Namespace:       "default",
+			ResourceVersion: "57975957",
+			UID:             "2dc05fcd-ba76-4135-b9ea-76955e3a7966",
+		},
 	}
 
 	return cr

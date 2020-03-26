@@ -6,5 +6,10 @@ metadata:
   creationTimestamp: null
   name: ca1p0
 spec:
-  clusterNetwork: {}
-  infrastructureRef: {}
+  infrastructureRef:
+    apiVersion: infrastructure.giantswarm.io/v1alpha2
+    kind: AWSCluster
+    name: ca1p0
+    namespace: default
+    resourceVersion: "57975957"
+    uid: 2dc05fcd-ba76-4135-b9ea-76955e3a7966
