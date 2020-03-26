@@ -36,6 +36,257 @@ spec:
     storage: true
     subresources:
       status: {}
+    schema:
+      openAPIV3Schema:
+        description: |
+          Together with AWSClusterConfig, defines a tenant cluster in a
+          Giant Swarm installation in releases before v10.0.1.
+          Reconciled by aws-operator.
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              aws:
+                type: object
+                properties:
+                  api:
+                    type: object
+                    properties:
+                      elb:
+                        type: object
+                        properties:
+                          idleTimeoutSeconds:
+                            type: int
+                      hostedZones:
+                        type: string
+                  availabilityZones:
+                    type: int
+                  az:
+                    type: string
+                  credentialSecret:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      namespace:
+                        type: string
+                  etcd:
+                    type: object
+                    properties:
+                      elb:
+                        type: object
+                        properties:
+                          idleTimeoutSeconds:
+                            type: int
+                      hostedZones:
+                        type: string
+                  hostedZones:
+                    type: object
+                    properties:
+                      api:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      etcd:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                      ingress:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                  ingress:
+                    type: object
+                    properties:
+                      elb:
+                        type: object
+                        properties:
+                          idleTimeoutSeconds:
+                            type: int
+                      hostedZones:
+                        type: string
+                  masters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dockerVolumeSizeGB:
+                          type: int
+                        imageID:
+                          type: string
+                        instanceType:
+                          type: string
+                  region:
+                    type: string
+                  vpc:
+                    type: object
+                    properties:
+                      cidr:
+                        type: string
+                      peerId:
+                        type: string
+                      privateSubnetCidr:
+                        type: string
+                      publicSubnetCidr:
+                        type: string
+                      routeTableNames:
+                        type: array
+                        items:
+                          type: string
+                  workers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        dockerVolumeSizeGB:
+                          type: int
+                        imageID:
+                          type: string
+                        instanceType:
+                          type: string
+              cluster:
+                type: object
+                properties:
+                  calico:
+                    type: object
+                    properties:
+                      cidr:
+                        type: int
+                      mtu:
+                        type: int
+                      subnet:
+                        type: string
+                  customer:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                  docker:
+                    type: object
+                    properties:
+                      daemon:
+                        type: object
+                        properties:
+                          cidr:
+                            type: string
+                  etcd:
+                    type: object
+                    properties:
+                      altNames:
+                        type: string
+                      domain:
+                        type: string
+                      port:
+                        type: int
+                      prefix:
+                        type: string
+                  id:
+                    type: string
+                  kubernetes:
+                    type: object
+                    properties:
+                      api:
+                        type: object
+                        properties:
+                          clusterIPRange:
+                            type: string
+                          domain:
+                            type: string
+                          securePort:
+                            type: int
+                      cloudProvider:
+                        type: string
+                      dns:
+                        type: object
+                        properties:
+                          ip:
+                            type: string
+                      domain:
+                        type: string
+                      ingressController:
+                        type: object
+                        properties:
+                          docker:
+                            type: object
+                            properties:
+                              image:
+                                type: string
+                          domain:
+                            type: string
+                          insecurePort:
+                            type: int
+                          securePort:
+                            type: int
+                          wildcardDomain:
+                            type: string
+                      kubelet:
+                        type: object
+                        properties:
+                          altNames:
+                            type: string
+                          domain:
+                            type: string
+                          labels:
+                            type: string
+                          port:
+                            type: int
+                      networkSetup:
+                        type: object
+                        properties:
+                          docker:
+                            type: object
+                            properties:
+                              image:
+                                type: string
+                          kubeProxy:
+                            type: object
+                            properties:
+                              conntrackMaxPerCore:
+                                type: int
+                      ssh:
+                        type: object
+                        properties:
+                          userList:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                publicKey:
+                                  type: string
+                  masters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                  scaling:
+                    type: object
+                    properties:
+                      min:
+                        type: int
+                      max:
+                        type: int
+                  version:
+                    type: string
+                  workers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+              versionBundle:
+                type: object
+                properties:
+                  version:
+                    type: string
 `
 
 var awsConfigCRD *apiextensionsv1beta1.CustomResourceDefinition
