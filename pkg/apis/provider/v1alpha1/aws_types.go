@@ -48,244 +48,431 @@ spec:
             type: object
             properties:
               aws:
+                description: AWS-specific configuration.
                 type: object
                 properties:
                   api:
+                    description: |
+                      Configures the tenant cluster Kubernetes API.
+                      Deprecated since aws-operator v12.
                     type: object
                     properties:
                       elb:
+                        description: |
+                          Configures the Elastic Load Balancer for the
+                          tenant cluster Kubernetes API.
                         type: object
                         properties:
                           idleTimeoutSeconds:
+                            description: |
+                              Seconds to keep an idle connection open.
                             type: int
                       hostedZones:
+                        description: TODO
                         type: string
                   availabilityZones:
+                    description: |
+                      Number of availability zones to use for the tenant cluster's worker nodes.
+                      There are limitations on availability zone settings due to binary IP range
+                      splitting and provider specific region capabilities. When for instance choosing
+                      3 availability zones, the configured IP range will be split into 4 ranges and
+                      thus one of it will not be able to be utilized. Such limitations have to be considered
+                      when designing the network topology and configuring tenant cluster HA via availability
+                      zones.
+
+                      The selection and usage of the actual availability zones for the created
+                      tenant cluster is randomized. In case there are 4 availability zones
+                      provided in the used region and the user selects 2 availability zones, the
+                      actually used availability zones in which tenant cluster workload is put
+                      into will tend to be different across tenant cluster creations. This is
+                      done in order to provide more HA during single availability zone failures.
+                      In case a specific availability zone fails, not all tenant clusters will be
+                      affected due to the described selection process.
                     type: int
                   az:
+                    description: |
+                      Deprecated way to define the availability zone to use
+                      by the tenant cluster.
                     type: string
                   credentialSecret:
+                    description: |
+                      Defines which Secret resource to use in orde to obtain the IAM role to assume
+                      for managing resources for this tenant cluster on AWS. This allows to
+                      run different tenant clusters of the same installation in different
+                      AWS accounts.
                     type: object
                     properties:
                       name:
+                        description: Name of the Secret resource.
                         type: string
                       namespace:
+                        description: Namespace of the Secret resource.
                         type: string
                   etcd:
+                    description: |
+                      Configures the Etcd cluster storing the tenant cluster's data.
+                      Deprecated since aws-operator v12.
                     type: object
                     properties:
                       elb:
+                        description: |
+                          Elastic Load Balancer configuration.
                         type: object
                         properties:
                           idleTimeoutSeconds:
+                            description:  |
+                              Seconds to keep an idle connection open.
                             type: int
                       hostedZones:
+                        description: TODO
                         type: string
                   hostedZones:
+                    description: |
+                      HostedZones is AWS hosted zones names in the host cluster account.
+                      For each zone there will be "CLUSTER_ID.k8s" NS record created in
+                      the host cluster account. Then for each created NS record there will
+                      be a zone created in the guest account. After that component-specific
+                      records under those zones:
+
+                      - api.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.API.Name }}
+                      - etcd.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Etcd.Name }}
+                      - ingress.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Ingress.Name }}
+                      - *.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Ingress.Name }}
                     type: object
                     properties:
                       api:
+                        description: |
+                          DNS zone configuration for the Kubernetes API.
                         type: object
                         properties:
                           name:
+                            description: Zone name.
                             type: string
                       etcd:
+                        description: |
+                          DNS zone configuration for Etcd.
                         type: object
                         properties:
                           name:
+                            description: Zone name.
                             type: string
                       ingress:
+                        description: |
+                          DNS zone configuration for Ingress.
                         type: object
                         properties:
                           name:
+                            description: Zone name.
                             type: string
                   ingress:
+                    description: |
+                      Ingress configuration.
+                      Deprecated since aws-operator v12.
                     type: object
                     properties:
                       elb:
+                        description: |
+                          Configuration of the Elastic Load Balancer for Ingress.
                         type: object
                         properties:
                           idleTimeoutSeconds:
+                            description:  |
+                              Seconds to keep an idle connection open.
                             type: int
                       hostedZones:
+                        description: TODO
                         type: string
                   masters:
+                    description: |
+                      Configuration of the master nodes.
                     type: array
                     items:
+                      description: |
+                        Configuration for each individual master node.
                       type: object
                       properties:
                         dockerVolumeSizeGB:
+                          description: TODO (appears unused)
                           type: int
                         imageID:
+                          description: |
+                            Amazon Machine Image (AMI) identifier to use as a base for
+                            the EC2 instance of this master node.
                           type: string
                         instanceType:
+                          description: |
+                            Name of the AWS EC2 instance type to use for this master node.
                           type: string
                   region:
+                    description: |
+                      Name of the AWS region the tenant cluster is running in.
                     type: string
                   vpc:
+                    description: |
+                      Configuration of the Virtual Private Cloud (VPC) to use for
+                      the tenant cluster.
                     type: object
                     properties:
                       cidr:
+                        description: TODO
                         type: string
                       peerId:
+                        description: TODO
                         type: string
                       privateSubnetCidr:
+                        description: TODO
                         type: string
                       publicSubnetCidr:
+                        description: TODO
                         type: string
                       routeTableNames:
+                        description: TODO
                         type: array
                         items:
                           type: string
                   workers:
+                    description: |
+                      Configuration of worker nodes.
                     type: array
                     items:
+                      description: |
+                        Configuration of an individual worker node. Each worker node
+                        is represented by one item.
                       type: object
                       properties:
                         dockerVolumeSizeGB:
+                          description: TODO
                           type: int
                         imageID:
+                          description: |
+                            Amazon Machine Image (AMI) identifier to use as a base for
+                            the EC2 instance of this master node.
                           type: string
                         instanceType:
+                          description: |
+                            Name of the AWS EC2 instance type to use for this master node.
                           type: string
               cluster:
+                description: |
+                  Cluster configuration parts that are not meant to be specific to AWS
+                  and thus might look similar or identical on other providers.
                 type: object
                 properties:
                   calico:
+                    description: |
+                      Configuration for the Project Calico Container Network Interface
+                      (CNI).
                     type: object
                     properties:
                       cidr:
+                        description: |
+                          Subnet size, expresses as the count of leading 1 bits in the subnet
+                          mask of this subnet. In other words, in CIDR notation, the integer
+                          behind the slash.
                         type: int
                       mtu:
+                        description: |
+                          Size of the maximum transition unit (MTU) in bytes.
                         type: int
                       subnet:
+                        description: |
+                          Subnet IPv4 address. In other words, in CIDR notation, the
+                          part before the slash.
                         type: string
                   customer:
+                    description: |
+                      Information on the Giant Swarm customer owning the
+                      tenant cluster.
                     type: object
                     properties:
                       id:
+                        description: |
+                          Unique customer identifier.
                         type: string
                   docker:
+                    description: |
+                      Configuration for Docker.
                     type: object
                     properties:
                       daemon:
+                        description: |
+                          Configuration for the Docker daemon.
                         type: object
                         properties:
                           cidr:
+                            description: |
+                              CIDR notation for the subnet to use for Docker
+                              networking.
                             type: string
                   etcd:
+                    description: |
+                      Configuration for Etcd.
                     type: object
                     properties:
                       altNames:
+                        description: TODO
                         type: string
                       domain:
+                        description: |
+                          Domain name to use for Etcd.
                         type: string
                       port:
+                        description: |
+                          Port number Etcd is listening on.
                         type: int
                       prefix:
+                        description: |
+                          Prefix to prepend to all Etcd keys.
                         type: string
                   id:
+                    description: |
+                      Cluster identifier, unique within the installation.
+                      The identifier is expected to be exactly 5 characters
+                      long, with characters from the range a-z and 0-9.
                     type: string
                   kubernetes:
+                    description: TODO
                     type: object
                     properties:
                       api:
+                        description: TODO
                         type: object
                         properties:
                           clusterIPRange:
+                            description: TODO
                             type: string
                           domain:
+                            description: TODO
                             type: string
                           securePort:
+                            description: TODO
                             type: int
                       cloudProvider:
+                        description: TODO
                         type: string
                       dns:
+                        description: TODO
                         type: object
                         properties:
                           ip:
+                            description: TODO
                             type: string
                       domain:
+                        description: TODO
                         type: string
                       ingressController:
+                        description: TODO
                         type: object
                         properties:
                           docker:
+                            description: TODO
                             type: object
                             properties:
                               image:
+                                description: TODO
                                 type: string
                           domain:
+                            description: TODO
                             type: string
                           insecurePort:
+                            description: TODO
                             type: int
                           securePort:
+                            description: TODO
                             type: int
                           wildcardDomain:
+                            description: TODO
                             type: string
                       kubelet:
+                        description: TODO
                         type: object
                         properties:
                           altNames:
+                            description: TODO
                             type: string
                           domain:
+                            description: TODO
                             type: string
                           labels:
+                            description: TODO
                             type: string
                           port:
+                            description: TODO
                             type: int
                       networkSetup:
+                        description: TODO
                         type: object
                         properties:
                           docker:
+                            description: TODO
                             type: object
                             properties:
                               image:
+                                description: TODO
                                 type: string
                           kubeProxy:
+                            description: TODO
                             type: object
                             properties:
                               conntrackMaxPerCore:
+                                description: TODO
                                 type: int
                       ssh:
+                        description: TODO
                         type: object
                         properties:
                           userList:
+                            description: TODO
                             type: array
                             items:
+                              description: TODO
                               type: object
                               properties:
                                 name:
+                                  description: TODO
                                   type: string
                                 publicKey:
+                                  description: TODO
                                   type: string
                   masters:
+                    description: TODO
                     type: array
                     items:
+                      description: TODO
                       type: object
                       properties:
                         id:
+                          description: TODO
                           type: string
                   scaling:
+                    description: TODO
                     type: object
                     properties:
                       min:
+                        description: TODO
                         type: int
                       max:
+                        description: TODO
                         type: int
                   version:
+                    description: TODO
                     type: string
                   workers:
+                    description: TODO
                     type: array
                     items:
+                      description: TODO
                       type: object
                       properties:
                         id:
+                          description: TODO
                           type: string
               versionBundle:
+                description: TODO
                 type: object
                 properties:
                   version:
+                    description: TODO
                     type: string
 `
 
