@@ -83,14 +83,23 @@ spec:
                     items:
                       type: string
                     type: array
-                  spotInstanceConfiguration:
+                  instanceDistribution:
                     description: |
-                      Configuration for the usage of spot instances as the ASG configuration.
+                      Attributes defining the instance distribution in a node pool.
                     properties:
-                      enabled:
+                      onDemandBaseCapacity:
                         description: |
-                          Determines if spot instances should be used.
-                        type: boolean
+                          Base capacity of on demand machines.
+                        format: int32
+                        minimum: 0
+                        type: integer
+                      onDemandPercentageAboveBaseCapacity:
+                        description: |
+                          Percentage of on demand instances above the base capacity.
+                        format: int32
+                        maximum: 100
+                        minimum: 0
+                        type: integer
                     type: object
                   worker:
                     description: |
@@ -100,6 +109,10 @@ spec:
                         description: |
                           AWS EC2 instance type name to use for the worker nodes in this node pool.
                         type: string
+                      useAlikeInstanceTypes:
+                        description: |
+                          If true, instances alike the instance_type will be used.
+                        type: boolean
                     type: object
                 type: object
             type: object
