@@ -11,7 +11,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
-	clusterapiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
+	apiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
 	"sigs.k8s.io/yaml"
 )
 
@@ -76,13 +76,13 @@ func Test_GenerateClusterYAML(t *testing.T) {
 	}
 }
 
-func newClusterExampleCR() *clusterapiv1alpha2.Cluster {
+func newClusterExampleCR() *apiv1alpha2.Cluster {
 	cr := NewClusterCR()
 
 	cr.Name = "ca1p0"
-	cr.Spec = clusterapiv1alpha2.ClusterSpec{
+	cr.Spec = apiv1alpha2.ClusterSpec{
 		// ClusterNetwork does not occur in our practice, so leaving it empty.
-		//ClusterNetwork:    &clusterapiv1alpha2.ClusterNetwork{},
+		//ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
 		InfrastructureRef: &corev1.ObjectReference{
 			APIVersion:      "infrastructure.giantswarm.io/v1alpha2",
 			Kind:            "AWSCluster",

@@ -5,7 +5,7 @@ import (
 
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	clusterapiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
+	apiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
 	"sigs.k8s.io/yaml"
 )
 
@@ -81,8 +81,8 @@ func NewClusterTypeMeta() metav1.TypeMeta {
 }
 
 // NewClusterCR returns a Cluster Custom Resource.
-func NewClusterCR() *clusterapiv1alpha2.Cluster {
-	return &clusterapiv1alpha2.Cluster{
+func NewClusterCR() *apiv1alpha2.Cluster {
+	return &apiv1alpha2.Cluster{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
 				crDocsAnnotation: clusterDocumentationLink,
