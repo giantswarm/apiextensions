@@ -106,7 +106,7 @@ spec:
                       onDemandBaseCapacity:
                         default: 0
                         description: |
-                          Base capacity of on demand machines.
+                          Base capacity of on-demand instances to use for worker nodes.
                         format: int32
                         minimum: 0
                         type: integer
