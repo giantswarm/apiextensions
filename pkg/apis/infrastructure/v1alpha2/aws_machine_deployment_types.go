@@ -130,7 +130,7 @@ spec:
                         type: string
                       useAlikeInstanceTypes:
                         description: |
-                          If true, instances alike the instance_type will be used.
+                          If true, certain instance types with specs similar to instanceType will be used.
                         type: boolean
           status:
             type: object
