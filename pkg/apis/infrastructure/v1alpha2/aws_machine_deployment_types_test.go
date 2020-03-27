@@ -102,6 +102,17 @@ func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
 			},
 		},
 	}
+	cr.Status = AWSMachineDeploymentStatus{
+		Provider: AWSMachineDeploymentStatusProvider{
+			Worker: AWSMachineDeploymentStatusProviderWorker{
+				InstanceTypes: []string{
+					"m4.xlarge",
+					"m5.xlarge",
+				},
+				SpotInstances: 39,
+			},
+		},
+	}
 
 	return cr
 }

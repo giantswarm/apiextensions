@@ -116,6 +116,29 @@ spec:
                     type: object
                 type: object
             type: object
+          status:
+            properties:
+              provider:
+                description: |
+                  Status specific to AWS.
+                properties:
+                  worker:
+                    description: |
+                      Status of worker nodes.
+                    properties:
+                      instanceTypes:
+                        description: |
+                          AWS EC2 instance types used for the worker nodes in this node pool.
+                        items:
+                          type: string
+                        type: array
+                      spotInstances:
+                        description: |
+                          Number of spot instances used in this node pool.
+                        type: integer
+                    type: object
+                type: object
+            type: object
         type: object
     served: true
     storage: true
