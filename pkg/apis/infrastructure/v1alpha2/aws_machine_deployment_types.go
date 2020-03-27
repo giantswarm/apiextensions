@@ -113,7 +113,7 @@ spec:
                       onDemandPercentageAboveBaseCapacity:
                         default: 100
                         description: |
-                          Percentage of on demand instances above the base capacity.
+                          Percentage of on-demand instances to use for worker nodes, for instances exceeding onDemandBaseCapacity.
                         format: int32
                         maximum: 100
                         minimum: 0
