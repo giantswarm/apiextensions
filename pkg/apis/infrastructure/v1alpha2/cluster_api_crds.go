@@ -11,6 +11,7 @@ import (
 
 const (
 	kindCluster                        = "Cluster"
+	kindMachineDeployment              = "MachineDeployment"
 	clusterDocumentationLink           = "https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#Cluster"
 	machineDeploymentDocumentationLink = "https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#MachineDeployment"
 )
@@ -148,4 +149,24 @@ func NewClusterCR() *apiv1alpha2.Cluster {
 //
 func NewMachineDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return machineDeploymentCRD.DeepCopy()
+}
+
+// NewMachineDeploymentTypeMeta returns the type block for a MachineDeployment CR.
+func NewMachineDeploymentTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindMachineDeployment,
+	}
+}
+
+// NewMachineDeploymentCR returns a MachineDeployment Custom Resource.
+func NewMachineDeploymentCR() *apiv1alpha2.MachineDeployment {
+	return &apiv1alpha2.MachineDeployment{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: machineDeploymentDocumentationLink,
+			},
+		},
+		TypeMeta: NewMachineDeploymentTypeMeta(),
+	}
 }
