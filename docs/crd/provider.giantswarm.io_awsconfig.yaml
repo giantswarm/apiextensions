@@ -207,7 +207,8 @@ spec:
                         is represented by one item.
                       properties:
                         dockerVolumeSizeGB:
-                          description: TODO
+                          description: |
+                            Size of the worker docker volume in gigabytes.
                           type: int
                         imageID:
                           description: |
