@@ -3,7 +3,7 @@ module github.com/giantswarm/apiextensions
 go 1.13
 
 require (
-	github.com/go-openapi/errors v0.19.2
+	github.com/go-openapi/errors v0.19.4
 	github.com/google/go-cmp v0.4.0
 	k8s.io/api v0.17.2
 	k8s.io/apiextensions-apiserver v0.17.2
