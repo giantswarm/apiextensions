@@ -10,9 +10,8 @@ import (
 )
 
 const (
-	kindCluster = "Cluster"
-	// TODO: Change to this CRD's docs URL once published.
-	clusterDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
+	kindCluster              = "Cluster"
+	clusterDocumentationLink = "https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#Cluster"
 )
 
 const clusterCRDYAML = `
