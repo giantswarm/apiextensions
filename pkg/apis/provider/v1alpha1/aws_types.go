@@ -232,7 +232,8 @@ spec:
                       type: object
                       properties:
                         dockerVolumeSizeGB:
-                          description: TODO
+                          description: |
+                            Size of the worker docker volume in gigabytes.
                           type: int
                         imageID:
                           description: |
