@@ -58,7 +58,7 @@ spec:
                   type: string
               instanceType:
                 description: |
-                  EC2 instane type to use for all master nodes.
+                  EC2 instance type to use for all master nodes.
                 type: string
   conversion:
     strategy: None
