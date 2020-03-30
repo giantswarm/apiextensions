@@ -99,9 +99,6 @@ spec:
                               Seconds to keep an idle connection open.
                             type: int
                         type: object
-                      hostedZones:
-                        description: TODO
-                        type: string
                     type: object
                   hostedZones:
                     description: |
@@ -155,9 +152,6 @@ spec:
                               Seconds to keep an idle connection open.
                             type: int
                         type: object
-                      hostedZones:
-                        description: TODO
-                        type: string
                     type: object
                   masters:
                     description: |
@@ -166,9 +160,6 @@ spec:
                       description: |
                         Configuration for each individual master node.
                       properties:
-                        dockerVolumeSizeGB:
-                          description: TODO (appears unused)
-                          type: int
                         imageID:
                           description: |
                             Amazon Machine Image (AMI) identifier to use as a base for

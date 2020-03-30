@@ -123,9 +123,6 @@ spec:
                             description:  |
                               Seconds to keep an idle connection open.
                             type: int
-                      hostedZones:
-                        description: TODO
-                        type: string
                   hostedZones:
                     description: |
                       HostedZones is AWS hosted zones names in the host cluster account.
@@ -179,9 +176,6 @@ spec:
                             description:  |
                               Seconds to keep an idle connection open.
                             type: int
-                      hostedZones:
-                        description: TODO
-                        type: string
                   masters:
                     description: |
                       Configuration of the master nodes.
@@ -191,9 +185,6 @@ spec:
                         Configuration for each individual master node.
                       type: object
                       properties:
-                        dockerVolumeSizeGB:
-                          description: TODO (appears unused)
-                          type: int
                         imageID:
                           description: |
                             Amazon Machine Image (AMI) identifier to use as a base for
