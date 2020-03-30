@@ -2,7 +2,7 @@ apiVersion: infrastructure.giantswarm.io/v1alpha2
 kind: Cluster
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/
+    giantswarm.io/docs: https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#Cluster
   creationTimestamp: null
   name: ca1p0
 spec:
