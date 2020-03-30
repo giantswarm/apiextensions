@@ -92,8 +92,24 @@ func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
 		},
 		Provider: AWSMachineDeploymentSpecProvider{
 			AvailabilityZones: []string{"eu-central-1b", "eu-central-1c"},
+			InstanceDistribution: AWSMachineDeploymentSpecInstanceDistribution{
+				OnDemandBaseCapacity:                0,
+				OnDemandPercentageAboveBaseCapacity: 0,
+			},
 			Worker: AWSMachineDeploymentSpecProviderWorker{
-				InstanceType: "m5.4xlarge",
+				InstanceType:          "m5.4xlarge",
+				UseAlikeInstanceTypes: true,
+			},
+		},
+	}
+	cr.Status = AWSMachineDeploymentStatus{
+		Provider: AWSMachineDeploymentStatusProvider{
+			Worker: AWSMachineDeploymentStatusProviderWorker{
+				InstanceTypes: []string{
+					"m4.xlarge",
+					"m5.xlarge",
+				},
+				SpotInstances: 39,
 			},
 		},
 	}
