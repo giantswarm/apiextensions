@@ -99,6 +99,26 @@ spec:
                     items:
                       type: string
                     type: array
+                  instanceDistribution:
+                    description: |
+                      Attributes defining the instance distribution in a node pool.
+                    properties:
+                      onDemandBaseCapacity:
+                        default: 0
+                        description: |
+                          Base capacity of on-demand instances to use for worker nodes.
+                        format: int32
+                        minimum: 0
+                        type: integer
+                      onDemandPercentageAboveBaseCapacity:
+                        default: 100
+                        description: |
+                          Percentage of on-demand instances to use for worker nodes, for instances exceeding onDemandBaseCapacity.
+                        format: int32
+                        maximum: 100
+                        minimum: 0
+                        type: integer
+                    type: object
                   worker:
                     type: object
                     description: |
@@ -108,6 +128,33 @@ spec:
                         description: |
                           AWS EC2 instance type name to use for the worker nodes in this node pool.
                         type: string
+                      useAlikeInstanceTypes:
+                        description: |
+                          If true, certain instance types with specs similar to instanceType will be used.
+                        type: boolean
+          status:
+            type: object
+            properties:
+              provider:
+                description: |
+                  Status specific to AWS.
+                type: object
+                properties:
+                  worker:
+                    type: object
+                    description: |
+                      Status of worker nodes.
+                    properties:
+                      instanceTypes:
+                        description: |
+                          AWS EC2 instance types used for the worker nodes in this node pool.
+                        items:
+                          type: string
+                        type: array
+                      spotInstances:
+                        description: |
+                          Number of spot instances used in this node pool.
+                        type: integer
   conversion:
     strategy: None
 `
@@ -173,13 +220,25 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 //       provider:
 //         availabilityZones:
 //           - eu-central-1a
+//         instanceDistribution:
+//           onDemandBaseCapacity: 0
+//           onDemandPercentageAboveBaseCapacity: 0
 //         worker:
 //           instanceType: m4.xlarge
+//           useAlikeInstanceTypes: true
+//     status:
+//       provider:
+//         worker:
+//           instanceTypes:
+//             - "m4.xlarge"
+//             - "m5.xlarge"
+//           spotInstances: 39
 //
 type AWSMachineDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSMachineDeploymentSpec `json:"spec" yaml:"spec"`
+	Spec              AWSMachineDeploymentSpec   `json:"spec" yaml:"spec"`
+	Status            AWSMachineDeploymentStatus `json:"status" yaml:"status"`
 }
 
 type AWSMachineDeploymentSpec struct {
@@ -204,12 +263,32 @@ type AWSMachineDeploymentSpecNodePoolScaling struct {
 }
 
 type AWSMachineDeploymentSpecProvider struct {
-	AvailabilityZones []string                               `json:"availabilityZones" yaml:"availabilityZones"`
-	Worker            AWSMachineDeploymentSpecProviderWorker `json:"worker" yaml:"worker"`
+	AvailabilityZones    []string                                     `json:"availabilityZones" yaml:"availabilityZones"`
+	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution" yaml:"instanceDistribution"`
+	Worker               AWSMachineDeploymentSpecProviderWorker       `json:"worker" yaml:"worker"`
+}
+
+type AWSMachineDeploymentSpecInstanceDistribution struct {
+	OnDemandBaseCapacity                int `json:"onDemandBaseCapacity" yaml:"onDemandBaseCapacity"`
+	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity" yaml:"onDemandPercentageAboveBaseCapacity"`
 }
 
 type AWSMachineDeploymentSpecProviderWorker struct {
-	InstanceType string `json:"instanceType" yaml:"instanceType"`
+	InstanceType          string `json:"instanceType" yaml:"instanceType"`
+	UseAlikeInstanceTypes bool   `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
+}
+
+type AWSMachineDeploymentStatus struct {
+	Provider AWSMachineDeploymentStatusProvider `json:"provider" yaml:"provider"`
+}
+
+type AWSMachineDeploymentStatusProvider struct {
+	Worker AWSMachineDeploymentStatusProviderWorker `json:"worker" yaml:"worker"`
+}
+
+type AWSMachineDeploymentStatusProviderWorker struct {
+	InstanceTypes []string `json:"instanceTypes" yaml:"instanceTypes"`
+	SpotInstances int      `json:"spotInstances" yaml:"spotInstances"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

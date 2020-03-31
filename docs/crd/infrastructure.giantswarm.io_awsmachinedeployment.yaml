@@ -83,6 +83,26 @@ spec:
                     items:
                       type: string
                     type: array
+                  instanceDistribution:
+                    description: |
+                      Attributes defining the instance distribution in a node pool.
+                    properties:
+                      onDemandBaseCapacity:
+                        default: 0
+                        description: |
+                          Base capacity of on-demand instances to use for worker nodes.
+                        format: int32
+                        minimum: 0
+                        type: integer
+                      onDemandPercentageAboveBaseCapacity:
+                        default: 100
+                        description: |
+                          Percentage of on-demand instances to use for worker nodes, for instances exceeding onDemandBaseCapacity.
+                        format: int32
+                        maximum: 100
+                        minimum: 0
+                        type: integer
+                    type: object
                   worker:
                     description: |
                       Specification of worker nodes.
@@ -91,6 +111,33 @@ spec:
                         description: |
                           AWS EC2 instance type name to use for the worker nodes in this node pool.
                         type: string
+                      useAlikeInstanceTypes:
+                        description: |
+                          If true, certain instance types with specs similar to instanceType will be used.
+                        type: boolean
+                    type: object
+                type: object
+            type: object
+          status:
+            properties:
+              provider:
+                description: |
+                  Status specific to AWS.
+                properties:
+                  worker:
+                    description: |
+                      Status of worker nodes.
+                    properties:
+                      instanceTypes:
+                        description: |
+                          AWS EC2 instance types used for the worker nodes in this node pool.
+                        items:
+                          type: string
+                        type: array
+                      spotInstances:
+                        description: |
+                          Number of spot instances used in this node pool.
+                        type: integer
                     type: object
                 type: object
             type: object
