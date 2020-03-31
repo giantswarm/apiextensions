@@ -10,7 +10,7 @@ require (
 	k8s.io/apimachinery v0.16.6
 	k8s.io/client-go v0.16.6
 	k8s.io/code-generator v0.16.6
-	sigs.k8s.io/yaml v1.1.0
+	sigs.k8s.io/yaml v1.2.0
 )
 
 replace golang.org/x/tools => golang.org/x/tools v0.0.0-20190821162956-65e3620a7ae7
