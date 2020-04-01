@@ -81,6 +81,7 @@ func newAWSControlPlaneExampleCR() *AWSControlPlane {
 	cr.Spec = AWSControlPlaneSpec{
 		AvailabilityZones: []string{
 			"eu-central-1a",
+			"eu-central-1b",
 			"eu-central-1c",
 		},
 		InstanceType: "m4.xlarge",
