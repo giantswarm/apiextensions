@@ -3,7 +3,74 @@ package v1alpha1
 import (
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/yaml"
 )
+
+const (
+	azureConfigCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: azureconfigs.provider.giantswarm.io
+spec:
+  group: provider.giantswarm.io
+  names:
+    kind: AzureConfig
+    plural: azureconfigs
+    singular: azureconfig
+    shortNames:
+    - ac
+  subresources:
+    status: {}
+  preserveUnknownFields: false
+  scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      description: |
+        A desired Kubernetes cluster running on Azure.
+      properties:
+        spec:
+          description: |
+            Spec holds the data defining the desired state of a cluster on Azure.
+          properties:
+            azure:
+              description: |
+                Contains values for provider-specific configurations.
+              properties:
+                availabilityzones:
+                  description: The availability zone to use for VMSS.
+                  maxItems: 3
+                  uniqueItems: true
+                  items:
+                    type: integer
+                    minimum: 1
+                    maximum: 3
+                  type: array
+              type: object
+          required:
+          - azure
+          - cluster
+          type: object
+      required:
+      - metadata
+      - spec
+      type: object
+  versions:
+  - name: v1beta1
+    served: true
+    storage: true
+`
+)
+
+var (
+	azureConfigCRD *apiextensionsv1beta1.CustomResourceDefinition
+)
+
+func init() {
+	err := yaml.UnmarshalStrict([]byte(azureConfigCRDYAML), &azureConfigCRD)
+	if err != nil {
+		panic(err)
+	}
+}
 
 // NewAzureConfigCRD returns a new custom resource definition for AzureConfig.
 // This might look something like the following.
@@ -24,28 +91,7 @@ import (
 //         status: {}
 //
 func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "azureconfigs.provider.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "provider.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AzureConfig",
-				Plural:   "azureconfigs",
-				Singular: "azureconfig",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
-		},
-	}
+	return azureConfigCRD.DeepCopy()
 }
 
 // +genclient
