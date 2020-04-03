@@ -10,6 +10,10 @@ import (
 
 const (
 	kindAWSControlPlane = "AWSControlPlane"
+
+	// TODO: change to "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
+	// after this has been first published.
+	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
 )
 
 const awsControlPlaneCRDYAML = `
@@ -35,17 +39,27 @@ spec:
     storage: true
     schema:
       openAPIV3Schema:
+        description: |
+          Configuration for the master nodes (also called Control Plane) of a
+          tenant cluster on AWS.
         type: object
         properties:
           spec:
+            type: object
             properties:
               availabilityZones:
-                items:
-                  type: string
+                description: |
+                  Configures which AWS availability zones to use by master nodes.
+                  We support either 1 or 3 availability zones.
                 type: array
+                items:
+                  description: |
+                    Identifier of an availability zone to use.
+                  type: string
               instanceType:
+                description: |
+                  EC2 instance type to use for all master nodes.
                 type: string
-            type: object
   conversion:
     strategy: None
 `
@@ -68,6 +82,18 @@ func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindAWSControlPlane,
+	}
+}
+
+// NewAWSControlPlaneCR returns an AWSControlPlane Custom Resource.
+func NewAWSControlPlaneCR() *AWSControlPlane {
+	return &AWSControlPlane{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: awsControlPlaneDocumentationLink,
+			},
+		},
+		TypeMeta: NewAWSControlPlaneTypeMeta(),
 	}
 }
 

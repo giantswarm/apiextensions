@@ -1,0 +1,13 @@
+apiVersion: infrastructure.giantswarm.io/v1alpha2
+kind: AWSControlPlane
+metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/
+  creationTimestamp: null
+  name: ier2s
+spec:
+  availabilityZones:
+  - eu-central-1a
+  - eu-central-1b
+  - eu-central-1c
+  instanceType: m4.xlarge
