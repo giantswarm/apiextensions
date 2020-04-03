@@ -40,7 +40,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: |
-          Configuration for the master nodes (also called 'Control Plane') of a
+          Configuration for the master nodes (also called Control Plane) of a
           tenant cluster on AWS.
         type: object
         properties:
