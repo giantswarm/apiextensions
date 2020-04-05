@@ -203,7 +203,7 @@ type AWSClusterSpecCluster struct {
 	// DNS holds DNS configuration details.
 	DNS AWSClusterSpecClusterDNS `json:"dns" yaml:"dns"`
 	// OIDC holds configuration for OpenID Connect (OIDC) authentication.
-	OIDC AWSClusterSpecClusterOIDC `json:"oidc" yaml:"oidc"`
+	OIDC AWSClusterSpecClusterOIDC `json:"oidc,omitempty" yaml:"oidc,omitempty"`
 }
 
 // AWSClusterSpecClusterDNS holds DNS configuration details.
@@ -213,15 +213,15 @@ type AWSClusterSpecClusterDNS struct {
 
 // AWSClusterSpecClusterOIDC holds configuration for OpenID Connect (OIDC) authentication.
 type AWSClusterSpecClusterOIDC struct {
-	Claims    AWSClusterSpecClusterOIDCClaims `json:"claims" yaml:"claims"`
-	ClientID  string                          `json:"clientID" yaml:"clientID"`
-	IssuerURL string                          `json:"issuerURL" yaml:"issuerURL"`
+	Claims    AWSClusterSpecClusterOIDCClaims `json:"claims,omitempty" yaml:"claims,omitempty"`
+	ClientID  string                          `json:"clientID,omitempty" yaml:"clientID,omitempty"`
+	IssuerURL string                          `json:"issuerURL,omitempty" yaml:"issuerURL,omitempty"`
 }
 
 // AWSClusterSpecClusterOIDCClaims defines OIDC claims.
 type AWSClusterSpecClusterOIDCClaims struct {
-	Username string `json:"username" yaml:"username"`
-	Groups   string `json:"groups" yaml:"groups"`
+	Username string `json:"username,omitempty" yaml:"username,omitempty"`
+	Groups   string `json:"groups,omitempty" yaml:"groups,omitempty"`
 }
 
 // AWSClusterSpecProvider holds some AWS details.
