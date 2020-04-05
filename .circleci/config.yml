@@ -18,6 +18,7 @@ workflows:
           command: build
           requires:
             - go-test
+
       - architect/go-architect-legacy:
           name: go-deploy
           command: deploy
