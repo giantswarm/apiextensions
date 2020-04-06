@@ -9,25 +9,25 @@ spec:
   catalog: my-playground-catalog
   config:
     configMap:
-      name: prometheus
+      name: f2def-cluster-values
       namespace: f2def
     secret:
-      name: prometheus-credentials
+      name: f2def-cluster-values
       namespace: f2def
   kubeConfig:
     context:
-      name: "" # Not implemented since it is a external cluster
+      name: f2def-kubeconfig
     inCluster: false
     secret:
-      name: cluster-f2def-credentials
+      name: f2def-kubeconfig
       namespace: f2def
   name: prometheus
   namespace: monitoring
   userConfig:
     configMap:
-      name: prometheus-user
+      name: prometheus-user-values
       namespace: f2def
     secret:
-      name: prometheus-user
+      name: prometheus-user-values
       namespace: f2def
   version: 1.0.1
