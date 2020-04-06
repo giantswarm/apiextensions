@@ -37,8 +37,6 @@ spec:
         type: object
         properties: {}
   - name: v1alpha2
-    served: true
-    storage: true
     schema:
       openAPIV3Schema:
         description: |
@@ -95,6 +93,8 @@ spec:
                     description: |
                       AWS region the cluster is to be running in.
                     type: string
+    served: true
+    storage: true
     subresources:
       status: {}
 `

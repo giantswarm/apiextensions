@@ -22,25 +22,25 @@ kind: CustomResourceDefinition
 metadata:
   name: awscontrolplanes.infrastructure.giantswarm.io
 spec:
+  conversion:
+    strategy: None
   group: infrastructure.giantswarm.io
   names:
     kind: AWSControlPlane
     plural: awscontrolplanes
     singular: awscontrolplane
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
-    served: false
-    storage: false
     schema:
       openAPIV3Schema:
         type: object
         properties: {}
+    served: false
+    storage: false
+    subresources:
+      status: {}
   - name: v1alpha2
-    served: true
-    storage: true
     schema:
       openAPIV3Schema:
         description: |
@@ -64,8 +64,10 @@ spec:
                 description: |
                   EC2 instance type to use for all master nodes.
                 type: string
-  conversion:
-    strategy: None
+    served: true
+    storage: true
+    subresources:
+      status: {}
 `
 
 var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition

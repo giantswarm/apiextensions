@@ -16,44 +16,41 @@ kind: CustomResourceDefinition
 metadata:
   name: awsmachinedeployments.infrastructure.giantswarm.io
 spec:
+  conversion:
+    strategy: None
   group: infrastructure.giantswarm.io
   names:
     kind: AWSMachineDeployment
     plural: awsmachinedeployments
     singular: awsmachinedeployment
+  preserveUnknownFields: false
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
-    served: false
-    storage: false
     schema:
       openAPIV3Schema:
         type: object
         properties: {}
+    served: false
+    storage: false
+    subresources:
+      status: {}
   - name: v1alpha2
-    served: true
-    storage: true
     schema:
       openAPIV3Schema:
-        type: object
         properties:
           spec:
-            type: object
             properties:
               nodePool:
                 description: |
                   General node pool configuration.
-                type: object
                 properties:
                   description:
                     description: |
                       User-friendly description of the node pool, e. g. to inform about the purpose.
-                    type: string
                     maxLength: 100
+                    type: string
                   machine:
-                    type: object
                     properties:
                       dockerVolumeSizeGB:
                         description: |
@@ -67,6 +64,7 @@ spec:
                           via volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.
                         format: int32
                         type: integer
+                    type: object
                   scaling:
                     description: |
                       Configures the size of the node pool, in terms of the number of worker
@@ -74,7 +72,6 @@ spec:
                       be determined by cluster-autoscaler within the configured range.
                       Setting the minimum and maximum to the same number effectively disables
                       autoscaling.
-                    type: object
                     properties:
                       max:
                         description: |
@@ -86,10 +83,11 @@ spec:
                           Minimum number of worker nodes in this node pool.
                         format: int32
                         type: integer
+                    type: object
+                type: object
               provider:
                 description: |
                   Configuration specific to AWS.
-                type: object
                 properties:
                   availabilityZones:
                     description: |
@@ -120,7 +118,6 @@ spec:
                         type: integer
                     type: object
                   worker:
-                    type: object
                     description: |
                       Specification of worker nodes.
                     properties:
@@ -132,16 +129,16 @@ spec:
                         description: |
                           If true, certain instance types with specs similar to instanceType will be used.
                         type: boolean
-          status:
+                    type: object
+                type: object
             type: object
+          status:
             properties:
               provider:
                 description: |
                   Status specific to AWS.
-                type: object
                 properties:
                   worker:
-                    type: object
                     description: |
                       Status of worker nodes.
                     properties:
@@ -155,8 +152,14 @@ spec:
                         description: |
                           Number of spot instances used in this node pool.
                         type: integer
-  conversion:
-    strategy: None
+                    type: object
+                type: object
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
 `
 
 var awsMachineDeploymentCRD *apiextensionsv1beta1.CustomResourceDefinition
