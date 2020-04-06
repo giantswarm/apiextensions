@@ -14,6 +14,8 @@ spec:
     singular: awscluster
   preserveUnknownFields: true
   scope: Namespaced
+  subresources:
+    status: {}
   versions:
   - name: v1alpha1
     schema:
@@ -80,5 +82,3 @@ spec:
         type: object
     served: true
     storage: true
-    subresources:
-      status: {}

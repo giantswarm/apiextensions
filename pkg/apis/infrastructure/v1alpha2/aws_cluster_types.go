@@ -28,6 +28,8 @@ spec:
     singular: awscluster
   preserveUnknownFields: true
   scope: Namespaced
+  subresources:
+    status: {}
   versions:
   - name: v1alpha1
     served: false
@@ -95,8 +97,6 @@ spec:
                     type: string
     served: true
     storage: true
-    subresources:
-      status: {}
 `
 
 var awsClusterCRD *apiextensionsv1beta1.CustomResourceDefinition

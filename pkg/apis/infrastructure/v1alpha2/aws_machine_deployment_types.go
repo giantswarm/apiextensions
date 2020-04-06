@@ -25,6 +25,8 @@ spec:
     singular: awsmachinedeployment
   preserveUnknownFields: false
   scope: Namespaced
+  subresources:
+    status: {}
   versions:
   - name: v1alpha1
     schema:
@@ -33,8 +35,6 @@ spec:
         properties: {}
     served: false
     storage: false
-    subresources:
-      status: {}
   - name: v1alpha2
     schema:
       openAPIV3Schema:
@@ -158,8 +158,6 @@ spec:
         type: object
     served: true
     storage: true
-    subresources:
-      status: {}
 `
 
 var awsMachineDeploymentCRD *apiextensionsv1beta1.CustomResourceDefinition

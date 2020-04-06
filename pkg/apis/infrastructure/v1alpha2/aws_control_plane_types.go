@@ -30,6 +30,8 @@ spec:
     plural: awscontrolplanes
     singular: awscontrolplane
   scope: Namespaced
+  subresources:
+    status: {}
   versions:
   - name: v1alpha1
     schema:
@@ -38,8 +40,6 @@ spec:
         properties: {}
     served: false
     storage: false
-    subresources:
-      status: {}
   - name: v1alpha2
     schema:
       openAPIV3Schema:
@@ -66,8 +66,6 @@ spec:
                 type: string
     served: true
     storage: true
-    subresources:
-      status: {}
 `
 
 var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
