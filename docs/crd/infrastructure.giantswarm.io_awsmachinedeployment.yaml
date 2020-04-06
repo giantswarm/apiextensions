@@ -88,7 +88,7 @@ spec:
                       Attributes defining the instance distribution in a node pool.
                     properties:
                       onDemandBaseCapacity:
-                        default: 0
+                        defaultfoo: 0
                         description: |
                           Base capacity of on-demand instances to use for worker nodes.
                         format: int32
