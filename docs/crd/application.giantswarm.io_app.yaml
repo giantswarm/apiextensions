@@ -22,8 +22,8 @@ spec:
           properties:
             catalog:
               description: |
-                Name of the AppCatalog to install this app from. Find more information in the AppCatalog
-                CRD documentation.
+                Name of the AppCatalog resource to install this app from. The AppCatalog resource must
+                exist upfront.
               type: string
             config:
               description: |
@@ -31,16 +31,16 @@ spec:
               properties:
                 configMap:
                   description: |
-                    If present, points to a ConfigMap resource that holds configuration data
-                    used by the app.
+                    Defines the reference of a "ConfigMap" where is saved the configuration values 
+                    that will be applied to the application when it will be deployed in the cluster.
                   properties:
                     name:
                       description: |
-                        Name of the ConfigMap.
+                        Name of the ConfigMap resource.
                       type: string
                     namespace:
                       description: |
-                        Namespace to find the ConfigMap in.
+                        Namespace holding the ConfigMap resource.
                       type: string
                   required:
                   - name
@@ -48,15 +48,16 @@ spec:
                   type: object
                 secret:
                   description: |
-                    If present, points to a Secret resoure that can be used by the app.
+                    Defines the reference of a "Secret" where is saved the sensitive configuration
+                    that  will be applied to the application when it will be deployed in the cluster.
                   properties:
                     name:
                       description: |
-                        Name of the Secret.
+                        Name of the Secret resource.
                       type: string
                     namespace:
                       description: |
-                        Namespace to find the Secret in.
+                        Namespace holding the Secret resource.
                       type: string
                   required:
                   - name

@@ -6,28 +6,28 @@ metadata:
   creationTimestamp: null
   name: prometheus
 spec:
-  catalog: my-catalog
+  catalog: my-playground-catalog
   config:
     configMap:
-      name: my-configmap
-      namespace: monitoring
+      name: prometheus
+      namespace: f2def
     secret:
-      name: my-secret
-      namespace: monitoring
+      name: prometheus-credentials
+      namespace: f2def
   kubeConfig:
     context:
-      name: my-context-name
+      name: "" # Not implemented since it is a external cluster
     inCluster: false
     secret:
-      name: my-kubeconfig-secret
-      namespace: monitoring
+      name: cluster-f2def-credentials
+      namespace: f2def
   name: prometheus
   namespace: monitoring
   userConfig:
     configMap:
-      name: my-userconfig-configmap
-      namespace: monitoring
+      name: prometheus-user
+      namespace: f2def
     secret:
-      name: my-userconfig-secret
-      namespace: monitoring
-  version: 1.0.0
+      name: prometheus-user
+      namespace: f2def
+  version: 1.0.1
