@@ -178,6 +178,7 @@ func NewAWSClusterCR() *AWSCluster {
 //       provider:
 //         network:
 //           cidr: 10.1.6.0/24
+//           vpcID: vpc-1234567890abcdef0
 //
 type AWSCluster struct {
 	metav1.TypeMeta `json:",inline"`
@@ -271,6 +272,8 @@ type AWSClusterStatusProvider struct {
 type AWSClusterStatusProviderNetwork struct {
 	// IPv4 address block used by the tenant cluster, in CIDR notation.
 	CIDR string `json:"cidr" yaml:"cidr"`
+	// VPCID contains the ID of the tenant cluster, e.g. vpc-1234567890abcdef0.
+	VPCID string `json:"vpcID" yaml:"vpcID"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
