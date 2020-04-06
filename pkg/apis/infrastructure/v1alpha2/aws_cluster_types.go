@@ -13,7 +13,7 @@ const (
 )
 
 const awsClusterCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: awsclusters.infrastructure.giantswarm.io

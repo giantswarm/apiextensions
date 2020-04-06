@@ -17,7 +17,7 @@ const (
 )
 
 const awsControlPlaneCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: awscontrolplanes.infrastructure.giantswarm.io
@@ -34,6 +34,10 @@ spec:
   - name: v1alpha1
     served: false
     storage: false
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties: {}
   - name: v1alpha2
     served: true
     storage: true

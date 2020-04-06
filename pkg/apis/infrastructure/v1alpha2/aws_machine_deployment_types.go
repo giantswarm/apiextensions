@@ -11,7 +11,7 @@ const (
 )
 
 const awsMachineDeploymentCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   name: awsmachinedeployments.infrastructure.giantswarm.io
