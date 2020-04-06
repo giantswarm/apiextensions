@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add CRD and CR documentation.
 - Add Spot Instances configuration.
+- Add VPC ID to be exposed with the AWSCluster CR.
 
 ### Changed
 
