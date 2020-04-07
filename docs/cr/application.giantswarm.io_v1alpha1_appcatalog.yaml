@@ -8,10 +8,10 @@ metadata:
 spec:
   config:
     configMap:
-      name: my-configmap
+      name: my-playground-catalog
       namespace: my-namespace
     secret:
-      name: my-secret
+      name: my-playground-catalog
       namespace: my-namespace
   description: A catalog to store all new application packages.
   logoURL: https://my-org.github.com/logo.png
