@@ -15,17 +15,18 @@ spec:
   validation:
     openAPIV3Schema:
       description: |
-        Defines a location where packaged applications are stored and shared,
-        ready to be installed in a Kubernetes cluster.
+        An AppCatalog defines a collection of apps to install in one or several clusters.
       properties:
         spec:
           properties:
             config:
+              description: |
+                Configuration to be applied when apps from this catalog are deployed.
               properties:
                 configMap:
                   description: |
-                    Defines the reference of a ConfigMap where is saved the default values that 
-                    will be applied to all applications contained in the catalog.
+                    References a ConfigMap containing catalog values that should be applied to
+                    apps installed from this catalog.
                   properties:
                     name:
                       description: |
@@ -41,8 +42,8 @@ spec:
                   type: object
                 secret:
                   description: |
-                    Defines the reference of a Secret where is saved the default sensitive configuration
-                    that will be applied to all applications contained in the catalog.
+                    References a secret containing catalog values that should be applied to
+                    apps installed from this catalog.
                   properties:
                     name:
                       description: |
@@ -63,11 +64,11 @@ spec:
               type: string
             logoURL:
               description: |
-                The logo URL pointing to the image file to be used when displaying this catalog.
+                URL of a logo image file to be used when displaying this catalog.
               type: string
             storage:
               description: |
-                Defines the type of storage supported by the catalog.
+                References a map containing values that should be applied to this catalog.
               properties:
                 URL:
                   description: |
@@ -76,9 +77,8 @@ spec:
                   type: string
                 type:
                   description: |
-                    Determines the type of storage. Currently only 'helm' is available.
-                    - Helm type storage use the known Helm Chart Repository format to store the chart
-                      packages and expose some metadata in the file `index.yaml` to manage the catalog.
+                    Indicates which repository type would be used for this AppCatalog.
+                    Example: 'helm'
                   type: string
               required:
               - type
