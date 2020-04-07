@@ -1,4 +1,4 @@
 // +k8s:deepcopy-gen=package,register
 
-// +groupName=tools.giantswarm.io
+// +groupName=tooling.giantswarm.io
 package v1alpha1

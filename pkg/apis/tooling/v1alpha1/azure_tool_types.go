@@ -10,9 +10,9 @@ const azureToolCRDYAML = `
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: azuretool.tools.giantswarm.io
+  name: azuretool.tooling.giantswarm.io
 spec:
-  group: tools.giantswarm.io
+  group: tooling.giantswarm.io
   scope: Namespaced
   version: v1alpha1
   names:

@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	group   = "tools.giantswarm.io"
+	group   = "tooling.giantswarm.io"
 	version = "v1alpha1"
 )
 
