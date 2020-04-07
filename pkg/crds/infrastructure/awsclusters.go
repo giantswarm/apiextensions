@@ -156,8 +156,8 @@ spec:
                       condition(s) of the cluster.
                     properties:
                       condition:
-                        description: Condition string, e. g. `Creating`, `Created`,
-                          `Upgraded`
+                        description: Condition string, e. g. "Creating", "Created",
+                          "Upgraded"
                         type: string
                       lastTransitionTime:
                         description: Time the condition occurred.

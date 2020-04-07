@@ -3,25 +3,25 @@ package crd
 import (
 	"fmt"
 	"io/ioutil"
+	"os"
+	"strings"
+
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/args"
-	"os"
 	"sigs.k8s.io/controller-tools/pkg/crd"
 	"sigs.k8s.io/controller-tools/pkg/genall"
 	"sigs.k8s.io/controller-tools/pkg/markers"
 	"sigs.k8s.io/yaml"
-	"strings"
 )
-
 
 var (
 	allGenerators = map[string]genall.Generator{
-		"crd":         crd.Generator{},
+		"crd": crd.Generator{},
 	}
 
 	allOutputRules = map[string]genall.OutputRule{
-		"dir":       genall.OutputToDirectory(""),
+		"dir": genall.OutputToDirectory(""),
 	}
 
 	optionsRegistry = &markers.Registry{}
@@ -111,7 +111,7 @@ func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) erro
 		_ = yaml.Unmarshal(contents, &crd)
 		group := strings.Split(crd.Spec.Group, ".")[0]
 		rendered := fmt.Sprintf(yamlTemplate, group, crd.Spec.Names.Plural, "`"+string(contents)+"`", crd.Spec.Names.Kind, crd.Spec.Names.Plural)
-		filename := "pkg/crds/"+group+"/"+crd.Spec.Names.Plural+".go"
+		filename := "pkg/crds/" + group + "/" + crd.Spec.Names.Plural + ".go"
 		_ = os.Mkdir("pkg/crds/"+group, 0755)
 		err = ioutil.WriteFile(filename, []byte(rendered), 0644)
 		if err != nil {

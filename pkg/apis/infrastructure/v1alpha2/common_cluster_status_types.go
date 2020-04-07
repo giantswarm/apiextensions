@@ -104,7 +104,7 @@ type CommonClusterStatus struct {
 type CommonClusterStatusCondition struct {
 	// Time the condition occurred.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
-	// Condition string, e. g. `Creating`, `Created`, `Upgraded`
+	// Condition string, e. g. "Creating", "Created", "Upgraded"
 	Condition string `json:"condition" yaml:"condition"`
 }
 

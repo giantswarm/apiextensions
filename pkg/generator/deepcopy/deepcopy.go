@@ -2,12 +2,13 @@ package deepcopy
 
 import (
 	"io"
+	"os"
+	"path/filepath"
+
 	"k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/args"
 	"k8s.io/gengo/examples/deepcopy-gen/generators"
 	"k8s.io/gengo/generator"
-	"os"
-	"path/filepath"
 )
 
 func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) error {

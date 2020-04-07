@@ -40,11 +40,13 @@ spec:
             disabledDate:
               description: DisabledDate is the date of the cycle phase being changed
                 to "disabled".
-              type: object
+              format: date-time
+              type: string
             enabledDate:
               description: EnabledDate is the date of the cycle phase being changed
                 to "enabled".
-              type: object
+              format: date-time
+              type: string
             phase:
               description: 'Phase is the release phase. It can be one of: "upcoming",
                 "enabled", "disabled", "eol".'

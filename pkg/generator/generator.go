@@ -20,12 +20,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/giantswarm/apiextensions/pkg/generator/clientset"
-	"github.com/giantswarm/apiextensions/pkg/generator/crd"
-	"github.com/giantswarm/apiextensions/pkg/generator/deepcopy"
-	clientsetargs "k8s.io/code-generator/cmd/client-gen/args"
-	deepcopyargs "k8s.io/code-generator/cmd/deepcopy-gen/args"
-	"k8s.io/klog"
 	"log"
 	"os"
 	"os/exec"
@@ -33,20 +27,30 @@ import (
 	"strconv"
 	"strings"
 
+	clientsetargs "k8s.io/code-generator/cmd/client-gen/args"
+	deepcopyargs "k8s.io/code-generator/cmd/deepcopy-gen/args"
+
+	"github.com/giantswarm/apiextensions/pkg/generator/clientset"
+	"github.com/giantswarm/apiextensions/pkg/generator/deepcopy"
+
+	"k8s.io/klog"
+
+	"github.com/giantswarm/apiextensions/pkg/generator/crd"
+
 	"k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/args"
 )
 
 const (
-	toolName = "apiextensions/generator"
-	apisDirectory = "./pkg/apis"
+	toolName           = "apiextensions/generator"
+	apisDirectory      = "./pkg/apis"
 	generatedDirectory = "./pkg/generated"
-	boilerplatePath = "./pkg/generator/boilerplate.go.txt"
-	rootPackage = "github.com/giantswarm/apiextensions"
+	boilerplatePath    = "./pkg/generator/boilerplate.go.txt"
+	rootPackage        = "github.com/giantswarm/apiextensions"
 
 	clientsetDirectory = "./pkg/clientset"
-	clientsetName = "versioned"
-	clientsetBuildTag = "generated_clientset"
+	clientsetName      = "versioned"
+	clientsetBuildTag  = "generated_clientset"
 
 	deepcopyBaseName = "zz_generated.deepcopy"
 	deepcopyBuildTag = "generated_deepcopy"
@@ -102,7 +106,7 @@ func initKlog(level int) error {
 	return nil
 }
 
-func canonicalizePackage(elem... string) string {
+func canonicalizePackage(elem ...string) string {
 	components := []string{rootPackage}
 	for _, component := range elem {
 		components = append(components, strings.TrimPrefix(component, "./"))
@@ -164,17 +168,22 @@ func main() {
 	genericArgs.GeneratedBuildTag = clientsetBuildTag
 	genericArgs.OutputPackagePath = canonicalizePackage(clientsetDirectory)
 	genericArgs.CustomArgs = &clientsetargs.CustomArgs{
-		Groups:                 groups,
-		ClientsetName:          clientsetName,
-		ClientsetAPIPath:       "/apis",
-		ClientsetOnly:          false,
-		FakeClient:             true,
+		Groups:           groups,
+		ClientsetName:    clientsetName,
+		ClientsetAPIPath: "/apis",
+		ClientsetOnly:    false,
+		FakeClient:       true,
 	}
 	err = clientset.Generate(genericArgs)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	cmd := exec.Command("sleep", "1")
-	err := cmd.Run()
+	cmd := exec.Command("goimports", "-local", "github.com/giantswarm/apiextensions", "-w", "./pkg")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err = cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

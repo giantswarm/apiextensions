@@ -1,11 +1,12 @@
 package clientset
 
 import (
+	"os"
+	"path/filepath"
+
 	clientgen "k8s.io/code-generator/cmd/client-gen/generators"
 	"k8s.io/gengo/args"
 	"k8s.io/gengo/generator"
-	"os"
-	"path/filepath"
 )
 
 func Generate(genericArgs args.GeneratorArgs) error {

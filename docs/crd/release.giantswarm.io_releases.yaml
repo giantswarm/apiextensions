@@ -69,7 +69,8 @@ spec:
               type: array
             date:
               description: Date that the release became active.
-              type: object
+              format: date-time
+              type: string
             state:
               description: 'State indicates the availability of the release: deprecated,
                 active, or wip.'
