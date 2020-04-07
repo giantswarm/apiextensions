@@ -19,8 +19,8 @@ metadata:
   name: appcatalogs.application.giantswarm.io
 spec:
   group: application.giantswarm.io
-  scope: Cluster
-  version: v1alpha1
+  scope: Namespaced
+  version: v1alpha2
   names:
     kind: AppCatalog
     plural: appcatalogs
@@ -120,7 +120,7 @@ func init() {
 //       name: appcatalog.application.giantswarm.io
 //     spec:
 //       group: application.giantswarm.io
-//       scope: Cluster
+//       scope: Namespaced
 //       version: v1alpha1
 //       names:
 //         kind: AppCatalog
@@ -151,7 +151,6 @@ func NewAppCatalogCR() *AppCatalog {
 }
 
 // +genclient
-// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // AppCatalog CRs might look something like the following.
@@ -160,6 +159,7 @@ func NewAppCatalogCR() *AppCatalog {
 //    kind: AppCatalog
 //    metadata:
 //      name: "giantswarm"
+//      namespace: "giantswarm"
 //      labels:
 //        app-operator.giantswarm.io/version: "1.0.0"
 //

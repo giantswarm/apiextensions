@@ -89,6 +89,7 @@ func newAppCatalogExampleCR() *AppCatalog {
 	cr := NewAppCatalogCR()
 
 	cr.Name = "my-app-catalog"
+	cr.Namespace = "giantswarm"
 	cr.Spec = AppCatalogSpec{
 		Title:       "My App Catalog",
 		Description: "Applications we provide for all sorts of purposes.",
