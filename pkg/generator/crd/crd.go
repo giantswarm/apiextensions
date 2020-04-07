@@ -2,11 +2,13 @@ package crd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/args"
 	"sigs.k8s.io/controller-tools/pkg/crd"
 	"sigs.k8s.io/controller-tools/pkg/genall"
 	"sigs.k8s.io/controller-tools/pkg/markers"
+	"strings"
 )
 
 
@@ -68,20 +70,23 @@ func init() {
 	}
 }
 
+const yamlTemplate = `package %s
+
+import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"sigs.k8s.io/yaml"
+)
+
+const crdYAML = %s
+
+func New%sCRD() *v1beta1.CustomResourceDefinition {
+	var crd v1beta1.CustomResourceDefinition
+	_ = yaml.Unmarshal([]byte(crdYAML), &crd)
+	return &crd
+}
+`
+
 func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) error {
-	/*
-	b, err := genericArgs.NewBuilder()
-	if err != nil {
-		return err
-	}
-
-	c, err := generator.NewContext(b, generators.NameSystems(), generators.DefaultNameSystem())
-	if err != nil {
-		return err
-	}
-
-	p := c.Universe.Package("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1")
-	*/
 	rt, err := genall.FromOptions(optionsRegistry, []string{
 		"crd",
 		"paths=./pkg/apis/...",
@@ -90,29 +95,24 @@ func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) erro
 	if err != nil {
 		return err
 	}
-	if len(rt.Generators) == 0 {
-		return fmt.Errorf("no generators specified")
-	}
-
 	if hadErrs := rt.Run(); hadErrs {
 		return fmt.Errorf("not all generators ran successfully")
 	}
-
-	/*
-	for _, group := range groups {
-		for _, version := range group.Versions {
-			filename := fmt.Sprintf("%s_%s.yaml", crd.Spec.Group, crd.Spec.Names.Singular)
-			path := filepath.Join("docs/crd", filename)
-			encoded, err := yaml.Marshal(crd)
-			if err != nil {
-				log.Fatal(err)
-			}
-			err = ioutil.WriteFile(path, encoded, 0644)
-			if err != nil {
-				log.Fatal(err)
-			}
+	d, err := ioutil.ReadDir("./docs/crd")
+	for _, dir := range d {
+		contents, err := ioutil.ReadFile("docs/crd/" + dir.Name())
+		if err != nil {
+			return err
+		}
+		split := strings.Split(dir.Name(), ".")
+		group := split[0]
+		splitSuffix := strings.Split(split[len(split)-2], "_")
+		kind := splitSuffix[1]
+		rendered := fmt.Sprintf(yamlTemplate, group, "`"+string(contents)+"`", kind)
+		err = ioutil.WriteFile("pkg/crds/"+group+"/"+kind+".go", []byte(rendered), 0644)
+		if err != nil {
+			return err
 		}
 	}
-	 */
 	return nil
 }
