@@ -1,4 +1,11 @@
+package provider
 
+import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"sigs.k8s.io/yaml"
+)
+
+const azureconfigsYAML = `
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -608,3 +615,10 @@ status:
     plural: ""
   conditions: []
   storedVersions: []
+`
+
+func NewAzureConfigCRD() *v1beta1.CustomResourceDefinition {
+	var crd v1beta1.CustomResourceDefinition
+	_ = yaml.Unmarshal([]byte(azureconfigsYAML), &crd)
+	return &crd
+}

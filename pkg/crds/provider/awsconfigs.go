@@ -1,4 +1,11 @@
+package provider
 
+import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"sigs.k8s.io/yaml"
+)
+
+const awsconfigsYAML = `
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -6,14 +13,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: azureconfigs.provider.giantswarm.io
+  name: awsconfigs.provider.giantswarm.io
 spec:
   group: provider.giantswarm.io
   names:
-    kind: AzureConfig
-    listKind: AzureConfigList
-    plural: azureconfigs
-    singular: azureconfig
+    kind: AWSConfig
+    listKind: AWSConfigList
+    plural: awsconfigs
+    singular: awsconfig
   scope: Namespaced
   validation:
     openAPIV3Schema:
@@ -32,12 +39,50 @@ spec:
           type: object
         spec:
           properties:
-            azure:
+            aws:
               properties:
+                api:
+                  description: AWSConfigSpecAWSAPI deprecated since aws-operator v12
+                    resources.
+                  properties:
+                    elb:
+                      description: AWSConfigSpecAWSAPIELB deprecated since aws-operator
+                        v12 resources.
+                      properties:
+                        idleTimeoutSeconds:
+                          type: integer
+                      required:
+                      - idleTimeoutSeconds
+                      type: object
+                    hostedZones:
+                      type: string
+                  required:
+                  - elb
+                  - hostedZones
+                  type: object
                 availabilityZones:
-                  items:
-                    type: integer
-                  type: array
+                  description: "AvailabilityZones is the number of AWS availability
+                    zones used to spread the tenant cluster's worker nodes across.
+                    There are limitations on availability zone settings due to binary
+                    IP range splitting and provider specific region capabilities.
+                    When for instance choosing 3 availability zones, the configured
+                    IP range will be split into 4 ranges and thus one of it will not
+                    be able to be utilized. Such limitations have to be considered
+                    when designing the network topology and configuring tenant cluster
+                    HA via AvailabilityZones. \n The selection and usage of the actual
+                    availability zones for the created tenant cluster is randomized.
+                    In case there are 4 availability zones provided in the used region
+                    and the user selects 2 availability zones, the actually used availability
+                    zones in which tenant cluster workload is put into will tend to
+                    be different across tenant cluster creations. This is done in
+                    order to provide more HA during single availability zone failures.
+                    In case a specific availability zone fails, not all tenant clusters
+                    will be affected due to the described selection process."
+                  type: integer
+                az:
+                  description: "TODO remove the deprecated AZ field due to AvailabilityZones.
+                    \n     https://github.com/giantswarm/giantswarm/issues/4507"
+                  type: string
                 credentialSecret:
                   properties:
                     name:
@@ -48,127 +93,145 @@ spec:
                   - name
                   - namespace
                   type: object
-                dnsZones:
-                  description: AzureConfigSpecAzureDNSZones contains the DNS Zones
-                    of the cluster.
+                etcd:
+                  description: AWSConfigSpecAWSEtcd deprecated since aws-operator
+                    v12 resources.
+                  properties:
+                    elb:
+                      description: AWSConfigSpecAWSEtcdELB deprecated since aws-operator
+                        v12 resources.
+                      properties:
+                        idleTimeoutSeconds:
+                          type: integer
+                      required:
+                      - idleTimeoutSeconds
+                      type: object
+                    hostedZones:
+                      type: string
+                  required:
+                  - elb
+                  - hostedZones
+                  type: object
+                hostedZones:
+                  description: "HostedZones is AWS hosted zones names in the host
+                    cluster account. For each zone there will be \"CLUSTER_ID.k8s\"
+                    NS record created in the host cluster account. Then for each created
+                    NS record there will be a zone created in the guest account. After
+                    that component specific records under those zones: \t- api.CLUSTER_ID.k8s.{{
+                    .Spec.AWS.HostedZones.API.Name }} \t- etcd.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Etcd.Name
+                    }} \t- ingress.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Ingress.Name
+                    }} \t- *.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Ingress.Name
+                    }}"
                   properties:
                     api:
-                      description: API is the DNS Zone for the Kubernetes API.
                       properties:
                         name:
-                          description: Name is the name of the zone.
-                          type: string
-                        resourceGroup:
-                          description: ResourceGroup is the resource group of the
-                            zone.
                           type: string
                       required:
                       - name
-                      - resourceGroup
                       type: object
                     etcd:
-                      description: Etcd is the DNS Zone for the etcd cluster.
                       properties:
                         name:
-                          description: Name is the name of the zone.
-                          type: string
-                        resourceGroup:
-                          description: ResourceGroup is the resource group of the
-                            zone.
                           type: string
                       required:
                       - name
-                      - resourceGroup
                       type: object
                     ingress:
-                      description: Ingress is the DNS Zone for the Ingress resource,
-                        used for customer traffic.
                       properties:
                         name:
-                          description: Name is the name of the zone.
-                          type: string
-                        resourceGroup:
-                          description: ResourceGroup is the resource group of the
-                            zone.
                           type: string
                       required:
                       - name
-                      - resourceGroup
                       type: object
                   required:
                   - api
                   - etcd
                   - ingress
                   type: object
+                ingress:
+                  description: AWSConfigSpecAWSIngress deprecated since aws-operator
+                    v12 resources.
+                  properties:
+                    elb:
+                      description: AWSConfigSpecAWSIngressELB deprecated since aws-operator
+                        v12 resources.
+                      properties:
+                        idleTimeoutSeconds:
+                          type: integer
+                      required:
+                      - idleTimeoutSeconds
+                      type: object
+                    hostedZones:
+                      type: string
+                  required:
+                  - elb
+                  - hostedZones
+                  type: object
                 masters:
                   items:
                     properties:
                       dockerVolumeSizeGB:
-                        description: DockerVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/docker.
                         type: integer
-                      kubeletVolumeSizeGB:
-                        description: KubeletVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/kubelet.
-                        type: integer
-                      vmSize:
-                        description: VMSize is the master vm size (e.g. Standard_A1)
+                      imageID:
+                        type: string
+                      instanceType:
                         type: string
                     required:
                     - dockerVolumeSizeGB
-                    - kubeletVolumeSizeGB
-                    - vmSize
+                    - imageID
+                    - instanceType
                     type: object
                   type: array
-                virtualNetwork:
+                region:
+                  type: string
+                vpc:
                   properties:
-                    calicoSubnetCIDR:
-                      description: CalicoSubnetCIDR is the CIDR for the calico subnet.
-                        It has to be also a worker subnet (Azure limitation).
-                      type: string
                     cidr:
-                      description: CIDR is the CIDR for the Virtual Network.
                       type: string
-                    masterSubnetCIDR:
-                      description: "TODO: remove Master, Worker and Calico subnet
-                        cidr after azure-operator v2 is deleted. MasterSubnetCIDR
-                        is the CIDR for the master subnet. \n     https://github.com/giantswarm/giantswarm/issues/4358"
+                    peerId:
                       type: string
-                    workerSubnetCIDR:
-                      description: WorkerSubnetCIDR is the CIDR for the worker subnet.
+                    privateSubnetCidr:
                       type: string
+                    publicSubnetCidr:
+                      type: string
+                    routeTableNames:
+                      items:
+                        type: string
+                      type: array
                   required:
-                  - calicoSubnetCIDR
                   - cidr
-                  - masterSubnetCIDR
-                  - workerSubnetCIDR
+                  - peerId
+                  - privateSubnetCidr
+                  - publicSubnetCidr
+                  - routeTableNames
                   type: object
                 workers:
                   items:
                     properties:
                       dockerVolumeSizeGB:
-                        description: DockerVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/docker.
                         type: integer
-                      kubeletVolumeSizeGB:
-                        description: KubeletVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/kubelet.
-                        type: integer
-                      vmSize:
-                        description: VMSize is the master vm size (e.g. Standard_A1)
+                      imageID:
+                        type: string
+                      instanceType:
                         type: string
                     required:
                     - dockerVolumeSizeGB
-                    - kubeletVolumeSizeGB
-                    - vmSize
+                    - imageID
+                    - instanceType
                     type: object
                   type: array
               required:
+              - api
               - availabilityZones
+              - az
               - credentialSecret
-              - dnsZones
+              - etcd
+              - hostedZones
+              - ingress
               - masters
-              - virtualNetwork
+              - region
+              - vpc
               - workers
               type: object
             cluster:
@@ -404,12 +467,55 @@ spec:
               - version
               type: object
           required:
-          - azure
+          - aws
           - cluster
           - versionBundle
           type: object
         status:
           properties:
+            aws:
+              properties:
+                autoScalingGroup:
+                  properties:
+                    name:
+                      type: string
+                  required:
+                  - name
+                  type: object
+                availabilityZones:
+                  items:
+                    properties:
+                      name:
+                        type: string
+                      subnet:
+                        properties:
+                          private:
+                            properties:
+                              cidr:
+                                type: string
+                            required:
+                            - cidr
+                            type: object
+                          public:
+                            properties:
+                              cidr:
+                                type: string
+                            required:
+                            - cidr
+                            type: object
+                        required:
+                        - private
+                        - public
+                        type: object
+                    required:
+                    - name
+                    - subnet
+                    type: object
+                  type: array
+              required:
+              - autoScalingGroup
+              - availabilityZones
+              type: object
             cluster:
               properties:
                 conditions:
@@ -566,31 +672,9 @@ spec:
               - scaling
               - versions
               type: object
-            provider:
-              properties:
-                availabilityZones:
-                  items:
-                    type: integer
-                  type: array
-                ingress:
-                  properties:
-                    loadBalancer:
-                      properties:
-                        publicIPName:
-                          type: string
-                      required:
-                      - publicIPName
-                      type: object
-                  required:
-                  - loadBalancer
-                  type: object
-              required:
-              - availabilityZones
-              - ingress
-              type: object
           required:
+          - aws
           - cluster
-          - provider
           type: object
       required:
       - metadata
@@ -608,3 +692,10 @@ status:
     plural: ""
   conditions: []
   storedVersions: []
+`
+
+func NewAWSConfigCRD() *v1beta1.CustomResourceDefinition {
+	var crd v1beta1.CustomResourceDefinition
+	_ = yaml.Unmarshal([]byte(awsconfigsYAML), &crd)
+	return &crd
+}

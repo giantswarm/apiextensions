@@ -3,11 +3,14 @@ package crd
 import (
 	"fmt"
 	"io/ioutil"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/code-generator/cmd/client-gen/types"
 	"k8s.io/gengo/args"
+	"os"
 	"sigs.k8s.io/controller-tools/pkg/crd"
 	"sigs.k8s.io/controller-tools/pkg/genall"
 	"sigs.k8s.io/controller-tools/pkg/markers"
+	"sigs.k8s.io/yaml"
 	"strings"
 )
 
@@ -77,11 +80,11 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-const crdYAML = %s
+const %sYAML = %s
 
 func New%sCRD() *v1beta1.CustomResourceDefinition {
 	var crd v1beta1.CustomResourceDefinition
-	_ = yaml.Unmarshal([]byte(crdYAML), &crd)
+	_ = yaml.Unmarshal([]byte(%sYAML), &crd)
 	return &crd
 }
 `
@@ -104,15 +107,17 @@ func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) erro
 		if err != nil {
 			return err
 		}
-		split := strings.Split(dir.Name(), ".")
-		group := split[0]
-		splitSuffix := strings.Split(split[len(split)-2], "_")
-		kind := splitSuffix[1]
-		rendered := fmt.Sprintf(yamlTemplate, group, "`"+string(contents)+"`", kind)
-		err = ioutil.WriteFile("pkg/crds/"+group+"/"+kind+".go", []byte(rendered), 0644)
+		var crd v1beta1.CustomResourceDefinition
+		_ = yaml.Unmarshal(contents, &crd)
+		group := strings.Split(crd.Spec.Group, ".")[0]
+		rendered := fmt.Sprintf(yamlTemplate, group, crd.Spec.Names.Plural, "`"+string(contents)+"`", crd.Spec.Names.Kind, crd.Spec.Names.Plural)
+		filename := "pkg/crds/"+group+"/"+crd.Spec.Names.Plural+".go"
+		_ = os.Mkdir("pkg/crds/"+group, 0755)
+		err = ioutil.WriteFile(filename, []byte(rendered), 0644)
 		if err != nil {
 			return err
 		}
+		fmt.Println("generated", filename)
 	}
 	return nil
 }

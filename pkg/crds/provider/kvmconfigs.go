@@ -1,4 +1,11 @@
+package provider
 
+import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"sigs.k8s.io/yaml"
+)
+
+const kvmconfigsYAML = `
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -6,14 +13,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: azureconfigs.provider.giantswarm.io
+  name: kvmconfigs.provider.giantswarm.io
 spec:
   group: provider.giantswarm.io
   names:
-    kind: AzureConfig
-    listKind: AzureConfigList
-    plural: azureconfigs
-    singular: azureconfig
+    kind: KVMConfig
+    listKind: KVMConfigList
+    plural: kvmconfigs
+    singular: kvmconfig
   scope: Namespaced
   validation:
     openAPIV3Schema:
@@ -32,145 +39,6 @@ spec:
           type: object
         spec:
           properties:
-            azure:
-              properties:
-                availabilityZones:
-                  items:
-                    type: integer
-                  type: array
-                credentialSecret:
-                  properties:
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                  required:
-                  - name
-                  - namespace
-                  type: object
-                dnsZones:
-                  description: AzureConfigSpecAzureDNSZones contains the DNS Zones
-                    of the cluster.
-                  properties:
-                    api:
-                      description: API is the DNS Zone for the Kubernetes API.
-                      properties:
-                        name:
-                          description: Name is the name of the zone.
-                          type: string
-                        resourceGroup:
-                          description: ResourceGroup is the resource group of the
-                            zone.
-                          type: string
-                      required:
-                      - name
-                      - resourceGroup
-                      type: object
-                    etcd:
-                      description: Etcd is the DNS Zone for the etcd cluster.
-                      properties:
-                        name:
-                          description: Name is the name of the zone.
-                          type: string
-                        resourceGroup:
-                          description: ResourceGroup is the resource group of the
-                            zone.
-                          type: string
-                      required:
-                      - name
-                      - resourceGroup
-                      type: object
-                    ingress:
-                      description: Ingress is the DNS Zone for the Ingress resource,
-                        used for customer traffic.
-                      properties:
-                        name:
-                          description: Name is the name of the zone.
-                          type: string
-                        resourceGroup:
-                          description: ResourceGroup is the resource group of the
-                            zone.
-                          type: string
-                      required:
-                      - name
-                      - resourceGroup
-                      type: object
-                  required:
-                  - api
-                  - etcd
-                  - ingress
-                  type: object
-                masters:
-                  items:
-                    properties:
-                      dockerVolumeSizeGB:
-                        description: DockerVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/docker.
-                        type: integer
-                      kubeletVolumeSizeGB:
-                        description: KubeletVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/kubelet.
-                        type: integer
-                      vmSize:
-                        description: VMSize is the master vm size (e.g. Standard_A1)
-                        type: string
-                    required:
-                    - dockerVolumeSizeGB
-                    - kubeletVolumeSizeGB
-                    - vmSize
-                    type: object
-                  type: array
-                virtualNetwork:
-                  properties:
-                    calicoSubnetCIDR:
-                      description: CalicoSubnetCIDR is the CIDR for the calico subnet.
-                        It has to be also a worker subnet (Azure limitation).
-                      type: string
-                    cidr:
-                      description: CIDR is the CIDR for the Virtual Network.
-                      type: string
-                    masterSubnetCIDR:
-                      description: "TODO: remove Master, Worker and Calico subnet
-                        cidr after azure-operator v2 is deleted. MasterSubnetCIDR
-                        is the CIDR for the master subnet. \n     https://github.com/giantswarm/giantswarm/issues/4358"
-                      type: string
-                    workerSubnetCIDR:
-                      description: WorkerSubnetCIDR is the CIDR for the worker subnet.
-                      type: string
-                  required:
-                  - calicoSubnetCIDR
-                  - cidr
-                  - masterSubnetCIDR
-                  - workerSubnetCIDR
-                  type: object
-                workers:
-                  items:
-                    properties:
-                      dockerVolumeSizeGB:
-                        description: DockerVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/docker.
-                        type: integer
-                      kubeletVolumeSizeGB:
-                        description: KubeletVolumeSizeGB is the size of a volume mounted
-                          to /var/lib/kubelet.
-                        type: integer
-                      vmSize:
-                        description: VMSize is the master vm size (e.g. Standard_A1)
-                        type: string
-                    required:
-                    - dockerVolumeSizeGB
-                    - kubeletVolumeSizeGB
-                    - vmSize
-                    type: object
-                  type: array
-              required:
-              - availabilityZones
-              - credentialSecret
-              - dnsZones
-              - masters
-              - virtualNetwork
-              - workers
-              type: object
             cluster:
               properties:
                 calico:
@@ -396,6 +264,121 @@ spec:
               - version
               - workers
               type: object
+            kvm:
+              properties:
+                endpointUpdater:
+                  properties:
+                    docker:
+                      properties:
+                        image:
+                          type: string
+                      required:
+                      - image
+                      type: object
+                  required:
+                  - docker
+                  type: object
+                k8sKVM:
+                  properties:
+                    docker:
+                      properties:
+                        image:
+                          type: string
+                      required:
+                      - image
+                      type: object
+                    storageType:
+                      type: string
+                  required:
+                  - docker
+                  - storageType
+                  type: object
+                masters:
+                  items:
+                    properties:
+                      cpus:
+                        type: integer
+                      disk:
+                        type: string
+                      dockerVolumeSizeGB:
+                        type: integer
+                      memory:
+                        type: string
+                    required:
+                    - cpus
+                    - disk
+                    - dockerVolumeSizeGB
+                    - memory
+                    type: object
+                  type: array
+                network:
+                  properties:
+                    flannel:
+                      properties:
+                        vni:
+                          type: integer
+                      required:
+                      - vni
+                      type: object
+                  required:
+                  - flannel
+                  type: object
+                nodeController:
+                  description: NOTE THIS IS DEPRECATED
+                  properties:
+                    docker:
+                      description: NOTE THIS IS DEPRECATED
+                      properties:
+                        image:
+                          type: string
+                      required:
+                      - image
+                      type: object
+                  required:
+                  - docker
+                  type: object
+                portMappings:
+                  items:
+                    properties:
+                      name:
+                        type: string
+                      nodePort:
+                        type: integer
+                      targetPort:
+                        type: integer
+                    required:
+                    - name
+                    - nodePort
+                    - targetPort
+                    type: object
+                  type: array
+                workers:
+                  items:
+                    properties:
+                      cpus:
+                        type: integer
+                      disk:
+                        type: string
+                      dockerVolumeSizeGB:
+                        type: integer
+                      memory:
+                        type: string
+                    required:
+                    - cpus
+                    - disk
+                    - dockerVolumeSizeGB
+                    - memory
+                    type: object
+                  type: array
+              required:
+              - endpointUpdater
+              - k8sKVM
+              - masters
+              - network
+              - nodeController
+              - portMappings
+              - workers
+              type: object
             versionBundle:
               properties:
                 version:
@@ -404,8 +387,8 @@ spec:
               - version
               type: object
           required:
-          - azure
           - cluster
+          - kvm
           - versionBundle
           type: object
         status:
@@ -566,31 +549,20 @@ spec:
               - scaling
               - versions
               type: object
-            provider:
+            kvm:
               properties:
-                availabilityZones:
-                  items:
+                nodeIndexes:
+                  additionalProperties:
                     type: integer
-                  type: array
-                ingress:
-                  properties:
-                    loadBalancer:
-                      properties:
-                        publicIPName:
-                          type: string
-                      required:
-                      - publicIPName
-                      type: object
-                  required:
-                  - loadBalancer
+                  description: NodeIndexes is a map from nodeID -> nodeIndex. This
+                    is used to create deterministic iSCSI initiator names.
                   type: object
               required:
-              - availabilityZones
-              - ingress
+              - nodeIndexes
               type: object
           required:
           - cluster
-          - provider
+          - kvm
           type: object
       required:
       - metadata
@@ -608,3 +580,10 @@ status:
     plural: ""
   conditions: []
   storedVersions: []
+`
+
+func NewKVMConfigCRD() *v1beta1.CustomResourceDefinition {
+	var crd v1beta1.CustomResourceDefinition
+	_ = yaml.Unmarshal([]byte(kvmconfigsYAML), &crd)
+	return &crd
+}

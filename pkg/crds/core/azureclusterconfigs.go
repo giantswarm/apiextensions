@@ -1,4 +1,11 @@
+package core
 
+import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"sigs.k8s.io/yaml"
+)
+
+const azureclusterconfigsYAML = `
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
@@ -6,14 +13,14 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: (devel)
   creationTimestamp: null
-  name: kvmclusterconfigs.core.giantswarm.io
+  name: azureclusterconfigs.core.giantswarm.io
 spec:
   group: core.giantswarm.io
   names:
-    kind: KVMClusterConfig
-    listKind: KVMClusterConfigList
-    plural: kvmclusterconfigs
-    singular: kvmclusterconfig
+    kind: AzureClusterConfig
+    listKind: AzureClusterConfigList
+    plural: azureclusterconfigs
+    singular: azureclusterconfig
   scope: Namespaced
   validation:
     openAPIV3Schema:
@@ -36,6 +43,19 @@ spec:
               properties:
                 availabilityZones:
                   type: integer
+                credentialSecret:
+                  description: AzureClusterConfigSpecGuestCredentialSecret points
+                    to the K8s Secret containing credentials for an Azure subscription
+                    in which the tenant cluster should be created.
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                  required:
+                  - name
+                  - namespace
+                  type: object
                 dnsZone:
                   description: DNSZone for guest cluster is supplemented with host
                     prefixes for specific services such as Kubernetes API or Etcd.
@@ -47,13 +67,9 @@ spec:
                 masters:
                   items:
                     properties:
-                      cpuCores:
-                        type: integer
                       id:
                         type: string
-                      memorySizeGB:
-                        type: string
-                      storageSizeGB:
+                      vmSize:
                         type: string
                     required:
                     - id
@@ -80,17 +96,13 @@ spec:
                 workers:
                   items:
                     properties:
-                      cpuCores:
-                        type: integer
                       id:
                         type: string
                       labels:
                         additionalProperties:
                           type: string
                         type: object
-                      memorySizeGB:
-                        type: string
-                      storageSizeGB:
+                      vmSize:
                         type: string
                     required:
                     - id
@@ -98,6 +110,7 @@ spec:
                     type: object
                   type: array
               required:
+              - credentialSecret
               - dnsZone
               - id
               type: object
@@ -127,3 +140,10 @@ status:
     plural: ""
   conditions: []
   storedVersions: []
+`
+
+func NewAzureClusterConfigCRD() *v1beta1.CustomResourceDefinition {
+	var crd v1beta1.CustomResourceDefinition
+	_ = yaml.Unmarshal([]byte(azureclusterconfigsYAML), &crd)
+	return &crd
+}

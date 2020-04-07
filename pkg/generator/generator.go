@@ -28,6 +28,7 @@ import (
 	"k8s.io/klog"
 	"log"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -110,7 +111,7 @@ func canonicalizePackage(elem... string) string {
 }
 
 func initializeInputs() (args.GeneratorArgs, []types.GroupVersions, error) {
-	err := initKlog(10)
+	err := initKlog(0)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -173,4 +174,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	cmd := exec.Command("sleep", "1")
+	err := cmd.Run()
 }

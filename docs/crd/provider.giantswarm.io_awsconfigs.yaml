@@ -523,7 +523,8 @@ spec:
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
-                        type: object
+                        format: date-time
+                        type: string
                       status:
                         description: Status may be True, False or Unknown.
                         type: string
@@ -562,7 +563,8 @@ spec:
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
-                        type: object
+                        format: date-time
+                        type: string
                       name:
                         description: Name referrs to a tenant cluster node name.
                         type: string
@@ -595,7 +597,8 @@ spec:
                             lastTransitionTime:
                               description: LastTransitionTime is the last time the
                                 condition transitioned from one status to another.
-                              type: object
+                              format: date-time
+                              type: string
                             status:
                               description: Status may be True, False or Unknown.
                               type: string
@@ -638,11 +641,13 @@ spec:
                         description: "TODO date is deprecated due to LastTransitionTime
                           This can be removed ones the new properties are properly
                           used in all tenant clusters. \n     https://github.com/giantswarm/giantswarm/issues/3988"
-                        type: object
+                        format: date-time
+                        type: string
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
-                        type: object
+                        format: date-time
+                        type: string
                       semver:
                         description: Semver is some semver version, e.g. 1.0.0.
                         type: string
