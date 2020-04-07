@@ -4,6 +4,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func Test_Provider_Status_LatestVersion(t *testing.T) {
@@ -24,7 +26,7 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 			StatusCluster: StatusCluster{
 				Versions: []StatusClusterVersion{
 					{
-						Date:   time.Unix(10, 0),
+						Date:   metav1.Time{Time: time.Unix(10, 0)},
 						Semver: "1.0.0",
 					},
 				},
@@ -36,11 +38,11 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 			StatusCluster: StatusCluster{
 				Versions: []StatusClusterVersion{
 					{
-						Date:   time.Unix(10, 0),
+						Date:   metav1.Time{Time: time.Unix(10, 0)},
 						Semver: "1.0.0",
 					},
 					{
-						Date:   time.Unix(20, 0),
+						Date:   metav1.Time{Time: time.Unix(20, 0)},
 						Semver: "2.0.0",
 					},
 				},
@@ -52,15 +54,15 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 			StatusCluster: StatusCluster{
 				Versions: []StatusClusterVersion{
 					{
-						Date:   time.Unix(10, 0),
+						Date:   metav1.Time{Time: time.Unix(10, 0)},
 						Semver: "1.0.0",
 					},
 					{
-						Date:   time.Unix(20, 0),
+						Date:   metav1.Time{Time: time.Unix(20, 0)},
 						Semver: "2.0.0",
 					},
 					{
-						Date:   time.Unix(30, 0),
+						Date:   metav1.Time{Time: time.Unix(30, 0)},
 						Semver: "3.0.0",
 					},
 				},
@@ -72,15 +74,15 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 			StatusCluster: StatusCluster{
 				Versions: []StatusClusterVersion{
 					{
-						Date:   time.Unix(20, 0),
+						Date:   metav1.Time{Time: time.Unix(20, 0)},
 						Semver: "2.0.0",
 					},
 					{
-						Date:   time.Unix(30, 0),
+						Date:   metav1.Time{Time: time.Unix(30, 0)},
 						Semver: "3.0.0",
 					},
 					{
-						Date:   time.Unix(10, 0),
+						Date:   metav1.Time{Time: time.Unix(10, 0)},
 						Semver: "1.0.0",
 					},
 				},
@@ -92,24 +94,24 @@ func Test_Provider_Status_LatestVersion(t *testing.T) {
 			StatusCluster: StatusCluster{
 				Versions: []StatusClusterVersion{
 					{
-						LastTransitionTime: DeepCopyTime{
-							time.Unix(20, 0),
+						LastTransitionTime: metav1.Time{
+							Time: time.Unix(20, 0),
 						},
-						Date:   time.Time{},
+						Date:   metav1.Time{},
 						Semver: "2.0.0",
 					},
 					{
-						LastTransitionTime: DeepCopyTime{
-							time.Unix(30, 0),
+						LastTransitionTime: metav1.Time{
+							Time: time.Unix(30, 0),
 						},
-						Date:   time.Time{},
+						Date:   metav1.Time{},
 						Semver: "3.0.0",
 					},
 					{
-						LastTransitionTime: DeepCopyTime{
-							time.Unix(10, 0),
+						LastTransitionTime: metav1.Time{
+							Time: time.Unix(10, 0),
 						},
-						Date:   time.Time{},
+						Date:   metav1.Time{},
 						Semver: "1.0.0",
 					},
 				},
@@ -146,7 +148,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Status:     StatusClusterStatusTrue,
 			ExpectedConditions: []StatusClusterCondition{
 				{
-					LastTransitionTime: DeepCopyTime{testTime},
+					LastTransitionTime: metav1.Time{Time: testTime},
 					Status:             StatusClusterStatusTrue,
 					Type:               StatusClusterTypeCreated,
 				},
@@ -156,7 +158,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Name: "case 1",
 			Conditions: []StatusClusterCondition{
 				{
-					LastTransitionTime: DeepCopyTime{testTime},
+					LastTransitionTime: metav1.Time{Time: testTime},
 					Status:             StatusClusterStatusTrue,
 					Type:               StatusClusterTypeCreating,
 				},
@@ -166,7 +168,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			Status:  StatusClusterStatusTrue,
 			ExpectedConditions: []StatusClusterCondition{
 				{
-					LastTransitionTime: DeepCopyTime{testTime},
+					LastTransitionTime: metav1.Time{Time: testTime},
 					Status:             StatusClusterStatusTrue,
 					Type:               StatusClusterTypeCreated,
 				},
@@ -195,13 +197,13 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name:     "case 0: list with zero items results in a list with one item",
 			Versions: []StatusClusterVersion{},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(10, 0),
+				Date:   metav1.Time{Time: time.Unix(10, 0)},
 				Semver: "1.0.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 			},
@@ -210,22 +212,22 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name: "case 1: list with one item results in a list with two items",
 			Versions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 			},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(20, 0),
+				Date:   metav1.Time{Time: time.Unix(20, 0)},
 				Semver: "1.1.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 			},
@@ -234,30 +236,30 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name: "case 2: list with two items results in a list with three items",
 			Versions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 			},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(30, 0),
+				Date:   metav1.Time{Time: time.Unix(30, 0)},
 				Semver: "1.5.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 				{
-					Date:   time.Unix(30, 0),
+					Date:   metav1.Time{Time: time.Unix(30, 0)},
 					Semver: "1.5.0",
 				},
 			},
@@ -266,34 +268,34 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name: "case 3: list with three items results in a list with three items due to limit",
 			Versions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 				{
-					Date:   time.Unix(30, 0),
+					Date:   metav1.Time{Time: time.Unix(30, 0)},
 					Semver: "1.5.0",
 				},
 			},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(40, 0),
+				Date:   metav1.Time{Time: time.Unix(40, 0)},
 				Semver: "3.0.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 				{
-					Date:   time.Unix(30, 0),
+					Date:   metav1.Time{Time: time.Unix(30, 0)},
 					Semver: "1.5.0",
 				},
 				{
-					Date:   time.Unix(40, 0),
+					Date:   metav1.Time{Time: time.Unix(40, 0)},
 					Semver: "3.0.0",
 				},
 			},
@@ -302,42 +304,42 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name: "case 4: list with five items results in a list with three items due to limit",
 			Versions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 				{
-					Date:   time.Unix(30, 0),
+					Date:   metav1.Time{Time: time.Unix(30, 0)},
 					Semver: "1.5.0",
 				},
 				{
-					Date:   time.Unix(40, 0),
+					Date:   metav1.Time{Time: time.Unix(40, 0)},
 					Semver: "3.0.0",
 				},
 				{
-					Date:   time.Unix(50, 0),
+					Date:   metav1.Time{Time: time.Unix(50, 0)},
 					Semver: "3.2.0",
 				},
 			},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(60, 0),
+				Date:   metav1.Time{Time: time.Unix(60, 0)},
 				Semver: "3.3.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(40, 0),
+					Date:   metav1.Time{Time: time.Unix(40, 0)},
 					Semver: "3.0.0",
 				},
 				{
-					Date:   time.Unix(50, 0),
+					Date:   metav1.Time{Time: time.Unix(50, 0)},
 					Semver: "3.2.0",
 				},
 				{
-					Date:   time.Unix(60, 0),
+					Date:   metav1.Time{Time: time.Unix(60, 0)},
 					Semver: "3.3.0",
 				},
 			},
@@ -346,42 +348,42 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name: "case 5: same as 4 but checking items are ordered by date before cutting off",
 			Versions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(40, 0),
+					Date:   metav1.Time{Time: time.Unix(40, 0)},
 					Semver: "3.0.0",
 				},
 				{
-					Date:   time.Unix(20, 0),
+					Date:   metav1.Time{Time: time.Unix(20, 0)},
 					Semver: "1.1.0",
 				},
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 				{
-					Date:   time.Unix(50, 0),
+					Date:   metav1.Time{Time: time.Unix(50, 0)},
 					Semver: "3.2.0",
 				},
 				{
-					Date:   time.Unix(30, 0),
+					Date:   metav1.Time{Time: time.Unix(30, 0)},
 					Semver: "1.5.0",
 				},
 			},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(60, 0),
+				Date:   metav1.Time{Time: time.Unix(60, 0)},
 				Semver: "3.3.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(40, 0),
+					Date:   metav1.Time{Time: time.Unix(40, 0)},
 					Semver: "3.0.0",
 				},
 				{
-					Date:   time.Unix(50, 0),
+					Date:   metav1.Time{Time: time.Unix(50, 0)},
 					Semver: "3.2.0",
 				},
 				{
-					Date:   time.Unix(60, 0),
+					Date:   metav1.Time{Time: time.Unix(60, 0)},
 					Semver: "3.3.0",
 				},
 			},
@@ -390,18 +392,18 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			Name: "case 6: list with one item results in a list with one item in case the version already exists",
 			Versions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 			},
 			Version: StatusClusterVersion{
-				Date:   time.Unix(20, 0),
+				Date:   metav1.Time{Time: time.Unix(20, 0)},
 				Semver: "1.0.0",
 			},
 			Limit: 3,
 			ExpectedVersions: []StatusClusterVersion{
 				{
-					Date:   time.Unix(10, 0),
+					Date:   metav1.Time{Time: time.Unix(10, 0)},
 					Semver: "1.0.0",
 				},
 			},

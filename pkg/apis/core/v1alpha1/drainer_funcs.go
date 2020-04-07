@@ -1,6 +1,8 @@
 package v1alpha1
 
-import "time"
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 func (s DrainerConfigStatus) HasDrainedCondition() bool {
 	return hasDrainerConfigCondition(s.Conditions, DrainerConfigStatusStatusTrue, DrainerConfigStatusTypeDrained)
@@ -12,7 +14,7 @@ func (s DrainerConfigStatus) HasTimeoutCondition() bool {
 
 func (s DrainerConfigStatus) NewDrainedCondition() DrainerConfigStatusCondition {
 	return DrainerConfigStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Status:             DrainerConfigStatusStatusTrue,
 		Type:               DrainerConfigStatusTypeDrained,
 	}
@@ -20,7 +22,7 @@ func (s DrainerConfigStatus) NewDrainedCondition() DrainerConfigStatusCondition 
 
 func (s DrainerConfigStatus) NewTimeoutCondition() DrainerConfigStatusCondition {
 	return DrainerConfigStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Status:             DrainerConfigStatusStatusTrue,
 		Type:               DrainerConfigStatusTypeTimeout,
 	}

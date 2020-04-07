@@ -111,9 +111,9 @@ type ETCDBackupStatus struct {
 	// Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status" yaml:"status"`
 	// Timestamp when the first attempt was made
-	StartedTimestamp DeepCopyTime `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
+	StartedTimestamp metav1.Time `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
-	FinishedTimestamp DeepCopyTime `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
+	FinishedTimestamp metav1.Time `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
 }
 
 type ETCDInstanceBackupStatusIndex struct {
@@ -129,9 +129,9 @@ type ETCDInstanceBackupStatus struct {
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status" yaml:"status"`
 	// Timestamp when the first attempt was made
-	StartedTimestamp DeepCopyTime `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
+	StartedTimestamp metav1.Time `json:"startedTimestamp,omitempty" yaml:"startedTimestamp"`
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
-	FinishedTimestamp DeepCopyTime `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
+	FinishedTimestamp metav1.Time `json:"finishedTimestamp,omitempty" yaml:"finishedTimestamp"`
 	// Latest backup error message
 	LatestError string `json:"latestError,omitempty" yaml:"latestError,omitempty"`
 	// Time took by the backup creation process

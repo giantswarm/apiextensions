@@ -97,10 +97,10 @@ type ClusterSpec struct {
 // creation and made available here.
 type ClusterStatus struct {
 	// LastHeartbeatTime is the last time we got an update on a given condition.
-	LastHeartbeatTime DeepCopyTime `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
+	LastHeartbeatTime metav1.Time `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Cluster holds cluster specific status information.
 	Cluster ClusterStatusCluster `json:"cluster" yaml:"cluster"`
 	// Conditions is a list of status conditions.

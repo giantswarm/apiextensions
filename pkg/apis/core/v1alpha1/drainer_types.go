@@ -125,10 +125,10 @@ type DrainerConfigStatus struct {
 // DrainerConfigStatusCondition expresses a condition in which a node may is.
 type DrainerConfigStatusCondition struct {
 	// LastHeartbeatTime is the last time we got an update on a given condition.
-	LastHeartbeatTime DeepCopyTime `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
+	LastHeartbeatTime metav1.Time `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
 	// Type may be Pending, Ready, Draining, Drained.
