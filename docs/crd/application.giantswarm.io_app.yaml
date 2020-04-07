@@ -16,32 +16,31 @@ spec:
     openAPIV3Schema:
       description: |
         Defines an App resource, which represents an application to be running in a Kubernetes cluster.
-        Reconciled by app-operator running on the Control Plane cluster.
+        Reconciled by app-operator.
       properties:
         spec:
           properties:
             catalog:
               description: |
-                Name of the AppCatalog resource to install this app from. The AppCatalog resource must
-                exist upfront in the cluster.
+                Name of the AppCatalog to install this app from. Find more information in the AppCatalog
+                CRD documentation.
               type: string
             config:
               description: |
-                Cluster configuration details for the application injected by cluster-operator with basic
-                information of the cluster where the App is deployed. 
+                Configuration details for the app.
               properties:
                 configMap:
                   description: |
-                    Defines a reference to a ConfigMap where is saved the cluster configuration values 
-                    that will be applied to the application when it is deployed in the cluster. 
+                    If present, points to a ConfigMap resource that holds configuration data
+                    used by the app.
                   properties:
                     name:
                       description: |
-                        Name of the ConfigMap resource.
+                        Name of the ConfigMap.
                       type: string
                     namespace:
                       description: |
-                        Namespace holding the ConfigMap resource.
+                        Namespace to find the ConfigMap in.
                       type: string
                   required:
                   - name
@@ -49,16 +48,15 @@ spec:
                   type: object
                 secret:
                   description: |
-                    Defines the reference of a Secret where is saved the sensitive configuration
-                    that will be applied to the application when it is deployed in the cluster.
+                    If present, points to a Secret resoure that can be used by the app.
                   properties:
                     name:
                       description: |
-                        Name of the Secret resource.
+                        Name of the Secret.
                       type: string
                     namespace:
                       description: |
-                        Namespace holding the Secret resource.
+                        Namespace to find the Secret in.
                       type: string
                   required:
                   - name
@@ -67,7 +65,7 @@ spec:
               type: object
             kubeConfig:
               description: |
-                The kubeconfig to use to connect to the cluster when deploying the app.
+                The kubeconfig to use to connect to the tenant cluster when deploying the app.
               properties:
                 context:
                   description: |
@@ -80,15 +78,12 @@ spec:
                   type: object
                 inCluster:
                   description: |
-                    Defines whether to use inCluster credentials. If true, it uses the service account to 
-                    authenticate against the Kubernetes API in the same cluster where the app-operator
-                    is running. In that case, the context and secret properties must not be set. If false,
-                    secret and context is used by the app-operator to access the external cluster API.
+                    Defines whether to use inCluster credentials. If true, the context and secret
+                    properties must not be set.
                   type: boolean
                 secret:
                   description: |
-                    Defines the reference to a Secret where is saved the kubeconfig configuration
-                    that will be applied when accessing the cluster to manage the application.
+                    References a Secret resource holding the kubeconfig details, if not using inCluster credentials.
                   properties:
                     name:
                       description: |
@@ -109,18 +104,15 @@ spec:
               type: string
             namespace:
               description: |
-                Kubernetes namespace in which to install the workloads defined by this App in the 
-                given cluster.
+                Kubernetes namespace in which to install the workloads defined by this App.
               type: string
             userConfig:
               description: |
-                User configuration for the App. This configuration will be merged with the catalog and
-                cluster configuration to generate a single values ConfigMap in the target cluster.
+                Additional and optional user-provided configuration for the app.
               properties:
                 configMap:
                   description: |
-                    Defines the reference of a ConfigMap where is saved the user configuration values 
-                    that will be applied to the application when it is deployed in the cluster. 
+                    Reference to an optional ConfigMap.
                   properties:
                     name:
                       description: |
@@ -136,8 +128,7 @@ spec:
                   type: object
                 secret:
                   description: |
-                    Defines the reference of a Secret where is saved the user sensitive configuration 
-                    that will be applied to the application when it is deployed in the cluster. 
+                    Reference to an optional Secret resource.
                   properties:
                     name:
                       description: |
@@ -153,9 +144,7 @@ spec:
                   type: object
               type: object
             version:
-              description: |
-                Version of the app to be deployed. It must exist within the list of App packages
-                stored in the App Catalog.
+              description: Version of the app to be deployed.
               type: string
           required:
           - catalog
