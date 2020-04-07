@@ -4,7 +4,7 @@ metadata:
   annotations:
     giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#AppCatalog
   creationTimestamp: null
-  name: my-app-catalog
+  name: my-playground-catalog
 spec:
   config:
     configMap:
@@ -13,9 +13,9 @@ spec:
     secret:
       name: my-playground-catalog
       namespace: my-namespace
-  description: Applications we provide for all sorts of purposes.
+  description: A catalog to store all new application packages.
   logoURL: https://my-org.github.com/logo.png
   storage:
-    URL: https://my-org.github.com/my-app-catalog/
+    URL: https://my-org.github.com/my-playground-catalog/
     type: helm
-  title: My App Catalog
+  title: Playground Catalog
