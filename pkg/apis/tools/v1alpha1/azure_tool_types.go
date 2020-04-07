@@ -49,6 +49,9 @@ func NewAzureToolCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return azureToolCRD.DeepCopy()
 }
 
+// +genclient
+// +genclient:noStatus
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 type AzureTool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -56,10 +59,22 @@ type AzureTool struct {
 }
 
 type AzureToolSpec struct {
+	// Workspace refers to the Azure Log Analytics Workspace
 	Workspace AzureToolWorkspace `json:"workspace" yaml:"workspace"`
 }
 
 type AzureToolWorkspace struct {
-	ID   string `json:"id" yaml:"id"`
+	// ID is the Workspace ID
+	ID string `json:"id" yaml:"id"`
+	// Mode is the Workspace access control mode
 	Mode string `json:"mode" yaml:"mode"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// AzureToolList is the type returned when listing AzureToolList resources.
+type AzureToolList struct {
+	metav1.TypeMeta `json:",inline" yaml:",inline"`
+	metav1.ListMeta `json:"metadata" yaml:"metadata"`
+	Items           []AzureTool `json:"items" yaml:"items"`
 }

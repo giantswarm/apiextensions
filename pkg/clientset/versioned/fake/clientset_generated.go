@@ -40,6 +40,8 @@ import (
 	fakeproviderv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/provider/v1alpha1/fake"
 	releasev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/release/v1alpha1"
 	fakereleasev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/release/v1alpha1/fake"
+	toolsv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/tools/v1alpha1"
+	faketoolsv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/tools/v1alpha1/fake"
 )
 
 // NewSimpleClientset returns a clientset that will respond with the provided objects.
@@ -122,4 +124,9 @@ func (c *Clientset) ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interfac
 // ReleaseV1alpha1 retrieves the ReleaseV1alpha1Client
 func (c *Clientset) ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface {
 	return &fakereleasev1alpha1.FakeReleaseV1alpha1{Fake: &c.Fake}
+}
+
+// ToolsV1alpha1 retrieves the ToolsV1alpha1Client
+func (c *Clientset) ToolsV1alpha1() toolsv1alpha1.ToolsV1alpha1Interface {
+	return &faketoolsv1alpha1.FakeToolsV1alpha1{Fake: &c.Fake}
 }
