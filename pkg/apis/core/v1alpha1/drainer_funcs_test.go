@@ -3,6 +3,8 @@ package v1alpha1
 import (
 	"testing"
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func Test_HasDrainedCondition(t *testing.T) {
@@ -21,7 +23,7 @@ func Test_HasDrainedCondition(t *testing.T) {
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
 					DrainerConfigStatusCondition{
-						LastTransitionTime: DeepCopyTime{time.Now()},
+						LastTransitionTime: metav1.Time{time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeDrained,
 					},
@@ -34,7 +36,7 @@ func Test_HasDrainedCondition(t *testing.T) {
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
 					DrainerConfigStatusCondition{
-						LastTransitionTime: DeepCopyTime{time.Now()},
+						LastTransitionTime: metav1.Time{time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeTimeout,
 					},
@@ -71,7 +73,7 @@ func Test_HasTimeoutCondition(t *testing.T) {
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
 					DrainerConfigStatusCondition{
-						LastTransitionTime: DeepCopyTime{time.Now()},
+						LastTransitionTime: metav1.Time{time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeTimeout,
 					},
@@ -84,7 +86,7 @@ func Test_HasTimeoutCondition(t *testing.T) {
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
 					DrainerConfigStatusCondition{
-						LastTransitionTime: DeepCopyTime{time.Now()},
+						LastTransitionTime: metav1.Time{time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeDrained,
 					},

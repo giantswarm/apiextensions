@@ -3,12 +3,14 @@ package v1alpha1
 import (
 	"sort"
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func NewStatusClusterNode(name, version string, labels map[string]string) StatusClusterNode {
 	return StatusClusterNode{
 		Labels:             labels,
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Name:               name,
 		Version:            version,
 	}
@@ -74,7 +76,7 @@ func (s StatusCluster) LatestVersion() string {
 	latest := s.Versions[0]
 
 	for _, v := range s.Versions {
-		if latest.LastTransitionTime.Time.Before(v.LastTransitionTime.Time) || latest.Date.Before(v.Date) {
+		if latest.LastTransitionTime.Before(&v.LastTransitionTime) || latest.Date.Before(&v.Date) {
 			latest = v
 		}
 	}
@@ -100,7 +102,7 @@ func (s StatusCluster) WithDeletingCondition() []StatusClusterCondition {
 
 func (s StatusCluster) WithNewVersion(version string) []StatusClusterVersion {
 	newVersion := StatusClusterVersion{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Semver:             version,
 	}
 
@@ -148,7 +150,7 @@ func hasVersion(versions []StatusClusterVersion, search string) bool {
 func withCondition(conditions []StatusClusterCondition, search string, replace string, status string, t time.Time) []StatusClusterCondition {
 	newConditions := []StatusClusterCondition{
 		{
-			LastTransitionTime: DeepCopyTime{t},
+			LastTransitionTime: metav1.Time{Time: t},
 			Status:             status,
 			Type:               replace,
 		},

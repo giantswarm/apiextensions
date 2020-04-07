@@ -6,6 +6,8 @@ import (
 	"testing"
 	"time"
 
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 	"github.com/google/go-cmp/cmp"
 )
 
@@ -41,7 +43,7 @@ func Test_DeepCopyDate_MarshalJSON(t *testing.T) {
 				TestDate *DeepCopyDate `json:"testDate"`
 			}{
 				TestDate: &DeepCopyDate{
-					Time: date,
+					Time: metav1.Time{Time: date},
 				},
 			}
 
@@ -49,7 +51,7 @@ func Test_DeepCopyDate_MarshalJSON(t *testing.T) {
 				TestDate DeepCopyDate `json:"testDate"`
 			}{
 				TestDate: DeepCopyDate{
-					Time: date,
+					Time: metav1.Time{Time: date},
 				},
 			}
 

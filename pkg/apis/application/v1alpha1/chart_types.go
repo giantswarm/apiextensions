@@ -214,7 +214,7 @@ type ChartStatus struct {
 
 type ChartStatusRelease struct {
 	// LastDeployed is the time when the deployed chart was last deployed.
-	LastDeployed DeepCopyTime `json:"lastDeployed" yaml:"lastDeployed"`
+	LastDeployed metav1.Time `json:"lastDeployed" yaml:"lastDeployed"`
 	// Status is the status of the deployed chart,
 	// e.g. DEPLOYED.
 	Status string `json:"status" yaml:"status"`
