@@ -40,7 +40,7 @@ const (
 	toolName = "apiextensions/generator"
 	apisDirectory = "./pkg/apis"
 	generatedDirectory = "./pkg/generated"
-	boilerplatePath = "./scripts/boilerplate.go.txt"
+	boilerplatePath = "./pkg/generator/boilerplate.go.txt"
 	rootPackage = "github.com/giantswarm/apiextensions"
 
 	clientsetDirectory = "./pkg/clientset"
@@ -145,6 +145,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	err = crd.Generate(genericArgs, groups)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	genericArgs.GeneratedBuildTag = deepcopyBuildTag
 	genericArgs.OutputFileBaseName = deepcopyBaseName
 	genericArgs.CustomArgs = &deepcopyargs.CustomArgs{
@@ -165,11 +170,6 @@ func main() {
 		FakeClient:             true,
 	}
 	err = clientset.Generate(genericArgs)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	err = crd.Generate(genericArgs, groups)
 	if err != nil {
 		log.Fatal(err)
 	}

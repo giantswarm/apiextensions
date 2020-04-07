@@ -24,12 +24,12 @@ func Generate(genericArgs args.GeneratorArgs) error {
 		return err
 	}
 
-	if err := os.RemoveAll(genericArgs.OutputBase); err != nil {
+	if err := os.RemoveAll("pkg/clientset"); err != nil {
 		return err
 	}
 	if err := os.Rename(
 		filepath.Join(genericArgs.OutputBase, genericArgs.OutputPackagePath),
-		genericArgs.OutputPackagePath,
+		"pkg/clientset",
 	); err != nil {
 		return err
 	}

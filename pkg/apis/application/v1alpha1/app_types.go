@@ -164,6 +164,8 @@ func init() {
 	}
 }
 
+// +gencrd
+
 // NewAppCRD returns a new custom resource definition for App.
 // This might look something like the following.
 //
