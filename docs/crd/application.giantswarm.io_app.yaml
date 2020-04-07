@@ -26,14 +26,14 @@ spec:
                 exist upfront in the cluster.
               type: string
             config:
-              description: |
-                Cluster configuration details for the application injected by cluster-operator with basic
-                information of the cluster where the App is deployed. 
+              description: "Cluster configuration details for the application injected
+                by cluster-operator with basic\ninformation of the cluster where the
+                App is deployed. \n"
               properties:
                 configMap:
-                  description: |
-                    Defines a reference to a ConfigMap where is saved the cluster configuration values 
-                    that will be applied to the application when it is deployed in the cluster. 
+                  description: "Defines a reference to a ConfigMap where is saved
+                    the cluster configuration values \nthat will be applied to the
+                    application when it is deployed in the cluster. \n"
                   properties:
                     name:
                       description: |
@@ -79,11 +79,12 @@ spec:
                       type: string
                   type: object
                 inCluster:
-                  description: |
-                    Defines whether to use inCluster credentials. If true, it uses the service account to 
-                    authenticate against the Kubernetes API in the same cluster where the app-operator
-                    is running. In that case, the context and secret properties must not be set. If false,
-                    secret and context is used by the app-operator to access the external cluster API.
+                  description: "Defines whether to use inCluster credentials. If true,
+                    it uses the service account to \nauthenticate against the Kubernetes
+                    API in the same cluster where the app-operator\nis running. In
+                    that case, the context and secret properties must not be set.
+                    If false,\nsecret and context is used by the app-operator to access
+                    the external cluster API.\n"
                   type: boolean
                 secret:
                   description: |
@@ -108,9 +109,8 @@ spec:
                 Name of this App.
               type: string
             namespace:
-              description: |
-                Kubernetes namespace in which to install the workloads defined by this App in the 
-                given cluster.
+              description: "Kubernetes namespace in which to install the workloads
+                defined by this App in the \ngiven cluster.\n"
               type: string
             userConfig:
               description: |
@@ -118,9 +118,9 @@ spec:
                 cluster configuration to generate a single values ConfigMap in the target cluster.
               properties:
                 configMap:
-                  description: |
-                    Defines the reference of a ConfigMap where is saved the user configuration values 
-                    that will be applied to the application when it is deployed in the cluster. 
+                  description: "Defines the reference of a ConfigMap where is saved
+                    the user configuration values \nthat will be applied to the application
+                    when it is deployed in the cluster. \n"
                   properties:
                     name:
                       description: |
@@ -135,9 +135,9 @@ spec:
                   - namespace
                   type: object
                 secret:
-                  description: |
-                    Defines the reference of a Secret where is saved the user sensitive configuration 
-                    that will be applied to the application when it is deployed in the cluster. 
+                  description: "Defines the reference of a Secret where is saved the
+                    user sensitive configuration \nthat will be applied to the application
+                    when it is deployed in the cluster. \n"
                   properties:
                     name:
                       description: |

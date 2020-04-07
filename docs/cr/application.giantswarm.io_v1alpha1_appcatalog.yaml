@@ -18,4 +18,4 @@ spec:
   storage:
     URL: https://my-org.github.com/my-playground-catalog/
     type: helm
-  title: Playground Catalog
+  title: My Playground Catalog

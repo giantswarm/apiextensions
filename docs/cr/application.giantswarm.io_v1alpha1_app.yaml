@@ -16,7 +16,7 @@ spec:
       namespace: f2def
   kubeConfig:
     context:
-      name: f2def-kubeconfig
+      name: f2def
     inCluster: false
     secret:
       name: f2def-kubeconfig

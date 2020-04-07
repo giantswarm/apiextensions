@@ -21,11 +21,14 @@ spec:
         spec:
           properties:
             config:
+              description: "Defines the reference of a ConfigMap where is saved the
+                default values that \nwill be applied to all applications contained
+                in the catalog.\n"
               properties:
                 configMap:
                   description: |
-                    Defines the reference of a ConfigMap where is saved the default values that 
-                    will be applied to all applications contained in the catalog.
+                    References a ConfigMap containing catalog values that should be applied to
+                    apps installed from this catalog.
                   properties:
                     name:
                       description: |
@@ -78,7 +81,7 @@ spec:
                   description: |
                     Determines the type of storage. Currently only 'helm' is available.
                     - Helm type storage use the known Helm Chart Repository format to store the chart
-                      packages and expose some metadata in the file `index.yaml` to manage the catalog.
+                      packages and expose some metadata in the file 'index.yaml' to manage the catalog.
                   type: string
               required:
               - type
