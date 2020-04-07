@@ -24,7 +24,7 @@ spec:
               properties:
                 configMap:
                   description: |
-                    Defines the reference of a "ConfigMap" where is saved the default values that 
+                    Defines the reference of a ConfigMap where is saved the default values that 
                     will be applied to all applications contained in the catalog.
                   properties:
                     name:
@@ -41,7 +41,7 @@ spec:
                   type: object
                 secret:
                   description: |
-                    Defines the reference of a "Secret" where is saved the default sensitive configuration
+                    Defines the reference of a Secret where is saved the default sensitive configuration
                     that will be applied to all applications contained in the catalog.
                   properties:
                     name:
@@ -76,7 +76,7 @@ spec:
                   type: string
                 type:
                   description: |
-                    Determines the type of storage. Currently only `helm` is available.
+                    Determines the type of storage. Currently only 'helm' is available.
                     - Helm type storage use the known Helm Chart Repository format to store the chart
                       packages and expose some metadata in the file `index.yaml` to manage the catalog.
                   type: string

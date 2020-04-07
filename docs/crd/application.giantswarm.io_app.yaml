@@ -32,7 +32,7 @@ spec:
               properties:
                 configMap:
                   description: |
-                    Defines a reference to a "ConfigMap" where is saved the cluster configuration values 
+                    Defines a reference to a ConfigMap where is saved the cluster configuration values 
                     that will be applied to the application when it is deployed in the cluster. 
                   properties:
                     name:
@@ -49,7 +49,7 @@ spec:
                   type: object
                 secret:
                   description: |
-                    Defines the reference of a "Secret" where is saved the sensitive configuration
+                    Defines the reference of a Secret where is saved the sensitive configuration
                     that will be applied to the application when it is deployed in the cluster.
                   properties:
                     name:
@@ -87,7 +87,7 @@ spec:
                   type: boolean
                 secret:
                   description: |
-                    Defines the reference to a "Secret" where is saved the kubeconfig configuration
+                    Defines the reference to a Secret where is saved the kubeconfig configuration
                     that will be applied when accessing the cluster to manage the application.
                   properties:
                     name:
@@ -115,11 +115,11 @@ spec:
             userConfig:
               description: |
                 User configuration for the App. This configuration will be merged with the catalog and
-                cluster configuration to generate a single values "ConfigMap" in the target cluster.
+                cluster configuration to generate a single values ConfigMap in the target cluster.
               properties:
                 configMap:
                   description: |
-                    Defines the reference of a "ConfigMap" where is saved the user configuration values 
+                    Defines the reference of a ConfigMap where is saved the user configuration values 
                     that will be applied to the application when it is deployed in the cluster. 
                   properties:
                     name:
@@ -136,7 +136,7 @@ spec:
                   type: object
                 secret:
                   description: |
-                    Defines the reference of a "Secret" where is saved the user sensitive configuration 
+                    Defines the reference of a Secret where is saved the user sensitive configuration 
                     that will be applied to the application when it is deployed in the cluster. 
                   properties:
                     name:
