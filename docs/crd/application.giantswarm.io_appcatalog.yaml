@@ -16,7 +16,7 @@ spec:
     openAPIV3Schema:
       description: |
         Defines a location where packaged applications are stored and shared,
-        ready to be install in a Kubernetes cluster.
+        ready to be installed in a Kubernetes cluster.
       properties:
         spec:
           properties:
@@ -78,7 +78,7 @@ spec:
                   description: |
                     Determines the type of storage. Currently only `helm` is available.
                     - Helm type storage use the known Helm Chart Repository format to store the chart
-                      packages and expose some metadata file `index.yaml` to manage the catalog.
+                      packages and expose some metadata in the file `index.yaml` to manage the catalog.
                   type: string
               required:
               - type
