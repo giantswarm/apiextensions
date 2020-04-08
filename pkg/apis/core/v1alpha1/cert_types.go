@@ -47,19 +47,25 @@ func init() {
 func NewCertConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return certConfigCRD.DeepCopy()
 }
+
+// NewCertConfigTypeMeta returns the type part for the metadata section of a
+// CertConfig custom resource.
+func NewCertConfigTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindCertConfig,
+	}
+}
+
+// NewCertConfigCR returns an AWSCluster Custom Resource.
+func NewCertConfigCR() *CertConfig {
+	return &CertConfig{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "certconfigs.core.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "CertConfig",
-				Plural:   "certconfigs",
-				Singular: "certconfig",
+			Annotations: map[string]string{
+				crDocsAnnotation: certConfigDocumentationLink,
 			},
 		},
+		TypeMeta: NewCertConfigTypeMeta(),
 	}
 }
 
