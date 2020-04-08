@@ -1,0 +1,20 @@
+apiVersion: core.giantswarm.io/v1alpha1
+kind: CertConfig
+metadata:
+  annotations:
+    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#CertConfig
+  creationTimestamp: null
+  name: c68pn-prometheus
+spec:
+  cert:
+    allowBareDomains: false
+    altNames: []
+    clusterComponent: prometheus
+    clusterID: c68pn
+    commonName: api.c68pn.k8s.gollum.westeurope.azure.gigantic.io
+    disableRegeneration: false
+    ipSans: []
+    organizations: []
+    ttl: 4320h
+  versionBundle:
+    version: 0.1.0

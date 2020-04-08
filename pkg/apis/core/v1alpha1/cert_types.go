@@ -3,43 +3,69 @@ package v1alpha1
 import (
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"sigs.k8s.io/yaml"
 )
 
+const (
+	crDocsAnnotation            = "giantswarm.io/docs"
+	kindCertConfig              = "CertConfig"
+	certConfigDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#CertConfig"
+)
+
+const certConfigCRDYAML = `
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: certconfigs.core.giantswarm.io
+spec:
+  conversion:
+    strategy: None
+  group: core.giantswarm.io
+  names:
+    kind: CertConfig
+    listKind: CertConfigList
+    plural: certconfigs
+    singular: certconfig
+  preserveUnknownFields: true
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+`
+
+var certConfigCRD *apiextensionsv1beta1.CustomResourceDefinition
+
+func init() {
+	err := yaml.Unmarshal([]byte(certConfigCRDYAML), &certConfigCRD)
+	if err != nil {
+		panic(err)
+	}
+}
+
 // NewCertConfigCRD returns a new custom resource definition for CertConfig.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: certconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: CertConfig
-//         plural: certconfigs
-//         singular: certconfig
-//
 func NewCertConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
+	return certConfigCRD.DeepCopy()
+}
+
+// NewCertConfigTypeMeta returns the type part for the metadata section of a
+// CertConfig custom resource.
+func NewCertConfigTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindCertConfig,
+	}
+}
+
+// NewCertConfigCR returns an AWSCluster Custom Resource.
+func NewCertConfigCR() *CertConfig {
+	return &CertConfig{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: "certconfigs.core.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "CertConfig",
-				Plural:   "certconfigs",
-				Singular: "certconfig",
+			Annotations: map[string]string{
+				crDocsAnnotation: certConfigDocumentationLink,
 			},
 		},
+		TypeMeta: NewCertConfigTypeMeta(),
 	}
 }
 
