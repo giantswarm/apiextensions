@@ -88,24 +88,24 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 func newAppCatalogExampleCR() *AppCatalog {
 	cr := NewAppCatalogCR()
 
-	cr.Name = "my-app-catalog"
+	cr.Name = "my-playground-catalog"
 	cr.Spec = AppCatalogSpec{
-		Title:       "My App Catalog",
-		Description: "Applications we provide for all sorts of purposes.",
+		Title:       "My Playground Catalog",
+		Description: "A catalog to store all new application packages.",
 		Config: AppCatalogSpecConfig{
 			ConfigMap: AppCatalogSpecConfigConfigMap{
-				Name:      "my-configmap",
+				Name:      "my-playground-catalog",
 				Namespace: "my-namespace",
 			},
 			Secret: AppCatalogSpecConfigSecret{
-				Name:      "my-secret",
+				Name:      "my-playground-catalog",
 				Namespace: "my-namespace",
 			},
 		},
 		LogoURL: "https://my-org.github.com/logo.png",
 		Storage: AppCatalogSpecStorage{
 			Type: "helm",
-			URL:  "https://my-org.github.com/my-app-catalog/",
+			URL:  "https://my-org.github.com/my-playground-catalog/",
 		},
 	}
 

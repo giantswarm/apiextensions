@@ -81,36 +81,36 @@ func newAppExampleCR() *App {
 	cr.Spec = AppSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",
-		Version:   "1.0.0",
-		Catalog:   "my-catalog",
+		Version:   "1.0.1",
+		Catalog:   "my-playground-catalog",
 		Config: AppSpecConfig{
 			ConfigMap: AppSpecConfigConfigMap{
-				Name:      "my-configmap",
-				Namespace: "monitoring",
+				Name:      "f2def-cluster-values",
+				Namespace: "f2def",
 			},
 			Secret: AppSpecConfigSecret{
-				Name:      "my-secret",
-				Namespace: "monitoring",
+				Name:      "f2def-cluster-values",
+				Namespace: "f2def",
 			},
 		},
 		KubeConfig: AppSpecKubeConfig{
 			InCluster: false,
 			Context: AppSpecKubeConfigContext{
-				Name: "my-context-name",
+				Name: "f2def",
 			},
 			Secret: AppSpecKubeConfigSecret{
-				Name:      "my-kubeconfig-secret",
-				Namespace: "monitoring",
+				Name:      "f2def-kubeconfig",
+				Namespace: "f2def",
 			},
 		},
 		UserConfig: AppSpecUserConfig{
 			ConfigMap: AppSpecUserConfigConfigMap{
-				Name:      "my-userconfig-configmap",
-				Namespace: "monitoring",
+				Name:      "prometheus-user-values",
+				Namespace: "f2def",
 			},
 			Secret: AppSpecUserConfigSecret{
-				Name:      "my-userconfig-secret",
-				Namespace: "monitoring",
+				Name:      "prometheus-user-values",
+				Namespace: "f2def",
 			},
 		},
 	}
