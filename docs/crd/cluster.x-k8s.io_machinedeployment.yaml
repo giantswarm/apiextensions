@@ -4,16 +4,16 @@ metadata:
   creationTimestamp: null
   labels:
     controller-tools.k8s.io: "1.0"
-  name: machinedeployments.cluster.x-k8s.io
+  name: clusters.cluster.x-k8s.io
 spec:
   conversion:
     strategy: None
   group: cluster.x-k8s.io
   names:
-    kind: MachineDeployment
-    listKind: MachineDeploymentList
-    plural: machinedeployments
-    singular: machinedeployment
+    kind: Cluster
+    listKind: ClusterList
+    plural: clusters
+    singular: cluster
   preserveUnknownFields: true
   scope: Namespaced
   versions:
