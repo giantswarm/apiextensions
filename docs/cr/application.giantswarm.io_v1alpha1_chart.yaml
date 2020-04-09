@@ -1,0 +1,21 @@
+apiVersion: application.giantswarm.io/v1alpha1
+kind: Chart
+metadata:
+  annotations:
+    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#Chart
+  creationTimestamp: null
+  name: prometheus
+spec:
+  config:
+    configMap:
+      name: f2def-chart-values
+      namespace: f2def
+      resourceVersion: ""
+    secret:
+      name: f2def-chart-values
+      namespace: f2def
+      resourceVersion: ""
+  name: prometheus
+  namespace: monitoring
+  tarballURL: prometheus-1.0.1.tgz
+  version: 1.0.1
