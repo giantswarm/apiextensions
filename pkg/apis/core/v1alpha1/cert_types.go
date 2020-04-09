@@ -37,6 +37,8 @@ spec:
         description: |
           The CertConfig resource is used in a Giant Swarm installation to ensure TLS communication between
           a component (e. g. prometheus) and the tenant cluster nodes. It is reconciled by cert-operator.
+          For each CertConfig resource, cert-operator ensures the existence of an X.509 certificate as
+          defined in RFC 5280.
         properties:
           spec:
             type: object
