@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add CRDs for Azure Tool
 
+## [0.2.3] - 2020-04-08
+
+### Added
+
+- Add Helm revision number to chart CR status.
+
+
+
+## [0.2.2] - 2020-04-07
+
+### Added
+
+- Extend App and AppCatalog CR documentation.
+
+
+>>>>>>> master
+
 ## [0.2.1] - 2020-04-06
 
 ### Added
