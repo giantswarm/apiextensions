@@ -131,7 +131,7 @@ func Test_GenerateMachineDeploymentYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),
-			resource: newClusterExampleCR(),
+			resource: newMachineDeploymentExampleCR(),
 		},
 	}
 
