@@ -21,6 +21,8 @@ spec:
         description: |
           The CertConfig resource is used in a Giant Swarm installation to ensure TLS communication between
           a component (e. g. prometheus) and the tenant cluster nodes. It is reconciled by cert-operator.
+          For each CertConfig resource, cert-operator ensures the existence of an X.509 certificate as
+          defined in RFC 5280.
         properties:
           spec:
             properties:
@@ -29,10 +31,15 @@ spec:
                   Defines an X.509 certificate to be ensured by cert-operator.
                 properties:
                   allowBareDomains:
-                    description: TODO
+                    description: |
+                      Specifies if clients can request certificates matching the value of the actual
+                      domains themselves.
                     type: bool
                   altNames:
-                    description: TODO
+                    description: |
+                      Specifies requested Subject Alternative Names, in a comma-delimited list. These
+                      can be host names or email addresses; they will be parsed into their respective
+                      fields.
                     items:
                       type: string
                     type: array
@@ -52,12 +59,16 @@ spec:
                       Toggles the automatic recreation before expiry.
                     type: bool
                   ipSans:
-                    description: TODO
+                    description: |
+                      Specifies requested IP Subject Alternative Names to be set in the
+                      certificate.
                     items:
                       type: string
                     type: array
                   organizations:
-                    description: TODO
+                    description: |
+                      Organizations to set in the Organizations (O) attribute of the
+                      certificate.
                     items:
                       type: string
                     type: array
