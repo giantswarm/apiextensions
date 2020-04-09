@@ -47,10 +47,15 @@ spec:
                 type: object
                 properties:
                   allowBareDomains:
-                    description: TODO
+                    description: |
+                      Specifies if clients can request certificates matching the value of the actual
+                      domains themselves.
                     type: bool
                   altNames:
-                    description: TODO
+                    description: |
+                      Specifies requested Subject Alternative Names, in a comma-delimited list. These
+                      can be host names or email addresses; they will be parsed into their respective
+                      fields.
                     type: array
                     items:
                       type: string
@@ -70,12 +75,16 @@ spec:
                       Toggles the automatic recreation before expiry.
                     type: bool
                   ipSans:
-                    description: TODO
+                    description: |
+                      Specifies requested IP Subject Alternative Names to be set in the
+                      certificate.
                     type: array
                     items:
                       type: string
                   organizations:
-                    description: TODO
+                    description: |
+                      Organizations to set in the Organizations (O) attribute of the
+                      certificate.
                     type: array
                     items:
                       type: string
