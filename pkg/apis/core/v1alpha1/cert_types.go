@@ -32,6 +32,72 @@ spec:
   - name: v1alpha1
     served: true
     storage: true
+    schema:
+      openAPIV3Schema:
+        description: |
+          The CertConfig resource is used in a Giant Swarm installation to ensure TLS communication between
+          a component (e. g. prometheus) and the tenant cluster nodes. It is reconciled by cert-operator.
+          For each CertConfig resource, cert-operator ensures the existence of an X.509 certificate as
+          defined in RFC 5280.
+        properties:
+          spec:
+            type: object
+            properties:
+              cert:
+                description: |
+                  Defines an X.509 certificate to be ensured by cert-operator.
+                type: object
+                properties:
+                  allowBareDomains:
+                    description: |
+                      Specifies if clients can request certificates matching the value of the actual
+                      domains themselves.
+                    type: bool
+                  altNames:
+                    description: |
+                      Specifies host names to set in the certificate as Subject Alternative Names.
+                    type: array
+                    items:
+                      type: string
+                  clusterComponent:
+                    description: |
+                      Name of the component this certificate is for.
+                    type: string
+                  clusterID:
+                    description: |
+                      Unique identifier of the tenant cluster this certificate is for.
+                    type: string
+                  commonName:
+                    description: |
+                      The value of the Common Name (CN) attribute of the certificate.
+                  disableRegeneration:
+                    description: |
+                      Disable automatic certificate rotation before expiry.
+                    type: bool
+                  ipSans:
+                    description: |
+                      Specifies requested IP Subject Alternative Names to be set in the
+                      certificate.
+                    type: array
+                    items:
+                      type: string
+                  organizations:
+                    description: |
+                      Organizations to set in the Organizations (O) attribute of the
+                      certificate.
+                    type: array
+                    items:
+                      type: string
+                  ttl:
+                    description: |
+                      Expiry duration after creation. The value must consist of a number
+                      combined with a unit, without blanks, to be parsed by the Go
+                      [time.ParseDuration](https://golang.org/pkg/time/#ParseDuration) function.
+                    type: string
+              versionBundle:
+                description: |
+                  No longer used
+                type: object
 `
 
 var certConfigCRD *apiextensionsv1beta1.CustomResourceDefinition
