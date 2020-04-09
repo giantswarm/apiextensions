@@ -32,6 +32,62 @@ spec:
   - name: v1alpha1
     served: true
     storage: true
+    schema:
+      openAPIV3Schema:
+        description: |
+          The CertConfig resource is used in a Giant Swarm installation to ensure TLS communication between
+          a component (e. g. prometheus) and the tenant cluster nodes. It is reconciled by cert-operator.
+        properties:
+          spec:
+            type: object
+            properties:
+              cert:
+                description: |
+                  Defines an X.509 certificate to be ensured by cert-operator.
+                type: object
+                properties:
+                  allowBareDomains:
+                    description: TODO
+                    type: bool
+                  altNames:
+                    description: TODO
+                    type: array
+                    items:
+                      type: string
+                  clusterComponent:
+                    description: |
+                      Name of the component this certificate is for.
+                    type: string
+                  clusterID:
+                    description: |
+                      Unique identifier of the tenant cluster this certificate is for.
+                    type: string
+                  commonName:
+                    description: |
+                      The value of the Common Name (CN) attribute of the certificate.
+                  disableRegeneration:
+                    description: |
+                      Toggles the automatic recreation before expiry.
+                    type: bool
+                  ipSans:
+                    description: TODO
+                    type: array
+                    items:
+                      type: string
+                  organizations:
+                    description: TODO
+                    type: array
+                    items:
+                      type: string
+                  ttl:
+                    description: |
+                      Expiry duration after creation. The value must consist of a number
+                      combined with a unit, without blanks, to be parsed by the Go
+                      [time.ParseDuration](https://golang.org/pkg/time/#ParseDuration) function.
+                    type: string
+              versionBundle:
+                description: TODO
+                type: object
 `
 
 var certConfigCRD *apiextensionsv1beta1.CustomResourceDefinition
