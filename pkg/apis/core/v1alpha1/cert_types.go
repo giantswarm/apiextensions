@@ -95,7 +95,8 @@ spec:
                       [time.ParseDuration](https://golang.org/pkg/time/#ParseDuration) function.
                     type: string
               versionBundle:
-                description: TODO
+                description: |
+                  No longer used
                 type: object
 `
 
