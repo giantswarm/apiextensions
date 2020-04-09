@@ -54,7 +54,7 @@ spec:
                       The value of the Common Name (CN) attribute of the certificate.
                   disableRegeneration:
                     description: |
-                      Toggles the automatic recreation before expiry.
+                      Disable automatic certificate rotation before expiry.
                     type: bool
                   ipSans:
                     description: |
