@@ -55,9 +55,7 @@ spec:
                     type: bool
                   altNames:
                     description: |
-                      Specifies requested Subject Alternative Names, in a comma-delimited list. These
-                      can be host names or email addresses; they will be parsed into their respective
-                      fields.
+                      Specifies host names to set in the certificate as Subject Alternative Names.
                     type: array
                     items:
                       type: string
