@@ -32,10 +32,11 @@ spec:
                   type: string
                 mode:
                   type: string
-			clusterID:
-				type: string
+            clusterID:
+              type: string
           required:
           - workspace
+          - clusterID
 `
 
 var azureToolCRD *apiextensionsv1beta1.CustomResourceDefinition
