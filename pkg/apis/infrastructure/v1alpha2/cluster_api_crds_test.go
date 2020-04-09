@@ -126,7 +126,7 @@ func Test_GenerateMachineDeploymentYAML(t *testing.T) {
 		{
 			category: "crd",
 			name:     fmt.Sprintf("%s_%s.yaml", crdGroup, crdKindLower),
-			resource: clusterCRD,
+			resource: crd,
 		},
 		{
 			category: "cr",
