@@ -25,6 +25,3 @@ if [ ! -x "$(command -v goimports)" ]; then
 fi
 echo "Fixing imports in-place with goimports"
 goimports -local github.com/giantswarm/apiextensions -w ./pkg
-
-#go run "$(go list -m -f '{{.Dir}}' sigs.k8s.io/controller-gen)"/cmd/controller-gen/main.go  \
-#    crd paths=./pkg/apis/... output:dir=docs/crd
