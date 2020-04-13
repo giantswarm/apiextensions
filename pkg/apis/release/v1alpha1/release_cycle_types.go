@@ -1,9 +1,7 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
 )
 
 const (
@@ -15,62 +13,10 @@ const (
 	CyclePhaseEOL      ReleaseCyclePhase = "eol"
 )
 
-const releaseCycleCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: releasecycles.release.giantswarm.io
-spec:
-  group: release.giantswarm.io
-  scope: Cluster
-  version: v1alpha1
-  names:
-    kind: ReleaseCycle
-    plural: releasecycles
-    singular: releasecycle
-  subresources:
-    status: {}
-  validation:
-    # Note: When changing ReleaseCycle CRD schema please make sure to update
-    # ReleaseCycle details in Release CRD schema accordingly.
-    openAPIV3Schema:
-      properties:
-        spec:
-          type: object
-          properties:
-            disabledDate:
-              type: string
-              format: date
-            enabledDate:
-              type: string
-              format: date
-            phase:
-              enum:
-              - upcoming
-              - enabled
-              - disabled
-              - eol
-          required:
-          - phase
-`
-
 type ReleaseCyclePhase string
 
 func (r ReleaseCyclePhase) String() string {
 	return string(r)
-}
-
-var releaseCycleCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(releaseCycleCRDYAML), &releaseCycleCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func NewReleaseCycleCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return releaseCycleCRD.DeepCopy()
 }
 
 func NewReleaseCycleTypeMeta() metav1.TypeMeta {

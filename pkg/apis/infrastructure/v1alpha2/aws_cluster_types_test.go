@@ -27,16 +27,6 @@ var (
 	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewAWSClusterCRD(t *testing.T) {
-	crd := NewAWSClusterCRD()
-	if crd == nil {
-		t.Error("AWSCluster CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSCluster CRD name was empty.")
-	}
-}
-
 func Test_GenerateAWSClusterYAML(t *testing.T) {
 	testCases := []struct {
 		category string

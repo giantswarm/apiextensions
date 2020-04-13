@@ -1,66 +1,12 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
 )
 
 const (
-	kindIgnition    = "Ignition"
-	ignitionCRDYAML = `apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  creationTimestamp: null
-  name: ignitions.core.giantswarm.io
-spec:
-  additionalPrinterColumns:
-    - jsonPath: .status.ready
-      description: Indicates that the ignition secret has been successfully rendered
-        and is ready to be used
-      name: ready
-      type: boolean
-  group: core.giantswarm.io
-  names:
-    kind: Ignition
-    plural: ignitions
-    singular: ignition
-    shortNames:
-    - "ign"
-  scope: Namespaced
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            apiServerEncryptionKey:
-              type: string
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-`
+	kindIgnition = "Ignition"
 )
-
-var ignitionCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.UnmarshalStrict([]byte(ignitionCRDYAML), &ignitionCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-// NewIgnitionCRD returns a new custom resource definition for an Ignition resource.
-// Ignitions contain a rendered ignition template specific to nodes or groups of nodes
-// in a particular cluster.
-func NewIgnitionCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return ignitionCRD.DeepCopy()
-}
 
 func NewIgnitionTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

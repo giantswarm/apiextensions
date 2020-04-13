@@ -31,7 +31,7 @@ func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) erro
 		for _, version := range group.Versions {
 			source, err := os.Open(filepath.Join(genericArgs.OutputBase, version.Package, genericArgs.OutputFileBaseName+".go"))
 			if err != nil {
-				return err
+				continue
 			}
 			destination, err := os.Create(filepath.Join("pkg/apis", string(group.Group), string(version.Version), genericArgs.OutputFileBaseName+".go"))
 			if err != nil {

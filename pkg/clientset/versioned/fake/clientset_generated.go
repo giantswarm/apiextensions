@@ -30,6 +30,8 @@ import (
 	fakeapplicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1/fake"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/backup/v1alpha1"
 	fakebackupv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/backup/v1alpha1/fake"
+	clusterv1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/cluster/v1alpha2"
+	fakeclusterv1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/cluster/v1alpha2/fake"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1/fake"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
@@ -97,6 +99,11 @@ func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha
 // BackupV1alpha1 retrieves the BackupV1alpha1Client
 func (c *Clientset) BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface {
 	return &fakebackupv1alpha1.FakeBackupV1alpha1{Fake: &c.Fake}
+}
+
+// ClusterV1alpha2 retrieves the ClusterV1alpha2Client
+func (c *Clientset) ClusterV1alpha2() clusterv1alpha2.ClusterV1alpha2Interface {
+	return &fakeclusterv1alpha2.FakeClusterV1alpha2{Fake: &c.Fake}
 }
 
 // CoreV1alpha1 retrieves the CoreV1alpha1Client

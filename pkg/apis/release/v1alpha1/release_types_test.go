@@ -12,6 +12,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/giantswarm/apiextensions/pkg/crds/release"
+
 	"github.com/go-openapi/errors"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
@@ -28,17 +30,6 @@ var (
 	root       = filepath.Dir(b)
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
-
-func Test_NewReleaseCRD(t *testing.T) {
-	crd := NewReleaseCRD()
-	if crd == nil {
-		t.Error("Release CRD was nil.")
-		return
-	}
-	if crd.Name == "" {
-		t.Error("Release CRD name was empty.")
-	}
-}
 
 func Test_ReleaseCRValidation(t *testing.T) {
 	now := metav1.Now()
@@ -303,7 +294,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			},
 		},
 	}
-	crd := NewReleaseCRD()
+	crd := release.NewReleaseCRD()
 
 	var v apiextensions.CustomResourceValidation
 	err := v1beta1.Convert_v1beta1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crd.Spec.Validation, &v, nil)

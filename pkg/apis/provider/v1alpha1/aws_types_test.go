@@ -28,16 +28,6 @@ var (
 	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewAWSConfigCRD(t *testing.T) {
-	crd := NewAWSConfigCRD()
-	if crd == nil {
-		t.Error("AWSConfig CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSConfig CRD name was empty.")
-	}
-}
-
 func Test_GenerateAWSConfigYAML(t *testing.T) {
 	testCases := []struct {
 		category string

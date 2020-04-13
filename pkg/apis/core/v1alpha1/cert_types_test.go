@@ -13,16 +13,6 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_CertConfigCRD(t *testing.T) {
-	crd := NewCertConfigCRD()
-	if crd == nil {
-		t.Error("AWSCluster CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSCluster CRD name was empty.")
-	}
-}
-
 func Test_GenerateCertConfigYAML(t *testing.T) {
 	testCases := []struct {
 		category string

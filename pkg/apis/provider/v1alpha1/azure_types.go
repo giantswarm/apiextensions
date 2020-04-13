@@ -1,35 +1,8 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
-
-// NewAzureConfigCRD returns a new custom resource definition for AzureConfig.
-func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "azureconfigs.provider.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "provider.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AzureConfig",
-				Plural:   "azureconfigs",
-				Singular: "azureconfig",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
-		},
-	}
-}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -1,85 +1,12 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
 )
 
 const (
 	kindChart = "Chart"
 )
-
-const chartCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: charts.application.giantswarm.io
-spec:
-  group: application.giantswarm.io
-  scope: Namespaced
-  version: v1alpha1
-  names:
-    kind: Chart
-    plural: charts
-    singular: chart
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            name:
-              type: string
-            namespace:
-              type: string
-            config:
-              type: object
-              properties:
-                configMap:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                    resourceVersion:
-                      type: string
-                  required: ["name", "namespace"]
-                secret:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                    resourceVersion:
-                      type: string
-                  required: ["name", "namespace"]
-            tarballURL:
-              type: string
-              format: uri
-            version:
-              type: string
-          required: ["name", "namespace", "tarballURL", "version"]
-`
-
-var chartCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(chartCRDYAML), &chartCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-// NewChartCRD returns a new custom resource definition for Chart.
-func NewChartCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return chartCRD.DeepCopy()
-}
 
 func NewChartTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

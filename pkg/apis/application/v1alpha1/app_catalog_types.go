@@ -1,10 +1,7 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"github.com/giantswarm/apiextensions/pkg/crds/application"
 )
 
 const (
@@ -12,11 +9,6 @@ const (
 	kindAppCatalog              = "AppCatalog"
 	appCatalogDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#AppCatalog"
 )
-
-// NewAppCatalogCRD returns a new custom resource definition for AppCatalog.
-func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return application.NewAppCatalogCRD()
-}
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

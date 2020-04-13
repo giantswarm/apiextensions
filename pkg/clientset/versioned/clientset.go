@@ -27,6 +27,7 @@ import (
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/backup/v1alpha1"
+	clusterv1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/cluster/v1alpha2"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
@@ -38,6 +39,7 @@ type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface
 	BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface
+	ClusterV1alpha2() clusterv1alpha2.ClusterV1alpha2Interface
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
 	ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
@@ -51,6 +53,7 @@ type Clientset struct {
 	*discovery.DiscoveryClient
 	applicationV1alpha1    *applicationv1alpha1.ApplicationV1alpha1Client
 	backupV1alpha1         *backupv1alpha1.BackupV1alpha1Client
+	clusterV1alpha2        *clusterv1alpha2.ClusterV1alpha2Client
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
 	exampleV1alpha1        *examplev1alpha1.ExampleV1alpha1Client
 	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
@@ -66,6 +69,11 @@ func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha
 // BackupV1alpha1 retrieves the BackupV1alpha1Client
 func (c *Clientset) BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface {
 	return c.backupV1alpha1
+}
+
+// ClusterV1alpha2 retrieves the ClusterV1alpha2Client
+func (c *Clientset) ClusterV1alpha2() clusterv1alpha2.ClusterV1alpha2Interface {
+	return c.clusterV1alpha2
 }
 
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
@@ -122,6 +130,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.clusterV1alpha2, err = clusterv1alpha2.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.coreV1alpha1, err = corev1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -156,6 +168,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.NewForConfigOrDie(c)
 	cs.backupV1alpha1 = backupv1alpha1.NewForConfigOrDie(c)
+	cs.clusterV1alpha2 = clusterv1alpha2.NewForConfigOrDie(c)
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
 	cs.exampleV1alpha1 = examplev1alpha1.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
@@ -171,6 +184,7 @@ func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.New(c)
 	cs.backupV1alpha1 = backupv1alpha1.New(c)
+	cs.clusterV1alpha2 = clusterv1alpha2.New(c)
 	cs.coreV1alpha1 = corev1alpha1.New(c)
 	cs.exampleV1alpha1 = examplev1alpha1.New(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)

@@ -2,75 +2,12 @@ package v1alpha2
 
 import (
 	corev1 "k8s.io/api/core/v1"
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
 )
 
 const (
 	kindG8sControlPlane = "G8sControlPlane"
 )
-
-const g8sControlPlaneCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: g8scontrolplanes.infrastructure.giantswarm.io
-spec:
-  conversion:
-    strategy: None
-  group: infrastructure.giantswarm.io
-  names:
-    kind: G8sControlPlane
-    plural: g8scontrolplanes
-    singular: g8scontrolplane
-  scope: Namespaced
-  subresources:
-    status: {}
-  versions:
-    - name: v1alpha1
-      served: false
-      storage: false
-    - name: v1alpha2
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                infrastructureRef:
-                  type: object
-                  properties:
-                    apiVersion:
-                      type: string
-                    kind:
-                      type: string
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                replicas:
-                  type: integer
-                  enum:
-                    - 1
-                    - 3
-`
-
-var g8sControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(g8sControlPlaneCRDYAML), &g8sControlPlaneCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return g8sControlPlaneCRD.DeepCopy()
-}
 
 func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

@@ -9,6 +9,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/giantswarm/apiextensions/pkg/crds/cluster"
+
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -16,18 +18,8 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewClusterCRD(t *testing.T) {
-	crd := NewClusterCRD()
-	if crd == nil {
-		t.Error("Cluster CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("Cluster CRD name was empty.")
-	}
-}
-
 func Test_GenerateClusterYAML(t *testing.T) {
-	crd := NewClusterCRD()
+	crd := cluster.NewClusterCRD()
 
 	crdGroup := crd.Spec.Group
 	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
@@ -97,18 +89,8 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 	return cr
 }
 
-func Test_NewMachineDeploymentCRD(t *testing.T) {
-	crd := NewMachineDeploymentCRD()
-	if crd == nil {
-		t.Error("MachineDeployment CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("MachineDeployment CRD name was empty.")
-	}
-}
-
 func Test_GenerateMachineDeploymentYAML(t *testing.T) {
-	crd := NewMachineDeploymentCRD()
+	crd := cluster.NewMachineDeploymentCRD()
 
 	crdGroup := crd.Spec.Group
 	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
