@@ -83,31 +83,7 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 // G8sControlPlane defines the Control Plane Nodes (Kubernetes Master Nodes) of
-// a Giant Swarm Tenant Cluster
-//
-//     apiVersion: infrastructure.giantswarm.io/v1alpha2
-//     kind: G8sControlPlane
-//     metadata:
-//       annotations:
-//         giantswarm.io/docs: https://docs.giantswarm.io/reference/g8scontrolplanes.infrastructure.giantswarm.io/v1alpha2/
-//       labels:
-//         aws-operator.giantswarm.io/version: "6.2.0"
-//         cluster-operator.giantswarm.io/version: "0.17.0"
-//         giantswarm.io/cluster: 8y5kc
-//         giantswarm.io/organization: giantswarm
-//         release.giantswarm.io/version: "7.3.1"
-//       name: 8y5kc
-//     spec:
-//       infrastructureRef:
-//         apiVersion: infrastructure.giantswarm.io/v1alpha2
-//         kind: AWSControlPlane
-//         name: 5f3kb
-//         namespace: default
-//       replicas: 3
-//     status:
-//       readyReplicas: 3
-//       replicas: 3
-//
+// a Giant Swarm Tenant Cluster.
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

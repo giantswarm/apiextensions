@@ -30,11 +30,6 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awsmachinedeployment.yaml", group),
-			resource: NewAWSMachineDeploymentCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsmachinedeployment.yaml", group, version),
 			resource: newAWSMachineDeploymentExampleCR(),

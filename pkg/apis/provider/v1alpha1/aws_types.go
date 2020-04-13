@@ -506,24 +506,7 @@ func init() {
 	}
 }
 
-// NewAWSConfigCRD returns a new custom resource definition for AWSConfig. This
-// might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: awsconfigs.provider.giantswarm.io
-//     spec:
-//       group: provider.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: AWSConfig
-//         plural: awsconfigs
-//         singular: awsconfig
-//       subresources:
-//         status: {}
-//
+// NewAWSConfigCRD returns a new custom resource definition for AWSConfig.
 func NewAWSConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return awsConfigCRD.DeepCopy()
 }

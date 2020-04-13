@@ -6,21 +6,7 @@ import (
 )
 
 // NewKVMClusterConfigCRD returns a new custom resource definition for
-// KVMClusterConfig. This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: kvmclusterconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: KVMClusterConfig
-//         plural: kvmclusterconfigs
-//         singular: kvmclusterconfig
-//
+// KVMClusterConfig.
 func NewKVMClusterConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

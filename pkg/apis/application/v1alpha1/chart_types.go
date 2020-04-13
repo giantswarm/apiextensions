@@ -77,21 +77,6 @@ func init() {
 }
 
 // NewChartCRD returns a new custom resource definition for Chart.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: charts.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: Chart
-//         plural: charts
-//         singular: chart
-//
 func NewChartCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return chartCRD.DeepCopy()
 }
@@ -106,37 +91,6 @@ func NewChartTypeMeta() metav1.TypeMeta {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Chart CRs might look something like the following.
-//
-//    apiVersion: application.giantswarm.io/v1alpha1
-//    kind: Chart
-//    metadata:
-//      name: "prometheus"
-//      labels:
-//        chart-operator.giantswarm.io/version: "1.0.0"
-//
-//    spec:
-//      name: "prometheus"
-//      namespace: "monitoring"
-//      config:
-//        configMap:
-//        name: "prometheus-values"
-//        namespace: "monitoring"
-//        resourceVersion: ""
-//      secret:
-//        name: "prometheus-secrets"
-//        namespace: "monitoring"
-//        resourceVersion: ""
-//      tarballURL: "https://giantswarm.github.com/app-catalog/prometheus-1-0-0.tgz"
-//      version: "1.0.0"
-//
-//    status:
-//      appVersion: "2.4.3" # Optional value from Chart.yaml with the version of the deployed app.
-//      release:
-//        lastDeployed: "2018-11-30T21:06:20Z"
-//        status: "DEPLOYED"
-//      version: "1.1.0" # Required value from Chart.yaml with the version of the chart.
-//
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -215,6 +169,8 @@ type ChartStatus struct {
 type ChartStatusRelease struct {
 	// LastDeployed is the time when the deployed chart was last deployed.
 	LastDeployed metav1.Time `json:"lastDeployed" yaml:"lastDeployed"`
+	// Revision is the revision number for this deployed chart.
+	Revision int `json:"revision" yaml:"revision"`
 	// Status is the status of the deployed chart,
 	// e.g. DEPLOYED.
 	Status string `json:"status" yaml:"status"`

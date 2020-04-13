@@ -6,23 +6,6 @@ import (
 )
 
 // NewChartConfigCRD returns a new custom resource definition for ChartConfig.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: chartconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: ChartConfig
-//         plural: chartconfigs
-//         singular: chartconfig
-//       subresources:
-//         status: {}
-//
 func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

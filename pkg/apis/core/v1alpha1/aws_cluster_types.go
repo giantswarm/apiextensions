@@ -6,21 +6,7 @@ import (
 )
 
 // NewAWSClusterConfigCRD returns a new custom resource definition for
-// AWSClusterConfig. This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: awsclusterconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: AWSClusterConfig
-//         plural: awsclusterconfigs
-//         singular: awsclusterconfig
-//
+// AWSClusterConfig.
 func NewAWSClusterConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

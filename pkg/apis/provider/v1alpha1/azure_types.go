@@ -6,23 +6,6 @@ import (
 )
 
 // NewAzureConfigCRD returns a new custom resource definition for AzureConfig.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: azureconfigs.provider.giantswarm.io
-//     spec:
-//       group: provider.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: AzureConfig
-//         plural: azureconfigs
-//         singular: azureconfig
-//       subresources:
-//         status: {}
-//
 func NewAzureConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

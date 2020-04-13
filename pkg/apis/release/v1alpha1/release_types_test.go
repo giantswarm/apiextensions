@@ -444,11 +444,6 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_release.yaml", group),
-			resource: NewReleaseCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_release.yaml", group, version),
 			resource: newReleaseExampleCR(),

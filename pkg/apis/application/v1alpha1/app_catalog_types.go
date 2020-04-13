@@ -1,6 +1,8 @@
 package v1alpha1
 
 import (
+	"github.com/giantswarm/apiextensions/pkg/crds/application"
+	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -9,6 +11,11 @@ const (
 	kindAppCatalog              = "AppCatalog"
 	appCatalogDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#AppCatalog"
 )
+
+// NewAppCatalogCRD returns a new custom resource definition for AppCatalog.
+func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+	return application.NewAppCatalogCRD()
+}
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
@@ -33,30 +40,6 @@ func NewAppCatalogCR() *AppCatalog {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AppCatalog CRs might look something like the following.
-//
-//    apiVersion: application.giantswarm.io/v1alpha1
-//    kind: AppCatalog
-//    metadata:
-//      name: "giantswarm"
-//      labels:
-//        app-operator.giantswarm.io/version: "1.0.0"
-//
-//    spec:
-//      title: "Giant Swarm"
-//      description: "Catalog of Apps by Giant Swarm"
-//      config:
-//        configMap:
-//          name: "app-catalog-values"
-//          namespace: "giantswarm"
-//        secret:
-//          name: "app-catalog-secrets"
-//          namespace: "giantswarm"
-//      logoURL: "/images/repo_icons/incubator.png"
-//      storage:
-//        type: "helm"
-//        URL: "https://giantswarm.github.com/app-catalog/"
-//
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

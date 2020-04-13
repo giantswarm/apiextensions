@@ -6,21 +6,7 @@ import (
 )
 
 // NewAzureClusterConfigCRD returns a new custom resource definition for
-// AzureClusterConfig. This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: azureclusterconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: AzureClusterConfig
-//         plural: azureclusterconfigs
-//         singular: azureclusterconfig
-//
+// AzureClusterConfig.
 func NewAzureClusterConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

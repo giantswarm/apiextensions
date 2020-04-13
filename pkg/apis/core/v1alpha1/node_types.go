@@ -10,23 +10,6 @@ const (
 )
 
 // NewNodeConfigCRD returns a new custom resource definition for NodeConfig.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: nodeconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: NodeConfig
-//         plural: nodeconfigs
-//         singular: nodeconfig
-//       subresources:
-//         status: {}
-//
 func NewNodeConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{
