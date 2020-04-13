@@ -64,7 +64,7 @@ type ReleaseSpec struct {
 type ReleaseSpecComponent struct {
 	// Name of the component.
 	Name string `json:"name" yaml:"name"`
-	//+kubebuilder:validation:Pattern ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+	// +kubebuilder:validation:Pattern=^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
 	// Version of the component.
 	Version string `json:"version" yaml:"version"`
 }

@@ -61,6 +61,7 @@ spec:
                     type: string
                   version:
                     description: Version of the component.
+                    pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
                     type: string
                 required:
                 - name
