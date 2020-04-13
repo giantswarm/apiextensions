@@ -231,7 +231,12 @@ type AWSMachineDeploymentSpecProvider struct {
 }
 
 type AWSMachineDeploymentSpecInstanceDistribution struct {
-	OnDemandBaseCapacity                int `json:"onDemandBaseCapacity" yaml:"onDemandBaseCapacity"`
+	// +kubebuilder:default=0
+	// +kubebuilder:validation:Minimum=0
+	OnDemandBaseCapacity int `json:"onDemandBaseCapacity" yaml:"onDemandBaseCapacity"`
+	// +kubebuilder:default=100
+	// +kubebuilder:validation:Maximum=100
+	// +kubebuilder:validation:Minimum=0
 	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity" yaml:"onDemandPercentageAboveBaseCapacity"`
 }
 

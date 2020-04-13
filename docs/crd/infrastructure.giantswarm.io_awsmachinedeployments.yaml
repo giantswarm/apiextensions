@@ -72,8 +72,13 @@ spec:
                 instanceDistribution:
                   properties:
                     onDemandBaseCapacity:
+                      default: 0
+                      minimum: 0
                       type: integer
                     onDemandPercentageAboveBaseCapacity:
+                      default: 100
+                      maximum: 100
+                      minimum: 0
                       type: integer
                   required:
                   - onDemandBaseCapacity
