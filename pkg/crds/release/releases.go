@@ -5,9 +5,7 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-const releasesYAML = `
----
-apiVersion: apiextensions.k8s.io/v1beta1
+const releasesYAML = `apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   annotations:
@@ -15,6 +13,19 @@ metadata:
   creationTimestamp: null
   name: releases.release.giantswarm.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.components[?(@.name=="kubernetes")].version
+    description: Version of the kubernetes component in this release
+    name: Kubernetes version
+    type: string
+  - JSONPath: .spec.state
+    description: State of the release
+    name: State
+    type: string
+  - JSONPath: .spec.date
+    description: Time since release creation
+    name: Age
+    type: string
   group: release.giantswarm.io
   names:
     kind: Release
@@ -22,6 +33,7 @@ spec:
     plural: releases
     singular: release
   scope: Namespaced
+  subresources: {}
   validation:
     openAPIV3Schema:
       description: "Release is a Kubernetes resource (CR) which is based on the Release
@@ -38,6 +50,10 @@ spec:
             submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
           type: string
         metadata:
+          properties:
+            name:
+              pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+              type: string
           type: object
         spec:
           properties:
@@ -53,6 +69,7 @@ spec:
                     type: string
                   version:
                     description: Version of the app.
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
                     type: string
                 required:
                 - name
@@ -68,12 +85,13 @@ spec:
                     type: string
                   version:
                     description: Version of the component.
-                    pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+                    pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
                     type: string
                 required:
                 - name
                 - version
                 type: object
+              minItems: 1
               type: array
             date:
               description: Date that the release became active.
@@ -82,6 +100,7 @@ spec:
             state:
               description: 'State indicates the availability of the release: deprecated,
                 active, or wip.'
+              pattern: ^(active|deprecated|wip)$
               type: string
           required:
           - apps

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"strings"
 
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
@@ -100,6 +101,12 @@ func Generate() error {
 	}
 	if hadErrs := rt.Run(); hadErrs {
 		return fmt.Errorf("not all generators ran successfully")
+	}
+
+	cmd := exec.Command("kustomize", "build", "config/crd", "-o", "config/crd/bases/release.giantswarm.io_releases.yaml")
+	err = cmd.Run()
+	if err != nil {
+		return err
 	}
 
 	directory, err := ioutil.ReadDir(crdDirectory)

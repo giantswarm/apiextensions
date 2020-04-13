@@ -18,6 +18,10 @@ var (
 	stateWIP        ReleaseState = "wip"
 )
 
+func (r ReleaseState) String() string {
+	return string(r)
+}
+
 func NewReleaseTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
@@ -36,6 +40,9 @@ func NewReleaseCR() *Release {
 	}
 }
 
+// +kubebuilder:printcolumn:name="Kubernetes version",type=string,JSONPath=`.spec.components[?(@.name=="kubernetes")].version`,description="Version of the kubernetes component in this release"
+// +kubebuilder:printcolumn:name="State",type=string,JSONPath=`.spec.state`,description="State of the release"
+// +kubebuilder:printcolumn:name="Age",type=string,JSONPath=`.spec.date`,description="Time since release creation"
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -53,10 +60,13 @@ type Release struct {
 type ReleaseSpec struct {
 	// Apps describes apps used in this release.
 	Apps []ReleaseSpecApp `json:"apps" yaml:"apps"`
+	// +kubebuilder:validation:MinItems=1
 	// Components describes components used in this release.
 	Components []ReleaseSpecComponent `json:"components" yaml:"components"`
 	// Date that the release became active.
 	Date *metav1.Time `json:"date" yaml:"date"`
+	// +kubebuilder:validation:Type=string
+	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip)$`
 	// State indicates the availability of the release: deprecated, active, or wip.
 	State ReleaseState `json:"state" yaml:"state"`
 }
@@ -64,7 +74,7 @@ type ReleaseSpec struct {
 type ReleaseSpecComponent struct {
 	// Name of the component.
 	Name string `json:"name" yaml:"name"`
-	// +kubebuilder:validation:Pattern=^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the component.
 	Version string `json:"version" yaml:"version"`
 }
@@ -74,6 +84,7 @@ type ReleaseSpecApp struct {
 	ComponentVersion string `json:"componentVersion,omitempty" yaml:"componentVersion,omitempty"`
 	// Name of the app.
 	Name string `json:"name" yaml:"name"`
+	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the app.
 	Version string `json:"version" yaml:"version"`
 }
