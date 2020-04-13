@@ -17,18 +17,6 @@ spec:
   scope: Namespaced
   validation:
     openAPIV3Schema:
-      description: "Chart CRs might look something like the following. \n    apiVersion:
-        application.giantswarm.io/v1alpha1    kind: Chart    metadata:      name:
-        \"prometheus\"      labels:        chart-operator.giantswarm.io/version: \"1.0.0\"
-        \n    spec:      name: \"prometheus\"      namespace: \"monitoring\"      config:
-        \       configMap:        name: \"prometheus-values\"        namespace: \"monitoring\"
-        \       resourceVersion: \"\"      secret:        name: \"prometheus-secrets\"
-        \       namespace: \"monitoring\"        resourceVersion: \"\"      tarballURL:
-        \"https://giantswarm.github.com/app-catalog/prometheus-1-0-0.tgz\"      version:
-        \"1.0.0\" \n    status:      appVersion: \"2.4.3\" # Optional value from Chart.yaml
-        with the version of the deployed app.      release:        lastDeployed: \"2018-11-30T21:06:20Z\"
-        \       status: \"DEPLOYED\"      version: \"1.1.0\" # Required value from
-        Chart.yaml with the version of the chart."
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -139,11 +127,15 @@ spec:
                     last deployed.
                   format: date-time
                   type: string
+                revision:
+                  description: Revision is the revision number for this deployed chart.
+                  type: integer
                 status:
                   description: Status is the status of the deployed chart, e.g. DEPLOYED.
                   type: string
               required:
               - lastDeployed
+              - revision
               - status
               type: object
             version:

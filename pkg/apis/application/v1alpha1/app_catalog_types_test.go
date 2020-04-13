@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
-	"github.com/giantswarm/apiextensions/pkg/crds/application"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
 	goruntime "runtime"
 	"testing"
+
+	"github.com/giantswarm/apiextensions/pkg/crds/application"
 
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"

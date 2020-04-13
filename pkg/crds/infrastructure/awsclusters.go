@@ -24,23 +24,8 @@ spec:
   scope: Namespaced
   validation:
     openAPIV3Schema:
-      description: "AWSCluster is the infrastructure provider referenced in upstream
-        CAPI Cluster CRs. \n     apiVersion: infrastructure.giantswarm.io/v1alpha2
-        \    kind: AWSCluster     metadata:       labels:         aws-operator.giantswarm.io/version:
-        6.2.0         cluster-operator.giantswarm.io/version: 0.17.0         giantswarm.io/cluster:
-        \"8y5kc\"         giantswarm.io/organization: \"giantswarm\"         release.giantswarm.io/version:
-        7.3.1       name: 8y5kc     spec:       cluster:         description: my fancy
-        cluster         dns:           domain: gauss.eu-central-1.aws.gigantic.io
-        \        oidc:           claims:             username: email             groups:
-        groups           clientID: foobar-dex-client           issuerURL: https://dex.gatekeeper.eu-central-1.aws.example.com
-        \      provider:         credentialSecret:           name: credential-default
-        \          namespace: giantswarm         master:           availabilityZone:
-        eu-central-1a           instanceType: m4.large         region: eu-central-1
-        \    status:       cluster:         conditions:         - lastTransitionTime:
-        \"2019-03-25T17:10:09.333633991Z\"           type: Created         id: 8y5kc
-        \        versions:         - lastTransitionTime: \"2019-03-25T17:10:09.995948706Z\"
-        \          version: 4.9.0       provider:         network:           cidr:
-        10.1.6.0/24           vpcID: vpc-1234567890abcdef0"
+      description: AWSCluster is the infrastructure provider referenced in upstream
+        CAPI Cluster CRs.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

@@ -1,4 +1,4 @@
-//go:generate go run gen.go
+//go:generate go run generator.go
 package main
 
 import (
@@ -12,17 +12,14 @@ import (
 	"strings"
 
 	clientsetargs "k8s.io/code-generator/cmd/client-gen/args"
+	"k8s.io/code-generator/cmd/client-gen/types"
 	deepcopyargs "k8s.io/code-generator/cmd/deepcopy-gen/args"
-
-	"github.com/giantswarm/apiextensions/pkg/generator/clientset"
-	"github.com/giantswarm/apiextensions/pkg/generator/deepcopy"
-
+	"k8s.io/gengo/args"
 	"k8s.io/klog"
 
+	"github.com/giantswarm/apiextensions/pkg/generator/clientset"
 	"github.com/giantswarm/apiextensions/pkg/generator/crd"
-
-	"k8s.io/code-generator/cmd/client-gen/types"
-	"k8s.io/gengo/args"
+	"github.com/giantswarm/apiextensions/pkg/generator/deepcopy"
 )
 
 const (
