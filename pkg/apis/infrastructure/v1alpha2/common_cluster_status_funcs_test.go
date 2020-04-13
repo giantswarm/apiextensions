@@ -140,13 +140,13 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name:       "case 0: the creation of the tenant cluster starts",
 			conditions: []CommonClusterStatusCondition{},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 				Condition:          ClusterStatusConditionCreating,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -155,22 +155,22 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 1: the creation of the tenant cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 				Condition:          ClusterStatusConditionCreated,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -179,30 +179,30 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 2: the first update of the tenant cluster starts",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -211,38 +211,38 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 3: the first update of the tenant cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 				Condition:          ClusterStatusConditionUpdated,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -251,46 +251,46 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 4: the second update of the tenant cluster starts",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -299,54 +299,54 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 5: the second update of the tenant cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 				Condition:          ClusterStatusConditionUpdated,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -355,54 +355,54 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 6: the third update of the tenant cluster starts",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(80, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(80, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -411,62 +411,62 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 7: the third update of the tenant cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(80, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(90, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(90, 0)},
 				Condition:          ClusterStatusConditionUpdated,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(90, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(90, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(80, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -475,26 +475,26 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 8: the second update of the tenant cluster starts before the first ended",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				// This Updated condition is added automatically when adding the
@@ -504,19 +504,19 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 				// tracked timestamp for the automatically added condition is off and
 				// does not reflect the truth.
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, -1)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, -1)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
@@ -525,42 +525,42 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			name: "case 9: the fourth update of the tenant cluster starts before the thrird ended",
 			conditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(80, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(70, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(60, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(50, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(40, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},
 			condition: CommonClusterStatusCondition{
-				LastTransitionTime: metav1.Time{time.Unix(90, 0)},
+				LastTransitionTime: metav1.Time{Time: time.Unix(90, 0)},
 				Condition:          ClusterStatusConditionUpdating,
 			},
 			limit: 2,
 			expectedConditions: []CommonClusterStatusCondition{
 				{
-					LastTransitionTime: metav1.Time{time.Unix(90, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(90, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				// This Updated condition is added automatically when adding the
@@ -570,19 +570,19 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 				// tracked timestamp for the automatically added condition is off and
 				// does not reflect the truth.
 				{
-					LastTransitionTime: metav1.Time{time.Unix(90, -1)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(90, -1)},
 					Condition:          ClusterStatusConditionUpdated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(80, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
 					Condition:          ClusterStatusConditionUpdating,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(30, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
 					Condition:          ClusterStatusConditionCreated,
 				},
 				{
-					LastTransitionTime: metav1.Time{time.Unix(20, 0)},
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
 					Condition:          ClusterStatusConditionCreating,
 				},
 			},

@@ -22,8 +22,8 @@ func Test_HasDrainedCondition(t *testing.T) {
 			name: "case 1: DrainerConfigStatus with Drained status condition in conditions",
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
-					DrainerConfigStatusCondition{
-						LastTransitionTime: metav1.Time{time.Now()},
+					{
+						LastTransitionTime: metav1.Time{Time: time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeDrained,
 					},
@@ -35,8 +35,8 @@ func Test_HasDrainedCondition(t *testing.T) {
 			name: "case 2: DrainerConfigStatus with Timeout status condition in conditions doesn't have Drained condition",
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
-					DrainerConfigStatusCondition{
-						LastTransitionTime: metav1.Time{time.Now()},
+					{
+						LastTransitionTime: metav1.Time{Time: time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeTimeout,
 					},
@@ -72,8 +72,8 @@ func Test_HasTimeoutCondition(t *testing.T) {
 			name: "case 1: DrainerConfigStatus with Timeout status condition in conditions",
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
-					DrainerConfigStatusCondition{
-						LastTransitionTime: metav1.Time{time.Now()},
+					{
+						LastTransitionTime: metav1.Time{Time: time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeTimeout,
 					},
@@ -85,8 +85,8 @@ func Test_HasTimeoutCondition(t *testing.T) {
 			name: "case 2: DrainerConfigStatus with Drained status condition in conditions doesn't have Timeout condition",
 			status: DrainerConfigStatus{
 				Conditions: []DrainerConfigStatusCondition{
-					DrainerConfigStatusCondition{
-						LastTransitionTime: metav1.Time{time.Now()},
+					{
+						LastTransitionTime: metav1.Time{Time: time.Now()},
 						Status:             DrainerConfigStatusStatusTrue,
 						Type:               DrainerConfigStatusTypeDrained,
 					},
