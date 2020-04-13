@@ -9,12 +9,10 @@ spec:
   group: infrastructure.giantswarm.io
   names:
     kind: AWSMachineDeployment
+    listKind: AWSMachineDeployments
     plural: awsmachinedeployments
     singular: awsmachinedeployment
-  preserveUnknownFields: false
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
     schema:

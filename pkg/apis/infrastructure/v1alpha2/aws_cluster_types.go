@@ -1,7 +1,7 @@
 package v1alpha2
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/yaml"
 )
@@ -26,18 +26,15 @@ spec:
     listKind: AWSClusterList
     plural: awsclusters
     singular: awscluster
-  preserveUnknownFields: true
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
-    served: false
-    storage: false
     schema:
       openAPIV3Schema:
         type: object
         properties: {}
+    served: false
+    storage: false
   - name: v1alpha2
     schema:
       openAPIV3Schema:
@@ -99,7 +96,7 @@ spec:
     storage: true
 `
 
-var awsClusterCRD *apiextensionsv1beta1.CustomResourceDefinition
+var awsClusterCRD *apiextensionsv1.CustomResourceDefinition
 
 func init() {
 	err := yaml.Unmarshal([]byte(awsClusterCRDYAML), &awsClusterCRD)
@@ -108,7 +105,7 @@ func init() {
 	}
 }
 
-func NewAWSClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+func NewAWSClusterCRD() *apiextensionsv1.CustomResourceDefinition {
 	return awsClusterCRD.DeepCopy()
 }
 

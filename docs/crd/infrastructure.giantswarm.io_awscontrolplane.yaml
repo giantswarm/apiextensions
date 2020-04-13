@@ -9,11 +9,10 @@ spec:
   group: infrastructure.giantswarm.io
   names:
     kind: AWSControlPlane
+    listKind: AWSControlPlanes
     plural: awscontrolplanes
     singular: awscontrolplane
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
     schema:

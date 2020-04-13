@@ -12,10 +12,7 @@ spec:
     listKind: AWSClusterList
     plural: awsclusters
     singular: awscluster
-  preserveUnknownFields: true
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
     schema:

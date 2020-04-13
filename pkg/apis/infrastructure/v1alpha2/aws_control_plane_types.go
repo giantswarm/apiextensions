@@ -3,7 +3,7 @@ package v1alpha2
 import (
 	"fmt"
 
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	apiextensionsv1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/yaml"
 )
@@ -27,11 +27,10 @@ spec:
   group: infrastructure.giantswarm.io
   names:
     kind: AWSControlPlane
+    listKind: AWSControlPlanes
     plural: awscontrolplanes
     singular: awscontrolplane
   scope: Namespaced
-  subresources:
-    status: {}
   versions:
   - name: v1alpha1
     schema:
@@ -68,7 +67,7 @@ spec:
     storage: true
 `
 
-var awsControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
+var awsControlPlaneCRD *apiextensionsv1.CustomResourceDefinition
 
 func init() {
 	err := yaml.Unmarshal([]byte(awsControlPlaneCRDYAML), &awsControlPlaneCRD)
@@ -78,7 +77,7 @@ func init() {
 	}
 }
 
-func NewAWSControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
+func NewAWSControlPlaneCRD() *apiextensionsv1.CustomResourceDefinition {
 	return awsControlPlaneCRD.DeepCopy()
 }
 
