@@ -45,7 +45,6 @@ spec:
         description: |
           Configuration for the master nodes (also called Control Plane) of a
           tenant cluster on AWS.
-        type: object
         properties:
           spec:
             type: object
@@ -63,6 +62,7 @@ spec:
                 description: |
                   EC2 instance type to use for all master nodes.
                 type: string
+        type: object
     served: true
     storage: true
 `
