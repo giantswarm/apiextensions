@@ -339,9 +339,7 @@ func withVersion(versions []CommonClusterStatusVersion, version CommonClusterSta
 
 	// Create a copy to not manipulate the input list.
 	var newVersions []CommonClusterStatusVersion
-	for _, v := range versions {
-		newVersions = append(newVersions, v)
-	}
+	newVersions = append(newVersions, versions...)
 
 	// Sort the versions in a way that the newest version, namely the one with the
 	// highest timestamp, is at the top of the list.
