@@ -45,11 +45,6 @@ func Test_GenerateAWSConfigYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awsconfig.yaml", group),
-			resource: NewAWSConfigCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsconfig.yaml", group, version),
 			resource: newAWSConfigExampleCR(),

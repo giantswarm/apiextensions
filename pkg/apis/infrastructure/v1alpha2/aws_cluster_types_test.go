@@ -44,11 +44,6 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awscluster.yaml", group),
-			resource: NewAWSClusterCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awscluster.yaml", group, version),
 			resource: newAWSClusterExampleCR(),

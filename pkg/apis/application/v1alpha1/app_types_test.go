@@ -30,11 +30,6 @@ func Test_GenerateAppYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_app.yaml", group),
-			resource: NewAppCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_app.yaml", group, version),
 			resource: newAppExampleCR(),

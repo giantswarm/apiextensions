@@ -30,11 +30,6 @@ func Test_GenerateAWSControlPlaneYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awscontrolplane.yaml", group),
-			resource: NewAWSControlPlaneCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awscontrolplane.yaml", group, version),
 			resource: newAWSControlPlaneExampleCR(),

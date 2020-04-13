@@ -30,11 +30,6 @@ func Test_GenerateCertConfigYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_certconfig.yaml", group),
-			resource: NewCertConfigCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_certconfig.yaml", group, version),
 			resource: newCertConfigExampleCR(),
