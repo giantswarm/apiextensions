@@ -6,6 +6,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// +kubebuilder:validation:Type=string
 // DeepCopyDate is a date type designed to be validated with json-schema date
 // type.
 type DeepCopyDate struct {
