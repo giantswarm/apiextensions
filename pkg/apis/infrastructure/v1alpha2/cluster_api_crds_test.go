@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -26,6 +27,11 @@ func Test_NewClusterCRD(t *testing.T) {
 }
 
 func Test_GenerateClusterYAML(t *testing.T) {
+	crd := NewClusterCRD()
+
+	crdGroup := crd.Spec.Group
+	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+
 	testCases := []struct {
 		category string
 		name     string
@@ -33,12 +39,12 @@ func Test_GenerateClusterYAML(t *testing.T) {
 	}{
 		{
 			category: "crd",
-			name:     fmt.Sprintf("%s_cluster.yaml", group),
-			resource: NewClusterCRD(),
+			name:     fmt.Sprintf("%s_%s.yaml", crdGroup, crdKindLower),
+			resource: clusterCRD,
 		},
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_cluster.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),
 			resource: newClusterExampleCR(),
 		},
 	}
@@ -107,6 +113,11 @@ func Test_NewMachineDeploymentCRD(t *testing.T) {
 }
 
 func Test_GenerateMachineDeploymentYAML(t *testing.T) {
+	crd := NewMachineDeploymentCRD()
+
+	crdGroup := crd.Spec.Group
+	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+
 	testCases := []struct {
 		category string
 		name     string
@@ -114,12 +125,12 @@ func Test_GenerateMachineDeploymentYAML(t *testing.T) {
 	}{
 		{
 			category: "crd",
-			name:     fmt.Sprintf("%s_machinedeployment.yaml", group),
-			resource: NewMachineDeploymentCRD(),
+			name:     fmt.Sprintf("%s_%s.yaml", crdGroup, crdKindLower),
+			resource: crd,
 		},
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_machinedeployment.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),
 			resource: newMachineDeploymentExampleCR(),
 		},
 	}

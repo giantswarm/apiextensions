@@ -2,12 +2,10 @@ package v1alpha1
 
 import (
 	"bytes"
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
-	goruntime "runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -15,26 +13,17 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-var (
-	_, b, _, _ = goruntime.Caller(0)
-	root       = filepath.Dir(b)
-
-	// This flag allows to call the tests like
-	//
-	//   go test -v ./pkg/apis/infrastructure/v1alpha2 -update
-	//
-	// to create/overwrite the YAML files in /docs/crd and /docs/cr.
-	update = flag.Bool("update", false, "update generated YAMLs")
-)
-
-func Test_NewAppCatalogCRD(t *testing.T) {
-	crd := NewAppCatalogCRD()
+func Test_CertConfigCRD(t *testing.T) {
+	crd := NewCertConfigCRD()
 	if crd == nil {
-		t.Error("AppCatalog CRD was nil.")
+		t.Error("AWSCluster CRD was nil.")
+	}
+	if crd.Name == "" {
+		t.Error("AWSCluster CRD name was empty.")
 	}
 }
 
-func Test_GenerateAppCatalogYAML(t *testing.T) {
+func Test_GenerateCertConfigYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
@@ -42,13 +31,13 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}{
 		{
 			category: "crd",
-			name:     fmt.Sprintf("%s_appcatalog.yaml", group),
-			resource: NewAppCatalogCRD(),
+			name:     fmt.Sprintf("%s_certconfig.yaml", group),
+			resource: NewCertConfigCRD(),
 		},
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", group, version),
-			resource: newAppCatalogExampleCR(),
+			name:     fmt.Sprintf("%s_%s_certconfig.yaml", group, version),
+			resource: newCertConfigExampleCR(),
 		},
 	}
 
@@ -85,27 +74,24 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}
 }
 
-func newAppCatalogExampleCR() *AppCatalog {
-	cr := NewAppCatalogCR()
+func newCertConfigExampleCR() *CertConfig {
+	cr := NewCertConfigCR()
 
-	cr.Name = "my-playground-catalog"
-	cr.Spec = AppCatalogSpec{
-		Title:       "My Playground Catalog",
-		Description: "A catalog to store all new application packages.",
-		Config: AppCatalogSpecConfig{
-			ConfigMap: AppCatalogSpecConfigConfigMap{
-				Name:      "my-playground-catalog",
-				Namespace: "my-namespace",
-			},
-			Secret: AppCatalogSpecConfigSecret{
-				Name:      "my-playground-catalog",
-				Namespace: "my-namespace",
-			},
+	cr.Name = "c68pn-prometheus"
+	cr.Spec = CertConfigSpec{
+		Cert: CertConfigSpecCert{
+			AllowBareDomains:    false,
+			AltNames:            []string{},
+			ClusterComponent:    "prometheus",
+			ClusterID:           "c68pn",
+			CommonName:          "api.c68pn.k8s.gollum.westeurope.azure.gigantic.io",
+			DisableRegeneration: false,
+			IPSANs:              []string{},
+			Organizations:       []string{},
+			TTL:                 "4320h",
 		},
-		LogoURL: "https://my-org.github.com/logo.png",
-		Storage: AppCatalogSpecStorage{
-			Type: "helm",
-			URL:  "https://my-org.github.com/my-playground-catalog/",
+		VersionBundle: CertConfigSpecVersionBundle{
+			Version: "0.1.0",
 		},
 	}
 
