@@ -88,23 +88,7 @@ func init() {
 }
 
 // NewClusterCRD returns a new custom resource definition for Cluster (from
-// Cluster API). This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: clusters.cluster.x-k8s.io
-//     spec:
-//       group: cluster.x-k8s.io
-//       scope: Namespaced
-//       version: v1alpha2
-//       names:
-//         kind: Cluster
-//         plural: clusters
-//         singular: cluster
-//       subresources:
-//         status: {}
-//
+// Cluster API).
 func NewClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return clusterCRD.DeepCopy()
 }
@@ -129,24 +113,7 @@ func NewClusterCR() *apiv1alpha2.Cluster {
 }
 
 // NewMachineDeploymentCRD returns a new custom resource definition for
-// MachineDeployment (from Cluster API). This might look something like the
-// following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: machinedeployments.cluster.x-k8s.io
-//     spec:
-//       group: cluster.x-k8s.io
-//       scope: Namespaced
-//       version: v1alpha2
-//       names:
-//         kind: MachineDeployment
-//         plural: machinedeployments
-//         singular: machinedeployment
-//       subresources:
-//         status: {}
-//
+// MachineDeployment (from Cluster API).
 func NewMachineDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return machineDeploymentCRD.DeepCopy()
 }

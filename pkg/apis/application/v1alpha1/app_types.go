@@ -176,21 +176,6 @@ func init() {
 }
 
 // NewAppCRD returns a new custom resource definition for App.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: apps.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: App
-//         plural: apps
-//         singular: app
-//
 func NewAppCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return appCRD.DeepCopy()
 }
@@ -217,46 +202,6 @@ func NewAppCR() *App {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// App CRs might look something like the following.
-//
-//     apiVersion: application.giantswarm.io/v1alpha1
-//     kind: App
-//     metadata:
-//       name: "prometheus"
-//       labels:
-//         app-operator.giantswarm.io/version: "1.0.0"
-//
-//     spec:
-//       catalog: "giantswarm"
-//       name: "prometheus"
-//       namespace: "monitoring"
-//       version: "1.0.0"
-//       config:
-//         configMap:
-//           name: "prometheus-values"
-//           namespace: "monitoring"
-//         secret:
-//           name: "prometheus-secrets"
-//           namespace: "monitoring"
-//       kubeConfig:
-//         inCluster: false
-//         context:
-//           name: "giantswarm-12345"
-//         secret:
-//           name: "giantswarm-12345"
-//           namespace: "giantswarm"
-//         userConfig:
-//           configMap:
-//             name: "prometheus-user-values"
-//             namespace: "monitoring"
-//
-//     status:
-//       appVersion: "2.4.3" # Optional value from Chart.yaml with the version of the deployed app.
-//       release:
-//         lastDeployed: "2018-11-30T21:06:20Z"
-//         status: "DEPLOYED"
-//       version: "1.1.0" # Required value from Chart.yaml with the version of the chart.
-//
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

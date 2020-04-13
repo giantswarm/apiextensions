@@ -6,21 +6,7 @@ import (
 )
 
 // NewMemcachedConfigCRD returns a new custom resource definition for
-// MemcachedConfig. This might look something like the following.
-//
-//	apiVersion: apiextensions.k8s.io/v1beta1
-//	kind: CustomResourceDefinition
-//	metadata:
-//	  name: memcachedconfigs.provider.giantswarm.io
-//	spec:
-//	  group: example.giantswarm.io
-//	  scope: Namespaced
-//	  version: v1alpha1
-//	  names:
-//	    kind: MemcachedConfig
-//	    plural: memcachedconfigs
-//	    singular: memcachedconfig
-//
+// MemcachedConfig.
 func NewMemcachedConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

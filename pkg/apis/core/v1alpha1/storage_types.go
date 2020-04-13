@@ -6,21 +6,6 @@ import (
 )
 
 // NewStorageConfigCRD returns a new custom resource definition for StorageConfig.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: storageconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: StorageConfig
-//         plural: storageconfigs
-//         singular: storageconfig
-//
 func NewStorageConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

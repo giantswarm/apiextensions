@@ -17,11 +17,6 @@ spec:
   scope: Namespaced
   validation:
     openAPIV3Schema:
-      description: "ReleaseCycle CRs might look something like the following. \n \tapiVersion:
-        \"release.giantswarm.io/v1alpha1\" \tkind: \"ReleaseCycle\" \tmetadata: \t
-        \ name: \"aws.v6.1.0\" \t  labels: \t    giantswarm.io/managed-by: \"opsctl\"
-        \t    giantswarm.io/provider: \"aws\" \tspec: \t  disabledDate: 2019-01-12
-        \t  enabledDate: 2019-01-08 \t  phase: \"enabled\""
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

@@ -6,21 +6,7 @@ import (
 )
 
 // NewDraughtsmanConfigCRD returns a new custom resource definition for
-// DraughtsmanConfig. This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: draughtsmanconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: DraughtsmanConfig
-//         plural: draughtsmanconfigs
-//         singular: draughtsmanconfig
-//
+// DraughtsmanConfig.
 func NewDraughtsmanConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

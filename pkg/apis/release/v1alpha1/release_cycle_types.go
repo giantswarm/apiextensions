@@ -84,20 +84,6 @@ func NewReleaseCycleTypeMeta() metav1.TypeMeta {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ReleaseCycle CRs might look something like the following.
-//
-//	apiVersion: "release.giantswarm.io/v1alpha1"
-//	kind: "ReleaseCycle"
-//	metadata:
-//	  name: "aws.v6.1.0"
-//	  labels:
-//	    giantswarm.io/managed-by: "opsctl"
-//	    giantswarm.io/provider: "aws"
-//	spec:
-//	  disabledDate: 2019-01-12
-//	  enabledDate: 2019-01-08
-//	  phase: "enabled"
-//
 type ReleaseCycle struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
 	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`

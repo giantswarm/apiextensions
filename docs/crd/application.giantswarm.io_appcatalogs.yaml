@@ -17,14 +17,6 @@ spec:
   scope: Namespaced
   validation:
     openAPIV3Schema:
-      description: "AppCatalog CRs might look something like the following. \n    apiVersion:
-        application.giantswarm.io/v1alpha1    kind: AppCatalog    metadata:      name:
-        \"giantswarm\"      labels:        app-operator.giantswarm.io/version: \"1.0.0\"
-        \n    spec:      title: \"Giant Swarm\"      description: \"Catalog of Apps
-        by Giant Swarm\"      config:        configMap:          name: \"app-catalog-values\"
-        \         namespace: \"giantswarm\"        secret:          name: \"app-catalog-secrets\"
-        \         namespace: \"giantswarm\"      logoURL: \"/images/repo_icons/incubator.png\"
-        \     storage:        type: \"helm\"        URL: \"https://giantswarm.github.com/app-catalog/\""
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

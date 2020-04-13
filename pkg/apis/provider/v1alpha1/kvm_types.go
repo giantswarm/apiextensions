@@ -5,24 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// NewKVMConfigCRD returns a new custom resource definition for KVMConfig. This
-// might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: kvmconfigs.provider.giantswarm.io
-//     spec:
-//       group: provider.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: KVMConfig
-//         plural: kvmconfigs
-//         singular: kvmconfig
-//       subresources:
-//         status: {}
-//
+// NewKVMConfigCRD returns a new custom resource definition for KVMConfig.
 func NewKVMConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 	return &apiextensionsv1beta1.CustomResourceDefinition{
 		TypeMeta: metav1.TypeMeta{

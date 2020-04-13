@@ -17,16 +17,8 @@ spec:
   scope: Namespaced
   validation:
     openAPIV3Schema:
-      description: "G8sControlPlane defines the Control Plane Nodes (Kubernetes Master
-        Nodes) of a Giant Swarm Tenant Cluster \n     apiVersion: infrastructure.giantswarm.io/v1alpha2
-        \    kind: G8sControlPlane     metadata:       annotations:         giantswarm.io/docs:
-        https://docs.giantswarm.io/reference/g8scontrolplanes.infrastructure.giantswarm.io/v1alpha2/
-        \      labels:         aws-operator.giantswarm.io/version: \"6.2.0\"         cluster-operator.giantswarm.io/version:
-        \"0.17.0\"         giantswarm.io/cluster: 8y5kc         giantswarm.io/organization:
-        giantswarm         release.giantswarm.io/version: \"7.3.1\"       name: 8y5kc
-        \    spec:       infrastructureRef:         apiVersion: infrastructure.giantswarm.io/v1alpha2
-        \        kind: AWSControlPlane         name: 5f3kb         namespace: default
-        \      replicas: 3     status:       readyReplicas: 3       replicas: 3"
+      description: G8sControlPlane defines the Control Plane Nodes (Kubernetes Master
+        Nodes) of a Giant Swarm Tenant Cluster.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
