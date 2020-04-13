@@ -93,10 +93,10 @@ type KVMConfigSpecKVMK8sKVMDocker struct {
 }
 
 type KVMConfigSpecKVMNode struct {
-	CPUs               int     `json:"cpus" yaml:"cpus"`
-	Disk               float64 `json:"disk" yaml:"disk"`
-	Memory             string  `json:"memory" yaml:"memory"`
-	DockerVolumeSizeGB int     `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	CPUs               int    `json:"cpus" yaml:"cpus"`
+	Disk               string `json:"disk" yaml:"disk"`
+	Memory             string `json:"memory" yaml:"memory"`
+	DockerVolumeSizeGB int    `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
 }
 
 type KVMConfigSpecKVMNetwork struct {
