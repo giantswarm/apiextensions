@@ -7,17 +7,17 @@ import (
 	"strings"
 
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
-	"k8s.io/code-generator/cmd/client-gen/types"
-	"k8s.io/gengo/args"
-	"sigs.k8s.io/controller-tools/pkg/crd"
+	toolscrd "sigs.k8s.io/controller-tools/pkg/crd"
 	"sigs.k8s.io/controller-tools/pkg/genall"
 	"sigs.k8s.io/controller-tools/pkg/markers"
 	"sigs.k8s.io/yaml"
 )
 
+const crdDirectory = "config/crd/bases/"
+
 var (
 	allGenerators = map[string]genall.Generator{
-		"crd": crd.Generator{},
+		"crd": toolscrd.Generator{},
 	}
 
 	allOutputRules = map[string]genall.OutputRule{
@@ -89,11 +89,11 @@ func New%sCRD() *v1beta1.CustomResourceDefinition {
 }
 `
 
-func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) error {
+func Generate() error {
 	rt, err := genall.FromOptions(optionsRegistry, []string{
 		"crd",
 		"paths=./pkg/apis/...",
-		"output:crd:dir=docs/crd",
+		fmt.Sprintf("output:crd:dir=%s", crdDirectory),
 	})
 	if err != nil {
 		return err
@@ -101,9 +101,10 @@ func Generate(genericArgs args.GeneratorArgs, groups []types.GroupVersions) erro
 	if hadErrs := rt.Run(); hadErrs {
 		return fmt.Errorf("not all generators ran successfully")
 	}
-	d, err := ioutil.ReadDir("./docs/crd")
-	for _, dir := range d {
-		contents, err := ioutil.ReadFile("docs/crd/" + dir.Name())
+
+	directory, err := ioutil.ReadDir(crdDirectory)
+	for _, crdFile := range directory {
+		contents, err := ioutil.ReadFile(crdDirectory + crdFile.Name())
 		if err != nil {
 			return err
 		}

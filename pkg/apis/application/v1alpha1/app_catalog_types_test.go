@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"flag"
 	"fmt"
+	"github.com/giantswarm/apiextensions/pkg/crds/application"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
@@ -28,7 +29,7 @@ var (
 )
 
 func Test_NewAppCatalogCRD(t *testing.T) {
-	crd := NewAppCatalogCRD()
+	crd := application.NewAppCatalogCRD()
 	if crd == nil {
 		t.Error("AppCatalog CRD was nil.")
 	}
