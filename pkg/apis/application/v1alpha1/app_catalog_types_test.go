@@ -10,8 +10,6 @@ import (
 	goruntime "runtime"
 	"testing"
 
-	"github.com/giantswarm/apiextensions/pkg/crds/application"
-
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
@@ -30,7 +28,7 @@ var (
 )
 
 func Test_NewAppCatalogCRD(t *testing.T) {
-	crd := application.NewAppCatalogCRD()
+	crd := NewAppCatalogCRD()
 	if crd == nil {
 		t.Error("AppCatalog CRD was nil.")
 	}

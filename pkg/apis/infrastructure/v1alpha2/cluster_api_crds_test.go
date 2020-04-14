@@ -9,8 +9,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/giantswarm/apiextensions/pkg/crds/cluster"
-
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -19,8 +17,7 @@ import (
 )
 
 func Test_GenerateClusterYAML(t *testing.T) {
-	crd := cluster.NewClusterCRD()
-
+	crd := NewClusterCRD()
 	crdGroup := crd.Spec.Group
 	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
 
@@ -90,8 +87,7 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 }
 
 func Test_GenerateMachineDeploymentYAML(t *testing.T) {
-	crd := cluster.NewMachineDeploymentCRD()
-
+	crd := NewMachineDeploymentCRD()
 	crdGroup := crd.Spec.Group
 	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
 

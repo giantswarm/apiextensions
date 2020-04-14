@@ -1,7 +1,10 @@
 package v1alpha2
 
 import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -9,6 +12,10 @@ const (
 	kindAWSCluster              = "AWSCluster"
 	awsClusterDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster"
 )
+
+func NewAWSClusterCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadCRD(group, kindAWSCluster)
+}
 
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

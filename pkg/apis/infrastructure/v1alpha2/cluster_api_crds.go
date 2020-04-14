@@ -1,8 +1,11 @@
 package v1alpha2
 
 import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	apiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -11,6 +14,10 @@ const (
 	clusterDocumentationLink           = "https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#Cluster"
 	machineDeploymentDocumentationLink = "https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#MachineDeployment"
 )
+
+func NewClusterCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadCRD(clusterAPIGroup, kindCluster)
+}
 
 func NewClusterTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
@@ -29,6 +36,10 @@ func NewClusterCR() *apiv1alpha2.Cluster {
 		},
 		TypeMeta: NewClusterTypeMeta(),
 	}
+}
+
+func NewMachineDeploymentCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadCRD(clusterAPIGroup, kindMachineDeployment)
 }
 
 // NewMachineDeploymentTypeMeta returns the type block for a MachineDeployment CR.

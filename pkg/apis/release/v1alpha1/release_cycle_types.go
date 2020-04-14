@@ -1,7 +1,10 @@
 package v1alpha1
 
 import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -17,6 +20,10 @@ type ReleaseCyclePhase string
 
 func (r ReleaseCyclePhase) String() string {
 	return string(r)
+}
+
+func NewReleaseCycleCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadCRD(group, kindReleaseCycle)
 }
 
 func NewReleaseCycleTypeMeta() metav1.TypeMeta {

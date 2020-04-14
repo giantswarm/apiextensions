@@ -12,8 +12,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/giantswarm/apiextensions/pkg/crds/release"
-
 	"github.com/go-openapi/errors"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
@@ -294,7 +292,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			},
 		},
 	}
-	crd := release.NewReleaseCRD()
+	crd := NewReleaseCRD()
 
 	var v apiextensions.CustomResourceValidation
 	err := v1beta1.Convert_v1beta1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crd.Spec.Validation, &v, nil)

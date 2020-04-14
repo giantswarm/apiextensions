@@ -1,12 +1,19 @@
 package v1alpha1
 
 import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
 	kindChart = "Chart"
 )
+
+func NewChartCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadCRD(group, kindChart)
+}
 
 func NewChartTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

@@ -1,7 +1,10 @@
 package v1alpha2
 
 import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -11,6 +14,10 @@ const (
 	// after this has been first published.
 	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
 )
+
+func NewAWSControlPlaneCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadCRD(group, kindAWSControlPlane)
+}
 
 func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

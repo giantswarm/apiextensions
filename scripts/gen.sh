@@ -9,12 +9,15 @@ export GOROOT=$(go env GOROOT)
 tools="sigs.k8s.io/controller-tools/cmd/controller-gen
 k8s.io/code-generator/cmd/deepcopy-gen
 k8s.io/code-generator/cmd/client-gen
-golang.org/x/tools/cmd/goimports"
+golang.org/x/tools/cmd/goimports
+github.com/markbates/pkger/cmd/pkger
+sigs.k8s.io/kustomize/kustomize/v3"
 
 mkdir -p "$dir/bin"
 cd "$dir"
 for tool in $tools; do
-  go build -o "$dir/bin/$(basename "$tool")" "$tool"
+  echo "Rebuilding $tool in $dir/bin"
+  go build -o "$dir/bin" "$tool"
 done
 cd ..
 
@@ -40,6 +43,7 @@ echo "Generating clientset"
   --output-base "$dir" \
   --go-header-file "$header"
 
+echo "Moving generated files to expected location"
 cp -R "$dir/$module/pkg"/* "$dir/../pkg"
 rm -rf "$dir/github.com"
 
@@ -49,14 +53,24 @@ cd "$dir/.." || exit
 echo "Fixing imports in-place with goimports"
 "$dir/bin/goimports" -local $module -w ./pkg
 
+echo "Generating all CRDs as v1beta1"
 "$dir/bin/controller-gen" \
   crd \
   paths=./pkg/apis/... \
   output:dir=docs/crd \
   crd:crdVersions=v1beta1
 
+echo "Generating infrastructure.giantswarm.io CRDs as v1"
 "$dir/bin/controller-gen" \
   crd \
   paths=./pkg/apis/infrastructure/v1alpha2 \
   output:dir=docs/crd \
   crd:crdVersions=v1
+
+echo "Kustomizing CRDs"
+"$dir/bin/kustomize" build \
+  config/crd \
+  -o config/crd/bases/release.giantswarm.io_releases.yaml
+
+echo "Using pkger to package CRDs into go source virtual file system"
+"$dir/bin/pkger"
