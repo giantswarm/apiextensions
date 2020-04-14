@@ -95,6 +95,7 @@ func Generate() error {
 		"crd",
 		"paths=./pkg/apis/...",
 		fmt.Sprintf("output:crd:dir=%s", crdDirectory),
+		"crd:crdVersions=v1",
 	})
 	if err != nil {
 		return err
