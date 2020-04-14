@@ -1,10 +1,10 @@
 
 ---
-apiVersion: apiextensions.k8s.io/v1
+apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.2.8
+    controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
   name: ignitions.core.giantswarm.io
 spec:
@@ -15,470 +15,466 @@ spec:
     plural: ignitions
     singular: ignition
   scope: Namespaced
+  validation:
+    openAPIV3Schema:
+      description: "Ignition is a Kubernetes resource (CR) which is based on the Ignition
+        CRD defined above. \n An example Ignition resource can be viewed here https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_ignition.yaml"
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: IgnitionSpec is the interface which defines the input parameters
+            for a newly rendered g8s ignition template.
+          properties:
+            apiServerEncryptionKey:
+              description: APIServerEncryptionKey is used in EncryptionConfiguration
+                to encrypt Kubernetes secrets at rest.
+              type: string
+            baseDomain:
+              description: BaseDomain is the base domain for all cluster services.
+                For test installations, this may be in the form <clusterId>.k8s.<installation>.<region>.<provider>.gigantic.io.
+              type: string
+            calico:
+              description: Calico provides configuration for all calico-related services.
+              properties:
+                cidr:
+                  description: CIDR is the CIDR-component of the IPv4 overlay subnetwork.
+                    Combined with Subnet below.
+                  type: string
+                disable:
+                  description: Disable can be set to true to disable Calico setup.
+                  type: boolean
+                mtu:
+                  description: MTU is the maximum size of packets sent over Calico
+                    in bytes.
+                  type: string
+                subnet:
+                  description: Subnet is the IP-component of the IPv4 overlay subnetwork.
+                    Combined with CIDR above.
+                  type: string
+              required:
+              - cidr
+              - disable
+              - mtu
+              - subnet
+              type: object
+            clusterID:
+              description: ClusterID is the name of the tenant cluster to be created.
+              type: string
+            disableEncryptionAtRest:
+              description: DisableEncryptionAtRest will disable secret encryption
+                at rest when set to true.
+              type: boolean
+            docker:
+              description: Docker provides configuration for all calico-related services.
+              properties:
+                daemon:
+                  description: Daemon provides information about the Docker daemon
+                    running on TC nodes.
+                  properties:
+                    cidr:
+                      description: CIDR is the fully specified subnet used for DOCKER_OPT_BIP.
+                      type: string
+                  required:
+                  - cidr
+                  type: object
+                networkSetup:
+                  description: NetworkSetup provides the Docker image to be used for
+                    network environment setup.
+                  properties:
+                    image:
+                      description: Image provides the Docker image to be used for
+                        network environment setup.
+                      type: string
+                  required:
+                  - image
+                  type: object
+              required:
+              - daemon
+              - networkSetup
+              type: object
+            etcd:
+              description: Etcd provides configuration for all etcd-related services.
+              properties:
+                domain:
+                  description: Domain is the domain of the etcd service.
+                  type: string
+                port:
+                  description: Port is the port of the etcd service, usually 2379.
+                  type: integer
+                prefix:
+                  description: Prefix is the prefix to add to all etcd keys created
+                    by Kubernetes.
+                  type: string
+              required:
+              - domain
+              - port
+              - prefix
+              type: object
+            extension:
+              description: Extension can be used to extend an ignition with extra
+                configuration provided by the provider operator.
+              properties:
+                files:
+                  description: Files is an optional array of files which will be rendered
+                    and added to the final node ignition.
+                  items:
+                    properties:
+                      content:
+                        description: Content is the string containing a file with
+                          optional go-template-style replacements.
+                        type: string
+                      metadata:
+                        description: Metadata is the filesystem metadata of the given
+                          file.
+                        properties:
+                          compression:
+                            description: Compression allows a file to be passed in
+                              as a base64-encoded compressed string.
+                            type: boolean
+                          owner:
+                            description: Owner is the owner of the file.
+                            properties:
+                              group:
+                                description: Group is the group which owns the file.
+                                properties:
+                                  id:
+                                    description: ID is the GID of the group.
+                                    type: string
+                                  name:
+                                    description: Name is the name of the group.
+                                    type: string
+                                required:
+                                - id
+                                - name
+                                type: object
+                              user:
+                                description: User is the user which owns the file.
+                                properties:
+                                  id:
+                                    description: ID is the UID of the user.
+                                    type: string
+                                  name:
+                                    description: Name is the name of the user.
+                                    type: string
+                                required:
+                                - id
+                                - name
+                                type: object
+                            required:
+                            - group
+                            - user
+                            type: object
+                          path:
+                            description: Path is the path of the file.
+                            type: string
+                          permissions:
+                            description: Permissions is the numeric permissions applied
+                              to the file.
+                            type: integer
+                        required:
+                        - compression
+                        - owner
+                        - path
+                        - permissions
+                        type: object
+                    required:
+                    - content
+                    - metadata
+                    type: object
+                  type: array
+                units:
+                  description: Files is an optional array of systemd units which will
+                    be rendered and added to the final node ignition.
+                  items:
+                    properties:
+                      content:
+                        description: Content is the string containing a systemd unit
+                          with optional go-template-style replacements.
+                        type: string
+                      metadata:
+                        description: Metadata is the filesystem metadata of the given
+                          file.
+                        properties:
+                          enabled:
+                            description: Enabled indicates that the unit should be
+                              enabled by default.
+                            type: boolean
+                          name:
+                            description: Name is the name of the unit on the filesystem
+                              and used in systemctl commands.
+                            type: string
+                        required:
+                        - enabled
+                        - name
+                        type: object
+                    required:
+                    - content
+                    - metadata
+                    type: object
+                  type: array
+                users:
+                  description: Files is an optional array of users which will be added
+                    to the final node ignition.
+                  items:
+                    properties:
+                      name:
+                        description: Name is the name of the user to be added to the
+                          node via ignition.
+                        type: string
+                      publicKey:
+                        description: PublicKey is the public key of the user to be
+                          added to the node via ignition.
+                        type: string
+                    required:
+                    - name
+                    - publicKey
+                    type: object
+                  type: array
+              type: object
+            ingress:
+              description: Ingress provides configuration for all ingress-related
+                services.
+              properties:
+                disable:
+                  description: Disable will disable the ingress controller in the
+                    TC when true.
+                  type: boolean
+              required:
+              - disable
+              type: object
+            isMaster:
+              description: IsMaster determines if the rendered ignition should contain
+                master-specific configuration.
+              type: boolean
+            kubernetes:
+              description: Kubernetes provides configuration for all Kubernetes-related
+                services.
+              properties:
+                api:
+                  description: API holds information about the desired TC Kubernetes
+                    API.
+                  properties:
+                    domain:
+                      description: Domain is the domain of the API server.
+                      type: string
+                    securePort:
+                      description: Secure port is the port on which the API will listen.
+                      type: integer
+                  required:
+                  - domain
+                  - securePort
+                  type: object
+                cloudProvider:
+                  description: CloudProvider is the provider upon which the cluster
+                    is running. It is passed to API server as a flag.
+                  type: string
+                dns:
+                  description: DNS hold information about the in-cluster DNS service.
+                  properties:
+                    ip:
+                      description: IP is the IP of the in-cluster DNS service. Usually
+                        this is the same as the API server IP with the final component
+                        replaced with .10.
+                      type: string
+                  required:
+                  - ip
+                  type: object
+                domain:
+                  description: Domain is the domain used for services running in the
+                    cluster. Usually this is "cluster.local".
+                  type: string
+                ipRange:
+                  description: IPRange is the range of IPs used for pod networking.
+                  type: string
+                kubelet:
+                  description: Kubelet holds information about the kubelet running
+                    on nodes.
+                  properties:
+                    domain:
+                      description: Domain is the domain of the network.
+                      type: string
+                  required:
+                  - domain
+                  type: object
+                oidc:
+                  description: OIDC hold configuration which will be applied to the
+                    apiserver OIDC flags.
+                  properties:
+                    clientID:
+                      description: The client ID for the OpenID Connect client, must
+                        be set if IssuerURL is set.
+                      type: string
+                    enabled:
+                      description: Enabled indicates that the OIDC settings should
+                        be applied when true.
+                      type: boolean
+                    groupsClaim:
+                      description: If provided, the name of a custom OpenID Connect
+                        claim for specifying user groups. The claim value is expected
+                        to be a string or JSON encoded array of strings.
+                      type: string
+                    groupsPrefix:
+                      description: If provided, all groups will be prefixed with this
+                        value to prevent conflicts with other authentication strategies.
+                      type: string
+                    issuerUrl:
+                      description: The URL of the OpenID issuer, only HTTPS scheme
+                        will be accepted. If set, it will be used to verify the OIDC
+                        JSON Web Token (JWT).
+                      type: string
+                    usernameClaim:
+                      description: The OpenID claim to use as the user name. Note
+                        that claims other than the default ('sub') is not guaranteed
+                        to be unique and immutable.
+                      type: string
+                    usernamePrefix:
+                      description: If provided, all usernames will be prefixed with
+                        this value. If not provided, username claims other than 'email'
+                        are prefixed by the issuer URL to avoid clashes. To skip any
+                        prefixing, provide the value '-'.
+                      type: string
+                  required:
+                  - clientID
+                  - enabled
+                  - groupsClaim
+                  - groupsPrefix
+                  - issuerUrl
+                  - usernameClaim
+                  - usernamePrefix
+                  type: object
+              required:
+              - api
+              - cloudProvider
+              - dns
+              - domain
+              - ipRange
+              - kubelet
+              - oidc
+              type: object
+            provider:
+              description: Defines the provider which should be rendered.
+              type: string
+            registry:
+              description: Registry provides configuration for the docker registry
+                used for core component images.
+              properties:
+                domain:
+                  description: Domain is the domain of the registry to be used for
+                    pulling core component images.
+                  type: string
+                pullProgressDeadline:
+                  description: Pull progress deadline is a string representing a duration
+                    to be used as a deadline for pulling images.
+                  type: string
+              required:
+              - domain
+              - pullProgressDeadline
+              type: object
+            sso:
+              description: SSO provides configuration for all SSO-related services.
+              properties:
+                publicKey:
+                  description: PublicKey is the public key of the SSO service.
+                  type: string
+              required:
+              - publicKey
+              type: object
+          required:
+          - apiServerEncryptionKey
+          - baseDomain
+          - calico
+          - clusterID
+          - disableEncryptionAtRest
+          - docker
+          - etcd
+          - extension
+          - ingress
+          - isMaster
+          - kubernetes
+          - provider
+          - registry
+          - sso
+          type: object
+        status:
+          description: IgnitionStatus holds the rendering result.
+          properties:
+            dataSecretName:
+              description: DataSecret is a reference to the secret containing the
+                rendered ignition once created.
+              properties:
+                name:
+                  description: Name is the name of the secret containing the rendered
+                    ignition.
+                  type: string
+                namespace:
+                  description: Namespace is the namespace of the secret containing
+                    the rendered ignition.
+                  type: string
+                resourceVersion:
+                  description: ResourceVersion is the Kubernetes resource version
+                    of the secret. Used to detect if the secret has changed, e.g.
+                    12345.
+                  type: string
+              required:
+              - name
+              - namespace
+              - resourceVersion
+              type: object
+            failureMessage:
+              description: FailureMessage is a longer message indicating the reason
+                rendering failed (if it did).
+              type: string
+            failureReason:
+              description: FailureReason is a short string indicating the reason rendering
+                failed (if it did).
+              type: string
+            ready:
+              description: Ready will be true when the referenced secret contains
+                the rendered ignition and can be used for creating nodes.
+              type: boolean
+            verification:
+              description: Verification is a hash of the rendered ignition to ensure
+                that it has not been changed when loaded as a remote file by the bootstrap
+                ignition. See https://coreos.com/ignition/docs/latest/configuration-v2_2.html
+              properties:
+                algorithm:
+                  description: The algorithm used for hashing. Must be sha512 for
+                    now.
+                  type: string
+                hash:
+                  description: The content of the full rendered ignition hashed by
+                    the corresponding algorithm.
+                  type: string
+              required:
+              - algorithm
+              - hash
+              type: object
+          required:
+          - dataSecretName
+          - failureMessage
+          - failureReason
+          - ready
+          - verification
+          type: object
+      required:
+      - metadata
+      - spec
+      - status
+      type: object
+  version: v1alpha1
   versions:
   - name: v1alpha1
-    schema:
-      openAPIV3Schema:
-        description: "Ignition is a Kubernetes resource (CR) which is based on the
-          Ignition CRD defined above. \n An example Ignition resource can be viewed
-          here https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_ignition.yaml"
-        properties:
-          apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation
-              of an object. Servers should convert recognized schemas to the latest
-              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-            type: string
-          kind:
-            description: 'Kind is a string value representing the REST resource this
-              object represents. Servers may infer this from the endpoint the client
-              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-            type: string
-          metadata:
-            type: object
-          spec:
-            description: IgnitionSpec is the interface which defines the input parameters
-              for a newly rendered g8s ignition template.
-            properties:
-              apiServerEncryptionKey:
-                description: APIServerEncryptionKey is used in EncryptionConfiguration
-                  to encrypt Kubernetes secrets at rest.
-                type: string
-              baseDomain:
-                description: BaseDomain is the base domain for all cluster services.
-                  For test installations, this may be in the form <clusterId>.k8s.<installation>.<region>.<provider>.gigantic.io.
-                type: string
-              calico:
-                description: Calico provides configuration for all calico-related
-                  services.
-                properties:
-                  cidr:
-                    description: CIDR is the CIDR-component of the IPv4 overlay subnetwork.
-                      Combined with Subnet below.
-                    type: string
-                  disable:
-                    description: Disable can be set to true to disable Calico setup.
-                    type: boolean
-                  mtu:
-                    description: MTU is the maximum size of packets sent over Calico
-                      in bytes.
-                    type: string
-                  subnet:
-                    description: Subnet is the IP-component of the IPv4 overlay subnetwork.
-                      Combined with CIDR above.
-                    type: string
-                required:
-                - cidr
-                - disable
-                - mtu
-                - subnet
-                type: object
-              clusterID:
-                description: ClusterID is the name of the tenant cluster to be created.
-                type: string
-              disableEncryptionAtRest:
-                description: DisableEncryptionAtRest will disable secret encryption
-                  at rest when set to true.
-                type: boolean
-              docker:
-                description: Docker provides configuration for all calico-related
-                  services.
-                properties:
-                  daemon:
-                    description: Daemon provides information about the Docker daemon
-                      running on TC nodes.
-                    properties:
-                      cidr:
-                        description: CIDR is the fully specified subnet used for DOCKER_OPT_BIP.
-                        type: string
-                    required:
-                    - cidr
-                    type: object
-                  networkSetup:
-                    description: NetworkSetup provides the Docker image to be used
-                      for network environment setup.
-                    properties:
-                      image:
-                        description: Image provides the Docker image to be used for
-                          network environment setup.
-                        type: string
-                    required:
-                    - image
-                    type: object
-                required:
-                - daemon
-                - networkSetup
-                type: object
-              etcd:
-                description: Etcd provides configuration for all etcd-related services.
-                properties:
-                  domain:
-                    description: Domain is the domain of the etcd service.
-                    type: string
-                  port:
-                    description: Port is the port of the etcd service, usually 2379.
-                    type: integer
-                  prefix:
-                    description: Prefix is the prefix to add to all etcd keys created
-                      by Kubernetes.
-                    type: string
-                required:
-                - domain
-                - port
-                - prefix
-                type: object
-              extension:
-                description: Extension can be used to extend an ignition with extra
-                  configuration provided by the provider operator.
-                properties:
-                  files:
-                    description: Files is an optional array of files which will be
-                      rendered and added to the final node ignition.
-                    items:
-                      properties:
-                        content:
-                          description: Content is the string containing a file with
-                            optional go-template-style replacements.
-                          type: string
-                        metadata:
-                          description: Metadata is the filesystem metadata of the
-                            given file.
-                          properties:
-                            compression:
-                              description: Compression allows a file to be passed
-                                in as a base64-encoded compressed string.
-                              type: boolean
-                            owner:
-                              description: Owner is the owner of the file.
-                              properties:
-                                group:
-                                  description: Group is the group which owns the file.
-                                  properties:
-                                    id:
-                                      description: ID is the GID of the group.
-                                      type: string
-                                    name:
-                                      description: Name is the name of the group.
-                                      type: string
-                                  required:
-                                  - id
-                                  - name
-                                  type: object
-                                user:
-                                  description: User is the user which owns the file.
-                                  properties:
-                                    id:
-                                      description: ID is the UID of the user.
-                                      type: string
-                                    name:
-                                      description: Name is the name of the user.
-                                      type: string
-                                  required:
-                                  - id
-                                  - name
-                                  type: object
-                              required:
-                              - group
-                              - user
-                              type: object
-                            path:
-                              description: Path is the path of the file.
-                              type: string
-                            permissions:
-                              description: Permissions is the numeric permissions
-                                applied to the file.
-                              type: integer
-                          required:
-                          - compression
-                          - owner
-                          - path
-                          - permissions
-                          type: object
-                      required:
-                      - content
-                      - metadata
-                      type: object
-                    type: array
-                  units:
-                    description: Files is an optional array of systemd units which
-                      will be rendered and added to the final node ignition.
-                    items:
-                      properties:
-                        content:
-                          description: Content is the string containing a systemd
-                            unit with optional go-template-style replacements.
-                          type: string
-                        metadata:
-                          description: Metadata is the filesystem metadata of the
-                            given file.
-                          properties:
-                            enabled:
-                              description: Enabled indicates that the unit should
-                                be enabled by default.
-                              type: boolean
-                            name:
-                              description: Name is the name of the unit on the filesystem
-                                and used in systemctl commands.
-                              type: string
-                          required:
-                          - enabled
-                          - name
-                          type: object
-                      required:
-                      - content
-                      - metadata
-                      type: object
-                    type: array
-                  users:
-                    description: Files is an optional array of users which will be
-                      added to the final node ignition.
-                    items:
-                      properties:
-                        name:
-                          description: Name is the name of the user to be added to
-                            the node via ignition.
-                          type: string
-                        publicKey:
-                          description: PublicKey is the public key of the user to
-                            be added to the node via ignition.
-                          type: string
-                      required:
-                      - name
-                      - publicKey
-                      type: object
-                    type: array
-                type: object
-              ingress:
-                description: Ingress provides configuration for all ingress-related
-                  services.
-                properties:
-                  disable:
-                    description: Disable will disable the ingress controller in the
-                      TC when true.
-                    type: boolean
-                required:
-                - disable
-                type: object
-              isMaster:
-                description: IsMaster determines if the rendered ignition should contain
-                  master-specific configuration.
-                type: boolean
-              kubernetes:
-                description: Kubernetes provides configuration for all Kubernetes-related
-                  services.
-                properties:
-                  api:
-                    description: API holds information about the desired TC Kubernetes
-                      API.
-                    properties:
-                      domain:
-                        description: Domain is the domain of the API server.
-                        type: string
-                      securePort:
-                        description: Secure port is the port on which the API will
-                          listen.
-                        type: integer
-                    required:
-                    - domain
-                    - securePort
-                    type: object
-                  cloudProvider:
-                    description: CloudProvider is the provider upon which the cluster
-                      is running. It is passed to API server as a flag.
-                    type: string
-                  dns:
-                    description: DNS hold information about the in-cluster DNS service.
-                    properties:
-                      ip:
-                        description: IP is the IP of the in-cluster DNS service. Usually
-                          this is the same as the API server IP with the final component
-                          replaced with .10.
-                        type: string
-                    required:
-                    - ip
-                    type: object
-                  domain:
-                    description: Domain is the domain used for services running in
-                      the cluster. Usually this is "cluster.local".
-                    type: string
-                  ipRange:
-                    description: IPRange is the range of IPs used for pod networking.
-                    type: string
-                  kubelet:
-                    description: Kubelet holds information about the kubelet running
-                      on nodes.
-                    properties:
-                      domain:
-                        description: Domain is the domain of the network.
-                        type: string
-                    required:
-                    - domain
-                    type: object
-                  oidc:
-                    description: OIDC hold configuration which will be applied to
-                      the apiserver OIDC flags.
-                    properties:
-                      clientID:
-                        description: The client ID for the OpenID Connect client,
-                          must be set if IssuerURL is set.
-                        type: string
-                      enabled:
-                        description: Enabled indicates that the OIDC settings should
-                          be applied when true.
-                        type: boolean
-                      groupsClaim:
-                        description: If provided, the name of a custom OpenID Connect
-                          claim for specifying user groups. The claim value is expected
-                          to be a string or JSON encoded array of strings.
-                        type: string
-                      groupsPrefix:
-                        description: If provided, all groups will be prefixed with
-                          this value to prevent conflicts with other authentication
-                          strategies.
-                        type: string
-                      issuerUrl:
-                        description: The URL of the OpenID issuer, only HTTPS scheme
-                          will be accepted. If set, it will be used to verify the
-                          OIDC JSON Web Token (JWT).
-                        type: string
-                      usernameClaim:
-                        description: The OpenID claim to use as the user name. Note
-                          that claims other than the default ('sub') is not guaranteed
-                          to be unique and immutable.
-                        type: string
-                      usernamePrefix:
-                        description: If provided, all usernames will be prefixed with
-                          this value. If not provided, username claims other than
-                          'email' are prefixed by the issuer URL to avoid clashes.
-                          To skip any prefixing, provide the value '-'.
-                        type: string
-                    required:
-                    - clientID
-                    - enabled
-                    - groupsClaim
-                    - groupsPrefix
-                    - issuerUrl
-                    - usernameClaim
-                    - usernamePrefix
-                    type: object
-                required:
-                - api
-                - cloudProvider
-                - dns
-                - domain
-                - ipRange
-                - kubelet
-                - oidc
-                type: object
-              provider:
-                description: Defines the provider which should be rendered.
-                type: string
-              registry:
-                description: Registry provides configuration for the docker registry
-                  used for core component images.
-                properties:
-                  domain:
-                    description: Domain is the domain of the registry to be used for
-                      pulling core component images.
-                    type: string
-                  pullProgressDeadline:
-                    description: Pull progress deadline is a string representing a
-                      duration to be used as a deadline for pulling images.
-                    type: string
-                required:
-                - domain
-                - pullProgressDeadline
-                type: object
-              sso:
-                description: SSO provides configuration for all SSO-related services.
-                properties:
-                  publicKey:
-                    description: PublicKey is the public key of the SSO service.
-                    type: string
-                required:
-                - publicKey
-                type: object
-            required:
-            - apiServerEncryptionKey
-            - baseDomain
-            - calico
-            - clusterID
-            - disableEncryptionAtRest
-            - docker
-            - etcd
-            - extension
-            - ingress
-            - isMaster
-            - kubernetes
-            - provider
-            - registry
-            - sso
-            type: object
-          status:
-            description: IgnitionStatus holds the rendering result.
-            properties:
-              dataSecretName:
-                description: DataSecret is a reference to the secret containing the
-                  rendered ignition once created.
-                properties:
-                  name:
-                    description: Name is the name of the secret containing the rendered
-                      ignition.
-                    type: string
-                  namespace:
-                    description: Namespace is the namespace of the secret containing
-                      the rendered ignition.
-                    type: string
-                  resourceVersion:
-                    description: ResourceVersion is the Kubernetes resource version
-                      of the secret. Used to detect if the secret has changed, e.g.
-                      12345.
-                    type: string
-                required:
-                - name
-                - namespace
-                - resourceVersion
-                type: object
-              failureMessage:
-                description: FailureMessage is a longer message indicating the reason
-                  rendering failed (if it did).
-                type: string
-              failureReason:
-                description: FailureReason is a short string indicating the reason
-                  rendering failed (if it did).
-                type: string
-              ready:
-                description: Ready will be true when the referenced secret contains
-                  the rendered ignition and can be used for creating nodes.
-                type: boolean
-              verification:
-                description: Verification is a hash of the rendered ignition to ensure
-                  that it has not been changed when loaded as a remote file by the
-                  bootstrap ignition. See https://coreos.com/ignition/docs/latest/configuration-v2_2.html
-                properties:
-                  algorithm:
-                    description: The algorithm used for hashing. Must be sha512 for
-                      now.
-                    type: string
-                  hash:
-                    description: The content of the full rendered ignition hashed
-                      by the corresponding algorithm.
-                    type: string
-                required:
-                - algorithm
-                - hash
-                type: object
-            required:
-            - dataSecretName
-            - failureMessage
-            - failureReason
-            - ready
-            - verification
-            type: object
-        required:
-        - metadata
-        - spec
-        - status
-        type: object
     served: true
     storage: true
 status:
