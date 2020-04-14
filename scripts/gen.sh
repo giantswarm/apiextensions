@@ -12,11 +12,12 @@ k8s.io/code-generator/cmd/client-gen
 golang.org/x/tools/cmd/goimports"
 
 mkdir -p "$dir/bin"
+cd "$dir"
 for tool in $tools; do
   go build -o "$dir/bin/$(basename "$tool")" "$tool"
 done
+cd ..
 
-exit 0
 module="github.com/giantswarm/apiextensions"
 input_dirs=$(find ./pkg/apis -maxdepth 2 -mindepth 2 | tr '\r\n' ',')
 input_dirs=${input_dirs%?}
@@ -51,5 +52,11 @@ echo "Fixing imports in-place with goimports"
 "$dir/bin/controller-gen" \
   crd \
   paths=./pkg/apis/... \
+  output:dir=docs/crd \
+  crd:crdVersions=v1beta1
+
+"$dir/bin/controller-gen" \
+  crd \
+  paths=./pkg/apis/infrastructure/v1alpha2 \
   output:dir=docs/crd \
   crd:crdVersions=v1
