@@ -1,0 +1,94 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  name: charts.application.giantswarm.io
+spec:
+  group: application.giantswarm.io
+  names:
+    kind: Chart
+    plural: charts
+    singular: chart
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: |
+        Defines a Chart resource, which represents an application version running on the cluster.
+        This resource is created and managed by chart-operator running in each tenant cluster.
+      properties:
+        spec:
+          properties:
+            config:
+              description: "Defines the aggregated configuration values for the application
+                chart. It is \ncreated by app-operator in the tenant cluster to be
+                used as values file by \nchart operator during the helm installation
+                process.\nproccess. \n"
+              properties:
+                configMap:
+                  description: "Defines a reference to a ConfigMap where is the aggregated
+                    configuration values \nfrom App Catalog, Cluster and User that
+                    will be used as values file in the helm\ninstallation or upgrade
+                    process.\n"
+                  properties:
+                    name:
+                      description: |
+                        Name of the ConfigMap resource.
+                      type: string
+                    namespace:
+                      description: |
+                        Namespace holding the ConfigMap resource.
+                      type: string
+                    resourceVersion:
+                      type: string
+                  required:
+                  - name
+                  - namespace
+                  type: object
+                secret:
+                  description: |
+                    Defines a reference to a Secret where is the aggregated configuration values from App Catalog, Cluster and User that will be used as values file in the helm
+                    installation or upgrade process.
+                  properties:
+                    name:
+                      description: |
+                        Name of the Secret resource.
+                      type: string
+                    namespace:
+                      description: |
+                        Namespace holding the Secret resource.
+                      type: string
+                    resourceVersion:
+                      type: string
+                  required:
+                  - name
+                  - namespace
+                  type: object
+              type: object
+            name:
+              description: |
+                Name of this application Chart.
+              type: string
+            namespace:
+              description: |
+                Kubernetes namespace in which to install the workloads defined by this App Chart in
+                the current cluster.
+              type: string
+            tarballURL:
+              description: "URL of the application Chart to be deployed. The chart
+                package must exist in the \nApp Catalog storage.\n"
+              format: uri
+              type: string
+            version:
+              description: |
+                Version of the application Chart to be deployed.
+              type: string
+          required:
+          - name
+          - namespace
+          - tarballURL
+          - version
+          type: object
+      type: object
+  version: v1alpha1
