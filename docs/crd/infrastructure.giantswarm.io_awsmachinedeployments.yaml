@@ -1,10 +1,10 @@
 
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: (devel)
+    controller-gen.kubebuilder.io/version: v0.2.8
   creationTimestamp: null
   name: awsmachinedeployments.infrastructure.giantswarm.io
 spec:
@@ -15,123 +15,122 @@ spec:
     plural: awsmachinedeployments
     singular: awsmachinedeployment
   scope: Namespaced
-  validation:
-    openAPIV3Schema:
-      description: AWSMachineDeployment is the infrastructure provider referenced
-        in upstream CAPI MachineDeployment CRs.
-      properties:
-        apiVersion:
-          description: 'APIVersion defines the versioned schema of this representation
-            of an object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-          type: string
-        kind:
-          description: 'Kind is a string value representing the REST resource this
-            object represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-          type: string
-        metadata:
-          type: object
-        spec:
-          properties:
-            nodePool:
-              properties:
-                description:
-                  type: string
-                machine:
-                  properties:
-                    dockerVolumeSizeGB:
-                      type: integer
-                    kubeletVolumeSizeGB:
-                      type: integer
-                  required:
-                  - dockerVolumeSizeGB
-                  - kubeletVolumeSizeGB
-                  type: object
-                scaling:
-                  properties:
-                    max:
-                      type: integer
-                    min:
-                      type: integer
-                  required:
-                  - max
-                  - min
-                  type: object
-              required:
-              - description
-              - machine
-              - scaling
-              type: object
-            provider:
-              properties:
-                availabilityZones:
-                  items:
-                    type: string
-                  type: array
-                instanceDistribution:
-                  properties:
-                    onDemandBaseCapacity:
-                      default: 0
-                      minimum: 0
-                      type: integer
-                    onDemandPercentageAboveBaseCapacity:
-                      default: 100
-                      maximum: 100
-                      minimum: 0
-                      type: integer
-                  required:
-                  - onDemandBaseCapacity
-                  - onDemandPercentageAboveBaseCapacity
-                  type: object
-                worker:
-                  properties:
-                    instanceType:
-                      type: string
-                    useAlikeInstanceTypes:
-                      type: boolean
-                  required:
-                  - instanceType
-                  - useAlikeInstanceTypes
-                  type: object
-              required:
-              - availabilityZones
-              - instanceDistribution
-              - worker
-              type: object
-          required:
-          - nodePool
-          - provider
-          type: object
-        status:
-          properties:
-            provider:
-              properties:
-                worker:
-                  properties:
-                    instanceTypes:
-                      items:
-                        type: string
-                      type: array
-                    spotInstances:
-                      type: integer
-                  required:
-                  - instanceTypes
-                  - spotInstances
-                  type: object
-              required:
-              - worker
-              type: object
-          required:
-          - provider
-          type: object
-      required:
-      - spec
-      - status
-      type: object
-  version: v1alpha2
   versions:
   - name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        description: AWSMachineDeployment is the infrastructure provider referenced
+          in upstream CAPI MachineDeployment CRs.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              nodePool:
+                properties:
+                  description:
+                    type: string
+                  machine:
+                    properties:
+                      dockerVolumeSizeGB:
+                        type: integer
+                      kubeletVolumeSizeGB:
+                        type: integer
+                    required:
+                    - dockerVolumeSizeGB
+                    - kubeletVolumeSizeGB
+                    type: object
+                  scaling:
+                    properties:
+                      max:
+                        type: integer
+                      min:
+                        type: integer
+                    required:
+                    - max
+                    - min
+                    type: object
+                required:
+                - description
+                - machine
+                - scaling
+                type: object
+              provider:
+                properties:
+                  availabilityZones:
+                    items:
+                      type: string
+                    type: array
+                  instanceDistribution:
+                    properties:
+                      onDemandBaseCapacity:
+                        default: 0
+                        minimum: 0
+                        type: integer
+                      onDemandPercentageAboveBaseCapacity:
+                        default: 100
+                        maximum: 100
+                        minimum: 0
+                        type: integer
+                    required:
+                    - onDemandBaseCapacity
+                    - onDemandPercentageAboveBaseCapacity
+                    type: object
+                  worker:
+                    properties:
+                      instanceType:
+                        type: string
+                      useAlikeInstanceTypes:
+                        type: boolean
+                    required:
+                    - instanceType
+                    - useAlikeInstanceTypes
+                    type: object
+                required:
+                - availabilityZones
+                - instanceDistribution
+                - worker
+                type: object
+            required:
+            - nodePool
+            - provider
+            type: object
+          status:
+            properties:
+              provider:
+                properties:
+                  worker:
+                    properties:
+                      instanceTypes:
+                        items:
+                          type: string
+                        type: array
+                      spotInstances:
+                        type: integer
+                    required:
+                    - instanceTypes
+                    - spotInstances
+                    type: object
+                required:
+                - worker
+                type: object
+            required:
+            - provider
+            type: object
+        required:
+        - spec
+        - status
+        type: object
     served: true
     storage: true
 status:
