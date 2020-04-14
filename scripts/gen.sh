@@ -16,7 +16,9 @@ sigs.k8s.io/kustomize/kustomize/v3"
 mkdir -p "$dir/bin"
 cd "$dir"
 for tool in $tools; do
-  echo "Rebuilding $tool in $dir/bin"
+  base=$(echo "$tool" | sed "s/\/cmd\/.*//")
+  version=$(go list -m -f '{{.Version}}' "$base")
+  echo "Rebuilding $tool@$version"
   go build -o "$dir/bin" "$tool"
 done
 cd ..
