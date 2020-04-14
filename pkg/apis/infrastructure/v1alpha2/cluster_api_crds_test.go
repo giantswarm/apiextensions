@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -17,7 +18,7 @@ import (
 
 func Test_GenerateClusterYAML(t *testing.T) {
 	crdGroup := clusterAPIGroup
-	crdKindLower := kindCluster
+	crdKindLower := strings.ToLower(kindCluster)
 
 	testCases := []struct {
 		category string
@@ -70,7 +71,7 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 	cr.Name = "ca1p0"
 	cr.Spec = apiv1alpha2.ClusterSpec{
 		// ClusterNetwork does not occur in our practice, so leaving it empty.
-		//ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
+		// ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
 		InfrastructureRef: &corev1.ObjectReference{
 			APIVersion:      "infrastructure.giantswarm.io/v1alpha2",
 			Kind:            "AWSCluster",
@@ -86,7 +87,7 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 
 func Test_GenerateMachineDeploymentYAML(t *testing.T) {
 	crdGroup := clusterAPIGroup
-	crdKindLower := kindMachineDeployment
+	crdKindLower := strings.ToLower(kindMachineDeployment)
 
 	testCases := []struct {
 		category string
