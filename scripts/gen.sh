@@ -55,18 +55,20 @@ cd "$dir/.." || exit
 echo "Fixing imports in-place with goimports"
 "$dir/bin/goimports" -local $module -w ./pkg
 
+rm -rf "$dir/../config/crd/bases"
+
 echo "Generating all CRDs as v1beta1"
 "$dir/bin/controller-gen" \
   crd \
   paths=./pkg/apis/... \
-  output:dir=docs/crd \
+  output:dir=config/crd/bases \
   crd:crdVersions=v1beta1
 
 echo "Generating infrastructure.giantswarm.io CRDs as v1"
 "$dir/bin/controller-gen" \
   crd \
   paths=./pkg/apis/infrastructure/v1alpha2 \
-  output:dir=docs/crd \
+  output:dir=config/crd/bases \
   crd:crdVersions=v1
 
 echo "Kustomizing CRDs"
