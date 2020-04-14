@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -17,9 +16,8 @@ import (
 )
 
 func Test_GenerateClusterYAML(t *testing.T) {
-	crd := NewClusterCRD()
-	crdGroup := crd.Spec.Group
-	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+	crdGroup := clusterAPIGroup
+	crdKindLower := kindCluster
 
 	testCases := []struct {
 		category string
@@ -87,9 +85,8 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 }
 
 func Test_GenerateMachineDeploymentYAML(t *testing.T) {
-	crd := NewMachineDeploymentCRD()
-	crdGroup := crd.Spec.Group
-	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+	crdGroup := clusterAPIGroup
+	crdKindLower := kindMachineDeployment
 
 	testCases := []struct {
 		category string
