@@ -42,8 +42,9 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 type AWSMachineDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSMachineDeploymentSpec   `json:"spec" yaml:"spec"`
-	Status            AWSMachineDeploymentStatus `json:"status" yaml:"status"`
+	Spec              AWSMachineDeploymentSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AWSMachineDeploymentStatus `json:"status" yaml:"status"`
 }
 
 type AWSMachineDeploymentSpec struct {
