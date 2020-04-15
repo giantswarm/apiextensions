@@ -16,7 +16,7 @@ const (
 )
 
 func NewAWSConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindAWSConfig)
+	return crd.LoadV1Beta1(group, kindAWSConfig)
 }
 
 // NewAWSClusterTypeMeta returns the populated metav1 metadata object for this CRD.

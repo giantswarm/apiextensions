@@ -1,7 +1,7 @@
 package v1alpha2
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/crd"
@@ -11,8 +11,8 @@ const (
 	kindAWSMachineDeployment = "AWSMachineDeployment"
 )
 
-func NewAWSMachineDeploymentCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindAWSMachineDeployment)
+func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAWSMachineDeployment)
 }
 
 func NewAWSMachineDeploymentTypeMeta() metav1.TypeMeta {

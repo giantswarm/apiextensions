@@ -13,7 +13,7 @@ const (
 )
 
 func NewAppCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindApp)
+	return crd.LoadV1Beta1(group, kindApp)
 }
 
 func NewAppTypeMeta() metav1.TypeMeta {

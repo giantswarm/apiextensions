@@ -23,7 +23,7 @@ func (r ReleaseCyclePhase) String() string {
 }
 
 func NewReleaseCycleCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindReleaseCycle)
+	return crd.LoadV1Beta1(group, kindReleaseCycle)
 }
 
 func NewReleaseCycleTypeMeta() metav1.TypeMeta {

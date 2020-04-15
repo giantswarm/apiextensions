@@ -14,7 +14,7 @@ const (
 )
 
 func NewAppCatalogCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindAppCatalog)
+	return crd.LoadV1Beta1(group, kindAppCatalog)
 }
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {

@@ -12,7 +12,7 @@ const (
 )
 
 func NewAWSClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindAWSCluster)
+	return crd.LoadV1Beta1(group, kindAWSCluster)
 }
 
 // +genclient

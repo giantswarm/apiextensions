@@ -8,7 +8,7 @@ import (
 )
 
 func NewChartConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindCertConfig)
+	return crd.LoadV1Beta1(group, kindCertConfig)
 }
 
 // +genclient

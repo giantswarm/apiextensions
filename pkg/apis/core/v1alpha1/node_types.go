@@ -12,7 +12,7 @@ const (
 )
 
 func NewNodeConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindNode)
+	return crd.LoadV1Beta1(group, kindNode)
 }
 
 func NewNodeTypeMeta() metav1.TypeMeta {

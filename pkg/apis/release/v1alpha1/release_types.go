@@ -26,7 +26,7 @@ func (r ReleaseState) String() string {
 }
 
 func NewReleaseCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindRelease)
+	return crd.LoadV1Beta1(group, kindRelease)
 }
 
 func NewReleaseTypeMeta() metav1.TypeMeta {

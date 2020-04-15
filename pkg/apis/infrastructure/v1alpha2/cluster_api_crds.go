@@ -16,7 +16,7 @@ const (
 )
 
 func NewClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(clusterAPIGroup, kindCluster)
+	return crd.LoadV1Beta1(clusterAPIGroup, kindCluster)
 }
 
 func NewClusterTypeMeta() metav1.TypeMeta {
@@ -39,7 +39,7 @@ func NewClusterCR() *apiv1alpha2.Cluster {
 }
 
 func NewMachineDeploymentCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(clusterAPIGroup, kindMachineDeployment)
+	return crd.LoadV1Beta1(clusterAPIGroup, kindMachineDeployment)
 }
 
 // NewMachineDeploymentTypeMeta returns the type block for a MachineDeployment CR.

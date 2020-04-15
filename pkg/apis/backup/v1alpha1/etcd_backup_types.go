@@ -12,7 +12,7 @@ const (
 )
 
 func NewETCDBackupCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindETCDBackup)
+	return crd.LoadV1Beta1(group, kindETCDBackup)
 }
 
 // +genclient

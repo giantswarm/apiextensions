@@ -12,7 +12,7 @@ const (
 )
 
 func NewChartCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindChart)
+	return crd.LoadV1Beta1(group, kindChart)
 }
 
 func NewChartTypeMeta() metav1.TypeMeta {

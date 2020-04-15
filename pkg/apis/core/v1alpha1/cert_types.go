@@ -14,7 +14,7 @@ const (
 )
 
 func NewCertConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindCertConfig)
+	return crd.LoadV1Beta1(group, kindCertConfig)
 }
 
 // NewCertConfigTypeMeta returns the type part for the metadata section of a

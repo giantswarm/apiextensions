@@ -12,7 +12,7 @@ const (
 )
 
 func NewKVMConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindKVMConfig)
+	return crd.LoadV1Beta1(group, kindKVMConfig)
 }
 
 // +genclient

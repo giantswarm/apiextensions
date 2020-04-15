@@ -8,7 +8,7 @@ import (
 )
 
 func NewKVMClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindCluster)
+	return crd.LoadV1Beta1(group, kindCluster)
 }
 
 // +genclient

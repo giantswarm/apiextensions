@@ -12,7 +12,7 @@ const (
 )
 
 func NewClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, kindCluster)
+	return crd.LoadV1Beta1(group, kindCluster)
 }
 
 func NewClusterTypeMeta() metav1.TypeMeta {

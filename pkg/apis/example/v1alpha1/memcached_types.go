@@ -8,7 +8,7 @@ import (
 )
 
 func NewMemcachedCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadCRD(group, "")
+	return crd.LoadV1Beta1(group, "")
 }
 
 // +genclient
