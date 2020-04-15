@@ -11,9 +11,15 @@ jobs:
       - checkout
       - run:
           name: Regenerate
-          command: ./scripts/gen.sh
+          command: CGO_ENABLED=0 ./scripts/gen.sh
+      - run:
+          name: Overwrite pkged.go
+          command: git checkout pkg/crd/pkged.go
       - run:
           name: Ensure unchanged
+          command: git diff --exit-code
+      - run:
+          name: Ensure up-to-date
           command: git diff --exit-code
 
 workflows:

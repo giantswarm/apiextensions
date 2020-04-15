@@ -2,8 +2,67 @@ package crd
 
 import (
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path/filepath"
+	goruntime "runtime"
+	"strings"
 	"testing"
+
+	"github.com/giantswarm/microerror"
+	"github.com/markbates/pkger"
 )
+
+var (
+	_, b, _, _ = goruntime.Caller(0)
+	testDirectory       = filepath.Dir(b)
+)
+
+func Test_PkgerUpToDate(t *testing.T) {
+	root := filepath.Join(testDirectory, "..", "..")
+	err := pkger.Walk("/config/crd/bases", func(fullPath string, info os.FileInfo, err error) error {
+		// An unknown error, stop walking
+		if err != nil {
+			return microerror.Mask(err)
+		}
+		// Skip directories and any other files after a match has been found
+		if info.IsDir() {
+			return nil
+		}
+
+		// pkger files have a path like github.com/giantswarm/apiextensions:/config/crd/bases/release.giantswarm.io_releases.yaml
+		split := strings.Split(fullPath, ":")
+		path := split[1]
+		extension := filepath.Ext(path)
+		// Skip non-yaml files
+		if extension != ".yaml" {
+			return nil
+		}
+
+		virtualFile, err := pkger.Open(path)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+		virtualYaml, err := ioutil.ReadAll(virtualFile)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		localPath := filepath.Join(root, strings.TrimPrefix(path, "/"))
+		localYaml, err := ioutil.ReadFile(localPath)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		if string(virtualYaml) != string(localYaml) {
+			t.Errorf("local file doesn't match virtual file: %s", path)
+		}
+		return nil
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+}
 
 func Test_LoadAll(t *testing.T) {
 	groupKinds := map[string][]string{
