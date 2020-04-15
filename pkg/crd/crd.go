@@ -18,20 +18,21 @@ import (
 
 const (
 	crdDirectory = "/config/crd/bases"
+	crdKind      = "CustomResourceDefinition"
 )
 
 var (
 	// GroupVersionKind of CustomResourceDefinition in apiextensions.k8s.io/v1beta1
-	v1beta1GVK = schema.GroupVersionKind{
+	v1beta1GroupVersionKind = schema.GroupVersionKind{
 		Group:   apiextensions.GroupName,
 		Version: "v1beta1",
-		Kind:    "CustomResourceDefinition",
+		Kind:    crdKind,
 	}
 	// GroupVersionKind of CustomResourceDefinition in apiextensions.k8s.io/v1
-	v1GVK = schema.GroupVersionKind{
+	v1GroupVersionKind = schema.GroupVersionKind{
 		Group:   apiextensions.GroupName,
 		Version: "v1",
-		Kind:    "CustomResourceDefinition",
+		Kind:    crdKind,
 	}
 )
 
@@ -69,7 +70,7 @@ func Find(group, kind string) (interface{}, error) {
 			return microerror.Mask(err)
 		}
 
-		// Unmsarshal into an Unstructured since we don't know if this is a v1 or v1beta1 CRD yet.
+		// Unmarshal into Unstructured since we don't know if this is a v1 or v1beta1 CRD yet.
 		var object unstructured.Unstructured
 		err = yaml.UnmarshalStrict(yamlString, &object)
 		if err != nil {
@@ -77,7 +78,7 @@ func Find(group, kind string) (interface{}, error) {
 		}
 
 		switch object.GetObjectKind().GroupVersionKind() {
-		case v1beta1GVK:
+		case v1beta1GroupVersionKind:
 			var crd v1beta1.CustomResourceDefinition
 			err = yaml.UnmarshalStrict(yamlString, &crd)
 			if err != nil {
@@ -87,7 +88,7 @@ func Find(group, kind string) (interface{}, error) {
 				found = &crd // Match, save results in outer scope
 			}
 			return nil
-		case v1GVK:
+		case v1GroupVersionKind:
 			var crd v1.CustomResourceDefinition
 			err = yaml.UnmarshalStrict(yamlString, &crd)
 			if err != nil {
