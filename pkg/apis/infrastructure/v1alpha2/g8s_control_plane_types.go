@@ -89,7 +89,7 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 	}
 }
 
-// NewG8sControlPlaneCR returns a Cluster Custom Resource.
+// NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
 func NewG8sControlPlaneCR() *G8sControlPlane {
 	return &G8sControlPlane{
 		ObjectMeta: metav1.ObjectMeta{
