@@ -3,9 +3,24 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@0.7.0
 
+jobs:
+  validate:
+    docker:
+      - image: quay.io/giantswarm/architect
+    steps:
+      - checkout
+      - run:
+          name: Regenerate
+          command: ./scripts/gen.sh
+      - run:
+          name: Ensure unchanged
+          command: git diff --exit-code
+
 workflows:
   workflow:
     jobs:
+      - validate
+
       - architect/go-test:
           name: go-test
           filters:

@@ -42,8 +42,7 @@ func NewAWSClusterCR() *AWSCluster {
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
 type AWSCluster struct {
-	metav1.TypeMeta `json:",inline"`
-	// metav1.ObjectMeta is standard Kubernetes resource metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              AWSClusterSpec   `json:"spec" yaml:"spec"`
 	Status            AWSClusterStatus `json:"status,omitempty" yaml:"status,omitempty"`
