@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/giantswarm/microerror"
 	"github.com/markbates/pkger"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
@@ -14,52 +15,67 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
 
-	_ "github.com/giantswarm/apiextensions"
+	_ "github.com/giantswarm/apiextensions" // Load pkger generated filesystem for side-effects
+)
+
+const (
+	crdDirectory = "/config/crd/bases"
 )
 
 var (
-	v1Kind = schema.GroupVersionKind{
-		Group:   apiextensions.GroupName,
-		Version: "v1",
-		Kind:    "CustomResourceDefinition",
-	}
+	// GVK of CustomResourceDefinition in apiextensions.k8s.io/v1beta1
 	v1beta1Kind = schema.GroupVersionKind{
 		Group:   apiextensions.GroupName,
 		Version: "v1beta1",
 		Kind:    "CustomResourceDefinition",
 	}
+	// GVK of CustomResourceDefinition in apiextensions.k8s.io/v1
+	v1Kind = schema.GroupVersionKind{
+		Group:   apiextensions.GroupName,
+		Version: "v1",
+		Kind:    "CustomResourceDefinition",
+	}
 )
 
-func FindCRD(group, kind string) (interface{}, error) {
+func Find(group, kind string) (interface{}, error) {
+	// If a matching CRD is found during the walk, it will be saved to found.
+	// This could be a v1 or v1beta1 CRD so it needs to be an interface{}
 	var found interface{}
+	// Function called for every file in the CRD directory.
 	walkFunc := func(fullPath string, info os.FileInfo, err error) error {
+		// An unknown error, stop walking
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
+		// Skip directories and any other files after a match has been found
 		if found != nil || info.IsDir() {
 			return nil
 		}
 
+		// pkger files have a path like github.com/giantswarm/apiextensions:/config/crd/bases/release.giantswarm.io_releases.yaml
 		split := strings.Split(fullPath, ":")
 		path := split[1]
 		extension := filepath.Ext(path)
+		// Skip non-yaml files
 		if extension != ".yaml" {
 			return nil
 		}
 
+		// Read the file to a string
 		yamlFile, err := pkger.Open(path)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		yamlString, err := ioutil.ReadAll(yamlFile)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 
+		// Unmsarshal into an Unstructured since we don't know if this is a v1 or v1beta1 CRD yet
 		var object unstructured.Unstructured
 		err = yaml.UnmarshalStrict(yamlString, &object)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 
 		switch object.GetObjectKind().GroupVersionKind() {
@@ -67,60 +83,60 @@ func FindCRD(group, kind string) (interface{}, error) {
 			var crd v1beta1.CustomResourceDefinition
 			err = yaml.UnmarshalStrict(yamlString, &crd)
 			if err != nil {
-				return err
+				return microerror.Mask(err)
 			}
 			if group == crd.Spec.Group && kind == crd.Spec.Names.Kind {
-				found = &crd
+				found = &crd // Match, save results in outer scope
 			}
 			return nil
 		case v1Kind:
 			var crd v1.CustomResourceDefinition
 			err = yaml.UnmarshalStrict(yamlString, &crd)
 			if err != nil {
-				return err
+				return microerror.Mask(err)
 			}
 			if group == crd.Spec.Group && kind == crd.Spec.Names.Kind {
-				found = &crd
+				found = &crd // Match, save results in outer scope
 			}
 			return nil
 		}
 		return nil
 	}
 
-	err := pkger.Walk("/config/crd/bases", walkFunc)
+	// Entry point for walking the CRD YAML directory
+	err := pkger.Walk(crdDirectory, walkFunc)
 	if err != nil {
-		return nil, err
+		return nil, microerror.Mask(err)
+	}
+	if found == nil {
+		return nil, microerror.Mask(notFoundError)
 	}
 
 	return found, nil
 }
 
+// LoadV1Beta1 loads a v1beta1 CRD from the filesystem
 func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
-	found, err := FindCRD(group, kind)
+	found, err := Find(group, kind)
 	if err != nil {
-		panic(err)
-	}
-	if found == nil {
-		panic("not found")
+		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
 	}
 	crd, ok := found.(*v1beta1.CustomResourceDefinition)
 	if !ok {
-		panic("conversion failed")
+		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
 	}
 	return crd
 }
 
+// LoadV1Beta1 loads a v1 CRD from the filesystem
 func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
-	found, err := FindCRD(group, kind)
+	found, err := Find(group, kind)
 	if err != nil {
-		panic(err)
-	}
-	if found == nil {
-		panic("not found")
+		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
 	}
 	crd, ok := found.(*v1.CustomResourceDefinition)
 	if !ok {
-		panic("conversion failed")
+		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
 	}
 	return crd
 }
