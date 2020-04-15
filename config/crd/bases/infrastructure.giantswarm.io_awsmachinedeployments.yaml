@@ -99,7 +99,6 @@ spec:
                     type: object
                 required:
                 - availabilityZones
-                - instanceDistribution
                 - worker
                 type: object
             required:

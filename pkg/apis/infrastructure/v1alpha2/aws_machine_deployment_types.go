@@ -68,7 +68,8 @@ type AWSMachineDeploymentSpecNodePoolScaling struct {
 }
 
 type AWSMachineDeploymentSpecProvider struct {
-	AvailabilityZones    []string                                     `json:"availabilityZones" yaml:"availabilityZones"`
+	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
+	// +kubebuilder:validation:Optional
 	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution" yaml:"instanceDistribution"`
 	Worker               AWSMachineDeploymentSpecProviderWorker       `json:"worker" yaml:"worker"`
 }
