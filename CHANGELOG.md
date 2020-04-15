@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add Helm revision number to chart CR status.
+- Extend Chart CR documentation.
 
 
 
