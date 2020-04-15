@@ -14,8 +14,6 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
-
-	_ "github.com/giantswarm/apiextensions" // Load pkger generated filesystem for side-effects
 )
 
 const (
@@ -119,11 +117,11 @@ func Find(group, kind string) (interface{}, error) {
 func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 	found, err := Find(group, kind)
 	if err != nil {
-		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
+		panic(microerror.Mask(err))
 	}
 	crd, ok := found.(*v1beta1.CustomResourceDefinition)
 	if !ok {
-		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
+		panic(microerror.Mask(conversionFailedError))
 	}
 	return crd
 }
@@ -132,11 +130,11 @@ func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
 	found, err := Find(group, kind)
 	if err != nil {
-		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
+		panic(microerror.Mask(err))
 	}
 	crd, ok := found.(*v1.CustomResourceDefinition)
 	if !ok {
-		panic(microerror.JSON(microerror.Mask(conversionFailedError)))
+		panic(microerror.Mask(conversionFailedError))
 	}
 	return crd
 }
