@@ -91,6 +91,7 @@ spec:
                       instanceType:
                         type: string
                       useAlikeInstanceTypes:
+                        default: false
                         type: boolean
                     required:
                     - instanceType
