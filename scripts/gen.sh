@@ -6,24 +6,24 @@ dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export GOPATH=$(go env GOPATH)
 export GOROOT=$(go env GOROOT)
 
-tools="sigs.k8s.io/controller-tools/cmd/controller-gen
-k8s.io/code-generator/cmd/deepcopy-gen
-k8s.io/code-generator/cmd/client-gen
-golang.org/x/tools/cmd/goimports
-github.com/markbates/pkger/cmd/pkger
-sigs.k8s.io/kustomize/kustomize/v3"
-
 # We need specific versions of above tools so we install them locally
 # in scripts/bin using versions from scripts/go.mod
-mkdir -p "$dir/bin"
-cd "$dir"
-for tool in $tools; do
+install_tool() {
+  local tool=$1
+  pushd "$dir"
   base=$(echo "$tool" | sed "s/\/cmd\/.*//")
   version=$(go list -m -f '{{.Version}}' "$base")
   echo "Rebuilding $tool@$version"
   go build -o "$dir/bin" "$tool"
-done
-cd ..
+  popd
+}
+
+install_tool "sigs.k8s.io/controller-tools/cmd/controller-gen"
+install_tool "k8s.io/code-generator/cmd/deepcopy-gen"
+install_tool "k8s.io/code-generator/cmd/client-gen"
+install_tool "golang.org/x/tools/cmd/goimports"
+install_tool "github.com/markbates/pkger/cmd/pkger"
+install_tool "sigs.k8s.io/kustomize/kustomize/v3"
 
 # Set up variables for deepcopy-gen and client-gen
 module="github.com/giantswarm/apiextensions"
