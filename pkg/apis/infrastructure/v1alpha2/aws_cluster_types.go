@@ -78,6 +78,22 @@ spec:
                   AWS-specific configuration details.
                 type: object
                 properties:
+                  cni:
+                    description: |
+                      Pod networking configuration
+                    type: object
+                    properties:
+                      cidr:
+                        description: |
+                          Subnet size, expresses as the count of leading 1 bits in the subnet
+                          mask of this subnet. In other words, in CIDR notation, the integer
+                          behind the slash.
+                        type: int
+                      subnet:
+                        description: |
+                          Subnet IPv4 address. In other words, in CIDR notation, the
+                          part before the slash.
+                        type: string
                   master:
                     description: |
                       Master node configuration details.
@@ -230,7 +246,9 @@ type AWSClusterSpecProvider struct {
 	// CredentialSecret specifies the location of the secret providing the ARN of AWS IAM identity
 	// to use with this cluster.
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
-	// Master holds master node configuration details.
+	// Pod network configuration.
+	CNI AWSClusterSpecProviderCNI `json:"cni" yaml:"cni"`
+  // Master holds master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
 	// Region is the AWS region the cluster is to be running in.
 	Region string `json:"region" yaml:"region"`
@@ -243,6 +261,14 @@ type AWSClusterSpecProviderCredentialSecret struct {
 	Name string `json:"name" yaml:"name"`
 	// Namespace is the kubernetes namespace that holds the provider credential.
 	Namespace string `json:"namespace" yaml:"namespace"`
+}
+
+// AWSClusterSpecProviderMaster Pod network configuration.
+type AWSClusterSpecProviderCNI struct {
+	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
+	CIDR int `json:"cidr" yaml:"cidr"`
+	// Subnet IPv4 address.
+	Subnet string `json:"subnet" yaml:"subnet"`
 }
 
 // AWSClusterSpecProviderMaster holds master node configuration details.
