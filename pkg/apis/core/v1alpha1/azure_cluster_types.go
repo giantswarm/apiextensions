@@ -11,7 +11,7 @@ const (
 	kindAzureClusterConfig = "AzureClusterConfig"
 )
 
-func NewAzureClusterCRD() *v1beta1.CustomResourceDefinition {
+func NewAzureClusterConfigCRD() *v1beta1.CustomResourceDefinition {
 	return crd.LoadV1Beta1(group, kindAzureClusterConfig)
 }
 
