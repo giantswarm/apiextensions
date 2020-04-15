@@ -84,8 +84,9 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 }
 
 type AWSMachineDeploymentSpecProviderWorker struct {
-	InstanceType          string `json:"instanceType" yaml:"instanceType"`
-	UseAlikeInstanceTypes bool   `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
+	InstanceType string `json:"instanceType" yaml:"instanceType"`
+	// +kubebuilder:default=false
+	UseAlikeInstanceTypes bool `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
 }
 
 type AWSMachineDeploymentStatus struct {
