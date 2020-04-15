@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	kindG8sControlPlane = "G8sControlPlane"
+	kindG8sControlPlane              = "G8sControlPlane"
+	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.2.5/pkg/apis/infrastructure/v1alpha2?tab=doc#G8sControlPlane"
 )
 
 const g8sControlPlaneCRDYAML = `
@@ -36,12 +37,19 @@ spec:
       storage: true
       schema:
         openAPIV3Schema:
+          description: |
+            This resource represents an abstract control plane (Kubernetes master node and Etcd server)
+            of a tenant cluster in a Giant Swarm installation. It is reconciled by cluster-operator.
+            For implementation details it references a provider specific resource.
           type: object
           properties:
             spec:
               type: object
               properties:
                 infrastructureRef:
+                  description: |
+                    Reference to an [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/)
+                    resource defining provider specific details for the c
                   type: object
                   properties:
                     apiVersion:
@@ -53,6 +61,8 @@ spec:
                     namespace:
                       type: string
                 replicas:
+                  description: |
+                    Number of master nodes and Etcd instances to set up.
                   type: integer
                   enum:
                     - 1
@@ -76,6 +86,18 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindG8sControlPlane,
+	}
+}
+
+// NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
+func NewG8sControlPlaneCR() *G8sControlPlane {
+	return &G8sControlPlane{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: g8sControlPlaneDocumentationLink,
+			},
+		},
+		TypeMeta: NewClusterTypeMeta(),
 	}
 }
 
