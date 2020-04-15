@@ -14,8 +14,8 @@ import (
 )
 
 var (
-	_, b, _, _ = goruntime.Caller(0)
-	testDirectory       = filepath.Dir(b)
+	_, b, _, _    = goruntime.Caller(0)
+	testDirectory = filepath.Dir(b)
 )
 
 func Test_PkgerUpToDate(t *testing.T) {
