@@ -21,8 +21,9 @@ func NewETCDBackupCRD() *v1beta1.CustomResourceDefinition {
 type ETCDBackup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ETCDBackupSpec   `json:"spec"`
-	Status            ETCDBackupStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              ETCDBackupSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ETCDBackupStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 type ETCDBackupSpec struct {

@@ -41,8 +41,9 @@ func NewAppCR() *App {
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppSpec   `json:"spec"`
-	Status            AppStatus `json:"status" yaml:"status"`
+	Spec              AppSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AppStatus `json:"status" yaml:"status"`
 }
 
 type AppSpec struct {

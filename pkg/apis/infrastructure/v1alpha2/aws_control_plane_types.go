@@ -46,8 +46,9 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 type AWSControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSControlPlaneSpec   `json:"spec" yaml:"spec"`
-	Status            AWSControlPlaneStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              AWSControlPlaneSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AWSControlPlaneStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 type AWSControlPlaneSpec struct {

@@ -44,8 +44,9 @@ func NewAWSClusterCR() *AWSCluster {
 type AWSCluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSClusterSpec   `json:"spec" yaml:"spec"`
-	Status            AWSClusterStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              AWSClusterSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AWSClusterStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 // AWSClusterSpec is the spec part for the AWSCluster resource.

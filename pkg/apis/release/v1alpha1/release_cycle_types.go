@@ -40,8 +40,9 @@ func NewReleaseCycleTypeMeta() metav1.TypeMeta {
 type ReleaseCycle struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`
 	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`
-	Spec              ReleaseCycleSpec   `json:"spec" yaml:"spec"`
-	Status            ReleaseCycleStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              ReleaseCycleSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ReleaseCycleStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 type ReleaseCycleSpec struct {

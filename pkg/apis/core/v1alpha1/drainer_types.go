@@ -40,8 +40,9 @@ func NewDrainerTypeMeta() metav1.TypeMeta {
 type DrainerConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              DrainerConfigSpec   `json:"spec"`
-	Status            DrainerConfigStatus `json:"status"`
+	Spec              DrainerConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status DrainerConfigStatus `json:"status"`
 }
 
 type DrainerConfigSpec struct {

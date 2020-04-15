@@ -25,8 +25,9 @@ func NewIgnitionTypeMeta() metav1.TypeMeta {
 type Ignition struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              IgnitionSpec   `json:"spec"`
-	Status            IgnitionStatus `json:"status"`
+	Spec              IgnitionSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status IgnitionStatus `json:"status"`
 }
 
 // IgnitionSpec is the interface which defines the input parameters for

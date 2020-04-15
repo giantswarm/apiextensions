@@ -28,8 +28,9 @@ func NewNodeTypeMeta() metav1.TypeMeta {
 type NodeConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              NodeConfigSpec   `json:"spec"`
-	Status            NodeConfigStatus `json:"status"`
+	Spec              NodeConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status NodeConfigStatus `json:"status"`
 }
 
 type NodeConfigSpec struct {
