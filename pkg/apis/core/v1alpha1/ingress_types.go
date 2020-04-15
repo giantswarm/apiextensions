@@ -7,8 +7,12 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
+const (
+	kindIngressConfig = "IngressConfig"
+)
+
 func NewIngressConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindCluster)
+	return crd.LoadV1Beta1(group, kindIngressConfig)
 }
 
 // +genclient

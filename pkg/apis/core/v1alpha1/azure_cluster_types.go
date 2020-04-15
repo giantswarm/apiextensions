@@ -8,11 +8,11 @@ import (
 )
 
 const (
-	kindAzureCluster = "AzureCluster"
+	kindAzureClusterConfig = "AzureClusterConfig"
 )
 
 func NewAzureClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindAzureCluster)
+	return crd.LoadV1Beta1(group, kindAzureClusterConfig)
 }
 
 // +genclient

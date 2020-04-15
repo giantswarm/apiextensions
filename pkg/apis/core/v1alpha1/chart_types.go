@@ -7,8 +7,12 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
+const (
+	kindChartConfig = "ChartConfig"
+)
+
 func NewChartConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindCertConfig)
+	return crd.LoadV1Beta1(group, kindChartConfig)
 }
 
 // +genclient

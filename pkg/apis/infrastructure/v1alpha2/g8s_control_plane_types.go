@@ -2,7 +2,7 @@ package v1alpha2
 
 import (
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/crd"
@@ -12,8 +12,8 @@ const (
 	kindG8sControlPlane = "G8sControlPlane"
 )
 
-func NewG8sControlPlaneCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindG8sControlPlane)
+func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindG8sControlPlane)
 }
 
 func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {

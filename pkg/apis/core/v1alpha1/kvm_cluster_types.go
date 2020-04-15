@@ -7,8 +7,12 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-func NewKVMClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindCluster)
+const (
+	kindKVMClusterConfig = "KVMClusterConfig"
+)
+
+func NewKVMClusterConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindKVMClusterConfig)
 }
 
 // +genclient

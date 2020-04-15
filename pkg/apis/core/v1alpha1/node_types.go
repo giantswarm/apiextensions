@@ -8,17 +8,17 @@ import (
 )
 
 const (
-	kindNode = "NodeConfig"
+	kindNodeConfig = "NodeConfig"
 )
 
 func NewNodeConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindNode)
+	return crd.LoadV1Beta1(group, kindNodeConfig)
 }
 
 func NewNodeTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: version,
-		Kind:       kindNode,
+		Kind:       kindNodeConfig,
 	}
 }
 

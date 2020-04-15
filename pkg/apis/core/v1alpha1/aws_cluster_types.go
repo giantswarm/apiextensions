@@ -8,11 +8,11 @@ import (
 )
 
 const (
-	kindAWSCluster = "AWSCluster"
+	kindAWSClusterConfig = "AWSClusterConfig"
 )
 
-func NewAWSClusterCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindAWSCluster)
+func NewAWSClusterConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindAWSClusterConfig)
 }
 
 // +genclient

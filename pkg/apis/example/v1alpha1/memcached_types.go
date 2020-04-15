@@ -7,8 +7,12 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-func NewMemcachedCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, "")
+const (
+	kindMemcachedConfig = "MemcachedConfig"
+)
+
+func NewMemcachedConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindMemcachedConfig)
 }
 
 // +genclient
