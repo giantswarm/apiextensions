@@ -13,13 +13,11 @@ jobs:
           name: Regenerate
           command: CGO_ENABLED=0 ./scripts/gen.sh
       - run:
+          # pkged.go will always be changed due to file modification times
           name: Overwrite pkged.go
           command: git checkout pkg/crd/pkged.go
       - run:
           name: Ensure unchanged
-          command: git diff --exit-code
-      - run:
-          name: Ensure up-to-date
           command: git diff --exit-code
 
 workflows:
@@ -39,6 +37,7 @@ workflows:
           command: build
           requires:
             - go-test
+            - validate
 
       - architect/go-architect-legacy:
           name: go-deploy
