@@ -47,8 +47,7 @@ type AppCatalog struct {
 }
 
 type AppCatalogSpec struct {
-	// Title is the name of the app catalog for this CR
-	// e.g. Catalog of Apps by Giant Swarm
+	// TEST, REVERT ASAP
 	Title       string `json:"title" yaml:"title"`
 	Description string `json:"description" yaml:"description"`
 	// Config is the config to be applied when apps belonging to this
