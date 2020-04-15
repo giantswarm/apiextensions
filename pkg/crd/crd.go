@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/giantswarm/microerror"
 	"github.com/markbates/pkger"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
@@ -17,7 +18,7 @@ import (
 func LoadV1Beta1(group, kind string) (out *v1beta1.CustomResourceDefinition) {
 	err := pkger.Walk("/config/crd/bases", func(fullPath string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		if out != nil || info.IsDir() {
 			return nil
@@ -32,17 +33,17 @@ func LoadV1Beta1(group, kind string) (out *v1beta1.CustomResourceDefinition) {
 
 		yamlFile, err := pkger.Open(path)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		yamlString, err := ioutil.ReadAll(yamlFile)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 
 		var crd v1beta1.CustomResourceDefinition
 		err = yaml.UnmarshalStrict(yamlString, &crd)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		if group == crd.Spec.Group && kind == crd.Spec.Names.Kind {
 			out = crd.DeepCopy()
@@ -52,15 +53,16 @@ func LoadV1Beta1(group, kind string) (out *v1beta1.CustomResourceDefinition) {
 	})
 
 	if err != nil {
-		panic(err)
+		panic(microerror.JSON(err))
 	}
+
 	return
 }
 
 func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
 	err := pkger.Walk("/config/crd/bases", func(fullPath string, info os.FileInfo, err error) error {
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		if out != nil || info.IsDir() {
 			return nil
@@ -75,17 +77,17 @@ func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
 
 		yamlFile, err := pkger.Open(path)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		yamlString, err := ioutil.ReadAll(yamlFile)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 
 		var crd v1.CustomResourceDefinition
 		err = yaml.UnmarshalStrict(yamlString, &crd)
 		if err != nil {
-			return err
+			return microerror.Mask(err)
 		}
 		if group == crd.Spec.Group && kind == crd.Spec.Names.Kind {
 			out = crd.DeepCopy()
@@ -95,7 +97,8 @@ func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
 	})
 
 	if err != nil {
-		panic(err)
+		panic(microerror.JSON(err))
 	}
+
 	return
 }
