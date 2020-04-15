@@ -13,7 +13,7 @@
 
 To publish CRD documentation changes, please
 
-1. tag a new release here in [apiextensions](https://github.com/giantswarm/apiextensions/releases)
+1. Tag a new release here in [apiextensions](https://github.com/giantswarm/apiextensions/releases)
 2. In the `docs` repository, set the apiextensions version [here](https://github.com/giantswarm/docs/blob/11cb2cd5091ea123305086232377a2ffe313e36d/Makefile#L55) to the new version
-3. tag a new release for the `docs` repository
+3. Tag a new release for the `docs` repository
 4. Set the version of the `docs-app` in the frontend cluster to that new version
