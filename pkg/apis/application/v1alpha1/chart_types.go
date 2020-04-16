@@ -7,7 +7,8 @@ import (
 )
 
 const (
-	kindChart = "Chart"
+	kindChart              = "Chart"
+	chartDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#Chart"
 )
 
 const chartCRDYAML = `
@@ -27,42 +28,75 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
+      description: |
+        Defines a Chart resource, which represents an application version running on the cluster.
+        This resource is created and managed by chart-operator running in each tenant cluster.
       type: object
       properties:
         spec:
           type: object
           properties:
             name:
+              description: |
+                Name of this application Chart.
               type: string
             namespace:
+              description: |
+                Kubernetes namespace in which to install the workloads defined by this App Chart in
+                the current cluster.
               type: string
             config:
+              description: |
+                Defines the aggregated configuration values for the application chart. It is 
+                created by app-operator in the tenant cluster to be used as values file by 
+                chart operator during the helm installation process.
+                proccess. 
               type: object
               properties:
                 configMap:
+                  description: |
+                    Defines a reference to a ConfigMap where is the aggregated configuration values 
+                    from App Catalog, Cluster and User that will be used as values file in the helm
+                    installation or upgrade process.
                   type: object
                   properties:
                     name:
+                      description: |
+                        Name of the ConfigMap resource.
                       type: string
                     namespace:
+                      description: |
+                        Namespace holding the ConfigMap resource.
                       type: string
                     resourceVersion:
                       type: string
                   required: ["name", "namespace"]
                 secret:
+                  description: |
+                    Defines a reference to a Secret where is the aggregated configuration values from App Catalog, Cluster and User that will be used as values file in the helm
+                    installation or upgrade process.
                   type: object
                   properties:
                     name:
+                      description: |
+                        Name of the Secret resource.
                       type: string
                     namespace:
+                      description: |
+                        Namespace holding the Secret resource.
                       type: string
                     resourceVersion:
                       type: string
                   required: ["name", "namespace"]
             tarballURL:
+              description: |
+                URL of the application Chart to be deployed. The chart package must exist in the 
+                App Catalog storage.
               type: string
               format: uri
             version:
+              description: |
+                Version of the application Chart to be deployed.
               type: string
           required: ["name", "namespace", "tarballURL", "version"]
 `
@@ -100,6 +134,18 @@ func NewChartTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindChart,
+	}
+}
+
+// NewChartCR returns an Chart Custom Resource.
+func NewChartCR() *Chart {
+	return &Chart{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: chartDocumentationLink,
+			},
+		},
+		TypeMeta: NewChartTypeMeta(),
 	}
 }
 
