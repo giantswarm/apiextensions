@@ -45,10 +45,13 @@ type KVMClusterConfigSpecGuestWorker struct {
 	Labels                        map[string]string `json:"labels" yaml:"labels"`
 }
 
+// TODO: change MemorySizeGB and StorageSizeGB to resource.Quantity
 type KVMClusterConfigSpecGuestNode struct {
-	ID            string `json:"id" yaml:"id"`
-	CPUCores      int    `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
-	MemorySizeGB  string `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
+	ID       string `json:"id" yaml:"id"`
+	CPUCores int    `json:"cpuCores,omitempty" yaml:"cpuCores,omitempty"`
+	// +kubebuilder:validation:Type=number
+	MemorySizeGB string `json:"memorySizeGB,omitempty" yaml:"memorySizeGB,omitempty"`
+	// +kubebuilder:validation:Type=number
 	StorageSizeGB string `json:"storageSizeGB,omitempty" yaml:"storageSizeGB,omitempty"`
 }
 
