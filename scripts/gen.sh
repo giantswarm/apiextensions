@@ -60,3 +60,6 @@ echo "Fixing imports in-place with goimports"
   paths=./pkg/apis/infrastructure/v1alpha2 \
   output:dir=docs/crd \
   crd:crdVersions=v1
+
+echo "Applying linter patch to generated files"
+git apply "$dir/generated.patch"

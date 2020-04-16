@@ -36,7 +36,7 @@ import (
 
 var scheme = runtime.NewScheme()
 var codecs = serializer.NewCodecFactory(scheme)
-var parameterCodec = runtime.NewParameterCodec(scheme)
+var parameterCodec = runtime.NewParameterCodec(scheme) // nolint
 var localSchemeBuilder = runtime.SchemeBuilder{
 	applicationv1alpha1.AddToScheme,
 	backupv1alpha1.AddToScheme,
