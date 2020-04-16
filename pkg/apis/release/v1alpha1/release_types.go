@@ -135,9 +135,9 @@ spec:
 type ReleaseState string
 
 var (
-	stateActive     ReleaseState = "active"
-	stateDeprecated ReleaseState = "deprecated"
-	stateWIP        ReleaseState = "wip"
+	stateActive     ReleaseState = "active"     // nolint
+	stateDeprecated ReleaseState = "deprecated" // nolint
+	stateWIP        ReleaseState = "wip"        // nolint
 	releaseCRD      *apiextensionsv1beta1.CustomResourceDefinition
 )
 

@@ -25,3 +25,6 @@ if [ ! -x "$(command -v goimports)" ]; then
 fi
 echo "Fixing imports in-place with goimports"
 goimports -local github.com/giantswarm/apiextensions -w ./pkg
+
+echo "Applying linter patch to generated files"
+git apply "$dir/generated.patch"

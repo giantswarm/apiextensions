@@ -5,6 +5,7 @@ go 1.13
 require (
 	github.com/go-openapi/errors v0.19.4
 	github.com/google/go-cmp v0.4.0
+	golang.org/x/tools v0.0.0-20200415034506-5d8e1897c761 // indirect
 	k8s.io/api v0.16.6
 	k8s.io/apiextensions-apiserver v0.16.6
 	k8s.io/apimachinery v0.16.6
