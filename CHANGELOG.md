@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add pod networking parameters
+
 ## [0.2.6] - 2020-04-15
 
 ### Added
