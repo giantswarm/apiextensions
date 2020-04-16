@@ -22,13 +22,13 @@ const (
 )
 
 var (
-	// GroupVersionKind of CustomResourceDefinition in apiextensions.k8s.io/v1beta1
+	// GroupVersionKind of CustomResourceDefinition in apiextensions.k8s.io/v1beta1.
 	v1beta1GroupVersionKind = schema.GroupVersionKind{
 		Group:   apiextensions.GroupName,
 		Version: "v1beta1",
 		Kind:    crdKind,
 	}
-	// GroupVersionKind of CustomResourceDefinition in apiextensions.k8s.io/v1
+	// GroupVersionKind of CustomResourceDefinition in apiextensions.k8s.io/v1.
 	v1GroupVersionKind = schema.GroupVersionKind{
 		Group:   apiextensions.GroupName,
 		Version: "v1",
