@@ -6,7 +6,7 @@ index ddabbb93..1faaf8cb 100644
  
  var scheme = runtime.NewScheme()
  var codecs = serializer.NewCodecFactory(scheme)
--var parameterCodec = runtime.NewParameterCodec(scheme)
+-var parameterCodec = runtime.NewParameterCodec(scheme) // noolint:unused
  var localSchemeBuilder = runtime.SchemeBuilder{
  	applicationv1alpha1.AddToScheme,
  	backupv1alpha1.AddToScheme,
