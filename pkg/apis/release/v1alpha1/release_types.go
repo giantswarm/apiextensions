@@ -191,7 +191,7 @@ type ReleaseSpec struct {
 	// Components describes components used in this release.
 	Components []ReleaseSpecComponent `json:"components" yaml:"components"`
 	// Date that the release became active.
-	Date *DeepCopyTime `json:"date" yaml:"date"`
+	Date *metav1.Time `json:"date" yaml:"date"`
 	// State indicates the availability of the release: deprecated, active, or wip.
 	State ReleaseState `json:"state" yaml:"state"`
 }

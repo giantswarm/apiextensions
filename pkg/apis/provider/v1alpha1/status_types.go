@@ -1,6 +1,8 @@
 package v1alpha1
 
-import "time"
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
 
 const (
 	ClusterVersionLimit = 5
@@ -50,7 +52,7 @@ type StatusCluster struct {
 type StatusClusterCondition struct {
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
 	// Type may be Creating, Created, Scaling, Scaled, Draining, Drained,
@@ -70,7 +72,7 @@ type StatusClusterNode struct {
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Name referrs to a tenant cluster node name.
 	Name string `json:"name" yaml:"name"`
 	// Version referrs to the version used by the node as mandated by the provider
@@ -93,7 +95,7 @@ type StatusClusterResource struct {
 type StatusClusterResourceCondition struct {
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
 	// Type may be anything an operatorkit resource may define.
@@ -115,10 +117,10 @@ type StatusClusterVersion struct {
 	//
 	//     https://github.com/giantswarm/giantswarm/issues/3988
 	//
-	Date time.Time `json:"date" yaml:"date"`
+	Date metav1.Time `json:"date" yaml:"date"`
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Semver is some semver version, e.g. 1.0.0.
 	Semver string `json:"semver" yaml:"semver"`
 }

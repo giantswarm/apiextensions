@@ -1,5 +1,7 @@
 package v1alpha2
 
+import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 const (
 	// ClusterConditionLimit is the maximum amount of conditions tracked in the
 	// condition list of a tenant cluster's status. The limit here is applied to
@@ -72,15 +74,15 @@ const (
 
 var (
 	conditionPairs = [][]string{
-		[]string{
+		{
 			ClusterStatusConditionCreated,
 			ClusterStatusConditionCreating,
 		},
-		[]string{
+		{
 			ClusterStatusConditionDeleted,
 			ClusterStatusConditionDeleting,
 		},
-		[]string{
+		{
 			ClusterStatusConditionUpdated,
 			ClusterStatusConditionUpdating,
 		},
@@ -101,7 +103,7 @@ type CommonClusterStatus struct {
 // CommonClusterStatusCondition explains the current condition(s) of the cluster.
 type CommonClusterStatusCondition struct {
 	// Time the condition occurred.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Condition string, e. g. `Creating`, `Created`, `Upgraded`
 	Condition string `json:"condition" yaml:"condition"`
 }
@@ -109,7 +111,7 @@ type CommonClusterStatusCondition struct {
 // CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.
 type CommonClusterStatusVersion struct {
 	// Time the cluster assumed the given version.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// The aws-operator version responsible for handling the cluster.
 	Version string `json:"version" yaml:"version"`
 }
