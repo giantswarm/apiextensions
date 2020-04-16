@@ -97,3 +97,6 @@ echo "Kustomizing CRDs"
 # Package CRD YAMLs into a virtual filesystem so they can be accessed by New*CRD() functions
 echo "Using pkger to package CRDs into go source virtual file system"
 "$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+
+echo "Applying linter patch to generated files"
+git apply "$dir/generated.patch"

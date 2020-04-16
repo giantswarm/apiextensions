@@ -8,7 +8,8 @@ import (
 )
 
 const (
-	kindChart = "Chart"
+	kindChart              = "Chart"
+	chartDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#Chart"
 )
 
 func NewChartCRD() *v1beta1.CustomResourceDefinition {
@@ -19,6 +20,18 @@ func NewChartTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindChart,
+	}
+}
+
+// NewChartCR returns an Chart Custom Resource.
+func NewChartCR() *Chart {
+	return &Chart{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: chartDocumentationLink,
+			},
+		},
+		TypeMeta: NewChartTypeMeta(),
 	}
 }
 
