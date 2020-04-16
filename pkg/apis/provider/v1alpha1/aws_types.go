@@ -45,8 +45,9 @@ func NewAWSConfigCR() *AWSConfig {
 type AWSConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AWSConfigSpec   `json:"spec"`
-	Status            AWSConfigStatus `json:"status" yaml:"status"`
+	Spec              AWSConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AWSConfigStatus `json:"status" yaml:"status"`
 }
 
 type AWSConfigSpec struct {

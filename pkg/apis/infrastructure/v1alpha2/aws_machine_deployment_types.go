@@ -42,8 +42,9 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 type AWSMachineDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSMachineDeploymentSpec   `json:"spec" yaml:"spec"`
-	Status            AWSMachineDeploymentStatus `json:"status" yaml:"status"`
+	Spec              AWSMachineDeploymentSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AWSMachineDeploymentStatus `json:"status" yaml:"status"`
 }
 
 type AWSMachineDeploymentSpec struct {
@@ -68,7 +69,8 @@ type AWSMachineDeploymentSpecNodePoolScaling struct {
 }
 
 type AWSMachineDeploymentSpecProvider struct {
-	AvailabilityZones    []string                                     `json:"availabilityZones" yaml:"availabilityZones"`
+	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
+	// +kubebuilder:validation:Optional
 	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution" yaml:"instanceDistribution"`
 	Worker               AWSMachineDeploymentSpecProviderWorker       `json:"worker" yaml:"worker"`
 }
@@ -84,8 +86,9 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 }
 
 type AWSMachineDeploymentSpecProviderWorker struct {
-	InstanceType          string `json:"instanceType" yaml:"instanceType"`
-	UseAlikeInstanceTypes bool   `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
+	InstanceType string `json:"instanceType" yaml:"instanceType"`
+	// +kubebuilder:default=false
+	UseAlikeInstanceTypes bool `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
 }
 
 type AWSMachineDeploymentStatus struct {

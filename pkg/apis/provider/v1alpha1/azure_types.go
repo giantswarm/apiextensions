@@ -21,8 +21,9 @@ func NewAzureConfigCRD() *v1beta1.CustomResourceDefinition {
 type AzureConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AzureConfigSpec   `json:"spec"`
-	Status            AzureConfigStatus `json:"status" yaml:"status"`
+	Spec              AzureConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AzureConfigStatus `json:"status" yaml:"status"`
 }
 
 type AzureConfigSpec struct {

@@ -91,6 +91,7 @@ spec:
                       instanceType:
                         type: string
                       useAlikeInstanceTypes:
+                        default: false
                         type: boolean
                     required:
                     - instanceType
@@ -98,7 +99,6 @@ spec:
                     type: object
                 required:
                 - availabilityZones
-                - instanceDistribution
                 - worker
                 type: object
             required:
@@ -129,7 +129,6 @@ spec:
             type: object
         required:
         - spec
-        - status
         type: object
     served: true
     storage: true

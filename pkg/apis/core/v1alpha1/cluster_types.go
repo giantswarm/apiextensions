@@ -28,8 +28,9 @@ func NewClusterTypeMeta() metav1.TypeMeta {
 type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ClusterSpec   `json:"spec"`
-	Status            ClusterStatus `json:"status"`
+	Spec              ClusterSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ClusterStatus `json:"status"`
 }
 
 // ClusterSpec is the part of the interface available to users in order to

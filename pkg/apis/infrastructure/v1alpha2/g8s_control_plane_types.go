@@ -31,8 +31,9 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              G8sControlPlaneSpec   `json:"spec"`
-	Status            G8sControlPlaneStatus `json:"status"`
+	Spec              G8sControlPlaneSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status G8sControlPlaneStatus `json:"status"`
 }
 
 type G8sControlPlaneSpec struct {

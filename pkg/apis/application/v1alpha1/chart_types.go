@@ -28,8 +28,9 @@ func NewChartTypeMeta() metav1.TypeMeta {
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartSpec   `json:"spec"`
-	Status            ChartStatus `json:"status" yaml:"status"`
+	Spec              ChartSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ChartStatus `json:"status" yaml:"status"`
 }
 
 type ChartSpec struct {
