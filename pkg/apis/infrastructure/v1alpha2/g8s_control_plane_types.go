@@ -9,7 +9,8 @@ import (
 )
 
 const (
-	kindG8sControlPlane = "G8sControlPlane"
+	kindG8sControlPlane              = "G8sControlPlane"
+	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.2.5/pkg/apis/infrastructure/v1alpha2?tab=doc#G8sControlPlane"
 )
 
 func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
@@ -20,6 +21,18 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindG8sControlPlane,
+	}
+}
+
+// NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
+func NewG8sControlPlaneCR() *G8sControlPlane {
+	return &G8sControlPlane{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: g8sControlPlaneDocumentationLink,
+			},
+		},
+		TypeMeta: NewClusterTypeMeta(),
 	}
 }
 
