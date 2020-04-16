@@ -3,6 +3,19 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@0.8.9
 
+jobs:
+  validate:
+    docker:
+      - image: quay.io/giantswarm/architect
+    steps:
+      - checkout
+      - run:
+          name: Regenerate
+          command: CGO_ENABLED=0 ./scripts/gen.sh
+      - run:
+          name: Ensure unchanged
+          command: git diff --exit-code
+
 workflows:
   workflow:
     jobs:
