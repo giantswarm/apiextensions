@@ -77,7 +77,7 @@ spec:
                     properties:
                       cidrBlock:
                         description: |
-                          CIDR used for the pod network
+                          CIDR used for the pod network.
                         type: string
                     type: object
                   region:
