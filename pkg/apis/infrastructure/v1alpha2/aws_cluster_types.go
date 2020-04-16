@@ -95,7 +95,7 @@ type AWSClusterSpecProvider struct {
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
 	// Pod network configuration.
 	// +kubebuilder:validation:Optional
-	Pods PodNetworkRange `json:"pods" yaml:"pods"`
+	Pods AWSClusterSpecProviderPods `json:"pods" yaml:"pods"`
 	// Region is the AWS region the cluster is to be running in.
 	Region string `json:"region" yaml:"region"`
 }
@@ -117,8 +117,8 @@ type AWSClusterSpecProviderMaster struct {
 	InstanceType string `json:"instanceType" yaml:"instanceType"`
 }
 
-// AWSClusterSpecProviderMaster Pod network configuration.
-type PodNetworkRange struct {
+// AWSClusterSpecProviderPods Pod network configuration.
+type AWSClusterSpecProviderPods struct {
 	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
 	CIDRBlock string `json:"cidrBlock" yaml:"cidrBlock"`
 }

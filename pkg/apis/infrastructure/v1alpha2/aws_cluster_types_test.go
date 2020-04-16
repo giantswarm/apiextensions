@@ -97,6 +97,9 @@ func newAWSClusterExampleCR() *AWSCluster {
 				Name:      "example-credential",
 				Namespace: "example-namespace",
 			},
+			Pods: AWSClusterSpecProviderPods{
+				CIDRBlock: "10.2.0.0/16",
+			},
 			Master: AWSClusterSpecProviderMaster{
 				AvailabilityZone: "eu-central-1b",
 				InstanceType:     "m5.2xlarge",
