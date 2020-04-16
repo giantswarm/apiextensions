@@ -85,7 +85,7 @@ spec:
                     properties:
                       cidrBlock:
                         description: |
-                          CIDR used for the pod network
+                          CIDR used for the pod network.
                         type: string
                   master:
                     description: |
@@ -241,7 +241,7 @@ type AWSClusterSpecProvider struct {
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	// Pod network configuration.
 	Pods PodNetworkRange `json:"pods" yaml:"pods"`
-  // Master holds master node configuration details.
+	// Master holds master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
 	// Region is the AWS region the cluster is to be running in.
 	Region string `json:"region" yaml:"region"`
