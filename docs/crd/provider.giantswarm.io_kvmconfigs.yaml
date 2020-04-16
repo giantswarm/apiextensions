@@ -292,7 +292,7 @@ spec:
                       cpus:
                         type: integer
                       disk:
-                        type: string
+                        type: number
                       dockerVolumeSizeGB:
                         type: integer
                       memory:
@@ -351,7 +351,7 @@ spec:
                       cpus:
                         type: integer
                       disk:
-                        type: string
+                        type: number
                       dockerVolumeSizeGB:
                         type: integer
                       memory:
