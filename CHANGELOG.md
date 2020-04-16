@@ -8,11 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [0.3.0] - 2020-04-16
+
 ### Changed
 
 - Add pod field to AWSCluster.
 - Replace custom `time.Time` wrapper `DeepCopyTime` with Kubernetes built-in `metav1.Time`.
 - Update `architect-orb` to `v0.8.8`.
+- Generate CRDs via `kubebuilder` tools based on CRs.
+
+
 
 ## [0.2.6] - 2020-04-15
 
@@ -21,11 +28,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Document G8sControlPlane CRD [#405](https://github.com/giantswarm/apiextensions/pull/405)
 - Document Chart CRD [#406](https://github.com/giantswarm/apiextensions/pull/406)
 
+
+
 ## [0.2.5] - 2020-04-09
 
 ### Changed
 
 - Fix a problem in the MachineDeployment CRD YAML file [#404](https://github.com/giantswarm/apiextensions/pull/404)
+
+
 
 ## [0.2.4] - 2020-04-08
 
@@ -34,12 +45,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix path of CR and CRD yaml files for Cluster and MachineDeployment [#403](https://github.com/giantswarm/apiextensions/pull/403)
 - Add schema documentation for CertConfig [#401](https://github.com/giantswarm/apiextensions/pull/401)
 
+
+
 ## [0.2.3] - 2020-04-08
 
 ### Added
 
 - Add Helm revision number to chart CR status.
 - Extend Chart CR documentation.
+
+
 
 ## [0.2.2] - 2020-04-07
 
@@ -106,7 +121,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.2.6...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.0...HEAD
+
+[0.3.0]: https://github.com/giantswarm/apiextensions/compare/v0.2.6...v0.3.0
 [0.2.6]: https://github.com/giantswarm/apiextensions/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/giantswarm/apiextensions/compare/v0.2.4...v0.2.5
 [0.2.4]: https://github.com/giantswarm/apiextensions/compare/v0.2.3...v0.2.4
@@ -116,4 +133,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [0.2.0]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/giantswarm/apiextensions/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/giantswarm/apiextensions/compare/v0.1.0...v0.1.1
+
 [0.1.0]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0
