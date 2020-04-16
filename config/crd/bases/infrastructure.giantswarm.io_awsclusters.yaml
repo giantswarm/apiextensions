@@ -189,7 +189,6 @@ spec:
                         type: string
                     required:
                     - cidr
-                    - vpcID
                     type: object
                 required:
                 - network

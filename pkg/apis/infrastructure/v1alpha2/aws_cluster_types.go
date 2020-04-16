@@ -133,6 +133,7 @@ type AWSClusterStatusProvider struct {
 type AWSClusterStatusProviderNetwork struct {
 	// IPv4 address block used by the tenant cluster, in CIDR notation.
 	CIDR string `json:"cidr" yaml:"cidr"`
+	// +kubebuilder:validation:Optional
 	// VPCID contains the ID of the tenant cluster, e.g. vpc-1234567890abcdef0.
 	VPCID string `json:"vpcID" yaml:"vpcID"`
 }
