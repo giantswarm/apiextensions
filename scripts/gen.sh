@@ -100,3 +100,6 @@ echo "Using pkger to package CRDs into go source virtual file system"
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"
+
+echo "Cleaning up generated github.com/ directory."
+rm -rf "$dir/../github.com/"

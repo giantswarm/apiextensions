@@ -93,6 +93,9 @@ type AWSClusterSpecProvider struct {
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	// Master holds master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
+	// Pod network configuration.
+	// +kubebuilder:validation:Optional
+	Pods AWSClusterSpecProviderPods `json:"pods" yaml:"pods"`
 	// Region is the AWS region the cluster is to be running in.
 	Region string `json:"region" yaml:"region"`
 }
@@ -112,6 +115,12 @@ type AWSClusterSpecProviderMaster struct {
 	AvailabilityZone string `json:"availabilityZone" yaml:"availabilityZone"`
 	// InstanceType specifies the AWS EC2 instance type to use for the master node.
 	InstanceType string `json:"instanceType" yaml:"instanceType"`
+}
+
+// AWSClusterSpecProviderPods Pod network configuration.
+type AWSClusterSpecProviderPods struct {
+	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
+	CIDRBlock string `json:"cidrBlock" yaml:"cidrBlock"`
 }
 
 // AWSClusterStatus holds status information about the cluster, populated once the

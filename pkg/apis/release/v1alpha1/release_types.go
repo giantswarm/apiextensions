@@ -19,7 +19,6 @@ var (
 	stateActive     ReleaseState = "active"     // nolint
 	stateDeprecated ReleaseState = "deprecated" // nolint
 	stateWIP        ReleaseState = "wip"        // nolint
-	releaseCRD      *apiextensionsv1beta1.CustomResourceDefinition
 )
 
 func (r ReleaseState) String() string {
