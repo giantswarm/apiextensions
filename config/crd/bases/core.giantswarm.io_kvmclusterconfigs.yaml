@@ -52,9 +52,9 @@ spec:
                       id:
                         type: string
                       memorySizeGB:
-                        type: string
+                        type: number
                       storageSizeGB:
-                        type: string
+                        type: number
                     required:
                     - id
                     type: object
@@ -89,9 +89,9 @@ spec:
                           type: string
                         type: object
                       memorySizeGB:
-                        type: string
+                        type: number
                       storageSizeGB:
-                        type: string
+                        type: number
                     required:
                     - id
                     - labels
