@@ -1,30 +1,11 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@0.8.8
-
-jobs:
-  validate:
-    docker:
-      - image: quay.io/giantswarm/architect
-    steps:
-      - checkout
-      - run:
-          name: Regenerate
-          command: CGO_ENABLED=0 ./scripts/gen.sh
-      - run:
-          # pkged.go will always be changed due to file modification times
-          name: Overwrite pkged.go
-          command: git checkout pkg/crd/pkged.go
-      - run:
-          name: Ensure unchanged
-          command: git diff --exit-code
+  architect: giantswarm/architect@0.8.9
 
 workflows:
   workflow:
     jobs:
-      - validate
-
       - architect/go-test:
           name: go-test
           filters:
@@ -37,7 +18,6 @@ workflows:
           command: build
           requires:
             - go-test
-            - validate
 
       - architect/go-architect-legacy:
           name: go-deploy
