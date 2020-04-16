@@ -240,6 +240,7 @@ type AWSClusterSpecProvider struct {
 	// to use with this cluster.
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	// Pod network configuration.
+	// +kubebuilder:validation:Optional
 	Pods PodNetworkRange `json:"pods" yaml:"pods"`
 	// Master holds master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
