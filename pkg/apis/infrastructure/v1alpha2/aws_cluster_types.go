@@ -78,21 +78,14 @@ spec:
                   AWS-specific configuration details.
                 type: object
                 properties:
-                  cni:
+                  pods:
                     description: |
                       Pod networking configuration
                     type: object
                     properties:
-                      cidr:
+                      cidrBlock:
                         description: |
-                          Subnet size, expresses as the count of leading 1 bits in the subnet
-                          mask of this subnet. In other words, in CIDR notation, the integer
-                          behind the slash.
-                        type: int
-                      subnet:
-                        description: |
-                          Subnet IPv4 address. In other words, in CIDR notation, the
-                          part before the slash.
+                          CIDR used for the pod network
                         type: string
                   master:
                     description: |
@@ -247,7 +240,7 @@ type AWSClusterSpecProvider struct {
 	// to use with this cluster.
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	// Pod network configuration.
-	CNI AWSClusterSpecProviderCNI `json:"cni" yaml:"cni"`
+	Pods PodNetworkRange `json:"pods" yaml:"pods"`
   // Master holds master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
 	// Region is the AWS region the cluster is to be running in.
@@ -264,11 +257,9 @@ type AWSClusterSpecProviderCredentialSecret struct {
 }
 
 // AWSClusterSpecProviderMaster Pod network configuration.
-type AWSClusterSpecProviderCNI struct {
+type PodNetworkRange struct {
 	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
-	CIDR int `json:"cidr" yaml:"cidr"`
-	// Subnet IPv4 address.
-	Subnet string `json:"subnet" yaml:"subnet"`
+	CIDRBlock string `json:"cidrBlock" yaml:"cidrBlock"`
 }
 
 // AWSClusterSpecProviderMaster holds master node configuration details.

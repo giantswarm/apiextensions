@@ -58,22 +58,6 @@ spec:
                 description: |
                   AWS-specific configuration details.
                 properties:
-                  cni:
-                    description: |
-                      Pod networking configuration
-                    properties:
-                      cidr:
-                        description: |
-                          Subnet size, expresses as the count of leading 1 bits in the subnet
-                          mask of this subnet. In other words, in CIDR notation, the integer
-                          behind the slash.
-                        type: int
-                      subnet:
-                        description: |
-                          Subnet IPv4 address. In other words, in CIDR notation, the
-                          part before the slash.
-                        type: string
-                    type: object
                   master:
                     description: |
                       Master node configuration details.
@@ -85,6 +69,15 @@ spec:
                       instanceType:
                         description: |
                           EC2 instance type to use for the master node.
+                        type: string
+                    type: object
+                  pods:
+                    description: |
+                      Pod networking configuration
+                    properties:
+                      cidrBlock:
+                        description: |
+                          CIDR used for the pod network
                         type: string
                     type: object
                   region:

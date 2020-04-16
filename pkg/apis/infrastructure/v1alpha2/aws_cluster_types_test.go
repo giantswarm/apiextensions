@@ -112,9 +112,8 @@ func newAWSClusterExampleCR() *AWSCluster {
 				Name:      "example-credential",
 				Namespace: "example-namespace",
 			},
-			CNI: AWSClusterSpecProviderCNI{
-				CIDR: 16,
-				Subnet: "10.2.0.0",
+			Pods: PodNetworkRange{
+				CIDRBlock: "10.2.0.0/16",
 			},
 			Master: AWSClusterSpecProviderMaster{
 				AvailabilityZone: "eu-central-1b",
