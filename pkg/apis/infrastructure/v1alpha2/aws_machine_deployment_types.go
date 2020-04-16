@@ -36,6 +36,7 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 // AWSMachineDeployment is the infrastructure provider referenced in upstream
 // CAPI MachineDeployment CRs.

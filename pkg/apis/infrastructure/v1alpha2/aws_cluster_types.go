@@ -38,6 +38,7 @@ func NewAWSClusterCR() *AWSCluster {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
