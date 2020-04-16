@@ -36,6 +36,7 @@ func NewReleaseCycleTypeMeta() metav1.TypeMeta {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 type ReleaseCycle struct {
 	metav1.TypeMeta   `json:",inline" yaml:",inline"`

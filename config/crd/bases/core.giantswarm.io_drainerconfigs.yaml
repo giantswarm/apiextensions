@@ -15,6 +15,8 @@ spec:
     plural: drainerconfigs
     singular: drainerconfig
   scope: Namespaced
+  subresources:
+    status: {}
   validation:
     openAPIV3Schema:
       properties:
