@@ -13,27 +13,12 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewAWSMachineDeploymentCRD(t *testing.T) {
-	crd := NewAWSMachineDeploymentCRD()
-	if crd == nil {
-		t.Error("AWSMachineDeployment CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSMachineDeployment CRD name was empty.")
-	}
-}
-
 func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awsmachinedeployment.yaml", group),
-			resource: NewAWSMachineDeploymentCRD(),
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsmachinedeployment.yaml", group, version),

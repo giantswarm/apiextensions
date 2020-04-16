@@ -41,11 +41,6 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_appcatalog.yaml", group),
-			resource: NewAppCatalogCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", group, version),
 			resource: newAppCatalogExampleCR(),

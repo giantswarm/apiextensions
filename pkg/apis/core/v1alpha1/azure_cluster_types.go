@@ -1,46 +1,18 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-// NewAzureClusterConfigCRD returns a new custom resource definition for
-// AzureClusterConfig. This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: azureclusterconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: AzureClusterConfig
-//         plural: azureclusterconfigs
-//         singular: azureclusterconfig
-//
-func NewAzureClusterConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "azureclusterconfigs.core.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "AzureClusterConfig",
-				Plural:   "azureclusterconfigs",
-				Singular: "azureclusterconfig",
-			},
-		},
-	}
+const (
+	kindAzureClusterConfig = "AzureClusterConfig"
+)
+
+func NewAzureClusterConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindAzureClusterConfig)
 }
 
 // +genclient

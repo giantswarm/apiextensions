@@ -16,32 +16,15 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewClusterCRD(t *testing.T) {
-	crd := NewClusterCRD()
-	if crd == nil {
-		t.Error("Cluster CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("Cluster CRD name was empty.")
-	}
-}
-
 func Test_GenerateClusterYAML(t *testing.T) {
-	crd := NewClusterCRD()
-
-	crdGroup := crd.Spec.Group
-	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+	crdGroup := clusterAPIGroup
+	crdKindLower := strings.ToLower(kindCluster)
 
 	testCases := []struct {
 		category string
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_%s.yaml", crdGroup, crdKindLower),
-			resource: clusterCRD,
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),
@@ -88,7 +71,7 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 	cr.Name = "ca1p0"
 	cr.Spec = apiv1alpha2.ClusterSpec{
 		// ClusterNetwork does not occur in our practice, so leaving it empty.
-		//ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
+		// ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
 		InfrastructureRef: &corev1.ObjectReference{
 			APIVersion:      "infrastructure.giantswarm.io/v1alpha2",
 			Kind:            "AWSCluster",
@@ -102,32 +85,15 @@ func newClusterExampleCR() *apiv1alpha2.Cluster {
 	return cr
 }
 
-func Test_NewMachineDeploymentCRD(t *testing.T) {
-	crd := NewMachineDeploymentCRD()
-	if crd == nil {
-		t.Error("MachineDeployment CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("MachineDeployment CRD name was empty.")
-	}
-}
-
 func Test_GenerateMachineDeploymentYAML(t *testing.T) {
-	crd := NewMachineDeploymentCRD()
-
-	crdGroup := crd.Spec.Group
-	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+	crdGroup := clusterAPIGroup
+	crdKindLower := strings.ToLower(kindMachineDeployment)
 
 	testCases := []struct {
 		category string
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_%s.yaml", crdGroup, crdKindLower),
-			resource: crd,
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),

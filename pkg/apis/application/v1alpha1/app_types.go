@@ -1,9 +1,10 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -11,188 +12,8 @@ const (
 	appDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#App"
 )
 
-const appCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: apps.application.giantswarm.io
-spec:
-  group: application.giantswarm.io
-  scope: Namespaced
-  version: v1alpha1
-  names:
-    kind: App
-    plural: apps
-    singular: app
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      description: |
-        Defines an App resource, which represents an application to be running in a Kubernetes cluster.
-        Reconciled by app-operator running on the Control Plane cluster.
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            catalog:
-              description: |
-                Name of the AppCatalog resource to install this app from. The AppCatalog resource must
-                exist upfront in the cluster.
-              type: string
-            name:
-              description: |
-                Name of this App.
-              type: string
-            namespace:
-              description: |
-                Kubernetes namespace in which to install the workloads defined by this App in the 
-                given cluster.
-              type: string
-            version:
-              description: |
-                Version of the app to be deployed. It must exist within the list of App packages
-                stored in the App Catalog.
-              type: string
-            config:
-              description: |
-                Cluster configuration details for the application injected by cluster-operator with basic
-                information of the cluster where the App is deployed. 
-              type: object
-              properties:
-                configMap:
-                  description: |
-                    Defines a reference to a ConfigMap where is saved the cluster configuration values 
-                    that will be applied to the application when it is deployed in the cluster. 
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the ConfigMap resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the ConfigMap resource.
-                      type: string
-                  required: ["name", "namespace"]
-                secret:
-                  description: |
-                    Defines the reference of a Secret where is saved the sensitive configuration
-                    that will be applied to the application when it is deployed in the cluster.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the Secret resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the Secret resource.
-                      type: string
-                  required: ["name", "namespace"]
-            kubeConfig:
-              description: |
-                The kubeconfig to use to connect to the cluster when deploying the app.
-              type: object
-              properties:
-                inCluster:
-                  description: |
-                    Defines whether to use inCluster credentials. If true, it uses the service account to 
-                    authenticate against the Kubernetes API in the same cluster where the app-operator
-                    is running. In that case, the context and secret properties must not be set. If false,
-                    secret and context is used by the app-operator to access the external cluster API.
-                  type: boolean
-                context:
-                  description: |
-                    Kubeconfig context part to use when not using inCluster credentials.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Context name.
-                      type: string
-                secret:
-                  description: |
-                    Defines the reference to a Secret where is saved the kubeconfig configuration
-                    that will be applied when accessing the cluster to manage the application.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the Secret resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the Secret resource.
-                      type: string
-                  required: ["name", "namespace"]
-            userConfig:
-              description: |
-                User configuration for the App. This configuration will be merged with the catalog and
-                cluster configuration to generate a single values ConfigMap in the target cluster.
-              type: object
-              properties:
-                configMap:
-                  description: |
-                    Defines the reference of a ConfigMap where is saved the user configuration values 
-                    that will be applied to the application when it is deployed in the cluster. 
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the ConfigMap resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the ConfigMap resource.
-                      type: string
-                  required: ["name", "namespace"]
-                secret:
-                  description: |
-                    Defines the reference of a Secret where is saved the user sensitive configuration 
-                    that will be applied to the application when it is deployed in the cluster. 
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the Secret resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the Secret resource.
-                      type: string
-                  required: ["name", "namespace"]
-          required: ["catalog", "name", "namespace", "version"]
-`
-
-var appCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(appCRDYAML), &appCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-// NewAppCRD returns a new custom resource definition for App.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: apps.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: App
-//         plural: apps
-//         singular: app
-//
-func NewAppCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return appCRD.DeepCopy()
+func NewAppCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindApp)
 }
 
 func NewAppTypeMeta() metav1.TypeMeta {
@@ -216,52 +37,14 @@ func NewAppCR() *App {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
-// App CRs might look something like the following.
-//
-//     apiVersion: application.giantswarm.io/v1alpha1
-//     kind: App
-//     metadata:
-//       name: "prometheus"
-//       labels:
-//         app-operator.giantswarm.io/version: "1.0.0"
-//
-//     spec:
-//       catalog: "giantswarm"
-//       name: "prometheus"
-//       namespace: "monitoring"
-//       version: "1.0.0"
-//       config:
-//         configMap:
-//           name: "prometheus-values"
-//           namespace: "monitoring"
-//         secret:
-//           name: "prometheus-secrets"
-//           namespace: "monitoring"
-//       kubeConfig:
-//         inCluster: false
-//         context:
-//           name: "giantswarm-12345"
-//         secret:
-//           name: "giantswarm-12345"
-//           namespace: "giantswarm"
-//         userConfig:
-//           configMap:
-//             name: "prometheus-user-values"
-//             namespace: "monitoring"
-//
-//     status:
-//       appVersion: "2.4.3" # Optional value from Chart.yaml with the version of the deployed app.
-//       release:
-//         lastDeployed: "2018-11-30T21:06:20Z"
-//         status: "DEPLOYED"
-//       version: "1.1.0" # Required value from Chart.yaml with the version of the chart.
-//
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AppSpec   `json:"spec"`
-	Status            AppStatus `json:"status" yaml:"status"`
+	Spec              AppSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AppStatus `json:"status" yaml:"status"`
 }
 
 type AppSpec struct {

@@ -29,17 +29,6 @@ var (
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewReleaseCRD(t *testing.T) {
-	crd := NewReleaseCRD()
-	if crd == nil {
-		t.Error("Release CRD was nil.")
-		return
-	}
-	if crd.Name == "" {
-		t.Error("Release CRD name was empty.")
-	}
-}
-
 func Test_ReleaseCRValidation(t *testing.T) {
 	now := metav1.Now()
 	testCases := []struct {
@@ -443,11 +432,6 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_release.yaml", group),
-			resource: NewReleaseCRD(),
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_release.yaml", group, version),

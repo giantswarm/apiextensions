@@ -1,9 +1,10 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -11,123 +12,8 @@ const (
 	chartDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#Chart"
 )
 
-const chartCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: charts.application.giantswarm.io
-spec:
-  group: application.giantswarm.io
-  scope: Namespaced
-  version: v1alpha1
-  names:
-    kind: Chart
-    plural: charts
-    singular: chart
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      description: |
-        Defines a Chart resource, which represents an application version running on the cluster.
-        This resource is created and managed by chart-operator running in each tenant cluster.
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            name:
-              description: |
-                Name of this application Chart.
-              type: string
-            namespace:
-              description: |
-                Kubernetes namespace in which to install the workloads defined by this App Chart in
-                the current cluster.
-              type: string
-            config:
-              description: |
-                Defines the aggregated configuration values for the application chart. It is 
-                created by app-operator in the tenant cluster to be used as values file by 
-                chart operator during the helm installation process.
-                proccess. 
-              type: object
-              properties:
-                configMap:
-                  description: |
-                    Defines a reference to a ConfigMap where is the aggregated configuration values 
-                    from App Catalog, Cluster and User that will be used as values file in the helm
-                    installation or upgrade process.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the ConfigMap resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the ConfigMap resource.
-                      type: string
-                    resourceVersion:
-                      type: string
-                  required: ["name", "namespace"]
-                secret:
-                  description: |
-                    Defines a reference to a Secret where is the aggregated configuration values from App Catalog, Cluster and User that will be used as values file in the helm
-                    installation or upgrade process.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the Secret resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the Secret resource.
-                      type: string
-                    resourceVersion:
-                      type: string
-                  required: ["name", "namespace"]
-            tarballURL:
-              description: |
-                URL of the application Chart to be deployed. The chart package must exist in the 
-                App Catalog storage.
-              type: string
-              format: uri
-            version:
-              description: |
-                Version of the application Chart to be deployed.
-              type: string
-          required: ["name", "namespace", "tarballURL", "version"]
-`
-
-var chartCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(chartCRDYAML), &chartCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-// NewChartCRD returns a new custom resource definition for Chart.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: charts.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: Chart
-//         plural: charts
-//         singular: chart
-//
-func NewChartCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return chartCRD.DeepCopy()
+func NewChartCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindChart)
 }
 
 func NewChartTypeMeta() metav1.TypeMeta {
@@ -151,43 +37,14 @@ func NewChartCR() *Chart {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
-// Chart CRs might look something like the following.
-//
-//    apiVersion: application.giantswarm.io/v1alpha1
-//    kind: Chart
-//    metadata:
-//      name: "prometheus"
-//      labels:
-//        chart-operator.giantswarm.io/version: "1.0.0"
-//
-//    spec:
-//      name: "prometheus"
-//      namespace: "monitoring"
-//      config:
-//        configMap:
-//        name: "prometheus-values"
-//        namespace: "monitoring"
-//        resourceVersion: ""
-//      secret:
-//        name: "prometheus-secrets"
-//        namespace: "monitoring"
-//        resourceVersion: ""
-//      tarballURL: "https://giantswarm.github.com/app-catalog/prometheus-1-0-0.tgz"
-//      version: "1.0.0"
-//
-//    status:
-//      appVersion: "2.4.3" # Optional value from Chart.yaml with the version of the deployed app.
-//      release:
-//        lastDeployed: "2018-11-30T21:06:20Z"
-//        status: "DEPLOYED"
-//      version: "1.1.0" # Required value from Chart.yaml with the version of the chart.
-//
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartSpec   `json:"spec"`
-	Status            ChartStatus `json:"status" yaml:"status"`
+	Spec              ChartSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ChartStatus `json:"status" yaml:"status"`
 }
 
 type ChartSpec struct {

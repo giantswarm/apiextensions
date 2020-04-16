@@ -1,8 +1,10 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -18,67 +20,30 @@ const (
 )
 
 const (
-	kindDrainer = "DrainerConfig"
+	kindDrainerConfig = "DrainerConfig"
 )
 
-// NewDrainerConfigCRD returns a new custom resource definition for
-// DrainerConfig. This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: drainerconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: DrainerConfig
-//         plural: drainerconfigs
-//         singular: drainerconfig
-//       subresources:
-//         status: {}
-//
-func NewDrainerConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "drainerconfigs.core.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "DrainerConfig",
-				Plural:   "drainerconfigs",
-				Singular: "drainerconfig",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
-		},
-	}
+func NewDrainerConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindDrainerConfig)
 }
 
 func NewDrainerTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: version,
-		Kind:       kindDrainer,
+		Kind:       kindDrainerConfig,
 	}
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 type DrainerConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              DrainerConfigSpec   `json:"spec"`
-	Status            DrainerConfigStatus `json:"status"`
+	Spec              DrainerConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status DrainerConfigStatus `json:"status"`
 }
 
 type DrainerConfigSpec struct {

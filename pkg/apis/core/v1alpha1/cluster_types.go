@@ -1,57 +1,18 @@
 package v1alpha1
 
 import (
-	"fmt"
-
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
 	kindCluster = "Cluster"
 )
 
-// NewClusterCRD returns a new custom resource definition for Cluster. This
-// might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: clusters.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: Cluster
-//         plural: clusters
-//         singular: cluster
-//       subresources:
-//         status: {}
-//
-func NewClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: fmt.Sprintf("clusters.%s", group),
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   group,
-			Scope:   "Namespaced",
-			Version: version,
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     kindCluster,
-				Plural:   "clusters",
-				Singular: "cluster",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
-		},
-	}
+func NewClusterCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindCluster)
 }
 
 func NewClusterTypeMeta() metav1.TypeMeta {
@@ -63,12 +24,14 @@ func NewClusterTypeMeta() metav1.TypeMeta {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 type Cluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ClusterSpec   `json:"spec"`
-	Status            ClusterStatus `json:"status"`
+	Spec              ClusterSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ClusterStatus `json:"status"`
 }
 
 // ClusterSpec is the part of the interface available to users in order to

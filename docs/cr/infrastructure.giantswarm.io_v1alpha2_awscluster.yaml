@@ -23,4 +23,6 @@ spec:
     master:
       availabilityZone: eu-central-1b
       instanceType: m5.2xlarge
+    pods:
+      cidrBlock: 10.2.0.0/16
     region: eu-central-1
