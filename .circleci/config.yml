@@ -25,8 +25,8 @@ jobs:
           command: |
             curl -sLo kind https://github.com/kubernetes-sigs/kind/releases/download/$KIND_VERSION/kind-linux-amd64
             curl -sLO https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
-            chmod +x kind
-            ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions
+            chmod +x kind kubectl
+            ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions > /dev/null
             ./kubectl wait nodes/apiextensions-control-plane --for=condition=ready
             ./kubectl create -f config/crd/bases
             invalid=$(./kubectl wait crds --for condition=nonstructuralschema --timeout 0 --all 2> /dev/null | grep "condition met" | cut -d " " -f 1 | cut -d "/" -f 2)
