@@ -141,8 +141,8 @@ spec:
                         condition(s) of the cluster.
                       properties:
                         condition:
-                          description: Condition string, e. g. "Creating", "Created",
-                            "Upgraded"
+                          description: Condition string, e. g. `Creating`, `Created`,
+                            `Upgraded`.
                           type: string
                         lastTransitionTime:
                           description: Time the condition occurred.
@@ -190,7 +190,7 @@ spec:
                         type: string
                       vpcID:
                         description: Identifier of the AWS Virtual Private Cloud (VPC)
-                          of the tenant cluster, e.g. 'vpc-1234567890abcdef0'.
+                          of the tenant cluster, e.g. `vpc-1234567890abcdef0`.
                         type: string
                     required:
                     - cidr

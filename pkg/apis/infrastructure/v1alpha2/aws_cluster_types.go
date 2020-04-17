@@ -145,7 +145,7 @@ type AWSClusterStatusProviderNetwork struct {
 	// IPv4 address block used by the tenant cluster nodes, in CIDR notation.
 	CIDR string `json:"cidr" yaml:"cidr"`
 	// +kubebuilder:validation:Optional
-	// Identifier of the AWS Virtual Private Cloud (VPC) of the tenant cluster, e.g. 'vpc-1234567890abcdef0'.
+	// Identifier of the AWS Virtual Private Cloud (VPC) of the tenant cluster, e.g. `vpc-1234567890abcdef0`.
 	VPCID string `json:"vpcID" yaml:"vpcID"`
 }
 
