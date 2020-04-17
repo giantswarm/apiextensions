@@ -46,8 +46,8 @@ type AWSMachineDeployment struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// Contains the specification.
 	Spec AWSMachineDeploymentSpec `json:"spec" yaml:"spec"`
-	// Holds status information.
 	// +kubebuilder:validation:Optional
+	// Holds status information.
 	Status AWSMachineDeploymentStatus `json:"status" yaml:"status"`
 }
 
@@ -89,34 +89,34 @@ type AWSMachineDeploymentSpecProvider struct {
 	// availability zones results in higher resilience but can also result in higher
 	// cost due to network traffic between availability zones.
 	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
-	// Settings defining the distribution of on-demand and spot instances in the node pool.
 	// +kubebuilder:validation:Optional
+	// Settings defining the distribution of on-demand and spot instances in the node pool.
 	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution" yaml:"instanceDistribution"`
 	// Specification of worker nodes.
 	Worker AWSMachineDeploymentSpecProviderWorker `json:"worker" yaml:"worker"`
 }
 
 type AWSMachineDeploymentSpecInstanceDistribution struct {
+	// +kubebuilder:default=0
+	// +kubebuilder:validation:Minimum=0
 	// Base capacity of on-demand instances to use for worker nodes in this pool. When this larger
 	// than 0, this value defines a number of worker nodes that will be created using on-demand
 	// EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.
-	// +kubebuilder:default=0
-	// +kubebuilder:validation:Minimum=0
 	OnDemandBaseCapacity int `json:"onDemandBaseCapacity" yaml:"onDemandBaseCapacity"`
-	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
-	// for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes
-	// use spot instances and half use on-demand, set this value to 50.
 	// +kubebuilder:default=100
 	// +kubebuilder:validation:Maximum=100
 	// +kubebuilder:validation:Minimum=0
+	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
+	// for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes
+	// use spot instances and half use on-demand, set this value to 50.
 	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity" yaml:"onDemandPercentageAboveBaseCapacity"`
 }
 
 type AWSMachineDeploymentSpecProviderWorker struct {
 	// AWS EC2 instance type name to use for the worker nodes in this node pool.
 	InstanceType string `json:"instanceType" yaml:"instanceType"`
-	// If true, certain instance types with specs similar to instanceType will be used.
 	// +kubebuilder:default=false
+	// If true, certain instance types with specs similar to instanceType will be used.
 	UseAlikeInstanceTypes bool `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
 }
 
