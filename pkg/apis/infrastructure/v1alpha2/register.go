@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	group           = "infrastructure.giantswarm.io"
-	version         = "v1alpha2"
+	group   = "infrastructure.giantswarm.io"
+	version = "v1alpha2"
 )
 
 // knownTypes is the full list of objects to register with the scheme. It
