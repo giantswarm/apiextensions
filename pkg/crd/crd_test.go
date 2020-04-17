@@ -106,6 +106,12 @@ func Test_LoadAll(t *testing.T) {
 			"Release",
 			"ReleaseCycle",
 		},
+		"cluster.x-k8s.io": {
+			"Cluster",
+			"MachineDeployment",
+			"Machine",
+			"MachineSet",
+		},
 	}
 	groupCRDVersions := map[string]string{
 		"application.giantswarm.io":    "v1beta1",
@@ -115,6 +121,7 @@ func Test_LoadAll(t *testing.T) {
 		"infrastructure.giantswarm.io": "v1",
 		"provider.giantswarm.io":       "v1beta1",
 		"release.giantswarm.io":        "v1beta1",
+		"cluster.x-k8s.io":             "v1beta1",
 	}
 
 	count := 0

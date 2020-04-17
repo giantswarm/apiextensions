@@ -32,7 +32,7 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 				crDocsAnnotation: g8sControlPlaneDocumentationLink,
 			},
 		},
-		TypeMeta: NewClusterTypeMeta(),
+		TypeMeta: NewG8sControlPlaneTypeMeta(),
 	}
 }
 

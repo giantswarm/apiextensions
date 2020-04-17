@@ -15,10 +15,13 @@ install_tool() {
   local package=$2
   local bin=$3
   pushd "$dir" > /dev/null
+  rm go.sum 2> /dev/null || true
   version=$(go list -m -f '{{.Version}}' "$module")
   echo "Rebuilding $bin@$version"
   mkdir -p "$toolpath"
-  go build -o "$toolpath/$bin" "$module""$package"
+  go build -o "$toolpath/$bin" "$module""$package" 2> /dev/null
+  git checkout go.mod 2> /dev/null
+  rm go.sum
   popd > /dev/null
 }
 
@@ -77,6 +80,11 @@ echo "Generating all CRDs as v1beta1"
   paths=./pkg/apis/... \
   output:dir=config/crd/bases \
   crd:crdVersions=v1beta1
+"$toolpath/controller-gen" \
+  crd \
+  paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
+  output:dir=config/crd/bases \
+  crd:crdVersions=v1beta1
 
 # Overwrite CRDs infrastructure.giantswarm.io as v1 until all other
 # groups can be migrated to v1
@@ -103,3 +111,4 @@ git apply "$dir/generated.patch"
 
 echo "Cleaning up generated github.com/ directory."
 rm -rf "$dir/../github.com/"
+rm -rf "$dir/go.sum"
