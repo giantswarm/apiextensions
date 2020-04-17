@@ -5,10 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-
 ## [Unreleased]
 
+### Changed
 
+- Add descriptions to AWSMachineDeployment CRD properties.
 
 ## [0.3.0] - 2020-04-16
 
@@ -19,16 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update `architect-orb` to `v0.8.8`.
 - Generate CRDs via `kubebuilder` tools based on CRs.
 
-
-
 ## [0.2.6] - 2020-04-15
 
 ### Added
 
 - Document G8sControlPlane CRD [#405](https://github.com/giantswarm/apiextensions/pull/405)
 - Document Chart CRD [#406](https://github.com/giantswarm/apiextensions/pull/406)
-
-
 
 ## [0.2.5] - 2020-04-09
 
