@@ -111,8 +111,7 @@ spec:
                     description: Pod network configuration.
                     properties:
                       cidrBlock:
-                        description: Subnet size, expresses as the count of leading
-                          1 bits in the subnet mask of this subnet.
+                        description: IPv4 address block used for pods, in CIDR notation.
                         type: string
                     required:
                     - cidrBlock

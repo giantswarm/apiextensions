@@ -120,7 +120,7 @@ type AWSClusterSpecProviderMaster struct {
 
 // AWSClusterSpecProviderPods Pod network configuration.
 type AWSClusterSpecProviderPods struct {
-	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
+	// IPv4 address block used for pods, in CIDR notation.
 	CIDRBlock string `json:"cidrBlock" yaml:"cidrBlock"`
 }
 

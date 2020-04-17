@@ -7,14 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
-
+- Improve documentation
 
 
 ## [0.3.0] - 2020-04-16
 
 ### Changed
 
-- Add pod field to AWSCluster.
+- Add `.spec.provider.pods` field to AWSCluster.
 - Replace custom `time.Time` wrapper `DeepCopyTime` with Kubernetes built-in `metav1.Time`.
 - Update `architect-orb` to `v0.8.8`.
 - Generate CRDs via `kubebuilder` tools based on CRs.
