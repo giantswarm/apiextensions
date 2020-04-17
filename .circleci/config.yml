@@ -5,8 +5,7 @@ orbs:
 
 jobs:
   validate:
-    docker:
-      - image: quay.io/giantswarm/architect
+    machine: true
     environment:
       CGO_ENABLED: 0
       KIND_VERSION: v0.7.0
