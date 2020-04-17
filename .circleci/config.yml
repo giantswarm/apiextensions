@@ -6,6 +6,8 @@ orbs:
 workflows:
   workflow:
     jobs:
+      - validate
+
       - architect/go-test:
           name: go-test
           filters:
@@ -18,6 +20,7 @@ workflows:
           command: build
           requires:
             - go-test
+            - validate
 
       - architect/go-architect-legacy:
           name: go-deploy
