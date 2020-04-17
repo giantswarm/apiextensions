@@ -45,27 +45,28 @@ func NewAWSClusterCR() *AWSCluster {
 type AWSCluster struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSClusterSpec `json:"spec" yaml:"spec"`
+	// Spec part of the AWSCluster resource.
+	Spec AWSClusterSpec `json:"spec" yaml:"spec"`
 	// +kubebuilder:validation:Optional
 	Status AWSClusterStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 // AWSClusterSpec is the spec part for the AWSCluster resource.
 type AWSClusterSpec struct {
-	// Cluster provides cluster specification details.
+	// Cluster specification details.
 	Cluster AWSClusterSpecCluster `json:"cluster" yaml:"cluster"`
-	// Provider holds provider-specific configuration details.
+	// Provider-specific configuration details.
 	Provider AWSClusterSpecProvider `json:"provider" yaml:"provider"`
 }
 
 // AWSClusterSpecCluster provides cluster specification details.
 type AWSClusterSpecCluster struct {
-	// Description is a user-friendly description that should explain the purpose of the
+	// User-friendly description that should explain the purpose of the
 	// cluster to humans.
 	Description string `json:"description" yaml:"description"`
-	// DNS holds DNS configuration details.
+	// DNS configuration details.
 	DNS AWSClusterSpecClusterDNS `json:"dns" yaml:"dns"`
-	// OIDC holds configuration for OpenID Connect (OIDC) authentication.
+	// Configuration for OpenID Connect (OIDC) authentication.
 	OIDC AWSClusterSpecClusterOIDC `json:"oidc,omitempty" yaml:"oidc,omitempty"`
 }
 
@@ -89,32 +90,32 @@ type AWSClusterSpecClusterOIDCClaims struct {
 
 // AWSClusterSpecProvider holds some AWS details.
 type AWSClusterSpecProvider struct {
-	// CredentialSecret specifies the location of the secret providing the ARN of AWS IAM identity
+	// Location of a secret providing the ARN of AWS IAM identity
 	// to use with this cluster.
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
-	// Master holds master node configuration details.
+	// Master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
 	// Pod network configuration.
 	// +kubebuilder:validation:Optional
 	Pods AWSClusterSpecProviderPods `json:"pods" yaml:"pods"`
-	// Region is the AWS region the cluster is to be running in.
+	// AWS region the cluster is to be running in.
 	Region string `json:"region" yaml:"region"`
 }
 
 // AWSClusterSpecProviderCredentialSecret details how to chose the AWS IAM identity ARN
 // to use with this cluster.
 type AWSClusterSpecProviderCredentialSecret struct {
-	// Name is the name of the provider credential resoure.
+	// Name of the provider credential resoure.
 	Name string `json:"name" yaml:"name"`
-	// Namespace is the kubernetes namespace that holds the provider credential.
+	// Kubernetes namespace holding the provider credential.
 	Namespace string `json:"namespace" yaml:"namespace"`
 }
 
 // AWSClusterSpecProviderMaster holds master node configuration details.
 type AWSClusterSpecProviderMaster struct {
-	// AvailabilityZone is the AWS availability zone to place the master node in.
+	// AWS availability zone to place the master node in.
 	AvailabilityZone string `json:"availabilityZone" yaml:"availabilityZone"`
-	// InstanceType specifies the AWS EC2 instance type to use for the master node.
+	// AWS EC2 instance type to use for the master node.
 	InstanceType string `json:"instanceType" yaml:"instanceType"`
 }
 
@@ -127,24 +128,24 @@ type AWSClusterSpecProviderPods struct {
 // AWSClusterStatus holds status information about the cluster, populated once the
 // cluster is in creation or created.
 type AWSClusterStatus struct {
-	// Cluster provides cluster-specific status details, including conditions and versions.
+	// Cluster-specific status details, including conditions and versions.
 	Cluster CommonClusterStatus `json:"cluster,omitempty" yaml:"cluster,omitempty"`
-	// Provider provides provider-specific status details.
+	// Provider-specific status details.
 	Provider AWSClusterStatusProvider `json:"provider,omitempty" yaml:"provider,omitempty"`
 }
 
 // AWSClusterStatusProvider holds provider-specific status details.
 type AWSClusterStatusProvider struct {
-	// Network provides network-specific configuration details
+	// Network-specific configuration details
 	Network AWSClusterStatusProviderNetwork `json:"network" yaml:"network"`
 }
 
 // AWSClusterStatusProviderNetwork holds network details.
 type AWSClusterStatusProviderNetwork struct {
-	// IPv4 address block used by the tenant cluster, in CIDR notation.
+	// IPv4 address block used by the tenant cluster nodes, in CIDR notation.
 	CIDR string `json:"cidr" yaml:"cidr"`
 	// +kubebuilder:validation:Optional
-	// VPCID contains the ID of the tenant cluster, e.g. vpc-1234567890abcdef0.
+	// Identifier of the AWS Virtual Private Cloud (VPC) of the tenant cluster, e.g. 'vpc-1234567890abcdef0'.
 	VPCID string `json:"vpcID" yaml:"vpcID"`
 }
 
