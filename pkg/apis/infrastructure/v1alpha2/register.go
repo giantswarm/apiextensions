@@ -8,7 +8,6 @@ import (
 
 const (
 	group           = "infrastructure.giantswarm.io"
-	clusterAPIGroup = "cluster.x-k8s.io"
 	version         = "v1alpha2"
 )
 

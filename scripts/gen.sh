@@ -21,7 +21,6 @@ install_tool() {
   mkdir -p "$toolpath"
   go build -o "$toolpath/$bin" "$module""$package" 2> /dev/null
   git checkout go.mod 2> /dev/null
-  rm go.sum
   popd > /dev/null
 }
 
@@ -111,4 +110,3 @@ git apply "$dir/generated.patch"
 
 echo "Cleaning up generated github.com/ directory."
 rm -rf "$dir/../github.com/"
-rm -rf "$dir/go.sum"
