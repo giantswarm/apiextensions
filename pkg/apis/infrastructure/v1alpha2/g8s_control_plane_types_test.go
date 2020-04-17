@@ -37,11 +37,6 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_%s.yaml", crdGroup, crdKindLower),
-			resource: crd,
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),
 			resource: newG8sControlPlaneExampleCR(),
