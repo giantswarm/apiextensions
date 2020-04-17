@@ -105,14 +105,14 @@ spec:
                           worker nodes in this pool. When this larger than 0, this
                           value defines a number of worker nodes that will be created
                           using on-demand EC2 instances, regardless of the value configured
-                          as onDemandPercentageAboveBaseCapacity.
+                          as `onDemandPercentageAboveBaseCapacity`.
                         minimum: 0
                         type: integer
                       onDemandPercentageAboveBaseCapacity:
                         default: 100
                         description: Percentage of on-demand EC2 instances to use
                           for worker nodes, instead of spot instances, for instances
-                          exceeding onDemandBaseCapacity. For example, to have half
+                          exceeding `onDemandBaseCapacity`. For example, to have half
                           of the worker nodes use spot instances and half use on-demand,
                           set this value to 50.
                         maximum: 100
