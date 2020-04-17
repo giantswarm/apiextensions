@@ -7,14 +7,33 @@ jobs:
   validate:
     docker:
       - image: quay.io/giantswarm/architect
+    environment:
+      CGO_ENABLED: 0
+      KIND_VERSION: v0.7.0
+      KUBERNETES_VERSION: v1.16.4
     steps:
       - checkout
       - run:
           name: Regenerate
-          command: CGO_ENABLED=0 ./scripts/gen.sh
+          command: ./scripts/gen.sh
       - run:
           name: Ensure unchanged
           command: git diff --exit-code
+      - run:
+          name: Test CRD installation
+          command: |
+            curl -sLo kind https://github.com/kubernetes-sigs/kind/releases/download/$KIND_VERSION/kind-linux-amd64
+            curl -sLO https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl
+            chmod +x kind
+            ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions
+            ./kubectl wait nodes/apiextensions-control-plane --for=condition=ready
+            ./kubectl create -f config/crd/bases
+            invalid=$(./kubectl wait crds --for condition=nonstructuralschema --timeout 0 --all 2> /dev/null | grep "condition met" | cut -d " " -f 1 | cut -d "/" -f 2)
+            if [ ! -z "$invalid" ]; then
+              echo "NonStructuralSchema condition detected in the following CRDs:"
+              echo "$invalid"
+              exit 1
+            fi
 
 workflows:
   workflow:
