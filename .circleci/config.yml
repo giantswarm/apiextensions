@@ -5,19 +5,21 @@ orbs:
 
 jobs:
   validate:
-    machine: true
+    docker:
+      - image: quay.io/giantswarm/architect
     environment:
       CGO_ENABLED: 0
       KIND_VERSION: v0.7.0
       KUBERNETES_VERSION: v1.16.4
     steps:
       - checkout
-      - run:
-          name: Regenerate
-          command: ./scripts/gen.sh
-      - run:
-          name: Ensure unchanged
-          command: git diff --exit-code
+  test-install:
+    machine: true
+    environment:
+      KIND_VERSION: v0.7.0
+      KUBERNETES_VERSION: v1.16.4
+    steps:
+      - checkout
       - run:
           name: Test CRD installation
           command: |
@@ -38,6 +40,7 @@ workflows:
   workflow:
     jobs:
       - validate
+      - test-install
 
       - architect/go-test:
           name: go-test
@@ -52,6 +55,7 @@ workflows:
           requires:
             - go-test
             - validate
+            - test-install
 
       - architect/go-architect-legacy:
           name: go-deploy
