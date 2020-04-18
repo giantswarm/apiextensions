@@ -7,19 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Added
 
-- Add descriptions to AWSMachineDeployment CRD properties.
+- Add properties descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
 
 
 
 ## [0.3.0] - 2020-04-16
 
+### Added
+
+- Add `.spec.provider.pods` field to AWSCluster in core.giantswarm.io/v1alpha1.
+
 ### Changed
 
-- Add pod field to AWSCluster.
 - Replace custom `time.Time` wrapper `DeepCopyTime` with Kubernetes built-in `metav1.Time`.
-- Update `architect-orb` to `v0.8.8`.
 - Generate CRDs via `kubebuilder` tools based on CRs.
 
 
@@ -28,8 +30,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Document G8sControlPlane CRD [#405](https://github.com/giantswarm/apiextensions/pull/405)
-- Document Chart CRD [#406](https://github.com/giantswarm/apiextensions/pull/406)
+- Document G8sControlPlane in infrastructure.giantswarm.io [#405](https://github.com/giantswarm/apiextensions/pull/405)
+- Document Chart in core.giantswarm.io/v1alpha1 [#406](https://github.com/giantswarm/apiextensions/pull/406)
 
 
 
@@ -37,16 +39,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Fix a problem in the MachineDeployment CRD YAML file [#404](https://github.com/giantswarm/apiextensions/pull/404)
+- Fix docs for MachineDeployment machinedeployments.cluster.x-k8s.io [#404](https://github.com/giantswarm/apiextensions/pull/404)
 
 
 
 ## [0.2.4] - 2020-04-08
 
+### Added
+
+- Add schema documentation for CertConfig in core.giantswarm.io/v1alpha1 [#401](https://github.com/giantswarm/apiextensions/pull/401)
+
 ### Changed
 
-- Fix path of CR and CRD yaml files for Cluster and MachineDeployment [#403](https://github.com/giantswarm/apiextensions/pull/403)
-- Add schema documentation for CertConfig [#401](https://github.com/giantswarm/apiextensions/pull/401)
+- Fix path of CR and CRD yaml files for Cluster and MachineDeployment in infrastructure.giantswarm.io/v1alpha2 [#403](https://github.com/giantswarm/apiextensions/pull/403)
 
 
 
@@ -55,7 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add Helm revision number to chart CR status.
-- Extend Chart CR documentation.
+- Extend documentation Chart CR documentation.
 
 
 
@@ -89,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed CRD OpenAPISchemas.
+- Fix CRD OpenAPISchemas for:
   - App
   - AppCatalog
   - Chart
@@ -108,7 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed CRD OpenAPISchemas.
+- Fix CRD OpenAPISchemas for:
   - AWSCluster
   - AWSMachineDeployment
   - AWSControlPlane
