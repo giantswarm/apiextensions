@@ -27,11 +27,6 @@ func Test_GenerateChartYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_chart.yaml", group),
-			resource: NewChartCRD(),
-		},
-		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_chart.yaml", group, version),
 			resource: newChartExampleCR(),
