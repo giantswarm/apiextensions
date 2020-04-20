@@ -1,9 +1,5 @@
 package v1alpha1
 
-import (
-	"net"
-)
-
 type Cluster struct {
 	Calico     ClusterCalico     `json:"calico" yaml:"calico"`
 	Customer   ClusterCustomer   `json:"customer" yaml:"customer"`
@@ -63,9 +59,7 @@ type ClusterKubernetesAPI struct {
 }
 
 type ClusterKubernetesDNS struct {
-	// +kubebuilder:validation:Format=string
-	// +kubebuilder:validation:Type=string
-	IP net.IP `json:"ip" yaml:"ip"`
+	IP string `json:"ip" yaml:"ip"`
 }
 
 type ClusterKubernetesIngressController struct {
