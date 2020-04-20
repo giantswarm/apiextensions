@@ -19,8 +19,9 @@ spec:
   - name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: G8sControlPlane defines the Control Plane Nodes (Kubernetes Master
-          Nodes) of a Giant Swarm Tenant Cluster.
+        description: The G8sControlPlane resource defines the Control Plane nodes
+          (Kubernetes master nodes) of a Giant Swarm tenant cluster. Is is reconciled
+          by aws-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -35,10 +36,11 @@ spec:
           metadata:
             type: object
           spec:
+            description: Specification part.
             properties:
               infrastructureRef:
-                description: InfrastructureRef is a required reference to provider-specific
-                  Infrastructure.
+                description: Reference to a provider-specific resource. On AWS, this
+                  would be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
                 properties:
                   apiVersion:
                     description: API version of the referent.
@@ -74,14 +76,14 @@ spec:
                     type: string
                 type: object
               replicas:
-                description: Replicas is the number replicas of the master node.
+                description: Number of master nodes.
                 type: integer
             required:
             - infrastructureRef
             - replicas
             type: object
           status:
-            description: G8sControlPlaneStatus defines the observed state of G8sControlPlane.
+            description: Status information.
             properties:
               readyReplicas:
                 description: Total number of fully running and ready control plane

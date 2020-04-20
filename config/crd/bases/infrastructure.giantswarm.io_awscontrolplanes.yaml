@@ -20,7 +20,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: AWSControlPlane is the infrastructure provider referenced in
-          ControlPlane CRs.
+          ControlPlane CRs. Represents the master nodes (also called Control Plane)
+          of a tenant cluster on AWS. Reconciled by aws-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -35,30 +36,27 @@ spec:
           metadata:
             type: object
           spec:
+            description: Specification part of the resource.
             properties:
               availabilityZones:
+                description: Configures which AWS availability zones to use by master
+                  nodes, as a list of availability zone names like e. g. `eu-central-1c`.
+                  We support either 1 or 3 availability zones.
                 items:
                   type: string
                 type: array
               instanceType:
+                description: EC2 instance type identifier to use for the master node(s).
                 type: string
             required:
             - availabilityZones
             - instanceType
-            type: object
-          status:
-            description: TODO
-            properties:
-              status:
-                type: string
             type: object
         required:
         - spec
         type: object
     served: true
     storage: true
-    subresources:
-      status: {}
 status:
   acceptedNames:
     kind: ""
