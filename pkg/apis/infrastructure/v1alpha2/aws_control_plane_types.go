@@ -39,27 +39,26 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 }
 
 // +genclient
+// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:subresource:status
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
-// CRs.
+// CRs. Represents the master nodes (also called Control Plane) of a tenant
+// cluster on AWS. Reconciled by aws-operator.
 type AWSControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSControlPlaneSpec `json:"spec" yaml:"spec"`
-	// +kubebuilder:validation:Optional
-	Status AWSControlPlaneStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	// Specification part of the resource.
+	Spec AWSControlPlaneSpec `json:"spec" yaml:"spec"`
 }
 
 type AWSControlPlaneSpec struct {
+	// Configures which AWS availability zones to use by master nodes, as a list
+	// of availability zone names like e. g. `eu-central-1c`. We support either
+	// 1 or 3 availability zones.
 	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
-	InstanceType      string   `json:"instanceType" yaml:"instanceType"`
-}
-
-// TODO
-type AWSControlPlaneStatus struct {
-	Status string `json:"status,omitempty" yaml:"status,omitempty"`
+	// EC2 instance type identifier to use for the master node(s).
+	InstanceType string `json:"instanceType" yaml:"instanceType"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
