@@ -63,6 +63,8 @@ type ClusterKubernetesAPI struct {
 }
 
 type ClusterKubernetesDNS struct {
+	// +kubebuilder:validation:Format=string
+	// +kubebuilder:validation:Type=string
 	IP net.IP `json:"ip" yaml:"ip"`
 }
 
