@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Modified docs for the G8sControlPlane CRD
-- Add properties descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
+- Add property descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
+- Add property descriptions to AWSControlPlane in infrastructure.giantswarm.io/v1alpha2.
 
 ### Changed
 
