@@ -136,16 +136,16 @@ type AWSClusterStatus struct {
 // AWSClusterStatusProvider holds provider-specific status details.
 type AWSClusterStatusProvider struct {
 	// Network provides network-specific configuration details
-	Network AWSClusterStatusProviderNetwork `json:"network" yaml:"network"`
+	Network AWSClusterStatusProviderNetwork `json:"network,omitempty" yaml:"network,omitempty"`
 }
 
 // AWSClusterStatusProviderNetwork holds network details.
 type AWSClusterStatusProviderNetwork struct {
 	// IPv4 address block used by the tenant cluster, in CIDR notation.
-	CIDR string `json:"cidr" yaml:"cidr"`
+	CIDR string `json:"cidr,omitempty" yaml:"cidr,omitempty"`
 	// +kubebuilder:validation:Optional
 	// VPCID contains the ID of the tenant cluster, e.g. vpc-1234567890abcdef0.
-	VPCID string `json:"vpcID" yaml:"vpcID"`
+	VPCID string `json:"vpcID,omitempty" yaml:"vpcID,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
