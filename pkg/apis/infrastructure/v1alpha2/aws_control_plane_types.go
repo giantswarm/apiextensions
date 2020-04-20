@@ -39,8 +39,8 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 }
 
 // +genclient
+// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:subresource:status
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
 // CRs. Represents the master nodes (also called Control Plane) of a tenant
