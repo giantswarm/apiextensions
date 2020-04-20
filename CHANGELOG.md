@@ -20,7 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update documentation
 - Replace custom `time.Time` wrapper `DeepCopyTime` with Kubernetes built-in `metav1.Time`.
 - Update `architect-orb` to `v0.8.8`.
 - Generate CRDs via `kubebuilder` tools based on CRs.
