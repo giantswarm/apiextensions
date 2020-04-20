@@ -11,7 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add properties descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
 
+### Changed
 
+- Change `release` CR back to be cluster scoped.
 
 ## [0.3.0] - 2020-04-16
 
