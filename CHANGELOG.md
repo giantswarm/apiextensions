@@ -16,7 +16,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Change `release` CR back to be cluster scoped.
-- Fixed mistake in the main description of `G8sControlPlane`
+
+### Fixed 
+
+- Fix mistake in the main description of `G8sControlPlane`.
 
 ## [0.3.0] - 2020-04-16
 
