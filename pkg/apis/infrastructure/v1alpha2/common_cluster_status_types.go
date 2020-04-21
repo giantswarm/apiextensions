@@ -95,7 +95,7 @@ type CommonClusterStatus struct {
 	// One or several conditions that are currently applicable to the cluster.
 	Conditions []CommonClusterStatusCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
 	// Identifier of the cluster.
-	ID string `json:"id" yaml:"id"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
 	// Release versions the cluster used so far.
 	Versions []CommonClusterStatusVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
 }
