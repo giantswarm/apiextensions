@@ -385,10 +385,8 @@ spec:
               - etcd
               - id
               - kubernetes
-              - masters
               - scaling
               - version
-              - workers
               type: object
             versionBundle:
               properties:

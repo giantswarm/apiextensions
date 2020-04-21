@@ -7,13 +7,13 @@ type Cluster struct {
 	Etcd       ClusterEtcd       `json:"etcd" yaml:"etcd"`
 	ID         string            `json:"id" yaml:"id"`
 	Kubernetes ClusterKubernetes `json:"kubernetes" yaml:"kubernetes"`
-	Masters    []ClusterNode     `json:"masters" yaml:"masters"`
+	Masters    []ClusterNode     `json:"masters,omitempty" yaml:"masters,omitempty"`
 	Scaling    ClusterScaling    `json:"scaling" yaml:"scaling"`
 
 	// Version is DEPRECATED and should just be dropped.
 	Version string `json:"version" yaml:"version"`
 
-	Workers []ClusterNode `json:"workers" yaml:"workers"`
+	Workers []ClusterNode `json:"workers,omitempty" yaml:"workers,omitempty"`
 }
 
 type ClusterCalico struct {
