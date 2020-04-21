@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed 
 
-- Fix mistake in the main description of `G8sControlPlane`.
+- Fix mistake in the main description of `G8sControlPlane` in `infrastructure.giantswarm.io`.
 
 ## [0.3.0] - 2020-04-16
 
