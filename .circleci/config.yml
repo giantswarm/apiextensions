@@ -29,6 +29,8 @@ jobs:
             ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions 2> /dev/null
             ./kubectl wait nodes/apiextensions-control-plane --for=condition=ready --timeout=5m
             ./kubectl create -f config/crd/bases
+            sleep 10
+            ./kubectl get crds -o yaml
             invalid=$(./kubectl wait crds --for condition=nonstructuralschema --timeout 0 --all | grep "condition met" | cut -d " " -f 1 | cut -d "/" -f 2)
             echo $invalid
             if [ ! -z "$invalid" ]; then
