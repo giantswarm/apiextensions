@@ -2,6 +2,13 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# For future editors: there is a lot of pushd/popd in this script.
+# When we run certain commands like `go build`, go pulls versions
+# from `go.mod` in the current directory. Additionally, come commands
+# can't generate files outside of the current directory. For this reason,
+# we have to move between the script directory and the repo root directory
+# several times.
+
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 toolpath="$dir/bin"
 
