@@ -4,15 +4,6 @@ orbs:
   architect: giantswarm/architect@0.8.9
 
 jobs:
-  validate:
-    docker:
-      - image: quay.io/giantswarm/architect
-    environment:
-      CGO_ENABLED: 0
-      KIND_VERSION: v0.7.0
-      KUBERNETES_VERSION: v1.16.4
-    steps:
-      - checkout
   test-install:
     machine: true
     environment:
@@ -53,7 +44,6 @@ jobs:
 workflows:
   workflow:
     jobs:
-      - validate
       - test-install
 
       - architect/go-test:
@@ -68,7 +58,6 @@ workflows:
           command: build
           requires:
             - go-test
-            - validate
             - test-install
 
       - architect/go-architect-legacy:
