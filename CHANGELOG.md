@@ -19,10 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change `release` CR back to be cluster scoped.
 - Make more CR status fields `omitempty`.
+- Make CR status fields optional.
 
 
 
-### Fixed 
+### Fixed
 
 - Fix mistake in the main description of `G8sControlPlane` in `infrastructure.giantswarm.io`.
 
