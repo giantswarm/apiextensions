@@ -92,13 +92,17 @@ type AzureConfigSpecVersionBundle struct {
 }
 
 type AzureConfigStatus struct {
-	Cluster  StatusCluster             `json:"cluster" yaml:"cluster"`
+	// +kubebuilder:validation:Optional
+	Cluster StatusCluster `json:"cluster" yaml:"cluster"`
+	// +kubebuilder:validation:Optional
 	Provider AzureConfigStatusProvider `json:"provider" yaml:"provider"`
 }
 
 type AzureConfigStatusProvider struct {
-	AvailabilityZones []int                            `json:"availabilityZones" yaml:"availabilityZones"`
-	Ingress           AzureConfigStatusProviderIngress `json:"ingress" yaml:"ingress"`
+	// +kubebuilder:validation:Optional
+	AvailabilityZones []int `json:"availabilityZones" yaml:"availabilityZones"`
+	// +kubebuilder:validation:Optional
+	Ingress AzureConfigStatusProviderIngress `json:"ingress" yaml:"ingress"`
 }
 
 type AzureConfigStatusProviderIngress struct {

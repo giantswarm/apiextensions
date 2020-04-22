@@ -402,8 +402,6 @@ spec:
                           Draining, Drained, Updating, Updated, Deleting, Deleted.
                         type: string
                     required:
-                    - lastTransitionTime
-                    - status
                     - type
                     type: object
                   type: array
@@ -442,7 +440,6 @@ spec:
                           as mandated by the provider operator.
                         type: string
                     required:
-                    - lastTransitionTime
                     - name
                     - version
                     type: object
@@ -478,7 +475,6 @@ spec:
                           required:
                           - lastTransitionTime
                           - status
-                          - type
                           type: object
                         type: array
                       name:
@@ -521,18 +517,9 @@ spec:
                         description: Semver is some semver version, e.g. 1.0.0.
                         type: string
                     required:
-                    - date
-                    - lastTransitionTime
                     - semver
                     type: object
                   type: array
-              required:
-              - conditions
-              - network
-              - nodes
-              - resources
-              - scaling
-              - versions
               type: object
             kvm:
               properties:

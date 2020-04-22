@@ -29,18 +29,24 @@ const (
 )
 
 type StatusCluster struct {
+	// +kubebuilder:validation:Optional
 	// Conditions is a list of status information expressing the current
 	// conditional state of a guest cluster. This may reflect the status of the
 	// guest cluster being updating or being up to date.
 	Conditions []StatusClusterCondition `json:"conditions" yaml:"conditions"`
-	Network    StatusClusterNetwork     `json:"network" yaml:"network"`
+	// +kubebuilder:validation:Optional
+	Network StatusClusterNetwork `json:"network" yaml:"network"`
+	// +kubebuilder:validation:Optional
 	// Nodes is a list of guest cluster node information reflecting the current
 	// state of the guest cluster nodes.
 	Nodes []StatusClusterNode `json:"nodes" yaml:"nodes"`
+	// +kubebuilder:validation:Optional
 	// Resources is a list of arbitrary conditions of operatorkit resource
 	// implementations.
 	Resources []StatusClusterResource `json:"resources" yaml:"resources"`
-	Scaling   StatusClusterScaling    `json:"scaling" yaml:"scaling"`
+	// +kubebuilder:validation:Optional
+	Scaling StatusClusterScaling `json:"scaling" yaml:"scaling"`
+	// +kubebuilder:validation:Optional
 	// Versions is a list that acts like a historical track record of versions a
 	// guest cluster went through. A version is only added to the list as soon as
 	// the guest cluster successfully migrated to the version added here.
@@ -50,9 +56,11 @@ type StatusCluster struct {
 // StatusClusterCondition expresses the conditions in which a guest cluster may
 // is.
 type StatusClusterCondition struct {
+	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	// +kubebuilder:validation:Optional
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
 	// Type may be Creating, Created, Scaling, Scaled, Draining, Drained,
@@ -68,8 +76,10 @@ type StatusClusterNetwork struct {
 
 // StatusClusterNode holds information about a guest cluster node.
 type StatusClusterNode struct {
+	// +kubebuilder:validation:Optional
 	// Labels contains the kubernetes labels for corresponding node.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
+	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
@@ -98,6 +108,7 @@ type StatusClusterResourceCondition struct {
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
+	// +kubebuilder:validation:Optional
 	// Type may be anything an operatorkit resource may define.
 	Type string `json:"type" yaml:"type"`
 }
@@ -111,6 +122,7 @@ type StatusClusterScaling struct {
 // StatusClusterVersion expresses the versions in which a guest cluster was and
 // may still be.
 type StatusClusterVersion struct {
+	// +kubebuilder:validation:Optional
 	// TODO date is deprecated due to LastTransitionTime
 	// This can be removed ones the new properties are properly used in all tenant
 	// clusters.
@@ -118,6 +130,7 @@ type StatusClusterVersion struct {
 	//     https://github.com/giantswarm/giantswarm/issues/3988
 	//
 	Date metav1.Time `json:"date" yaml:"date"`
+	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
