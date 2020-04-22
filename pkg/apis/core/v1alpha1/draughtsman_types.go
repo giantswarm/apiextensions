@@ -26,13 +26,13 @@ type DraughtsmanConfig struct {
 }
 
 type DraughtsmanConfigSpec struct {
-	Projects []DraughtsmanConfigSpecProject `json:"projects" yaml:"projects"`
+	Projects []DraughtsmanConfigSpecProject `json:"projects"`
 }
 
 type DraughtsmanConfigSpecProject struct {
-	ID   string `json:"id" yaml:"id"`
-	Name string `json:"name" yaml:"name"`
-	Ref  string `json:"ref" yaml:"ref"`
+	ID   string `json:"id"`
+	Name string `json:"name"`
+	Ref  string `json:"ref"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

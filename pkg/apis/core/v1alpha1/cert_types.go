@@ -49,24 +49,24 @@ type CertConfig struct {
 }
 
 type CertConfigSpec struct {
-	Cert          CertConfigSpecCert          `json:"cert" yaml:"cert"`
-	VersionBundle CertConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Cert          CertConfigSpecCert          `json:"cert"`
+	VersionBundle CertConfigSpecVersionBundle `json:"versionBundle"`
 }
 
 type CertConfigSpecCert struct {
-	AllowBareDomains    bool     `json:"allowBareDomains" yaml:"allowBareDomains"`
-	AltNames            []string `json:"altNames" yaml:"altNames"`
-	ClusterComponent    string   `json:"clusterComponent" yaml:"clusterComponent"`
-	ClusterID           string   `json:"clusterID" yaml:"clusterID"`
-	CommonName          string   `json:"commonName" yaml:"commonName"`
-	DisableRegeneration bool     `json:"disableRegeneration" yaml:"disableRegeneration"`
-	IPSANs              []string `json:"ipSans" yaml:"ipSans"`
-	Organizations       []string `json:"organizations" yaml:"organizations"`
-	TTL                 string   `json:"ttl" yaml:"ttl"`
+	AllowBareDomains    bool     `json:"allowBareDomains"`
+	AltNames            []string `json:"altNames"`
+	ClusterComponent    string   `json:"clusterComponent"`
+	ClusterID           string   `json:"clusterID"`
+	CommonName          string   `json:"commonName"`
+	DisableRegeneration bool     `json:"disableRegeneration"`
+	IPSANs              []string `json:"ipSans"`
+	Organizations       []string `json:"organizations"`
+	TTL                 string   `json:"ttl"`
 }
 
 type CertConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

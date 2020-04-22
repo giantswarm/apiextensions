@@ -26,36 +26,36 @@ type IngressConfig struct {
 }
 
 type IngressConfigSpec struct {
-	GuestCluster  IngressConfigSpecGuestCluster   `json:"guestCluster" yaml:"guestCluster"`
-	HostCluster   IngressConfigSpecHostCluster    `json:"hostCluster" yaml:"hostCluster"`
-	ProtocolPorts []IngressConfigSpecProtocolPort `json:"protocolPorts" yaml:"protocolPorts"`
-	VersionBundle IngressConfigSpecVersionBundle  `json:"versionBundle" yaml:"versionBundle"`
+	GuestCluster  IngressConfigSpecGuestCluster   `json:"guestCluster"`
+	HostCluster   IngressConfigSpecHostCluster    `json:"hostCluster"`
+	ProtocolPorts []IngressConfigSpecProtocolPort `json:"protocolPorts"`
+	VersionBundle IngressConfigSpecVersionBundle  `json:"versionBundle"`
 }
 
 type IngressConfigSpecGuestCluster struct {
-	ID        string `json:"id" yaml:"id"`
-	Namespace string `json:"namespace" yaml:"namespace"`
-	Service   string `json:"service" yaml:"service"`
+	ID        string `json:"id"`
+	Namespace string `json:"namespace"`
+	Service   string `json:"service"`
 }
 
 type IngressConfigSpecHostCluster struct {
-	IngressController IngressConfigSpecHostClusterIngressController `json:"ingressController" yaml:"ingressController"`
+	IngressController IngressConfigSpecHostClusterIngressController `json:"ingressController"`
 }
 
 type IngressConfigSpecHostClusterIngressController struct {
-	ConfigMap string `json:"configMap" yaml:"configMap"`
-	Namespace string `json:"namespace" yaml:"namespace"`
-	Service   string `json:"service" yaml:"service"`
+	ConfigMap string `json:"configMap"`
+	Namespace string `json:"namespace"`
+	Service   string `json:"service"`
 }
 
 type IngressConfigSpecProtocolPort struct {
-	IngressPort int    `json:"ingressPort" yaml:"ingressPort"`
-	LBPort      int    `json:"lbPort" yaml:"lbPort"`
-	Protocol    string `json:"protocol" yaml:"protocol"`
+	IngressPort int    `json:"ingressPort"`
+	LBPort      int    `json:"lbPort"`
+	Protocol    string `json:"protocol"`
 }
 
 type IngressConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

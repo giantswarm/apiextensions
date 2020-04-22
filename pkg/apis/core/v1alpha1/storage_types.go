@@ -39,11 +39,11 @@ type StorageConfig struct {
 }
 
 type StorageConfigSpec struct {
-	Storage StorageConfigSpecStorage `json:"storage" yaml:"storage"`
+	Storage StorageConfigSpecStorage `json:"storage"`
 }
 
 type StorageConfigSpecStorage struct {
-	Data map[string]string `json:"data" yaml:"data"`
+	Data map[string]string `json:"data"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

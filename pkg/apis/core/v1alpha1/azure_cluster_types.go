@@ -26,41 +26,41 @@ type AzureClusterConfig struct {
 }
 
 type AzureClusterConfigSpec struct {
-	Guest         AzureClusterConfigSpecGuest         `json:"guest" yaml:"guest"`
-	VersionBundle AzureClusterConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Guest         AzureClusterConfigSpecGuest         `json:"guest"`
+	VersionBundle AzureClusterConfigSpecVersionBundle `json:"versionBundle"`
 }
 
 type AzureClusterConfigSpecGuest struct {
-	ClusterGuestConfig `json:",inline" yaml:",inline"`
-	CredentialSecret   AzureClusterConfigSpecGuestCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
-	Masters            []AzureClusterConfigSpecGuestMaster         `json:"masters,omitempty" yaml:"masters,omitempty"`
-	Workers            []AzureClusterConfigSpecGuestWorker         `json:"workers,omitempty" yaml:"workers,omitempty"`
+	ClusterGuestConfig `json:",inline"`
+	CredentialSecret   AzureClusterConfigSpecGuestCredentialSecret `json:"credentialSecret"`
+	Masters            []AzureClusterConfigSpecGuestMaster         `json:"masters,omitempty"`
+	Workers            []AzureClusterConfigSpecGuestWorker         `json:"workers,omitempty"`
 }
 
 // AzureClusterConfigSpecGuestCredentialSecret points to the K8s Secret
 // containing credentials for an Azure subscription in which the tenant cluster
 // should be created.
 type AzureClusterConfigSpecGuestCredentialSecret struct {
-	Name      string `json:"name" yaml:"name"`
-	Namespace string `json:"namespace" yaml:"namespace"`
+	Name      string `json:"name"`
+	Namespace string `json:"namespace"`
 }
 
 type AzureClusterConfigSpecGuestMaster struct {
-	AzureClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
+	AzureClusterConfigSpecGuestNode `json:",inline"`
 }
 
 type AzureClusterConfigSpecGuestWorker struct {
-	AzureClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
-	Labels                          map[string]string `json:"labels" yaml:"labels"`
+	AzureClusterConfigSpecGuestNode `json:",inline"`
+	Labels                          map[string]string `json:"labels"`
 }
 
 type AzureClusterConfigSpecGuestNode struct {
-	ID     string `json:"id" yaml:"id"`
-	VMSize string `json:"vmSize,omitempty" yaml:"vmSize,omitempty"`
+	ID     string `json:"id"`
+	VMSize string `json:"vmSize,omitempty"`
 }
 
 type AzureClusterConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

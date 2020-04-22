@@ -49,22 +49,22 @@ type AWSControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// Specification part of the resource.
-	Spec AWSControlPlaneSpec `json:"spec" yaml:"spec"`
+	Spec AWSControlPlaneSpec `json:"spec"`
 }
 
 type AWSControlPlaneSpec struct {
 	// Configures which AWS availability zones to use by master nodes, as a list
 	// of availability zone names like e. g. `eu-central-1c`. We support either
 	// 1 or 3 availability zones.
-	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
+	AvailabilityZones []string `json:"availabilityZones"`
 	// EC2 instance type identifier to use for the master node(s).
-	InstanceType string `json:"instanceType" yaml:"instanceType"`
+	InstanceType string `json:"instanceType"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type AWSControlPlaneList struct {
-	metav1.TypeMeta `json:",inline" yaml:",inline"`
-	metav1.ListMeta `json:"metadata" yaml:"metadata"`
-	Items           []AWSControlPlane `json:"items" yaml:"items"`
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []AWSControlPlane `json:"items"`
 }

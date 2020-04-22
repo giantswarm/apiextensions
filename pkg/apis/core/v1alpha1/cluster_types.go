@@ -43,14 +43,14 @@ type ClusterSpec struct {
 	// Description is the optional cluster description users can provide. If left
 	// blank a cluster description will be generated. The cluster description is
 	// propagated into the CR status.
-	Description string `json:"description" yaml:"description"`
+	Description string `json:"description"`
 	// Organization is the mandatory cluster organization in which a tenant
 	// cluster will be scoped into.
-	Organization string `json:"organization" yaml:"organization"`
+	Organization string `json:"organization"`
 	// Version is the optional release version users can provide. If left blank
 	// the current default release version will be used. The release version is
 	// propagated into the CR status.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // ClusterStatus is the part of the interface available to users in order to
@@ -60,14 +60,14 @@ type ClusterSpec struct {
 // creation and made available here.
 type ClusterStatus struct {
 	// LastHeartbeatTime is the last time we got an update on a given condition.
-	LastHeartbeatTime metav1.Time `json:"lastHeartbeatTime" yaml:"lastHeartbeatTime"`
+	LastHeartbeatTime metav1.Time `json:"lastHeartbeatTime"`
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
 	// Cluster holds cluster specific status information.
-	Cluster ClusterStatusCluster `json:"cluster" yaml:"cluster"`
+	Cluster ClusterStatusCluster `json:"cluster"`
 	// Conditions is a list of status conditions.
-	Conditions []ClusterStatusCondition `json:"conditions" yaml:"conditions"`
+	Conditions []ClusterStatusCondition `json:"conditions"`
 }
 
 // ClusterStatusCluster holds cluster specific status information. Some of the
@@ -77,22 +77,22 @@ type ClusterStatus struct {
 type ClusterStatusCluster struct {
 	// Description is the propagated cluster description users can provide or the
 	// system generates automatically if left blank.
-	Description string `json:"description" yaml:"description"`
+	Description string `json:"description"`
 	// ID is the internal cluster ID automatically generated upon cluster
 	// creation.
-	ID string `json:"id" yaml:"id"`
+	ID string `json:"id"`
 	// Version is the propagated release version users can provide or the system
 	// sets to the current default release version.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // ClusterStatusCondition holds a specific status condition describing certain
 // aspects of the current state of the tenant cluster.
 type ClusterStatusCondition struct {
 	// Status may be True, False or Unknown.
-	Status string `json:"status" yaml:"status"`
+	Status string `json:"status"`
 	// Type may be Creating, Created, Updating, Updated, or Deleting.
-	Type string `json:"type" yaml:"type"`
+	Type string `json:"type"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
