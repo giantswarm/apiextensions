@@ -121,18 +121,22 @@ type AWSMachineDeploymentSpecProviderWorker struct {
 }
 
 type AWSMachineDeploymentStatus struct {
+	// +kubebuilder:validation:Optional
 	// Status specific to AWS.
 	Provider AWSMachineDeploymentStatusProvider `json:"provider" yaml:"provider"`
 }
 
 type AWSMachineDeploymentStatusProvider struct {
+	// +kubebuilder:validation:Optional
 	// Status of worker nodes.
 	Worker AWSMachineDeploymentStatusProviderWorker `json:"worker" yaml:"worker"`
 }
 
 type AWSMachineDeploymentStatusProviderWorker struct {
+	// +kubebuilder:validation:Optional
 	// AWS EC2 instance types used for the worker nodes in this node pool.
 	InstanceTypes []string `json:"instanceTypes" yaml:"instanceTypes"`
+	// +kubebuilder:validation:Optional
 	// Number of EC2 spot instances used in this node pool.
 	SpotInstances int `json:"spotInstances" yaml:"spotInstances"`
 }

@@ -165,15 +165,8 @@ spec:
                         description: Number of EC2 spot instances used in this node
                           pool.
                         type: integer
-                    required:
-                    - instanceTypes
-                    - spotInstances
                     type: object
-                required:
-                - worker
                 type: object
-            required:
-            - provider
             type: object
         required:
         - spec
