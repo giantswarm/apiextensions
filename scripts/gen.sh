@@ -4,6 +4,7 @@ IFS=$'\n\t'
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 toolpath="$dir/bin"
+pushd "$dir" > /dev/null
 
 export GOPATH=$(go env GOPATH)
 export GOROOT=$(go env GOROOT)
@@ -14,14 +15,12 @@ install_tool() {
   local module=$1
   local package=$2
   local bin=$3
-  pushd "$dir" > /dev/null
   rm go.sum 2> /dev/null || true
   version=$(go list -m -f '{{.Version}}' "$module")
   echo "Rebuilding $bin@$version"
   mkdir -p "$toolpath"
   go build -o "$toolpath/$bin" "$module""$package" 2> /dev/null
   git checkout go.mod 2> /dev/null
-  popd > /dev/null
 }
 
 install_tool sigs.k8s.io/controller-tools /cmd/controller-gen controller-gen
@@ -33,17 +32,17 @@ install_tool sigs.k8s.io/kustomize/kustomize/v3 "" kustomize
 
 # Set up variables for deepcopy-gen and client-gen
 module="github.com/giantswarm/apiextensions"
-input_dirs=$(find ./pkg/apis -maxdepth 2 -mindepth 2 | tr '\r\n' ',')
+input_dirs=$(find ../pkg/apis -maxdepth 2 -mindepth 2 | tr '\r\n' ',')
 input_dirs=${input_dirs%?}
-groups=${input_dirs//.\/pkg\/apis\//}
-header="${dir}/boilerplate.go.txt"
+groups=${input_dirs//..\/pkg\/apis\//}
+header=boilerplate.go.txt
 
 # deepcopy-gen creates DeepCopy functions for each custom resource
 echo "Generating deepcopy funcs"
 "$toolpath/deepcopy-gen" \
   --input-dirs "$input_dirs" \
   --output-file-base zz_generated.deepcopy \
-  --go-header-file "${dir}/boilerplate.go.txt"
+  --go-header-file "$header"
 
 # client-gen creates typed go clients for CRUD operations for each custom resource
 echo "Generating clientset"
@@ -64,7 +63,7 @@ rm -rf "$dir/github.com"
 
 # code-generator doesn't group local imports separately from third-party
 # imports, so run goimports after generating new code.
-cd "$dir/.." || exit
+pushd "$dir/.." > /dev/null
 echo "Fixing imports in-place with goimports"
 "$toolpath/goimports" -local $module -w ./pkg
 
@@ -76,11 +75,6 @@ echo "Generating all CRDs as v1beta1"
 "$toolpath/controller-gen" \
   crd \
   paths=./pkg/apis/... \
-  output:dir=config/crd/bases \
-  crd:crdVersions=v1beta1
-"$toolpath/controller-gen" \
-  crd \
-  paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
   output:dir=config/crd/bases \
   crd:crdVersions=v1beta1
 
@@ -106,3 +100,11 @@ echo "Using pkger to package CRDs into go source virtual file system"
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"
+
+exit 0
+popd > /dev/null
+"$toolpath/controller-gen" \
+  crd \
+  paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
+  output:dir=../config/crd/bases \
+  crd:crdVersions=v1beta1

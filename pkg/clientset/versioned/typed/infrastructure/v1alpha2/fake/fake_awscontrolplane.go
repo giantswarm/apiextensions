@@ -101,6 +101,18 @@ func (c *FakeAWSControlPlanes) Update(aWSControlPlane *v1alpha2.AWSControlPlane)
 	return obj.(*v1alpha2.AWSControlPlane), err
 }
 
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeAWSControlPlanes) UpdateStatus(aWSControlPlane *v1alpha2.AWSControlPlane) (*v1alpha2.AWSControlPlane, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(awscontrolplanesResource, "status", c.ns, aWSControlPlane), &v1alpha2.AWSControlPlane{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha2.AWSControlPlane), err
+}
+
 // Delete takes name of the aWSControlPlane and deletes it. Returns an error if one occurs.
 func (c *FakeAWSControlPlanes) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.

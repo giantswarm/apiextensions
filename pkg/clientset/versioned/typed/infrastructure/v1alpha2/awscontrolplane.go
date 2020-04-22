@@ -40,6 +40,7 @@ type AWSControlPlanesGetter interface {
 type AWSControlPlaneInterface interface {
 	Create(*v1alpha2.AWSControlPlane) (*v1alpha2.AWSControlPlane, error)
 	Update(*v1alpha2.AWSControlPlane) (*v1alpha2.AWSControlPlane, error)
+	UpdateStatus(*v1alpha2.AWSControlPlane) (*v1alpha2.AWSControlPlane, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha2.AWSControlPlane, error)
@@ -127,6 +128,22 @@ func (c *aWSControlPlanes) Update(aWSControlPlane *v1alpha2.AWSControlPlane) (re
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
 		Name(aWSControlPlane.Name).
+		Body(aWSControlPlane).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *aWSControlPlanes) UpdateStatus(aWSControlPlane *v1alpha2.AWSControlPlane) (result *v1alpha2.AWSControlPlane, err error) {
+	result = &v1alpha2.AWSControlPlane{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("awscontrolplanes").
+		Name(aWSControlPlane.Name).
+		SubResource("status").
 		Body(aWSControlPlane).
 		Do().
 		Into(result)
