@@ -4,7 +4,6 @@ IFS=$'\n\t'
 
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 toolpath="$dir/bin"
-pushd "$dir" > /dev/null
 
 export GOPATH=$(go env GOPATH)
 export GOROOT=$(go env GOROOT)
@@ -23,6 +22,8 @@ install_tool() {
   git checkout go.mod 2> /dev/null
 }
 
+pushd "$dir" > /dev/null
+
 install_tool sigs.k8s.io/controller-tools /cmd/controller-gen controller-gen
 install_tool k8s.io/code-generator /cmd/deepcopy-gen deepcopy-gen
 install_tool k8s.io/code-generator /cmd/client-gen client-gen
@@ -30,12 +31,14 @@ install_tool golang.org/x/tools /cmd/goimports goimports
 install_tool github.com/markbates/pkger /cmd/pkger pkger
 install_tool sigs.k8s.io/kustomize/kustomize/v3 "" kustomize
 
+popd > /dev/null
+
 # Set up variables for deepcopy-gen and client-gen
 module="github.com/giantswarm/apiextensions"
-input_dirs=$(find ../pkg/apis -maxdepth 2 -mindepth 2 | tr '\r\n' ',')
+input_dirs=$(find ./pkg/apis -maxdepth 2 -mindepth 2 | tr '\r\n' ',')
 input_dirs=${input_dirs%?}
-groups=${input_dirs//..\/pkg\/apis\//}
-header=boilerplate.go.txt
+groups=${input_dirs//.\/pkg\/apis\//}
+header=scripts/boilerplate.go.txt
 
 # deepcopy-gen creates DeepCopy functions for each custom resource
 echo "Generating deepcopy funcs"
@@ -87,6 +90,14 @@ echo "Generating infrastructure.giantswarm.io CRDs as v1"
   output:dir=config/crd/bases \
   crd:crdVersions=v1
 
+pushd "$dir" > /dev/null
+"$toolpath/controller-gen" \
+  crd \
+  paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
+  output:dir=../config/crd/bases \
+  crd:crdVersions=v1beta1
+popd > /dev/null
+
 # Add .metadata.name validation to Release CRD using kustomize since
 # kubebuilder comments can't modify metav1.ObjectMeta
 echo "Kustomizing CRDs"
@@ -100,11 +111,3 @@ echo "Using pkger to package CRDs into go source virtual file system"
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"
-
-exit 0
-popd > /dev/null
-"$toolpath/controller-gen" \
-  crd \
-  paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
-  output:dir=../config/crd/bases \
-  crd:crdVersions=v1beta1
