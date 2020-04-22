@@ -5,16 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+
 ## [Unreleased]
+
+
+
+## [0.3.1] - 2020-04-22
 
 ### Added
 
 - Modified docs for the G8sControlPlane CRD
-- Add properties descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
+- Add property descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
+- Add property descriptions to AWSControlPlane in infrastructure.giantswarm.io/v1alpha2.
 
 ### Changed
 
 - Change `release` CR back to be cluster scoped.
+- Make more CR status fields `omitempty`.
+- Make CR status fields optional.
+
+
+
+### Fixed
+
+- Fix mistake in the main description of `G8sControlPlane` in `infrastructure.giantswarm.io`.
 
 ## [0.3.0] - 2020-04-16
 
@@ -132,8 +147,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.1...HEAD
 
+[0.3.1]: https://github.com/giantswarm/apiextensions/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/giantswarm/apiextensions/compare/v0.2.6...v0.3.0
 [0.2.6]: https://github.com/giantswarm/apiextensions/compare/v0.2.5...v0.2.6
 [0.2.5]: https://github.com/giantswarm/apiextensions/compare/v0.2.4...v0.2.5
