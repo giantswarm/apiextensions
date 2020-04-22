@@ -153,9 +153,6 @@ spec:
                           description: Time the condition occurred.
                           format: date-time
                           type: string
-                      required:
-                      - condition
-                      - lastTransitionTime
                       type: object
                     type: array
                   id:
@@ -175,13 +172,8 @@ spec:
                           description: The aws-operator version responsible for handling
                             the cluster.
                           type: string
-                      required:
-                      - lastTransitionTime
-                      - version
                       type: object
                     type: array
-                required:
-                - id
                 type: object
               provider:
                 description: Provider provides provider-specific status details.
@@ -197,11 +189,7 @@ spec:
                         description: VPCID contains the ID of the tenant cluster,
                           e.g. vpc-1234567890abcdef0.
                         type: string
-                    required:
-                    - cidr
                     type: object
-                required:
-                - network
                 type: object
             type: object
         required:

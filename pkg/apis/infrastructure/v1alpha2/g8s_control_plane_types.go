@@ -47,8 +47,8 @@ type G8sControlPlane struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	// Specification part.
 	Spec G8sControlPlaneSpec `json:"spec"`
-	// Status information.
 	// +kubebuilder:validation:Optional
+	// Status information.
 	Status G8sControlPlaneStatus `json:"status"`
 }
 
@@ -62,13 +62,13 @@ type G8sControlPlaneSpec struct {
 
 // G8sControlPlaneStatus defines the observed state of G8sControlPlane.
 type G8sControlPlaneStatus struct {
-	// Total number of non-terminated machines targeted by this control plane
-	// (their labels match the selector).
 	// +kubebuilder:validation:Enum=1;3
 	// +optional
+	// Total number of non-terminated machines targeted by this control plane
+	// (their labels match the selector).
 	Replicas int32 `json:"replicas,omitempty"`
-	// Total number of fully running and ready control plane machines.
 	// +optional
+	// Total number of fully running and ready control plane machines.
 	ReadyReplicas int32 `json:"readyReplicas,omitempty"`
 }
 
