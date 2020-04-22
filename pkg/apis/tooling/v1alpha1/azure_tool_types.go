@@ -32,11 +32,8 @@ spec:
                   type: string
                 mode:
                   type: string
-            clusterID:
-              type: string
           required:
           - workspace
-          - clusterID
 `
 
 var azureToolCRD *apiextensionsv1beta1.CustomResourceDefinition
@@ -64,7 +61,6 @@ type AzureTool struct {
 type AzureToolSpec struct {
 	// Workspace refers to the Azure Log Analytics Workspace
 	Workspace AzureToolWorkspace `json:"workspace" yaml:"workspace"`
-	ClusterID string             `json:"clusterID" yaml:"clusterID"`
 }
 
 type AzureToolWorkspace struct {

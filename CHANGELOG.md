@@ -26,7 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extend App and AppCatalog CR documentation.
 
 
->>>>>>> master
 
 ## [0.2.1] - 2020-04-06
 
