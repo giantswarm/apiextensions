@@ -41,7 +41,6 @@ echo "Generating deepcopy funcs"
 "$toolpath/deepcopy-gen" \
   --input-dirs "$input_dirs" \
   --output-file-base zz_generated.deepcopy \
-  --output-base "$dir/.." \
   --go-header-file "${dir}/boilerplate.go.txt"
 
 # client-gen creates typed go clients for CRUD operations for each custom resource
@@ -106,6 +105,3 @@ fi
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"
-
-echo "Cleaning up generated github.com/ directory."
-rm -rf "$dir/../github.com/"

@@ -40,33 +40,35 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
 
-// G8sControlPlane defines the Control Plane Nodes (Kubernetes Master Nodes) of
-// a Giant Swarm Tenant Cluster.
+// The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
+// a Giant Swarm tenant cluster. Is is reconciled by cluster-operator.
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              G8sControlPlaneSpec `json:"spec"`
+	// Specification part.
+	Spec G8sControlPlaneSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
+	// Status information.
 	Status G8sControlPlaneStatus `json:"status"`
 }
 
 type G8sControlPlaneSpec struct {
-	// Replicas is the number replicas of the master node.
+	// Number of master nodes.
 	Replicas int `json:"replicas" yaml:"replicas"`
-	// InfrastructureRef is a required reference to provider-specific
-	// Infrastructure.
+	// Reference to a provider-specific resource. On AWS, this would
+	// be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 
 // G8sControlPlaneStatus defines the observed state of G8sControlPlane.
 type G8sControlPlaneStatus struct {
 	// +kubebuilder:validation:Enum=1;3
+	// +optional
 	// Total number of non-terminated machines targeted by this control plane
 	// (their labels match the selector).
-	// +optional
 	Replicas int32 `json:"replicas,omitempty"`
-	// Total number of fully running and ready control plane machines.
 	// +optional
+	// Total number of fully running and ready control plane machines.
 	ReadyReplicas int32 `json:"readyReplicas,omitempty"`
 }
 
