@@ -29,7 +29,8 @@ jobs:
             ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions > /dev/null
             ./kubectl wait nodes/apiextensions-control-plane --for=condition=ready --timeout=5m
             ./kubectl create -f config/crd/bases
-            invalid=$(./kubectl wait crds --for condition=nonstructuralschema --timeout 0 --all 2> /dev/null | grep "condition met" | cut -d " " -f 1 | cut -d "/" -f 2)
+            invalid=$(./kubectl wait crds --for condition=nonstructuralschema --timeout 0 --all | grep "condition met" | cut -d " " -f 1 | cut -d "/" -f 2)
+            echo $invalid
             if [ ! -z "$invalid" ]; then
               echo "NonStructuralSchema condition detected in the following CRDs:"
               echo "$invalid"
