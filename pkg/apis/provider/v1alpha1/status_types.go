@@ -33,13 +33,13 @@ type StatusCluster struct {
 	// Conditions is a list of status information expressing the current
 	// conditional state of a guest cluster. This may reflect the status of the
 	// guest cluster being updating or being up to date.
-	Conditions []StatusClusterCondition `json:"conditions" yaml:"conditions"`
+	Conditions []StatusClusterCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
 	// +kubebuilder:validation:Optional
 	Network StatusClusterNetwork `json:"network" yaml:"network"`
 	// +kubebuilder:validation:Optional
 	// Nodes is a list of guest cluster node information reflecting the current
 	// state of the guest cluster nodes.
-	Nodes []StatusClusterNode `json:"nodes" yaml:"nodes"`
+	Nodes []StatusClusterNode `json:"nodes,omitempty" yaml:"nodes,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Resources is a list of arbitrary conditions of operatorkit resource
 	// implementations.
@@ -50,7 +50,7 @@ type StatusCluster struct {
 	// Versions is a list that acts like a historical track record of versions a
 	// guest cluster went through. A version is only added to the list as soon as
 	// the guest cluster successfully migrated to the version added here.
-	Versions []StatusClusterVersion `json:"versions" yaml:"versions"`
+	Versions []StatusClusterVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
 }
 
 // StatusClusterCondition expresses the conditions in which a guest cluster may

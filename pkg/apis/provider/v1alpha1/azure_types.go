@@ -100,7 +100,7 @@ type AzureConfigStatus struct {
 
 type AzureConfigStatusProvider struct {
 	// +kubebuilder:validation:Optional
-	AvailabilityZones []int `json:"availabilityZones" yaml:"availabilityZones"`
+	AvailabilityZones []int `json:"availabilityZones,omitempty" yaml:"availabilityZones,omitempty"`
 	// +kubebuilder:validation:Optional
 	Ingress AzureConfigStatusProviderIngress `json:"ingress" yaml:"ingress"`
 }
