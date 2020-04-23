@@ -63,6 +63,7 @@ type StatusClusterCondition struct {
 	// +kubebuilder:validation:Optional
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
+	// +kubebuilder:validation:Optional
 	// Type may be Creating, Created, Scaling, Scaled, Draining, Drained,
 	// Updating, Updated, Deleting, Deleted.
 	Type string `json:"type" yaml:"type"`
@@ -71,6 +72,7 @@ type StatusClusterCondition struct {
 // StatusClusterNetwork expresses the network segment that is allocated for a
 // guest cluster.
 type StatusClusterNetwork struct {
+	// +kubebuilder:validation:Optional
 	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
@@ -83,8 +85,10 @@ type StatusClusterNode struct {
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	// +kubebuilder:validation:Optional
 	// Name referrs to a tenant cluster node name.
 	Name string `json:"name" yaml:"name"`
+	// +kubebuilder:validation:Optional
 	// Version referrs to the version used by the node as mandated by the provider
 	// operator.
 	Version string `json:"version" yaml:"version"`
@@ -96,8 +100,10 @@ type StatusClusterNode struct {
 // system state it manages. So it tracks the status as needed here specific to
 // its own implementation and means in order to fulfil its premise.
 type StatusClusterResource struct {
+	// +kubebuilder:validation:Optional
 	Conditions []StatusClusterResourceCondition `json:"conditions" yaml:"conditions"`
-	Name       string                           `json:"name" yaml:"name"`
+	// +kubebuilder:validation:Optional
+	Name string `json:"name" yaml:"name"`
 }
 
 // StatusClusterResourceCondition expresses the conditions in which an
@@ -116,6 +122,7 @@ type StatusClusterResourceCondition struct {
 // StatusClusterScaling expresses the current status of desired number of
 // worker nodes in guest cluster.
 type StatusClusterScaling struct {
+	// +kubebuilder:validation:Optional
 	DesiredCapacity int `json:"desiredCapacity" yaml:"desiredCapacity"`
 }
 
@@ -134,6 +141,7 @@ type StatusClusterVersion struct {
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	// +kubebuilder:validation:Optional
 	// Semver is some semver version, e.g. 1.0.0.
 	Semver string `json:"semver" yaml:"semver"`
 }

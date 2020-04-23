@@ -425,8 +425,6 @@ spec:
                         description: Type may be Creating, Created, Scaling, Scaled,
                           Draining, Drained, Updating, Updated, Deleting, Deleted.
                         type: string
-                    required:
-                    - type
                     type: object
                   type: array
                 network:
@@ -435,8 +433,6 @@ spec:
                   properties:
                     cidr:
                       type: string
-                  required:
-                  - cidr
                   type: object
                 nodes:
                   description: Nodes is a list of guest cluster node information reflecting
@@ -463,9 +459,6 @@ spec:
                         description: Version referrs to the version used by the node
                           as mandated by the provider operator.
                         type: string
-                    required:
-                    - name
-                    - version
                     type: object
                   type: array
                 resources:
@@ -503,9 +496,6 @@ spec:
                         type: array
                       name:
                         type: string
-                    required:
-                    - conditions
-                    - name
                     type: object
                   type: array
                 scaling:
@@ -514,8 +504,6 @@ spec:
                   properties:
                     desiredCapacity:
                       type: integer
-                  required:
-                  - desiredCapacity
                   type: object
                 versions:
                   description: Versions is a list that acts like a historical track
@@ -540,8 +528,6 @@ spec:
                       semver:
                         description: Semver is some semver version, e.g. 1.0.0.
                         type: string
-                    required:
-                    - semver
                     type: object
                   type: array
               type: object
@@ -557,11 +543,7 @@ spec:
                       properties:
                         publicIPName:
                           type: string
-                      required:
-                      - publicIPName
                       type: object
-                  required:
-                  - loadBalancer
                   type: object
               type: object
           type: object

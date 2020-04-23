@@ -106,10 +106,12 @@ type AzureConfigStatusProvider struct {
 }
 
 type AzureConfigStatusProviderIngress struct {
+	// +kubebuilder:validation:Optional
 	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
 }
 
 type AzureConfigStatusProviderIngressLoadBalancer struct {
+	// +kubebuilder:validation:Optional
 	PublicIPName string `json:"publicIPName" yaml:"publicIPName"`
 }
 
