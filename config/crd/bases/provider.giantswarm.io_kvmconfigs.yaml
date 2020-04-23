@@ -466,7 +466,6 @@ spec:
                                 may define.
                               type: string
                           required:
-                          - lastTransitionTime
                           - status
                           type: object
                         type: array

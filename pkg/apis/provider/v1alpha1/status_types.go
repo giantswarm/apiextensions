@@ -43,7 +43,7 @@ type StatusCluster struct {
 	// +kubebuilder:validation:Optional
 	// Resources is a list of arbitrary conditions of operatorkit resource
 	// implementations.
-	Resources []StatusClusterResource `json:"resources" yaml:"resources"`
+	Resources []StatusClusterResource `json:"resources,omitempty" yaml:"resources,omitempty"`
 	// +kubebuilder:validation:Optional
 	Scaling StatusClusterScaling `json:"scaling" yaml:"scaling"`
 	// +kubebuilder:validation:Optional
@@ -101,7 +101,7 @@ type StatusClusterNode struct {
 // its own implementation and means in order to fulfil its premise.
 type StatusClusterResource struct {
 	// +kubebuilder:validation:Optional
-	Conditions []StatusClusterResourceCondition `json:"conditions" yaml:"conditions"`
+	Conditions []StatusClusterResourceCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
 	// +kubebuilder:validation:Optional
 	Name string `json:"name" yaml:"name"`
 }
@@ -111,7 +111,7 @@ type StatusClusterResource struct {
 type StatusClusterResourceCondition struct {
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
 	// +kubebuilder:validation:Optional
