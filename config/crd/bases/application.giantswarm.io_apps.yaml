@@ -180,7 +180,7 @@ spec:
             appVersion:
               description: AppVersion is the value of the AppVersion field in the
                 Chart.yaml of the deployed app. This is an optional field with the
-                version of the component being deployed. e.g. 0.21.0. https://docs.helm.sh/developing_charts/#the-chart-yaml-file
+                version of the component being deployed. e.g. 0.21.0. https://helm.sh/docs/topics/charts/#the-chartyaml-file
               type: string
             release:
               description: Release is the status of the Helm release for the deployed
