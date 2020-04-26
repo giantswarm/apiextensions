@@ -44,7 +44,7 @@ spec:
           type: string
         metadata:
           properties:
-            creationTimestamp:
+            name:
               pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
               type: string
           type: object
