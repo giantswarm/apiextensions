@@ -3,9 +3,49 @@ version: 2.1
 orbs:
   architect: giantswarm/architect@0.8.9
 
+jobs:
+  test-install:
+    machine: true
+    environment:
+      KIND_VERSION: v0.7.0
+      KUBERNETES_VERSION: v1.16.4
+    steps:
+      - checkout
+      - run:
+          name: Download kind
+          command: |
+            curl -sLo kind https://github.com/kubernetes-sigs/kind/releases/download/$KIND_VERSION/kind-linux-amd64
+      - run:
+          name: Download kubectl
+          command: |
+            curl -sLO https://storage.googleapis.com/kubernetes-release/release/$KUBERNETES_VERSION/bin/linux/amd64/kubectl && chmod +x kind kubectl
+      - run:
+          name: Create cluster
+          command: |
+            ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions 2> /dev/null
+      - run:
+          name: Wait for the cluster node to be ready
+          command: |
+            ./kubectl wait nodes/apiextensions-control-plane --for=condition=ready --timeout=5m > /dev/null
+      - run:
+          name: Install CRDs
+          command: |
+            ./kubectl create -f config/crd/bases > /dev/null
+      - run:
+          name: Check for NonStructuralSchema condition indicating invalid CRDs
+          command: |
+            invalid=$(./kubectl wait crds --for condition=nonstructuralschema --timeout 0 --all 2> /dev/null | grep "condition met" | cut -d " " -f 1 | cut -d "/" -f 2 || true)
+            if [ ! -z "$invalid" ]; then
+              echo "NonStructuralSchema condition detected in the following CRDs:"
+              echo "$invalid"
+              exit 1
+            fi
+
 workflows:
   workflow:
     jobs:
+      - test-install
+
       - architect/go-test:
           name: go-test
           filters:
@@ -18,6 +58,7 @@ workflows:
           command: build
           requires:
             - go-test
+            - test-install
 
       - architect/go-architect-legacy:
           name: go-deploy
