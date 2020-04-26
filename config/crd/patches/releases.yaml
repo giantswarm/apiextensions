@@ -8,6 +8,6 @@ spec:
       properties:
         metadata:
           properties:
-            name:
+            creationTimestamp:
               type: string
               pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
