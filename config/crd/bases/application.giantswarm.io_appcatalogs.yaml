@@ -84,7 +84,7 @@ spec:
               properties:
                 URL:
                   description: URL is the link to where this AppCatalog's repository
-                    is located e.g. https://giantswarm.github.com/app-catalog/.
+                    is located e.g. https://example.com/app-catalog/
                   type: string
                 type:
                   description: Type indicates which repository type would be used
