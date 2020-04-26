@@ -153,7 +153,7 @@ type AppStatus struct {
 	// deployed app. This is an optional field with the version of the
 	// component being deployed.
 	// e.g. 0.21.0.
-	// https://docs.helm.sh/developing_charts/#the-chart-yaml-file
+	// https://helm.sh/docs/topics/charts/#the-chartyaml-file
 	AppVersion string `json:"appVersion"`
 	// Release is the status of the Helm release for the deployed app.
 	Release AppStatusRelease `json:"release"`

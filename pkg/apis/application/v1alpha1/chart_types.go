@@ -57,7 +57,7 @@ type ChartSpec struct {
 	// e.g. monitoring
 	Namespace string `json:"namespace"`
 	// TarballURL is the URL for the Helm chart tarball to be deployed.
-	// e.g. https://path/to/prom-1-0-0.tgz"
+	// e.g. https://example.com/path/to/prom-1-0-0.tgz
 	TarballURL string `json:"tarballURL"`
 	// Version is the version of the chart that should be deployed.
 	// e.g. 1.0.0
@@ -102,7 +102,7 @@ type ChartStatus struct {
 	// deployed chart. This is an optional field with the version of the
 	// component being deployed.
 	// e.g. 0.21.0.
-	// https://docs.helm.sh/developing_charts/#the-chart-yaml-file
+	// https://helm.sh/docs/topics/charts/#the-chartyaml-file
 	AppVersion string `json:"appVersion"`
 	// Reason is the description of the last status of helm release when the chart is
 	// not installed successfully, e.g. deploy resource already exists.

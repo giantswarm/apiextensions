@@ -95,7 +95,7 @@ spec:
               type: string
             tarballURL:
               description: TarballURL is the URL for the Helm chart tarball to be
-                deployed. e.g. https://path/to/prom-1-0-0.tgz"
+                deployed. e.g. https://example.com/path/to/prom-1-0-0.tgz
               type: string
             version:
               description: Version is the version of the chart that should be deployed.
@@ -113,7 +113,7 @@ spec:
             appVersion:
               description: AppVersion is the value of the AppVersion field in the
                 Chart.yaml of the deployed chart. This is an optional field with the
-                version of the component being deployed. e.g. 0.21.0. https://docs.helm.sh/developing_charts/#the-chart-yaml-file
+                version of the component being deployed. e.g. 0.21.0. https://helm.sh/docs/topics/charts/#the-chartyaml-file
               type: string
             reason:
               description: Reason is the description of the last status of helm release
