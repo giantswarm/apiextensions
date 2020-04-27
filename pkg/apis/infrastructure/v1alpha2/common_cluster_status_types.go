@@ -1,5 +1,7 @@
 package v1alpha2
 
+import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
 const (
 	// ClusterConditionLimit is the maximum amount of conditions tracked in the
 	// condition list of a tenant cluster's status. The limit here is applied to
@@ -72,15 +74,15 @@ const (
 
 var (
 	conditionPairs = [][]string{
-		[]string{
+		{
 			ClusterStatusConditionCreated,
 			ClusterStatusConditionCreating,
 		},
-		[]string{
+		{
 			ClusterStatusConditionDeleted,
 			ClusterStatusConditionDeleting,
 		},
-		[]string{
+		{
 			ClusterStatusConditionUpdated,
 			ClusterStatusConditionUpdating,
 		},
@@ -90,26 +92,33 @@ var (
 // CommonClusterStatus is shared type to contain provider independent cluster
 // status information.
 type CommonClusterStatus struct {
+	// +kubebuilder:validation:Optional
 	// One or several conditions that are currently applicable to the cluster.
 	Conditions []CommonClusterStatusCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Identifier of the cluster.
-	ID string `json:"id" yaml:"id"`
+	ID string `json:"id,omitempty" yaml:"id,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Release versions the cluster used so far.
 	Versions []CommonClusterStatusVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
 }
 
 // CommonClusterStatusCondition explains the current condition(s) of the cluster.
 type CommonClusterStatusCondition struct {
+	// +kubebuilder:validation:Optional
 	// Time the condition occurred.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
-	// Condition string, e. g. `Creating`, `Created`, `Upgraded`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	// +kubebuilder:validation:Optional
+	// Condition string, e. g. "Creating", "Created", "Upgraded"
 	Condition string `json:"condition" yaml:"condition"`
 }
 
 // CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.
 type CommonClusterStatusVersion struct {
+	// +kubebuilder:validation:Optional
 	// Time the cluster assumed the given version.
-	LastTransitionTime DeepCopyTime `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	// +kubebuilder:validation:Optional
 	// The aws-operator version responsible for handling the cluster.
 	Version string `json:"version" yaml:"version"`
 }

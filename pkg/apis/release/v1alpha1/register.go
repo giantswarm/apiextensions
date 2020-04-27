@@ -6,6 +6,9 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 )
 
+// +kubebuilder:object:generate=true
+// +groupName=release.giantswarm.io
+
 const (
 	group   = "release.giantswarm.io"
 	version = "v1alpha1"

@@ -1,175 +1,18 @@
 package v1alpha2
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
 	kindAWSMachineDeployment = "AWSMachineDeployment"
 )
 
-const awsMachineDeploymentCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: awsmachinedeployments.infrastructure.giantswarm.io
-spec:
-  group: infrastructure.giantswarm.io
-  names:
-    kind: AWSMachineDeployment
-    plural: awsmachinedeployments
-    singular: awsmachinedeployment
-  scope: Namespaced
-  subresources:
-    status: {}
-  versions:
-  - name: v1alpha1
-    served: false
-    storage: false
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties: {}
-  - name: v1alpha2
-    served: true
-    storage: true
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              nodePool:
-                description: |
-                  General node pool configuration.
-                type: object
-                properties:
-                  description:
-                    description: |
-                      User-friendly description of the node pool, e. g. to inform about the purpose.
-                    type: string
-                    maxLength: 100
-                  machine:
-                    type: object
-                    properties:
-                      dockerVolumeSizeGB:
-                        description: |
-                          Size of the volume reserved for Docker images and overlay file systems
-                          of Docker containers. Unit: 1 GB = 1,000,000,000 Bytes.
-                        format: int32
-                        type: integer
-                      kubeletVolumeSizeGB:
-                        description: |
-                          Size of the volume reserved for the kubelet, which can be used by Pods
-                          via volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.
-                        format: int32
-                        type: integer
-                  scaling:
-                    description: |
-                      Configures the size of the node pool, in terms of the number of worker
-                      nodes it can have, as a range. The actual number of worker nodes will
-                      be determined by cluster-autoscaler within the configured range.
-                      Setting the minimum and maximum to the same number effectively disables
-                      autoscaling.
-                    type: object
-                    properties:
-                      max:
-                        description: |
-                          Maximum number of worker nodes in this node pool.
-                        format: int32
-                        type: integer
-                      min:
-                        description: |
-                          Minimum number of worker nodes in this node pool.
-                        format: int32
-                        type: integer
-              provider:
-                description: |
-                  Configuration specific to AWS.
-                type: object
-                properties:
-                  availabilityZones:
-                    description: |
-                      Name(s) of the availability zone(s) to use for worker nodes. Using multiple
-                      availability zones results in higher resilience but can also result in
-                      higher cost due to network traffic between availability zones.
-                    items:
-                      type: string
-                    type: array
-                  instanceDistribution:
-                    description: |
-                      Attributes defining the instance distribution in a node pool.
-                    properties:
-                      onDemandBaseCapacity:
-                        default: 0
-                        description: |
-                          Base capacity of on-demand instances to use for worker nodes.
-                        format: int32
-                        minimum: 0
-                        type: integer
-                      onDemandPercentageAboveBaseCapacity:
-                        default: 100
-                        description: |
-                          Percentage of on-demand instances to use for worker nodes, for instances exceeding onDemandBaseCapacity.
-                        format: int32
-                        maximum: 100
-                        minimum: 0
-                        type: integer
-                    type: object
-                  worker:
-                    type: object
-                    description: |
-                      Specification of worker nodes.
-                    properties:
-                      instanceType:
-                        description: |
-                          AWS EC2 instance type name to use for the worker nodes in this node pool.
-                        type: string
-                      useAlikeInstanceTypes:
-                        description: |
-                          If true, certain instance types with specs similar to instanceType will be used.
-                        type: boolean
-          status:
-            type: object
-            properties:
-              provider:
-                description: |
-                  Status specific to AWS.
-                type: object
-                properties:
-                  worker:
-                    type: object
-                    description: |
-                      Status of worker nodes.
-                    properties:
-                      instanceTypes:
-                        description: |
-                          AWS EC2 instance types used for the worker nodes in this node pool.
-                        items:
-                          type: string
-                        type: array
-                      spotInstances:
-                        description: |
-                          Number of spot instances used in this node pool.
-                        type: integer
-  conversion:
-    strategy: None
-`
-
-var awsMachineDeploymentCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(awsMachineDeploymentCRDYAML), &awsMachineDeploymentCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func NewAWSMachineDeploymentCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return awsMachineDeploymentCRD.DeepCopy()
+func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAWSMachineDeployment)
 }
 
 func NewAWSMachineDeploymentTypeMeta() metav1.TypeMeta {
@@ -193,102 +36,109 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
-// AWSMachineDeployment is the infrastructure provider referenced in upstream
-// CAPI MachineDeployment CRs.
-//
-//     apiVersion: infrastructure.giantswarm.io/v1alpha2
-//     kind: AWSMachineDeployment
-//     metadata:
-//       labels:
-//         aws-operator.giantswarm.io/version: 6.2.0
-//         cluster-operator.giantswarm.io/version: 0.17.0
-//         giantswarm.io/cluster: 8y5kc
-//         giantswarm.io/organization: "giantswarm"
-//         giantswarm.io/machine-deployment: al9qy
-//         release.giantswarm.io/version: 7.3.1
-//       name: al9qy
-//     spec:
-//       nodePool:
-//         description: my fancy node pool
-//         machine:
-//           dockerVolumeSizeGB: 100
-//           kubeletVolumeSizeGB: 100
-//         scaling:
-//           max: 3
-//           min: 3
-//       provider:
-//         availabilityZones:
-//           - eu-central-1a
-//         instanceDistribution:
-//           onDemandBaseCapacity: 0
-//           onDemandPercentageAboveBaseCapacity: 0
-//         worker:
-//           instanceType: m4.xlarge
-//           useAlikeInstanceTypes: true
-//     status:
-//       provider:
-//         worker:
-//           instanceTypes:
-//             - "m4.xlarge"
-//             - "m5.xlarge"
-//           spotInstances: 39
-//
+// AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources.
+// It contains provider-specific specification and status for a node pool.
+// In use on AWS since Giant Swarm release v10.x.x and reconciled by aws-operator.
 type AWSMachineDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSMachineDeploymentSpec   `json:"spec" yaml:"spec"`
-	Status            AWSMachineDeploymentStatus `json:"status" yaml:"status"`
+	// Contains the specification.
+	Spec AWSMachineDeploymentSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	// Holds status information.
+	Status AWSMachineDeploymentStatus `json:"status" yaml:"status"`
 }
 
 type AWSMachineDeploymentSpec struct {
+	// Specifies details of node pool and the worker nodes it should contain.
 	NodePool AWSMachineDeploymentSpecNodePool `json:"nodePool" yaml:"nodePool"`
+	// Contains AWS specific details.
 	Provider AWSMachineDeploymentSpecProvider `json:"provider" yaml:"provider"`
 }
 
 type AWSMachineDeploymentSpecNodePool struct {
-	Description string                                  `json:"description" yaml:"description"`
-	Machine     AWSMachineDeploymentSpecNodePoolMachine `json:"machine" yaml:"machine"`
-	Scaling     AWSMachineDeploymentSpecNodePoolScaling `json:"scaling" yaml:"scaling"`
+	// User-friendly name or description of the purpose of the node pool.
+	Description string `json:"description" yaml:"description"`
+	// Specification of the worker node machine.
+	Machine AWSMachineDeploymentSpecNodePoolMachine `json:"machine" yaml:"machine"`
+	// Scaling settings for the node pool, configuring the cluster-autosaler
+	// determining the number of nodes to have in this node pool.
+	Scaling AWSMachineDeploymentSpecNodePoolScaling `json:"scaling" yaml:"scaling"`
 }
 
 type AWSMachineDeploymentSpecNodePoolMachine struct {
-	DockerVolumeSizeGB  int `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	// Size of the volume reserved for Docker images and overlay file systems of
+	// Docker containers. Unit: 1 GB = 1,000,000,000 Bytes.
+	DockerVolumeSizeGB int `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	// Size of the volume reserved for the kubelet, which can be used by Pods via
+	// volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.
 	KubeletVolumeSizeGB int `json:"kubeletVolumeSizeGB" yaml:"kubeletVolumeSizeGB"`
 }
 
 type AWSMachineDeploymentSpecNodePoolScaling struct {
+	// Maximum number of worker nodes in this node pool.
 	Max int `json:"max" yaml:"max"`
+	// Minimum number of worker nodes in this node pool.
 	Min int `json:"min" yaml:"min"`
 }
 
 type AWSMachineDeploymentSpecProvider struct {
-	AvailabilityZones    []string                                     `json:"availabilityZones" yaml:"availabilityZones"`
+	// Name(s) of the availability zone(s) to use for worker nodes. Using multiple
+	// availability zones results in higher resilience but can also result in higher
+	// cost due to network traffic between availability zones.
+	AvailabilityZones []string `json:"availabilityZones" yaml:"availabilityZones"`
+	// +kubebuilder:validation:Optional
+	// Settings defining the distribution of on-demand and spot instances in the node pool.
 	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution" yaml:"instanceDistribution"`
-	Worker               AWSMachineDeploymentSpecProviderWorker       `json:"worker" yaml:"worker"`
+	// Specification of worker nodes.
+	Worker AWSMachineDeploymentSpecProviderWorker `json:"worker" yaml:"worker"`
 }
 
 type AWSMachineDeploymentSpecInstanceDistribution struct {
-	OnDemandBaseCapacity                int `json:"onDemandBaseCapacity" yaml:"onDemandBaseCapacity"`
+	// +kubebuilder:default=0
+	// +kubebuilder:validation:Minimum=0
+	// Base capacity of on-demand instances to use for worker nodes in this pool. When this larger
+	// than 0, this value defines a number of worker nodes that will be created using on-demand
+	// EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.
+	OnDemandBaseCapacity int `json:"onDemandBaseCapacity" yaml:"onDemandBaseCapacity"`
+	// +kubebuilder:default=100
+	// +kubebuilder:validation:Maximum=100
+	// +kubebuilder:validation:Minimum=0
+	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
+	// for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes
+	// use spot instances and half use on-demand, set this value to 50.
 	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity" yaml:"onDemandPercentageAboveBaseCapacity"`
 }
 
 type AWSMachineDeploymentSpecProviderWorker struct {
-	InstanceType          string `json:"instanceType" yaml:"instanceType"`
-	UseAlikeInstanceTypes bool   `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
+	// AWS EC2 instance type name to use for the worker nodes in this node pool.
+	InstanceType string `json:"instanceType" yaml:"instanceType"`
+	// +kubebuilder:default=false
+	// If true, certain instance types with specs similar to instanceType will be used.
+	UseAlikeInstanceTypes bool `json:"useAlikeInstanceTypes" yaml:"useAlikeInstanceTypes"`
 }
 
 type AWSMachineDeploymentStatus struct {
+	// +kubebuilder:validation:Optional
+	// Status specific to AWS.
 	Provider AWSMachineDeploymentStatusProvider `json:"provider" yaml:"provider"`
 }
 
 type AWSMachineDeploymentStatusProvider struct {
+	// +kubebuilder:validation:Optional
+	// Status of worker nodes.
 	Worker AWSMachineDeploymentStatusProviderWorker `json:"worker" yaml:"worker"`
 }
 
 type AWSMachineDeploymentStatusProviderWorker struct {
+	// +kubebuilder:validation:Optional
+	// AWS EC2 instance types used for the worker nodes in this node pool.
 	InstanceTypes []string `json:"instanceTypes" yaml:"instanceTypes"`
-	SpotInstances int      `json:"spotInstances" yaml:"spotInstances"`
+	// +kubebuilder:validation:Optional
+	// Number of EC2 spot instances used in this node pool.
+	SpotInstances int `json:"spotInstances" yaml:"spotInstances"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

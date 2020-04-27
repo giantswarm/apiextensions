@@ -1,61 +1,30 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-// NewKVMConfigCRD returns a new custom resource definition for KVMConfig. This
-// might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: kvmconfigs.provider.giantswarm.io
-//     spec:
-//       group: provider.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: KVMConfig
-//         plural: kvmconfigs
-//         singular: kvmconfig
-//       subresources:
-//         status: {}
-//
-func NewKVMConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "kvmconfigs.provider.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "provider.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "KVMConfig",
-				Plural:   "kvmconfigs",
-				Singular: "kvmconfig",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
-		},
-	}
+const (
+	kindKVMConfig = "KVMConfig"
+)
+
+func NewKVMConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindKVMConfig)
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 type KVMConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              KVMConfigSpec   `json:"spec"`
-	Status            KVMConfigStatus `json:"status" yaml:"status"`
+	Spec              KVMConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status KVMConfigStatus `json:"status" yaml:"status"`
 }
 
 type KVMConfigSpec struct {
@@ -93,10 +62,11 @@ type KVMConfigSpecKVMK8sKVMDocker struct {
 }
 
 type KVMConfigSpecKVMNode struct {
-	CPUs               int     `json:"cpus" yaml:"cpus"`
-	Disk               float64 `json:"disk" yaml:"disk"`
-	Memory             string  `json:"memory" yaml:"memory"`
-	DockerVolumeSizeGB int     `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	CPUs int `json:"cpus" yaml:"cpus"`
+	// +kubebuilder:validation:Type=number
+	Disk               string `json:"disk" yaml:"disk"`
+	Memory             string `json:"memory" yaml:"memory"`
+	DockerVolumeSizeGB int    `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
 }
 
 type KVMConfigSpecKVMNetwork struct {

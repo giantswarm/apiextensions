@@ -9,13 +9,76 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Add CRDs for Azure Tool
+
+
+## [0.3.1] - 2020-04-22
+
+### Added
+
+- Modified docs for the G8sControlPlane CRD
+- Add property descriptions to AWSMachineDeployment in infrastructure.giantswarm.io/v1alpha2.
+- Add property descriptions to AWSControlPlane in infrastructure.giantswarm.io/v1alpha2.
+
+### Changed
+
+- Change `release` CR back to be cluster scoped.
+- Make more CR status fields `omitempty`.
+- Make CR status fields optional.
+
+
+
+### Fixed
+
+- Fix mistake in the main description of `G8sControlPlane` in `infrastructure.giantswarm.io`.
+
+## [0.3.0] - 2020-04-16
+
+### Added
+
+- Add `.spec.provider.pods` field to AWSCluster in core.giantswarm.io/v1alpha1.
+
+### Changed
+
+- Replace custom `time.Time` wrapper `DeepCopyTime` with Kubernetes built-in `metav1.Time`.
+- Generate CRDs via `kubebuilder` tools based on CRs.
+
+
+
+## [0.2.6] - 2020-04-15
+
+### Added
+
+- Document G8sControlPlane in infrastructure.giantswarm.io [#405](https://github.com/giantswarm/apiextensions/pull/405)
+- Document Chart in core.giantswarm.io/v1alpha1 [#406](https://github.com/giantswarm/apiextensions/pull/406)
+
+
+
+## [0.2.5] - 2020-04-09
+
+### Changed
+
+- Fix docs for MachineDeployment machinedeployments.cluster.x-k8s.io [#404](https://github.com/giantswarm/apiextensions/pull/404)
+
+
+
+## [0.2.4] - 2020-04-08
+
+### Added
+
+- Add schema documentation for CertConfig in core.giantswarm.io/v1alpha1 [#401](https://github.com/giantswarm/apiextensions/pull/401)
+
+### Changed
+
+- Fix path of CR and CRD yaml files for Cluster and MachineDeployment in infrastructure.giantswarm.io/v1alpha2 [#403](https://github.com/giantswarm/apiextensions/pull/403)
+
+
 
 ## [0.2.3] - 2020-04-08
 
 ### Added
 
 - Add Helm revision number to chart CR status.
+- Extend documentation Chart CR documentation.
 
 
 
@@ -49,7 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed CRD OpenAPISchemas.
+- Fix CRD OpenAPISchemas for:
   - App
   - AppCatalog
   - Chart
@@ -68,7 +131,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Fixed CRD OpenAPISchemas.
+- Fix CRD OpenAPISchemas for:
   - AWSCluster
   - AWSMachineDeployment
   - AWSControlPlane
@@ -84,8 +147,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.1...HEAD
 
+[0.3.1]: https://github.com/giantswarm/apiextensions/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/giantswarm/apiextensions/compare/v0.2.6...v0.3.0
+[0.2.6]: https://github.com/giantswarm/apiextensions/compare/v0.2.5...v0.2.6
+[0.2.5]: https://github.com/giantswarm/apiextensions/compare/v0.2.4...v0.2.5
+[0.2.4]: https://github.com/giantswarm/apiextensions/compare/v0.2.3...v0.2.4
+[0.2.3]: https://github.com/giantswarm/apiextensions/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/giantswarm/apiextensions/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/giantswarm/apiextensions/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/giantswarm/apiextensions/compare/v0.1.1...v0.1.2

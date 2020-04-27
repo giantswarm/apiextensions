@@ -1,9 +1,10 @@
 package v1alpha2
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -12,104 +13,8 @@ const (
 	awsClusterDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster"
 )
 
-const awsClusterCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: awsclusters.infrastructure.giantswarm.io
-spec:
-  conversion:
-    strategy: None
-  group: infrastructure.giantswarm.io
-  names:
-    kind: AWSCluster
-    listKind: AWSClusterList
-    plural: awsclusters
-    singular: awscluster
-  preserveUnknownFields: true
-  scope: Namespaced
-  versions:
-  - name: v1alpha1
-    served: false
-    storage: false
-    schema:
-      openAPIV3Schema:
-        type: object
-        properties: {}
-  - name: v1alpha2
-    served: true
-    storage: true
-    schema:
-      openAPIV3Schema:
-        description: |
-          Defines a tenant cluster in a Giant Swarm AWS installation.
-          Introduced with release v10.x.x, reconciled by aws-operator.
-        type: object
-        properties:
-          spec:
-            type: object
-            properties:
-              cluster:
-                description: |
-                  Provides cluster specification details.
-                type: object
-                properties:
-                  description:
-                    description: |
-                      User-friendly description that should explain the purpose of the
-                      cluster.
-                    maxLength: 100
-                    type: string
-                  dns:
-                    description: |
-                      DNS configuration details.
-                    type: object
-                    properties:
-                      domain:
-                        description: |
-                          Base domain for several endpoints of this cluster.
-                        type: string
-                  oidc:
-                    description: |
-                      Configuration for OpenID Connect (OIDC) authentication.
-                    type: object
-              provider:
-                description: |
-                  AWS-specific configuration details.
-                type: object
-                properties:
-                  master:
-                    description: |
-                      Master node configuration details.
-                    type: object
-                    properties:
-                      availabilityZone:
-                        description: |
-                          Name of the AWS Availability Zone to place the master node in.
-                        type: string
-                      instanceType:
-                        description: |
-                          EC2 instance type to use for the master node.
-                        type: string
-                  region:
-                    description: |
-                      AWS region the cluster is to be running in.
-                    type: string
-    subresources:
-      status: {}
-`
-
-var awsClusterCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(awsClusterCRDYAML), &awsClusterCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func NewAWSClusterCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return awsClusterCRD.DeepCopy()
+func NewAWSClusterCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAWSCluster)
 }
 
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
@@ -133,59 +38,16 @@ func NewAWSClusterCR() *AWSCluster {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
-//
-//     apiVersion: infrastructure.giantswarm.io/v1alpha2
-//     kind: AWSCluster
-//     metadata:
-//       labels:
-//         aws-operator.giantswarm.io/version: 6.2.0
-//         cluster-operator.giantswarm.io/version: 0.17.0
-//         giantswarm.io/cluster: "8y5kc"
-//         giantswarm.io/organization: "giantswarm"
-//         release.giantswarm.io/version: 7.3.1
-//       name: 8y5kc
-//     spec:
-//       cluster:
-//         description: my fancy cluster
-//         dns:
-//           domain: gauss.eu-central-1.aws.gigantic.io
-//         oidc:
-//           claims:
-//             username: email
-//             groups: groups
-//           clientID: foobar-dex-client
-//           issuerURL: https://dex.gatekeeper.eu-central-1.aws.example.com
-//       provider:
-//         credentialSecret:
-//           name: credential-default
-//           namespace: giantswarm
-//         master:
-//           availabilityZone: eu-central-1a
-//           instanceType: m4.large
-//         region: eu-central-1
-//     status:
-//       cluster:
-//         conditions:
-//         - lastTransitionTime: "2019-03-25T17:10:09.333633991Z"
-//           type: Created
-//         id: 8y5kc
-//         versions:
-//         - lastTransitionTime: "2019-03-25T17:10:09.995948706Z"
-//           version: 4.9.0
-//       provider:
-//         network:
-//           cidr: 10.1.6.0/24
-//           vpcID: vpc-1234567890abcdef0
-//
 type AWSCluster struct {
-	metav1.TypeMeta `json:",inline"`
-	// metav1.ObjectMeta is standard Kubernetes resource metadata.
+	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSClusterSpec   `json:"spec" yaml:"spec"`
-	Status            AWSClusterStatus `json:"status,omitempty" yaml:"status,omitempty"`
+	Spec              AWSClusterSpec `json:"spec" yaml:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AWSClusterStatus `json:"status,omitempty" yaml:"status,omitempty"`
 }
 
 // AWSClusterSpec is the spec part for the AWSCluster resource.
@@ -232,6 +94,9 @@ type AWSClusterSpecProvider struct {
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
 	// Master holds master node configuration details.
 	Master AWSClusterSpecProviderMaster `json:"master" yaml:"master"`
+	// +kubebuilder:validation:Optional
+	// Pod network configuration.
+	Pods AWSClusterSpecProviderPods `json:"pods,omitempty" yaml:"pods"`
 	// Region is the AWS region the cluster is to be running in.
 	Region string `json:"region" yaml:"region"`
 }
@@ -253,27 +118,39 @@ type AWSClusterSpecProviderMaster struct {
 	InstanceType string `json:"instanceType" yaml:"instanceType"`
 }
 
+// AWSClusterSpecProviderPods Pod network configuration.
+type AWSClusterSpecProviderPods struct {
+	// +kubebuilder:validation:Optional
+	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
+	CIDRBlock string `json:"cidrBlock,omitempty" yaml:"cidrBlock"`
+}
+
 // AWSClusterStatus holds status information about the cluster, populated once the
 // cluster is in creation or created.
 type AWSClusterStatus struct {
+	// +kubebuilder:validation:Optional
 	// Cluster provides cluster-specific status details, including conditions and versions.
 	Cluster CommonClusterStatus `json:"cluster,omitempty" yaml:"cluster,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Provider provides provider-specific status details.
 	Provider AWSClusterStatusProvider `json:"provider,omitempty" yaml:"provider,omitempty"`
 }
 
 // AWSClusterStatusProvider holds provider-specific status details.
 type AWSClusterStatusProvider struct {
+	// +kubebuilder:validation:Optional
 	// Network provides network-specific configuration details
-	Network AWSClusterStatusProviderNetwork `json:"network" yaml:"network"`
+	Network AWSClusterStatusProviderNetwork `json:"network,omitempty" yaml:"network,omitempty"`
 }
 
 // AWSClusterStatusProviderNetwork holds network details.
 type AWSClusterStatusProviderNetwork struct {
+	// +kubebuilder:validation:Optional
 	// IPv4 address block used by the tenant cluster, in CIDR notation.
-	CIDR string `json:"cidr" yaml:"cidr"`
+	CIDR string `json:"cidr,omitempty" yaml:"cidr,omitempty"`
+	// +kubebuilder:validation:Optional
 	// VPCID contains the ID of the tenant cluster, e.g. vpc-1234567890abcdef0.
-	VPCID string `json:"vpcID" yaml:"vpcID"`
+	VPCID string `json:"vpcID,omitempty" yaml:"vpcID,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

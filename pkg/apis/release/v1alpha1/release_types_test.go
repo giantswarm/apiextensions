@@ -18,7 +18,7 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apiextensions-apiserver/pkg/apiserver/validation"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
@@ -29,18 +29,8 @@ var (
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewReleaseCRD(t *testing.T) {
-	crd := NewReleaseCRD()
-	if crd == nil {
-		t.Error("Release CRD was nil.")
-		return
-	}
-	if crd.Name == "" {
-		t.Error("Release CRD name was empty.")
-	}
-}
-
 func Test_ReleaseCRValidation(t *testing.T) {
+	now := metav1.Now()
 	testCases := []struct {
 		name   string
 		errors []*errors.Validation
@@ -77,13 +67,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 1: normal release is valid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps: []ReleaseSpecApp{
 						{
 							Name:             "test-app",
@@ -104,13 +94,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 2: one component is required",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps: []ReleaseSpecApp{
 						{
 							Name:             "test-app",
@@ -132,13 +122,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 3: zero apps is valid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -153,13 +143,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 4: non semver version is invalid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -179,13 +169,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 5: semver with leading v is invalid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -205,13 +195,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 6: unknown release state is invalid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: "bad",
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -231,13 +221,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 7: pre-release component version is valid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "v13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -252,13 +242,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 8: non-semver name is invalid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "bad",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -278,13 +268,13 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		{
 			name: "case 9: semver name without v prefix is invalid",
 			cr: Release{
-				ObjectMeta: v1.ObjectMeta{
+				ObjectMeta: metav1.ObjectMeta{
 					Name: "13.1.2",
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
 					State: stateActive,
-					Date:  &DeepCopyTime{time.Now()},
+					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
 						{
@@ -430,7 +420,7 @@ func newReleaseExampleCR() *Release {
 				Version: "3.3.17",
 			},
 		},
-		Date:  &DeepCopyTime{time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
+		Date:  &metav1.Time{Time: time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
 		State: stateActive,
 	}
 	return cr
@@ -442,11 +432,6 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_release.yaml", group),
-			resource: NewReleaseCRD(),
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_release.yaml", group, version),

@@ -28,27 +28,12 @@ var (
 	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewAWSConfigCRD(t *testing.T) {
-	crd := NewAWSConfigCRD()
-	if crd == nil {
-		t.Error("AWSConfig CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSConfig CRD name was empty.")
-	}
-}
-
 func Test_GenerateAWSConfigYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awsconfig.yaml", group),
-			resource: NewAWSConfigCRD(),
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsconfig.yaml", group, version),

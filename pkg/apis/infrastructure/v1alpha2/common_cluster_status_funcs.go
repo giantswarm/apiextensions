@@ -3,6 +3,8 @@ package v1alpha2
 import (
 	"sort"
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func (s CommonClusterStatus) GetCreatedCondition() CommonClusterStatusCondition {
@@ -79,7 +81,7 @@ func (s CommonClusterStatus) LatestVersion() string {
 
 func (s CommonClusterStatus) WithCreatedCondition() []CommonClusterStatusCondition {
 	newCondition := CommonClusterStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Condition:          ClusterStatusConditionCreated,
 	}
 
@@ -88,7 +90,7 @@ func (s CommonClusterStatus) WithCreatedCondition() []CommonClusterStatusConditi
 
 func (s CommonClusterStatus) WithCreatingCondition() []CommonClusterStatusCondition {
 	newCondition := CommonClusterStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Condition:          ClusterStatusConditionCreating,
 	}
 
@@ -97,7 +99,7 @@ func (s CommonClusterStatus) WithCreatingCondition() []CommonClusterStatusCondit
 
 func (s CommonClusterStatus) WithDeletedCondition() []CommonClusterStatusCondition {
 	newCondition := CommonClusterStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Condition:          ClusterStatusConditionDeleted,
 	}
 
@@ -106,7 +108,7 @@ func (s CommonClusterStatus) WithDeletedCondition() []CommonClusterStatusConditi
 
 func (s CommonClusterStatus) WithDeletingCondition() []CommonClusterStatusCondition {
 	newCondition := CommonClusterStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Condition:          ClusterStatusConditionDeleting,
 	}
 
@@ -115,7 +117,7 @@ func (s CommonClusterStatus) WithDeletingCondition() []CommonClusterStatusCondit
 
 func (s CommonClusterStatus) WithNewVersion(version string) []CommonClusterStatusVersion {
 	newVersion := CommonClusterStatusVersion{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Version:            version,
 	}
 
@@ -124,7 +126,7 @@ func (s CommonClusterStatus) WithNewVersion(version string) []CommonClusterStatu
 
 func (s CommonClusterStatus) WithUpdatedCondition() []CommonClusterStatusCondition {
 	newCondition := CommonClusterStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Condition:          ClusterStatusConditionUpdated,
 	}
 
@@ -133,7 +135,7 @@ func (s CommonClusterStatus) WithUpdatedCondition() []CommonClusterStatusConditi
 
 func (s CommonClusterStatus) WithUpdatingCondition() []CommonClusterStatusCondition {
 	newCondition := CommonClusterStatusCondition{
-		LastTransitionTime: DeepCopyTime{time.Now()},
+		LastTransitionTime: metav1.Now(),
 		Condition:          ClusterStatusConditionUpdating,
 	}
 
@@ -219,17 +221,14 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 				// automatically added condition does not obtain a reasonable timestamp.
 				// Here we take the timestamp of the new condition we want to track and
 				// substract one nano second from it to keep the order intact.
-				LastTransitionTime: DeepCopyTime{condition.LastTransitionTime.Add(-(1 * time.Nanosecond))},
+				LastTransitionTime: metav1.Time{Time: condition.LastTransitionTime.Add(-(1 * time.Nanosecond))},
 				Condition:          getConditionForPair(condition),
 			}
 			newConditions = append(newConditions, injected)
 		}
 
 		newConditions = append(newConditions, condition)
-
-		for _, c := range conditions {
-			newConditions = append(newConditions, c)
-		}
+		newConditions = append(newConditions, conditions...)
 	}
 
 	// The new list is sorted to have the first item being the oldest. This is to
@@ -259,7 +258,7 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 			// the grouped item from the list.
 			if len(g) == 0 {
 				g = append(g, c)
-				newConditions = newConditions[1:len(newConditions)]
+				newConditions = newConditions[1:]
 				continue
 			}
 
@@ -267,7 +266,7 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 			if len(g) == 1 {
 				if isConditionPair(g[0], c) {
 					g = append(g, c)
-					newConditions = newConditions[1:len(newConditions)]
+					newConditions = newConditions[1:]
 				}
 				break
 			}
@@ -286,14 +285,14 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 		for _, g := range conditionGroups {
 			if len(p) == 0 {
 				p = append(p, g...)
-				conditionGroups = conditionGroups[1:len(conditionGroups)]
+				conditionGroups = conditionGroups[1:]
 				continue
 			}
 
 			if len(g) >= 1 {
 				if isConditionPair(p[0], g[0]) || isConditionPair(p[1], g[0]) {
 					p = append(p, g...)
-					conditionGroups = conditionGroups[1:len(conditionGroups)]
+					conditionGroups = conditionGroups[1:]
 				}
 			}
 		}
@@ -316,7 +315,7 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 			l = len(p)
 		}
 
-		limittedList = append(limittedList, p[len(p)-l:len(p)]...)
+		limittedList = append(limittedList, p[len(p)-l:]...)
 	}
 
 	// We reverse the list order to have the item with the highest timestamp at
@@ -337,9 +336,7 @@ func withVersion(versions []CommonClusterStatusVersion, version CommonClusterSta
 
 	// Create a copy to not manipulate the input list.
 	var newVersions []CommonClusterStatusVersion
-	for _, v := range versions {
-		newVersions = append(newVersions, v)
-	}
+	newVersions = append(newVersions, versions...)
 
 	// Sort the versions in a way that the newest version, namely the one with the
 	// highest timestamp, is at the top of the list.

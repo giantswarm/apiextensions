@@ -13,27 +13,12 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewAWSControlPlaneCRD(t *testing.T) {
-	crd := NewAWSControlPlaneCRD()
-	if crd == nil {
-		t.Error("AWSControlPlane CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSControlPlane CRD name was empty")
-	}
-}
-
 func Test_GenerateAWSControlPlaneYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awscontrolplane.yaml", group),
-			resource: NewAWSControlPlaneCRD(),
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awscontrolplane.yaml", group, version),

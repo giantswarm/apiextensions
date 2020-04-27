@@ -30,12 +30,6 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			name:     fmt.Sprintf("case 0: %s_ignition.yaml is generated successfully", group),
-			category: "crd",
-			filename: fmt.Sprintf("%s_ignition.yaml", group),
-			resource: NewIgnitionCRD(),
-		},
-		{
 			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", group, version),
 			category: "cr",
 			filename: fmt.Sprintf("%s_%s_ignition.yaml", group, version),

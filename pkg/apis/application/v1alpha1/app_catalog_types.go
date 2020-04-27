@@ -1,9 +1,10 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -12,126 +13,8 @@ const (
 	appCatalogDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#AppCatalog"
 )
 
-const appCatalogCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: appcatalogs.application.giantswarm.io
-spec:
-  group: application.giantswarm.io
-  scope: Cluster
-  version: v1alpha1
-  names:
-    kind: AppCatalog
-    plural: appcatalogs
-    singular: appcatalog
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      description: |
-        Defines a location where packaged applications are stored and shared,
-        ready to be installed in a Kubernetes cluster.
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            title:
-              description: |
-                User-friendly name of the catalog.    
-              type: string
-            description:
-              description: |
-                Additional information regarding the purpose and other details of the catalog.
-              type: string
-            config:
-              description: |
-                Defines the reference of a ConfigMap where is saved the default values that 
-                will be applied to all applications contained in the catalog.
-              type: object
-              properties:
-                configMap:
-                  description: |
-                    References a ConfigMap containing catalog values that should be applied to
-                    apps installed from this catalog.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the ConfigMap resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the ConfigMap resource.
-                      type: string
-                  required: ["name", "namespace"]
-                secret:
-                  description: |
-                    Defines the reference of a Secret where is saved the default sensitive configuration
-                    that will be applied to all applications contained in the catalog.
-                  type: object
-                  properties:
-                    name:
-                      description: |
-                        Name of the Secret resource.
-                      type: string
-                    namespace:
-                      description: |
-                        Namespace holding the Secret resource.
-                      type: string
-                  required: ["name", "namespace"]
-            logoURL:
-              description: |
-                The logo URL pointing to the image file to be used when displaying this catalog.
-              type: string
-            storage:
-              description: |
-                Defines the type of storage supported by the catalog.
-              type: object 
-              properties:
-                type:
-                  description: |
-                    Determines the type of storage. Currently only 'helm' is available.
-                    - Helm type storage use the known Helm Chart Repository format to store the chart
-                      packages and expose some metadata in the file 'index.yaml' to manage the catalog.
-                  type: string
-                URL:
-                  description: |
-                    URL to the app repository.
-                  type: string
-                  format: uri 
-              required: ["type", "URL"]
-          required: ["title", "description", "storage"]
-`
-
-var appCatalogCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(appCatalogCRDYAML), &appCatalogCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-// NewAppCatalogCRD returns a new custom resource definition for AppCatalog.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: appcatalog.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Cluster
-//       version: v1alpha1
-//       names:
-//         kind: AppCatalog
-//         plural: appcatalogs
-//         singular: appcatalog
-//
-func NewAppCatalogCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return appCatalogCRD.DeepCopy()
+func NewAppCatalogCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindAppCatalog)
 }
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {
@@ -157,30 +40,6 @@ func NewAppCatalogCR() *AppCatalog {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// AppCatalog CRs might look something like the following.
-//
-//    apiVersion: application.giantswarm.io/v1alpha1
-//    kind: AppCatalog
-//    metadata:
-//      name: "giantswarm"
-//      labels:
-//        app-operator.giantswarm.io/version: "1.0.0"
-//
-//    spec:
-//      title: "Giant Swarm"
-//      description: "Catalog of Apps by Giant Swarm"
-//      config:
-//        configMap:
-//          name: "app-catalog-values"
-//          namespace: "giantswarm"
-//        secret:
-//          name: "app-catalog-secrets"
-//          namespace: "giantswarm"
-//      logoURL: "/images/repo_icons/incubator.png"
-//      storage:
-//        type: "helm"
-//        URL: "https://giantswarm.github.com/app-catalog/"
-//
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -234,7 +93,7 @@ type AppCatalogSpecStorage struct {
 	// e.g. helm
 	Type string `json:"type" yaml:"type"`
 	// URL is the link to where this AppCatalog's repository is located
-	// e.g. https://giantswarm.github.com/app-catalog/.
+	// e.g. https://example.com/app-catalog/
 	URL string `json:"URL" yaml:"URL"`
 }
 

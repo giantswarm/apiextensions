@@ -1,99 +1,19 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
-	kindChart = "Chart"
+	kindChart              = "Chart"
+	chartDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#Chart"
 )
 
-const chartCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: charts.application.giantswarm.io
-spec:
-  group: application.giantswarm.io
-  scope: Namespaced
-  version: v1alpha1
-  names:
-    kind: Chart
-    plural: charts
-    singular: chart
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      type: object
-      properties:
-        spec:
-          type: object
-          properties:
-            name:
-              type: string
-            namespace:
-              type: string
-            config:
-              type: object
-              properties:
-                configMap:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                    resourceVersion:
-                      type: string
-                  required: ["name", "namespace"]
-                secret:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                    resourceVersion:
-                      type: string
-                  required: ["name", "namespace"]
-            tarballURL:
-              type: string
-              format: uri
-            version:
-              type: string
-          required: ["name", "namespace", "tarballURL", "version"]
-`
-
-var chartCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(chartCRDYAML), &chartCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-// NewChartCRD returns a new custom resource definition for Chart.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: charts.application.giantswarm.io
-//     spec:
-//       group: application.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: Chart
-//         plural: charts
-//         singular: chart
-//
-func NewChartCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return chartCRD.DeepCopy()
+func NewChartCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindChart)
 }
 
 func NewChartTypeMeta() metav1.TypeMeta {
@@ -103,45 +23,28 @@ func NewChartTypeMeta() metav1.TypeMeta {
 	}
 }
 
+// NewChartCR returns an Chart Custom Resource.
+func NewChartCR() *Chart {
+	return &Chart{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: chartDocumentationLink,
+			},
+		},
+		TypeMeta: NewChartTypeMeta(),
+	}
+}
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
-// Chart CRs might look something like the following.
-//
-//    apiVersion: application.giantswarm.io/v1alpha1
-//    kind: Chart
-//    metadata:
-//      name: "prometheus"
-//      labels:
-//        chart-operator.giantswarm.io/version: "1.0.0"
-//
-//    spec:
-//      name: "prometheus"
-//      namespace: "monitoring"
-//      config:
-//        configMap:
-//        name: "prometheus-values"
-//        namespace: "monitoring"
-//        resourceVersion: ""
-//      secret:
-//        name: "prometheus-secrets"
-//        namespace: "monitoring"
-//        resourceVersion: ""
-//      tarballURL: "https://giantswarm.github.com/app-catalog/prometheus-1-0-0.tgz"
-//      version: "1.0.0"
-//
-//    status:
-//      appVersion: "2.4.3" # Optional value from Chart.yaml with the version of the deployed app.
-//      release:
-//        lastDeployed: "2018-11-30T21:06:20Z"
-//        status: "DEPLOYED"
-//      version: "1.1.0" # Required value from Chart.yaml with the version of the chart.
-//
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartSpec   `json:"spec"`
-	Status            ChartStatus `json:"status" yaml:"status"`
+	Spec              ChartSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ChartStatus `json:"status" yaml:"status"`
 }
 
 type ChartSpec struct {
@@ -154,7 +57,7 @@ type ChartSpec struct {
 	// e.g. monitoring
 	Namespace string `json:"namespace" yaml:"namespace"`
 	// TarballURL is the URL for the Helm chart tarball to be deployed.
-	// e.g. https://path/to/prom-1-0-0.tgz"
+	// e.g. https://example.com/path/to/prom-1-0-0.tgz
 	TarballURL string `json:"tarballURL" yaml:"tarballURL"`
 	// Version is the version of the chart that should be deployed.
 	// e.g. 1.0.0
@@ -199,7 +102,7 @@ type ChartStatus struct {
 	// deployed chart. This is an optional field with the version of the
 	// component being deployed.
 	// e.g. 0.21.0.
-	// https://docs.helm.sh/developing_charts/#the-chart-yaml-file
+	// https://helm.sh/docs/topics/charts/#the-chartyaml-file
 	AppVersion string `json:"appVersion" yaml:"appVersion"`
 	// Reason is the description of the last status of helm release when the chart is
 	// not installed successfully, e.g. deploy resource already exists.
@@ -214,7 +117,7 @@ type ChartStatus struct {
 
 type ChartStatusRelease struct {
 	// LastDeployed is the time when the deployed chart was last deployed.
-	LastDeployed DeepCopyTime `json:"lastDeployed" yaml:"lastDeployed"`
+	LastDeployed metav1.Time `json:"lastDeployed" yaml:"lastDeployed"`
 	// Revision is the revision number for this deployed chart.
 	Revision int `json:"revision" yaml:"revision"`
 	// Status is the status of the deployed chart,

@@ -27,27 +27,12 @@ var (
 	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewAWSClusterCRD(t *testing.T) {
-	crd := NewAWSClusterCRD()
-	if crd == nil {
-		t.Error("AWSCluster CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("AWSCluster CRD name was empty.")
-	}
-}
-
 func Test_GenerateAWSClusterYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
 		resource runtime.Object
 	}{
-		{
-			category: "crd",
-			name:     fmt.Sprintf("%s_awscluster.yaml", group),
-			resource: NewAWSClusterCRD(),
-		},
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awscluster.yaml", group, version),
@@ -111,6 +96,9 @@ func newAWSClusterExampleCR() *AWSCluster {
 			CredentialSecret: AWSClusterSpecProviderCredentialSecret{
 				Name:      "example-credential",
 				Namespace: "example-namespace",
+			},
+			Pods: AWSClusterSpecProviderPods{
+				CIDRBlock: "10.2.0.0/16",
 			},
 			Master: AWSClusterSpecProviderMaster{
 				AvailabilityZone: "eu-central-1b",

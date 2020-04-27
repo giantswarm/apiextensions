@@ -1,61 +1,30 @@
 package v1alpha1
 
 import (
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-// NewChartConfigCRD returns a new custom resource definition for ChartConfig.
-// This might look something like the following.
-//
-//     apiVersion: apiextensions.k8s.io/v1beta1
-//     kind: CustomResourceDefinition
-//     metadata:
-//       name: chartconfigs.core.giantswarm.io
-//     spec:
-//       group: core.giantswarm.io
-//       scope: Namespaced
-//       version: v1alpha1
-//       names:
-//         kind: ChartConfig
-//         plural: chartconfigs
-//         singular: chartconfig
-//       subresources:
-//         status: {}
-//
-func NewChartConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "chartconfigs.core.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "ChartConfig",
-				Plural:   "chartconfigs",
-				Singular: "chartconfig",
-			},
-			Subresources: &apiextensionsv1beta1.CustomResourceSubresources{
-				Status: &apiextensionsv1beta1.CustomResourceSubresourceStatus{},
-			},
-		},
-	}
+const (
+	kindChartConfig = "ChartConfig"
+)
+
+func NewChartConfigCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindChartConfig)
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
 type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              ChartConfigSpec   `json:"spec"`
-	Status            ChartConfigStatus `json:"status"`
+	Spec              ChartConfigSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ChartConfigStatus `json:"status"`
 }
 
 type ChartConfigSpec struct {

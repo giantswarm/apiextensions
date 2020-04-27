@@ -2,74 +2,19 @@ package v1alpha2
 
 import (
 	corev1 "k8s.io/api/core/v1"
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
-	kindG8sControlPlane = "G8sControlPlane"
+	kindG8sControlPlane              = "G8sControlPlane"
+	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.2.5/pkg/apis/infrastructure/v1alpha2?tab=doc#G8sControlPlane"
 )
 
-const g8sControlPlaneCRDYAML = `
-apiVersion: apiextensions.k8s.io/v1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: g8scontrolplanes.infrastructure.giantswarm.io
-spec:
-  conversion:
-    strategy: None
-  group: infrastructure.giantswarm.io
-  names:
-    kind: G8sControlPlane
-    plural: g8scontrolplanes
-    singular: g8scontrolplane
-  scope: Namespaced
-  subresources:
-    status: {}
-  versions:
-    - name: v1alpha1
-      served: false
-      storage: false
-    - name: v1alpha2
-      served: true
-      storage: true
-      schema:
-        openAPIV3Schema:
-          type: object
-          properties:
-            spec:
-              type: object
-              properties:
-                infrastructureRef:
-                  type: object
-                  properties:
-                    apiVersion:
-                      type: string
-                    kind:
-                      type: string
-                    name:
-                      type: string
-                    namespace:
-                      type: string
-                replicas:
-                  type: integer
-                  enum:
-                    - 1
-                    - 3
-`
-
-var g8sControlPlaneCRD *apiextensionsv1beta1.CustomResourceDefinition
-
-func init() {
-	err := yaml.Unmarshal([]byte(g8sControlPlaneCRDYAML), &g8sControlPlaneCRD)
-	if err != nil {
-		panic(err)
-	}
-}
-
-func NewG8sControlPlaneCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return g8sControlPlaneCRD.DeepCopy()
+func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindG8sControlPlane)
 }
 
 func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
@@ -79,58 +24,52 @@ func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
 	}
 }
 
+// NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
+func NewG8sControlPlaneCR() *G8sControlPlane {
+	return &G8sControlPlane{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				crDocsAnnotation: g8sControlPlaneDocumentationLink,
+			},
+		},
+		TypeMeta: NewClusterTypeMeta(),
+	}
+}
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 
-// G8sControlPlane defines the Control Plane Nodes (Kubernetes Master Nodes) of
-// a Giant Swarm Tenant Cluster
-//
-//     apiVersion: infrastructure.giantswarm.io/v1alpha2
-//     kind: G8sControlPlane
-//     metadata:
-//       annotations:
-//         giantswarm.io/docs: https://docs.giantswarm.io/reference/g8scontrolplanes.infrastructure.giantswarm.io/v1alpha2/
-//       labels:
-//         aws-operator.giantswarm.io/version: "6.2.0"
-//         cluster-operator.giantswarm.io/version: "0.17.0"
-//         giantswarm.io/cluster: 8y5kc
-//         giantswarm.io/organization: giantswarm
-//         release.giantswarm.io/version: "7.3.1"
-//       name: 8y5kc
-//     spec:
-//       infrastructureRef:
-//         apiVersion: infrastructure.giantswarm.io/v1alpha2
-//         kind: AWSControlPlane
-//         name: 5f3kb
-//         namespace: default
-//       replicas: 3
-//     status:
-//       readyReplicas: 3
-//       replicas: 3
-//
+// The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
+// a Giant Swarm tenant cluster. Is is reconciled by cluster-operator.
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              G8sControlPlaneSpec   `json:"spec"`
-	Status            G8sControlPlaneStatus `json:"status"`
+	// Specification part.
+	Spec G8sControlPlaneSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	// Status information.
+	Status G8sControlPlaneStatus `json:"status"`
 }
 
 type G8sControlPlaneSpec struct {
-	// Replicas is the number replicas of the master node.
+	// +kubebuilder:validation:Enum=1;3
+	// Number of master nodes.
 	Replicas int `json:"replicas" yaml:"replicas"`
-	// InfrastructureRef is a required reference to provider-specific
-	// Infrastructure.
+	// Reference to a provider-specific resource. On AWS, this would be of kind
+	// [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 
 // G8sControlPlaneStatus defines the observed state of G8sControlPlane.
 type G8sControlPlaneStatus struct {
+	// +kubebuilder:validation:Enum=1;3
+	// +kubebuilder:validation:Optional
 	// Total number of non-terminated machines targeted by this control plane
 	// (their labels match the selector).
-	// +optional
 	Replicas int32 `json:"replicas,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Total number of fully running and ready control plane machines.
-	// +optional
 	ReadyReplicas int32 `json:"readyReplicas,omitempty"`
 }
 

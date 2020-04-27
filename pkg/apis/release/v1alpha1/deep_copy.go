@@ -2,12 +2,15 @@ package v1alpha1
 
 import (
 	"time"
+
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+// +kubebuilder:validation:Type=string
 // DeepCopyDate is a date type designed to be validated with json-schema date
 // type.
 type DeepCopyDate struct {
-	time.Time
+	metav1.Time `json:",inline"`
 }
 
 // MarshalJSON implements the json.Marshaler interface. The time is
@@ -30,21 +33,7 @@ func (d *DeepCopyDate) UnmarshalJSON(data []byte) error {
 
 	// Error masking is skipped here as this will go trough generated
 	// unmarshaling code.
-	var err error
-	d.Time, err = time.Parse(`"2006-01-02"`, string(data))
+	parsed, err := time.Parse(`"2006-01-02"`, string(data))
+	d.Time = metav1.Time{Time: parsed}
 	return err
-}
-
-func (d *DeepCopyDate) DeepCopyInto(out *DeepCopyDate) {
-	*out = *d
-}
-
-// DeepCopyTime implements the deep copy logic for time.Time which the k8s
-// codegen is not able to generate out of the box.
-type DeepCopyTime struct {
-	time.Time
-}
-
-func (in *DeepCopyTime) DeepCopyInto(out *DeepCopyTime) {
-	*out = *in
 }
