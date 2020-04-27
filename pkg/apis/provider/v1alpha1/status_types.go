@@ -30,6 +30,7 @@ const (
 
 type StatusCluster struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// Conditions is a list of status information expressing the current
 	// conditional state of a guest cluster. This may reflect the status of the
 	// guest cluster being updating or being up to date.
@@ -37,6 +38,7 @@ type StatusCluster struct {
 	// +kubebuilder:validation:Optional
 	Network StatusClusterNetwork `json:"network" yaml:"network"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// Nodes is a list of guest cluster node information reflecting the current
 	// state of the guest cluster nodes.
 	Nodes []StatusClusterNode `json:"nodes,omitempty" yaml:"nodes,omitempty"`
@@ -47,6 +49,7 @@ type StatusCluster struct {
 	// +kubebuilder:validation:Optional
 	Scaling StatusClusterScaling `json:"scaling" yaml:"scaling"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// Versions is a list that acts like a historical track record of versions a
 	// guest cluster went through. A version is only added to the list as soon as
 	// the guest cluster successfully migrated to the version added here.
@@ -57,6 +60,7 @@ type StatusCluster struct {
 // is.
 type StatusClusterCondition struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
@@ -79,9 +83,11 @@ type StatusClusterNetwork struct {
 // StatusClusterNode holds information about a guest cluster node.
 type StatusClusterNode struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// Labels contains the kubernetes labels for corresponding node.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
@@ -101,6 +107,7 @@ type StatusClusterNode struct {
 // its own implementation and means in order to fulfil its premise.
 type StatusClusterResource struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Conditions []StatusClusterResourceCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
 	// +kubebuilder:validation:Optional
 	Name string `json:"name" yaml:"name"`
@@ -110,6 +117,7 @@ type StatusClusterResource struct {
 // operatorkit resource may is.
 type StatusClusterResourceCondition struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
@@ -132,6 +140,7 @@ type StatusClusterScaling struct {
 // may still be.
 type StatusClusterVersion struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// TODO date is deprecated due to LastTransitionTime
 	// This can be removed ones the new properties are properly used in all tenant
 	// clusters.
@@ -140,6 +149,7 @@ type StatusClusterVersion struct {
 	//
 	Date metav1.Time `json:"date,omitempty" yaml:"date,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`

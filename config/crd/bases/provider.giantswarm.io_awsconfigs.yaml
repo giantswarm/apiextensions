@@ -516,6 +516,7 @@ spec:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
                         format: date-time
+                        nullable: true
                         type: string
                       status:
                         description: Status may be True, False or Unknown.
@@ -525,6 +526,7 @@ spec:
                           Draining, Drained, Updating, Updated, Deleting, Deleted.
                         type: string
                     type: object
+                  nullable: true
                   type: array
                 network:
                   description: StatusClusterNetwork expresses the network segment
@@ -545,11 +547,13 @@ spec:
                           type: string
                         description: Labels contains the kubernetes labels for corresponding
                           node.
+                        nullable: true
                         type: object
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
                         format: date-time
+                        nullable: true
                         type: string
                       name:
                         description: Name referrs to a tenant cluster node name.
@@ -559,6 +563,7 @@ spec:
                           as mandated by the provider operator.
                         type: string
                     type: object
+                  nullable: true
                   type: array
                 resources:
                   description: Resources is a list of arbitrary conditions of operatorkit
@@ -580,6 +585,7 @@ spec:
                               description: LastTransitionTime is the last time the
                                 condition transitioned from one status to another.
                               format: date-time
+                              nullable: true
                               type: string
                             status:
                               description: Status may be True, False or Unknown.
@@ -589,6 +595,7 @@ spec:
                                 may define.
                               type: string
                           type: object
+                        nullable: true
                         type: array
                       name:
                         type: string
@@ -615,16 +622,19 @@ spec:
                           This can be removed ones the new properties are properly
                           used in all tenant clusters. \n     https://github.com/giantswarm/giantswarm/issues/3988"
                         format: date-time
+                        nullable: true
                         type: string
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
                         format: date-time
+                        nullable: true
                         type: string
                       semver:
                         description: Semver is some semver version, e.g. 1.0.0.
                         type: string
                     type: object
+                  nullable: true
                   type: array
               type: object
           required:
