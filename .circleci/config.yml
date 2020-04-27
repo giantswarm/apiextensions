@@ -42,7 +42,6 @@ jobs:
           name: Install CRDs
           command: |
             ./kubectl create -f config/crd/v1 > /dev/null
-            ./kubectl create -f config/crd/v1beta1 > /dev/null
       - run:
           name: Check for NonStructuralSchema condition indicating invalid CRDs
           command: |
