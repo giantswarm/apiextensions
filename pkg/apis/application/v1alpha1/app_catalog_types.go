@@ -93,7 +93,7 @@ type AppCatalogSpecStorage struct {
 	// e.g. helm
 	Type string `json:"type" yaml:"type"`
 	// URL is the link to where this AppCatalog's repository is located
-	// e.g. https://giantswarm.github.com/app-catalog/.
+	// e.g. https://example.com/app-catalog/
 	URL string `json:"URL" yaml:"URL"`
 }
 
