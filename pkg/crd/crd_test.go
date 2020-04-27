@@ -80,12 +80,9 @@ func Test_LoadAll(t *testing.T) {
 			"CertConfig",
 			"ChartConfig",
 			"DrainerConfig",
-			"DraughtsmanConfig",
 			"FlannelConfig",
 			"Ignition",
-			"IngressConfig",
 			"KVMClusterConfig",
-			"NodeConfig",
 			"StorageConfig",
 		},
 		"example.giantswarm.io": {
@@ -109,8 +106,6 @@ func Test_LoadAll(t *testing.T) {
 		"cluster.x-k8s.io": {
 			"Cluster",
 			"MachineDeployment",
-			"Machine",
-			"MachineSet",
 		},
 	}
 	groupCRDVersions := map[string]string{

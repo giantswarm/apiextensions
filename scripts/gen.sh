@@ -97,6 +97,7 @@ echo "Generating infrastructure.giantswarm.io CRDs as v1"
   output:dir=config/crd/bases \
   crd:crdVersions=v1
 
+# Generate Cluster API CRDs from external library (version from scripts/go.mod)
 pushd "$dir" > /dev/null
 "$toolpath/controller-gen" \
   crd \
@@ -104,6 +105,9 @@ pushd "$dir" > /dev/null
   output:dir=../config/crd/bases \
   crd:crdVersions=v1beta1
 popd > /dev/null
+# We only want Cluster and MachineDeployment for now, so delete the other two CAPI CRDs.
+rm config/crd/bases/cluster.x-k8s.io_machines.yaml
+rm config/crd/bases/cluster.x-k8s.io_machinesets.yaml
 
 # Add .metadata.name validation to Release CRD using kustomize since
 # kubebuilder comments can't modify metav1.ObjectMeta
@@ -113,8 +117,14 @@ echo "Kustomizing CRDs"
   -o config/crd/bases/release.giantswarm.io_releases.yaml
 
 # Package CRD YAMLs into a virtual filesystem so they can be accessed by New*CRD() functions
-echo "Using pkger to package CRDs into go source virtual file system"
-"$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+hash=$(find config/crd/bases -type f -print0 | xargs -0 sha1sum | sort -df | sha1sum)
+prevhash=$(cat "$dir/.hash" 2> /dev/null || echo "")
+if [ "$hash" != "$prevhash" ]; then
+  echo "Detected changes in CRD YAMLs"
+  echo "Using pkger to package CRDs into go source virtual file system"
+  "$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+  echo "$hash" > "$dir/.hash"
+fi
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"

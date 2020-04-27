@@ -77,6 +77,9 @@ spec:
                 type: object
               replicas:
                 description: Number of master nodes.
+                enum:
+                - 1
+                - 3
                 type: integer
             required:
             - infrastructureRef
