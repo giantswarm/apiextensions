@@ -26,40 +26,40 @@ type AWSClusterConfig struct {
 }
 
 type AWSClusterConfigSpec struct {
-	Guest         AWSClusterConfigSpecGuest         `json:"guest" yaml:"guest"`
-	VersionBundle AWSClusterConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Guest         AWSClusterConfigSpecGuest         `json:"guest"`
+	VersionBundle AWSClusterConfigSpecVersionBundle `json:"versionBundle"`
 }
 
 type AWSClusterConfigSpecGuest struct {
-	ClusterGuestConfig `json:",inline" yaml:",inline"`
-	CredentialSecret   AWSClusterConfigSpecGuestCredentialSecret `json:"credentialSecret" yaml:"credentialSecret"`
-	Masters            []AWSClusterConfigSpecGuestMaster         `json:"masters,omitempty" yaml:"masters,omitempty"`
-	Workers            []AWSClusterConfigSpecGuestWorker         `json:"workers,omitempty" yaml:"workers,omitempty"`
+	ClusterGuestConfig `json:",inline"`
+	CredentialSecret   AWSClusterConfigSpecGuestCredentialSecret `json:"credentialSecret"`
+	Masters            []AWSClusterConfigSpecGuestMaster         `json:"masters,omitempty"`
+	Workers            []AWSClusterConfigSpecGuestWorker         `json:"workers,omitempty"`
 }
 
 // AWSClusterConfigSpecGuestCredentialSecret points to the K8s Secret
 // containing credentials for an AWS account in which the guest cluster should
 // be created.
 type AWSClusterConfigSpecGuestCredentialSecret struct {
-	Name      string `json:"name" yaml:"name"`
-	Namespace string `json:"namespace" yaml:"namespace"`
+	Name      string `json:"name"`
+	Namespace string `json:"namespace"`
 }
 
 type AWSClusterConfigSpecGuestMaster struct {
-	AWSClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
+	AWSClusterConfigSpecGuestNode `json:",inline"`
 }
 
 type AWSClusterConfigSpecGuestWorker struct {
-	AWSClusterConfigSpecGuestNode `json:",inline" yaml:",inline"`
-	Labels                        map[string]string `json:"labels" yaml:"labels"`
+	AWSClusterConfigSpecGuestNode `json:",inline"`
+	Labels                        map[string]string `json:"labels"`
 }
 type AWSClusterConfigSpecGuestNode struct {
-	ID           string `json:"id" yaml:"id"`
-	InstanceType string `json:"instanceType,omitempty" yaml:"instanceType,omitempty"`
+	ID           string `json:"id"`
+	InstanceType string `json:"instanceType,omitempty"`
 }
 
 type AWSClusterConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -60,47 +60,47 @@ func NewReleaseCR() *Release {
 // An example Release resource can be viewed here
 // https://github.com/giantswarm/apiextensions/blob/master/docs/cr/release.giantswarm.io_v1alpha1_release.yaml
 type Release struct {
-	metav1.TypeMeta   `json:",inline" yaml:",inline"`
-	metav1.ObjectMeta `json:"metadata" yaml:"metadata"`
-	Spec              ReleaseSpec `json:"spec" yaml:"spec"`
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata"`
+	Spec              ReleaseSpec `json:"spec"`
 }
 
 type ReleaseSpec struct {
 	// Apps describes apps used in this release.
-	Apps []ReleaseSpecApp `json:"apps" yaml:"apps"`
+	Apps []ReleaseSpecApp `json:"apps"`
 	// +kubebuilder:validation:MinItems=1
 	// Components describes components used in this release.
-	Components []ReleaseSpecComponent `json:"components" yaml:"components"`
+	Components []ReleaseSpecComponent `json:"components"`
 	// Date that the release became active.
-	Date *metav1.Time `json:"date" yaml:"date"`
+	Date *metav1.Time `json:"date"`
 	// +kubebuilder:validation:Type=string
 	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip)$`
 	// State indicates the availability of the release: deprecated, active, or wip.
-	State ReleaseState `json:"state" yaml:"state"`
+	State ReleaseState `json:"state"`
 }
 
 type ReleaseSpecComponent struct {
 	// Name of the component.
-	Name string `json:"name" yaml:"name"`
+	Name string `json:"name"`
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the component.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 type ReleaseSpecApp struct {
 	// Version of the upstream component used in the app.
-	ComponentVersion string `json:"componentVersion,omitempty" yaml:"componentVersion,omitempty"`
+	ComponentVersion string `json:"componentVersion,omitempty"`
 	// Name of the app.
-	Name string `json:"name" yaml:"name"`
+	Name string `json:"name"`
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the app.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
 type ReleaseList struct {
-	metav1.TypeMeta `json:",inline" yaml:",inline"`
-	metav1.ListMeta `json:"metadata" yaml:"metadata"`
-	Items           []Release `json:"items" yaml:"items"`
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []Release `json:"items"`
 }

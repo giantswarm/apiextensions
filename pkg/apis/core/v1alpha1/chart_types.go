@@ -28,69 +28,69 @@ type ChartConfig struct {
 }
 
 type ChartConfigSpec struct {
-	Chart         ChartConfigSpecChart         `json:"chart" yaml:"chart"`
-	VersionBundle ChartConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Chart         ChartConfigSpecChart         `json:"chart"`
+	VersionBundle ChartConfigSpecVersionBundle `json:"versionBundle"`
 }
 
 type ChartConfigSpecChart struct {
 	// Channel is the name of the Appr channel to reconcile against,
 	// e.g. 1-0-stable.
-	Channel string `json:"channel" yaml:"channel"`
+	Channel string `json:"channel"`
 	// ConfigMap references a config map containing values that should be
 	// applied to the chart.
-	ConfigMap ChartConfigSpecConfigMap `json:"configMap" yaml:"configMap"`
+	ConfigMap ChartConfigSpecConfigMap `json:"configMap"`
 	// UserConfigMap references a config map containing custom values.
 	// These custom values are specified by the user to override default values.
-	UserConfigMap ChartConfigSpecConfigMap `json:"userConfigMap" yaml:"userConfigMap"`
+	UserConfigMap ChartConfigSpecConfigMap `json:"userConfigMap"`
 	// Name is the name of the Helm chart to deploy,
 	// e.g. kubernetes-node-exporter.
-	Name string `json:"name" yaml:"name"`
+	Name string `json:"name"`
 	// Namespace is the namespace where the Helm chart is to be deployed,
 	// e.g. giantswarm.
-	Namespace string `json:"namespace" yaml:"namespace"`
+	Namespace string `json:"namespace"`
 	// Release is the name of the Helm release when the chart is deployed,
 	// e.g. node-exporter.
-	Release string `json:"release" yaml:"release"`
+	Release string `json:"release"`
 	// Secret references a secret containing secret values that should be
 	// applied to the chart.
-	Secret ChartConfigSpecSecret `json:"secret" yaml:"secret"`
+	Secret ChartConfigSpecSecret `json:"secret"`
 }
 
 type ChartConfigSpecConfigMap struct {
 	// Name is the name of the config map containing chart values to apply,
 	// e.g. node-exporter-chart-values.
-	Name string `json:"name" yaml:"name"`
+	Name string `json:"name"`
 	// Namespace is the namespace of the values config map,
 	// e.g. kube-system.
-	Namespace string `json:"namespace" yaml:"namespace"`
+	Namespace string `json:"namespace"`
 	// ResourceVersion is the Kubernetes resource version of the configmap.
 	// Used to detect if the configmap has changed, e.g. 12345.
-	ResourceVersion string `json:"resourceVersion" yaml:"resourceVersion"`
+	ResourceVersion string `json:"resourceVersion"`
 }
 
 type ChartConfigSpecSecret struct {
 	// Name is the name of the secret containing chart values to apply,
 	// e.g. node-exporter-chart-secret.
-	Name string `json:"name" yaml:"name"`
+	Name string `json:"name"`
 	// Namespace is the namespace of the secret,
 	// e.g. kube-system.
-	Namespace string `json:"namespace" yaml:"namespace"`
+	Namespace string `json:"namespace"`
 	// ResourceVersion is the Kubernetes resource version of the secret.
 	// Used to detect if the secret has changed, e.g. 12345.
-	ResourceVersion string `json:"resourceVersion" yaml:"resourceVersion"`
+	ResourceVersion string `json:"resourceVersion"`
 }
 
 type ChartConfigStatus struct {
 	// ReleaseStatus is the status of the Helm release when the chart is
 	// installed, e.g. DEPLOYED.
-	ReleaseStatus string `json:"releaseStatus" yaml:"releaseStatus"`
+	ReleaseStatus string `json:"releaseStatus"`
 	// Reason is the description of the last status of helm release when the chart is
 	// not installed successfully, e.g. deploy resource already exists.
-	Reason string `json:"reason,omitempty" yaml:"reason,omitempty"`
+	Reason string `json:"reason,omitempty"`
 }
 
 type ChartConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
