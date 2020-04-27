@@ -109,9 +109,9 @@ func Find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{},
 	// Entry point for walking the CRD YAML directory.
 	var err error
 	switch crdKind.Version {
-	case "v1":
+	case v1GroupVersionKind.Version:
 		err = pkger.Walk(crdDirectoryV1, walkFunc)
-	case "v1beta1":
+	case v1beta1GroupVersionKind.Version:
 		err = pkger.Walk(crdDirectoryV1Beta1, walkFunc)
 	}
 	if err != nil {
