@@ -37,7 +37,7 @@ var (
 	}
 )
 
-func Find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{}, error) {
+func find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{}, error) {
 	// If a matching CRD is found during the walk, it will be saved to found.
 	// This could be a v1 or v1beta1 CRD so it needs to be an interface{}.
 	var found interface{}
@@ -126,7 +126,7 @@ func Find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{},
 
 // LoadV1Beta1 loads a v1beta1 CRD from the virtual filesystem.
 func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
-	found, err := Find(v1beta1GroupVersionKind, group, kind)
+	found, err := find(v1beta1GroupVersionKind, group, kind)
 	if err != nil {
 		panic(microerror.Mask(err))
 	}
@@ -139,7 +139,7 @@ func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 
 // LoadV1Beta1 loads a v1 CRD from the virtual filesystem
 func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
-	found, err := Find(v1GroupVersionKind, group, kind)
+	found, err := find(v1GroupVersionKind, group, kind)
 	if err != nil {
 		panic(microerror.Mask(err))
 	}
