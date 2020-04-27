@@ -161,3 +161,12 @@ type NewObjCluster struct {
 	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon" yaml:"dockerDaemon"`
 }
 ```
+
+### Virtual file system
+
+`apiextensions` uses the [pkger](https://github.com/markbates/pkger) library to access generated CRD YAML files as the
+filesystem is generally not available when compiled into a binary. `pkger` is run automatically as part of `scripts/gen.sh`.
+It should be noted that `scripts/gen.sh` will always create new CRD files and `pkger` includes created/modified times on
+file metadata so it will always result in a modified `pkg/crd/pkged.go` file. To avoid this, the contents of each file 
+in `config/crd/bases` is hashed, then the list of hashes is hashed and saved in `scripts/.hash`. In this way, `gen.sh`
+avoids recreating `pkged.go` unless the hash changes.

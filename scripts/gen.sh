@@ -94,8 +94,14 @@ echo "Kustomizing CRDs"
   -o config/crd/bases/release.giantswarm.io_releases.yaml
 
 # Package CRD YAMLs into a virtual filesystem so they can be accessed by New*CRD() functions
-echo "Using pkger to package CRDs into go source virtual file system"
-"$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+hash=$(find config/crd/bases -type f -print0 | xargs -0 sha1sum | sort -df | sha1sum)
+prevhash=$(cat "$dir/.hash" 2> /dev/null || echo "")
+if [ "$hash" != "$prevhash" ]; then
+  echo "Detected changes in CRD YAMLs"
+  echo "Using pkger to package CRDs into go source virtual file system"
+  "$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+  echo "$hash" > "$dir/.hash"
+fi
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"
