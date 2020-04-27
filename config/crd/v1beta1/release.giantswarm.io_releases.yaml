@@ -47,6 +47,7 @@ spec:
             name:
               pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
               type: string
+          type: object
         spec:
           properties:
             apps:
