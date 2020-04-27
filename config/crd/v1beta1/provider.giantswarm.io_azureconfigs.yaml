@@ -385,6 +385,7 @@ spec:
               - etcd
               - id
               - kubernetes
+              - masters
               - scaling
               - version
               type: object

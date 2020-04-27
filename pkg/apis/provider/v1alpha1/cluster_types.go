@@ -1,118 +1,118 @@
 package v1alpha1
 
 type Cluster struct {
-	Calico     ClusterCalico     `json:"calico" yaml:"calico"`
-	Customer   ClusterCustomer   `json:"customer" yaml:"customer"`
-	Docker     ClusterDocker     `json:"docker" yaml:"docker"`
-	Etcd       ClusterEtcd       `json:"etcd" yaml:"etcd"`
-	ID         string            `json:"id" yaml:"id"`
-	Kubernetes ClusterKubernetes `json:"kubernetes" yaml:"kubernetes"`
-	Masters    []ClusterNode     `json:"masters,omitempty" yaml:"masters,omitempty"`
-	Scaling    ClusterScaling    `json:"scaling" yaml:"scaling"`
+	Calico     ClusterCalico     `json:"calico"`
+	Customer   ClusterCustomer   `json:"customer"`
+	Docker     ClusterDocker     `json:"docker"`
+	Etcd       ClusterEtcd       `json:"etcd"`
+	ID         string            `json:"id"`
+	Kubernetes ClusterKubernetes `json:"kubernetes"`
+	Masters    []ClusterNode     `json:"masters"`
+	Scaling    ClusterScaling    `json:"scaling"`
 
 	// Version is DEPRECATED and should just be dropped.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 
-	Workers []ClusterNode `json:"workers,omitempty" yaml:"workers,omitempty"`
+	Workers []ClusterNode `json:"workers,omitempty"`
 }
 
 type ClusterCalico struct {
-	CIDR   int    `json:"cidr" yaml:"cidr"`
-	MTU    int    `json:"mtu" yaml:"mtu"`
-	Subnet string `json:"subnet" yaml:"subnet"`
+	CIDR   int    `json:"cidr"`
+	MTU    int    `json:"mtu"`
+	Subnet string `json:"subnet"`
 }
 
 type ClusterCustomer struct {
-	ID string `json:"id" yaml:"id"`
+	ID string `json:"id"`
 }
 
 type ClusterDocker struct {
-	Daemon ClusterDockerDaemon `json:"daemon" yaml:"daemon"`
+	Daemon ClusterDockerDaemon `json:"daemon"`
 }
 
 type ClusterDockerDaemon struct {
-	CIDR string `json:"cidr" yaml:"cidr"`
+	CIDR string `json:"cidr"`
 }
 
 type ClusterEtcd struct {
-	AltNames string `json:"altNames" yaml:"altNames"`
-	Domain   string `json:"domain" yaml:"domain"`
-	Port     int    `json:"port" yaml:"port"`
-	Prefix   string `json:"prefix" yaml:"prefix"`
+	AltNames string `json:"altNames"`
+	Domain   string `json:"domain"`
+	Port     int    `json:"port"`
+	Prefix   string `json:"prefix"`
 }
 
 type ClusterKubernetes struct {
-	API               ClusterKubernetesAPI               `json:"api" yaml:"api"`
-	CloudProvider     string                             `json:"cloudProvider" yaml:"cloudProvider"`
-	DNS               ClusterKubernetesDNS               `json:"dns" yaml:"dns"`
-	Domain            string                             `json:"domain" yaml:"domain"`
-	IngressController ClusterKubernetesIngressController `json:"ingressController" yaml:"ingressController"`
-	Kubelet           ClusterKubernetesKubelet           `json:"kubelet" yaml:"kubelet"`
-	NetworkSetup      ClusterKubernetesNetworkSetup      `json:"networkSetup" yaml:"networkSetup"`
-	SSH               ClusterKubernetesSSH               `json:"ssh" yaml:"ssh"`
+	API               ClusterKubernetesAPI               `json:"api"`
+	CloudProvider     string                             `json:"cloudProvider"`
+	DNS               ClusterKubernetesDNS               `json:"dns"`
+	Domain            string                             `json:"domain"`
+	IngressController ClusterKubernetesIngressController `json:"ingressController"`
+	Kubelet           ClusterKubernetesKubelet           `json:"kubelet"`
+	NetworkSetup      ClusterKubernetesNetworkSetup      `json:"networkSetup"`
+	SSH               ClusterKubernetesSSH               `json:"ssh"`
 }
 
 type ClusterKubernetesAPI struct {
-	ClusterIPRange string `json:"clusterIPRange" yaml:"clusterIPRange"`
-	Domain         string `json:"domain" yaml:"domain"`
-	SecurePort     int    `json:"securePort" yaml:"securePort"`
+	ClusterIPRange string `json:"clusterIPRange"`
+	Domain         string `json:"domain"`
+	SecurePort     int    `json:"securePort"`
 }
 
 type ClusterKubernetesDNS struct {
-	IP string `json:"ip" yaml:"ip"`
+	IP string `json:"ip"`
 }
 
 type ClusterKubernetesIngressController struct {
-	Docker         ClusterKubernetesIngressControllerDocker `json:"docker" yaml:"docker"`
-	Domain         string                                   `json:"domain" yaml:"domain"`
-	WildcardDomain string                                   `json:"wildcardDomain" yaml:"wildcardDomain"`
-	InsecurePort   int                                      `json:"insecurePort" yaml:"insecurePort"`
-	SecurePort     int                                      `json:"securePort" yaml:"securePort"`
+	Docker         ClusterKubernetesIngressControllerDocker `json:"docker"`
+	Domain         string                                   `json:"domain"`
+	WildcardDomain string                                   `json:"wildcardDomain"`
+	InsecurePort   int                                      `json:"insecurePort"`
+	SecurePort     int                                      `json:"securePort"`
 }
 
 type ClusterKubernetesIngressControllerDocker struct {
-	Image string `json:"image" yaml:"image"`
+	Image string `json:"image"`
 }
 
 type ClusterKubernetesKubelet struct {
-	AltNames string `json:"altNames" yaml:"altNames"`
-	Domain   string `json:"domain" yaml:"domain"`
-	Labels   string `json:"labels" yaml:"labels"`
-	Port     int    `json:"port" yaml:"port"`
+	AltNames string `json:"altNames"`
+	Domain   string `json:"domain"`
+	Labels   string `json:"labels"`
+	Port     int    `json:"port"`
 }
 
 type ClusterKubernetesNetworkSetup struct {
-	Docker    ClusterKubernetesNetworkSetupDocker    `json:"docker" yaml:"docker"`
-	KubeProxy ClusterKubernetesNetworkSetupKubeProxy `json:"kubeProxy" yaml:"kubeProxy"`
+	Docker    ClusterKubernetesNetworkSetupDocker    `json:"docker"`
+	KubeProxy ClusterKubernetesNetworkSetupKubeProxy `json:"kubeProxy"`
 }
 
 // ClusterKubernetesNetworkSetupKubeProxy describes values passed to the kube-proxy running in a tenant cluster.
 type ClusterKubernetesNetworkSetupKubeProxy struct {
 	// Maximum number of NAT connections to track per CPU core (0 to leave the limit as-is and ignore conntrack-min).
 	// Passed to kube-proxy as --conntrack-max-per-core.
-	ConntrackMaxPerCore int `json:"conntrackMaxPerCore" yaml:"conntrackMaxPerCore"`
+	ConntrackMaxPerCore int `json:"conntrackMaxPerCore"`
 }
 
 type ClusterKubernetesNetworkSetupDocker struct {
-	Image string `json:"image" yaml:"image"`
+	Image string `json:"image"`
 }
 
 type ClusterKubernetesSSH struct {
-	UserList []ClusterKubernetesSSHUser `json:"userList" yaml:"userList"`
+	UserList []ClusterKubernetesSSHUser `json:"userList"`
 }
 
 type ClusterKubernetesSSHUser struct {
-	Name      string `json:"name" yaml:"name"`
-	PublicKey string `json:"publicKey" yaml:"publicKey"`
+	Name      string `json:"name"`
+	PublicKey string `json:"publicKey"`
 }
 
 type ClusterNode struct {
-	ID string `json:"id" yaml:"id"`
+	ID string `json:"id"`
 }
 
 type ClusterScaling struct {
 	// Max defines maximum number of worker nodes guest cluster is allowed to have.
-	Max int `json:"max" yaml:"max"`
+	Max int `json:"max"`
 	// Min defines minimum number of worker nodes required to be present in guest cluster.
-	Min int `json:"min" yaml:"min"`
+	Min int `json:"min"`
 }
