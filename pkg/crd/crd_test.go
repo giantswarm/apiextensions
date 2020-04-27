@@ -80,12 +80,9 @@ func Test_LoadAll(t *testing.T) {
 			"CertConfig",
 			"ChartConfig",
 			"DrainerConfig",
-			"DraughtsmanConfig",
 			"FlannelConfig",
 			"Ignition",
-			"IngressConfig",
 			"KVMClusterConfig",
-			"NodeConfig",
 			"StorageConfig",
 		},
 		"example.giantswarm.io": {

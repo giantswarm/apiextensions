@@ -45,16 +45,8 @@ func (c *FakeCoreV1alpha1) ChartConfigs(namespace string) v1alpha1.ChartConfigIn
 	return &FakeChartConfigs{c, namespace}
 }
 
-func (c *FakeCoreV1alpha1) Clusters(namespace string) v1alpha1.ClusterInterface {
-	return &FakeClusters{c, namespace}
-}
-
 func (c *FakeCoreV1alpha1) DrainerConfigs(namespace string) v1alpha1.DrainerConfigInterface {
 	return &FakeDrainerConfigs{c, namespace}
-}
-
-func (c *FakeCoreV1alpha1) DraughtsmanConfigs(namespace string) v1alpha1.DraughtsmanConfigInterface {
-	return &FakeDraughtsmanConfigs{c, namespace}
 }
 
 func (c *FakeCoreV1alpha1) FlannelConfigs(namespace string) v1alpha1.FlannelConfigInterface {
@@ -65,16 +57,8 @@ func (c *FakeCoreV1alpha1) Ignitions(namespace string) v1alpha1.IgnitionInterfac
 	return &FakeIgnitions{c, namespace}
 }
 
-func (c *FakeCoreV1alpha1) IngressConfigs(namespace string) v1alpha1.IngressConfigInterface {
-	return &FakeIngressConfigs{c, namespace}
-}
-
 func (c *FakeCoreV1alpha1) KVMClusterConfigs(namespace string) v1alpha1.KVMClusterConfigInterface {
 	return &FakeKVMClusterConfigs{c, namespace}
-}
-
-func (c *FakeCoreV1alpha1) NodeConfigs(namespace string) v1alpha1.NodeConfigInterface {
-	return &FakeNodeConfigs{c, namespace}
 }
 
 func (c *FakeCoreV1alpha1) StorageConfigs(namespace string) v1alpha1.StorageConfigInterface {
