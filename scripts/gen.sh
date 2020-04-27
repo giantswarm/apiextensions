@@ -98,6 +98,15 @@ echo "Generating infrastructure.giantswarm.io CRDs as v1"
   crd:crdVersions=v1
 
 # Generate Cluster API CRDs from external library (version from scripts/go.mod)
+#
+# Q: How does the generator know where to find the source of truth for CAPI?
+#
+# A: controller-gen uses standard go modules logic to resolve external dependencies. I defined cluster-api@0.2.10 in
+# scripts/go.mod so as long as this command is executed in the scripts/ directory, it generates CAPI 0.2.10 v1alpha2
+# CRDs. I tested this by clearing my module cache, changing the version in go.mod to 0.2.9 and regenerating the CRDs.
+# Then I found ~/go/pkg/mod/sigs.k8s.io/controller-tools@v0.2.9/ had been downloaded. When we're ready for CAPI
+# v1alpha3, it should be sufficient to change this version to v0.3.3 and paths in the command to
+# sigs.k8s.io/cluster-api/api/v1alpha3.
 pushd "$dir" > /dev/null
 "$toolpath/controller-gen" \
   crd \
