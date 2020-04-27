@@ -5,7 +5,6 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
-	"net"
 	"path/filepath"
 	"regexp"
 	goruntime "runtime"
@@ -181,7 +180,7 @@ func newAWSConfigExampleCR() *AWSConfig {
 				},
 				CloudProvider: "aws",
 				DNS: ClusterKubernetesDNS{
-					IP: net.IPv4(172, 31, 0, 10),
+					IP: "172.31.0.10",
 				},
 				Domain: "cluster.local",
 				IngressController: ClusterKubernetesIngressController{
