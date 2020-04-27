@@ -1,9 +1,5 @@
 package v1alpha1
 
-import (
-	"net"
-)
-
 type Cluster struct {
 	Calico     ClusterCalico     `json:"calico"`
 	Customer   ClusterCustomer   `json:"customer"`
@@ -17,7 +13,7 @@ type Cluster struct {
 	// Version is DEPRECATED and should just be dropped.
 	Version string `json:"version"`
 
-	Workers []ClusterNode `json:"workers"`
+	Workers []ClusterNode `json:"workers,omitempty"`
 }
 
 type ClusterCalico struct {
@@ -63,7 +59,7 @@ type ClusterKubernetesAPI struct {
 }
 
 type ClusterKubernetesDNS struct {
-	IP net.IP `json:"ip"`
+	IP string `json:"ip"`
 }
 
 type ClusterKubernetesIngressController struct {

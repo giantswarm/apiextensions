@@ -92,20 +92,29 @@ type AzureConfigSpecVersionBundle struct {
 }
 
 type AzureConfigStatus struct {
-	Cluster  StatusCluster             `json:"cluster"`
+	// +kubebuilder:validation:Optional
+	Cluster StatusCluster `json:"cluster"`
+	// +kubebuilder:validation:Optional
 	Provider AzureConfigStatusProvider `json:"provider"`
 }
 
 type AzureConfigStatusProvider struct {
-	AvailabilityZones []int                            `json:"availabilityZones"`
-	Ingress           AzureConfigStatusProviderIngress `json:"ingress"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	AvailabilityZones []int `json:"availabilityZones,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Ingress AzureConfigStatusProviderIngress `json:"ingress"`
 }
 
 type AzureConfigStatusProviderIngress struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer"`
 }
 
 type AzureConfigStatusProviderIngressLoadBalancer struct {
+	// +kubebuilder:validation:Optional
 	PublicIPName string `json:"publicIPName"`
 }
 

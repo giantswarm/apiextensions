@@ -245,14 +245,6 @@ spec:
                     dns:
                       properties:
                         ip:
-                          description: "An IP is a single IP address, a slice of bytes.
-                            Functions in this package accept either 4-byte (IPv4)
-                            or 16-byte (IPv6) slices as input. \n Note that in this
-                            documentation, referring to an IP address as an IPv4 address
-                            or an IPv6 address is a semantic property of the address,
-                            not just the length of the byte slice: a 16-byte slice
-                            can still be an IPv4 address."
-                          format: byte
                           type: string
                       required:
                       - ip
@@ -396,7 +388,6 @@ spec:
               - masters
               - scaling
               - version
-              - workers
               type: object
             versionBundle:
               properties:
@@ -427,6 +418,7 @@ spec:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
                         format: date-time
+                        nullable: true
                         type: string
                       status:
                         description: Status may be True, False or Unknown.
@@ -435,20 +427,16 @@ spec:
                         description: Type may be Creating, Created, Scaling, Scaled,
                           Draining, Drained, Updating, Updated, Deleting, Deleted.
                         type: string
-                    required:
-                    - lastTransitionTime
-                    - status
-                    - type
                     type: object
+                  nullable: true
                   type: array
                 network:
                   description: StatusClusterNetwork expresses the network segment
                     that is allocated for a guest cluster.
+                  nullable: true
                   properties:
                     cidr:
                       type: string
-                  required:
-                  - cidr
                   type: object
                 nodes:
                   description: Nodes is a list of guest cluster node information reflecting
@@ -462,11 +450,13 @@ spec:
                           type: string
                         description: Labels contains the kubernetes labels for corresponding
                           node.
+                        nullable: true
                         type: object
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
                         format: date-time
+                        nullable: true
                         type: string
                       name:
                         description: Name referrs to a tenant cluster node name.
@@ -475,11 +465,8 @@ spec:
                         description: Version referrs to the version used by the node
                           as mandated by the provider operator.
                         type: string
-                    required:
-                    - lastTransitionTime
-                    - name
-                    - version
                     type: object
+                  nullable: true
                   type: array
                 resources:
                   description: Resources is a list of arbitrary conditions of operatorkit
@@ -501,6 +488,7 @@ spec:
                               description: LastTransitionTime is the last time the
                                 condition transitioned from one status to another.
                               format: date-time
+                              nullable: true
                               type: string
                             status:
                               description: Status may be True, False or Unknown.
@@ -509,27 +497,21 @@ spec:
                               description: Type may be anything an operatorkit resource
                                 may define.
                               type: string
-                          required:
-                          - lastTransitionTime
-                          - status
-                          - type
                           type: object
+                        nullable: true
                         type: array
                       name:
                         type: string
-                    required:
-                    - conditions
-                    - name
                     type: object
+                  nullable: true
                   type: array
                 scaling:
                   description: StatusClusterScaling expresses the current status of
                     desired number of worker nodes in guest cluster.
+                  nullable: true
                   properties:
                     desiredCapacity:
                       type: integer
-                  required:
-                  - desiredCapacity
                   type: object
                 versions:
                   description: Versions is a list that acts like a historical track
@@ -545,54 +527,39 @@ spec:
                           This can be removed ones the new properties are properly
                           used in all tenant clusters. \n     https://github.com/giantswarm/giantswarm/issues/3988"
                         format: date-time
+                        nullable: true
                         type: string
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
                           transitioned from one status to another.
                         format: date-time
+                        nullable: true
                         type: string
                       semver:
                         description: Semver is some semver version, e.g. 1.0.0.
                         type: string
-                    required:
-                    - date
-                    - lastTransitionTime
-                    - semver
                     type: object
+                  nullable: true
                   type: array
-              required:
-              - conditions
-              - network
-              - nodes
-              - resources
-              - scaling
-              - versions
               type: object
             provider:
               properties:
                 availabilityZones:
                   items:
                     type: integer
+                  nullable: true
                   type: array
                 ingress:
+                  nullable: true
                   properties:
                     loadBalancer:
+                      nullable: true
                       properties:
                         publicIPName:
                           type: string
-                      required:
-                      - publicIPName
                       type: object
-                  required:
-                  - loadBalancer
                   type: object
-              required:
-              - availabilityZones
-              - ingress
               type: object
-          required:
-          - cluster
-          - provider
           type: object
       required:
       - metadata

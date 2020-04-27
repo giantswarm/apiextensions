@@ -53,21 +53,22 @@ type G8sControlPlane struct {
 }
 
 type G8sControlPlaneSpec struct {
+	// +kubebuilder:validation:Enum=1;3
 	// Number of master nodes.
 	Replicas int `json:"replicas"`
-	// Reference to a provider-specific resource. On AWS, this would
-	// be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
+	// Reference to a provider-specific resource. On AWS, this would be of kind
+	// [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 
 // G8sControlPlaneStatus defines the observed state of G8sControlPlane.
 type G8sControlPlaneStatus struct {
 	// +kubebuilder:validation:Enum=1;3
-	// +optional
+	// +kubebuilder:validation:Optional
 	// Total number of non-terminated machines targeted by this control plane
 	// (their labels match the selector).
 	Replicas int32 `json:"replicas,omitempty"`
-	// +optional
+	// +kubebuilder:validation:Optional
 	// Total number of fully running and ready control plane machines.
 	ReadyReplicas int32 `json:"readyReplicas,omitempty"`
 }

@@ -66,7 +66,7 @@ spec:
                     type: object
                   scaling:
                     description: Scaling settings for the node pool, configuring the
-                      cluster-autosaler determining the number of nodes to have in
+                      cluster-autoscaler determining the number of nodes to have in
                       this node pool.
                     properties:
                       max:
