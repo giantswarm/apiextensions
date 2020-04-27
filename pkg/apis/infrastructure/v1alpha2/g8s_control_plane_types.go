@@ -55,7 +55,7 @@ type G8sControlPlane struct {
 type G8sControlPlaneSpec struct {
 	// +kubebuilder:validation:Enum=1;3
 	// Number of master nodes.
-	Replicas int `json:"replicas" yaml:"replicas"`
+	Replicas int `json:"replicas"`
 	// Reference to a provider-specific resource. On AWS, this would be of kind
 	// [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`

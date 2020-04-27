@@ -112,7 +112,7 @@ type NewObj struct {
 
 // NewObjSpec godoc.
 type NewObjSpec struct {
-	FieldName string `json:"fieldName", yaml:"fieldName"`
+	FieldName string `json:"fieldName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -152,13 +152,13 @@ type NewObj struct {
 }
 
 type NewObjSpec struct {
-	Cluster       NewObjCluster       `json:"cluster" yaml:"cluster"`
-	VersionBundle NewObjVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Cluster       NewObjCluster       `json:"cluster"`
+	VersionBundle NewObjVersionBundle `json:"versionBundle"`
 }
 
 type NewObjCluster struct {
-	Calico       NewObjCalico       `json:"calico" yaml:"calico"`
-	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon" yaml:"dockerDaemon"`
+	Calico       NewObjCalico       `json:"calico"`
+	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon"`
 }
 ```
 

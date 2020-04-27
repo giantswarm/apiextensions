@@ -94,31 +94,31 @@ var (
 type CommonClusterStatus struct {
 	// +kubebuilder:validation:Optional
 	// One or several conditions that are currently applicable to the cluster.
-	Conditions []CommonClusterStatusCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
+	Conditions []CommonClusterStatusCondition `json:"conditions,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Identifier of the cluster.
-	ID string `json:"id,omitempty" yaml:"id,omitempty"`
+	ID string `json:"id,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Release versions the cluster used so far.
-	Versions []CommonClusterStatusVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
+	Versions []CommonClusterStatusVersion `json:"versions,omitempty"`
 }
 
 // CommonClusterStatusCondition explains the current condition(s) of the cluster.
 type CommonClusterStatusCondition struct {
 	// +kubebuilder:validation:Optional
 	// Time the condition occurred.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
 	// +kubebuilder:validation:Optional
 	// Condition string, e. g. "Creating", "Created", "Upgraded"
-	Condition string `json:"condition" yaml:"condition"`
+	Condition string `json:"condition"`
 }
 
 // CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.
 type CommonClusterStatusVersion struct {
 	// +kubebuilder:validation:Optional
 	// Time the cluster assumed the given version.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
 	// +kubebuilder:validation:Optional
 	// The aws-operator version responsible for handling the cluster.
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }

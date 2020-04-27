@@ -24,98 +24,98 @@ type AzureConfig struct {
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AzureConfigSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
-	Status AzureConfigStatus `json:"status" yaml:"status"`
+	Status AzureConfigStatus `json:"status"`
 }
 
 type AzureConfigSpec struct {
-	Cluster       Cluster                      `json:"cluster" yaml:"cluster"`
-	Azure         AzureConfigSpecAzure         `json:"azure" yaml:"azure"`
-	VersionBundle AzureConfigSpecVersionBundle `json:"versionBundle" yaml:"versionBundle"`
+	Cluster       Cluster                      `json:"cluster"`
+	Azure         AzureConfigSpecAzure         `json:"azure"`
+	VersionBundle AzureConfigSpecVersionBundle `json:"versionBundle"`
 }
 
 type AzureConfigSpecAzure struct {
-	AvailabilityZones []int                              `json:"availabilityZones" yaml:"availabilityZones"`
-	CredentialSecret  CredentialSecret                   `json:"credentialSecret" yaml:"credentialSecret"`
-	DNSZones          AzureConfigSpecAzureDNSZones       `json:"dnsZones" yaml:"dnsZones"`
-	Masters           []AzureConfigSpecAzureNode         `json:"masters" yaml:"masters"`
-	VirtualNetwork    AzureConfigSpecAzureVirtualNetwork `json:"virtualNetwork" yaml:"virtualNetwork"`
-	Workers           []AzureConfigSpecAzureNode         `json:"workers" yaml:"workers"`
+	AvailabilityZones []int                              `json:"availabilityZones"`
+	CredentialSecret  CredentialSecret                   `json:"credentialSecret"`
+	DNSZones          AzureConfigSpecAzureDNSZones       `json:"dnsZones"`
+	Masters           []AzureConfigSpecAzureNode         `json:"masters"`
+	VirtualNetwork    AzureConfigSpecAzureVirtualNetwork `json:"virtualNetwork"`
+	Workers           []AzureConfigSpecAzureNode         `json:"workers"`
 }
 
 // AzureConfigSpecAzureDNSZones contains the DNS Zones of the cluster.
 type AzureConfigSpecAzureDNSZones struct {
 	// API is the DNS Zone for the Kubernetes API.
-	API AzureConfigSpecAzureDNSZonesDNSZone `json:"api" yaml:"api"`
+	API AzureConfigSpecAzureDNSZonesDNSZone `json:"api"`
 	// Etcd is the DNS Zone for the etcd cluster.
-	Etcd AzureConfigSpecAzureDNSZonesDNSZone `json:"etcd" yaml:"etcd"`
+	Etcd AzureConfigSpecAzureDNSZonesDNSZone `json:"etcd"`
 	// Ingress is the DNS Zone for the Ingress resource, used for customer traffic.
-	Ingress AzureConfigSpecAzureDNSZonesDNSZone `json:"ingress" yaml:"ingress"`
+	Ingress AzureConfigSpecAzureDNSZonesDNSZone `json:"ingress"`
 }
 
 // AzureConfigSpecAzureDNSZonesDNSZone points to a DNS Zone in Azure.
 type AzureConfigSpecAzureDNSZonesDNSZone struct {
 	// ResourceGroup is the resource group of the zone.
-	ResourceGroup string `json:"resourceGroup" yaml:"resourceGroup"`
+	ResourceGroup string `json:"resourceGroup"`
 	// Name is the name of the zone.
-	Name string `json:"name" yaml:"name"`
+	Name string `json:"name"`
 }
 
 type AzureConfigSpecAzureVirtualNetwork struct {
 	// CIDR is the CIDR for the Virtual Network.
-	CIDR string `json:"cidr" yaml:"cidr"`
+	CIDR string `json:"cidr"`
 
 	// TODO: remove Master, Worker and Calico subnet cidr after azure-operator v2
 	// is deleted. MasterSubnetCIDR is the CIDR for the master subnet.
 	//
 	//     https://github.com/giantswarm/giantswarm/issues/4358
 	//
-	MasterSubnetCIDR string `json:"masterSubnetCIDR" yaml:"masterSubnetCIDR"`
+	MasterSubnetCIDR string `json:"masterSubnetCIDR"`
 	// WorkerSubnetCIDR is the CIDR for the worker subnet.
-	WorkerSubnetCIDR string `json:"workerSubnetCIDR" yaml:"workerSubnetCIDR"`
+	WorkerSubnetCIDR string `json:"workerSubnetCIDR"`
 
 	// CalicoSubnetCIDR is the CIDR for the calico subnet. It has to be
 	// also a worker subnet (Azure limitation).
-	CalicoSubnetCIDR string `json:"calicoSubnetCIDR" yaml:"calicoSubnetCIDR"`
+	CalicoSubnetCIDR string `json:"calicoSubnetCIDR"`
 }
 
 type AzureConfigSpecAzureNode struct {
 	// VMSize is the master vm size (e.g. Standard_A1)
-	VMSize string `json:"vmSize" yaml:"vmSize"`
+	VMSize string `json:"vmSize"`
 	// DockerVolumeSizeGB is the size of a volume mounted to /var/lib/docker.
-	DockerVolumeSizeGB int `json:"dockerVolumeSizeGB" yaml:"dockerVolumeSizeGB"`
+	DockerVolumeSizeGB int `json:"dockerVolumeSizeGB"`
 	// KubeletVolumeSizeGB is the size of a volume mounted to /var/lib/kubelet.
-	KubeletVolumeSizeGB int `json:"kubeletVolumeSizeGB" yaml:"kubeletVolumeSizeGB"`
+	KubeletVolumeSizeGB int `json:"kubeletVolumeSizeGB"`
 }
 
 type AzureConfigSpecVersionBundle struct {
-	Version string `json:"version" yaml:"version"`
+	Version string `json:"version"`
 }
 
 type AzureConfigStatus struct {
 	// +kubebuilder:validation:Optional
-	Cluster StatusCluster `json:"cluster" yaml:"cluster"`
+	Cluster StatusCluster `json:"cluster"`
 	// +kubebuilder:validation:Optional
-	Provider AzureConfigStatusProvider `json:"provider" yaml:"provider"`
+	Provider AzureConfigStatusProvider `json:"provider"`
 }
 
 type AzureConfigStatusProvider struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
-	AvailabilityZones []int `json:"availabilityZones,omitempty" yaml:"availabilityZones,omitempty"`
+	AvailabilityZones []int `json:"availabilityZones,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	Ingress AzureConfigStatusProviderIngress `json:"ingress" yaml:"ingress"`
+	Ingress AzureConfigStatusProviderIngress `json:"ingress"`
 }
 
 type AzureConfigStatusProviderIngress struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
-	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
+	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer"`
 }
 
 type AzureConfigStatusProviderIngressLoadBalancer struct {
 	// +kubebuilder:validation:Optional
-	PublicIPName string `json:"publicIPName" yaml:"publicIPName"`
+	PublicIPName string `json:"publicIPName"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
