@@ -432,6 +432,7 @@ spec:
                 network:
                   description: StatusClusterNetwork expresses the network segment
                     that is allocated for a guest cluster.
+                  nullable: true
                   properties:
                     cidr:
                       type: string
@@ -501,10 +502,12 @@ spec:
                       name:
                         type: string
                     type: object
+                  nullable: true
                   type: array
                 scaling:
                   description: StatusClusterScaling expresses the current status of
                     desired number of worker nodes in guest cluster.
+                  nullable: true
                   properties:
                     desiredCapacity:
                       type: integer
@@ -546,8 +549,10 @@ spec:
                   nullable: true
                   type: array
                 ingress:
+                  nullable: true
                   properties:
                     loadBalancer:
+                      nullable: true
                       properties:
                         publicIPName:
                           type: string

@@ -103,11 +103,13 @@ type AzureConfigStatusProvider struct {
 	// +nullable
 	AvailabilityZones []int `json:"availabilityZones,omitempty" yaml:"availabilityZones,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Ingress AzureConfigStatusProviderIngress `json:"ingress" yaml:"ingress"`
 }
 
 type AzureConfigStatusProviderIngress struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer" yaml:"loadBalancer"`
 }
 

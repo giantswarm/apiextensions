@@ -36,6 +36,7 @@ type StatusCluster struct {
 	// guest cluster being updating or being up to date.
 	Conditions []StatusClusterCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Network StatusClusterNetwork `json:"network" yaml:"network"`
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -43,10 +44,12 @@ type StatusCluster struct {
 	// state of the guest cluster nodes.
 	Nodes []StatusClusterNode `json:"nodes,omitempty" yaml:"nodes,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	// Resources is a list of arbitrary conditions of operatorkit resource
 	// implementations.
 	Resources []StatusClusterResource `json:"resources,omitempty" yaml:"resources,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Scaling StatusClusterScaling `json:"scaling" yaml:"scaling"`
 	// +kubebuilder:validation:Optional
 	// +nullable
