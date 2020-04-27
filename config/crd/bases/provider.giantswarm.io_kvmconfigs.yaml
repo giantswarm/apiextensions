@@ -465,8 +465,6 @@ spec:
                               description: Type may be anything an operatorkit resource
                                 may define.
                               type: string
-                          required:
-                          - status
                           type: object
                         type: array
                       name:

@@ -109,9 +109,11 @@ type StatusClusterResource struct {
 // StatusClusterResourceCondition expresses the conditions in which an
 // operatorkit resource may is.
 type StatusClusterResourceCondition struct {
+	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
 	// +kubebuilder:validation:Optional
