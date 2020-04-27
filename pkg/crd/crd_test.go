@@ -20,7 +20,8 @@ var (
 
 func Test_PkgerUpToDate(t *testing.T) {
 	root := filepath.Join(testDirectory, "..", "..")
-	err := pkger.Walk("/config/crd/v1beta1", func(fullPath string, info os.FileInfo, err error) error {
+	// No need to check both v1 and v1beta1
+	err := pkger.Walk(crdDirectoryV1, func(fullPath string, info os.FileInfo, err error) error {
 		// An unknown error, stop walking
 		if err != nil {
 			return microerror.Mask(err)
@@ -102,6 +103,10 @@ func Test_LoadAll(t *testing.T) {
 		"release.giantswarm.io": {
 			"Release",
 			"ReleaseCycle",
+		},
+		"cluster.x-k8s.io": {
+			"Cluster",
+			"MachineDeployment",
 		},
 	}
 
