@@ -31,14 +31,10 @@ type CoreV1alpha1Interface interface {
 	AzureClusterConfigsGetter
 	CertConfigsGetter
 	ChartConfigsGetter
-	ClustersGetter
 	DrainerConfigsGetter
-	DraughtsmanConfigsGetter
 	FlannelConfigsGetter
 	IgnitionsGetter
-	IngressConfigsGetter
 	KVMClusterConfigsGetter
-	NodeConfigsGetter
 	StorageConfigsGetter
 }
 
@@ -63,16 +59,8 @@ func (c *CoreV1alpha1Client) ChartConfigs(namespace string) ChartConfigInterface
 	return newChartConfigs(c, namespace)
 }
 
-func (c *CoreV1alpha1Client) Clusters(namespace string) ClusterInterface {
-	return newClusters(c, namespace)
-}
-
 func (c *CoreV1alpha1Client) DrainerConfigs(namespace string) DrainerConfigInterface {
 	return newDrainerConfigs(c, namespace)
-}
-
-func (c *CoreV1alpha1Client) DraughtsmanConfigs(namespace string) DraughtsmanConfigInterface {
-	return newDraughtsmanConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) FlannelConfigs(namespace string) FlannelConfigInterface {
@@ -83,16 +71,8 @@ func (c *CoreV1alpha1Client) Ignitions(namespace string) IgnitionInterface {
 	return newIgnitions(c, namespace)
 }
 
-func (c *CoreV1alpha1Client) IngressConfigs(namespace string) IngressConfigInterface {
-	return newIngressConfigs(c, namespace)
-}
-
 func (c *CoreV1alpha1Client) KVMClusterConfigs(namespace string) KVMClusterConfigInterface {
 	return newKVMClusterConfigs(c, namespace)
-}
-
-func (c *CoreV1alpha1Client) NodeConfigs(namespace string) NodeConfigInterface {
-	return newNodeConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) StorageConfigs(namespace string) StorageConfigInterface {

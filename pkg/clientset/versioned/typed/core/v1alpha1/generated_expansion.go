@@ -26,20 +26,12 @@ type CertConfigExpansion interface{}
 
 type ChartConfigExpansion interface{}
 
-type ClusterExpansion interface{}
-
 type DrainerConfigExpansion interface{}
-
-type DraughtsmanConfigExpansion interface{}
 
 type FlannelConfigExpansion interface{}
 
 type IgnitionExpansion interface{}
 
-type IngressConfigExpansion interface{}
-
 type KVMClusterConfigExpansion interface{}
-
-type NodeConfigExpansion interface{}
 
 type StorageConfigExpansion interface{}
