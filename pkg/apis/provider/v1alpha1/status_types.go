@@ -29,32 +29,48 @@ const (
 )
 
 type StatusCluster struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Conditions is a list of status information expressing the current
 	// conditional state of a guest cluster. This may reflect the status of the
 	// guest cluster being updating or being up to date.
-	Conditions []StatusClusterCondition `json:"conditions" yaml:"conditions"`
-	Network    StatusClusterNetwork     `json:"network" yaml:"network"`
+	Conditions []StatusClusterCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Network StatusClusterNetwork `json:"network" yaml:"network"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Nodes is a list of guest cluster node information reflecting the current
 	// state of the guest cluster nodes.
-	Nodes []StatusClusterNode `json:"nodes" yaml:"nodes"`
+	Nodes []StatusClusterNode `json:"nodes,omitempty" yaml:"nodes,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Resources is a list of arbitrary conditions of operatorkit resource
 	// implementations.
-	Resources []StatusClusterResource `json:"resources" yaml:"resources"`
-	Scaling   StatusClusterScaling    `json:"scaling" yaml:"scaling"`
+	Resources []StatusClusterResource `json:"resources,omitempty" yaml:"resources,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Scaling StatusClusterScaling `json:"scaling" yaml:"scaling"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Versions is a list that acts like a historical track record of versions a
 	// guest cluster went through. A version is only added to the list as soon as
 	// the guest cluster successfully migrated to the version added here.
-	Versions []StatusClusterVersion `json:"versions" yaml:"versions"`
+	Versions []StatusClusterVersion `json:"versions,omitempty" yaml:"versions,omitempty"`
 }
 
 // StatusClusterCondition expresses the conditions in which a guest cluster may
 // is.
 type StatusClusterCondition struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
+	// +kubebuilder:validation:Optional
 	// Type may be Creating, Created, Scaling, Scaled, Draining, Drained,
 	// Updating, Updated, Deleting, Deleted.
 	Type string `json:"type" yaml:"type"`
@@ -63,18 +79,25 @@ type StatusClusterCondition struct {
 // StatusClusterNetwork expresses the network segment that is allocated for a
 // guest cluster.
 type StatusClusterNetwork struct {
+	// +kubebuilder:validation:Optional
 	CIDR string `json:"cidr" yaml:"cidr"`
 }
 
 // StatusClusterNode holds information about a guest cluster node.
 type StatusClusterNode struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Labels contains the kubernetes labels for corresponding node.
 	Labels map[string]string `json:"labels,omitempty" yaml:"labels,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Name referrs to a tenant cluster node name.
 	Name string `json:"name" yaml:"name"`
+	// +kubebuilder:validation:Optional
 	// Version referrs to the version used by the node as mandated by the provider
 	// operator.
 	Version string `json:"version" yaml:"version"`
@@ -86,18 +109,25 @@ type StatusClusterNode struct {
 // system state it manages. So it tracks the status as needed here specific to
 // its own implementation and means in order to fulfil its premise.
 type StatusClusterResource struct {
-	Conditions []StatusClusterResourceCondition `json:"conditions" yaml:"conditions"`
-	Name       string                           `json:"name" yaml:"name"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Conditions []StatusClusterResourceCondition `json:"conditions,omitempty" yaml:"conditions,omitempty"`
+	// +kubebuilder:validation:Optional
+	Name string `json:"name" yaml:"name"`
 }
 
 // StatusClusterResourceCondition expresses the conditions in which an
 // operatorkit resource may is.
 type StatusClusterResourceCondition struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
+	// +kubebuilder:validation:Optional
 	// Type may be anything an operatorkit resource may define.
 	Type string `json:"type" yaml:"type"`
 }
@@ -105,22 +135,28 @@ type StatusClusterResourceCondition struct {
 // StatusClusterScaling expresses the current status of desired number of
 // worker nodes in guest cluster.
 type StatusClusterScaling struct {
+	// +kubebuilder:validation:Optional
 	DesiredCapacity int `json:"desiredCapacity" yaml:"desiredCapacity"`
 }
 
 // StatusClusterVersion expresses the versions in which a guest cluster was and
 // may still be.
 type StatusClusterVersion struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// TODO date is deprecated due to LastTransitionTime
 	// This can be removed ones the new properties are properly used in all tenant
 	// clusters.
 	//
 	//     https://github.com/giantswarm/giantswarm/issues/3988
 	//
-	Date metav1.Time `json:"date" yaml:"date"`
+	Date metav1.Time `json:"date,omitempty" yaml:"date,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Semver is some semver version, e.g. 1.0.0.
 	Semver string `json:"semver" yaml:"semver"`
 }
