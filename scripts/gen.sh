@@ -88,7 +88,7 @@ echo "Generating all CRDs"
 echo "Kustomizing CRDs"
 for version in v1 v1beta1; do
   for crd in "config/crd/patches/$version"/*; do
-    kustomize --load_restrictor LoadRestrictionsNone build \
+    "$toolpath/kustomize" --load_restrictor LoadRestrictionsNone build \
       "$crd" \
       -o "config/crd/$version/$(basename "$crd").yaml"
   done
