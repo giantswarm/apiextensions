@@ -59,7 +59,7 @@ type StatusClusterCondition struct {
 	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Status may be True, False or Unknown.
 	Status string `json:"status" yaml:"status"`
@@ -84,7 +84,7 @@ type StatusClusterNode struct {
 	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Name referrs to a tenant cluster node name.
 	Name string `json:"name" yaml:"name"`
@@ -136,11 +136,11 @@ type StatusClusterVersion struct {
 	//
 	//     https://github.com/giantswarm/giantswarm/issues/3988
 	//
-	Date metav1.Time `json:"date" yaml:"date"`
+	Date metav1.Time `json:"date,omitempty" yaml:"date,omitempty"`
 	// +kubebuilder:validation:Optional
 	// LastTransitionTime is the last time the condition transitioned from one
 	// status to another.
-	LastTransitionTime metav1.Time `json:"lastTransitionTime" yaml:"lastTransitionTime"`
+	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty" yaml:"lastTransitionTime,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Semver is some semver version, e.g. 1.0.0.
 	Semver string `json:"semver" yaml:"semver"`
