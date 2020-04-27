@@ -67,35 +67,36 @@ echo "Fixing imports in-place with goimports"
 "$toolpath/goimports" -local $module -w ./pkg
 
 # Ensure that we have fresh CRDs in case any have been deleted
-rm -rf "$dir/../config/crd/bases"
+rm -rf "$dir/../config/crd/v1"
+rm -rf "$dir/../config/crd/v1beta1"
 
 # Using kubebuilder comments, create new CRDs from CR definitions in source files
-echo "Generating all CRDs as v1beta1"
+echo "Generating all CRDs"
 "$toolpath/controller-gen" \
   crd \
   paths=./pkg/apis/... \
-  output:dir=config/crd/bases \
-  crd:crdVersions=v1beta1
-
-# Overwrite CRDs infrastructure.giantswarm.io as v1 until all other
-# groups can be migrated to v1
-echo "Generating infrastructure.giantswarm.io CRDs as v1"
+  output:dir=config/crd/v1 \
+  crd:crdVersions=v1
 "$toolpath/controller-gen" \
   crd \
-  paths=./pkg/apis/infrastructure/v1alpha2 \
-  output:dir=config/crd/bases \
-  crd:crdVersions=v1
+  paths=./pkg/apis/... \
+  output:dir=config/crd/v1beta1 \
+  crd:crdVersions=v1beta1
 
 # Add .metadata.name validation to Release CRD using kustomize since
 # kubebuilder comments can't modify metav1.ObjectMeta
 echo "Kustomizing CRDs"
-"$toolpath/kustomize" build \
-  config/crd \
-  -o config/crd/bases/release.giantswarm.io_releases.yaml
+for version in v1 v1beta1; do
+  for crd in "config/crd/patches/$version"/*; do
+    kustomize --load_restrictor LoadRestrictionsNone build \
+      "$crd" \
+      -o "config/crd/$version/$(basename "$crd").yaml"
+  done
+done
 
 # Package CRD YAMLs into a virtual filesystem so they can be accessed by New*CRD() functions
 echo "Using pkger to package CRDs into go source virtual file system"
-"$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+"$toolpath/pkger" -include /config/crd/v1 -include /config/crd/v1beta1 -o pkg/crd
 
 echo "Applying linter patch to generated files"
 git apply "$dir/generated.patch"
