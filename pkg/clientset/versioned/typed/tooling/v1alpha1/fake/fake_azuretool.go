@@ -101,6 +101,18 @@ func (c *FakeAzureTools) Update(azureTool *v1alpha1.AzureTool) (result *v1alpha1
 	return obj.(*v1alpha1.AzureTool), err
 }
 
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *FakeAzureTools) UpdateStatus(azureTool *v1alpha1.AzureTool) (*v1alpha1.AzureTool, error) {
+	obj, err := c.Fake.
+		Invokes(testing.NewUpdateSubresourceAction(azuretoolsResource, "status", c.ns, azureTool), &v1alpha1.AzureTool{})
+
+	if obj == nil {
+		return nil, err
+	}
+	return obj.(*v1alpha1.AzureTool), err
+}
+
 // Delete takes name of the azureTool and deletes it. Returns an error if one occurs.
 func (c *FakeAzureTools) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.

@@ -40,6 +40,7 @@ type AzureToolsGetter interface {
 type AzureToolInterface interface {
 	Create(*v1alpha1.AzureTool) (*v1alpha1.AzureTool, error)
 	Update(*v1alpha1.AzureTool) (*v1alpha1.AzureTool, error)
+	UpdateStatus(*v1alpha1.AzureTool) (*v1alpha1.AzureTool, error)
 	Delete(name string, options *v1.DeleteOptions) error
 	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
 	Get(name string, options v1.GetOptions) (*v1alpha1.AzureTool, error)
@@ -127,6 +128,22 @@ func (c *azureTools) Update(azureTool *v1alpha1.AzureTool) (result *v1alpha1.Azu
 		Namespace(c.ns).
 		Resource("azuretools").
 		Name(azureTool.Name).
+		Body(azureTool).
+		Do().
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+
+func (c *azureTools) UpdateStatus(azureTool *v1alpha1.AzureTool) (result *v1alpha1.AzureTool, err error) {
+	result = &v1alpha1.AzureTool{}
+	err = c.client.Put().
+		Namespace(c.ns).
+		Resource("azuretools").
+		Name(azureTool.Name).
+		SubResource("status").
 		Body(azureTool).
 		Do().
 		Into(result)
