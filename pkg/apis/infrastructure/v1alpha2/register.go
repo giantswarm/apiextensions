@@ -7,9 +7,8 @@ import (
 )
 
 const (
-	group           = "infrastructure.giantswarm.io"
-	clusterAPIGroup = "cluster.x-k8s.io"
-	version         = "v1alpha2"
+	group   = "infrastructure.giantswarm.io"
+	version = "v1alpha2"
 )
 
 // knownTypes is the full list of objects to register with the scheme. It

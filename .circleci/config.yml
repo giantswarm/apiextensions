@@ -4,6 +4,17 @@ orbs:
   architect: giantswarm/architect@0.8.9
 
 jobs:
+  validate:
+    docker:
+      - image: quay.io/giantswarm/architect
+    steps:
+      - checkout
+      - run:
+          name: Regenerate
+          command: CGO_ENABLED=0 ./scripts/gen.sh
+      - run:
+          name: Ensure unchanged
+          command: git diff --exit-code
   test-install:
     machine: true
     environment:
@@ -44,6 +55,7 @@ jobs:
 workflows:
   workflow:
     jobs:
+      - validate
       - test-install
 
       - architect/go-test:
@@ -58,6 +70,7 @@ workflows:
           command: build
           requires:
             - go-test
+            - validate
             - test-install
 
       - architect/go-architect-legacy:
