@@ -33,8 +33,10 @@ type AzureToolSpec struct {
 }
 
 type AzureToolStatus struct {
-	// Status of the upstream Azure deployment (can be 'Pending', 'Active').
-	Status string `json:"status"`
+	// +kubebuilder:validation:Optional
+
+	// WorkspaceStatus of the upstream Azure Log Analytics Workspace deployment (can be 'Pending', 'Active').
+	WorkspaceStatus string `json:"workspace_status" yaml:"workspace_status"`
 }
 
 type AzureToolWorkspace struct {

@@ -52,12 +52,10 @@ spec:
           type: object
         status:
           properties:
-            status:
-              description: Status of the upstream Azure deployment (can be 'Pending',
-                'Active').
+            workspace_status:
+              description: WorkspaceStatus of the upstream Azure Log Analytics Workspace
+                deployment (can be 'Pending', 'Active').
               type: string
-          required:
-          - status
           type: object
       required:
       - metadata
