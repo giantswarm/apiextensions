@@ -51,12 +51,14 @@ spec:
           - workspace
           type: object
         status:
-         properties:
-           status:
-             description: Status of the upstream Azure deployment (can be 'Pending', 'Active')
-             type: string
-         required:
-           - status
+          properties:
+            status:
+              description: Status of the upstream Azure deployment (can be 'Pending',
+                'Active').
+              type: string
+          required:
+          - status
+          type: object
       required:
       - metadata
       - spec
