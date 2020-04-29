@@ -24,7 +24,7 @@ type AzureTool struct {
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AzureToolSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
-	Status AzureToolStatus `json:"status,omitempty"`
+	Status AzureToolStatus `json:"status"`
 }
 
 type AzureToolSpec struct {
@@ -34,8 +34,6 @@ type AzureToolSpec struct {
 
 type AzureToolStatus struct {
 	// +kubebuilder:validation:Optional
-
-	// WorkspaceStatus of the upstream Azure Log Analytics Workspace deployment (can be 'Pending', 'Active').
 	WorkspaceStatus string `json:"workspace_status" yaml:"workspace_status"`
 }
 
