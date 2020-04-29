@@ -15,6 +15,8 @@ spec:
     plural: azuretools
     singular: azuretool
   scope: Namespaced
+  subresources:
+    status: {}
   validation:
     openAPIV3Schema:
       properties:
@@ -48,6 +50,13 @@ spec:
           required:
           - workspace
           type: object
+        status:
+         properties:
+           status:
+             description: Status of the upstream Azure deployment (can be 'Pending', 'Active')
+             type: string
+         required:
+           - status
       required:
       - metadata
       - spec

@@ -18,15 +18,23 @@ func NewAzureToolCRD() *v1beta1.CustomResourceDefinition {
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:subresource:status
 type AzureTool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AzureToolSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AzureToolStatus `json:"status,omitempty"`
 }
 
 type AzureToolSpec struct {
 	// Workspace refers to the Azure Log Analytics Workspace.
 	Workspace AzureToolWorkspace `json:"workspace" yaml:"workspace"`
+}
+
+type AzureToolStatus struct {
+	// Status of the upstream Azure deployment (can be 'Pending', 'Active').
+	Status string `json:"status"`
 }
 
 type AzureToolWorkspace struct {
