@@ -16,7 +16,6 @@ func NewAzureToolCRD() *v1beta1.CustomResourceDefinition {
 }
 
 // +genclient
-// +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
 type AzureTool struct {
