@@ -15,8 +15,6 @@ spec:
     plural: azuretools
     singular: azuretool
   scope: Namespaced
-  subresources:
-    status: {}
   validation:
     openAPIV3Schema:
       properties:
