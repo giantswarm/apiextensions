@@ -54,6 +54,8 @@ spec:
           properties:
             workspace_status:
               type: string
+          required:
+          - workspace_status
           type: object
       required:
       - metadata

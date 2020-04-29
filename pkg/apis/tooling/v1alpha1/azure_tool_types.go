@@ -32,8 +32,7 @@ type AzureToolSpec struct {
 }
 
 type AzureToolStatus struct {
-	// +kubebuilder:validation:Optional
-	WorkspaceStatus string `json:"workspace_status" yaml:"workspace_status"`
+	WorkspaceStatus string `json:"workspace_status"`
 }
 
 type AzureToolWorkspace struct {
