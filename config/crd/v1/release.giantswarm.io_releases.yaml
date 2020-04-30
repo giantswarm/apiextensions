@@ -1,0 +1,118 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
+  name: releases.release.giantswarm.io
+spec:
+  group: release.giantswarm.io
+  names:
+    kind: Release
+    listKind: ReleaseList
+    plural: releases
+    singular: release
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - description: Version of the kubernetes component in this release
+      jsonPath: .spec.components[?(@.name=="kubernetes")].version
+      name: Kubernetes version
+      type: string
+    - description: State of the release
+      jsonPath: .spec.state
+      name: State
+      type: string
+    - description: Time since release creation
+      jsonPath: .spec.date
+      name: Age
+      type: string
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: "Release is a Kubernetes resource (CR) which is based on the
+          Release CRD defined above. \n An example Release resource can be viewed
+          here https://github.com/giantswarm/apiextensions/blob/master/docs/cr/release.giantswarm.io_v1alpha1_release.yaml"
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            properties:
+              name:
+                pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+                type: string
+            type: object
+          spec:
+            properties:
+              apps:
+                description: Apps describes apps used in this release.
+                items:
+                  properties:
+                    componentVersion:
+                      description: Version of the upstream component used in the app.
+                      type: string
+                    name:
+                      description: Name of the app.
+                      type: string
+                    version:
+                      description: Version of the app.
+                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                      type: string
+                  required:
+                  - name
+                  - version
+                  type: object
+                type: array
+              components:
+                description: Components describes components used in this release.
+                items:
+                  properties:
+                    name:
+                      description: Name of the component.
+                      type: string
+                    version:
+                      description: Version of the component.
+                      pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
+                      type: string
+                  required:
+                  - name
+                  - version
+                  type: object
+                minItems: 1
+                type: array
+              date:
+                description: Date that the release became active.
+                format: date-time
+                type: string
+              state:
+                description: 'State indicates the availability of the release: deprecated,
+                  active, or wip.'
+                pattern: ^(active|deprecated|wip)$
+                type: string
+            required:
+            - apps
+            - components
+            - date
+            - state
+            type: object
+        required:
+        - metadata
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
