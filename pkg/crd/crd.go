@@ -17,8 +17,9 @@ import (
 )
 
 const (
-	crdDirectory = "/config/crd/bases"
-	crdKind      = "CustomResourceDefinition"
+	crdDirectoryV1      = "/config/crd/v1"
+	crdDirectoryV1Beta1 = "/config/crd/v1beta1"
+	crdKind             = "CustomResourceDefinition"
 )
 
 var (
@@ -36,7 +37,7 @@ var (
 	}
 )
 
-func Find(group, kind string) (interface{}, error) {
+func find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{}, error) {
 	// If a matching CRD is found during the walk, it will be saved to found.
 	// This could be a v1 or v1beta1 CRD so it needs to be an interface{}.
 	var found interface{}
@@ -76,15 +77,18 @@ func Find(group, kind string) (interface{}, error) {
 		if err != nil {
 			return microerror.Mask(err)
 		}
+		if object.GetObjectKind().GroupVersionKind() != crdKind {
+			return nil
+		}
 
-		switch object.GetObjectKind().GroupVersionKind() {
+		switch crdKind {
 		case v1beta1GroupVersionKind:
 			var crd v1beta1.CustomResourceDefinition
 			err = yaml.UnmarshalStrict(yamlString, &crd)
 			if err != nil {
 				return microerror.Mask(err)
 			}
-			if group == crd.Spec.Group && kind == crd.Spec.Names.Kind {
+			if crGroup == crd.Spec.Group && crKind == crd.Spec.Names.Kind {
 				found = &crd // Match, save results in outer scope
 			}
 			return nil
@@ -94,7 +98,7 @@ func Find(group, kind string) (interface{}, error) {
 			if err != nil {
 				return microerror.Mask(err)
 			}
-			if group == crd.Spec.Group && kind == crd.Spec.Names.Kind {
+			if crGroup == crd.Spec.Group && crKind == crd.Spec.Names.Kind {
 				found = &crd // Match, save results in outer scope
 			}
 			return nil
@@ -103,7 +107,13 @@ func Find(group, kind string) (interface{}, error) {
 	}
 
 	// Entry point for walking the CRD YAML directory.
-	err := pkger.Walk(crdDirectory, walkFunc)
+	var err error
+	switch crdKind.Version {
+	case v1GroupVersionKind.Version:
+		err = pkger.Walk(crdDirectoryV1, walkFunc)
+	case v1beta1GroupVersionKind.Version:
+		err = pkger.Walk(crdDirectoryV1Beta1, walkFunc)
+	}
 	if err != nil {
 		return nil, microerror.Mask(err)
 	}
@@ -114,9 +124,9 @@ func Find(group, kind string) (interface{}, error) {
 	return found, nil
 }
 
-// LoadV1Beta1 loads a v1beta1 CRD from the filesystem.
+// LoadV1Beta1 loads a v1beta1 CRD from the virtual filesystem.
 func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
-	found, err := Find(group, kind)
+	found, err := find(v1beta1GroupVersionKind, group, kind)
 	if err != nil {
 		panic(microerror.Mask(err))
 	}
@@ -127,9 +137,9 @@ func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 	return crd
 }
 
-// LoadV1Beta1 loads a v1 CRD from the filesystem
+// LoadV1Beta1 loads a v1 CRD from the virtual filesystem
 func LoadV1(group, kind string) (out *v1.CustomResourceDefinition) {
-	found, err := Find(group, kind)
+	found, err := find(v1GroupVersionKind, group, kind)
 	if err != nil {
 		panic(microerror.Mask(err))
 	}

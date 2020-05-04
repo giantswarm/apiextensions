@@ -77,61 +77,56 @@ pushd "$dir/.." > /dev/null
 echo "Fixing imports in-place with goimports"
 "$toolpath/goimports" -local $module -w ./pkg
 
-# Ensure that we have fresh CRDs in case any have been deleted
-rm -rf "$dir/../config/crd/bases"
+for version in v1 v1beta1; do
+  # Ensure that we have fresh CRDs in case any have been deleted
+  rm -rf "$dir/../config/crd/$version"
 
-# Using kubebuilder comments, create new CRDs from CR definitions in source files
-echo "Generating all CRDs as v1beta1"
-"$toolpath/controller-gen" \
-  crd \
-  paths=./pkg/apis/... \
-  output:dir=config/crd/bases \
-  crd:crdVersions=v1beta1
+  # Using kubebuilder comments, create new CRDs from CR definitions in source files
+  echo "Generating all $version CRDs"
+  "$toolpath/controller-gen" \
+    crd \
+    paths=./pkg/apis/... \
+    output:dir="config/crd/$version" \
+    crd:crdVersions="$version"
 
-# Overwrite CRDs infrastructure.giantswarm.io as v1 until all other
-# groups can be migrated to v1
-echo "Generating infrastructure.giantswarm.io CRDs as v1"
-"$toolpath/controller-gen" \
-  crd \
-  paths=./pkg/apis/infrastructure/v1alpha2 \
-  output:dir=config/crd/bases \
-  crd:crdVersions=v1
+  # Generate Cluster API CRDs from external library (version from scripts/go.mod)
+  #
+  # Q: How does the generator know where to find the source of truth for CAPI?
+  #
+  # A: controller-gen uses standard go modules logic to resolve external dependencies. I defined cluster-api@0.2.10 in
+  # scripts/go.mod so as long as this command is executed in the scripts/ directory, it generates CAPI 0.2.10 v1alpha2
+  # CRDs. I tested this by clearing my module cache, changing the version in go.mod to 0.2.9 and regenerating the CRDs.
+  # Then I found ~/go/pkg/mod/sigs.k8s.io/controller-tools@v0.2.9/ had been downloaded. When we're ready for CAPI
+  # v1alpha3, it should be sufficient to change this version to v0.3.3 and paths in the command to
+  # sigs.k8s.io/cluster-api/api/v1alpha3.
+  pushd "$dir" > /dev/null
+  "$toolpath/controller-gen" \
+    crd \
+    paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
+    output:dir="../config/crd/$version" \
+    crd:crdVersions="$version"
+  popd > /dev/null
+  # We only want Cluster and MachineDeployment for now, so delete the other two CAPI CRDs.
+  rm config/crd/$version/cluster.x-k8s.io_machines.yaml
+  rm config/crd/$version/cluster.x-k8s.io_machinesets.yaml
 
-# Generate Cluster API CRDs from external library (version from scripts/go.mod)
-#
-# Q: How does the generator know where to find the source of truth for CAPI?
-#
-# A: controller-gen uses standard go modules logic to resolve external dependencies. I defined cluster-api@0.2.10 in
-# scripts/go.mod so as long as this command is executed in the scripts/ directory, it generates CAPI 0.2.10 v1alpha2
-# CRDs. I tested this by clearing my module cache, changing the version in go.mod to 0.2.9 and regenerating the CRDs.
-# Then I found ~/go/pkg/mod/sigs.k8s.io/controller-tools@v0.2.9/ had been downloaded. When we're ready for CAPI
-# v1alpha3, it should be sufficient to change this version to v0.3.3 and paths in the command to
-# sigs.k8s.io/cluster-api/api/v1alpha3.
-pushd "$dir" > /dev/null
-"$toolpath/controller-gen" \
-  crd \
-  paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
-  output:dir=../config/crd/bases \
-  crd:crdVersions=v1beta1
-popd > /dev/null
-# We only want Cluster and MachineDeployment for now, so delete the other two CAPI CRDs.
-rm config/crd/bases/cluster.x-k8s.io_machines.yaml
-rm config/crd/bases/cluster.x-k8s.io_machinesets.yaml
-
-# Add .metadata.name validation to Release CRD using kustomize since
-# kubebuilder comments can't modify metav1.ObjectMeta
-echo "Kustomizing CRDs"
-"$toolpath/kustomize" build \
-  config/crd \
-  -o config/crd/bases/release.giantswarm.io_releases.yaml
+  # Add .metadata.name validation to Release CRD using kustomize since
+  # kubebuilder comments can't modify metav1.ObjectMeta
+  echo "Kustomizing $version CRDs"
+  for crd in "config/crd/patches/$version"/*; do
+    "$toolpath/kustomize" --load_restrictor LoadRestrictionsNone build \
+      "$crd" \
+      -o "config/crd/$version/$(basename "$crd").yaml"
+  done
+done
 
 # Package CRD YAMLs into a virtual filesystem so they can be accessed by New*CRD() functions
-hash=$(find config/crd/bases -type f -print0 | xargs -0 sha1sum | sort -df | sha1sum)
+hash=$(find config/crd -type f -print0 | xargs -0 sha1sum | sort -df | sha1sum)
 prevhash=$(cat "$dir/.hash" 2> /dev/null || echo "")
 if [ "$hash" != "$prevhash" ]; then
   echo "Detected changes in CRD YAMLs"
   echo "Using pkger to package CRDs into go source virtual file system"
-  "$toolpath/pkger" -include /config/crd/bases -o pkg/crd
+  "$toolpath/pkger" -include /config/crd/v1 -include /config/crd/v1beta1 -o pkg/crd
   echo "$hash" > "$dir/.hash"
 fi
 
