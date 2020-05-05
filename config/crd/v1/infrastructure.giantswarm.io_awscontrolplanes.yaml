@@ -49,7 +49,6 @@ spec:
                 description: EC2 instance type identifier to use for the master node(s).
                 type: string
             required:
-            - availabilityZones
             - instanceType
             type: object
         required:
