@@ -264,6 +264,8 @@ spec:
                           type: string
                         insecurePort:
                           type: integer
+                        loadBalancerType:
+                          type: string
                         securePort:
                           type: integer
                         wildcardDomain:
@@ -272,6 +274,7 @@ spec:
                       - docker
                       - domain
                       - insecurePort
+                      - loadBalancerType
                       - securePort
                       - wildcardDomain
                       type: object
