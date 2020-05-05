@@ -1,0 +1,151 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
+  name: flannelconfigs.core.giantswarm.io
+spec:
+  group: core.giantswarm.io
+  names:
+    kind: FlannelConfig
+    listKind: FlannelConfigList
+    plural: flannelconfigs
+    singular: flannelconfig
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              bridge:
+                properties:
+                  docker:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                  spec:
+                    properties:
+                      dns:
+                        properties:
+                          servers:
+                            items:
+                              type: string
+                            type: array
+                        required:
+                        - servers
+                        type: object
+                      interface:
+                        type: string
+                      ntp:
+                        properties:
+                          servers:
+                            items:
+                              type: string
+                            type: array
+                        required:
+                        - servers
+                        type: object
+                      privateNetwork:
+                        type: string
+                    required:
+                    - dns
+                    - interface
+                    - ntp
+                    - privateNetwork
+                    type: object
+                required:
+                - docker
+                - spec
+                type: object
+              cluster:
+                properties:
+                  customer:
+                    type: string
+                  id:
+                    type: string
+                  namespace:
+                    type: string
+                required:
+                - customer
+                - id
+                - namespace
+                type: object
+              flannel:
+                properties:
+                  spec:
+                    properties:
+                      network:
+                        type: string
+                      runDir:
+                        type: string
+                      subnetLen:
+                        type: integer
+                      vni:
+                        type: integer
+                    required:
+                    - network
+                    - runDir
+                    - subnetLen
+                    - vni
+                    type: object
+                required:
+                - spec
+                type: object
+              health:
+                properties:
+                  docker:
+                    properties:
+                      image:
+                        type: string
+                    required:
+                    - image
+                    type: object
+                required:
+                - docker
+                type: object
+              versionBundle:
+                properties:
+                  version:
+                    type: string
+                required:
+                - version
+                type: object
+            required:
+            - bridge
+            - cluster
+            - flannel
+            - health
+            - versionBundle
+            type: object
+        required:
+        - metadata
+        - spec
+        type: object
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

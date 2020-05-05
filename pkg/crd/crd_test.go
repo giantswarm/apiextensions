@@ -20,7 +20,8 @@ var (
 
 func Test_PkgerUpToDate(t *testing.T) {
 	root := filepath.Join(testDirectory, "..", "..")
-	err := pkger.Walk("/config/crd/bases", func(fullPath string, info os.FileInfo, err error) error {
+	// No need to check both v1 and v1beta1
+	err := pkger.Walk(crdDirectoryV1, func(fullPath string, info os.FileInfo, err error) error {
 		// An unknown error, stop walking
 		if err != nil {
 			return microerror.Mask(err)
@@ -108,41 +109,32 @@ func Test_LoadAll(t *testing.T) {
 			"MachineDeployment",
 		},
 	}
-	groupCRDVersions := map[string]string{
-		"application.giantswarm.io":    "v1beta1",
-		"backup.giantswarm.io":         "v1beta1",
-		"core.giantswarm.io":           "v1beta1",
-		"example.giantswarm.io":        "v1beta1",
-		"infrastructure.giantswarm.io": "v1",
-		"provider.giantswarm.io":       "v1beta1",
-		"release.giantswarm.io":        "v1beta1",
-		"cluster.x-k8s.io":             "v1beta1",
-	}
 
 	count := 0
 	for group, kinds := range groupKinds {
-		crdVersion := groupCRDVersions[group]
 		for _, kind := range kinds {
-			name := fmt.Sprintf("case %d: %s in %s as %s CRD", count, kind, group, crdVersion)
-			count++
-			t.Run(name, func(t *testing.T) {
-				defer func() {
-					err := recover()
-					if err != nil {
-						t.Errorf("unexpected panic: %#v", err)
+			for _, crdVersion := range []string{"v1", "v1beta1"} {
+				name := fmt.Sprintf("case %d: %s in %s as %s CRD", count, kind, group, crdVersion)
+				count++
+				t.Run(name, func(t *testing.T) {
+					defer func() {
+						err := recover()
+						if err != nil {
+							t.Errorf("unexpected panic: %#v", err)
+						}
+					}()
+					var crd interface{}
+					switch crdVersion {
+					case "v1beta1":
+						crd = LoadV1Beta1(group, kind)
+					case "v1":
+						crd = LoadV1(group, kind)
 					}
-				}()
-				var crd interface{}
-				switch crdVersion {
-				case "v1beta1":
-					crd = LoadV1Beta1(group, kind)
-				case "v1":
-					crd = LoadV1(group, kind)
-				}
-				if crd == nil {
-					t.Errorf("nil crd")
-				}
-			})
+					if crd == nil {
+						t.Errorf("nil crd")
+					}
+				})
+			}
 		}
 	}
 }
@@ -172,16 +164,6 @@ func Test_Load(t *testing.T) {
 			panicMatcher: func(ret interface{}) bool {
 				err, ok := ret.(error)
 				return ok && IsNotFound(err)
-			},
-		},
-		{
-			name:            "case 2: incorrect CRD version panics with conversionFailedError",
-			inputGroup:      "application.giantswarm.io",
-			inputKind:       "App",
-			inputCRDVersion: "v1",
-			panicMatcher: func(ret interface{}) bool {
-				err, ok := ret.(error)
-				return ok && IsConversionFailed(err)
 			},
 		},
 	}
