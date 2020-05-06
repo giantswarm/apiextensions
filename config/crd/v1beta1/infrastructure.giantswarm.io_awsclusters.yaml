@@ -52,6 +52,17 @@ spec:
                   required:
                   - domain
                   type: object
+                kubeProxy:
+                  description: KubeProxy holds flags passed to kube-proxy on each
+                    node.
+                  properties:
+                    conntrackMaxPerCore:
+                      description: Maximum number of NAT connections to track per
+                        CPU core (0 for default). Passed to kube-proxy as --conntrack-max-per-core.
+                      type: integer
+                  required:
+                  - conntrackMaxPerCore
+                  type: object
                 oidc:
                   description: OIDC holds configuration for OpenID Connect (OIDC)
                     authentication.
@@ -72,6 +83,7 @@ spec:
               required:
               - description
               - dns
+              - kubeProxy
               type: object
             provider:
               description: Provider holds provider-specific configuration details.

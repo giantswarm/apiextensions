@@ -65,6 +65,8 @@ type AWSClusterSpecCluster struct {
 	Description string `json:"description"`
 	// DNS holds DNS configuration details.
 	DNS AWSClusterSpecClusterDNS `json:"dns"`
+	// KubeProxy holds flags passed to kube-proxy on each node.
+	KubeProxy AWSClusterSpecClusterKubeProxy `json:"kubeProxy"`
 	// OIDC holds configuration for OpenID Connect (OIDC) authentication.
 	OIDC AWSClusterSpecClusterOIDC `json:"oidc,omitempty"`
 }
@@ -85,6 +87,13 @@ type AWSClusterSpecClusterOIDC struct {
 type AWSClusterSpecClusterOIDCClaims struct {
 	Username string `json:"username,omitempty"`
 	Groups   string `json:"groups,omitempty"`
+}
+
+// AWSClusterSpecClusterKubeProxy describes values passed to the kube-proxy running in a tenant cluster.
+type AWSClusterSpecClusterKubeProxy struct {
+	// Maximum number of NAT connections to track per CPU core (0 for default).
+	// Passed to kube-proxy as --conntrack-max-per-core.
+	ConntrackMaxPerCore int `json:"conntrackMaxPerCore"`
 }
 
 // AWSClusterSpecProvider holds some AWS details.
