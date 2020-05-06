@@ -3,29 +3,17 @@ package v1alpha1
 import (
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
+)
+
+const (
+	kindStorageConfig = "StorageConfig"
 )
 
 // NewStorageConfigCRD returns a new custom resource definition for StorageConfig.
 func NewStorageConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
-	return &apiextensionsv1beta1.CustomResourceDefinition{
-		TypeMeta: metav1.TypeMeta{
-			APIVersion: apiextensionsv1beta1.SchemeGroupVersion.String(),
-			Kind:       "CustomResourceDefinition",
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name: "storageconfigs.core.giantswarm.io",
-		},
-		Spec: apiextensionsv1beta1.CustomResourceDefinitionSpec{
-			Group:   "core.giantswarm.io",
-			Scope:   "Namespaced",
-			Version: "v1alpha1",
-			Names: apiextensionsv1beta1.CustomResourceDefinitionNames{
-				Kind:     "StorageConfig",
-				Plural:   "storageconfigs",
-				Singular: "storageconfig",
-			},
-		},
-	}
+	return crd.LoadV1Beta1(group, kindStorageConfig)
 }
 
 // +genclient
