@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Load StorageConfig from VFS as expected.
+
 ## [0.3.5] - 2020-05-06
 
 ### Added
