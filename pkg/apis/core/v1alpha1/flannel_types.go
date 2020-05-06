@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/crd"
@@ -11,8 +11,8 @@ const (
 	kindFlannelConfig = "FlannelConfig"
 )
 
-func NewFlannelConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindFlannelConfig)
+func NewFlannelConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindFlannelConfig)
 }
 
 // +genclient
