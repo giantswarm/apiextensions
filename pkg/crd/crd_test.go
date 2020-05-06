@@ -104,6 +104,9 @@ func Test_LoadAll(t *testing.T) {
 			"Release",
 			"ReleaseCycle",
 		},
+		"tooling.giantswarm.io": {
+			"AzureTool",
+		},
 		"cluster.x-k8s.io": {
 			"Cluster",
 			"MachineDeployment",

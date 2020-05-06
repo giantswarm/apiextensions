@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add Azure Tools CRDs
+
 ## [0.3.4] - 2020-04-30
 
 ### Changed
@@ -16,7 +18,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - All CRDs are now available as both `v1.CustomResourcDefinition` and `v1beta1.CustomResourceDefinition` through 
   `crd.LoadV1` and `crd.LoadV1Beta1`. Type-specific `New*CRD()` functions are unchanged.
 - Graduated Azure CRDs to `v1`.
-
 
 ## [0.3.3] - 2020-04-28
 
