@@ -111,6 +111,9 @@ func Test_LoadAll(t *testing.T) {
 			"Cluster",
 			"MachineDeployment",
 		},
+		"exp.cluster.x-k8s.io": {
+			"MachinePool",
+		},
 	}
 
 	count := 0

@@ -102,22 +102,11 @@ for version in v1 v1beta1; do
   pushd "$dir" > /dev/null
   "$toolpath/controller-gen" \
     crd \
-    paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
+    paths=sigs.k8s.io/cluster-api/api/... \
     output:dir="../config/crd/$version" \
     crd:crdVersions="$version"
   popd > /dev/null
-  # We only want Cluster and MachineDeployment for now, so delete the other two CAPI CRDs.
-  rm config/crd/$version/cluster.x-k8s.io_machines.yaml
-  rm config/crd/$version/cluster.x-k8s.io_machinesets.yaml
-
-  pushd "$dir" > /dev/null
-  "$toolpath/controller-gen" \
-    crd \
-    paths=sigs.k8s.io/cluster-api/api/v1alpha3 \
-    output:dir="../config/crd/$version" \
-    crd:crdVersions="$version"
-  popd > /dev/null
-  # We don't need Machine, MachineSets or MachineHealthcheck for now, so delete the CAPI CRDs.
+  # We only want Cluster, MachineDeployment, and MachinePool for now, so delete the other two CAPI CRDs.
   rm config/crd/$version/cluster.x-k8s.io_machines.yaml
   rm config/crd/$version/cluster.x-k8s.io_machinesets.yaml
   rm config/crd/$version/cluster.x-k8s.io_machinehealthchecks.yaml
