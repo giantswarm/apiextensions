@@ -84,7 +84,6 @@ spec:
                 required:
                 - description
                 - dns
-                - kubeProxy
                 type: object
               provider:
                 description: Provider holds provider-specific configuration details.

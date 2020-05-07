@@ -65,6 +65,7 @@ type AWSClusterSpecCluster struct {
 	Description string `json:"description"`
 	// DNS holds DNS configuration details.
 	DNS AWSClusterSpecClusterDNS `json:"dns"`
+	// +kubebuilder:validation:Optional
 	// KubeProxy holds flags passed to kube-proxy on each node.
 	KubeProxy AWSClusterSpecClusterKubeProxy `json:"kubeProxy"`
 	// OIDC holds configuration for OpenID Connect (OIDC) authentication.
