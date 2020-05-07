@@ -9,13 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- ClusterKubernetesIngressController added LoadBalancerType.
+
 ## [0.3.6] 2020-05-07
 
 ### Changed
 
 - Load StorageConfig from VFS as expected.
 - AzureClusterConfig allow empty labels for guest cluster worker nodes.
-- ClusterKubernetesIngressController added LoadBalancerType.
 
 ## [0.3.5] - 2020-05-06
 
