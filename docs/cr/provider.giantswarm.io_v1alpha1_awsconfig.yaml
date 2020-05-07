@@ -84,7 +84,9 @@ spec:
         docker:
           image: quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11
         domain: ingress.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io
+        externalTrafficPolicy: Local
         insecurePort: 30010
+        loadBalancerType: public
         securePort: 30011
         wildcardDomain: ""
       kubelet:

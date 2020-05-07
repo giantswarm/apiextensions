@@ -187,9 +187,11 @@ func newAWSConfigExampleCR() *AWSConfig {
 					Docker: ClusterKubernetesIngressControllerDocker{
 						Image: "quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11",
 					},
-					Domain:       "ingress.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io",
-					InsecurePort: 30010,
-					SecurePort:   30011,
+					Domain:                "ingress.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io",
+					InsecurePort:          30010,
+					SecurePort:            30011,
+					LoadBalancerType:      LoadBalancerTypePublic,
+					ExternalTrafficPolicy: ExternalTrafficPolicyLocal,
 				},
 				Kubelet: ClusterKubernetesKubelet{
 					AltNames: "kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local",
