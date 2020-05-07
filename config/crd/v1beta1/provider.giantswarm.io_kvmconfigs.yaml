@@ -126,6 +126,7 @@ spec:
                         insecurePort:
                           type: integer
                         loadBalancerType:
+                          default: public
                           enum:
                           - internal
                           - public
