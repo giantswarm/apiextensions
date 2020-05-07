@@ -96,12 +96,12 @@ spec:
                         labels:
                           additionalProperties:
                             type: string
+                          nullable: true
                           type: object
                         vmSize:
                           type: string
                       required:
                       - id
-                      - labels
                       type: object
                     type: array
                 required:
