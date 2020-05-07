@@ -341,9 +341,7 @@ spec:
                         required:
                         - docker
                         - domain
-                        - externalTrafficPolicy
                         - insecurePort
-                        - loadBalancerType
                         - securePort
                         - wildcardDomain
                         type: object

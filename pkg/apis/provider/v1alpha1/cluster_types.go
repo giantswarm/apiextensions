@@ -76,9 +76,11 @@ type ClusterKubernetesIngressController struct {
 	WildcardDomain string                                   `json:"wildcardDomain"`
 	InsecurePort   int                                      `json:"insecurePort"`
 	SecurePort     int                                      `json:"securePort"`
+	// +kubebuilder:validation:Optional
 	// +kubebuilder:default=public
 	// +kubebuilder:validation:Enum=internal;public
 	LoadBalancerType string `json:"loadBalancerType"`
+	// +kubebuilder:validation:Optional
 	// +kubebuilder:default=Local
 	// +kubebuilder:validation:Enum=Cluster;Local
 	ExternalTrafficPolicy string `json:"externalTrafficPolicy"`
