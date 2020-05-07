@@ -68,12 +68,13 @@ type ClusterKubernetesDNS struct {
 }
 
 type ClusterKubernetesIngressController struct {
-	Docker           ClusterKubernetesIngressControllerDocker `json:"docker"`
-	Domain           string                                   `json:"domain"`
-	WildcardDomain   string                                   `json:"wildcardDomain"`
-	InsecurePort     int                                      `json:"insecurePort"`
-	SecurePort       int                                      `json:"securePort"`
-	LoadBalancerType string                                   `json:"loadBalancerType"`
+	Docker         ClusterKubernetesIngressControllerDocker `json:"docker"`
+	Domain         string                                   `json:"domain"`
+	WildcardDomain string                                   `json:"wildcardDomain"`
+	InsecurePort   int                                      `json:"insecurePort"`
+	SecurePort     int                                      `json:"securePort"`
+	// +kubebuilder:validation:Enum=internal;public
+	LoadBalancerType string `json:"loadBalancerType"`
 }
 
 type ClusterKubernetesIngressControllerDocker struct {

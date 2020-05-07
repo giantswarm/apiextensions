@@ -321,6 +321,9 @@ spec:
                         insecurePort:
                           type: integer
                         loadBalancerType:
+                          enum:
+                          - internal
+                          - public
                           type: string
                         securePort:
                           type: integer
