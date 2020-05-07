@@ -1,5 +1,10 @@
 package v1alpha1
 
+const (
+	LoadBalancerTypeInternal = "internal"
+	LoadBalancerTypePublic   = "public"
+)
+
 type Cluster struct {
 	Calico     ClusterCalico     `json:"calico"`
 	Customer   ClusterCustomer   `json:"customer"`
