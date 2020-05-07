@@ -51,7 +51,9 @@ type AzureClusterConfigSpecGuestMaster struct {
 
 type AzureClusterConfigSpecGuestWorker struct {
 	AzureClusterConfigSpecGuestNode `json:",inline"`
-	Labels                          map[string]string `json:"labels"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Labels map[string]string `json:"labels"`
 }
 
 type AzureClusterConfigSpecGuestNode struct {
