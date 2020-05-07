@@ -1,6 +1,9 @@
 package v1alpha1
 
 const (
+	ExternalTrafficPolicyCluster = "Cluster"
+	ExternalTrafficPolicyLocal   = "Local"
+
 	LoadBalancerTypeInternal = "internal"
 	LoadBalancerTypePublic   = "public"
 )
@@ -76,6 +79,9 @@ type ClusterKubernetesIngressController struct {
 	// +kubebuilder:default=public
 	// +kubebuilder:validation:Enum=internal;public
 	LoadBalancerType string `json:"loadBalancerType"`
+	// +kubebuilder:default=Local
+	// +kubebuilder:validation:Enum=Cluster;Local
+	ExternalTrafficPolicy string `json:"externalTrafficPolicy"`
 }
 
 type ClusterKubernetesIngressControllerDocker struct {

@@ -123,6 +123,12 @@ spec:
                             type: object
                           domain:
                             type: string
+                          externalTrafficPolicy:
+                            default: Local
+                            enum:
+                            - Cluster
+                            - Local
+                            type: string
                           insecurePort:
                             type: integer
                           loadBalancerType:
@@ -138,6 +144,7 @@ spec:
                         required:
                         - docker
                         - domain
+                        - externalTrafficPolicy
                         - insecurePort
                         - loadBalancerType
                         - securePort
