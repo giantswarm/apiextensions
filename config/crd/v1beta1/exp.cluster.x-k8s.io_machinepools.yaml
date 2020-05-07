@@ -6,45 +6,30 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
-  name: machinedeployments.cluster.x-k8s.io
+  name: machinepools.exp.cluster.x-k8s.io
 spec:
   additionalPrinterColumns:
   - JSONPath: .status.phase
-    description: MachineDeployment status such as ScalingUp/ScalingDown/Running/Failed/Unknown
+    description: MachinePool status such as Terminating/Pending/Provisioning/Running/Failed
+      etc
     name: Phase
     type: string
-  - JSONPath: .status.replicas
-    description: Total number of non-terminated machines targeted by this deployment
-    name: Replicas
-    type: integer
-  - JSONPath: .status.availableReplicas
-    description: Total number of available machines (ready for at least minReadySeconds)
-    name: Available
-    type: integer
-  - JSONPath: .status.readyReplicas
-    description: Total number of ready machines targeted by this deployment.
-    name: Ready
-    type: integer
-  group: cluster.x-k8s.io
+  group: exp.cluster.x-k8s.io
   names:
     categories:
     - cluster-api
-    kind: MachineDeployment
-    listKind: MachineDeploymentList
-    plural: machinedeployments
+    kind: MachinePool
+    listKind: MachinePoolList
+    plural: machinepools
     shortNames:
-    - md
-    singular: machinedeployment
+    - mp
+    singular: machinepool
   scope: Namespaced
   subresources:
-    scale:
-      labelSelectorPath: .status.selector
-      specReplicasPath: .spec.replicas
-      statusReplicasPath: .status.replicas
     status: {}
   validation:
     openAPIV3Schema:
-      description: MachineDeployment is the Schema for the machinedeployments API
+      description: MachinePool is the Schema for the machinepools API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -59,7 +44,7 @@ spec:
         metadata:
           type: object
         spec:
-          description: MachineDeploymentSpec defines the desired state of MachineDeployment
+          description: MachinePoolSpec defines the desired state of MachinePool
           properties:
             clusterName:
               description: ClusterName is the name of the Cluster this object belongs
@@ -68,81 +53,26 @@ spec:
               type: string
             minReadySeconds:
               description: Minimum number of seconds for which a newly created machine
-                should be ready. Defaults to 0 (machine will be considered available
-                as soon as it is ready)
+                instances should be ready. Defaults to 0 (machine instance will be
+                considered available as soon as it is ready)
               format: int32
               type: integer
-            paused:
-              description: Indicates that the deployment is paused.
-              type: boolean
-            progressDeadlineSeconds:
-              description: The maximum time in seconds for a deployment to make progress
-                before it is considered to be failed. The deployment controller will
-                continue to process failed deployments and a condition with a ProgressDeadlineExceeded
-                reason will be surfaced in the deployment status. Note that progress
-                will not be estimated during the time a deployment is paused. Defaults
-                to 600s.
-              format: int32
-              type: integer
+            providerIDList:
+              description: ProviderIDList are the identification IDs of machine instances
+                provided by the provider. This field must match the provider IDs as
+                seen on the node objects corresponding to a machine pool's machine
+                instances.
+              items:
+                type: string
+              type: array
             replicas:
               description: Number of desired machines. Defaults to 1. This is a pointer
                 to distinguish between explicit zero and not specified.
               format: int32
               type: integer
-            revisionHistoryLimit:
-              description: The number of old MachineSets to retain to allow rollback.
-                This is a pointer to distinguish between explicit zero and not specified.
-                Defaults to 1.
-              format: int32
-              type: integer
-            selector:
-              description: Label selector for machines. Existing MachineSets whose
-                machines are selected by this will be the ones affected by this deployment.
-                It must match the machine template's labels.
-              properties:
-                matchExpressions:
-                  description: matchExpressions is a list of label selector requirements.
-                    The requirements are ANDed.
-                  items:
-                    description: A label selector requirement is a selector that contains
-                      values, a key, and an operator that relates the key and values.
-                    properties:
-                      key:
-                        description: key is the label key that the selector applies
-                          to.
-                        type: string
-                      operator:
-                        description: operator represents a key's relationship to a
-                          set of values. Valid operators are In, NotIn, Exists and
-                          DoesNotExist.
-                        type: string
-                      values:
-                        description: values is an array of string values. If the operator
-                          is In or NotIn, the values array must be non-empty. If the
-                          operator is Exists or DoesNotExist, the values array must
-                          be empty. This array is replaced during a strategic merge
-                          patch.
-                        items:
-                          type: string
-                        type: array
-                    required:
-                    - key
-                    - operator
-                    type: object
-                  type: array
-                matchLabels:
-                  additionalProperties:
-                    type: string
-                  description: matchLabels is a map of {key,value} pairs. A single
-                    {key,value} in the matchLabels map is equivalent to an element
-                    of matchExpressions, whose key field is "key", the operator is
-                    "In", and the values array contains only "value". The requirements
-                    are ANDed.
-                  type: object
-              type: object
             strategy:
-              description: The deployment strategy to use to replace existing machines
-                with new ones.
+              description: The deployment strategy to use to replace existing machine
+                instances with new ones.
               properties:
                 rollingUpdate:
                   description: Rolling update config params. Present only if MachineDeploymentStrategyType
@@ -427,51 +357,92 @@ spec:
               type: object
           required:
           - clusterName
-          - selector
           - template
           type: object
         status:
-          description: MachineDeploymentStatus defines the observed state of MachineDeployment
+          description: MachinePoolStatus defines the observed state of MachinePool
           properties:
             availableReplicas:
-              description: Total number of available machines (ready for at least
-                minReadySeconds) targeted by this deployment.
+              description: The number of available replicas (ready for at least minReadySeconds)
+                for this MachinePool.
               format: int32
               type: integer
-            observedGeneration:
-              description: The generation observed by the deployment controller.
-              format: int64
-              type: integer
+            bootstrapReady:
+              description: BootstrapReady is the state of the bootstrap provider.
+              type: boolean
+            failureMessage:
+              description: FailureMessage indicates that there is a problem reconciling
+                the state, and will be set to a descriptive error message.
+              type: string
+            failureReason:
+              description: FailureReason indicates that there is a problem reconciling
+                the state, and will be set to a token value suitable for programmatic
+                interpretation.
+              type: string
+            infrastructureReady:
+              description: InfrastructureReady is the state of the infrastructure
+                provider.
+              type: boolean
+            nodeRefs:
+              description: NodeRefs will point to the corresponding Nodes if it they
+                exist.
+              items:
+                description: ObjectReference contains enough information to let you
+                  inspect or modify the referred object.
+                properties:
+                  apiVersion:
+                    description: API version of the referent.
+                    type: string
+                  fieldPath:
+                    description: 'If referring to a piece of an object instead of
+                      an entire object, this string should contain a valid JSON/Go
+                      field access statement, such as desiredState.manifest.containers[2].
+                      For example, if the object reference is to a container within
+                      a pod, this would take on a value like: "spec.containers{name}"
+                      (where "name" refers to the name of the container that triggered
+                      the event) or if no container name is specified "spec.containers[2]"
+                      (container with index 2 in this pod). This syntax is chosen
+                      only to have some well-defined way of referencing a part of
+                      an object. TODO: this design is not final and this field is
+                      subject to change in the future.'
+                    type: string
+                  kind:
+                    description: 'Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                    type: string
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                    type: string
+                  namespace:
+                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
+                    type: string
+                  resourceVersion:
+                    description: 'Specific resourceVersion to which this reference
+                      is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency'
+                    type: string
+                  uid:
+                    description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
+                    type: string
+                type: object
+              type: array
             phase:
-              description: Phase represents the current phase of a MachineDeployment
-                (ScalingUp, ScalingDown, Running, Failed, or Unknown).
+              description: Phase represents the current phase of cluster actuation.
+                E.g. Pending, Running, Terminating, Failed etc.
               type: string
             readyReplicas:
-              description: Total number of ready machines targeted by this deployment.
+              description: The number of ready replicas for this MachinePool. A machine
+                is considered ready when the node has been created and is "Ready".
               format: int32
               type: integer
             replicas:
-              description: Total number of non-terminated machines targeted by this
-                deployment (their labels match the selector).
+              description: Replicas is the most recently observed number of replicas.
               format: int32
               type: integer
-            selector:
-              description: 'Selector is the same as the label selector but in the
-                string format to avoid introspection by clients. The string will be
-                in the same format as the query-param syntax. More info about label
-                selectors: http://kubernetes.io/docs/user-guide/labels#label-selectors'
-              type: string
             unavailableReplicas:
-              description: Total number of unavailable machines targeted by this deployment.
-                This is the total number of machines that are still required for the
-                deployment to have 100% available capacity. They may either be machines
-                that are running but not yet available or machines that still have
-                not been created.
-              format: int32
-              type: integer
-            updatedReplicas:
-              description: Total number of non-terminated machines targeted by this
-                deployment that have the desired template spec.
+              description: Total number of unavailable machine instances targeted
+                by this machine pool. This is the total number of machine instances
+                that are still required for the machine pool to have 100% available
+                capacity. They may either be machine instances that are running but
+                not yet available or machine instances that still have not been created.
               format: int32
               type: integer
           type: object

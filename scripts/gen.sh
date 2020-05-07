@@ -110,6 +110,26 @@ for version in v1 v1beta1; do
   rm config/crd/$version/cluster.x-k8s.io_machines.yaml
   rm config/crd/$version/cluster.x-k8s.io_machinesets.yaml
 
+  pushd "$dir" > /dev/null
+  "$toolpath/controller-gen" \
+    crd \
+    paths=sigs.k8s.io/cluster-api/api/v1alpha3 \
+    output:dir="../config/crd/$version" \
+    crd:crdVersions="$version"
+  popd > /dev/null
+  # We don't need Machine, MachineSets or MachineHealthcheck for now, so delete the CAPI CRDs.
+  rm config/crd/$version/cluster.x-k8s.io_machines.yaml
+  rm config/crd/$version/cluster.x-k8s.io_machinesets.yaml
+  rm config/crd/$version/cluster.x-k8s.io_machinehealthchecks.yaml
+
+  pushd "$dir" > /dev/null
+  "$toolpath/controller-gen" \
+    crd \
+    paths=sigs.k8s.io/cluster-api/exp/api/v1alpha3 \
+    output:dir="../config/crd/$version" \
+    crd:crdVersions="$version"
+  popd > /dev/null
+
   # Add .metadata.name validation to Release CRD using kustomize since
   # kubebuilder comments can't modify metav1.ObjectMeta
   echo "Kustomizing $version CRDs"
