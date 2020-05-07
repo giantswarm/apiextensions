@@ -9,9 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.6] 2020-05-07
+
 ### Changed
 
 - Load StorageConfig from VFS as expected.
+- AzureClusterConfig allow empty labels for guest cluster worker nodes.
 
 ## [0.3.5] - 2020-05-06
 
@@ -167,7 +170,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release.
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.5...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.6...HEAD
+
+[0.3.6]: https://github.com/giantswarm/apiextensions/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/giantswarm/apiextensions/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/giantswarm/apiextensions/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/giantswarm/apiextensions/compare/v0.3.2...v0.3.3
