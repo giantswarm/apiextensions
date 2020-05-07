@@ -11,7 +11,7 @@ spec:
     dns:
       domain: g8s.example.com
     kubeProxy:
-      conntrackMaxPerCore: 0
+      conntrackMaxPerCore: 100000
     oidc:
       claims:
         groups: groups-field

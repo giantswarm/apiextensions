@@ -83,6 +83,9 @@ func newAWSClusterExampleCR() *AWSCluster {
 			DNS: AWSClusterSpecClusterDNS{
 				Domain: "g8s.example.com",
 			},
+			KubeProxy: AWSClusterSpecClusterKubeProxy{
+				ConntrackMaxPerCore: 100000,
+			},
 			OIDC: AWSClusterSpecClusterOIDC{
 				Claims: AWSClusterSpecClusterOIDCClaims{
 					Username: "username-field",
