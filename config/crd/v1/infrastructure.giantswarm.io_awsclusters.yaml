@@ -60,8 +60,6 @@ spec:
                         description: Maximum number of NAT connections to track per
                           CPU core (0 for default). Passed to kube-proxy as --conntrack-max-per-core.
                         type: integer
-                    required:
-                    - conntrackMaxPerCore
                     type: object
                   oidc:
                     description: OIDC holds configuration for OpenID Connect (OIDC)
