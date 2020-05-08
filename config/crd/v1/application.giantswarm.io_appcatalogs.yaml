@@ -10,6 +10,8 @@ metadata:
 spec:
   group: application.giantswarm.io
   names:
+    categories:
+    - giantswarm
     kind: AppCatalog
     listKind: AppCatalogList
     plural: appcatalogs
