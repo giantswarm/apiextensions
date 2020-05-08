@@ -10,6 +10,8 @@ spec:
     description: Dev cluster
     dns:
       domain: g8s.example.com
+    kubeProxy:
+      conntrackMaxPerCore: 100000
     oidc:
       claims:
         groups: groups-field
