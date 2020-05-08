@@ -34,6 +34,8 @@ type AzureConfigSpec struct {
 }
 
 type AzureConfigSpecAzure struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	AvailabilityZones []int                              `json:"availabilityZones"`
 	CredentialSecret  CredentialSecret                   `json:"credentialSecret"`
 	DNSZones          AzureConfigSpecAzureDNSZones       `json:"dnsZones"`
