@@ -14,7 +14,7 @@ const (
 )
 
 func NewAWSClusterCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAWSCluster)
+	return crd.Load(group, kindAWSCluster)
 }
 
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
