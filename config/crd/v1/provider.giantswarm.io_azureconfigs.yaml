@@ -39,6 +39,7 @@ spec:
                   availabilityZones:
                     items:
                       type: integer
+                    nullable: true
                     type: array
                   credentialSecret:
                     properties:
@@ -166,7 +167,6 @@ spec:
                       type: object
                     type: array
                 required:
-                - availabilityZones
                 - credentialSecret
                 - dnsZones
                 - masters
