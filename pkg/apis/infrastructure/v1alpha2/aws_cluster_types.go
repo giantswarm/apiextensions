@@ -94,7 +94,7 @@ type AWSClusterSpecClusterOIDCClaims struct {
 type AWSClusterSpecClusterKubeProxy struct {
 	// Maximum number of NAT connections to track per CPU core (0 for default).
 	// Passed to kube-proxy as --conntrack-max-per-core.
-	ConntrackMaxPerCore int `json:"conntrackMaxPerCore"`
+	ConntrackMaxPerCore int `json:"conntrackMaxPerCore,omitempty"`
 }
 
 // AWSClusterSpecProvider holds some AWS details.
