@@ -67,7 +67,7 @@ type AWSClusterSpecCluster struct {
 	DNS AWSClusterSpecClusterDNS `json:"dns"`
 	// +kubebuilder:validation:Optional
 	// KubeProxy holds flags passed to kube-proxy on each node.
-	KubeProxy AWSClusterSpecClusterKubeProxy `json:"kubeProxy"`
+	KubeProxy AWSClusterSpecClusterKubeProxy `json:"kubeProxy,omitempty"`
 	// OIDC holds configuration for OpenID Connect (OIDC) authentication.
 	OIDC AWSClusterSpecClusterOIDC `json:"oidc,omitempty"`
 }
