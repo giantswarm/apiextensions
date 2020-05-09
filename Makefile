@@ -59,14 +59,7 @@ generate-deepcopy: $(DEEPCOPY_GEN)
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs"
-	@$(CONTROLLER_GEN) \
-		paths=./pkg/apis/... \
-		crd:crdVersions=v1 \
-		output:crd:dir=./config/crd/v1
-	@$(CONTROLLER_GEN) \
-		paths=./pkg/apis/... \
-		crd:crdVersions=v1beta1 \
-		output:crd:dir=./config/crd/v1beta1
+	@cd scripts; ./generate-manifests.sh
 
 .PHONY: generate-static
 generate-static: $(ESC) config/crd
