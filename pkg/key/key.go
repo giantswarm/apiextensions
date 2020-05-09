@@ -2,10 +2,12 @@ package key
 
 import (
 	"fmt"
-	"strings"
 
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	crd2 "github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -36,24 +38,23 @@ const (
 	GroupApplication         = "application.giantswarm.io"
 )
 
-func DocumentationLink(groupVersionKind metav1.GroupVersionKind) string {
-	shortGroup := strings.TrimSuffix(groupVersionKind.Group, ".giantswarm.io")
-	return fmt.Sprintf("https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/%s/%s?tab=doc#%s", shortGroup, groupVersionKind.Version, groupVersionKind.Kind)
+func DocumentationLink(crd v1.CustomResourceDefinition) string {
+	return fmt.Sprintf("https://docs.giantswarm.io/reference/cp-k8s-api/%s/", crd.Name)
 }
 
-func NewTypeMeta(kind schema.GroupVersionKind) metav1.TypeMeta {
+func NewTypeMeta(kind metav1.GroupVersionKind) metav1.TypeMeta {
+	skind := schema.GroupVersionKind(kind)
 	return metav1.TypeMeta{
-		APIVersion: kind.GroupVersion().String(),
+		APIVersion: skind.GroupVersion().String(),
 		Kind:       kind.Kind,
 	}
 }
 
-func NewObjectMeta(groupVersionKind metav1.GroupVersionKind, name, namespace string) metav1.ObjectMeta {
+func NewObjectMeta(kind metav1.GroupVersionKind) metav1.ObjectMeta {
+	crd := crd2.LoadV1(kind.Group, kind.Kind)
 	return metav1.ObjectMeta{
 		Annotations: map[string]string{
-			CRDocsAnnotation: DocumentationLink(groupVersionKind),
+			CRDocsAnnotation: DocumentationLink(*crd),
 		},
-		Name:      name,
-		Namespace: namespace,
 	}
 }
