@@ -8,6 +8,9 @@ metadata:
 spec:
   group: release.giantswarm.io
   names:
+    categories:
+    - giantswarm
+    - common
     kind: Release
     listKind: ReleaseList
     plural: releases

@@ -38,6 +38,7 @@ func NewChartCR() *Chart {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=giantswarm;common
 
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`

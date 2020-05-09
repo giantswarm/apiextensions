@@ -10,6 +10,9 @@ metadata:
 spec:
   group: example.giantswarm.io
   names:
+    categories:
+    - giantswarm
+    - example
     kind: MemcachedConfig
     listKind: MemcachedConfigList
     plural: memcachedconfigs

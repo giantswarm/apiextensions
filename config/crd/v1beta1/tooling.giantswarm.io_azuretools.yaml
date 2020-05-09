@@ -10,6 +10,9 @@ metadata:
 spec:
   group: tooling.giantswarm.io
   names:
+    categories:
+    - azure
+    - giantswarm
     kind: AzureTool
     listKind: AzureToolList
     plural: azuretools

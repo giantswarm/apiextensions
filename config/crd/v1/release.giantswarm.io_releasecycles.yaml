@@ -10,6 +10,9 @@ metadata:
 spec:
   group: release.giantswarm.io
   names:
+    categories:
+    - giantswarm
+    - common
     kind: ReleaseCycle
     listKind: ReleaseCycleList
     plural: releasecycles

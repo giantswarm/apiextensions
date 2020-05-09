@@ -19,6 +19,7 @@ func NewETCDBackupCRD() *v1beta1.CustomResourceDefinition {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=giantswarm;common
 
 type ETCDBackup struct {
 	metav1.TypeMeta   `json:",inline"`

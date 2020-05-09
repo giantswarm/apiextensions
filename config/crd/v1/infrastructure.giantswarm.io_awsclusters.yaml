@@ -10,6 +10,10 @@ metadata:
 spec:
   group: infrastructure.giantswarm.io
   names:
+    categories:
+    - aws
+    - giantswarm
+    - cluster-api
     kind: AWSCluster
     listKind: AWSClusterList
     plural: awsclusters

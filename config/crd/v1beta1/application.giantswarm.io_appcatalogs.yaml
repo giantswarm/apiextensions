@@ -12,6 +12,7 @@ spec:
   names:
     categories:
     - giantswarm
+    - common
     kind: AppCatalog
     listKind: AppCatalogList
     plural: appcatalogs

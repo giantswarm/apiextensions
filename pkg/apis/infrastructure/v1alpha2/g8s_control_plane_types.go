@@ -39,6 +39,7 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;giantswarm;cluster-api
 
 // The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
 // a Giant Swarm tenant cluster. It is reconciled by cluster-operator.

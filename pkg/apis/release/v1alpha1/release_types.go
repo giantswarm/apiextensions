@@ -50,7 +50,7 @@ func NewReleaseCR() *Release {
 // +kubebuilder:printcolumn:name="Kubernetes version",type=string,JSONPath=`.spec.components[?(@.name=="kubernetes")].version`,description="Version of the kubernetes component in this release"
 // +kubebuilder:printcolumn:name="State",type=string,JSONPath=`.spec.state`,description="State of the release"
 // +kubebuilder:printcolumn:name="Age",type=string,JSONPath=`.spec.date`,description="Time since release creation"
-// +kubebuilder:resource:scope=Cluster
+// +kubebuilder:resource:scope=Cluster,categories=giantswarm;common
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

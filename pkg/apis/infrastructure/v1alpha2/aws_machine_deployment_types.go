@@ -37,6 +37,7 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;giantswarm;cluster-api
 
 // AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources.
 // It contains provider-specific specification and status for a node pool.

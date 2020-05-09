@@ -10,6 +10,9 @@ metadata:
 spec:
   group: core.giantswarm.io
   names:
+    categories:
+    - giantswarm
+    - common
     kind: ChartConfig
     listKind: ChartConfigList
     plural: chartconfigs
