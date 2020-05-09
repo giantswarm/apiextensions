@@ -4,7 +4,6 @@ IFS=$'\n\t'
 
 for version in v1 v1beta1; do
   # Using kubebuilder comments, create new CRDs from CR definitions in source files
-  echo "Generating all $version CRDs"
   ./tools/bin/controller-gen \
     crd \
     paths=./pkg/apis/... \
@@ -22,7 +21,6 @@ for version in v1 v1beta1; do
 
   # Add .metadata.name validation to Release CRD using kustomize since
   # kubebuilder comments can't modify metav1.ObjectMeta
-  echo "Kustomizing $version CRDs"
   for crd in "../config/crd/patches/$version"/*; do
     ./tools/bin/kustomize --load_restrictor LoadRestrictionsNone build \
       "$crd" \
