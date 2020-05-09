@@ -2,12 +2,9 @@ package crd
 
 import (
 	"io/ioutil"
-	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/giantswarm/microerror"
-	"github.com/markbates/pkger"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
@@ -38,90 +35,75 @@ var (
 )
 
 func find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{}, error) {
-	// If a matching CRD is found during the walk, it will be saved to found.
-	// This could be a v1 or v1beta1 CRD so it needs to be an interface{}.
-	var found interface{}
-	// Function called for every file in the CRD directory.
-	walkFunc := func(fullPath string, info os.FileInfo, err error) error {
-		// An unknown error, stop walking.
-		if err != nil {
-			return microerror.Mask(err)
-		}
-		// Skip directories and any other files after a match has been found.
-		if found != nil || info.IsDir() {
-			return nil
-		}
+	var path string
+	switch crdKind.Version {
+	case v1GroupVersionKind.Version:
+		path = crdDirectoryV1
+	case v1beta1GroupVersionKind.Version:
+		path = crdDirectoryV1Beta1
+	}
 
-		// pkger files have a path like github.com/giantswarm/apiextensions:/config/crd/bases/release.giantswarm.io_releases.yaml.
-		split := strings.Split(fullPath, ":")
-		path := split[1]
-		extension := filepath.Ext(path)
-		// Skip non-yaml files.
-		if extension != ".yaml" {
-			return nil
+	fs := _escFS(false)
+	directory, err := fs.Open(path)
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+	files, err := directory.Readdir(0)
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+
+	for _, info := range files {
+		if info.IsDir() {
+			continue
+		}
+		if filepath.Ext(info.Name()) != ".yaml" {
+			continue
 		}
 
 		// Read the file to a string.
-		yamlFile, err := pkger.Open(path)
+		file, err := fs.Open(filepath.Join(path, info.Name()))
 		if err != nil {
-			return microerror.Mask(err)
+			return nil, microerror.Mask(err)
 		}
-		yamlString, err := ioutil.ReadAll(yamlFile)
+		contents, err := ioutil.ReadAll(file)
 		if err != nil {
-			return microerror.Mask(err)
+			return nil, microerror.Mask(err)
 		}
 
 		// Unmarshal into Unstructured since we don't know if this is a v1 or v1beta1 CRD yet.
 		var object unstructured.Unstructured
-		err = yaml.UnmarshalStrict(yamlString, &object)
+		err = yaml.UnmarshalStrict(contents, &object)
 		if err != nil {
-			return microerror.Mask(err)
+			return nil, microerror.Mask(err)
 		}
 		if object.GetObjectKind().GroupVersionKind() != crdKind {
-			return nil
+			continue
 		}
 
 		switch crdKind {
 		case v1beta1GroupVersionKind:
 			var crd v1beta1.CustomResourceDefinition
-			err = yaml.UnmarshalStrict(yamlString, &crd)
+			err = yaml.UnmarshalStrict(contents, &crd)
 			if err != nil {
-				return microerror.Mask(err)
+				return nil, microerror.Mask(err)
 			}
 			if crGroup == crd.Spec.Group && crKind == crd.Spec.Names.Kind {
-				found = &crd // Match, save results in outer scope
+				return &crd, nil
 			}
-			return nil
 		case v1GroupVersionKind:
 			var crd v1.CustomResourceDefinition
-			err = yaml.UnmarshalStrict(yamlString, &crd)
+			err = yaml.UnmarshalStrict(contents, &crd)
 			if err != nil {
-				return microerror.Mask(err)
+				return nil, microerror.Mask(err)
 			}
 			if crGroup == crd.Spec.Group && crKind == crd.Spec.Names.Kind {
-				found = &crd // Match, save results in outer scope
+				return &crd, nil
 			}
-			return nil
 		}
-		return nil
 	}
 
-	// Entry point for walking the CRD YAML directory.
-	var err error
-	switch crdKind.Version {
-	case v1GroupVersionKind.Version:
-		err = pkger.Walk(crdDirectoryV1, walkFunc)
-	case v1beta1GroupVersionKind.Version:
-		err = pkger.Walk(crdDirectoryV1Beta1, walkFunc)
-	}
-	if err != nil {
-		return nil, microerror.Mask(err)
-	}
-	if found == nil {
-		return nil, microerror.Mask(notFoundError)
-	}
-
-	return found, nil
+	return nil, microerror.Mask(notFoundError)
 }
 
 // LoadV1Beta1 loads a v1beta1 CRD from the virtual filesystem.
