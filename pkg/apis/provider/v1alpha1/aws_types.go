@@ -7,18 +7,6 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-const (
-	crDocsAnnotation = "giantswarm.io/docs"
-	kindAWSConfig    = "AWSConfig"
-	// TODO: Change to https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/
-	// after the docs have been published for the first time.
-	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
-)
-
-func NewAWSConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindAWSConfig)
-}
-
 // NewAWSClusterTypeMeta returns the populated metav1 metadata object for this CRD.
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

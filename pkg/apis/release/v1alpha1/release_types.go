@@ -1,16 +1,10 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
-)
-
-const (
-	crDocsAnnotation         = "giantswarm.io/docs"
-	kindRelease              = "Release"
-	releaseDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1?tab=doc#Release"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 type ReleaseState string
@@ -25,25 +19,16 @@ func (r ReleaseState) String() string {
 	return string(r)
 }
 
-func NewReleaseCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindRelease)
-}
-
-func NewReleaseTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindRelease,
+func NewReleaseCR(name string) *Release {
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   group,
+		Version: version,
+		Kind:    key.KindRelease,
 	}
-}
-
-func NewReleaseCR() *Release {
+	typeMeta := key.NewTypeMeta(schema.GroupVersionKind(groupVersionKind))
 	return &Release{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: releaseDocumentationLink,
-			},
-		},
-		TypeMeta: NewReleaseTypeMeta(),
+		TypeMeta:   typeMeta,
+		ObjectMeta: key.NewObjectMeta(groupVersionKind, name, ""),
 	}
 }
 

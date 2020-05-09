@@ -7,18 +7,6 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-const (
-	kindAWSControlPlane = "AWSControlPlane"
-
-	// TODO: change to "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
-	// after this has been first published.
-	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
-)
-
-func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAWSControlPlane)
-}
-
 func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),

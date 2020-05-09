@@ -7,9 +7,7 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-const (
-	kindAWSMachineDeployment = "AWSMachineDeployment"
-)
+const ()
 
 func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
 	return crd.LoadV1(group, kindAWSMachineDeployment)

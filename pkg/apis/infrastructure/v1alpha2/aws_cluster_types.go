@@ -7,16 +7,6 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
-const (
-	crDocsAnnotation            = "giantswarm.io/docs"
-	kindAWSCluster              = "AWSCluster"
-	awsClusterDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster"
-)
-
-func NewAWSClusterCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAWSCluster)
-}
-
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),

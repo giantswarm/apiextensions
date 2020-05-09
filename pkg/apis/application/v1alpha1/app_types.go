@@ -1,37 +1,24 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
-
-const (
-	kindApp              = "App"
-	appDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#App"
-)
-
-func NewAppCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindApp)
-}
 
 func NewAppTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindApp,
+		Kind:       key.KindApp,
 	}
 }
 
 // NewAppCR returns an App Custom Resource.
-func NewAppCR() *App {
+func NewAppCR(name, namespace string) *App {
+	typeMeta := NewAppTypeMeta()
 	return &App{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: appDocumentationLink,
-			},
-		},
-		TypeMeta: NewAppTypeMeta(),
+		ObjectMeta: key.NewObjectMeta(metav1.GroupVersionKind(typeMeta.GroupVersionKind()), name, namespace),
+		TypeMeta:   typeMeta,
 	}
 }
 
