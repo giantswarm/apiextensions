@@ -15,17 +15,17 @@ GEN_COLOR = \033[0;32m
 
 all: generate
 
-$(CLIENT_GEN): $(TOOLS_DIR)/code-generator/go.mod
+$(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
 	@echo "$(BUILD_COLOR)Building client-gen"
-	@cd $(TOOLS_DIR)/code-generator; go build -tags=tools -o $(TOOLS_BIN_DIR)/client-gen k8s.io/code-generator/cmd/client-gen
+	@cd $(TOOLS_DIR)/client-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/client-gen k8s.io/code-generator/cmd/client-gen
 
 $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
 	@echo "$(BUILD_COLOR)Building controller-gen"
 	@cd $(TOOLS_DIR)/controller-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/controller-gen sigs.k8s.io/controller-tools/cmd/controller-gen
 
-$(DEEPCOPY_GEN): $(TOOLS_DIR)/code-generator/go.mod
+$(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
 	@echo "$(BUILD_COLOR)Building deepcopy-gen"
-	@cd $(TOOLS_DIR)/code-generator; go build -tags=tools -o $(TOOLS_BIN_DIR)/deepcopy-gen k8s.io/code-generator/cmd/deepcopy-gen
+	@cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/deepcopy-gen k8s.io/code-generator/cmd/deepcopy-gen
 
 $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
 	@echo "$(BUILD_COLOR)Building kustomize"
