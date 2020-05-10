@@ -7,6 +7,8 @@ TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 DEEPCOPY_GEN := $(abspath $(TOOLS_BIN_DIR)/deepcopy-gen)
+GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
+GOLANGCI_LINT := $(abspath $(TOOLS_BIN_DIR)/golangci-lint)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 
@@ -27,6 +29,14 @@ $(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
 	@echo "$(BUILD_COLOR)Building deepcopy-gen"
 	@cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/deepcopy-gen k8s.io/code-generator/cmd/deepcopy-gen
 
+$(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
+	@echo "$(BUILD_COLOR)Building goimports"
+	@cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(TOOLS_BIN_DIR)/goimports golang.org/x/tools/cmd/goimports
+
+$(GOLANGCI_LINT): $(TOOLS_DIR)/golangci-lint/go.mod
+	@echo "$(BUILD_COLOR)Building golangci-lint"
+	@cd $(TOOLS_DIR)/golangci-lint; go build -tags=tools -o $(TOOLS_BIN_DIR)/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
+
 $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
 	@echo "$(BUILD_COLOR)Building kustomize"
 	@cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(TOOLS_BIN_DIR)/kustomize sigs.k8s.io/kustomize/kustomize/v3
@@ -41,6 +51,8 @@ generate:
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
 	@$(MAKE) generate-static
+	@$(MAKE) imports
+	@$(MAKE) lint
 
 .PHONY: generate-clientset
 generate-clientset: $(CLIENT_GEN)
@@ -70,3 +82,13 @@ generate-static: $(ESC) config/crd
 		-modtime 0 \
 		-private \
 		config/crd
+
+.PHONY: lint
+lint: $(GOLANGCI_LINT)
+	@echo "$(GEN_COLOR)Running golangci-lint"
+	@$(GOLANGCI_LINT) run -E gosec -E goconst
+
+.PHONY: imports
+imports: $(GOIMPORTS)
+	@echo "$(GEN_COLOR)Sorting imports"
+	@$(GOIMPORTS) -local github.com/giantswarm/apiextension -w ./pkg

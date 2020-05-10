@@ -126,7 +126,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 
 			path := filepath.Join(docs, tc.category, tc.filename)
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
