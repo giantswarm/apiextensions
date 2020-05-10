@@ -15,6 +15,10 @@ ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 BUILD_COLOR = \033[0;34m
 GEN_COLOR = \033[0;32m
 
+INPUT_DIRS := $(shell find ./pkg/apis -maxdepth 2 -mindepth 2 | paste -s -d, -)
+GROUPS := $(shell find ./pkg/apis -maxdepth 2 -mindepth 2  | sed 's|./pkg/apis/||' | paste -s -d, -)
+DEEPCOPY_FILES := $(shell find ./pkg/apis -name "zz_generated.deepcopy.go")
+
 all: generate
 
 $(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
@@ -52,21 +56,35 @@ generate:
 	@$(MAKE) generate-manifests
 	@$(MAKE) generate-static
 	@$(MAKE) imports
+	@$(MAKE) patch
+
+.PHONY: verify
+verify:
+	@$(MAKE) clean
+	@$(MAKE) generate
 	@$(MAKE) lint
 
 .PHONY: generate-clientset
 generate-clientset: $(CLIENT_GEN)
 	@echo "$(GEN_COLOR)Generating clientset"
 	@$(CLIENT_GEN) \
-		object:headerFile=./scripts/boilerplate.go.txt \
-		paths=./pkg/apis/...
+		--clientset-name versioned \
+		--input $(GROUPS) \
+		--input-base github.com/giantswarm/apiextensions/pkg/apis \
+		--output-package github.com/giantswarm/apiextensions/pkg/clientset \
+		--output-base ./scripts \
+		--go-header-file ./scripts/boilerplate.go.txt
+	@cp -R scripts/github.com/giantswarm/apiextensions/pkg/clientset/versioned pkg/clientset
+	@rm -rf scripts/github.com/
 
 .PHONY: generate-deepcopy
 generate-deepcopy: $(DEEPCOPY_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy"
 	@$(DEEPCOPY_GEN) \
-		object:headerFile=./scripts/boilerplate.go.txt \
-		paths=./pkg/apis/...
+		--input-dirs $(INPUT_DIRS) \
+		--output-base . \
+		--output-file-base zz_generated.deepcopy \
+		--go-header-file ./scripts/boilerplate.go.txt
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
@@ -92,3 +110,13 @@ lint: $(GOLANGCI_LINT)
 imports: $(GOIMPORTS)
 	@echo "$(GEN_COLOR)Sorting imports"
 	@$(GOIMPORTS) -local github.com/giantswarm/apiextension -w ./pkg
+
+.PHONY: patch
+patch:
+	@echo "$(GEN_COLOR)Applying patch"
+	@git apply scripts/generated.patch
+
+.PHONY: clean
+clean:
+	@echo "$(GEN_COLOR)Cleaning generated files"
+	@rm -rf config/crd/v1 config/crd/v1beta1 pkg/clientset/versioned $(DEEPCOPY_FILES)

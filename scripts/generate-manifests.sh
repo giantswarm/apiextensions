@@ -4,11 +4,13 @@ IFS=$'\n\t'
 
 for version in v1 v1beta1; do
   # Using kubebuilder comments, create new CRDs from CR definitions in source files
-  ./tools/bin/controller-gen \
+  pushd .. > /dev/null
+  ./scripts/tools/bin/controller-gen \
     crd \
     paths=./pkg/apis/... \
-    output:dir="../config/crd/$version" \
+    output:dir="./config/crd/$version" \
     crd:crdVersions="$version"
+  popd > /dev/null
   ./tools/bin/controller-gen \
     crd \
     paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
