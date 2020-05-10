@@ -1,5 +1,10 @@
 # Directories.
-TOOLS_DIR := scripts/tools
+APIS_DIR := pkg/apis
+CLIENTSET_DIR := pkg/clientset
+CRDV1_DIR := config/crd/v1
+CRDV1BETA1_DIR := config/crd/v1beta1
+SCRIPTS_DIR := scripts
+TOOLS_DIR := $(SCRIPTS_DIR)/tools
 TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 
 # Binaries.
@@ -15,39 +20,44 @@ ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 BUILD_COLOR = \033[0;34m
 GEN_COLOR = \033[0;32m
 
-INPUT_DIRS := $(shell find ./pkg/apis -maxdepth 2 -mindepth 2 | paste -s -d, -)
-GROUPS := $(shell find ./pkg/apis -maxdepth 2 -mindepth 2  | sed 's|./pkg/apis/||' | paste -s -d, -)
-DEEPCOPY_FILES := $(shell find ./pkg/apis -name "zz_generated.deepcopy.go")
+DEEPCOPY_BASE = zz_generated.deepcopy
+MODULE = github.com/giantswarm/apiextensions
+BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
+PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
+
+INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
+GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
+DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
 all: generate
 
 $(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
 	@echo "$(BUILD_COLOR)Building client-gen"
-	@cd $(TOOLS_DIR)/client-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/client-gen k8s.io/code-generator/cmd/client-gen
+	@cd $(TOOLS_DIR)/client-gen; go build -tags=tools -o $(CLIENT_GEN) k8s.io/code-generator/cmd/client-gen
 
 $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
 	@echo "$(BUILD_COLOR)Building controller-gen"
-	@cd $(TOOLS_DIR)/controller-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/controller-gen sigs.k8s.io/controller-tools/cmd/controller-gen
+	@cd $(TOOLS_DIR)/controller-gen; go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
 
 $(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
 	@echo "$(BUILD_COLOR)Building deepcopy-gen"
-	@cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(TOOLS_BIN_DIR)/deepcopy-gen k8s.io/code-generator/cmd/deepcopy-gen
+	@cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
 
 $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	@echo "$(BUILD_COLOR)Building goimports"
-	@cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(TOOLS_BIN_DIR)/goimports golang.org/x/tools/cmd/goimports
+	@cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
 
 $(GOLANGCI_LINT): $(TOOLS_DIR)/golangci-lint/go.mod
 	@echo "$(BUILD_COLOR)Building golangci-lint"
-	@cd $(TOOLS_DIR)/golangci-lint; go build -tags=tools -o $(TOOLS_BIN_DIR)/golangci-lint github.com/golangci/golangci-lint/cmd/golangci-lint
+	@cd $(TOOLS_DIR)/golangci-lint; go build -tags=tools -o $(GOLANGCI_LINT) github.com/golangci/golangci-lint/cmd/golangci-lint
 
 $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
 	@echo "$(BUILD_COLOR)Building kustomize"
-	@cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(TOOLS_BIN_DIR)/kustomize sigs.k8s.io/kustomize/kustomize/v3
+	@cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
 
 $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@echo "$(BUILD_COLOR)Building esc"
-	@cd $(TOOLS_DIR)/esc; go build -tags=tools -o $(TOOLS_BIN_DIR)/esc github.com/mjibson/esc
+	@cd $(TOOLS_DIR)/esc; go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
 .PHONY: generate
 generate:
@@ -60,9 +70,10 @@ generate:
 
 .PHONY: verify
 verify:
-	@$(MAKE) clean
+	@$(MAKE) clean-generated
 	@$(MAKE) generate
 	@$(MAKE) lint
+	@git diff --exit-code
 
 .PHONY: generate-clientset
 generate-clientset: $(CLIENT_GEN)
@@ -70,12 +81,12 @@ generate-clientset: $(CLIENT_GEN)
 	@$(CLIENT_GEN) \
 		--clientset-name versioned \
 		--input $(GROUPS) \
-		--input-base github.com/giantswarm/apiextensions/pkg/apis \
-		--output-package github.com/giantswarm/apiextensions/pkg/clientset \
-		--output-base ./scripts \
-		--go-header-file ./scripts/boilerplate.go.txt
-	@cp -R scripts/github.com/giantswarm/apiextensions/pkg/clientset/versioned pkg/clientset
-	@rm -rf scripts/github.com/
+		--input-base $(MODULE)/$(APIS_DIR) \
+		--output-package $(MODULE)/$(CLIENTSET_DIR) \
+		--output-base $(SCRIPTS_DIR) \
+		--go-header-file $(BOILERPLATE)
+	@cp -R $(SCRIPTS_DIR)/$(MODULE)/$(CLIENTSET_DIR)/versioned $(CLIENTSET_DIR)
+	@rm -rf $(SCRIPTS_DIR)/github.com/
 
 .PHONY: generate-deepcopy
 generate-deepcopy: $(DEEPCOPY_GEN)
@@ -83,13 +94,13 @@ generate-deepcopy: $(DEEPCOPY_GEN)
 	@$(DEEPCOPY_GEN) \
 		--input-dirs $(INPUT_DIRS) \
 		--output-base . \
-		--output-file-base zz_generated.deepcopy \
-		--go-header-file ./scripts/boilerplate.go.txt
+		--output-file-base $(DEEPCOPY_BASE) \
+		--go-header-file $(BOILERPLATE)
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs"
-	@cd scripts; ./generate-manifests.sh
+	@cd $(SCRIPTS_DIR); ./generate-manifests.sh
 
 .PHONY: generate-static
 generate-static: $(ESC) config/crd
@@ -109,14 +120,19 @@ lint: $(GOLANGCI_LINT)
 .PHONY: imports
 imports: $(GOIMPORTS)
 	@echo "$(GEN_COLOR)Sorting imports"
-	@$(GOIMPORTS) -local github.com/giantswarm/apiextension -w ./pkg
+	@$(GOIMPORTS) -local $(MODULE) -w ./pkg
 
 .PHONY: patch
 patch:
 	@echo "$(GEN_COLOR)Applying patch"
-	@git apply scripts/generated.patch
+	@git apply $(PATCH_FILE)
 
-.PHONY: clean
-clean:
+.PHONY: clean-generated
+clean-generated:
 	@echo "$(GEN_COLOR)Cleaning generated files"
-	@rm -rf config/crd/v1 config/crd/v1beta1 pkg/clientset/versioned $(DEEPCOPY_FILES)
+	@rm -rf $(CRDV1_DIR) $(CRDV1BETA1_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES)
+
+.PHONY: clean-tools
+clean-tools:
+	@echo "$(GEN_COLOR)Cleaning tools"
+	@rm -rf $(TOOLS_BIN_DIR)
