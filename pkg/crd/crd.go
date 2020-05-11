@@ -18,7 +18,6 @@ import (
 )
 
 const (
-	crdDirectory = "/config/crd"
 	crdKind      = "CustomResourceDefinition"
 )
 
