@@ -169,11 +169,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 
 #### Cluster API
 
-For the time being, Cluster API CRDs are also exported by this library using `controller-gen`. The version used is
-determined by the value of `sigs.k8s.io/cluster-api` in `hack/go.mod`. The API versions in the generated YAML files
-is determined by the command in `hack/generate-manifests.sh`. The line `paths=sigs.k8s.io/cluster-api/api/v1alpha2`
-indicates that the CRD should contain only `v1alpha2`. At the time of writing, `paths=sigs.k8s.io/cluster-api/api` would
-result in both `v1alpha2` and `v1alpha3` being included.
+Cluster API CRDs are also exported by this library using `controller-gen`. The version used is determined by the value
+of `sigs.k8s.io/cluster-api` in `hack/go.mod`.
 
 #### Code Generation Tools
 

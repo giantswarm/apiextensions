@@ -13,13 +13,19 @@ CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 DEEPCOPY_GEN := $(abspath $(TOOLS_BIN_DIR)/deepcopy-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
-GOLANGCI_LINT := $(abspath $(TOOLS_BIN_DIR)/golangci-lint)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 
+USE_COLORS = $(shell test `tput colors` -ge 8 && echo "yes")
+ifeq ($(USE_COLORS),yes)
 BUILD_COLOR = \033[0;34m
 GEN_COLOR = \033[0;32m
 NO_COLOR = \033[0m
+else
+BUILD_COLOR = ""
+GEN_COLOR = ""
+NO_COLOR = ""
+endif
 
 DEEPCOPY_BASE = zz_generated.deepcopy
 MODULE = $(shell go list -m)
@@ -48,10 +54,6 @@ $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	@echo "$(BUILD_COLOR)Building goimports$(NO_COLOR)"
 	cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
 
-$(GOLANGCI_LINT): $(TOOLS_DIR)/golangci-lint/go.mod
-	@echo "$(BUILD_COLOR)Building golangci-lint$(NO_COLOR)"
-	cd $(TOOLS_DIR)/golangci-lint; go build -tags=tools -o $(GOLANGCI_LINT) github.com/golangci/golangci-lint/cmd/golangci-lint
-
 $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
 	@echo "$(BUILD_COLOR)Building kustomize$(NO_COLOR)"
 	cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
@@ -73,7 +75,6 @@ generate:
 verify:
 	@$(MAKE) clean-generated
 	@$(MAKE) generate
-	@$(MAKE) lint
 	git diff --exit-code
 
 .PHONY: generate-clientset
@@ -112,11 +113,6 @@ generate-static: $(ESC) config/crd
 		-modtime 0 \
 		-private \
 		config/crd
-
-.PHONY: lint
-lint: $(GOLANGCI_LINT)
-	@echo "$(GEN_COLOR)Running golangci-lint$(NO_COLOR)"
-	$(GOLANGCI_LINT) run -E gosec -E goconst
 
 .PHONY: imports
 imports: $(GOIMPORTS)

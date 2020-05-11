@@ -11,6 +11,12 @@ for version in v1 v1beta1; do
     output:dir="./config/crd/$version" \
     crd:crdVersions="$version"
   popd > /dev/null
+
+  # Building Cluster API CRDs.
+  # The line `paths=sigs.k8s.io/cluster-api/api/v1alpha2`
+  # indicates that the CRD should contain only `v1alpha2`.
+  # At the time of writing, `paths=sigs.k8s.io/cluster-api/api` would
+  # result in both `v1alpha2` and `v1alpha3` being included.
   ./tools/bin/controller-gen \
     crd \
     paths=sigs.k8s.io/cluster-api/api/v1alpha2 \
