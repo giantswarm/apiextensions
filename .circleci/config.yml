@@ -14,7 +14,7 @@ jobs:
           command: apk add --no-cache make
       - run:
           name: Regenerate
-          command: CGO_ENABLED=0 make validate
+          command: CGO_ENABLED=0 make verify
   test-install:
     machine: true
     environment:
