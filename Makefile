@@ -21,7 +21,7 @@ BUILD_COLOR = \033[0;34m
 GEN_COLOR = \033[0;32m
 
 DEEPCOPY_BASE = zz_generated.deepcopy
-MODULE = github.com/giantswarm/apiextensions
+MODULE = $(shell go list .)
 BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 
@@ -73,25 +73,25 @@ verify:
 	@$(MAKE) clean-generated
 	@$(MAKE) generate
 	@$(MAKE) lint
-	@git diff --exit-code
+	git diff --exit-code
 
 .PHONY: generate-clientset
 generate-clientset: $(CLIENT_GEN)
 	@echo "$(GEN_COLOR)Generating clientset"
-	@$(CLIENT_GEN) \
+	$(CLIENT_GEN) \
 		--clientset-name versioned \
 		--input $(GROUPS) \
 		--input-base $(MODULE)/$(APIS_DIR) \
 		--output-package $(MODULE)/$(CLIENTSET_DIR) \
 		--output-base $(SCRIPTS_DIR) \
 		--go-header-file $(BOILERPLATE)
-	@cp -R $(SCRIPTS_DIR)/$(MODULE)/$(CLIENTSET_DIR)/versioned $(CLIENTSET_DIR)
-	@rm -rf $(SCRIPTS_DIR)/github.com/
+	cp -R $(SCRIPTS_DIR)/$(MODULE)/$(CLIENTSET_DIR)/versioned $(CLIENTSET_DIR)
+	rm -rf $(SCRIPTS_DIR)/github.com/
 
 .PHONY: generate-deepcopy
 generate-deepcopy: $(DEEPCOPY_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy"
-	@$(DEEPCOPY_GEN) \
+	$(DEEPCOPY_GEN) \
 		--input-dirs $(INPUT_DIRS) \
 		--output-base . \
 		--output-file-base $(DEEPCOPY_BASE) \
@@ -100,13 +100,13 @@ generate-deepcopy: $(DEEPCOPY_GEN)
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs"
-	@cd $(SCRIPTS_DIR); ./generate-manifests.sh
+	cd $(SCRIPTS_DIR); ./generate-manifests.sh
 
 .PHONY: generate-static
 generate-static: $(ESC) config/crd
 	@echo "$(GEN_COLOR)Generating filesystem"
-	@$(ESC) \
-		-o pkg/crd/static.go \
+	$(ESC) \
+		-o pkg/crd/zz_generated.static.go \
 		-pkg crd \
 		-modtime 0 \
 		-private \
@@ -115,24 +115,24 @@ generate-static: $(ESC) config/crd
 .PHONY: lint
 lint: $(GOLANGCI_LINT)
 	@echo "$(GEN_COLOR)Running golangci-lint"
-	@$(GOLANGCI_LINT) run -E gosec -E goconst
+	$(GOLANGCI_LINT) run -E gosec -E goconst
 
 .PHONY: imports
 imports: $(GOIMPORTS)
 	@echo "$(GEN_COLOR)Sorting imports"
-	@$(GOIMPORTS) -local $(MODULE) -w ./pkg
+	$(GOIMPORTS) -local $(MODULE) -w ./pkg
 
 .PHONY: patch
 patch:
 	@echo "$(GEN_COLOR)Applying patch"
-	@git apply $(PATCH_FILE)
+	git apply $(PATCH_FILE)
 
 .PHONY: clean-generated
 clean-generated:
 	@echo "$(GEN_COLOR)Cleaning generated files"
-	@rm -rf $(CRDV1_DIR) $(CRDV1BETA1_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES)
+	rm -rf $(CRDV1_DIR) $(CRDV1BETA1_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES)
 
 .PHONY: clean-tools
 clean-tools:
 	@echo "$(GEN_COLOR)Cleaning tools"
-	@rm -rf $(TOOLS_BIN_DIR)
+	rm -rf $(TOOLS_BIN_DIR)
