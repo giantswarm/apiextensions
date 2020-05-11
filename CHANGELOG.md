@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Set docs URLs to our detail pages in https://docs.giantswarm.io/reference/cp-k8s-api/
+
+
 ## [0.3.4] - 2020-04-30
 
 ### Changed
