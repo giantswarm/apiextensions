@@ -10,7 +10,7 @@ import (
 
 const (
 	kindG8sControlPlane              = "G8sControlPlane"
-	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.2.5/pkg/apis/infrastructure/v1alpha2?tab=doc#G8sControlPlane"
+	g8sControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/g8scontrolplanes.infrastructure.giantswarm.io/"
 )
 
 func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
