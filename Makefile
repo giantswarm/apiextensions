@@ -67,7 +67,7 @@ generate:
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
-	@$(MAKE) generate-static
+	@$(MAKE) generate-fs
 	@$(MAKE) imports
 	@$(MAKE) patch
 
@@ -104,14 +104,13 @@ generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
 
-.PHONY: generate-static
-generate-static: $(ESC) config/crd
+.PHONY: generate-fs
+generate-fs: $(ESC) config/crd
 	@echo "$(GEN_COLOR)Generating filesystem$(NO_COLOR)"
 	$(ESC) \
-		-o pkg/crd/zz_generated.static.go \
-		-pkg crd \
+		-o pkg/crd/internal/zz_generated.fs.go \
+		-pkg internal \
 		-modtime 0 \
-		-private \
 		config/crd
 
 .PHONY: imports

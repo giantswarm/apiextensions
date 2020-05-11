@@ -11,6 +11,8 @@ import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd/internal"
 )
 
 const (
@@ -43,7 +45,7 @@ func find(crdKind schema.GroupVersionKind, crGroup, crKind string) (interface{},
 		path = crdDirectoryV1Beta1
 	}
 
-	fs := _escFS(false)
+	fs := internal.FS(false)
 	directory, err := fs.Open(path)
 	if err != nil {
 		return nil, microerror.Mask(err)

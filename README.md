@@ -217,7 +217,7 @@ The main code generation steps are as follows:
 - `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
 - `generate-deepcopy`: Generates `zz_generated.deepcopy.go` in each package in `pkg/apis` with deep copy functions.
 - `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`. 
-- `generate-static`: Generates `pkg/crd/static.go` containing a filesystem holding all files in `config/crd`.
+- `generate-fs`: Generates `pkg/crd/internal` package containing a filesystem holding all files in `config/crd`.
 - `imports`: Sorts imports in all source files under `./pkg`.
 - `patch`: Applies the git patch `hack/generated.patch` to work around limitations in code generators.
 
