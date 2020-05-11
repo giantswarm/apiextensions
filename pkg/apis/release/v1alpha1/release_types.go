@@ -10,7 +10,7 @@ import (
 const (
 	crDocsAnnotation         = "giantswarm.io/docs"
 	kindRelease              = "Release"
-	releaseDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1?tab=doc#Release"
+	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
 )
 
 type ReleaseState string
