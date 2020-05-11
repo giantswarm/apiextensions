@@ -10,7 +10,7 @@ import (
 const (
 	crDocsAnnotation            = "giantswarm.io/docs"
 	kindCertConfig              = "CertConfig"
-	certConfigDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#CertConfig"
+	certConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/certconfigs.core.giantswarm.io/"
 )
 
 func NewCertConfigCRD() *v1beta1.CustomResourceDefinition {
