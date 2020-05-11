@@ -187,10 +187,6 @@ to `v0.<k8s minor>.<k8s patch>` (Kubernetes 1.16.6 would therefore be `v0.16.6`)
 - `k8s.io/apimachinery`
 - `k8s.io/client-go`
 
-### Changelog
-
-All changes which affect consumers of this library should be reflected in the CHANGELOG.md file.
-
 ### Versioning
 
 This library uses standard semantic versioning. Versioning of CRDs is a separate issue covered in the [Kubernetes
