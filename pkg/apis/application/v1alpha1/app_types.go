@@ -9,7 +9,7 @@ import (
 
 const (
 	kindApp              = "App"
-	appDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#App"
+	appDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/"
 )
 
 func NewAppCRD() *v1beta1.CustomResourceDefinition {
