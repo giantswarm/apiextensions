@@ -230,7 +230,6 @@ These can all be run with `make generate` or simply `make` as `generate` is the 
 Extra commands are provided including:
 - `clean-tools`: Deletes all tools from the tools binary directory.
 - `clean-generated`: Deletes all generated files.
-- `lint`: Exits wth a non-zero exit code if there are linting errors.
 - `verify`: Regenerates files and exits with a non-zero exit code if generated files don't match `HEAD` in source control.
 
 ### Tools
@@ -267,8 +266,3 @@ Provides an extra patch step for generated CRD YAML files because certain CRD fi
 Updates Go import lines by adding missing ones and removing unreferenced ones. This is required because CI checks for
 imports ordered in three sections (standard library, third-party, local) but certain code generators only generate
 source files with two sections.
-
-#### [`golangci-lint`](https://github.com/golangci/golangci-lint)
-
-A linter for Go which aggregates other single-focus linters. This is run against the code in CI, so running it locally
-can avoid CI failures.
