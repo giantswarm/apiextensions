@@ -19,9 +19,10 @@ ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 
 BUILD_COLOR = \033[0;34m
 GEN_COLOR = \033[0;32m
+NO_COLOR = \033[0m
 
 DEEPCOPY_BASE = zz_generated.deepcopy
-MODULE = $(shell go list .)
+MODULE = $(shell go list -m)
 BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 
@@ -32,31 +33,31 @@ DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 all: generate
 
 $(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
-	@echo "$(BUILD_COLOR)Building client-gen"
-	@cd $(TOOLS_DIR)/client-gen; go build -tags=tools -o $(CLIENT_GEN) k8s.io/code-generator/cmd/client-gen
+	@echo "$(BUILD_COLOR)Building client-gen$(NO_COLOR)"
+	cd $(TOOLS_DIR)/client-gen; go build -tags=tools -o $(CLIENT_GEN) k8s.io/code-generator/cmd/client-gen
 
 $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
-	@echo "$(BUILD_COLOR)Building controller-gen"
-	@cd $(TOOLS_DIR)/controller-gen; go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
+	@echo "$(BUILD_COLOR)Building controller-gen$(NO_COLOR)"
+	cd $(TOOLS_DIR)/controller-gen; go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
 
 $(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
-	@echo "$(BUILD_COLOR)Building deepcopy-gen"
-	@cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
+	@echo "$(BUILD_COLOR)Building deepcopy-gen$(NO_COLOR)"
+	cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
 
 $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
-	@echo "$(BUILD_COLOR)Building goimports"
-	@cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
+	@echo "$(BUILD_COLOR)Building goimports$(NO_COLOR)"
+	cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
 
 $(GOLANGCI_LINT): $(TOOLS_DIR)/golangci-lint/go.mod
-	@echo "$(BUILD_COLOR)Building golangci-lint"
-	@cd $(TOOLS_DIR)/golangci-lint; go build -tags=tools -o $(GOLANGCI_LINT) github.com/golangci/golangci-lint/cmd/golangci-lint
+	@echo "$(BUILD_COLOR)Building golangci-lint$(NO_COLOR)"
+	cd $(TOOLS_DIR)/golangci-lint; go build -tags=tools -o $(GOLANGCI_LINT) github.com/golangci/golangci-lint/cmd/golangci-lint
 
 $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
-	@echo "$(BUILD_COLOR)Building kustomize"
-	@cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
+	@echo "$(BUILD_COLOR)Building kustomize$(NO_COLOR)"
+	cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
 
 $(ESC): $(TOOLS_DIR)/esc/go.mod
-	@echo "$(BUILD_COLOR)Building esc"
+	@echo "$(BUILD_COLOR)Building esc$(NO_COLOR)"
 	@cd $(TOOLS_DIR)/esc; go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
 .PHONY: generate
@@ -77,7 +78,7 @@ verify:
 
 .PHONY: generate-clientset
 generate-clientset: $(CLIENT_GEN)
-	@echo "$(GEN_COLOR)Generating clientset"
+	@echo "$(GEN_COLOR)Generating clientset$(NO_COLOR)"
 	$(CLIENT_GEN) \
 		--clientset-name versioned \
 		--input $(GROUPS) \
@@ -90,7 +91,7 @@ generate-clientset: $(CLIENT_GEN)
 
 .PHONY: generate-deepcopy
 generate-deepcopy: $(DEEPCOPY_GEN)
-	@echo "$(GEN_COLOR)Generating deepcopy"
+	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
 	$(DEEPCOPY_GEN) \
 		--input-dirs $(INPUT_DIRS) \
 		--output-base . \
@@ -99,12 +100,12 @@ generate-deepcopy: $(DEEPCOPY_GEN)
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
-	@echo "$(GEN_COLOR)Generating CRDs"
+	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
 
 .PHONY: generate-static
 generate-static: $(ESC) config/crd
-	@echo "$(GEN_COLOR)Generating filesystem"
+	@echo "$(GEN_COLOR)Generating filesystem$(NO_COLOR)"
 	$(ESC) \
 		-o pkg/crd/zz_generated.static.go \
 		-pkg crd \
@@ -114,25 +115,25 @@ generate-static: $(ESC) config/crd
 
 .PHONY: lint
 lint: $(GOLANGCI_LINT)
-	@echo "$(GEN_COLOR)Running golangci-lint"
+	@echo "$(GEN_COLOR)Running golangci-lint$(NO_COLOR)"
 	$(GOLANGCI_LINT) run -E gosec -E goconst
 
 .PHONY: imports
 imports: $(GOIMPORTS)
-	@echo "$(GEN_COLOR)Sorting imports"
+	@echo "$(GEN_COLOR)Sorting imports$(NO_COLOR)"
 	$(GOIMPORTS) -local $(MODULE) -w ./pkg
 
 .PHONY: patch
 patch:
-	@echo "$(GEN_COLOR)Applying patch"
+	@echo "$(GEN_COLOR)Applying patch$(NO_COLOR)"
 	git apply $(PATCH_FILE)
 
 .PHONY: clean-generated
 clean-generated:
-	@echo "$(GEN_COLOR)Cleaning generated files"
+	@echo "$(GEN_COLOR)Cleaning generated files$(NO_COLOR)"
 	rm -rf $(CRDV1_DIR) $(CRDV1BETA1_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES)
 
 .PHONY: clean-tools
 clean-tools:
-	@echo "$(GEN_COLOR)Cleaning tools"
+	@echo "$(GEN_COLOR)Cleaning tools$(NO_COLOR)"
 	rm -rf $(TOOLS_BIN_DIR)
