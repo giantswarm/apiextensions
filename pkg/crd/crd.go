@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	crdKind      = "CustomResourceDefinition"
+	crdKind = "CustomResourceDefinition"
 )
 
 var (
