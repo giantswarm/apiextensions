@@ -16,15 +16,16 @@ GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 
-USE_COLORS = $(shell test `tput colors` -ge 8 && echo "yes")
-ifeq ($(USE_COLORS),yes)
-BUILD_COLOR = \033[0;34m
-GEN_COLOR = \033[0;32m
-NO_COLOR = \033[0m
-else
 BUILD_COLOR = ""
 GEN_COLOR = ""
 NO_COLOR = ""
+
+ifneq (, $(shell command -v tput))
+ifeq ($(shell test `tput colors` -ge 8 && echo "yes"), yes)
+BUILD_COLOR = \033[0;34m
+GEN_COLOR = \033[0;32m
+NO_COLOR = \033[0m
+endif
 endif
 
 DEEPCOPY_BASE = zz_generated.deepcopy
