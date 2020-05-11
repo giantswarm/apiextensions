@@ -1,13 +1,11 @@
 package crd
 
 import (
+	"fmt"
 	"io/ioutil"
-	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/giantswarm/microerror"
-	"github.com/markbates/pkger"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
@@ -15,6 +13,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd/internal"
 )
 
 const (
@@ -40,53 +40,46 @@ var (
 type objectHandler func(unstructured.Unstructured)
 
 func iterateResources(groupVersionKind schema.GroupVersionKind, handle objectHandler) error {
-	// Function called for every file in the CRD directory.
-	walkFunc := func(fullPath string, info os.FileInfo, err error) error {
-		// An unknown error, stop walking.
-		if err != nil {
-			return microerror.Mask(err)
-		}
-		if info.IsDir() {
-			return nil
-		}
+	crdDirectory := fmt.Sprintf("/config/crd/%s", groupVersionKind.Version)
+	fs := internal.FS(false)
+	directory, err := fs.Open(crdDirectory)
+	if err != nil {
+		return microerror.Mask(err)
+	}
+	files, err := directory.Readdir(0)
+	if err != nil {
+		return microerror.Mask(err)
+	}
 
-		// pkger files have a path like github.com/giantswarm/apiextensions:/config/crd/bases/release.giantswarm.io_releases.yaml.
-		split := strings.Split(fullPath, ":")
-		path := split[1]
-		extension := filepath.Ext(path)
-		// Skip non-yaml files.
-		if extension != ".yaml" {
-			return nil
+	for _, info := range files {
+		if info.IsDir() {
+			continue
+		}
+		if filepath.Ext(info.Name()) != ".yaml" {
+			continue
 		}
 
 		// Read the file to a string.
-		yamlFile, err := pkger.Open(path)
+		file, err := fs.Open(filepath.Join(crdDirectory, info.Name()))
 		if err != nil {
 			return microerror.Mask(err)
 		}
-		yamlString, err := ioutil.ReadAll(yamlFile)
+		contents, err := ioutil.ReadAll(file)
 		if err != nil {
 			return microerror.Mask(err)
 		}
 
 		// Unmarshal into Unstructured since we don't know if this is a v1 or v1beta1 CRD yet.
 		var object unstructured.Unstructured
-		err = yaml.UnmarshalStrict(yamlString, &object)
+		err = yaml.UnmarshalStrict(contents, &object)
 		if err != nil {
 			return microerror.Mask(err)
 		}
-
-		if object.GroupVersionKind() == groupVersionKind {
-			handle(object)
+		if object.GetObjectKind().GroupVersionKind() != groupVersionKind {
+			continue
 		}
 
-		return nil
-	}
-
-	// Entry point for walking the CRD YAML directory.
-	err := pkger.Walk(crdDirectory, walkFunc)
-	if err != nil {
-		return microerror.Mask(err)
+		handle(object)
 	}
 
 	return nil

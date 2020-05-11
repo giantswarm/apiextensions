@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.8] 2020-05-08
+
+- No changes.
+
+## [0.3.7] 2020-05-08
+
 ### Added
 
 - Add kube-proxy configuration to AWSCluster.
@@ -178,8 +184,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release.
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.6...HEAD
-
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...HEAD
+[0.3.8]: https://github.com/giantswarm/apiextensions/compare/v0.3.7...v0.3.8
+[0.3.7]: https://github.com/giantswarm/apiextensions/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/giantswarm/apiextensions/compare/v0.3.5...v0.3.6
 [0.3.5]: https://github.com/giantswarm/apiextensions/compare/v0.3.4...v0.3.5
 [0.3.4]: https://github.com/giantswarm/apiextensions/compare/v0.3.3...v0.3.4

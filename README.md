@@ -2,20 +2,104 @@
 
 # apiextensions
 
-Package apiextensions provides generated Kubernetes clients for the Giant Swarm
-infrastructure.
+This library provides generated Kubernetes clients for the Giant Swarm infrastructure.
+
+## Usage
+
+- [`pkg/apis`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc): Contains data structures for 
+    custom resources in `*.giantswarm.io` API groups. See full documentation 
+    [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc).
+- [`pkg/clientset/versioned`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc): 
+    Contains a clientset, a client for each custom resource, and a fake client for unit testing. See full documentation
+    [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc).
+- [`pkg/crd`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc): Contains an interface for 
+    accessing individual CRDs or listing all CRDs. See full documentation 
+    [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc).
 
 ## Contributing
 
-### Branches
+### Changing Existing Custom Resources
 
-- `master`
-    - To be used with all Kubernetes 1.16+ operators with CAPI v1alpha2+.
-    - Includes all of the latest CRDs/CRs.
-- `legacy-1-15`
-    - To be used with legacy Kubernetes 1.15 operators only with CAPI v1alpha1.
-    - Currently includes these backported CRDs/CRs (and should be kept up to date when changed in `master`):
-      - Release
+- Make the desired changes in `pkg/apis/<group>/<version>`
+- Update generated files by calling `make`.
+- Review and commit all changes including generated code.
+
+#### Naming Convention
+
+Custom resource structs are placed in packages corresponding to the endpoints in
+Kubernetes API. For example, structs in package
+`github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2` are created
+from objects under `/apis/infrastructure.giantswarm.io/v1alpha2/` endpoint.
+
+As this is common to have name collisions between field type names in different
+custom objects sharing the same group and version (e.g. `Spec` or `Status`) we prefix all type names
+referenced inside custom object with the name of the parent object.
+
+Example:
+
+```go
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+type NewObj struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata"`
+	Spec              NewObjSpec `json:"spec"`
+}
+
+type NewObjSpec struct {
+	Field string `json:"field"`
+}
+```
+
+### Adding a New Custom Resource
+
+This is example skeleton for adding new object.
+
+- Make sure group and version of the object to add exists (described in
+  [previous paragraph](#adding-a-new-group-andor-version)).
+- Replace `NewObj` with your object name.
+- Put struct definitions inside a proper package denoted by group and version
+  in a file named `new_obj_types.go`. Replace `new_obj` with snake_case-formatted object name.
+- Add `NewObj` and `NewObjList` to `knownTypes` slice in `register.go`
+- Generate code for the resource by calling `make`.
+- Commit changes and create a release.
+
+```go
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
+// +genclient
+// +genclient:noStatus
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// NewObj godoc.
+type NewObj struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata"`
+	Spec              NewObjSpec `json:"spec"`
+}
+
+// NewObjSpec godoc.
+type NewObjSpec struct {
+	FieldName string `json:"fieldName"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// NewObjList godoc.
+type NewObjList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []NewObj `json:"items"`
+}
+```
 
 ### Adding a New Group and/or Version
 
@@ -25,9 +109,6 @@ This is example skeleton for adding new group and/or version.
 - Create a new package `/pkg/apis/GROUP/VERSION/`.
 - Inside the package create a file `doc.go` (content below).
 - Inside the package create a file `register.go` (content below).
-- Edit the last argument of `generate-groups.sh` call inside
-  `./scripts/gen.sh`. It has format `existingGroup:existingVersion
-  GROUP:VERSION`.
 - Add a new object (described in [next paragraph](#adding-a-new-custom-object)).
 
 Example `doc.go` content.
@@ -84,89 +165,100 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 }
 ```
 
-### Adding a New Custom Object
+### Updating dependencies
 
-This is example skeleton for adding new object.
+#### Cluster API
 
-- Make sure group and version of the object to add exists (described in
-  [previous paragraph](#adding-a-new-group-andor-version)).
-- Replace `NewObj` with your object name.
-- Put struct definitions inside a proper package denoted by group and version
-  in file named `new_obj_types.go`. Replace `new_obj` with lowercased,
-  snakecased object name.
-- Add `NewObj` and `NewObjList` to `knownTypes` slice in `register.go`
-- Generate client by calling `./scripts/gen.sh`.
-- Commit generated code and all edits to `./scripts/gen.sh`.
+Cluster API CRDs are also exported by this library using `controller-gen`. The version used is determined by the value
+of `sigs.k8s.io/cluster-api` in `hack/go.mod`.
 
-```go
-// +genclient
-// +genclient:noStatus
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+#### Code Generation Tools
 
-// NewObj godoc.
-type NewObj struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.NewObjMeta `json:"metadata"`
-	Spec              NewObjSpec `json:"spec"`
-}
+To change the version of a tool, edit the version manually in `hack/tools/<tool>/go.mod` and run `go mod tidy` in
+that directory so that `go.sum` is updated.
 
-// NewObjSpec godoc.
-type NewObjSpec struct {
-	FieldName string `json:"fieldName"`
-}
+#### Kubernetes
 
-// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+To update the version of Kubernetes used by this library, change the versions of the following modules in `go.mod` and
+`hack/go.mod` to `v0.<k8s minor>.<k8s patch>` (Kubernetes 1.16.6 would therefore be `v0.16.6`) and run `go mod tidy`:
 
-// NewObjList godoc.
-type NewObjList struct {
-	metav1.TypeMeta `json:",inline"`
-	metav1.ListMeta `json:"metadata"`
-	Items           []NewObj `json:"items"`
-}
-```
+- `k8s.io/api`
+- `k8s.io/apiextensions-apiserver`
+- `k8s.io/apimachinery`
+- `k8s.io/client-go`
 
-### Changing Existing Custom Object
+### Versioning
 
-- Make the desired changes.
-- Update generated client by calling `./scripts/gen.sh`. (If the command fails with `can't load package: ...` try running it with: `GO111MODULE=off ./scripts/gen.sh`).
-- Commit all changes, including generated code.
+This library uses standard semantic versioning. Versioning of CRDs is a separate issue covered in the [Kubernetes
+    deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/).
+    In short, if an API field needs to be removed, a new version must be created, and any versions served concurrently
+    must be convertible in both directions without data loss.
 
-### Naming Convention
+### Releasing
 
-Custom object structs are placed in packages corresponding to the endpoints in
-Kubernetes API. E.g. structs in package
-`github.com/giantswarm/apiextensions/pkg/apis/cluster/v1alpha1` are created
-from objects under `/apis/cluster.giantswarm.io/v1alpha1/` endpoint.
+Release PRs should be separate from PRs that modify the library itself. They should only modify `CHANGELOG.md`, adding
+the new version and leaving `[Unreleased]` section in place for future changes. The links at the bottom should also
+be updated to point to the new tag and the `[Unreleased]` link to compare with the new tag.
 
-As this is common to have name collisions between field type names in different
-custom objects sharing the same group and version we prefix all type names
-referenced inside custom object with custom object name.
+Once the release PR is merged, the GitHub release can be created with tag and name both set to the full version
+including the leading `v` (e.g. `v0.3.8`).
 
-Example:
+## Code generation
 
-```go
-type NewObj struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec              NewObjSpec `json:"spec"`
-}
+This library uses code generation to generate several components so that they do not need to be maintained manually
+and to reduce the chance of mistakes such as when, for example, defining an OpenAPIV3 schema for a CRD.
 
-type NewObjSpec struct {
-	Cluster       NewObjCluster       `json:"cluster"`
-	VersionBundle NewObjVersionBundle `json:"versionBundle"`
-}
+### Makefile
 
-type NewObjCluster struct {
-	Calico       NewObjCalico       `json:"calico"`
-	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon"`
-}
-```
+The `Makefile` at the root of the repository ensures that required tools (defined below) are installed in 
+`hack/tools/bin` and then runs each step of the code generation pipeline sequentially.
 
-### Virtual file system
+The main code generation steps are as follows:
+- `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
+- `generate-deepcopy`: Generates `zz_generated.deepcopy.go` in each package in `pkg/apis` with deep copy functions.
+- `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`. 
+- `generate-fs`: Generates `pkg/crd/internal` package containing a filesystem holding all files in `config/crd`.
+- `imports`: Sorts imports in all source files under `./pkg`.
+- `patch`: Applies the git patch `hack/generated.patch` to work around limitations in code generators.
 
-`apiextensions` uses the [pkger](https://github.com/markbates/pkger) library to access generated CRD YAML files as the
-filesystem is generally not available when compiled into a binary. `pkger` is run automatically as part of `scripts/gen.sh`.
-It should be noted that `scripts/gen.sh` will always create new CRD files and `pkger` includes created/modified times on
-file metadata so it will always result in a modified `pkg/crd/pkged.go` file. To avoid this, the contents of each file 
-in `config/crd/{v1,v1beta1}` is hashed, then the list of hashes is hashed and saved in `scripts/.hash`. In this way, 
-`gen.sh` avoids recreating `pkged.go` unless the hash changes.
+These can all be run with `make generate` or simply `make` as `generate` is the default rule.
+
+Extra commands are provided including:
+- `clean-tools`: Deletes all tools from the tools binary directory.
+- `clean-generated`: Deletes all generated files.
+- `verify`: Regenerates files and exits with a non-zero exit code if generated files don't match `HEAD` in source control.
+
+### Tools
+
+Tools are third-party executables which perform a particular action as part of the code generation pipeline. They are 
+defined in `hack/tools` in separate directories. Versions for the tools are defined in the `go.mod` file in their
+respective directories. A common `go.mod` isn't used so that their dependencies don't interfere.
+
+#### [`deepcopy-gen`](https://godoc.org/k8s.io/code-generator/cmd/deepcopy-gen)
+
+Generates `DeepCopy` and `DeepCopyInto` functions for all custom resources to satisfy the `runtime.Object` interface.
+
+#### [`client-gen`](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/generating-clientset.md)
+
+Generates a "client set" which provides CRUD interfaces for each custom resource.
+
+#### [`esc`](https://github.com/mjibson/esc)
+
+Encodes local filesystem trees into a Go source file containing an `http.FileSystem` which provides access to the
+files at runtime. This allows these files to be accessed from a binary outside of the source tree containing those files.
+
+#### [`controller-gen`](https://book.kubebuilder.io/reference/controller-gen.html)
+
+Generates a custom resource definition (CRD) for each custom resource using special comments such as 
+`// +kubebuilder:validation:Optional`.
+
+#### [`kustomize`](https://github.com/kubernetes-sigs/kustomize)
+
+Provides an extra patch step for generated CRD YAML files because certain CRD fields can't be modified with
+`controller-gen` directly.
+
+#### [`goimports`](https://pkg.go.dev/golang.org/x/tools/cmd/goimports)
+
+Updates Go import lines by adding missing ones and removing unreferenced ones. This is required because CI checks for
+imports ordered in three sections (standard library, third-party, local) but certain code generators only generate
+source files with two sections.
