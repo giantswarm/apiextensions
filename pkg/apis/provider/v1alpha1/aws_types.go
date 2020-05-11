@@ -1,35 +1,29 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewAWSClusterTypeMeta returns the populated metav1 metadata object for this CRD.
-func NewAWSClusterTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAWSConfig,
+// NewAWSConfigCR returns a CertConfig Custom Resource.
+func NewAWSConfigCR(name string) *AWSConfig {
+	awsConfig := AWSConfig{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
-}
-
-// NewAWSConfigCR returns a custom resource of type AWSConfig.
-func NewAWSConfigCR() *AWSConfig {
-	return &AWSConfig{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: awsConfigDocumentationLink,
-			},
-		},
-		TypeMeta: NewAWSClusterTypeMeta(),
-	}
+	awsConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	awsConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	awsConfig.Name = name
+	return &awsConfig
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;giantswarm
 
 type AWSConfig struct {
 	metav1.TypeMeta   `json:",inline"`

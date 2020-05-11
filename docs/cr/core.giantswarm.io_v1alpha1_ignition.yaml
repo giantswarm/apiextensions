@@ -1,55 +1,55 @@
-apiVersion: core.giantswarm.io/v1alpha1
-kind: Ignition
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
 metadata:
   annotations:
-    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#Ignition
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/
   creationTimestamp: null
   name: abc12-master
 spec:
-  apiServerEncryptionKey: 5fd466f48df84f47bb8006b68f0355ba
-  baseDomain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
+  apiServerEncryptionKey: ""
+  baseDomain: ""
   calico:
-    cidr: "16"
+    cidr: ""
     disable: false
-    mtu: "1430"
-    subnet: 10.250.0.0
-  clusterID: abc12
+    mtu: ""
+    subnet: ""
+  clusterID: ""
   disableEncryptionAtRest: false
   docker:
     daemon:
-      cidr: 172.100.0.1/16
+      cidr: ""
     networkSetup:
-      image: quay.io/giantswarm/k8s-setup-network-environment
+      image: ""
   etcd:
-    domain: https://etcd.abc12.k8s.example.eu-west-1.aws.gigantic.io
-    port: 2379
+    domain: ""
+    port: 0
     prefix: ""
   extension: {}
   ingress:
     disable: false
-  isMaster: true
+  isMaster: false
   kubernetes:
     api:
-      domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
-      securePort: 443
-    cloudProvider: aws
+      domain: ""
+      securePort: 0
+    cloudProvider: ""
     dns:
-      ip: 10.1.2.3/32
-    domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
-    ipRange: 10.2.3.4/24
+      ip: ""
+    domain: ""
+    ipRange: ""
     kubelet:
-      domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
+      domain: ""
     oidc:
-      clientID: abc12
-      enabled: true
+      clientID: ""
+      enabled: false
       groupsClaim: ""
-      groupsPrefix: gs
-      issuerUrl: https://giantswarm.io
+      groupsPrefix: ""
+      issuerUrl: ""
       usernameClaim: ""
-      usernamePrefix: gs
-  provider: aws
+      usernamePrefix: ""
+  provider: ""
   registry:
-    domain: quay.io
-    pullProgressDeadline: 10s
+    domain: ""
+    pullProgressDeadline: ""
   sso:
-    publicKey: ssh-rsa 1234567890
+    publicKey: ""

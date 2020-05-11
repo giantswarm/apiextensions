@@ -1,34 +1,29 @@
 package v1alpha2
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-func NewAWSClusterTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAWSCluster,
-	}
-}
-
 // NewAWSClusterCR returns an AWSCluster Custom Resource.
-func NewAWSClusterCR() *AWSCluster {
-	return &AWSCluster{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: awsClusterDocumentationLink,
-			},
-		},
-		TypeMeta: NewAWSClusterTypeMeta(),
+func NewAWSClusterCR(name string) *AWSCluster {
+	awsCluster := AWSCluster{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
+	awsCluster.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	awsCluster.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	awsCluster.Name = name
+	return &awsCluster
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;giantswarm;cluster-api
 
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.

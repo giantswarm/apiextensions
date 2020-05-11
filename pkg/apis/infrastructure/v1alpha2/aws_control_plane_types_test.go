@@ -42,7 +42,7 @@ func Test_GenerateAWSControlPlaneYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -60,9 +60,7 @@ func Test_GenerateAWSControlPlaneYAML(t *testing.T) {
 }
 
 func newAWSControlPlaneExampleCR() *AWSControlPlane {
-	cr := NewAWSControlPlaneCR()
-
-	cr.Name = "ier2s"
+	cr := NewAWSControlPlaneCR("ier2s")
 	cr.Spec = AWSControlPlaneSpec{
 		AvailabilityZones: []string{
 			"eu-central-1a",

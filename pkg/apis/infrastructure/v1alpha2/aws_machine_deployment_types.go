@@ -1,40 +1,29 @@
 package v1alpha2
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-const ()
-
-func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAWSMachineDeployment)
-}
-
-func NewAWSMachineDeploymentTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAWSMachineDeployment,
-	}
-}
-
 // NewAWSMachineDeploymentCR returns an AWSMachineDeployment Custom Resource.
-func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
-	return &AWSMachineDeployment{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: awsClusterDocumentationLink,
-			},
-		},
-		TypeMeta: NewAWSMachineDeploymentTypeMeta(),
+func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
+	awsMachineDeployment := AWSMachineDeployment{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
+	awsMachineDeployment.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	awsMachineDeployment.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	awsMachineDeployment.Name = name
+	return &awsMachineDeployment
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;giantswarm;cluster-api
 
 // AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources.
 // It contains provider-specific specification and status for a node pool.

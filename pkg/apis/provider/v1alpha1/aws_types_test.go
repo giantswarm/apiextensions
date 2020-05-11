@@ -56,7 +56,7 @@ func Test_GenerateAWSConfigYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -74,9 +74,7 @@ func Test_GenerateAWSConfigYAML(t *testing.T) {
 }
 
 func newAWSConfigExampleCR() *AWSConfig {
-	cr := NewAWSConfigCR()
-
-	cr.Name = "l8zrw"
+	cr := NewAWSConfigCR("l8zrw")
 	cr.Spec = AWSConfigSpec{
 		AWS: AWSConfigSpecAWS{
 			API: AWSConfigSpecAWSAPI{

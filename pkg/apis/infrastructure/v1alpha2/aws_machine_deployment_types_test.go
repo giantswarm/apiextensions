@@ -42,7 +42,7 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -60,9 +60,7 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 }
 
 func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
-	cr := NewAWSMachineDeploymentCR()
-
-	cr.Name = "general-purpose-node-pool"
+	cr := NewAWSMachineDeploymentCR("general-purpose-node-pool")
 	cr.Spec = AWSMachineDeploymentSpec{
 		NodePool: AWSMachineDeploymentSpecNodePool{
 			Description: "General purpose worker nodes",

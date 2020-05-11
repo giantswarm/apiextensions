@@ -1,15 +1,16 @@
-
----
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.2.4
-  creationTimestamp: null
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awsmachinedeployments.infrastructure.giantswarm.io/
   name: awsmachinedeployments.infrastructure.giantswarm.io
 spec:
   group: infrastructure.giantswarm.io
   names:
+    categories:
+    - aws
+    - giantswarm
+    - cluster-api
     kind: AWSMachineDeployment
     listKind: AWSMachineDeploymentList
     plural: awsmachinedeployments

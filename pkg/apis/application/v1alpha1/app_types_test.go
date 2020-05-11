@@ -11,6 +11,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 func Test_GenerateAppYAML(t *testing.T) {
@@ -21,7 +23,7 @@ func Test_GenerateAppYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_app.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_app.yaml", key.GroupApplication, version),
 			resource: newAppExampleCR(),
 		},
 	}
@@ -42,7 +44,7 @@ func Test_GenerateAppYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -60,9 +62,7 @@ func Test_GenerateAppYAML(t *testing.T) {
 }
 
 func newAppExampleCR() *App {
-	cr := NewAppCR()
-
-	cr.Name = "prometheus"
+	cr := NewAppCR("prometheus")
 	cr.Spec = AppSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",

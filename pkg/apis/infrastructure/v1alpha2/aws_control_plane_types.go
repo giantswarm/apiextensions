@@ -1,34 +1,29 @@
 package v1alpha2
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAWSControlPlane,
-	}
-}
-
 // NewAWSControlPlaneCR returns an AWSControlPlane Custom Resource.
-func NewAWSControlPlaneCR() *AWSControlPlane {
-	return &AWSControlPlane{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: awsControlPlaneDocumentationLink,
-			},
-		},
-		TypeMeta: NewAWSControlPlaneTypeMeta(),
+func NewAWSControlPlaneCR(name string) *AWSControlPlane {
+	awsControlPlane := AWSControlPlane{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
+	awsControlPlane.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	awsControlPlane.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	awsControlPlane.Name = name
+	return &awsControlPlane
 }
 
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:resource:categories=aws;giantswarm
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
 // CRs. Represents the master nodes (also called Control Plane) of a tenant

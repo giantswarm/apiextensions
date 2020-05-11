@@ -16,11 +16,14 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apiserver/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 var (
@@ -34,13 +37,11 @@ func Test_ReleaseCRValidation(t *testing.T) {
 	testCases := []struct {
 		name   string
 		errors []*errors.Validation
-		cr     Release
+		cr     *Release
 	}{
 		{
 			name: "case 0: empty release is invalid",
-			cr: Release{
-				TypeMeta: NewReleaseTypeMeta(),
-			},
+			cr:   NewReleaseCR("v1.0.0", ReleaseSpec{}),
 			errors: []*errors.Validation{
 				{
 					Name:  "spec.apps",
@@ -66,51 +67,39 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 1: normal release is valid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps: []ReleaseSpecApp{
-						{
-							Name:             "test-app",
-							Version:          "1.0.0",
-							ComponentVersion: "2.0.0",
-						},
-					},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps: []ReleaseSpecApp{
+					{
+						Name:             "test-app",
+						Version:          "1.0.0",
+						ComponentVersion: "2.0.0",
 					},
 				},
-			},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "1.18.0",
+					},
+				},
+			}),
 			errors: nil,
 		},
 		{
 			name: "case 2: one component is required",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps: []ReleaseSpecApp{
-						{
-							Name:             "test-app",
-							Version:          "1.0.0",
-							ComponentVersion: "2.0.0",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps: []ReleaseSpecApp{
+					{
+						Name:             "test-app",
+						Version:          "1.0.0",
+						ComponentVersion: "2.0.0",
 					},
-					Components: []ReleaseSpecComponent{},
 				},
-			},
+				Components: []ReleaseSpecComponent{},
+			}),
 			errors: []*errors.Validation{
 				{
 					Name:  "spec.components",
@@ -121,44 +110,32 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 3: zero apps is valid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "1.18.0",
 					},
 				},
-			},
+			}),
 			errors: nil,
 		},
 		{
 			name: "case 4: non semver version is invalid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "bad",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "bad",
 					},
 				},
-			},
+			}),
 			errors: []*errors.Validation{
 				{
 					Name: "spec.components.version",
@@ -168,23 +145,17 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 5: semver with leading v is invalid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "v1.18.0",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "v1.18.0",
 					},
 				},
-			},
+			}),
 			errors: []*errors.Validation{
 				{
 					Name: "spec.components.version",
@@ -194,23 +165,17 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 6: unknown release state is invalid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: "bad",
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: "bad",
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "1.18.0",
 					},
 				},
-			},
+			}),
 			errors: []*errors.Validation{
 				{
 					Name: "spec.state",
@@ -220,44 +185,32 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 7: pre-release component version is valid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "v13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0-beta.1",
-						},
+			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "1.18.0-beta.1",
 					},
 				},
-			},
+			}),
 			errors: nil,
 		},
 		{
 			name: "case 8: non-semver name is invalid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "bad",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0",
-						},
+			cr: NewReleaseCR("bad", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "1.18.0",
 					},
 				},
-			},
+			}),
 			errors: []*errors.Validation{
 				{
 					Name: "metadata.name",
@@ -267,23 +220,17 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 9: semver name without v prefix is invalid",
-			cr: Release{
-				ObjectMeta: metav1.ObjectMeta{
-					Name: "13.1.2",
-				},
-				TypeMeta: NewReleaseTypeMeta(),
-				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
-					Apps:  []ReleaseSpecApp{},
-					Components: []ReleaseSpecComponent{
-						{
-							Name:    "kubernetes",
-							Version: "1.18.0",
-						},
+			cr: NewReleaseCR("13.1.2", ReleaseSpec{
+				State: stateActive,
+				Date:  &now,
+				Apps:  []ReleaseSpecApp{},
+				Components: []ReleaseSpecComponent{
+					{
+						Name:    "kubernetes",
+						Version: "1.18.0",
 					},
 				},
-			},
+			}),
 			errors: []*errors.Validation{
 				{
 					Name: "metadata.name",
@@ -292,10 +239,11 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			},
 		},
 	}
-	crd := NewReleaseCRD()
 
+	releaseCRD := crd.Load(group, key.KindRelease)
 	var v apiextensions.CustomResourceValidation
-	err := v1beta1.Convert_v1beta1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crd.Spec.Validation, &v, nil)
+	latestValidation := releaseCRD.Spec.Versions[len(releaseCRD.Spec.Versions)-1].Schema
+	err := v1.Convert_v1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(latestValidation, &v, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -336,9 +284,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 }
 
 func newReleaseExampleCR() *Release {
-	cr := NewReleaseCR()
-	cr.Name = "v11.2.0"
-	cr.Spec = ReleaseSpec{
+	cr := NewReleaseCR("v11.2.0", ReleaseSpec{
 		Apps: []ReleaseSpecApp{
 			{
 				Name:    "cert-exporter",
@@ -422,7 +368,7 @@ func newReleaseExampleCR() *Release {
 		},
 		Date:  &metav1.Time{Time: time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
 		State: stateActive,
-	}
+	})
 	return cr
 }
 
@@ -455,7 +401,7 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}

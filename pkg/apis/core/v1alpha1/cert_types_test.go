@@ -42,7 +42,7 @@ func Test_GenerateCertConfigYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -60,9 +60,7 @@ func Test_GenerateCertConfigYAML(t *testing.T) {
 }
 
 func newCertConfigExampleCR() *CertConfig {
-	cr := NewCertConfigCR()
-
-	cr.Name = "c68pn-prometheus"
+	cr := NewCertConfigCR("c68pn-prometheus")
 	cr.Spec = CertConfigSpec{
 		Cert: CertConfigSpecCert{
 			AllowBareDomains:    false,

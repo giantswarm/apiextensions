@@ -11,7 +11,6 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
@@ -33,81 +32,72 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", group, version),
 			category: "cr",
 			filename: fmt.Sprintf("%s_%s_ignition.yaml", group, version),
-			resource: &Ignition{
-				TypeMeta: NewIgnitionTypeMeta(),
-				ObjectMeta: v1.ObjectMeta{
-					Name: "abc12-master",
-					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#Ignition",
+			resource: NewIgnitionCR("abc12-master", IgnitionSpec{
+				APIServerEncryptionKey: "5fd466f48df84f47bb8006b68f0355ba",
+				BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
+				Calico: IgnitionSpecCalico{
+					CIDR:    "16",
+					Disable: false,
+					MTU:     "1430",
+					Subnet:  "10.250.0.0",
+				},
+				ClusterID:               "abc12",
+				DisableEncryptionAtRest: false,
+				Docker: IgnitionSpecDocker{
+					Daemon: IgnitionSpecDockerDaemon{
+						CIDR: "172.100.0.1/16",
+					},
+					NetworkSetup: IgnitionSpecDockerNetworkSetup{
+						Image: "quay.io/giantswarm/k8s-setup-network-environment",
 					},
 				},
-				Spec: IgnitionSpec{
-					APIServerEncryptionKey: "5fd466f48df84f47bb8006b68f0355ba",
-					BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
-					Calico: IgnitionSpecCalico{
-						CIDR:    "16",
-						Disable: false,
-						MTU:     "1430",
-						Subnet:  "10.250.0.0",
+				Etcd: IgnitionSpecEtcd{
+					Domain: "https://etcd.abc12.k8s.example.eu-west-1.aws.gigantic.io",
+					Port:   2379,
+					Prefix: "",
+				},
+				Extension: IgnitionSpecExtension{
+					Files: nil,
+					Units: nil,
+					Users: nil,
+				},
+				Ingress: IgnitionSpecIngress{
+					Disable: false,
+				},
+				IsMaster: true,
+				Kubernetes: IgnitionSpecKubernetes{
+					API: IgnitionSpecKubernetesAPI{
+						Domain:     "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
+						SecurePort: 443,
 					},
-					ClusterID:               "abc12",
-					DisableEncryptionAtRest: false,
-					Docker: IgnitionSpecDocker{
-						Daemon: IgnitionSpecDockerDaemon{
-							CIDR: "172.100.0.1/16",
-						},
-						NetworkSetup: IgnitionSpecDockerNetworkSetup{
-							Image: "quay.io/giantswarm/k8s-setup-network-environment",
-						},
+					CloudProvider: "aws",
+					DNS: IgnitionSpecKubernetesDNS{
+						IP: "10.1.2.3/32",
 					},
-					Etcd: IgnitionSpecEtcd{
-						Domain: "https://etcd.abc12.k8s.example.eu-west-1.aws.gigantic.io",
-						Port:   2379,
-						Prefix: "",
-					},
-					Extension: IgnitionSpecExtension{
-						Files: nil,
-						Units: nil,
-						Users: nil,
-					},
-					Ingress: IgnitionSpecIngress{
-						Disable: false,
-					},
-					IsMaster: true,
-					Kubernetes: IgnitionSpecKubernetes{
-						API: IgnitionSpecKubernetesAPI{
-							Domain:     "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
-							SecurePort: 443,
-						},
-						CloudProvider: "aws",
-						DNS: IgnitionSpecKubernetesDNS{
-							IP: "10.1.2.3/32",
-						},
+					Domain: "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
+					Kubelet: IgnitionSpecKubernetesKubelet{
 						Domain: "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
-						Kubelet: IgnitionSpecKubernetesKubelet{
-							Domain: "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
-						},
-						IPRange: "10.2.3.4/24",
-						OIDC: IgnitionSpecOIDC{
-							Enabled:        true,
-							ClientID:       "abc12",
-							IssuerURL:      "https://giantswarm.io",
-							UsernameClaim:  "",
-							UsernamePrefix: "gs",
-							GroupsClaim:    "",
-							GroupsPrefix:   "gs",
-						},
 					},
-					Provider: "aws",
-					Registry: IgnitionSpecRegistry{
-						Domain:               "quay.io",
-						PullProgressDeadline: "10s",
-					},
-					SSO: IgnitionSpecSSO{
-						PublicKey: "ssh-rsa 1234567890",
+					IPRange: "10.2.3.4/24",
+					OIDC: IgnitionSpecOIDC{
+						Enabled:        true,
+						ClientID:       "abc12",
+						IssuerURL:      "https://giantswarm.io",
+						UsernameClaim:  "",
+						UsernamePrefix: "gs",
+						GroupsClaim:    "",
+						GroupsPrefix:   "gs",
 					},
 				},
-			},
+				Provider: "aws",
+				Registry: IgnitionSpecRegistry{
+					Domain:               "quay.io",
+					PullProgressDeadline: "10s",
+				},
+				SSO: IgnitionSpecSSO{
+					PublicKey: "ssh-rsa 1234567890",
+				},
+			}),
 		},
 	}
 
@@ -126,7 +116,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 
 			path := filepath.Join(docs, tc.category, tc.filename)
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}

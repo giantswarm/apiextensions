@@ -56,7 +56,7 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -74,9 +74,7 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 }
 
 func newAWSClusterExampleCR() *AWSCluster {
-	cr := NewAWSClusterCR()
-
-	cr.Name = "g8kw3"
+	cr := NewAWSClusterCR("g8kw3")
 	cr.Spec = AWSClusterSpec{
 		Cluster: AWSClusterSpecCluster{
 			Description: "Dev cluster",

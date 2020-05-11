@@ -1,8 +1,8 @@
-apiVersion: provider.giantswarm.io/v1alpha1
-kind: AWSConfig
+apiVersion: application.giantswarm.io/v1alpha1
+kind: App
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/
   creationTimestamp: null
   name: l8zrw
 spec:

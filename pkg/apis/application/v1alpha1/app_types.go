@@ -14,17 +14,23 @@ func NewAppTypeMeta() metav1.TypeMeta {
 }
 
 // NewAppCR returns an App Custom Resource.
-func NewAppCR(name, namespace string) *App {
-	typeMeta := NewAppTypeMeta()
-	return &App{
-		ObjectMeta: key.NewObjectMeta(metav1.GroupVersionKind(typeMeta.GroupVersionKind()), name, namespace),
-		TypeMeta:   typeMeta,
+func NewAppCR(name string) *App {
+	app := App{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
+	app.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	app.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	app.Name = name
+	return &app
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=giantswarm;common
 
 type App struct {
 	metav1.TypeMeta   `json:",inline"`

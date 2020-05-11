@@ -13,18 +13,24 @@ func NewChartTypeMeta() metav1.TypeMeta {
 	}
 }
 
-// NewChartCR returns an Chart Custom Resource.
-func NewChartCR(name, namespace string) *Chart {
-	typeMeta := NewChartTypeMeta()
-	return &Chart{
-		ObjectMeta: key.NewObjectMeta(metav1.GroupVersionKind(typeMeta.GroupVersionKind()), name, namespace),
-		TypeMeta:   typeMeta,
+// NewChartCR returns an App Custom Resource.
+func NewChartCR(name string) *Chart {
+	chart := Chart{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindChart,
 	}
+	chart.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	chart.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	chart.Name = name
+	return &chart
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=giantswarm;common
 
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`

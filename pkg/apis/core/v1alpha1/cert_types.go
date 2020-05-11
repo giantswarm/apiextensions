@@ -2,32 +2,28 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewCertConfigTypeMeta returns the type part for the metadata section of a
-// CertConfig custom resource.
-func NewCertConfigTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindCertConfig,
+// NewCertConfigCR returns a CertConfig Custom Resource.
+func NewCertConfigCR(name string) *CertConfig {
+	certConfig := CertConfig{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
-}
-
-// NewCertConfigCR returns an AWSCluster Custom Resource.
-func NewCertConfigCR() *CertConfig {
-	return &CertConfig{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: certConfigDocumentationLink,
-			},
-		},
-		TypeMeta: NewCertConfigTypeMeta(),
-	}
+	certConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	certConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	certConfig.Name = name
+	return &certConfig
 }
 
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:resource:categories=giantswarm;common
 
 type CertConfig struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -16,16 +16,10 @@ const (
 	DrainerConfigStatusTypeTimeout = "Timeout"
 )
 
-func NewDrainerTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: version,
-		Kind:       kindDrainerConfig,
-	}
-}
-
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=giantswarm;common
 
 type DrainerConfig struct {
 	metav1.TypeMeta   `json:",inline"`

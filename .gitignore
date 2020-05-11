@@ -1,2 +1,1 @@
-scripts/bin
-scripts/go.sum
+hack/tools/bin

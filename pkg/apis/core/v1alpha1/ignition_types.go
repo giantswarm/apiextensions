@@ -2,18 +2,28 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-func NewIgnitionTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindIgnition,
+// NewIgnitionCR returns an NewIgnitionCR Custom Resource.
+func NewIgnitionCR(name string, spec IgnitionSpec) *Ignition {
+	ignition := Ignition{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
+	ignition.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	ignition.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	ignition.Name = name
+	return &ignition
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=giantswarm;common
 
 // Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.
 //

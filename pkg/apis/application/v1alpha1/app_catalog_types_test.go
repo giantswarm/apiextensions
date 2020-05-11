@@ -13,6 +13,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 var (
@@ -27,13 +29,6 @@ var (
 	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewAppCatalogCRD(t *testing.T) {
-	crd := NewAppCatalogCRD()
-	if crd == nil {
-		t.Error("AppCatalog CRD was nil.")
-	}
-}
-
 func Test_GenerateAppCatalogYAML(t *testing.T) {
 	testCases := []struct {
 		category string
@@ -42,7 +37,7 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", key.GroupApplication, version),
 			resource: newAppCatalogExampleCR(),
 		},
 	}
@@ -63,7 +58,7 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -81,9 +76,7 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 }
 
 func newAppCatalogExampleCR() *AppCatalog {
-	cr := NewAppCatalogCR()
-
-	cr.Name = "my-playground-catalog"
+	cr := NewAppCatalogCR("my-playground-catalog")
 	cr.Spec = AppCatalogSpec{
 		Title:       "My Playground Catalog",
 		Description: "A catalog to store all new application packages.",

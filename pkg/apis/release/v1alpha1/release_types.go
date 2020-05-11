@@ -1,10 +1,8 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -20,22 +18,25 @@ func (r ReleaseState) String() string {
 	return string(r)
 }
 
-func NewReleaseCR(name string) *Release {
-	release := &Release{}
-	release.TypeMeta = key.NewTypeMeta(metav1.GroupVersionKind(release.GroupVersionKind()))
-	release.ObjectMeta = key.NewObjectMeta(metav1.GroupVersionKind(release.GroupVersionKind()))
+func NewReleaseCR(name string, spec ReleaseSpec) *Release {
+	release := Release{
+		Spec: spec,
+	}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupRelease,
+		Version: version,
+		Kind:    key.KindRelease,
+	}
+	release.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	release.ObjectMeta = key.NewObjectMeta(groupVersionKind)
 	release.Name = name
-	return release
-}
-
-func (Release) Definition() v1.CustomResourceDefinition {
-	return *crd.LoadV1(group, key.KindRelease)
+	return &release
 }
 
 // +kubebuilder:printcolumn:name="Kubernetes version",type=string,JSONPath=`.spec.components[?(@.name=="kubernetes")].version`,description="Version of the kubernetes component in this release"
 // +kubebuilder:printcolumn:name="State",type=string,JSONPath=`.spec.state`,description="State of the release"
 // +kubebuilder:printcolumn:name="Age",type=string,JSONPath=`.spec.date`,description="Time since release creation"
-// +kubebuilder:resource:scope=Cluster
+// +kubebuilder:resource:scope=Cluster,categories=giantswarm;common
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

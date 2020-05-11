@@ -6,25 +6,24 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-func NewAppCatalogTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       key.KindAppCatalog,
-	}
-}
-
 // NewAppCatalogCR returns an AppCatalog Custom Resource.
 func NewAppCatalogCR(name string) *AppCatalog {
-	typeMeta := NewAppCatalogTypeMeta()
-	return &AppCatalog{
-		ObjectMeta: key.NewObjectMeta(metav1.GroupVersionKind(typeMeta.GroupVersionKind()), name, ""),
-		TypeMeta:   typeMeta,
+	appCatalog := AppCatalog{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindAppCatalog,
 	}
+	appCatalog.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	appCatalog.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	appCatalog.Name = name
+	return &appCatalog
 }
 
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:resource:categories=giantswarm;common
 
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`

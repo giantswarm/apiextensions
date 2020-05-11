@@ -11,14 +11,9 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
-)
 
-func Test_NewChartCRD(t *testing.T) {
-	crd := NewChartCRD()
-	if crd == nil {
-		t.Error("Chart CRD was nil.")
-	}
-}
+	"github.com/giantswarm/apiextensions/pkg/key"
+)
 
 func Test_GenerateChartYAML(t *testing.T) {
 	testCases := []struct {
@@ -28,7 +23,7 @@ func Test_GenerateChartYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_chart.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_chart.yaml", key.GroupApplication, version),
 			resource: newChartExampleCR(),
 		},
 	}
@@ -49,7 +44,7 @@ func Test_GenerateChartYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -67,9 +62,7 @@ func Test_GenerateChartYAML(t *testing.T) {
 }
 
 func newChartExampleCR() *Chart {
-	cr := NewChartCR()
-
-	cr.Name = "prometheus"
+	cr := NewChartCR("prometheus")
 	cr.Spec = ChartSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",

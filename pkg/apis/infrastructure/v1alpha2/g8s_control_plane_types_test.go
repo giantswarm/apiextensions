@@ -6,31 +6,17 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
-	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-func Test_NewG8sControlPlaneCRD(t *testing.T) {
-	crd := NewG8sControlPlaneCRD()
-	if crd == nil {
-		t.Error("G8sControlPlane CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("G8sControlPlane CRD name was empty")
-	}
-}
-
 func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
-	crd := NewG8sControlPlaneCRD()
-
-	crdGroup := crd.Spec.Group
-	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
-
 	testCases := []struct {
 		category string
 		name     string
@@ -38,7 +24,7 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_%s.yaml", crdGroup, version, crdKindLower),
+			name:     fmt.Sprintf("%s_%s_%s.yaml", group, version, key.KindG8sControlPlane),
 			resource: newG8sControlPlaneExampleCR(),
 		},
 	}
@@ -59,7 +45,7 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 			rendered = statusRegex.ReplaceAll(rendered, []byte(""))
 
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -77,9 +63,7 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 }
 
 func newG8sControlPlaneExampleCR() *G8sControlPlane {
-	cr := NewG8sControlPlaneCR()
-
-	cr.Name = "0p8h5"
+	cr := NewG8sControlPlaneCR("0p8h5")
 	cr.Spec = G8sControlPlaneSpec{
 		// ClusterNetwork does not occur in our practice, so leaving it empty.
 		//ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},

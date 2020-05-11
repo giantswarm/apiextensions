@@ -7,6 +7,7 @@ import (
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:resource:categories=kvm;giantswarm
 
 type FlannelConfig struct {
 	metav1.TypeMeta   `json:",inline"`

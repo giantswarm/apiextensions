@@ -11,7 +11,8 @@ import (
 )
 
 const (
-	CRDocsAnnotation         = "giantswarm.io/docs"
+	CRDocsAnnotation = "giantswarm.io/docs"
+
 	KindAppCatalog           = "AppCatalog"
 	KindApp                  = "App"
 	KindChart                = "Chart"
@@ -35,7 +36,9 @@ const (
 	KindKVMConfig            = "KVMConfig"
 	KindRelease              = "Release"
 	KindAzureTool            = "AzureTool"
-	GroupApplication         = "application.giantswarm.io"
+
+	GroupApplication = "application.giantswarm.io"
+	GroupRelease     = "release.giantswarm.io"
 )
 
 func DocumentationLink(crd v1.CustomResourceDefinition) string {
@@ -51,7 +54,7 @@ func NewTypeMeta(kind metav1.GroupVersionKind) metav1.TypeMeta {
 }
 
 func NewObjectMeta(kind metav1.GroupVersionKind) metav1.ObjectMeta {
-	crd := crd2.LoadV1(kind.Group, kind.Kind)
+	crd := crd2.Load(kind.Group, kind.Kind)
 	return metav1.ObjectMeta{
 		Annotations: map[string]string{
 			CRDocsAnnotation: DocumentationLink(*crd),

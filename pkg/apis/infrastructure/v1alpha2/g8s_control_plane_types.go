@@ -2,42 +2,29 @@ package v1alpha2
 
 import (
 	corev1 "k8s.io/api/core/v1"
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
-
-const (
-	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.2.5/pkg/apis/infrastructure/v1alpha2?tab=doc#G8sControlPlane"
-)
-
-func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindG8sControlPlane)
-}
-
-func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindG8sControlPlane,
-	}
-}
 
 // NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
-func NewG8sControlPlaneCR() *G8sControlPlane {
-	return &G8sControlPlane{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: g8sControlPlaneDocumentationLink,
-			},
-		},
-		TypeMeta: NewG8sControlPlaneTypeMeta(),
+func NewG8sControlPlaneCR(name string) *G8sControlPlane {
+	g8sControlPlane := G8sControlPlane{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   key.GroupApplication,
+		Version: version,
+		Kind:    key.KindApp,
 	}
+	g8sControlPlane.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	g8sControlPlane.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	g8sControlPlane.Name = name
+	return &g8sControlPlane
 }
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;giantswarm;cluster-api
 
 // The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
 // a Giant Swarm tenant cluster. It is reconciled by cluster-operator.
