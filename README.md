@@ -179,8 +179,8 @@ that directory so that `go.sum` is updated.
 
 #### Kubernetes
 
-To update the version of Kubernetes used by this library, change the versions of the following modules in `go.mod` 
-to `v0.<k8s minor>.<k8s patch>` (Kubernetes 1.16.6 would therefore be `v0.16.6`) and run `go mod tidy`:
+To update the version of Kubernetes used by this library, change the versions of the following modules in `go.mod` and
+`hack/go.mod` to `v0.<k8s minor>.<k8s patch>` (Kubernetes 1.16.6 would therefore be `v0.16.6`) and run `go mod tidy`:
 
 - `k8s.io/api`
 - `k8s.io/apiextensions-apiserver`
