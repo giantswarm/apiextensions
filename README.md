@@ -20,24 +20,30 @@ This library provides generated Kubernetes clients for the Giant Swarm infrastru
 
 ### Changing Existing Custom Resources
 
-- Make the desired changes in `pkg/apis`
+- Make the desired changes in `pkg/apis/<group>/<version>`
 - Update generated files by calling `make`.
-- Commit all changes including generated code.
+- Review and commit all changes including generated code.
 
-#### Note: Naming Convention
+#### Naming Convention
 
 Custom resource structs are placed in packages corresponding to the endpoints in
 Kubernetes API. For example, structs in package
-`github.com/giantswarm/apiextensions/pkg/apis/cluster/v1alpha1` are created
-from objects under `/apis/cluster.giantswarm.io/v1alpha1/` endpoint.
+`github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2` are created
+from objects under `/apis/infrastructure.giantswarm.io/v1alpha2/` endpoint.
 
 As this is common to have name collisions between field type names in different
-custom objects sharing the same group and version we prefix all type names
-referenced inside custom object with custom object name.
+custom objects sharing the same group and version (e.g. `Spec` or `Status`) we prefix all type names
+referenced inside custom object with the name of the parent object.
 
 Example:
 
 ```go
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
 type NewObj struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -45,17 +51,11 @@ type NewObj struct {
 }
 
 type NewObjSpec struct {
-	Cluster       NewObjCluster       `json:"cluster"`
-	VersionBundle NewObjVersionBundle `json:"versionBundle"`
-}
-
-type NewObjCluster struct {
-	Calico       NewObjCalico       `json:"calico"`
-	DockerDaemon NewObjDockerDaemon `json:"dockerDaemon"`
+	Field string `json:"field"`
 }
 ```
 
-### Adding a New Custom Object
+### Adding a New Custom Resource
 
 This is example skeleton for adding new object.
 
@@ -63,13 +63,18 @@ This is example skeleton for adding new object.
   [previous paragraph](#adding-a-new-group-andor-version)).
 - Replace `NewObj` with your object name.
 - Put struct definitions inside a proper package denoted by group and version
-  in file named `new_obj_types.go`. Replace `new_obj` with lowercased,
-  snakecased object name.
+  in a file named `new_obj_types.go`. Replace `new_obj` with snake_case-formatted object name.
 - Add `NewObj` and `NewObjList` to `knownTypes` slice in `register.go`
-- Generate client by calling `./scripts/gen.sh`.
-- Commit generated code and all edits to `./scripts/gen.sh`.
+- Generate code for the resource by calling `make`.
+- Commit changes and create a release.
 
 ```go
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+)
+
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
@@ -77,7 +82,7 @@ This is example skeleton for adding new object.
 // NewObj godoc.
 type NewObj struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.NewObjMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata"`
 	Spec              NewObjSpec `json:"spec"`
 }
 
@@ -215,16 +220,24 @@ and to reduce the chance of mistakes such as when, for example, defining an Open
 
 ### Makefile
 
-The Makefile at the root of the repository ensures that required tools (defined below) are installed in 
+The `Makefile` at the root of the repository ensures that required tools (defined below) are installed in 
 `scripts/tools/bin` and then runs each step of the code generation pipeline sequentially.
 
-The steps are as follows:
+The main code generation steps are as follows:
 - `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
 - `generate-deepcopy`: Generates `zz_generated.deepcopy.go` in each package in `pkg/apis` with deep copy functions.
-- `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs in `pkg/apis`. 
-- `generate-static`: Generates `pkg/crd/static.go` containing a filesystem with all files in `config/crd`.
+- `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`. 
+- `generate-static`: Generates `pkg/crd/static.go` containing a filesystem holding all files in `config/crd`.
+- `imports`: Sorts imports in all source files under `./pkg`.
+- `patch`: Applies the git patch `scripts/generated.patch` to work around limitations in code generators.
 
 These can all be run with `make generate` or simply `make` as `generate` is the default rule.
+
+Extra commands are provided including:
+- `clean-tools`: Deletes all tools from the tools binary directory.
+- `clean-generated`: Deletes all generated files.
+- `lint`: Exits wth a non-zero exit code if there are linting errors.
+- `verify`: Regenerates files and exits with a non-zero exit code if generated files don't match `HEAD` in source control.
 
 ### Tools
 
@@ -238,7 +251,7 @@ Generates `DeepCopy` and `DeepCopyInto` functions for all custom resources to sa
 
 #### [`client-gen`](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/generating-clientset.md)
 
-Generates a "client set" which contains CRUD interfaces for each custom resource.
+Generates a "client set" which provides CRUD interfaces for each custom resource.
 
 #### [`esc`](https://github.com/mjibson/esc)
 
@@ -247,10 +260,21 @@ files at runtime. This allows these files to be accessed from a binary outside o
 
 #### [`controller-gen`](https://book.kubebuilder.io/reference/controller-gen.html)
 
-Generates a custom resource definition (CRD) for each custom resource using special comments such
-as `// +kubebuilder:validation:Optional`.
+Generates a custom resource definition (CRD) for each custom resource using special comments such as 
+`// +kubebuilder:validation:Optional`.
 
 #### [`kustomize`](https://github.com/kubernetes-sigs/kustomize)
 
-Provides an extra patch step for generated CRD YAML files because certain fields can't be modified with `controller-gen`
-directly.
+Provides an extra patch step for generated CRD YAML files because certain CRD fields can't be modified with
+`controller-gen` directly.
+
+#### [`goimports`](https://pkg.go.dev/golang.org/x/tools/cmd/goimports)
+
+Updates Go import lines by adding missing ones and removing unreferenced ones. This is required because CI checks for
+imports ordered in three sections (standard library, third-party, local) but certain code generators only generate
+source files with two sections.
+
+#### [`golangci-lint`](https://github.com/golangci/golangci-lint)
+
+A linter for Go which aggregates other single-focus linters. This is run against the code in CI, so running it locally
+can avoid CI failures.
