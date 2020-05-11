@@ -3,7 +3,7 @@ APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
 CRDV1_DIR := config/crd/v1
 CRDV1BETA1_DIR := config/crd/v1beta1
-SCRIPTS_DIR := scripts
+SCRIPTS_DIR := hack
 TOOLS_DIR := $(SCRIPTS_DIR)/tools
 TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 

@@ -1,4 +1,4 @@
-module github.com/giantswarm/apiextensions/scripts/tools/goimports
+module github.com/giantswarm/apiextensions/hack/tools/goimports
 
 go 1.14
 

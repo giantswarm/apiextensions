@@ -5,7 +5,7 @@ IFS=$'\n\t'
 for version in v1 v1beta1; do
   # Using kubebuilder comments, create new CRDs from CR definitions in source files
   pushd .. > /dev/null
-  ./scripts/tools/bin/controller-gen \
+  ./hack/tools/bin/controller-gen \
     crd \
     paths=./pkg/apis/... \
     output:dir="./config/crd/$version" \

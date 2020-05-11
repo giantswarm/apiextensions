@@ -11,10 +11,7 @@ jobs:
       - checkout
       - run:
           name: Regenerate
-          command: CGO_ENABLED=0 ./scripts/gen.sh
-      - run:
-          name: Ensure unchanged
-          command: git diff --exit-code
+          command: CGO_ENABLED=0 make validate
   test-install:
     machine: true
     environment:

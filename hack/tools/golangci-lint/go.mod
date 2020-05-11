@@ -1,4 +1,4 @@
-module github.com/giantswarm/apiextensions/scripts/tools/golangci-lint
+module github.com/giantswarm/apiextensions/hack/tools/golangci-lint
 
 go 1.14
 

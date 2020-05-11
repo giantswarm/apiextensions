@@ -109,9 +109,6 @@ This is example skeleton for adding new group and/or version.
 - Create a new package `/pkg/apis/GROUP/VERSION/`.
 - Inside the package create a file `doc.go` (content below).
 - Inside the package create a file `register.go` (content below).
-- Edit the last argument of `generate-groups.sh` call inside
-  `./scripts/gen.sh`. It has format `existingGroup:existingVersion
-  GROUP:VERSION`.
 - Add a new object (described in [next paragraph](#adding-a-new-custom-object)).
 
 Example `doc.go` content.
@@ -173,14 +170,14 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 #### Cluster API
 
 For the time being, Cluster API CRDs are also exported by this library using `controller-gen`. The version used is
-determined by the value of `sigs.k8s.io/cluster-api` in `scripts/go.mod`. The API versions in the generated YAML files
-is determined by the command in `scripts/generate-manifests.sh`. The line `paths=sigs.k8s.io/cluster-api/api/v1alpha2`
+determined by the value of `sigs.k8s.io/cluster-api` in `hack/go.mod`. The API versions in the generated YAML files
+is determined by the command in `hack/generate-manifests.sh`. The line `paths=sigs.k8s.io/cluster-api/api/v1alpha2`
 indicates that the CRD should contain only `v1alpha2`. At the time of writing, `paths=sigs.k8s.io/cluster-api/api` would
 result in both `v1alpha2` and `v1alpha3` being included.
 
 #### Code Generation Tools
 
-To change the version of a tool, edit the version manually in `scripts/tools/<tool>/go.mod` and run `go mod tidy` in
+To change the version of a tool, edit the version manually in `hack/tools/<tool>/go.mod` and run `go mod tidy` in
 that directory so that `go.sum` is updated.
 
 #### Kubernetes
@@ -221,7 +218,7 @@ and to reduce the chance of mistakes such as when, for example, defining an Open
 ### Makefile
 
 The `Makefile` at the root of the repository ensures that required tools (defined below) are installed in 
-`scripts/tools/bin` and then runs each step of the code generation pipeline sequentially.
+`hack/tools/bin` and then runs each step of the code generation pipeline sequentially.
 
 The main code generation steps are as follows:
 - `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
@@ -229,7 +226,7 @@ The main code generation steps are as follows:
 - `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`. 
 - `generate-static`: Generates `pkg/crd/static.go` containing a filesystem holding all files in `config/crd`.
 - `imports`: Sorts imports in all source files under `./pkg`.
-- `patch`: Applies the git patch `scripts/generated.patch` to work around limitations in code generators.
+- `patch`: Applies the git patch `hack/generated.patch` to work around limitations in code generators.
 
 These can all be run with `make generate` or simply `make` as `generate` is the default rule.
 
@@ -242,7 +239,7 @@ Extra commands are provided including:
 ### Tools
 
 Tools are third-party executables which perform a particular action as part of the code generation pipeline. They are 
-defined in `scripts/tools` in separate directories. Versions for the tools are defined in the `go.mod` file in their
+defined in `hack/tools` in separate directories. Versions for the tools are defined in the `go.mod` file in their
 respective directories. A common `go.mod` isn't used so that their dependencies don't interfere.
 
 #### [`deepcopy-gen`](https://godoc.org/k8s.io/code-generator/cmd/deepcopy-gen)
