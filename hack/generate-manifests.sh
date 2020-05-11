@@ -34,4 +34,36 @@ for version in v1 v1beta1; do
       "$crd" \
       -o "../config/crd/$version/$(basename "$crd").yaml"
   done
+
+  mkdir -p "../config/crd/patches/all"
+  for crd in "../config/crd/$version"/*; do
+    kind=$(basename "$crd" | sed 's/.*_//' | sed 's/\..*//')
+    group=$(basename "$crd" | sed 's/_.*//')
+    name=$kind.$group
+    cat > "../config/crd/patches/all/patch.yaml" <<EOF
+- op: remove
+  path: /metadata/creationTimestamp
+- op: remove
+  path: /metadata/annotations
+- op: add
+  path: /metadata/annotations
+  value:
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/$name/
+EOF
+    cat > "../config/crd/patches/all/kustomization.yaml" <<EOF
+resources:
+  - ../../$version/$(basename "$crd")
+patchesJson6902:
+  - target:
+      group: apiextensions.k8s.io
+      version: $version
+      kind: CustomResourceDefinition
+      name: $name
+    path: patch.yaml
+EOF
+    ./tools/bin/kustomize --load_restrictor LoadRestrictionsNone build \
+      "../config/crd/patches/all" \
+      -o "$crd"
+  done
+  rm -rf "../config/crd/patches/all"
 done
