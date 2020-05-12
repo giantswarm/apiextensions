@@ -9,7 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Graduated DrainerConfig CRDs to `v1`.
+## [0.3.9] 2020-05-12
+
+- Graduated DrainerConfig CRD to `v1`.
 
 ## [0.3.8] 2020-05-08
 
@@ -186,7 +188,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release.
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.9...HEAD
+[0.3.9]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...v0.3.9
 [0.3.8]: https://github.com/giantswarm/apiextensions/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/giantswarm/apiextensions/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/giantswarm/apiextensions/compare/v0.3.5...v0.3.6
