@@ -2,7 +2,7 @@ apiVersion: core.giantswarm.io/v1alpha1
 kind: CertConfig
 metadata:
   annotations:
-    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#CertConfig
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/certconfigs.core.giantswarm.io/
   creationTimestamp: null
   name: c68pn-prometheus
 spec:

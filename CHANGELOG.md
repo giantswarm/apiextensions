@@ -11,6 +11,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add External SNAT field to AWSCluster.
 
+## [0.3.9] 2020-05-12
+
+### Added
+
+- Add code generation directive (`+kubebuilder:storageversion`) to set CRD
+  storage version when multiple versions for given type are present.
+
+### Changed
+
+- Graduated DrainerConfig CRDs to `v1`.
+- Set docs URLs to our detail pages in https://docs.giantswarm.io/reference/cp-k8s-api/
+
+
 ## [0.3.8] 2020-05-08
 
 - No changes.
@@ -186,7 +199,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release.
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.9...HEAD
+[0.3.9]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...v0.3.9
 [0.3.8]: https://github.com/giantswarm/apiextensions/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/giantswarm/apiextensions/compare/v0.3.6...v0.3.7
 [0.3.6]: https://github.com/giantswarm/apiextensions/compare/v0.3.5...v0.3.6
