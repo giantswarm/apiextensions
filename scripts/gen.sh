@@ -51,6 +51,7 @@ header=scripts/boilerplate.go.txt
 echo "Generating deepcopy funcs"
 "$toolpath/deepcopy-gen" \
   --input-dirs "$input_dirs" \
+  --output-base . \
   --output-file-base zz_generated.deepcopy \
   --go-header-file "$header"
 
