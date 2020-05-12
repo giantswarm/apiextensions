@@ -2,7 +2,7 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: AppCatalog
 metadata:
   annotations:
-    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#AppCatalog
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/
   creationTimestamp: null
   name: my-playground-catalog
 spec:
