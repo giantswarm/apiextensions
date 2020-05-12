@@ -61,7 +61,6 @@ type ReleaseCycleStatus struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:storageversion
 
 type ReleaseCycleList struct {
 	metav1.TypeMeta `json:",inline"`

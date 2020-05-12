@@ -165,7 +165,6 @@ type AWSClusterStatusProviderNetwork struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:storageversion
 
 // AWSClusterList is the type returned when listing AWSCLuster resources.
 type AWSClusterList struct {

@@ -43,7 +43,6 @@ type AzureToolWorkspace struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:storageversion
 
 // AzureToolList is the type returned when listing AzureToolList resources.
 type AzureToolList struct {

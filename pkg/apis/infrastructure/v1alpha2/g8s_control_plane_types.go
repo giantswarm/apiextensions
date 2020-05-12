@@ -75,7 +75,6 @@ type G8sControlPlaneStatus struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:storageversion
 
 type G8sControlPlaneList struct {
 	metav1.TypeMeta `json:",inline"`
