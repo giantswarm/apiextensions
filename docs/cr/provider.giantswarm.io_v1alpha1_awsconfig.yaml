@@ -1,5 +1,5 @@
-apiVersion: application.giantswarm.io/v1alpha1
-kind: App
+apiVersion: provider.giantswarm.io/v1alpha1
+kind: AWSConfig
 metadata:
   annotations:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/

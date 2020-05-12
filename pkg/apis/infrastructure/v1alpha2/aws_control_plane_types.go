@@ -6,22 +6,6 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-const (
-	kindAWSControlPlane              = "AWSControlPlane"
-	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
-)
-
-func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAWSControlPlane)
-}
-
-func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAWSControlPlane,
-	}
-}
-
 // NewAWSControlPlaneCR returns an AWSControlPlane Custom Resource.
 func NewAWSControlPlaneCR(name string) *AWSControlPlane {
 	awsControlPlane := AWSControlPlane{}

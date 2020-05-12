@@ -3,13 +3,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
-)
-
-const (
-	crDocsAnnotation         = "giantswarm.io/docs"
-	kindRelease              = "Release"
-	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 type ReleaseState string

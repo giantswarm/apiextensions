@@ -7,7 +7,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	crd2 "github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
@@ -54,10 +54,10 @@ func NewTypeMeta(kind metav1.GroupVersionKind) metav1.TypeMeta {
 }
 
 func NewObjectMeta(kind metav1.GroupVersionKind) metav1.ObjectMeta {
-	crd := crd2.Load(kind.Group, kind.Kind)
+	definition := crd.LoadV1(kind.Group, kind.Kind)
 	return metav1.ObjectMeta{
 		Annotations: map[string]string{
-			CRDocsAnnotation: DocumentationLink(*crd),
+			CRDocsAnnotation: DocumentationLink(*definition),
 		},
 	}
 }

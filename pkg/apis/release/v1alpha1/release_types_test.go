@@ -240,7 +240,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 	}
 
-	releaseCRD := crd.Load(group, key.KindRelease)
+	releaseCRD := crd.LoadV1(group, key.KindRelease)
 	var v apiextensions.CustomResourceValidation
 	latestValidation := releaseCRD.Spec.Versions[len(releaseCRD.Spec.Versions)-1].Schema
 	err := v1.Convert_v1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(latestValidation, &v, nil)

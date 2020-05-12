@@ -1,8 +1,10 @@
 package v1alpha1
 
 import (
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -25,15 +27,13 @@ func NewCertConfigTypeMeta() metav1.TypeMeta {
 	}
 }
 
-// NewCertConfigCR returns an AWSCluster Custom Resource.
-func NewCertConfigCR() *CertConfig {
-	return &CertConfig{
-		ObjectMeta: metav1.ObjectMeta{
-			Annotations: map[string]string{
-				crDocsAnnotation: certConfigDocumentationLink,
-			},
-		},
-		TypeMeta: NewCertConfigTypeMeta(),
+// NewCertConfigCR returns a CertConfig Custom Resource.
+func NewCertConfigCR(name string) *CertConfig {
+	certConfig := CertConfig{}
+	groupVersionKind := metav1.GroupVersionKind{
+		Group:   group,
+		Version: version,
+		Kind:    key.KindCertConfig,
 	}
 	certConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	certConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)

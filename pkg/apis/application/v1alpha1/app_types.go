@@ -6,22 +6,6 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-const (
-	kindApp              = "App"
-	appDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/"
-)
-
-func NewAppCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindApp)
-}
-
-func NewAppTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       key.KindApp,
-	}
-}
-
 // NewAppCR returns an App Custom Resource.
 func NewAppCR(name string) *App {
 	app := App{}

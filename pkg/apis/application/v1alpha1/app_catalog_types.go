@@ -6,23 +6,6 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-const (
-	crDocsAnnotation            = "giantswarm.io/docs"
-	kindAppCatalog              = "AppCatalog"
-	appCatalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/"
-)
-
-func NewAppCatalogCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindAppCatalog)
-}
-
-func NewAppCatalogTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAppCatalog,
-	}
-}
-
 // NewAppCatalogCR returns an AppCatalog Custom Resource.
 func NewAppCatalogCR(name string) *AppCatalog {
 	appCatalog := AppCatalog{}

@@ -4,10 +4,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-func NewAzureConfigCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAzureConfig)
-}
-
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion

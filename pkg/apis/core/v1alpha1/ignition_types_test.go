@@ -32,14 +32,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", group, version),
 			category: "cr",
 			filename: fmt.Sprintf("%s_%s_ignition.yaml", group, version),
-			resource: &Ignition{
-				TypeMeta: NewIgnitionTypeMeta(),
-				ObjectMeta: v1.ObjectMeta{
-					Name: "abc12-master",
-					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
-					},
-				},
+			resource: NewIgnitionCR("abc12-master", IgnitionSpec{
 				ClusterID:               "abc12",
 				DisableEncryptionAtRest: false,
 				Docker: IgnitionSpecDocker{
