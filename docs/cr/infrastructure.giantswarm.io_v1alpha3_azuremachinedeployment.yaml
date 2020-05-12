@@ -1,0 +1,26 @@
+apiVersion: infrastructure.giantswarm.io/v1alpha3
+kind: AzureMachinePool
+metadata:
+  annotations:
+    giantswarm.io/docs: https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha3?tab=doc#AzureCluster
+  creationTimestamp: null
+  name: general-purpose-node-pool
+spec:
+  nodePool:
+    description: General purpose worker nodes
+    machine:
+      dockerVolumeSizeGB: 30
+      kubeletVolumeSizeGB: 100
+    scaling:
+      max: 50
+      min: 2
+  provider:
+    availabilityZones:
+    - eu-central-1b
+    - eu-central-1c
+    instanceDistribution:
+      onDemandBaseCapacity: 0
+      onDemandPercentageAboveBaseCapacity: 0
+    worker:
+      instanceType: m5.4xlarge
+      useAlikeInstanceTypes: true
