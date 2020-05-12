@@ -13,7 +13,7 @@ const (
 )
 
 func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
-	return crd.Load(group, kindAWSControlPlane)
+	return crd.LoadV1(group, kindAWSControlPlane)
 }
 
 func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {

@@ -12,7 +12,7 @@ const (
 )
 
 func NewAzureToolCRD() *v1.CustomResourceDefinition {
-	return crd.Load(group, kindAzureTool)
+	return crd.LoadV1(group, kindAzureTool)
 }
 
 // +genclient

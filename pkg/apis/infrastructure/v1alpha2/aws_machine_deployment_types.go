@@ -12,7 +12,7 @@ const (
 )
 
 func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
-	return crd.Load(group, kindAWSMachineDeployment)
+	return crd.LoadV1(group, kindAWSMachineDeployment)
 }
 
 func NewAWSMachineDeploymentTypeMeta() metav1.TypeMeta {

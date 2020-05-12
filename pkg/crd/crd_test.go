@@ -76,7 +76,7 @@ func Test_Load(t *testing.T) {
 			case "v1beta1":
 				crd = LoadV1Beta1(tc.inputGroup, tc.inputKind)
 			case "v1":
-				crd = Load(tc.inputGroup, tc.inputKind)
+				crd = LoadV1(tc.inputGroup, tc.inputKind)
 			}
 			if crd == nil {
 				t.Errorf("nil crd")

@@ -61,18 +61,18 @@ func iterateResources(groupVersionKind schema.GroupVersionKind, handle objectHan
 		// Read the file to a string.
 		file, err := fs.Open(filepath.Join(crdDirectory, info.Name()))
 		if err != nil {
-			return nil, microerror.Mask(err)
+			return microerror.Mask(err)
 		}
 		contents, err := ioutil.ReadAll(file)
 		if err != nil {
-			return nil, microerror.Mask(err)
+			return microerror.Mask(err)
 		}
 
 		// Unmarshal into Unstructured since we don't know if this is a v1 or v1beta1 CRD yet.
 		var object unstructured.Unstructured
 		err = yaml.UnmarshalStrict(contents, &object)
 		if err != nil {
-			return nil, microerror.Mask(err)
+			return microerror.Mask(err)
 		}
 		if object.GetObjectKind().GroupVersionKind() != groupVersionKind {
 			continue
@@ -140,7 +140,7 @@ func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 }
 
 // LoadV1 loads a v1 CRD from the virtual filesystem
-func Load(group, kind string) *v1.CustomResourceDefinition {
+func LoadV1(group, kind string) *v1.CustomResourceDefinition {
 	for _, crd := range List() {
 		if crd.Spec.Names.Kind == kind && crd.Spec.Group == group {
 			return &crd

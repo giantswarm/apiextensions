@@ -14,7 +14,7 @@ const (
 )
 
 func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
-	return crd.Load(group, kindG8sControlPlane)
+	return crd.LoadV1(group, kindG8sControlPlane)
 }
 
 func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
