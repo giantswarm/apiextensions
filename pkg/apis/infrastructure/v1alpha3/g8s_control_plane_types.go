@@ -1,4 +1,4 @@
-package v1alpha2
+package v1alpha3
 
 import (
 	corev1 "k8s.io/api/core/v1"
@@ -9,8 +9,9 @@ import (
 )
 
 const (
-	kindG8sControlPlane              = "G8sControlPlane"
-	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.2.5/pkg/apis/infrastructure/v1alpha2?tab=doc#G8sControlPlane"
+	kindG8sControlPlane = "G8sControlPlane"
+	// TODO: Update documentation link.
+	g8sControlPlaneDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions@v0.3.8/pkg/apis/infrastructure/v1alpha3?tab=doc#G8sControlPlane"
 )
 
 func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
@@ -38,7 +39,6 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 
 // The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
@@ -58,8 +58,8 @@ type G8sControlPlaneSpec struct {
 	// +kubebuilder:validation:Optional
 	// Number of master nodes.
 	Replicas int `json:"replicas,omitempty"`
-	// Reference to a provider-specific resource. On AWS, this would be of kind
-	// [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
+	// Reference to a provider-specific resource. On Azure, this would be of kind
+	// [AzureControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/azurecontrolplanes.infrastructure.giantswarm.io/).
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 

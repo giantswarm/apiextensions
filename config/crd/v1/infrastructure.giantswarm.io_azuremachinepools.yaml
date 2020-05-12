@@ -1,0 +1,183 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
+  name: azuremachinepools.infrastructure.giantswarm.io
+spec:
+  group: infrastructure.giantswarm.io
+  names:
+    kind: AzureMachinePool
+    listKind: AzureMachinePoolList
+    plural: azuremachinepools
+    singular: azuremachinepool
+  scope: Namespaced
+  versions:
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        description: AzureMachinePool is the infrastructure provider referenced in
+          Kubernetes Cluster API MachinePool resources. It contains provider-specific
+          specification and status for a node pool. In use on Azure since Giant Swarm
+          release v10.x.x and reconciled by azure-operator.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Contains the specification.
+            properties:
+              nodePool:
+                description: Specifies details of node pool and the worker nodes it
+                  should contain.
+                properties:
+                  description:
+                    description: User-friendly name or description of the purpose
+                      of the node pool.
+                    type: string
+                  machine:
+                    description: Specification of the worker node machine.
+                    properties:
+                      dockerVolumeSizeGB:
+                        description: 'Size of the volume reserved for Docker images
+                          and overlay file systems of Docker containers. Unit: 1 GB
+                          = 1,000,000,000 Bytes.'
+                        type: integer
+                      kubeletVolumeSizeGB:
+                        description: 'Size of the volume reserved for the kubelet,
+                          which can be used by Pods via volumes of type EmptyDir.
+                          Unit: 1 GB = 1,000,000,000 Bytes.'
+                        type: integer
+                    required:
+                    - dockerVolumeSizeGB
+                    - kubeletVolumeSizeGB
+                    type: object
+                  scaling:
+                    description: Scaling settings for the node pool, configuring the
+                      cluster-autoscaler determining the number of nodes to have in
+                      this node pool.
+                    properties:
+                      max:
+                        description: Maximum number of worker nodes in this node pool.
+                        type: integer
+                      min:
+                        description: Minimum number of worker nodes in this node pool.
+                        type: integer
+                    required:
+                    - max
+                    - min
+                    type: object
+                required:
+                - description
+                - machine
+                - scaling
+                type: object
+              provider:
+                description: Contains Azure specific details.
+                properties:
+                  availabilityZones:
+                    description: Name(s) of the availability zone(s) to use for worker
+                      nodes. Using multiple availability zones results in higher resilience
+                      but can also result in higher cost due to network traffic between
+                      availability zones.
+                    items:
+                      type: string
+                    type: array
+                  instanceDistribution:
+                    description: Settings defining the distribution of on-demand and
+                      spot instances in the node pool.
+                    properties:
+                      onDemandBaseCapacity:
+                        default: 0
+                        description: Base capacity of on-demand instances to use for
+                          worker nodes in this pool. When this larger than 0, this
+                          value defines a number of worker nodes that will be created
+                          using on-demand EC2 instances, regardless of the value configured
+                          as `onDemandPercentageAboveBaseCapacity`.
+                        minimum: 0
+                        type: integer
+                      onDemandPercentageAboveBaseCapacity:
+                        default: 100
+                        description: Percentage of on-demand EC2 instances to use
+                          for worker nodes, instead of spot instances, for instances
+                          exceeding `onDemandBaseCapacity`. For example, to have half
+                          of the worker nodes use spot instances and half use on-demand,
+                          set this value to 50.
+                        maximum: 100
+                        minimum: 0
+                        type: integer
+                    required:
+                    - onDemandBaseCapacity
+                    - onDemandPercentageAboveBaseCapacity
+                    type: object
+                  worker:
+                    description: Specification of worker nodes.
+                    properties:
+                      instanceType:
+                        description: Azure EC2 instance type name to use for the worker
+                          nodes in this node pool.
+                        type: string
+                      useAlikeInstanceTypes:
+                        default: false
+                        description: If true, certain instance types with specs similar
+                          to instanceType will be used.
+                        type: boolean
+                    required:
+                    - instanceType
+                    - useAlikeInstanceTypes
+                    type: object
+                required:
+                - availabilityZones
+                - worker
+                type: object
+            required:
+            - nodePool
+            - provider
+            type: object
+          status:
+            description: Holds status information.
+            properties:
+              provider:
+                description: Status specific to Azure.
+                properties:
+                  worker:
+                    description: Status of worker nodes.
+                    properties:
+                      instanceTypes:
+                        description: Azure EC2 instance types used for the worker
+                          nodes in this node pool.
+                        items:
+                          type: string
+                        type: array
+                      spotInstances:
+                        description: Number of EC2 spot instances used in this node
+                          pool.
+                        type: integer
+                    type: object
+                type: object
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
