@@ -8,11 +8,8 @@ import (
 )
 
 const (
-	kindAWSControlPlane = "AWSControlPlane"
-
-	// TODO: change to "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
-	// after this has been first published.
-	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
+	kindAWSControlPlane              = "AWSControlPlane"
+	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
 )
 
 func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
@@ -41,6 +38,7 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
 // CRs. Represents the master nodes (also called Control Plane) of a tenant
