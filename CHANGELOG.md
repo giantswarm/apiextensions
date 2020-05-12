@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add External SNAT field to AWSCluster.
+
 ## [0.3.8] 2020-05-08
 
 - No changes.
