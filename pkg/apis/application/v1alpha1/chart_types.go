@@ -9,7 +9,7 @@ import (
 
 const (
 	kindChart              = "Chart"
-	chartDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#Chart"
+	chartDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/charts.application.giantswarm.io/"
 )
 
 func NewChartCRD() *v1beta1.CustomResourceDefinition {
@@ -37,6 +37,7 @@ func NewChartCR() *Chart {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=giantswarm;common
 

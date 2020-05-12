@@ -61,18 +61,18 @@ func iterateResources(groupVersionKind schema.GroupVersionKind, handle objectHan
 		// Read the file to a string.
 		file, err := fs.Open(filepath.Join(crdDirectory, info.Name()))
 		if err != nil {
-			return microerror.Mask(err)
+			return nil, microerror.Mask(err)
 		}
 		contents, err := ioutil.ReadAll(file)
 		if err != nil {
-			return microerror.Mask(err)
+			return nil, microerror.Mask(err)
 		}
 
 		// Unmarshal into Unstructured since we don't know if this is a v1 or v1beta1 CRD yet.
 		var object unstructured.Unstructured
 		err = yaml.UnmarshalStrict(contents, &object)
 		if err != nil {
-			return microerror.Mask(err)
+			return nil, microerror.Mask(err)
 		}
 		if object.GetObjectKind().GroupVersionKind() != groupVersionKind {
 			continue

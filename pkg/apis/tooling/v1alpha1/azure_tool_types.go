@@ -18,6 +18,7 @@ func NewAzureToolCRD() *v1.CustomResourceDefinition {
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=azure;giantswarm
+// +kubebuilder:storageversion
 
 type AzureTool struct {
 	metav1.TypeMeta   `json:",inline"`

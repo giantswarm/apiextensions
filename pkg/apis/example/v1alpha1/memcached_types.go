@@ -19,6 +19,7 @@ func NewMemcachedConfigCRD() *v1beta1.CustomResourceDefinition {
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=giantswarm;example
+// +kubebuilder:storageversion
 
 type MemcachedConfig struct {
 	metav1.TypeMeta   `json:",inline"`

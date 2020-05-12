@@ -18,6 +18,7 @@ func NewETCDBackupCRD() *v1beta1.CustomResourceDefinition {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=giantswarm;common
 

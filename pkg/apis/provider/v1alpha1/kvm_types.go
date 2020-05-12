@@ -17,6 +17,7 @@ func NewKVMConfigCRD() *v1beta1.CustomResourceDefinition {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=kvm;giantswarm
 

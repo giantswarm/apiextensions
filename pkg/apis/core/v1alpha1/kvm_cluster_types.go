@@ -19,6 +19,7 @@ func NewKVMClusterConfigCRD() *v1beta1.CustomResourceDefinition {
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=kvm;giantswarm
+// +kubebuilder:storageversion
 
 type KVMClusterConfig struct {
 	metav1.TypeMeta   `json:",inline"`
