@@ -133,6 +133,9 @@ type AWSClusterSpecProviderPods struct {
 	// +kubebuilder:validation:Optional
 	// Subnet size, expresses as the count of leading 1 bits in the subnet mask of this subnet.
 	CIDRBlock string `json:"cidrBlock,omitempty"`
+	// +kubebuilder:validation:Optional
+	// When set to false, pod connections outside the VPC where the pod is located will be NATed through the node primary IP. When set to true, all connections will use the pod IP.
+	ExternalSNAT bool `json:"externalSNAT,omitempty"`
 }
 
 // AWSClusterStatus holds status information about the cluster, populated once the
