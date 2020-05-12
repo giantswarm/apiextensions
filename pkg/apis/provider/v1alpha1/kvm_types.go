@@ -17,6 +17,7 @@ func NewKVMConfigCRD() *v1beta1.CustomResourceDefinition {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 
 type KVMConfig struct {
@@ -108,6 +109,7 @@ type KVMConfigStatusKVM struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type KVMConfigList struct {
 	metav1.TypeMeta `json:",inline"`

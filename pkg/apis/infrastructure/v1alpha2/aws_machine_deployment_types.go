@@ -36,6 +36,7 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 
 // AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources.
@@ -142,6 +143,7 @@ type AWSMachineDeploymentStatusProviderWorker struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type AWSMachineDeploymentList struct {
 	metav1.TypeMeta `json:",inline"`

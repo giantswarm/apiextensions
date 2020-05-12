@@ -38,6 +38,7 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 
 // The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
@@ -74,6 +75,7 @@ type G8sControlPlaneStatus struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type G8sControlPlaneList struct {
 	metav1.TypeMeta `json:",inline"`

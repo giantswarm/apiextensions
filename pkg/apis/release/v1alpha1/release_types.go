@@ -54,6 +54,7 @@ func NewReleaseCR() *Release {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 // Release is a Kubernetes resource (CR) which is based on the Release CRD defined above.
 //
@@ -98,6 +99,7 @@ type ReleaseSpecApp struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type ReleaseList struct {
 	metav1.TypeMeta `json:",inline"`

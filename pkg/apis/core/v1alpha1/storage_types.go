@@ -19,6 +19,7 @@ func NewStorageConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type StorageConfig struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -35,6 +36,7 @@ type StorageConfigSpecStorage struct {
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type StorageConfigList struct {
 	metav1.TypeMeta `json:",inline"`
