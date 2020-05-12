@@ -9,7 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add code generation directive (`+kubebuilder:storageversion`) to set CRD
+  storage version when multiple versions for given type are present.
+
+### Changed
+
 - Graduated DrainerConfig CRDs to `v1`.
+
 
 ## [0.3.8] 2020-05-08
 
