@@ -32,14 +32,13 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", group, version),
 			category: "cr",
 			filename: fmt.Sprintf("%s_%s_ignition.yaml", group, version),
-			resource: NewIgnitionCR("abc12-master", IgnitionSpec{
-				APIServerEncryptionKey: "5fd466f48df84f47bb8006b68f0355ba",
-				BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
-				Calico: IgnitionSpecCalico{
-					CIDR:    "16",
-					Disable: false,
-					MTU:     "1430",
-					Subnet:  "10.250.0.0",
+			resource: &Ignition{
+				TypeMeta: NewIgnitionTypeMeta(),
+				ObjectMeta: v1.ObjectMeta{
+					Name: "abc12-master",
+					Annotations: map[string]string{
+						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
+					},
 				},
 				ClusterID:               "abc12",
 				DisableEncryptionAtRest: false,

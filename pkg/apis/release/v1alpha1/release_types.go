@@ -3,7 +3,13 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/key"
+	"github.com/giantswarm/apiextensions/pkg/crd"
+)
+
+const (
+	crDocsAnnotation         = "giantswarm.io/docs"
+	kindRelease              = "Release"
+	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
 )
 
 type ReleaseState string
@@ -40,11 +46,9 @@ func NewReleaseCR(name string, spec ReleaseSpec) *Release {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
-// Release is a Kubernetes resource (CR) which is based on the Release CRD defined above.
-//
-// An example Release resource can be viewed here
-// https://github.com/giantswarm/apiextensions/blob/master/docs/cr/release.giantswarm.io_v1alpha1_release.yaml
+// Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.
 type Release struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

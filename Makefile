@@ -41,27 +41,33 @@ all: generate
 
 $(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
 	@echo "$(BUILD_COLOR)Building client-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/client-gen; go build -tags=tools -o $(CLIENT_GEN) k8s.io/code-generator/cmd/client-gen
+	cd $(TOOLS_DIR)/client-gen \
+	&& go build -tags=tools -o $(CLIENT_GEN) k8s.io/code-generator/cmd/client-gen
 
 $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
 	@echo "$(BUILD_COLOR)Building controller-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/controller-gen; go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
+	cd $(TOOLS_DIR)/controller-gen \
+ 	&& go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
 
 $(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
 	@echo "$(BUILD_COLOR)Building deepcopy-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/deepcopy-gen; go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
+	cd $(TOOLS_DIR)/deepcopy-gen \
+	&& go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
 
 $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	@echo "$(BUILD_COLOR)Building goimports$(NO_COLOR)"
-	cd $(TOOLS_DIR)/goimports; go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
+	cd $(TOOLS_DIR)/goimports \
+	&& go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
 
 $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
 	@echo "$(BUILD_COLOR)Building kustomize$(NO_COLOR)"
-	cd $(TOOLS_DIR)/kustomize; go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
+	cd $(TOOLS_DIR)/kustomize \
+	&& go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
 
 $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@echo "$(BUILD_COLOR)Building esc$(NO_COLOR)"
-	@cd $(TOOLS_DIR)/esc; go build -tags=tools -o $(ESC) github.com/mjibson/esc
+	@cd $(TOOLS_DIR)/esc \
+	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
 .PHONY: generate
 generate:
@@ -82,12 +88,12 @@ verify:
 generate-clientset: $(CLIENT_GEN)
 	@echo "$(GEN_COLOR)Generating clientset$(NO_COLOR)"
 	$(CLIENT_GEN) \
-		--clientset-name versioned \
-		--input $(GROUPS) \
-		--input-base $(MODULE)/$(APIS_DIR) \
-		--output-package $(MODULE)/$(CLIENTSET_DIR) \
-		--output-base $(SCRIPTS_DIR) \
-		--go-header-file $(BOILERPLATE)
+	--clientset-name versioned \
+	--input $(GROUPS) \
+	--input-base $(MODULE)/$(APIS_DIR) \
+	--output-package $(MODULE)/$(CLIENTSET_DIR) \
+	--output-base $(SCRIPTS_DIR) \
+	--go-header-file $(BOILERPLATE)
 	cp -R $(SCRIPTS_DIR)/$(MODULE)/$(CLIENTSET_DIR)/versioned $(CLIENTSET_DIR)
 	rm -rf $(SCRIPTS_DIR)/github.com/
 
@@ -95,10 +101,10 @@ generate-clientset: $(CLIENT_GEN)
 generate-deepcopy: $(DEEPCOPY_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
 	$(DEEPCOPY_GEN) \
-		--input-dirs $(INPUT_DIRS) \
-		--output-base . \
-		--output-file-base $(DEEPCOPY_BASE) \
-		--go-header-file $(BOILERPLATE)
+	--input-dirs $(INPUT_DIRS) \
+	--output-base . \
+	--output-file-base $(DEEPCOPY_BASE) \
+	--go-header-file $(BOILERPLATE)
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
@@ -109,10 +115,10 @@ generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 generate-fs: $(ESC) config/crd
 	@echo "$(GEN_COLOR)Generating filesystem$(NO_COLOR)"
 	$(ESC) \
-		-o pkg/crd/internal/zz_generated.fs.go \
-		-pkg internal \
-		-modtime 0 \
-		config/crd
+	-o pkg/crd/internal/zz_generated.fs.go \
+	-pkg internal \
+	-modtime 0 \
+	config/crd
 
 .PHONY: imports
 imports: $(GOIMPORTS)

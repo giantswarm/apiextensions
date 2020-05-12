@@ -8,6 +8,7 @@ import (
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=aws;giantswarm
+// +kubebuilder:storageversion
 
 type AWSClusterConfig struct {
 	metav1.TypeMeta   `json:",inline"`

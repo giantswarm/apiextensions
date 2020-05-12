@@ -6,6 +6,22 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
+const (
+	kindAWSControlPlane              = "AWSControlPlane"
+	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
+)
+
+func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAWSControlPlane)
+}
+
+func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindAWSControlPlane,
+	}
+}
+
 // NewAWSControlPlaneCR returns an AWSControlPlane Custom Resource.
 func NewAWSControlPlaneCR(name string) *AWSControlPlane {
 	awsControlPlane := AWSControlPlane{}
@@ -24,6 +40,7 @@ func NewAWSControlPlaneCR(name string) *AWSControlPlane {
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=aws;giantswarm
+// +kubebuilder:storageversion
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
 // CRs. Represents the master nodes (also called Control Plane) of a tenant

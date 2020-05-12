@@ -140,7 +140,7 @@ func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 }
 
 // LoadV1 loads a v1 CRD from the virtual filesystem
-func Load(group, kind string) *v1.CustomResourceDefinition {
+func LoadV1(group, kind string) *v1.CustomResourceDefinition {
 	for _, crd := range List() {
 		if crd.Spec.Names.Kind == kind && crd.Spec.Group == group {
 			return &crd

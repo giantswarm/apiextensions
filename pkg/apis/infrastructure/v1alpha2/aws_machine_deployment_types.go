@@ -6,6 +6,21 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
+const (
+	kindAWSMachineDeployment = "AWSMachineDeployment"
+)
+
+func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAWSMachineDeployment)
+}
+
+func NewAWSMachineDeploymentTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindAWSMachineDeployment,
+	}
+}
+
 // NewAWSMachineDeploymentCR returns an AWSMachineDeployment Custom Resource.
 func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
 	awsMachineDeployment := AWSMachineDeployment{}
@@ -22,6 +37,7 @@ func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;giantswarm;cluster-api
 

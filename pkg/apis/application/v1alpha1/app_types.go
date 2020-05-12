@@ -6,6 +6,15 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
+const (
+	kindApp              = "App"
+	appDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/"
+)
+
+func NewAppCRD() *v1beta1.CustomResourceDefinition {
+	return crd.LoadV1Beta1(group, kindApp)
+}
+
 func NewAppTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
@@ -29,6 +38,7 @@ func NewAppCR(name string) *App {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=giantswarm;common
 

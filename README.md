@@ -177,31 +177,12 @@ of `sigs.k8s.io/cluster-api` in `hack/go.mod`.
 To change the version of a tool, edit the version manually in `hack/tools/<tool>/go.mod` and run `go mod tidy` in
 that directory so that `go.sum` is updated.
 
-#### Kubernetes
-
-To update the version of Kubernetes used by this library, change the versions of the following modules in `go.mod` and
-`hack/go.mod` to `v0.<k8s minor>.<k8s patch>` (Kubernetes 1.16.6 would therefore be `v0.16.6`) and run `go mod tidy`:
-
-- `k8s.io/api`
-- `k8s.io/apiextensions-apiserver`
-- `k8s.io/apimachinery`
-- `k8s.io/client-go`
-
 ### Versioning
 
 This library uses standard semantic versioning. Versioning of CRDs is a separate issue covered in the [Kubernetes
     deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/).
     In short, if an API field needs to be removed, a new version must be created, and any versions served concurrently
     must be convertible in both directions without data loss.
-
-### Releasing
-
-Release PRs should be separate from PRs that modify the library itself. They should only modify `CHANGELOG.md`, adding
-the new version and leaving `[Unreleased]` section in place for future changes. The links at the bottom should also
-be updated to point to the new tag and the `[Unreleased]` link to compare with the new tag.
-
-Once the release PR is merged, the GitHub release can be created with tag and name both set to the full version
-including the leading `v` (e.g. `v0.3.8`).
 
 ## Code generation
 

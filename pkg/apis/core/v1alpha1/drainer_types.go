@@ -1,6 +1,7 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -16,8 +17,24 @@ const (
 	DrainerConfigStatusTypeTimeout = "Timeout"
 )
 
+const (
+	kindDrainerConfig = "DrainerConfig"
+)
+
+func NewDrainerConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindDrainerConfig)
+}
+
+func NewDrainerTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: version,
+		Kind:       kindDrainerConfig,
+	}
+}
+
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=giantswarm;common
 

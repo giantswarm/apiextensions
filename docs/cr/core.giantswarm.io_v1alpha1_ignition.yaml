@@ -2,7 +2,7 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/
   creationTimestamp: null
   name: abc12-master
 spec:

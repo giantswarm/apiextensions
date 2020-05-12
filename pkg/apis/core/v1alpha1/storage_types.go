@@ -8,6 +8,7 @@ import (
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=giantswarm;common
+// +kubebuilder:storageversion
 
 type StorageConfig struct {
 	metav1.TypeMeta   `json:",inline"`

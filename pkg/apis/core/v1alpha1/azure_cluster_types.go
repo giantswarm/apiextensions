@@ -4,10 +4,15 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+func NewAzureClusterConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAzureClusterConfig)
+}
+
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=azure;giantswarm
+// +kubebuilder:storageversion
 
 type AzureClusterConfig struct {
 	metav1.TypeMeta   `json:",inline"`
