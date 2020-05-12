@@ -39,6 +39,7 @@ func NewAppCatalogCR() *AppCatalog {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
