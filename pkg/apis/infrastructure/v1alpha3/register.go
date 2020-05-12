@@ -19,6 +19,8 @@ var knownTypes = []runtime.Object{
 	&AzureClusterList{},
 	&AzureControlPlane{},
 	&AzureControlPlaneList{},
+	&AzureMachinePool{},
+	&AzureMachinePoolList{},
 	&G8sControlPlane{},
 	&G8sControlPlaneList{},
 }
