@@ -11,8 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add code generation directive to set CRD storage version when multiple
-  versions for given type are present.
+- Add code generation directive (`+kubebuilder:storageversion`) to set CRD
+  storage version when multiple versions for given type are present.
 
 ### Changed
 
