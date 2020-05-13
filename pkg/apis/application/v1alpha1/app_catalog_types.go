@@ -10,7 +10,7 @@ import (
 const (
 	crDocsAnnotation            = "giantswarm.io/docs"
 	kindAppCatalog              = "AppCatalog"
-	appCatalogDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1?tab=doc#AppCatalog"
+	appCatalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/"
 )
 
 func NewAppCatalogCRD() *v1beta1.CustomResourceDefinition {

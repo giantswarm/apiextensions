@@ -10,7 +10,7 @@ import (
 const (
 	crDocsAnnotation            = "giantswarm.io/docs"
 	kindAWSCluster              = "AWSCluster"
-	awsClusterDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2?tab=doc#AWSCluster"
+	awsClusterDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsclusters.infrastructure.giantswarm.io/"
 )
 
 func NewAWSClusterCRD() *v1.CustomResourceDefinition {

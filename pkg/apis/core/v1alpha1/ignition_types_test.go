@@ -38,7 +38,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 				ObjectMeta: v1.ObjectMeta{
 					Name: "abc12-master",
 					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1?tab=doc#Ignition",
+						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
 					},
 				},
 				Spec: IgnitionSpec{
@@ -126,7 +126,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 
 			path := filepath.Join(docs, tc.category, tc.filename)
 			if *update {
-				err := ioutil.WriteFile(path, rendered, 0644)
+				err := ioutil.WriteFile(path, rendered, 0644) // nolint
 				if err != nil {
 					t.Fatal(err)
 				}

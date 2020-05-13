@@ -10,11 +10,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Regenerate
-          command: CGO_ENABLED=0 ./scripts/gen.sh
+          name: Install make
+          command: apk add --no-cache make
       - run:
           name: Ensure unchanged
-          command: git diff --exit-code
+          command: CGO_ENABLED=0 make verify
   test-install:
     machine: true
     environment:

@@ -10,7 +10,7 @@ import (
 const (
 	crDocsAnnotation         = "giantswarm.io/docs"
 	kindRelease              = "Release"
-	releaseDocumentationLink = "https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1?tab=doc#Release"
+	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
 )
 
 type ReleaseState string
@@ -56,10 +56,7 @@ func NewReleaseCR() *Release {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 
-// Release is a Kubernetes resource (CR) which is based on the Release CRD defined above.
-//
-// An example Release resource can be viewed here
-// https://github.com/giantswarm/apiextensions/blob/master/docs/cr/release.giantswarm.io_v1alpha1_release.yaml
+// Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.
 type Release struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

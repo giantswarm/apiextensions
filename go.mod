@@ -8,7 +8,7 @@ require (
 	github.com/go-openapi/errors v0.19.4
 	github.com/google/go-cmp v0.4.0
 	github.com/googleapis/gnostic v0.3.1 // indirect
-	github.com/markbates/pkger v0.15.1
+	github.com/stretchr/testify v1.4.0 // indirect
 	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550 // indirect
 	golang.org/x/net v0.0.0-20200226121028-0de0cce0169b // indirect
 	k8s.io/api v0.16.6

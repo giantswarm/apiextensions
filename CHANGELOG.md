@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Graduated DrainerConfig CRDs to `v1`.
+- Set docs URLs to our detail pages in https://docs.giantswarm.io/reference/cp-k8s-api/
 
 
 ## [0.3.8] 2020-05-08

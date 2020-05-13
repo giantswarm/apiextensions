@@ -8,11 +8,8 @@ import (
 )
 
 const (
-	kindAWSControlPlane = "AWSControlPlane"
-
-	// TODO: change to "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
-	// after this has been first published.
-	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/"
+	kindAWSControlPlane              = "AWSControlPlane"
+	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
 )
 
 func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
