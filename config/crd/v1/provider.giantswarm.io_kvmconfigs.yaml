@@ -286,6 +286,7 @@ spec:
                         cpus:
                           type: integer
                         disk:
+                          format: double
                           type: number
                         dockerVolumeSizeGB:
                           type: integer
@@ -345,6 +346,7 @@ spec:
                         cpus:
                           type: integer
                         disk:
+                          format: double
                           type: number
                         dockerVolumeSizeGB:
                           type: integer
