@@ -7,17 +7,17 @@ import (
 // +kubebuilder:validation:Type=number
 // +kubebuilder:validation:Format=double
 type Float struct {
-	value float64 `json:"-"`
+	Value float64 `json:"-"`
 }
 
 // UnmarshalJSON implements the json.Unmarshaller interface.
 func (f *Float) UnmarshalJSON(value []byte) error {
-	return json.Unmarshal(value, &f.value)
+	return json.Unmarshal(value, &f.Value)
 }
 
 // MarshalJSON implements the json.Marshaller interface.
 func (f Float) MarshalJSON() ([]byte, error) {
-	return json.Marshal(f.value)
+	return json.Marshal(f.Value)
 }
 
 // OpenAPISchemaType is used by the kube-openapi generator when constructing
