@@ -42,7 +42,6 @@ func Test_LoadAll(t *testing.T) {
 		},
 		"release.giantswarm.io": {
 			"Release",
-			"ReleaseCycle",
 		},
 		"tooling.giantswarm.io": {
 			"AzureTool",

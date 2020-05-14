@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Graduate ETCDBackup CRDs to `v1`.
 - Graduate Ignition CRDs to `v1`.
 - Graduate Release CRDs to `v1`.
+- Drop ReleaseCycle CRD.
 
 ## [0.3.9] 2020-05-12
 
