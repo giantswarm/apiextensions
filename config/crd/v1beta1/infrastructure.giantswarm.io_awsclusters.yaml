@@ -101,7 +101,9 @@ spec:
                   - namespace
                   type: object
                 master:
-                  description: Master holds master node configuration details.
+                  description: Master holds master node configuration details. Note
+                    that this attribute is being deprecated. Master Spec can now be
+                    found in the AWSControlPlane
                   properties:
                     availabilityZone:
                       description: AvailabilityZone is the AWS availability zone to
@@ -129,7 +131,6 @@ spec:
                   type: string
               required:
               - credentialSecret
-              - master
               - region
               type: object
           required:

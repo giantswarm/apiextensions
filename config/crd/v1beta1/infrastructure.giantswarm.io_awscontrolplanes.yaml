@@ -46,8 +46,6 @@ spec:
             instanceType:
               description: EC2 instance type identifier to use for the master node(s).
               type: string
-          required:
-          - instanceType
           type: object
       required:
       - spec
