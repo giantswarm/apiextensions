@@ -33,10 +33,6 @@ func (c *FakeReleaseV1alpha1) Releases() v1alpha1.ReleaseInterface {
 	return &FakeReleases{c}
 }
 
-func (c *FakeReleaseV1alpha1) ReleaseCycles() v1alpha1.ReleaseCycleInterface {
-	return &FakeReleaseCycles{c}
-}
-
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeReleaseV1alpha1) RESTClient() rest.Interface {
