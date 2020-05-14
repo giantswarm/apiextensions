@@ -11,9 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Graduated CertConfig CRDs to `v1`.
-- Graduated Ignition CRDs to `v1`.
-- Graduated Release CRDs to `v1`.
+- Graduate CertConfig CRDs to `v1`.
+- Graduate ETCDBackup CRDs to `v1`.
+- Graduate Ignition CRDs to `v1`.
+- Graduate Release CRDs to `v1`.
 
 ## [0.3.9] 2020-05-12
 
