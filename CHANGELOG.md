@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Drop ReleaseCycle CRD.
+
 ## [0.3.9] 2020-05-12
 
 ### Added

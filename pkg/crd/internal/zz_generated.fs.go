@@ -1525,29 +1525,6 @@ zVMAAA==
 `,
 	},
 
-	"/config/crd/v1/release.giantswarm.io_releasecycles.yaml": {
-		name:    "release.giantswarm.io_releasecycles.yaml",
-		local:   "config/crd/v1/release.giantswarm.io_releasecycles.yaml",
-		size:    2290,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/7RWQXPjNg+961dg/B1yieQvbQ8d3TrOHjJtd3aSnVw6PcAULKOhSJYA3aad/vcOKdmW
-ld3Why1vJEHg4T0AUlXXdYWBnykKe9cCBqbflVzeSfPyrTTs14e76oVd18ImifrhkcSnaOieduxY2btq
-IMUOFdsKAJ3zivlY8hbAeKfRW0ux7sk1L2lL28S2o1icH0Mf/t981XxTAZhI5flHHkgUh9CCS9ZWAA4H
-aiGSJRQyr8aSNNOu6Rmdym8Yh4Z9JYFMjt5Hn8LpycJodDihHDN8HA032Xc5tiz6/ZurH1i0XAebItoF
-pnIj7PpkMV7eVQBifKAW3ufQAQ11FcBEQoFST2ke7tCGPd6N3syeBhyRAvhA7rsPD89fP10cA4ToA0Xl
-Y1Ljmgk8OwXoSEzkoIX+m+xwtIIuK0sCuqcjNOomDOB3oHsWiBQiCblR6wvHkI3Qgd/+QkYbeKKY3YDs
-fbJdLogDRYVIxveO/zj5FlBfglpUmhg+L3ZK0aGFA9pEt4CugwFfIVKOAsnN/BUTaeBHHwnY7XwLe9Ug
-7Xrdsx4L2/hhSI71dV1qlLdJfZR1Rweya+G+xmj2rGQ0RVpj4LpAd6W4m6H7X5xaQW4usOprVlg0sutn
-F6XE/kGBXGfAAjg9HbM4E52PMjuP754+wjF0EWPJfuH9/FDOEmTC2O0ojiLuoh+KT3Jd8Oy0bIxlckv6
-JW0H1qz7r4lEs1YNbEq3w5YghQ6VugYeHGxwILvJDfdfC5CZljoTe50E80G1NB5Zm10ch8h5fbq/ipIs
-uLXU3aPS8m6h8/3MNMudGc/cjZ1FUAYFhD0KwZay6GaPri+DYrnUw+oYetW8Mdj5OKC2xX2tPNAbi8/w
-lBe5azN6575oQlPgL51PAfAvmdx8KCinJKbJPb5s4EHBoMvF7l1OroVVCsYP7PrV7SdyOSVyOxPpFlbk
-7aq5uR567jiOtJgd9QjrqkJW1CRX1PzbSPWpZWZHuTGqzzqSPGq6FjSmEZ2oj9jT/CRtT6PzGGsCCX/+
-VZ3xojEUlLr3yw/1anXx/S1b413H448H/PRzNQam7vn4cc2HfwcAAP//GGL5xvIIAAA=
-`,
-	},
-
 	"/config/crd/v1/release.giantswarm.io_releases.yaml": {
 		name:    "release.giantswarm.io_releases.yaml",
 		local:   "config/crd/v1/release.giantswarm.io_releases.yaml",
@@ -2866,29 +2843,6 @@ LrXBpCGqZW9nObLLKlgcY24wud3/aNyrV60vwrl/G7kv/Os/Mw8VkypScYP/DwAA///W7/Zegk8AAA==
 `,
 	},
 
-	"/config/crd/v1beta1/release.giantswarm.io_releasecycles.yaml": {
-		name:    "release.giantswarm.io_releasecycles.yaml",
-		local:   "config/crd/v1beta1/release.giantswarm.io_releasecycles.yaml",
-		size:    2235,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/7RWTXMkNQy9969QDYdc0j0EOFB9o5I9pICtrWQrF4qD2tb0iLhtY8kDgeK/U3b3fG7Y
-3cPSN0uy9PyeLHfTtm2DkZ8oCQffA0amP5V8WUn3/L10HNa7m4EUb5pn9raH2ywapgeSkJOhO9qwZ+Xg
-m4kULSr2DQB6HxSLWcoSwASvKThHqR3Jd895oCGzs5RqhX393dfdN913DYBJVLe/54lEcYo9+OxcA+Bx
-oh4SOUIh82IcSbesupHRq/yBaeo4NBLJlOpjCjketlwEzQkXlPMJH+bA25K7mh2L/viB6ycWre7ockJ3
-gal6hP2YHaZzXwMgJkTq4W0pHdGQLbY8pIXVBY4oapYe/v6nAdihY1s5mZ0hkv/h3f3Tt49mSxPORoCY
-QqSkvM9RvhOFDzYAS2ISx5oRrkqqOQZs0ZQEdEuwKEMWpJaBsAHdskCimEjIzyqfpIUSgh7C8BsZ7eCR
-UkkCsg3Z2dIIO0oKiUwYPf91yCygoZZ0qLQwu//YKyWPrpCQ6RrQW5jwBRKVGpD9SbYaIh38HBIB+03o
-YasapV+vR9Z9T5swTdmzvqxrZ/KQNSRZW9qRWwuPLSazZSWjOdEaI7cVuK8t3U32q4NUVydI9aWoKprY
-jwdzbar/5L30FbAALttm/Ed6i6mw8vDm8T3si1YJzjmvbB+3yZH4QhT7DaVZuE0KU81I3sbAXuvCOCZ/
-TrrkYWItSv+eSbTo08FtvdkwEORoUcl2cO/hFidyt+Vy/d+0F4alLZR+mvjTgXQeOLN1MO8Hxf577Q5V
-5VhwcGTvUOncc6Hq3UlgEbcwXNiabw9BHQMQtygEAxWJzRb9WMfA+acBVvuyq+7CvQlpQu1r6lZ5ogv/
-q6yUj/znneON/4LHWIp+uVPUwh/Ff/WuYlugLzN43tfBvYJBX1o5+HKkHlY5mjCxH1fXH5zgAP/6RJBr
-WFFwq+7q8yCXm8SJzqZBO8P5ZIvOT8HHwy7zt4crcDCUVm9eTXB8g2/QxS3eHG21bru8vCduACkzxvag
-KdPyZIWEIy2WI2o0hqKSfXv52K5WZ29oXZrgLc8/D/DLr82clezTHk0x/hsAAP//T70dLLsIAAA=
-`,
-	},
-
 	"/config/crd/v1beta1/release.giantswarm.io_releases.yaml": {
 		name:    "release.giantswarm.io_releases.yaml",
 		local:   "config/crd/v1beta1/release.giantswarm.io_releases.yaml",
@@ -3049,7 +3003,6 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/provider.giantswarm.io_awsconfigs.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_kvmconfigs.yaml"],
-		_escData["/config/crd/v1/release.giantswarm.io_releasecycles.yaml"],
 		_escData["/config/crd/v1/release.giantswarm.io_releases.yaml"],
 		_escData["/config/crd/v1/tooling.giantswarm.io_azuretools.yaml"],
 	},
@@ -3081,7 +3034,6 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_awsconfigs.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_kvmconfigs.yaml"],
-		_escData["/config/crd/v1beta1/release.giantswarm.io_releasecycles.yaml"],
 		_escData["/config/crd/v1beta1/release.giantswarm.io_releases.yaml"],
 		_escData["/config/crd/v1beta1/tooling.giantswarm.io_azuretools.yaml"],
 	},
