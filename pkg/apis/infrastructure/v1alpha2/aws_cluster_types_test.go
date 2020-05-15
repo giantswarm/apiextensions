@@ -9,8 +9,10 @@ import (
 	"regexp"
 	goruntime "runtime"
 	"testing"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
@@ -108,6 +110,32 @@ func newAWSClusterExampleCR() *AWSCluster {
 				InstanceType:     "m5.2xlarge",
 			},
 			Region: "eu-central-1",
+		},
+	}
+	cr.Status = AWSClusterStatus{
+		Cluster: CommonClusterStatus{
+			Conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: metav1.Date(2020, 4, 16, 12, 51, 33, 432, time.UTC),
+					Condition:          "Created",
+				},
+				{
+					LastTransitionTime: metav1.Date(2020, 4, 16, 12, 35, 33, 432, time.UTC),
+					Condition:          "Creating",
+				},
+			},
+			ID: "g8kw3",
+			Versions: []CommonClusterStatusVersion{
+				{
+					LastTransitionTime: metav1.Now(),
+					Version:            "8.2.3",
+				},
+			},
+		},
+		Provider: AWSClusterStatusProvider{
+			Network: AWSClusterStatusProviderNetwork{
+				CIDR: "172.19.73.0/24",
+			},
 		},
 	}
 
