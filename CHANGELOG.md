@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Drop ReleaseCycle CRD.
+- Update AWSCluster docs.
 
 ## [0.3.9] 2020-05-12
 
