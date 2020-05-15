@@ -105,7 +105,7 @@ type AWSClusterSpecProvider struct {
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret"`
 	// +kubebuilder:validation:Optional
 	// Master holds master node configuration details.
-	// Note that this attribute is being deprecated. Master Spec can now be found in the AWSControlPlane
+	// Note that this attribute is being deprecated. The master node specification can now be found in the AWSControlPlane resource.
 	Master AWSClusterSpecProviderMaster `json:"master,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Pod network configuration.
