@@ -103,8 +103,8 @@ spec:
                     type: object
                   master:
                     description: Master holds master node configuration details. Note
-                      that this attribute is being deprecated. Master Spec can now
-                      be found in the AWSControlPlane
+                      that this attribute is being deprecated. The master node specification
+                      can now be found in the AWSControlPlane resource.
                     properties:
                       availabilityZone:
                         description: AvailabilityZone is the AWS availability zone
