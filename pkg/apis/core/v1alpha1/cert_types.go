@@ -57,14 +57,17 @@ type CertConfigSpec struct {
 type CertConfigSpecCert struct {
 	AllowBareDomains bool `json:"allowBareDomains"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	AltNames            []string `json:"altNames,omitempty"`
 	ClusterComponent    string   `json:"clusterComponent"`
 	ClusterID           string   `json:"clusterID"`
 	CommonName          string   `json:"commonName"`
 	DisableRegeneration bool     `json:"disableRegeneration"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	IPSANs []string `json:"ipSans,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Organizations []string `json:"organizations,omitempty"`
 	TTL           string   `json:"ttl"`
 }
