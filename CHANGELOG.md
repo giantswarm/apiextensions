@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Make `altNames`,`ipSans` and `organizations` in CertConfigs optional.
+
+## [0.3.10] 2020-05-18
+
+### Changed
+
 - Fix cluster scope for ETCDBackup CRD.
 - Graduate CertConfig CRDs to `v1`.
 - Graduate ETCDBackup CRDs to `v1`.
