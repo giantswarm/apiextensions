@@ -38,14 +38,14 @@ spec:
             description: AWSClusterSpec is the spec part for the AWSCluster resource.
             properties:
               cluster:
-                description: Cluster provides cluster specification details.
+                description: Cluster specification details.
                 properties:
                   description:
-                    description: Description is a user-friendly description that should
-                      explain the purpose of the cluster to humans.
+                    description: User-friendly description that should explain the
+                      purpose of the cluster to humans.
                     type: string
                   dns:
-                    description: DNS holds DNS configuration details.
+                    description: DNS configuration details.
                     properties:
                       domain:
                         type: string
@@ -53,8 +53,7 @@ spec:
                     - domain
                     type: object
                   kubeProxy:
-                    description: KubeProxy holds flags passed to kube-proxy on each
-                      node.
+                    description: Flags passed to kube-proxy on each node.
                     properties:
                       conntrackMaxPerCore:
                         description: Maximum number of NAT connections to track per
@@ -62,8 +61,7 @@ spec:
                         type: integer
                     type: object
                   oidc:
-                    description: OIDC holds configuration for OpenID Connect (OIDC)
-                      authentication.
+                    description: Configuration for OpenID Connect (OIDC) authentication.
                     properties:
                       claims:
                         description: AWSClusterSpecClusterOIDCClaims defines OIDC
@@ -84,33 +82,31 @@ spec:
                 - dns
                 type: object
               provider:
-                description: Provider holds provider-specific configuration details.
+                description: Provider-specific configuration details.
                 properties:
                   credentialSecret:
-                    description: CredentialSecret specifies the location of the secret
-                      providing the ARN of AWS IAM identity to use with this cluster.
+                    description: Location of a secret providing the ARN of AWS IAM
+                      identity to use with this cluster.
                     properties:
                       name:
-                        description: Name is the name of the provider credential resoure.
+                        description: Name of the provider credential resoure.
                         type: string
                       namespace:
-                        description: Namespace is the kubernetes namespace that holds
-                          the provider credential.
+                        description: Kubernetes namespace holding the provider credential.
                         type: string
                     required:
                     - name
                     - namespace
                     type: object
                   master:
-                    description: Master holds master node configuration details.
+                    description: Master node configuration details.
                     properties:
                       availabilityZone:
-                        description: AvailabilityZone is the AWS availability zone
-                          to place the master node in.
+                        description: AWS availability zone to place the master node
+                          in.
                         type: string
                       instanceType:
-                        description: InstanceType specifies the AWS EC2 instance type
-                          to use for the master node.
+                        description: AWS EC2 instance type to use for the master node.
                         type: string
                     required:
                     - availabilityZone
@@ -120,13 +116,11 @@ spec:
                     description: Pod network configuration.
                     properties:
                       cidrBlock:
-                        description: Subnet size, expresses as the count of leading
-                          1 bits in the subnet mask of this subnet.
+                        description: IPv4 address block used for pods, in CIDR notation.
                         type: string
                     type: object
                   region:
-                    description: Region is the AWS region the cluster is to be running
-                      in.
+                    description: AWS region the cluster is to be running in.
                     type: string
                 required:
                 - credentialSecret
@@ -138,12 +132,11 @@ spec:
             - provider
             type: object
           status:
-            description: AWSClusterStatus holds status information about the cluster,
-              populated once the cluster is in creation or created.
+            description: Spec part of the AWSCluster resource.
             properties:
               cluster:
-                description: Cluster provides cluster-specific status details, including
-                  conditions and versions.
+                description: Cluster-specific status details, including conditions
+                  and versions.
                 properties:
                   conditions:
                     description: One or several conditions that are currently applicable
@@ -153,8 +146,8 @@ spec:
                         condition(s) of the cluster.
                       properties:
                         condition:
-                          description: Condition string, e. g. "Creating", "Created",
-                            "Upgraded"
+                          description: Condition string, e. g. `Creating`, `Created`,
+                            `Upgraded`.
                           type: string
                         lastTransitionTime:
                           description: Time the condition occurred.
@@ -183,18 +176,18 @@ spec:
                     type: array
                 type: object
               provider:
-                description: Provider provides provider-specific status details.
+                description: Provider-specific status details.
                 properties:
                   network:
-                    description: Network provides network-specific configuration details
+                    description: Network-specific configuration details
                     properties:
                       cidr:
-                        description: IPv4 address block used by the tenant cluster,
-                          in CIDR notation.
+                        description: IPv4 address block used by the tenant cluster
+                          nodes, in CIDR notation.
                         type: string
                       vpcID:
-                        description: VPCID contains the ID of the tenant cluster,
-                          e.g. vpc-1234567890abcdef0.
+                        description: Identifier of the AWS Virtual Private Cloud (VPC)
+                          of the tenant cluster, e.g. `vpc-1234567890abcdef0`.
                         type: string
                     type: object
                 type: object
