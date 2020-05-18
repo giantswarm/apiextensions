@@ -62,13 +62,10 @@ spec:
                     type: string
                 required:
                 - allowBareDomains
-                - altNames
                 - clusterComponent
                 - clusterID
                 - commonName
                 - disableRegeneration
-                - ipSans
-                - organizations
                 - ttl
                 type: object
               versionBundle:

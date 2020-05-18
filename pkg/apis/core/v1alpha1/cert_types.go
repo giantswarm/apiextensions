@@ -55,15 +55,18 @@ type CertConfigSpec struct {
 }
 
 type CertConfigSpecCert struct {
-	AllowBareDomains    bool     `json:"allowBareDomains"`
-	AltNames            []string `json:"altNames"`
+	AllowBareDomains bool `json:"allowBareDomains"`
+	// +kubebuilder:validation:Optional
+	AltNames            []string `json:"altNames,omitempty"`
 	ClusterComponent    string   `json:"clusterComponent"`
 	ClusterID           string   `json:"clusterID"`
 	CommonName          string   `json:"commonName"`
 	DisableRegeneration bool     `json:"disableRegeneration"`
-	IPSANs              []string `json:"ipSans"`
-	Organizations       []string `json:"organizations"`
-	TTL                 string   `json:"ttl"`
+	// +kubebuilder:validation:Optional
+	IPSANs []string `json:"ipSans,omitempty"`
+	// +kubebuilder:validation:Optional
+	Organizations []string `json:"organizations,omitempty"`
+	TTL           string   `json:"ttl"`
 }
 
 type CertConfigSpecVersionBundle struct {
