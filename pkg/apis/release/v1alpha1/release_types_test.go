@@ -407,7 +407,7 @@ func newReleaseExampleCR() *Release {
 			},
 			{
 				Name:    "containerlinux",
-				Version: "2247.6",
+				Version: "2247.6.0",
 			},
 			{
 				Name:    "coredns",
