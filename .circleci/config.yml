@@ -54,7 +54,11 @@ jobs:
       - run:
           name: Install CRs
           command: |
-            ./kubectl apply -f docs/cr
+            for filename in docs/cr/*.yaml; do
+              if [[ "$filename" =~ .*"giantswarm".* ]]; then
+                ./kubectl apply -f docs/cr/"$filename"
+              fi
+            done
 
 workflows:
   workflow:
