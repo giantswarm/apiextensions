@@ -98,7 +98,9 @@ spec:
                   - namespace
                   type: object
                 master:
-                  description: Master node configuration details.
+                  description: Master holds master node configuration details. Note
+                    that this attribute is being deprecated. The master node specification
+                    can now be found in the AWSControlPlane resource.
                   properties:
                     availabilityZone:
                       description: AWS availability zone to place the master node
@@ -126,7 +128,6 @@ spec:
                   type: string
               required:
               - credentialSecret
-              - master
               - region
               type: object
           required:

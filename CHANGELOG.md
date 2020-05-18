@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Drop ReleaseCycle CRD.
+- `Master` field in `AWSCluster` is being deprecated and made optional
+- `InstanceType` in `AWSControlplane` is made optional
 - Update AWSCluster docs.
 
 ## [0.3.9] 2020-05-12

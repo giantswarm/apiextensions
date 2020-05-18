@@ -60,7 +60,7 @@ type AWSControlPlaneSpec struct {
 	// +nullable
 	// +kubebuilder:validation:Optional
 	// EC2 instance type identifier to use for the master node(s).
-	InstanceType string `json:"instanceType"`
+	InstanceType string `json:"instanceType,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -104,8 +104,10 @@ type AWSClusterSpecProvider struct {
 	// Location of a secret providing the ARN of AWS IAM identity
 	// to use with this cluster.
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret"`
-	// Master node configuration details.
-	Master AWSClusterSpecProviderMaster `json:"master"`
+	// +kubebuilder:validation:Optional
+	// Master holds master node configuration details.
+	// Note that this attribute is being deprecated. The master node specification can now be found in the AWSControlPlane resource.
+	Master AWSClusterSpecProviderMaster `json:"master,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Pod network configuration.
 	Pods AWSClusterSpecProviderPods `json:"pods,omitempty"`
