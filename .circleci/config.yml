@@ -56,7 +56,7 @@ jobs:
           command: |
             for filename in docs/cr/*.yaml; do
               if [[ "$filename" =~ .*"giantswarm".* ]]; then
-                ./kubectl apply -f docs/cr/"$filename"
+                ./kubectl apply -f "$filename"
               fi
             done
 
