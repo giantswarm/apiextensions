@@ -41,6 +41,7 @@ spec:
                   altNames:
                     items:
                       type: string
+                    nullable: true
                     type: array
                   clusterComponent:
                     type: string
@@ -53,10 +54,12 @@ spec:
                   ipSans:
                     items:
                       type: string
+                    nullable: true
                     type: array
                   organizations:
                     items:
                       type: string
+                    nullable: true
                     type: array
                   ttl:
                     type: string
