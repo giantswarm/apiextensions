@@ -54,6 +54,7 @@ type G8sControlPlane struct {
 }
 
 type G8sControlPlaneSpec struct {
+	// +nullable
 	// +kubebuilder:validation:Enum=1;3
 	// +kubebuilder:validation:Optional
 	// Number of master nodes.

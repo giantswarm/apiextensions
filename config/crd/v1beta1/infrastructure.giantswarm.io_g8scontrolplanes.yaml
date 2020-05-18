@@ -79,6 +79,7 @@ spec:
               enum:
               - 1
               - 3
+              nullable: true
               type: integer
           required:
           - infrastructureRef

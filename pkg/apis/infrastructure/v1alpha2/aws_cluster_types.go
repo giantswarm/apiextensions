@@ -124,14 +124,17 @@ type AWSClusterSpecProviderCredentialSecret struct {
 
 // AWSClusterSpecProviderMaster holds master node configuration details.
 type AWSClusterSpecProviderMaster struct {
+	// +nullable
 	// AWS availability zone to place the master node in.
 	AvailabilityZone string `json:"availabilityZone"`
+	// +nullable
 	// AWS EC2 instance type to use for the master node.
 	InstanceType string `json:"instanceType"`
 }
 
 // AWSClusterSpecProviderPods Pod network configuration.
 type AWSClusterSpecProviderPods struct {
+	// +nullable
 	// +kubebuilder:validation:Optional
 	// IPv4 address block used for pods, in CIDR notation.
 	CIDRBlock string `json:"cidrBlock,omitempty"`
