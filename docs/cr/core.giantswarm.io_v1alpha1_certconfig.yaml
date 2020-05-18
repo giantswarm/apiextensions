@@ -14,8 +14,7 @@ spec:
     clusterID: c68pn
     commonName: api.c68pn.k8s.gollum.westeurope.azure.gigantic.io
     disableRegeneration: false
-    organizations:
-    - giantswarm
+    organizations: null
     ttl: 4320h
   versionBundle:
     version: 0.1.0
