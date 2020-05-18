@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Fix cluster scope for ETCDBackup CRD.
+- Graduate CertConfig CRDs to `v1`.
+- Graduate ETCDBackup CRDs to `v1`.
+- Graduate Ignition CRDs to `v1`.
+- Graduate Release CRDs to `v1`.
 - Drop ReleaseCycle CRD.
 - `Master` field in `AWSCluster` is being deprecated and made optional
 - `InstanceType` in `AWSControlplane` is made optional
