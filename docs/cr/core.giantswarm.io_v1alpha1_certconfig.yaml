@@ -8,13 +8,14 @@ metadata:
 spec:
   cert:
     allowBareDomains: false
-    altNames: []
+    altNames:
+    - api.c68pn.gollum.westeurope.azure.gigantic.io
     clusterComponent: prometheus
     clusterID: c68pn
     commonName: api.c68pn.k8s.gollum.westeurope.azure.gigantic.io
     disableRegeneration: false
-    ipSans: []
-    organizations: []
+    organizations:
+    - giantswarm
     ttl: 4320h
   versionBundle:
     version: 0.1.0
