@@ -4,6 +4,8 @@ metadata:
   annotations:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/
   creationTimestamp: null
+  labels:
+    app-operator.giantswarm.io/version: "1.0.0"
   name: prometheus
 spec:
   catalog: my-playground-catalog

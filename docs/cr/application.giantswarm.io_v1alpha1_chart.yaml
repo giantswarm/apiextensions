@@ -4,6 +4,8 @@ metadata:
   annotations:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/charts.application.giantswarm.io/
   creationTimestamp: null
+  labels:
+    chart-operator.giantswarm.io/version: "1.0.0"
   name: prometheus
 spec:
   config:
