@@ -51,6 +51,10 @@ jobs:
               echo "$invalid"
               exit 1
             fi
+      - run:
+          name: Install CRs
+          command: |
+            ./kubectl apply -f docs/cr
 
 workflows:
   workflow:
