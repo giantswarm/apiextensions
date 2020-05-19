@@ -42,11 +42,9 @@ spec:
                 We support either 1 or 3 availability zones.
               items:
                 type: string
-              nullable: true
               type: array
             instanceType:
               description: EC2 instance type identifier to use for the master node(s).
-              nullable: true
               type: string
           type: object
       required:

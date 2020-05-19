@@ -106,22 +106,16 @@ spec:
                       availabilityZone:
                         description: AWS availability zone to place the master node
                           in.
-                        nullable: true
                         type: string
                       instanceType:
                         description: AWS EC2 instance type to use for the master node.
-                        nullable: true
                         type: string
-                    required:
-                    - availabilityZone
-                    - instanceType
                     type: object
                   pods:
                     description: Pod network configuration.
                     properties:
                       cidrBlock:
                         description: IPv4 address block used for pods, in CIDR notation.
-                        nullable: true
                         type: string
                     type: object
                   region:

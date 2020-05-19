@@ -51,13 +51,11 @@ type AWSControlPlane struct {
 }
 
 type AWSControlPlaneSpec struct {
-	// +nullable
 	// +kubebuilder:validation:Optional
 	// Configures which AWS availability zones to use by master nodes, as a list
 	// of availability zone names like e. g. `eu-central-1c`. We support either
 	// 1 or 3 availability zones.
 	AvailabilityZones []string `json:"availabilityZones,omitempty"`
-	// +nullable
 	// +kubebuilder:validation:Optional
 	// EC2 instance type identifier to use for the master node(s).
 	InstanceType string `json:"instanceType,omitempty"`
