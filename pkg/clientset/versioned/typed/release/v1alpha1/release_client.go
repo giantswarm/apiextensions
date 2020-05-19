@@ -28,7 +28,6 @@ import (
 type ReleaseV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	ReleasesGetter
-	ReleaseCyclesGetter
 }
 
 // ReleaseV1alpha1Client is used to interact with features provided by the release.giantswarm.io group.
@@ -38,10 +37,6 @@ type ReleaseV1alpha1Client struct {
 
 func (c *ReleaseV1alpha1Client) Releases() ReleaseInterface {
 	return newReleases(c)
-}
-
-func (c *ReleaseV1alpha1Client) ReleaseCycles() ReleaseCycleInterface {
-	return newReleaseCycles(c)
 }
 
 // NewForConfig creates a new ReleaseV1alpha1Client for the given config.
