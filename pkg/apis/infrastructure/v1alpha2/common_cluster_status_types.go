@@ -109,7 +109,7 @@ type CommonClusterStatusCondition struct {
 	// Time the condition occurred.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime"`
 	// +kubebuilder:validation:Optional
-	// Condition string, e. g. "Creating", "Created", "Upgraded"
+	// Condition string, e. g. `Creating`, `Created`, `Upgraded`.
 	Condition string `json:"condition"`
 }
 
