@@ -52,8 +52,10 @@ spec:
                       id:
                         type: string
                       memorySizeGB:
+                        format: double
                         type: number
                       storageSizeGB:
+                        format: double
                         type: number
                     required:
                     - id
@@ -89,8 +91,10 @@ spec:
                           type: string
                         type: object
                       memorySizeGB:
+                        format: double
                         type: number
                       storageSizeGB:
+                        format: double
                         type: number
                     required:
                     - id
