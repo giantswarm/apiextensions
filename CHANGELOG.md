@@ -9,11 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+## [0.4.0] 2020-05-20
+
+### Added
+
+- Add external SNAT configuration for AWS CNI.
+
+
+
 ## [0.3.11] 2020-05-20
 
 ### Changed
 
 - Make `altNames`,`ipSans` and `organizations` in CertConfigs optional.
+
+
 
 ## [0.3.10] 2020-05-18
 
@@ -29,6 +41,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `InstanceType` in `AWSControlplane` is made optional
 - Update AWSCluster docs.
 
+
+
 ## [0.3.9] 2020-05-12
 
 ### Added
@@ -42,9 +56,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set docs URLs to our detail pages in https://docs.giantswarm.io/reference/cp-k8s-api/
 
 
+
 ## [0.3.8] 2020-05-08
 
 - No changes.
+
+
 
 ## [0.3.7] 2020-05-08
 
@@ -56,6 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - AvailabilityZones field is optional in `AzureConfig`.
 
+
+
 ## [0.3.6] 2020-05-07
 
 ### Changed
@@ -63,11 +82,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Load StorageConfig from VFS as expected.
 - AzureClusterConfig allow empty labels for guest cluster worker nodes.
 
+
+
 ## [0.3.5] - 2020-05-06
 
 ### Added
 
 - Add Azure Tools CRDs.
+
+
 
 ## [0.3.4] - 2020-04-30
 
@@ -77,6 +100,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `crd.LoadV1` and `crd.LoadV1Beta1`. Type-specific `New*CRD()` functions are unchanged.
 - Graduated Azure CRDs to `v1`.
 
+
+
 ## [0.3.3] - 2020-04-28
 
 ### Added
@@ -84,11 +109,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Generate Cluster API CRDs from upstream module.
 
 
+
 ## [0.3.2] - 2020-04-27
 
 ### Changed
 
 - Relax `AzureConfig` CRD validation.
+
 
 
 ## [0.3.1] - 2020-04-22
@@ -105,10 +132,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make more CR status fields `omitempty`.
 - Make CR status fields optional.
 
-
 ### Fixed
 
 - Fix mistake in the main description of `G8sControlPlane` in `infrastructure.giantswarm.io`.
+
 
 
 ## [0.3.0] - 2020-04-16
@@ -123,6 +150,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Generate CRDs via `kubebuilder` tools based on CRs.
 
 
+
 ## [0.2.6] - 2020-04-15
 
 ### Added
@@ -131,11 +159,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Document Chart in core.giantswarm.io/v1alpha1 [#406](https://github.com/giantswarm/apiextensions/pull/406)
 
 
+
 ## [0.2.5] - 2020-04-09
 
 ### Changed
 
 - Fix docs for MachineDeployment machinedeployments.cluster.x-k8s.io [#404](https://github.com/giantswarm/apiextensions/pull/404)
+
 
 
 ## [0.2.4] - 2020-04-08
@@ -149,6 +179,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix path of CR and CRD yaml files for Cluster and MachineDeployment in infrastructure.giantswarm.io/v1alpha2 [#403](https://github.com/giantswarm/apiextensions/pull/403)
 
 
+
 ## [0.2.3] - 2020-04-08
 
 ### Added
@@ -157,11 +188,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Extend documentation Chart CR documentation.
 
 
+
 ## [0.2.2] - 2020-04-07
 
 ### Added
 
 - Extend App and AppCatalog CR documentation.
+
 
 
 ## [0.2.1] - 2020-04-06
@@ -175,6 +208,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Make OIDC `omitempty`.
+
 
 
 ## [0.2.0] - 2020-03-20
@@ -191,11 +225,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Chart
 
 
+
 ## [0.1.2] - 2020-03-20
 
 ### Added
 
 - Add kube-proxy configuration to Cluster type in provider.giantswarm.io/v1alpha1.
+
 
 
 ## [0.1.1] - 2020-03-12
@@ -217,7 +253,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release.
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...HEAD
+
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.0...HEAD
+
+[0.3.12]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...v0.4.0
 [0.3.11]: https://github.com/giantswarm/apiextensions/compare/v0.3.10...v0.3.11
 [0.3.10]: https://github.com/giantswarm/apiextensions/compare/v0.3.9...v0.3.10
 [0.3.9]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...v0.3.9
@@ -239,4 +278,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [0.2.0]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/giantswarm/apiextensions/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/giantswarm/apiextensions/compare/v0.1.0...v0.1.1
+
 [0.1.0]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0
