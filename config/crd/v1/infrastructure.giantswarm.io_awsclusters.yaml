@@ -110,9 +110,6 @@ spec:
                       instanceType:
                         description: AWS EC2 instance type to use for the master node.
                         type: string
-                    required:
-                    - availabilityZone
-                    - instanceType
                     type: object
                   pods:
                     description: Pod network configuration.
