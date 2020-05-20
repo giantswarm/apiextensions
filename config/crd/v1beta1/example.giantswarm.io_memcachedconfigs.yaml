@@ -1,8 +1,11 @@
+
+---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/memcachedconfigs.example.giantswarm.io/
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
   name: memcachedconfigs.example.giantswarm.io
 spec:
   group: example.giantswarm.io
