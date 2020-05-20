@@ -5,7 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/crd"
-	"github.com/giantswarm/apiextensions/pkg/internal"
+	"github.com/giantswarm/apiextensions/pkg/serialization"
 )
 
 const (
@@ -64,10 +64,10 @@ type KVMConfigSpecKVMK8sKVMDocker struct {
 }
 
 type KVMConfigSpecKVMNode struct {
-	CPUs               int            `json:"cpus"`
-	Disk               internal.Float `json:"disk"`
-	Memory             string         `json:"memory"`
-	DockerVolumeSizeGB int            `json:"dockerVolumeSizeGB"`
+	CPUs               int                 `json:"cpus"`
+	Disk               serialization.Float `json:"disk"`
+	Memory             string              `json:"memory"`
+	DockerVolumeSizeGB int                 `json:"dockerVolumeSizeGB"`
 }
 
 type KVMConfigSpecKVMNetwork struct {

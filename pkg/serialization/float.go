@@ -1,4 +1,4 @@
-package internal
+package serialization
 
 import (
 	"encoding/json"
@@ -8,6 +8,13 @@ import (
 // +kubebuilder:validation:Format=double
 type Float struct {
 	Value float64 `json:"-"`
+}
+
+// NewFloat returns a new Float object holding the given value.
+func NewFloat(value float64) Float {
+	return Float{
+		Value: value,
+	}
 }
 
 // UnmarshalJSON implements the json.Unmarshaller interface.
