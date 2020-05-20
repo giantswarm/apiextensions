@@ -37,6 +37,18 @@ INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, 
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
+# The behavior of deepcopy-gen depends on whether the code generation happens inside $GOPATH or not
+# We can check this condition with the following:
+# 1. Get the length of the $GOPATH as an integer
+LENGTH := $(shell echo $(GOPATH) | wc -c | xargs)
+# 2. Cut the current working directory to the same length as the $GOPATH
+BASE := $(shell pwd | cut -c-$(LENGTH))
+IN_GOPATH = no
+# 3. If the current working directory starts with $GOPATH, this is running within $GOPATH
+ifeq ($(BASE),$(GOPATH)/)
+IN_GOPATH = yes
+endif
+
 all: generate
 
 $(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
@@ -100,13 +112,18 @@ generate-clientset: $(CLIENT_GEN)
 .PHONY: generate-deepcopy
 generate-deepcopy: $(DEEPCOPY_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
+ifeq ($(IN_GOPATH), no)
 	$(DEEPCOPY_GEN) \
 	--input-dirs $(INPUT_DIRS) \
-	--output-base $(SCRIPTS_DIR) \
+	--output-base . \
 	--output-file-base $(DEEPCOPY_BASE) \
 	--go-header-file $(BOILERPLATE)
-	cp -R $(SCRIPTS_DIR)/$(MODULE)/$(APIS_DIR)/* $(APIS_DIR)
-	rm -rf $(SCRIPTS_DIR)/github.com/
+else
+	$(DEEPCOPY_GEN) \
+	--input-dirs $(INPUT_DIRS) \
+	--output-file-base $(DEEPCOPY_BASE) \
+	--go-header-file $(BOILERPLATE)
+endif
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
