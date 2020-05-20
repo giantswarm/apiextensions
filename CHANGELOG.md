@@ -256,7 +256,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 [Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.0...HEAD
 
-[0.3.12]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...v0.4.0
+[0.4.0]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...v0.4.0
 [0.3.11]: https://github.com/giantswarm/apiextensions/compare/v0.3.10...v0.3.11
 [0.3.10]: https://github.com/giantswarm/apiextensions/compare/v0.3.9...v0.3.10
 [0.3.9]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...v0.3.9
