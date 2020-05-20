@@ -46,7 +46,6 @@ for version in v1 v1beta1; do
   rm ../config/crd/$version/cluster.x-k8s.io_machines.yaml
   rm ../config/crd/$version/cluster.x-k8s.io_machinesets.yaml
   rm ../config/crd/$version/cluster.x-k8s.io_machinehealthchecks.yaml
-  rm ../config/crd/$version/infrastructure.cluster.x-k8s.io_azuremachines.yaml
   rm ../config/crd/$version/infrastructure.cluster.x-k8s.io_azuremachinetemplates.yaml
 
   # Add .metadata.name validation to Release CRD using kustomize since
