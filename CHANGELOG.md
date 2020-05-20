@@ -9,9 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.11] 2020-05-20
+
 ### Changed
 
+- Make `altNames`,`ipSans` and `organizations` in CertConfigs optional.
+
+## [0.3.10] 2020-05-18
+
+### Changed
+
+- Fix cluster scope for ETCDBackup CRD.
+- Graduate CertConfig CRDs to `v1`.
+- Graduate ETCDBackup CRDs to `v1`.
+- Graduate Ignition CRDs to `v1`.
+- Graduate Release CRDs to `v1`.
 - Drop ReleaseCycle CRD.
+- `Master` field in `AWSCluster` is being deprecated and made optional
+- `InstanceType` in `AWSControlplane` is made optional
+- Update AWSCluster docs.
 
 ## [0.3.9] 2020-05-12
 
@@ -201,7 +217,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - First release.
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.9...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...HEAD
+[0.3.11]: https://github.com/giantswarm/apiextensions/compare/v0.3.10...v0.3.11
+[0.3.10]: https://github.com/giantswarm/apiextensions/compare/v0.3.9...v0.3.10
 [0.3.9]: https://github.com/giantswarm/apiextensions/compare/v0.3.8...v0.3.9
 [0.3.8]: https://github.com/giantswarm/apiextensions/compare/v0.3.7...v0.3.8
 [0.3.7]: https://github.com/giantswarm/apiextensions/compare/v0.3.6...v0.3.7
