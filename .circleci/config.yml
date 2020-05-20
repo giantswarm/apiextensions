@@ -51,6 +51,14 @@ jobs:
               echo "$invalid"
               exit 1
             fi
+      - run:
+          name: Install CRs
+          command: |
+            for filename in docs/cr/*.yaml; do
+              if [[ "$filename" =~ .*"giantswarm".* ]]; then
+                ./kubectl apply -f "$filename"
+              fi
+            done
 
 workflows:
   workflow:

@@ -16,7 +16,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions"
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apiserver/validation"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -294,43 +294,45 @@ func Test_ReleaseCRValidation(t *testing.T) {
 	}
 	crd := NewReleaseCRD()
 
-	var v apiextensions.CustomResourceValidation
-	err := v1beta1.Convert_v1beta1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crd.Spec.Validation, &v, nil)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	validator, _, err := validation.NewSchemaValidator(&v)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	opts := []cmp.Option{
-		cmpopts.IgnoreUnexported(errors.Validation{}),
-	}
-
 	for _, tc := range testCases {
-		result := validator.Validate(tc.cr)
-
-		if !cmp.Equal(len(result.Errors), len(tc.errors)) {
-			t.Fatalf("\n\n%s %s\n", tc.name, cmp.Diff(len(result.Errors), len(tc.errors)))
-		}
-
-		var validationErrors []*errors.Validation
-		for _, err := range result.Errors {
-			validationErrors = append(validationErrors, err.(*errors.Validation))
-		}
-		if validationErrors == nil {
-			continue
-		}
-
-		sortErrors(validationErrors)
-		sortErrors(tc.errors)
-
-		for i := range result.Errors {
-			if !cmp.Equal(validationErrors[i], tc.errors[i], opts...) {
-				t.Errorf("\n\n%s %d %s\n", tc.name, i, cmp.Diff(validationErrors[i], tc.errors[i], opts...))
+		for versionCount, crdVersion := range crd.Spec.Versions {
+			var v apiextensions.CustomResourceValidation
+			err := v1.Convert_v1_CustomResourceValidation_To_apiextensions_CustomResourceValidation(crdVersion.Schema, &v, nil)
+			if err != nil {
+				t.Fatal(err)
 			}
+
+			validator, _, err := validation.NewSchemaValidator(&v)
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			opts := []cmp.Option{
+				cmpopts.IgnoreUnexported(errors.Validation{}),
+			}
+			result := validator.Validate(tc.cr)
+
+			if !cmp.Equal(len(result.Errors), len(tc.errors)) {
+				t.Fatalf("\n\n%s %s\n", tc.name, cmp.Diff(len(result.Errors), len(tc.errors)))
+			}
+
+			var validationErrors []*errors.Validation
+			for _, err := range result.Errors {
+				validationErrors = append(validationErrors, err.(*errors.Validation))
+			}
+			if validationErrors == nil {
+				continue
+			}
+
+			sortErrors(validationErrors)
+			sortErrors(tc.errors)
+
+			for i := range result.Errors {
+				if !cmp.Equal(validationErrors[i], tc.errors[i], opts...) {
+					t.Errorf("\n\n%s - %d %d %s\n", tc.name, versionCount, i, cmp.Diff(validationErrors[i], tc.errors[i], opts...))
+				}
+			}
+
 		}
 	}
 }
@@ -405,7 +407,7 @@ func newReleaseExampleCR() *Release {
 			},
 			{
 				Name:    "containerlinux",
-				Version: "2247.6",
+				Version: "2247.6.0",
 			},
 			{
 				Name:    "coredns",
