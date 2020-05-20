@@ -102,9 +102,11 @@ generate-deepcopy: $(DEEPCOPY_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
 	$(DEEPCOPY_GEN) \
 	--input-dirs $(INPUT_DIRS) \
-	--output-base . \
+	--output-base $(SCRIPTS_DIR) \
 	--output-file-base $(DEEPCOPY_BASE) \
 	--go-header-file $(BOILERPLATE)
+	cp -R $(SCRIPTS_DIR)/$(MODULE)/$(APIS_DIR)/* $(APIS_DIR)
+	rm -rf $(SCRIPTS_DIR)/github.com/
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
