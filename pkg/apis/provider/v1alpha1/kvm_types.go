@@ -104,6 +104,8 @@ type KVMConfigStatus struct {
 }
 
 type KVMConfigStatusKVM struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// NodeIndexes is a map from nodeID -> nodeIndex. This is used to create deterministic iSCSI initiator names.
 	NodeIndexes map[string]int `json:"nodeIndexes"`
 }

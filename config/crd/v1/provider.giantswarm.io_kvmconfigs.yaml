@@ -530,9 +530,8 @@ spec:
                       type: integer
                     description: NodeIndexes is a map from nodeID -> nodeIndex. This
                       is used to create deterministic iSCSI initiator names.
+                    nullable: true
                     type: object
-                required:
-                - nodeIndexes
                 type: object
             required:
             - cluster
