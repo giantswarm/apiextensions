@@ -9,16 +9,16 @@ import (
 
 // NewAppCR returns an App Custom Resource.
 func NewAppCR(name string) *App {
-	app := App{}
+	cr := App{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   application.Group,
 		Version: version,
 		Kind:    application.KindApp,
 	}
-	app.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	app.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	app.Name = name
-	return &app
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

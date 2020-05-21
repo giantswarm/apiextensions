@@ -9,16 +9,16 @@ import (
 
 // NewAppCatalogCR returns an AppCatalog Custom Resource.
 func NewAppCatalogCR(name string) *AppCatalog {
-	appCatalog := AppCatalog{}
+	cr := AppCatalog{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   application.Group,
 		Version: version,
 		Kind:    application.KindAppCatalog,
 	}
-	appCatalog.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	appCatalog.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	appCatalog.Name = name
-	return &appCatalog
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

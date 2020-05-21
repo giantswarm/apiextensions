@@ -15,9 +15,9 @@ func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
 		Version: version,
 		Kind:    infrastructure.KindAWSMachineDeployment,
 	}
-	cr.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	cr.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	cr.Name = name
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
 	return &cr
 }
 

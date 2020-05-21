@@ -9,16 +9,16 @@ import (
 
 // NewCertConfigCR returns a CertConfig Custom Resource.
 func NewCertConfigCR(name string) *CertConfig {
-	certConfig := CertConfig{}
+	cr := CertConfig{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   core.Group,
 		Version: version,
 		Kind:    core.KindCertConfig,
 	}
-	certConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	certConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	certConfig.Name = name
-	return &certConfig
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

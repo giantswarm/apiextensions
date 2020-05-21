@@ -10,16 +10,16 @@ import (
 
 // NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
 func NewG8sControlPlaneCR(name string) *G8sControlPlane {
-	g8sControlPlane := G8sControlPlane{}
+	cr := G8sControlPlane{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   infrastructure.Group,
 		Version: version,
 		Kind:    infrastructure.KindG8sControlPlane,
 	}
-	g8sControlPlane.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	g8sControlPlane.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	g8sControlPlane.Name = name
-	return &g8sControlPlane
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

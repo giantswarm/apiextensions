@@ -9,16 +9,16 @@ import (
 
 // NewAWSConfigCR returns a custom resource of type AWSConfig.
 func NewAWSConfigCR(name string) *AWSConfig {
-	awsConfig := AWSConfig{}
+	cr := AWSConfig{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   provider.Group,
 		Version: version,
 		Kind:    provider.KindAWSConfig,
 	}
-	awsConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	awsConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	awsConfig.Name = name
-	return &awsConfig
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

@@ -9,16 +9,16 @@ import (
 
 // NewChartCR returns an App Custom Resource.
 func NewChartCR(name string) *Chart {
-	chart := Chart{}
+	cr := Chart{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   application.Group,
 		Version: version,
 		Kind:    application.KindChart,
 	}
-	chart.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	chart.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	chart.Name = name
-	return &chart
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

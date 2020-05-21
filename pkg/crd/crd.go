@@ -10,7 +10,6 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
 
@@ -36,7 +35,7 @@ var (
 	}
 )
 
-type objectHandler func(unstructured.Unstructured)
+type objectHandler func(data []byte) error
 
 func iterateResources(groupVersionKind schema.GroupVersionKind, handle objectHandler) error {
 	crdDirectory := fmt.Sprintf("/config/crd/%s", groupVersionKind.Version)
@@ -78,7 +77,9 @@ func iterateResources(groupVersionKind schema.GroupVersionKind, handle objectHan
 			continue
 		}
 
-		handle(object)
+		if err := handle(contents); err != nil {
+			return microerror.Mask(err)
+		}
 	}
 
 	return nil
@@ -93,14 +94,15 @@ func ListV1Beta1() ([]v1beta1.CustomResourceDefinition, error) {
 		return cacheV1Beta1, nil
 	}
 
-	handler := func(unstructured unstructured.Unstructured) {
+	handler := func(data []byte) error {
 		var crd v1beta1.CustomResourceDefinition
-		err := runtime.DefaultUnstructuredConverter.
-			FromUnstructured(unstructured.UnstructuredContent(), &crd)
+		err := yaml.UnmarshalStrict(data, &crd)
 		if err != nil {
-			return
+			return microerror.Mask(err)
 		}
+
 		cacheV1Beta1 = append(cacheV1Beta1, crd)
+		return nil
 	}
 
 	err := iterateResources(v1beta1GroupVersionKind, handler)
@@ -117,14 +119,15 @@ func ListV1() ([]v1.CustomResourceDefinition, error) {
 		return cache, nil
 	}
 
-	handler := func(unstructured unstructured.Unstructured) {
+	handler := func(data []byte) error {
 		var crd v1.CustomResourceDefinition
-		err := runtime.DefaultUnstructuredConverter.
-			FromUnstructured(unstructured.UnstructuredContent(), &crd)
+		err := yaml.UnmarshalStrict(data, &crd)
 		if err != nil {
-			return
+			return microerror.Mask(err)
 		}
+
 		cache = append(cache, crd)
+		return nil
 	}
 
 	err := iterateResources(v1GroupVersionKind, handler)

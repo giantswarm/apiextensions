@@ -11,13 +11,13 @@ import (
 func NewAWSControlPlaneCR(name string) *AWSControlPlane {
 	cr := AWSControlPlane{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   infrastructure.KindAWSControlPlane,
+		Group:   infrastructure.Group,
 		Version: version,
 		Kind:    infrastructure.KindAWSControlPlane,
 	}
-	cr.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	cr.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	cr.Name = name
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
 	return &cr
 }
 

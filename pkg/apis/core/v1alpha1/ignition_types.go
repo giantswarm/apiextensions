@@ -9,16 +9,16 @@ import (
 
 // NewIgnitionCR returns an NewIgnitionCR Custom Resource.
 func NewIgnitionCR(name string, spec IgnitionSpec) *Ignition {
-	ignition := Ignition{}
+	cr := Ignition{}
 	groupVersionKind := metav1.GroupVersionKind{
 		Group:   core.Group,
 		Version: version,
 		Kind:    core.KindIgnition,
 	}
-	ignition.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	ignition.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	ignition.Name = name
-	return &ignition
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
+	return &cr
 }
 
 // +genclient

@@ -28,9 +28,9 @@ func NewReleaseCR(name string, spec ReleaseSpec) *Release {
 		Version: version,
 		Kind:    release.KindRelease,
 	}
-	cr.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	cr.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	cr.Name = name
+	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
+	cr.ObjectMeta = meta.ObjectMeta
+	cr.TypeMeta = meta.TypeMeta
 	return &cr
 }
 
