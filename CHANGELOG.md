@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Serialization of KVM fields `MemorySizeGB`, `StorageSizeGB`, and `Disk` broken during migration to `kubebuilder`.
 - Code generation from within `$GOPATH`.
+- Loading of `AWSMachineDeployment` CRD.
 
 
 
