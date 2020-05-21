@@ -4,6 +4,8 @@ metadata:
   creationTimestamp: null
   labels:
     chart-operator.giantswarm.io/version: 1.0.0
+  name: prometheus
+  namespace: default
 spec:
   config:
     configMap:

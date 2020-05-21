@@ -4,6 +4,7 @@ metadata:
   creationTimestamp: null
   labels:
     app-operator.giantswarm.io/version: 1.0.0
+  name: my-playground-catalog
 spec:
   config:
     configMap:

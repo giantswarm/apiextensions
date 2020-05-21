@@ -4,6 +4,8 @@ metadata:
   creationTimestamp: null
   labels:
     app-operator.giantswarm.io/version: 1.0.0
+  name: prometheus
+  namespace: default
 spec:
   catalog: my-playground-catalog
   config:
