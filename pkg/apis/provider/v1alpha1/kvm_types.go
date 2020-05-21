@@ -3,8 +3,17 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/provider"
+	"github.com/giantswarm/apiextensions/pkg/key"
 	"github.com/giantswarm/apiextensions/pkg/serialization"
 )
+
+// NewKVMConfigCR returns a KVMConfig custom resource.
+func NewKVMConfigCR(name string) *KVMConfig {
+	cr := KVMConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindKVMConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

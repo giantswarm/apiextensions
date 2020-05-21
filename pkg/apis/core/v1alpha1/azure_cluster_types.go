@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAzureClusterConfigCR returns an AzureClusterConfig custom resource.
+func NewAzureClusterConfigCR(name string) *AzureClusterConfig {
+	cr := AzureClusterConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindAzureClusterConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:noStatus

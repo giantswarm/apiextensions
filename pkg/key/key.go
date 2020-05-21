@@ -18,19 +18,18 @@ func DocumentationLink(crd v1.CustomResourceDefinition) string {
 	return fmt.Sprintf("https://docs.giantswarm.io/reference/cp-k8s-api/%s/", crd.Name)
 }
 
-func NewCustomResourceMeta(kind metav1.GroupVersionKind, name string, namespace string) metav1.PartialObjectMetadata {
-	definition := crd.LoadV1(kind.Group, kind.Kind)
-	return metav1.PartialObjectMetadata{
-		TypeMeta: metav1.TypeMeta{
-			Kind:       kind.Kind,
-			APIVersion: schema.GroupVersionKind(kind).GroupVersion().String(),
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      name,
-			Namespace: namespace,
-			Annotations: map[string]string{
-				CRDocsAnnotation: DocumentationLink(*definition),
-			},
+func NewMeta(groupVersion schema.GroupVersion, kind string, name string, namespace string) (typeMeta metav1.TypeMeta, objectMeta metav1.ObjectMeta) {
+	definition := crd.LoadV1(groupVersion.Group, kind)
+	typeMeta = metav1.TypeMeta{
+		Kind:       kind,
+		APIVersion: groupVersion.String(),
+	}
+	objectMeta = metav1.ObjectMeta{
+		Name:      name,
+		Namespace: namespace,
+		Annotations: map[string]string{
+			CRDocsAnnotation: DocumentationLink(*definition),
 		},
 	}
+	return
 }

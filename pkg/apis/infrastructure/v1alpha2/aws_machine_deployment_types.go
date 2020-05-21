@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewAWSMachineDeploymentCR returns an AWSMachineDeployment Custom Resource.
+// NewAWSMachineDeploymentCR returns an AWSMachineDeployment custom resource.
 func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
 	cr := AWSMachineDeployment{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   infrastructure.Group,
-		Version: version,
-		Kind:    infrastructure.KindAWSMachineDeployment,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSMachineDeployment, name, "")
 	return &cr
 }
 

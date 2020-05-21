@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewCertConfigCR returns a CertConfig Custom Resource.
+// NewCertConfigCR returns a CertConfig custom resource.
 func NewCertConfigCR(name string) *CertConfig {
 	cr := CertConfig{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   core.Group,
-		Version: version,
-		Kind:    core.KindCertConfig,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindCertConfig, name, "")
 	return &cr
 }
 

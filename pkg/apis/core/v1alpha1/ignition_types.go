@@ -7,17 +7,12 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewIgnitionCR returns an NewIgnitionCR Custom Resource.
+// NewIgnitionCR returns an Ignition custom resource.
 func NewIgnitionCR(name string, spec IgnitionSpec) *Ignition {
-	cr := Ignition{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   core.Group,
-		Version: version,
-		Kind:    core.KindIgnition,
+	cr := Ignition{
+		Spec: spec,
 	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindIgnition, name, "")
 	return &cr
 }
 

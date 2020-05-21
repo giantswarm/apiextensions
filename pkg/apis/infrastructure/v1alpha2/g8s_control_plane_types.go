@@ -8,17 +8,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewG8sControlPlaneCR returns a G8sControlPlane Custom Resource.
+// NewG8sControlPlaneCR returns a G8sControlPlane custom resource.
 func NewG8sControlPlaneCR(name string) *G8sControlPlane {
 	cr := G8sControlPlane{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   infrastructure.Group,
-		Version: version,
-		Kind:    infrastructure.KindG8sControlPlane,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindG8sControlPlane, name, "")
 	return &cr
 }
 

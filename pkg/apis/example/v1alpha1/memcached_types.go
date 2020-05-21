@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/example"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewMemcachedConfigCR returns a MemcachedConfig custom resource.
+func NewMemcachedConfigCR(name string) *MemcachedConfig {
+	cr := MemcachedConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, example.KindMemcachedConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:noStatus

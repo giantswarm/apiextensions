@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/tooling"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAzureToolCR returns an AzureTool custom resource.
+func NewAzureToolCR(name string) *AzureTool {
+	cr := AzureTool{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, tooling.KindAzureTool, name, "")
+	return &cr
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

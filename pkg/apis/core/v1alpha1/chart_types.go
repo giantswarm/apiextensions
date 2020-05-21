@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewChartConfigCR returns a ChartConfig custom resource.
+func NewChartConfigCR(name string) *ChartConfig {
+	cr := ChartConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindChartConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

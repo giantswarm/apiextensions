@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewFlannelConfigCR returns a FlannelConfig custom resource.
+func NewFlannelConfigCR(name string) *FlannelConfig {
+	cr := FlannelConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindFlannelConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:noStatus

@@ -10,14 +10,7 @@ import (
 // NewAppCR returns an App Custom Resource.
 func NewAppCR(name string) *App {
 	cr := App{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   application.Group,
-		Version: version,
-		Kind:    application.KindApp,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindApp, name, "")
 	return &cr
 }
 

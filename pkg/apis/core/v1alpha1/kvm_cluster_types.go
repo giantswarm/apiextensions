@@ -3,8 +3,17 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/key"
 	"github.com/giantswarm/apiextensions/pkg/serialization"
 )
+
+// NewKVMClusterConfigCR returns a KVMClusterConfig custom resource.
+func NewKVMClusterConfigCR(name string) *KVMClusterConfig {
+	cr := KVMClusterConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindKVMClusterConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:noStatus

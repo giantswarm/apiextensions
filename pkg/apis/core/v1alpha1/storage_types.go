@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewStorageConfigCR returns a StorageConfig custom resource.
+func NewStorageConfigCR(name string) *StorageConfig {
+	cr := StorageConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindStorageConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:noStatus

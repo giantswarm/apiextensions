@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewAppCatalogCR returns an AppCatalog Custom Resource.
+// NewAppCatalogCR returns an AppCatalog custom resource.
 func NewAppCatalogCR(name string) *AppCatalog {
 	cr := AppCatalog{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   application.Group,
-		Version: version,
-		Kind:    application.KindAppCatalog,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindAppCatalog, name, "")
 	return &cr
 }
 

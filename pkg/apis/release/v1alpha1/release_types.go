@@ -19,18 +19,12 @@ func (r ReleaseState) String() string {
 	return string(r)
 }
 
+// NewReleaseCR returns a Release custom resource.
 func NewReleaseCR(name string, spec ReleaseSpec) *Release {
 	cr := Release{
 		Spec: spec,
 	}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   release.Group,
-		Version: version,
-		Kind:    release.KindRelease,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, release.KindRelease, name, "")
 	return &cr
 }
 

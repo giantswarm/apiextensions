@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewChartCR returns an App Custom Resource.
+// NewChartCR returns a Chart custom resource.
 func NewChartCR(name string) *Chart {
 	cr := Chart{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   application.Group,
-		Version: version,
-		Kind:    application.KindChart,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindChart, name, "")
 	return &cr
 }
 

@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewAWSControlPlaneCR returns an AWSControlPlane Custom Resource.
+// NewAWSControlPlaneCR returns an AWSControlPlane custom resource.
 func NewAWSControlPlaneCR(name string) *AWSControlPlane {
 	cr := AWSControlPlane{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   infrastructure.Group,
-		Version: version,
-		Kind:    infrastructure.KindAWSControlPlane,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSControlPlane, name, "")
 	return &cr
 }
 

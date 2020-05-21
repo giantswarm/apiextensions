@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/backup"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewETCDBackupCR returns an EtcdBackup custom resource.
+func NewETCDBackupCR(name string) *ETCDBackup {
+	cr := ETCDBackup{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, backup.KindETCDBackup, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:nonNamespaced

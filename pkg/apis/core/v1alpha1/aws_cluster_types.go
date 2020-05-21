@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAWSClusterConfigCR returns an AWSClusterConfig custom resource.
+func NewAWSClusterConfigCR(name string) *AWSClusterConfig {
+	cr := AWSClusterConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindAWSClusterConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +genclient:noStatus

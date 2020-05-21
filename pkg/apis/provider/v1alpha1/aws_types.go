@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewAWSConfigCR returns a custom resource of type AWSConfig.
+// NewAWSConfigCR returns an AWSConfig custom resource.
 func NewAWSConfigCR(name string) *AWSConfig {
 	cr := AWSConfig{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   provider.Group,
-		Version: version,
-		Kind:    provider.KindAWSConfig,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAWSConfig, name, "")
 	return &cr
 }
 

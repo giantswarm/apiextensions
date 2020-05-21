@@ -2,7 +2,17 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/provider"
+	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAzureConfigCR returns an AzureConfig custom resource.
+func NewETCDBackupCR(name string) *AzureConfig {
+	cr := AzureConfig{}
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAzureConfig, name, "")
+	return &cr
+}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

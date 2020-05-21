@@ -13,43 +13,43 @@ spec:
     disable: false
     mtu: ""
     subnet: ""
-  clusterID: ""
+  clusterID: abc12
   disableEncryptionAtRest: false
   docker:
     daemon:
-      cidr: ""
+      cidr: 172.100.0.1/16
     networkSetup:
-      image: ""
+      image: quay.io/giantswarm/k8s-setup-network-environment
   etcd:
-    domain: ""
-    port: 0
+    domain: https://etcd.abc12.k8s.example.eu-west-1.aws.gigantic.io
+    port: 2379
     prefix: ""
   extension: {}
   ingress:
     disable: false
-  isMaster: false
+  isMaster: true
   kubernetes:
     api:
-      domain: ""
-      securePort: 0
-    cloudProvider: ""
+      domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
+      securePort: 443
+    cloudProvider: aws
     dns:
-      ip: ""
-    domain: ""
-    ipRange: ""
+      ip: 10.1.2.3/32
+    domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
+    ipRange: 10.2.3.4/24
     kubelet:
-      domain: ""
+      domain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
     oidc:
-      clientID: ""
-      enabled: false
+      clientID: abc12
+      enabled: true
       groupsClaim: ""
-      groupsPrefix: ""
-      issuerUrl: ""
+      groupsPrefix: gs
+      issuerUrl: https://giantswarm.io
       usernameClaim: ""
-      usernamePrefix: ""
-  provider: ""
+      usernamePrefix: gs
+  provider: aws
   registry:
-    domain: ""
-    pullProgressDeadline: ""
+    domain: quay.io
+    pullProgressDeadline: 10s
   sso:
-    publicKey: ""
+    publicKey: ssh-rsa 1234567890

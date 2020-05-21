@@ -7,17 +7,10 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
-// NewAWSClusterCR returns an AWSCluster Custom Resource.
+// NewAWSClusterCR returns an AWSCluster custom resource.
 func NewAWSClusterCR(name string) *AWSCluster {
 	cr := AWSCluster{}
-	groupVersionKind := metav1.GroupVersionKind{
-		Group:   infrastructure.Group,
-		Version: version,
-		Kind:    infrastructure.KindAWSCluster,
-	}
-	meta := key.NewCustomResourceMeta(groupVersionKind, name, "")
-	cr.ObjectMeta = meta.ObjectMeta
-	cr.TypeMeta = meta.TypeMeta
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSCluster, name, "")
 	return &cr
 }
 
