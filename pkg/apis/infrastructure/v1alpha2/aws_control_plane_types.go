@@ -38,6 +38,7 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:resource:categories=aws;giantswarm
 // +kubebuilder:storageversion
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
