@@ -84,8 +84,8 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 func newAppCatalogExampleCR() *AppCatalog {
 	cr := NewAppCatalogCR()
 
-	cr.Name = "my-playground-catalog"
 	cr.ObjectMeta = metav1.ObjectMeta{
+		Name: "my-playground-catalog",
 		Labels: map[string]string{
 			"app-operator.giantswarm.io/version": "1.0.0",
 		},

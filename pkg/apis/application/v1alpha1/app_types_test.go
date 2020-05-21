@@ -63,8 +63,9 @@ func Test_GenerateAppYAML(t *testing.T) {
 func newAppExampleCR() *App {
 	cr := NewAppCR()
 
-	cr.Name = "prometheus"
 	cr.ObjectMeta = metav1.ObjectMeta{
+		Name:      "prometheus",
+		Namespace: "default",
 		Labels: map[string]string{
 			"app-operator.giantswarm.io/version": "1.0.0",
 		},

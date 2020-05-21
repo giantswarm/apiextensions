@@ -70,8 +70,9 @@ func Test_GenerateChartYAML(t *testing.T) {
 func newChartExampleCR() *Chart {
 	cr := NewChartCR()
 
-	cr.Name = "prometheus"
 	cr.ObjectMeta = metav1.ObjectMeta{
+		Name:      "prometheus",
+		Namespace: "default",
 		Labels: map[string]string{
 			"chart-operator.giantswarm.io/version": "1.0.0",
 		},
