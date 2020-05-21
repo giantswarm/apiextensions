@@ -5,17 +5,18 @@ import (
 )
 
 func Test_List(t *testing.T) {
-	crdV1 := List()
-	t.Run("case 0: crd slice should not be nil", func(t *testing.T) {
-		if crdV1 == nil {
-			t.Fatal("expected crd slice to not be nil")
-		}
-	})
-	t.Run("case 1: crd slice should contain at least one item", func(t *testing.T) {
-		if len(crdV1) == 0 {
-			t.Fatal("expected crd slice to contain at least one item")
-		}
-	})
+	crdV1, err := ListV1()
+	if err != nil {
+		t.Fatalf("expected err to be nil: %s", err)
+	}
+
+	if crdV1 == nil {
+		t.Fatal("expected crd slice to not be nil")
+	}
+
+	if len(crdV1) == 0 {
+		t.Fatal("expected crd slice to contain at least one item")
+	}
 }
 
 func Test_Load(t *testing.T) {
