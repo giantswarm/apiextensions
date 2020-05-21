@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -24,7 +25,7 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_%s.yaml", infrastructure.Group, version, infrastructure.KindG8sControlPlane),
+			name:     fmt.Sprintf("%s_%s_%s.yaml", infrastructure.Group, version, strings.ToLower(infrastructure.KindG8sControlPlane)),
 			resource: newG8sControlPlaneExampleCR(),
 		},
 	}
