@@ -1,12 +1,9 @@
 apiVersion: application.giantswarm.io/v1alpha1
 kind: Chart
 metadata:
-  annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/charts.application.giantswarm.io/
   creationTimestamp: null
   labels:
-    chart-operator.giantswarm.io/version: "1.0.0"
-  name: prometheus
+    chart-operator.giantswarm.io/version: 1.0.0
 spec:
   config:
     configMap:

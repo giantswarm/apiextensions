@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
@@ -63,6 +64,11 @@ func newAppExampleCR() *App {
 	cr := NewAppCR()
 
 	cr.Name = "prometheus"
+	cr.ObjectMeta = metav1.ObjectMeta{
+		Labels: map[string]string{
+			"app-operator.giantswarm.io/version": "1.0.0",
+		},
+	}
 	cr.Spec = AppSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",
