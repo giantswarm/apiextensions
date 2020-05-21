@@ -11,7 +11,6 @@ TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 # Need to use abspath so we can invoke these from subdirectories
 CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
-DEEPCOPY_GEN := $(abspath $(TOOLS_BIN_DIR)/deepcopy-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
@@ -37,18 +36,6 @@ INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, 
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
-# The behavior of deepcopy-gen depends on whether the code generation happens inside $GOPATH or not
-# We can check this condition with the following:
-# 1. Get the length of the $GOPATH as an integer
-LENGTH := $(shell echo $(GOPATH) | wc -c | xargs)
-# 2. Cut the current working directory to the same length as the $GOPATH
-BASE := $(shell pwd | cut -c-$(LENGTH))
-IN_GOPATH = no
-# 3. If the current working directory starts with $GOPATH, this is running within $GOPATH
-ifeq ($(BASE),$(GOPATH)/)
-IN_GOPATH = yes
-endif
-
 all: generate
 
 $(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
@@ -60,11 +47,6 @@ $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
 	@echo "$(BUILD_COLOR)Building controller-gen$(NO_COLOR)"
 	cd $(TOOLS_DIR)/controller-gen \
  	&& go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
-
-$(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
-	@echo "$(BUILD_COLOR)Building deepcopy-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/deepcopy-gen \
-	&& go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
 
 $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	@echo "$(BUILD_COLOR)Building goimports$(NO_COLOR)"
@@ -110,20 +92,11 @@ generate-clientset: $(CLIENT_GEN)
 	rm -rf $(SCRIPTS_DIR)/github.com/
 
 .PHONY: generate-deepcopy
-generate-deepcopy: $(DEEPCOPY_GEN)
+generate-deepcopy: $(CONTROLLER_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
-ifeq ($(IN_GOPATH), no)
-	$(DEEPCOPY_GEN) \
-	--input-dirs $(INPUT_DIRS) \
-	--output-base . \
-	--output-file-base $(DEEPCOPY_BASE) \
-	--go-header-file $(BOILERPLATE)
-else
-	$(DEEPCOPY_GEN) \
-	--input-dirs $(INPUT_DIRS) \
-	--output-file-base $(DEEPCOPY_BASE) \
-	--go-header-file $(BOILERPLATE)
-endif
+	$(CONTROLLER_GEN) \
+	object:headerFile=$(BOILERPLATE),year=2020 \
+	paths=./$(APIS_DIR)/...
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
