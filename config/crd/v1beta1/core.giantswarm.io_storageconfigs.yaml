@@ -11,8 +11,8 @@ spec:
   group: core.giantswarm.io
   names:
     categories:
-    - giantswarm
     - common
+    - giantswarm
     kind: StorageConfig
     listKind: StorageConfigList
     plural: storageconfigs

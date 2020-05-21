@@ -26,7 +26,7 @@ func NewIgnitionTypeMeta() metav1.TypeMeta {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:categories=giantswarm;common
+// +kubebuilder:resource:categories=common;giantswarm
 
 // Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.
 //

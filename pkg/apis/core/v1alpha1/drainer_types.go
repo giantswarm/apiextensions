@@ -38,7 +38,7 @@ func NewDrainerTypeMeta() metav1.TypeMeta {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:categories=giantswarm;common
+// +kubebuilder:resource:categories=common;giantswarm
 
 type DrainerConfig struct {
 	metav1.TypeMeta   `json:",inline"`

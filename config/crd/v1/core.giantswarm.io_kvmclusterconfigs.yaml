@@ -11,8 +11,8 @@ spec:
   group: core.giantswarm.io
   names:
     categories:
-    - kvm
     - giantswarm
+    - kvm
     kind: KVMClusterConfig
     listKind: KVMClusterConfigList
     plural: kvmclusterconfigs

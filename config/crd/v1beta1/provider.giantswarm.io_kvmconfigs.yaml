@@ -11,8 +11,8 @@ spec:
   group: provider.giantswarm.io
   names:
     categories:
-    - kvm
     - giantswarm
+    - kvm
     kind: KVMConfig
     listKind: KVMConfigList
     plural: kvmconfigs

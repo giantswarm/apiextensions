@@ -11,8 +11,8 @@ spec:
   group: example.giantswarm.io
   names:
     categories:
-    - giantswarm
     - example
+    - giantswarm
     kind: MemcachedConfig
     listKind: MemcachedConfigList
     plural: memcachedconfigs

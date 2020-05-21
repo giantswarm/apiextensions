@@ -11,8 +11,8 @@ spec:
   group: application.giantswarm.io
   names:
     categories:
-    - giantswarm
     - common
+    - giantswarm
     kind: Chart
     listKind: ChartList
     plural: charts

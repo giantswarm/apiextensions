@@ -11,8 +11,8 @@ spec:
   group: backup.giantswarm.io
   names:
     categories:
-    - giantswarm
     - common
+    - giantswarm
     kind: ETCDBackup
     listKind: ETCDBackupList
     plural: etcdbackups
