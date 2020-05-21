@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.1] 2020-05-21
 
+### Added
+
+- Categories for all CRDs.
+
 ### Changed
 
 - Make `.status.kvm.nodeIndexes` of `KVMConfig` optional.
@@ -18,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Serialization of KVM fields `MemorySizeGB`, `StorageSizeGB`, and `Disk` broken during migration to `kubebuilder`.
+- Code generation from within `$GOPATH`.
 
 
 
@@ -26,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add external SNAT configuration for AWS CNI.
+
 
 
 ## [0.3.11] 2020-05-20
