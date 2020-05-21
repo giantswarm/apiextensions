@@ -13,6 +13,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/provider"
 )
 
 var (
@@ -35,7 +37,7 @@ func Test_GenerateAWSConfigYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_awsconfig.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_awsconfig.yaml", provider.Group, version),
 			resource: newAWSConfigExampleCR(),
 		},
 	}

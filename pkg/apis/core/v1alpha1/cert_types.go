@@ -1,39 +1,19 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
-
-const (
-	crDocsAnnotation            = "giantswarm.io/docs"
-	kindCertConfig              = "CertConfig"
-	certConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/certconfigs.core.giantswarm.io/"
-)
-
-func NewCertConfigCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindCertConfig)
-}
-
-// NewCertConfigTypeMeta returns the type part for the metadata section of a
-// CertConfig custom resource.
-func NewCertConfigTypeMeta() metav1.TypeMeta {
-	return metav1.TypeMeta{
-		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindCertConfig,
-	}
-}
 
 // NewCertConfigCR returns a CertConfig Custom Resource.
 func NewCertConfigCR(name string) *CertConfig {
 	certConfig := CertConfig{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   group,
+		Group:   core.Group,
 		Version: version,
-		Kind:    key.KindCertConfig,
+		Kind:    core.KindCertConfig,
 	}
 	certConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	certConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)

@@ -11,6 +11,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 )
 
 func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
@@ -21,7 +23,7 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_awsmachinedeployment.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_awsmachinedeployment.yaml", infrastructure.Group, version),
 			resource: newAWSMachineDeploymentExampleCR(),
 		},
 	}

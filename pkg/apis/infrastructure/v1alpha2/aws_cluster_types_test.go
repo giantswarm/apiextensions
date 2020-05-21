@@ -15,6 +15,8 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 )
 
 var (
@@ -37,7 +39,7 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_awscluster.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_awscluster.yaml", infrastructure.Group, version),
 			resource: newAWSClusterExampleCR(),
 		},
 	}

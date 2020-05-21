@@ -4,6 +4,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -11,9 +12,9 @@ import (
 func NewG8sControlPlaneCR(name string) *G8sControlPlane {
 	g8sControlPlane := G8sControlPlane{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   infrastructure.Group,
 		Version: version,
-		Kind:    key.KindApp,
+		Kind:    infrastructure.KindG8sControlPlane,
 	}
 	g8sControlPlane.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	g8sControlPlane.ObjectMeta = key.NewObjectMeta(groupVersionKind)

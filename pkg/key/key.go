@@ -12,33 +12,6 @@ import (
 
 const (
 	CRDocsAnnotation = "giantswarm.io/docs"
-
-	KindAppCatalog           = "AppCatalog"
-	KindApp                  = "App"
-	KindChart                = "Chart"
-	KindETCDBackup           = "ETCDBackup"
-	KindAWSClusterConfig     = "AWSClusterConfig"
-	KindAzureClusterConfig   = "AzureClusterConfig"
-	KindCertConfig           = "CertConfig"
-	KindChartConfig          = "ChartConfig"
-	KindDrainerConfig        = "DrainerConfig"
-	KindFlannelConfig        = "FlannelConfig"
-	KindIgnition             = "Ignition"
-	KindKVMClusterConfig     = "KVMClusterConfig"
-	KindStorageConfig        = "StorageConfig"
-	KindMemcachedConfig      = "MemcachedConfig"
-	KindAWSCluster           = "AWSCluster"
-	KindAWSControlPlane      = "AWSControlPlane"
-	KindAWSMachineDeployment = "AWSMachineDeployment"
-	KindG8sControlPlane      = "G8sControlPlane"
-	KindAWSConfig            = "AWSConfig"
-	KindAzureConfig          = "AzureConfig"
-	KindKVMConfig            = "KVMConfig"
-	KindRelease              = "Release"
-	KindAzureTool            = "AzureTool"
-
-	GroupApplication = "application.giantswarm.io"
-	GroupRelease     = "release.giantswarm.io"
 )
 
 func DocumentationLink(crd v1.CustomResourceDefinition) string {

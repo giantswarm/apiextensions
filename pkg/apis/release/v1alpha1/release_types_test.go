@@ -22,8 +22,8 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/release"
 	"github.com/giantswarm/apiextensions/pkg/crd"
-	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 var (
@@ -240,7 +240,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 	}
 
-	releaseCRD := crd.LoadV1(group, key.KindRelease)
+	releaseCRD := crd.LoadV1(release.Group, release.KindRelease)
 
 	for _, tc := range testCases {
 		for versionCount, crdVersion := range releaseCRD.Spec.Versions {
@@ -382,7 +382,7 @@ func Test_GenerateReleaseYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_release.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_release.yaml", release.Group, version),
 			resource: newReleaseExampleCR(),
 		},
 	}

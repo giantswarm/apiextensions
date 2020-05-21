@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/application"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -10,9 +11,9 @@ import (
 func NewAppCR(name string) *App {
 	app := App{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   application.Group,
 		Version: version,
-		Kind:    key.KindApp,
+		Kind:    application.KindApp,
 	}
 	app.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	app.ObjectMeta = key.NewObjectMeta(groupVersionKind)

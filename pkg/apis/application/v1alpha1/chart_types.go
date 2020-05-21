@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/application"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -10,9 +11,9 @@ import (
 func NewChartCR(name string) *Chart {
 	chart := Chart{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   application.Group,
 		Version: version,
-		Kind:    key.KindChart,
+		Kind:    application.KindChart,
 	}
 	chart.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	chart.ObjectMeta = key.NewObjectMeta(groupVersionKind)

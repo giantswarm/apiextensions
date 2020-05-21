@@ -34,7 +34,7 @@ PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 YEAR = $(shell date +'%Y')
 
 INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
-GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
+GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2 -type d | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
 all: generate

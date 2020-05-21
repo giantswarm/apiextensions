@@ -13,6 +13,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
 )
 
 var (
@@ -29,9 +31,9 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 		resource runtime.Object
 	}{
 		{
-			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", group, version),
+			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", core.Group, version),
 			category: "cr",
-			filename: fmt.Sprintf("%s_%s_ignition.yaml", group, version),
+			filename: fmt.Sprintf("%s_%s_ignition.yaml", core.Group, version),
 			resource: NewIgnitionCR("abc12-master", IgnitionSpec{
 				ClusterID:               "abc12",
 				DisableEncryptionAtRest: false,

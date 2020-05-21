@@ -4,10 +4,11 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
 )
 
 const (
-	group   = "core.giantswarm.io"
 	version = "v1alpha1"
 )
 
@@ -37,7 +38,7 @@ var knownTypes = []runtime.Object{
 
 // SchemeGroupVersion is group version used to register these objects
 var SchemeGroupVersion = schema.GroupVersion{
-	Group:   group,
+	Group:   core.Group,
 	Version: version,
 }
 

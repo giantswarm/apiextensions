@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/core"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -10,9 +11,9 @@ import (
 func NewIgnitionCR(name string, spec IgnitionSpec) *Ignition {
 	ignition := Ignition{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   core.Group,
 		Version: version,
-		Kind:    key.KindApp,
+		Kind:    core.KindIgnition,
 	}
 	ignition.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	ignition.ObjectMeta = key.NewObjectMeta(groupVersionKind)

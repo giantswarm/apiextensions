@@ -3,6 +3,7 @@ package v1alpha2
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -10,9 +11,9 @@ import (
 func NewAWSClusterCR(name string) *AWSCluster {
 	awsCluster := AWSCluster{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   infrastructure.Group,
 		Version: version,
-		Kind:    key.KindApp,
+		Kind:    infrastructure.KindAWSCluster,
 	}
 	awsCluster.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	awsCluster.ObjectMeta = key.NewObjectMeta(groupVersionKind)

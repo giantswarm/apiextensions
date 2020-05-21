@@ -3,21 +3,22 @@ package v1alpha2
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 // NewAWSControlPlaneCR returns an AWSControlPlane Custom Resource.
 func NewAWSControlPlaneCR(name string) *AWSControlPlane {
-	awsControlPlane := AWSControlPlane{}
+	cr := AWSControlPlane{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   infrastructure.KindAWSControlPlane,
 		Version: version,
-		Kind:    key.KindApp,
+		Kind:    infrastructure.KindAWSControlPlane,
 	}
-	awsControlPlane.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	awsControlPlane.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	awsControlPlane.Name = name
-	return &awsControlPlane
+	cr.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	cr.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	cr.Name = name
+	return &cr
 }
 
 // +genclient

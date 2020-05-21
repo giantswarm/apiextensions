@@ -13,7 +13,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 
-	"github.com/giantswarm/apiextensions/pkg/key"
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 )
 
 func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
@@ -24,7 +24,7 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_%s.yaml", group, version, key.KindG8sControlPlane),
+			name:     fmt.Sprintf("%s_%s_%s.yaml", infrastructure.Group, version, infrastructure.KindG8sControlPlane),
 			resource: newG8sControlPlaneExampleCR(),
 		},
 	}

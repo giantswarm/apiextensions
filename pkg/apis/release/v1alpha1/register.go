@@ -4,13 +4,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
+
+	"github.com/giantswarm/apiextensions/pkg/apis/release"
 )
 
 // +kubebuilder:object:generate=true
 // +groupName=release.giantswarm.io
 
 const (
-	group   = "release.giantswarm.io"
 	version = "v1alpha1"
 )
 
@@ -24,7 +25,7 @@ var knownTypes = []runtime.Object{
 
 // SchemeGroupVersion is group version used to register these objects
 var SchemeGroupVersion = schema.GroupVersion{
-	Group:   group,
+	Group:   release.Group,
 	Version: version,
 }
 

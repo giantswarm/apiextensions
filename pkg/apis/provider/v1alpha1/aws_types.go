@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/provider"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -10,9 +11,9 @@ import (
 func NewAWSConfigCR(name string) *AWSConfig {
 	awsConfig := AWSConfig{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   group,
+		Group:   provider.Group,
 		Version: version,
-		Kind:    key.KindAWSConfig,
+		Kind:    provider.KindAWSConfig,
 	}
 	awsConfig.TypeMeta = key.NewTypeMeta(groupVersionKind)
 	awsConfig.ObjectMeta = key.NewObjectMeta(groupVersionKind)

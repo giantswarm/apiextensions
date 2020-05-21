@@ -3,21 +3,22 @@ package v1alpha2
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
 // NewAWSMachineDeploymentCR returns an AWSMachineDeployment Custom Resource.
 func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
-	awsMachineDeployment := AWSMachineDeployment{}
+	cr := AWSMachineDeployment{}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupApplication,
+		Group:   infrastructure.Group,
 		Version: version,
-		Kind:    key.KindApp,
+		Kind:    infrastructure.KindAWSMachineDeployment,
 	}
-	awsMachineDeployment.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	awsMachineDeployment.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	awsMachineDeployment.Name = name
-	return &awsMachineDeployment
+	cr.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	cr.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	cr.Name = name
+	return &cr
 }
 
 // +genclient

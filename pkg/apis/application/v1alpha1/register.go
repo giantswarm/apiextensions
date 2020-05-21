@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	"github.com/giantswarm/apiextensions/pkg/key"
+	"github.com/giantswarm/apiextensions/pkg/apis/application"
 )
 
 const (
@@ -26,7 +26,7 @@ var knownTypes = []runtime.Object{
 
 // SchemeGroupVersion is group version used to register these objects
 var SchemeGroupVersion = schema.GroupVersion{
-	Group:   key.GroupApplication,
+	Group:   application.Group,
 	Version: version,
 }
 

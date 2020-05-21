@@ -3,6 +3,7 @@ package v1alpha1
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/apis/release"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -19,18 +20,18 @@ func (r ReleaseState) String() string {
 }
 
 func NewReleaseCR(name string, spec ReleaseSpec) *Release {
-	release := Release{
+	cr := Release{
 		Spec: spec,
 	}
 	groupVersionKind := metav1.GroupVersionKind{
-		Group:   key.GroupRelease,
+		Group:   release.Group,
 		Version: version,
-		Kind:    key.KindRelease,
+		Kind:    release.KindRelease,
 	}
-	release.TypeMeta = key.NewTypeMeta(groupVersionKind)
-	release.ObjectMeta = key.NewObjectMeta(groupVersionKind)
-	release.Name = name
-	return &release
+	cr.TypeMeta = key.NewTypeMeta(groupVersionKind)
+	cr.ObjectMeta = key.NewObjectMeta(groupVersionKind)
+	cr.Name = name
+	return &cr
 }
 
 // +kubebuilder:printcolumn:name="Kubernetes version",type=string,JSONPath=`.spec.components[?(@.name=="kubernetes")].version`,description="Version of the kubernetes component in this release"

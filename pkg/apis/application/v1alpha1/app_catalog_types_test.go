@@ -14,7 +14,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 
-	"github.com/giantswarm/apiextensions/pkg/key"
+	"github.com/giantswarm/apiextensions/pkg/apis/application"
 )
 
 var (
@@ -37,7 +37,7 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", key.GroupApplication, version),
+			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", application.Group, version),
 			resource: newAppCatalogExampleCR(),
 		},
 	}
