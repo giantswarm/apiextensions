@@ -10,6 +10,9 @@ metadata:
 spec:
   group: backup.giantswarm.io
   names:
+    categories:
+    - common
+    - giantswarm
     kind: ETCDBackup
     listKind: ETCDBackupList
     plural: etcdbackups

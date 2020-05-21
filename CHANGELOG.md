@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Categories for all CRDs.
+
 ### Changed
 
 - Make `.status.kvm.nodeIndexes` of `KVMConfig` optional.
@@ -25,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add external SNAT configuration for AWS CNI.
+
 
 
 ## [0.3.11] 2020-05-20

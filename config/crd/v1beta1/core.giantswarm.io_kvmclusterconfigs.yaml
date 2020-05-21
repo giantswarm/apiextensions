@@ -10,6 +10,9 @@ metadata:
 spec:
   group: core.giantswarm.io
   names:
+    categories:
+    - giantswarm
+    - kvm
     kind: KVMClusterConfig
     listKind: KVMClusterConfigList
     plural: kvmclusterconfigs

@@ -10,6 +10,9 @@ metadata:
 spec:
   group: provider.giantswarm.io
   names:
+    categories:
+    - giantswarm
+    - kvm
     kind: KVMConfig
     listKind: KVMConfigList
     plural: kvmconfigs
