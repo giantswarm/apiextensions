@@ -126,8 +126,10 @@ type AWSClusterSpecProviderCredentialSecret struct {
 
 // AWSClusterSpecProviderMaster holds master node configuration details.
 type AWSClusterSpecProviderMaster struct {
+	// +kubebuilder:validation:Optional
 	// AWS availability zone to place the master node in.
 	AvailabilityZone string `json:"availabilityZone"`
+	// +kubebuilder:validation:Optional
 	// AWS EC2 instance type to use for the master node.
 	InstanceType string `json:"instanceType"`
 }
@@ -137,6 +139,9 @@ type AWSClusterSpecProviderPods struct {
 	// +kubebuilder:validation:Optional
 	// IPv4 address block used for pods, in CIDR notation.
 	CIDRBlock string `json:"cidrBlock,omitempty"`
+	// +kubebuilder:validation:Optional
+	// When set to false, pod connections outside the VPC where the pod is located will be NATed through the node primary IP. When set to true, all connections will use the pod IP.
+	ExternalSNAT *bool `json:"externalSNAT,omitempty"`
 }
 
 // AWSClusterStatus holds status information about the cluster, populated once the
