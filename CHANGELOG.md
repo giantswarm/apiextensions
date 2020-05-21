@@ -111,7 +111,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - All CRDs are now available as both `v1.CustomResourcDefinition` and `v1beta1.CustomResourceDefinition` through
-  `crd.Load` and `crd.LoadV1Beta1`. Type-specific `New*CRD()` functions are unchanged.
+  `crd.LoadV1` and `crd.LoadV1Beta1`. Type-specific `New*CRD()` functions are unchanged.
 - Graduated Azure CRDs to `v1`.
 
 

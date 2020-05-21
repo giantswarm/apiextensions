@@ -5,7 +5,7 @@ metadata:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/
   creationTimestamp: null
   name: ier2s
-  namespace: giantswarm
+  namespace: default
 spec:
   availabilityZones:
   - eu-central-1a

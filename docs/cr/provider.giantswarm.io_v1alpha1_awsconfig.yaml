@@ -5,7 +5,7 @@ metadata:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/
   creationTimestamp: null
   name: l8zrw
-  namespace: giantswarm
+  namespace: default
 spec:
   aws:
     api:

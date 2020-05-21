@@ -5,7 +5,7 @@ metadata:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/g8scontrolplanes.infrastructure.giantswarm.io/
   creationTimestamp: null
   name: 0p8h5
-  namespace: giantswarm
+  namespace: default
 spec:
   infrastructureRef:
     apiVersion: infrastructure.giantswarm.io/v1alpha2
