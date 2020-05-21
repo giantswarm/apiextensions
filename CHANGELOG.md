@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Categories for all CRDs.
+- Constructors for all CRs which initialize `TypeMeta` and `ObjectMeta` and include an annotation to the relevant
+  documentation.
 
 ### Changed
 
@@ -22,6 +24,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Serialization of KVM fields `MemorySizeGB`, `StorageSizeGB`, and `Disk` broken during migration to `kubebuilder`.
 - Code generation from within `$GOPATH`.
 - Loading of `AWSMachineDeployment` CRD.
+
+### Removed
+
+- New CRD functions. Instead, CRDs should be loaded with `crd.LoadV1` by its group and kind.
 
 
 
