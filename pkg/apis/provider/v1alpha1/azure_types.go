@@ -19,6 +19,7 @@ func NewAzureConfigCRD() *v1.CustomResourceDefinition {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=azure;giantswarm
 
 type AzureConfig struct {
 	metav1.TypeMeta   `json:",inline"`
