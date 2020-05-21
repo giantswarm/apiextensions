@@ -5,6 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/pkg/serialization"
 )
 
 const (
@@ -49,12 +50,10 @@ type KVMClusterConfigSpecGuestWorker struct {
 
 // TODO: change MemorySizeGB and StorageSizeGB to resource.Quantity
 type KVMClusterConfigSpecGuestNode struct {
-	ID       string `json:"id"`
-	CPUCores int    `json:"cpuCores,omitempty"`
-	// +kubebuilder:validation:Type=number
-	MemorySizeGB string `json:"memorySizeGB,omitempty"`
-	// +kubebuilder:validation:Type=number
-	StorageSizeGB string `json:"storageSizeGB,omitempty"`
+	ID            string              `json:"id"`
+	CPUCores      int                 `json:"cpuCores,omitempty"`
+	MemorySizeGB  serialization.Float `json:"memorySizeGB,omitempty"`
+	StorageSizeGB serialization.Float `json:"storageSizeGB,omitempty"`
 }
 
 type KVMClusterConfigSpecVersionBundle struct {
