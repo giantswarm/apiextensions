@@ -31,6 +31,7 @@ DEEPCOPY_BASE = zz_generated.deepcopy
 MODULE = $(shell go list -m)
 BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
+YEAR = $(shell date +'%Y')
 
 INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
@@ -95,7 +96,7 @@ generate-clientset: $(CLIENT_GEN)
 generate-deepcopy: $(CONTROLLER_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
 	$(CONTROLLER_GEN) \
-	object:headerFile=$(BOILERPLATE),year=2020 \
+	object:headerFile=$(BOILERPLATE),year=$(YEAR) \
 	paths=./$(APIS_DIR)/...
 
 .PHONY: generate-manifests
