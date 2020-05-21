@@ -64,10 +64,10 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 }
 
 func newG8sControlPlaneExampleCR() *G8sControlPlane {
-	cr := NewG8sControlPlaneCR("0p8h5")
+	cr := NewG8sControlPlaneCR("0p8h5", "giantswarm")
 	cr.Spec = G8sControlPlaneSpec{
 		// ClusterNetwork does not occur in our practice, so leaving it empty.
-		//ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
+		// ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},
 		InfrastructureRef: corev1.ObjectReference{
 			APIVersion: "infrastructure.giantswarm.io/v1alpha2",
 			Kind:       "AWSControlPlane",

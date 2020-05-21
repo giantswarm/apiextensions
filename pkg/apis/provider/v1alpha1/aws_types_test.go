@@ -76,7 +76,7 @@ func Test_GenerateAWSConfigYAML(t *testing.T) {
 }
 
 func newAWSConfigExampleCR() *AWSConfig {
-	cr := NewAWSConfigCR("l8zrw")
+	cr := NewAWSConfigCR("l8zrw", "giantswarm")
 	cr.Spec = AWSConfigSpec{
 		AWS: AWSConfigSpecAWS{
 			API: AWSConfigSpecAWSAPI{

@@ -5,6 +5,7 @@ metadata:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awsmachinedeployments.infrastructure.giantswarm.io/
   creationTimestamp: null
   name: general-purpose-node-pool
+  namespace: giantswarm
 spec:
   nodePool:
     description: General purpose worker nodes

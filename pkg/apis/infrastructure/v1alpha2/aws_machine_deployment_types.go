@@ -8,9 +8,9 @@ import (
 )
 
 // NewAWSMachineDeploymentCR returns an AWSMachineDeployment custom resource.
-func NewAWSMachineDeploymentCR(name string) *AWSMachineDeployment {
+func NewAWSMachineDeploymentCR(name, namespace string) *AWSMachineDeployment {
 	cr := AWSMachineDeployment{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSMachineDeployment, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSMachineDeployment, name, namespace)
 	return &cr
 }
 

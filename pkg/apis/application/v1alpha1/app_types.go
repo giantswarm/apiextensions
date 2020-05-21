@@ -8,9 +8,9 @@ import (
 )
 
 // NewAppCR returns an App Custom Resource.
-func NewAppCR(name string) *App {
+func NewAppCR(name, namespace string) *App {
 	cr := App{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindApp, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindApp, name, namespace)
 	return &cr
 }
 

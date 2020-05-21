@@ -8,9 +8,9 @@ import (
 )
 
 // NewAzureConfigCR returns an AzureConfig custom resource.
-func NewETCDBackupCR(name string) *AzureConfig {
+func NewETCDBackupCR(name, namespace string) *AzureConfig {
 	cr := AzureConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAzureConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAzureConfig, name, namespace)
 	return &cr
 }
 

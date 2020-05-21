@@ -9,9 +9,9 @@ import (
 )
 
 // NewG8sControlPlaneCR returns a G8sControlPlane custom resource.
-func NewG8sControlPlaneCR(name string) *G8sControlPlane {
+func NewG8sControlPlaneCR(name, namespace string) *G8sControlPlane {
 	cr := G8sControlPlane{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindG8sControlPlane, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindG8sControlPlane, name, namespace)
 	return &cr
 }
 

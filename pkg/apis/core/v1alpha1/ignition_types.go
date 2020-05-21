@@ -8,11 +8,11 @@ import (
 )
 
 // NewIgnitionCR returns an Ignition custom resource.
-func NewIgnitionCR(name string, spec IgnitionSpec) *Ignition {
+func NewIgnitionCR(name, namespace string, spec IgnitionSpec) *Ignition {
 	cr := Ignition{
 		Spec: spec,
 	}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindIgnition, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindIgnition, name, namespace)
 	return &cr
 }
 

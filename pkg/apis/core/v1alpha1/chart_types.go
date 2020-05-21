@@ -8,9 +8,9 @@ import (
 )
 
 // NewChartConfigCR returns a ChartConfig custom resource.
-func NewChartConfigCR(name string) *ChartConfig {
+func NewChartConfigCR(name, namespace string) *ChartConfig {
 	cr := ChartConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindChartConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindChartConfig, name, namespace)
 	return &cr
 }
 

@@ -5,6 +5,7 @@ metadata:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/
   creationTimestamp: null
   name: abc12-master
+  namespace: giantswarm
 spec:
   apiServerEncryptionKey: 5fd466f48df84f47bb8006b68f0355ba
   baseDomain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io

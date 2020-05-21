@@ -8,9 +8,9 @@ import (
 )
 
 // NewStorageConfigCR returns a StorageConfig custom resource.
-func NewStorageConfigCR(name string) *StorageConfig {
+func NewStorageConfigCR(name, namespace string) *StorageConfig {
 	cr := StorageConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindStorageConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindStorageConfig, name, namespace)
 	return &cr
 }
 

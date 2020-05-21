@@ -8,9 +8,9 @@ import (
 )
 
 // NewAWSClusterCR returns an AWSCluster custom resource.
-func NewAWSClusterCR(name string) *AWSCluster {
+func NewAWSClusterCR(name, namespace string) *AWSCluster {
 	cr := AWSCluster{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSCluster, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSCluster, name, namespace)
 	return &cr
 }
 

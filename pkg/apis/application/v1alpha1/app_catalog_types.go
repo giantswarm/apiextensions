@@ -8,9 +8,9 @@ import (
 )
 
 // NewAppCatalogCR returns an AppCatalog custom resource.
-func NewAppCatalogCR(name string) *AppCatalog {
+func NewAppCatalogCR(name, namespace string) *AppCatalog {
 	cr := AppCatalog{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindAppCatalog, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindAppCatalog, name, namespace)
 	return &cr
 }
 

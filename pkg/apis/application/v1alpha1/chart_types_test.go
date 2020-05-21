@@ -62,7 +62,7 @@ func Test_GenerateChartYAML(t *testing.T) {
 }
 
 func newChartExampleCR() *Chart {
-	cr := NewChartCR("prometheus")
+	cr := NewChartCR("prometheus", "giantswarm")
 	cr.Spec = ChartSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",

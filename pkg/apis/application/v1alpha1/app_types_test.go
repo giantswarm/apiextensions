@@ -62,7 +62,7 @@ func Test_GenerateAppYAML(t *testing.T) {
 }
 
 func newAppExampleCR() *App {
-	cr := NewAppCR("prometheus")
+	cr := NewAppCR("prometheus", "giantswarm")
 	cr.Spec = AppSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",

@@ -14,9 +14,9 @@ const (
 )
 
 // NewDrainerConfigCR returns a DrainerConfig custom resource.
-func NewDrainerConfigCR(name string) *DrainerConfig {
+func NewDrainerConfigCR(name, namespace string) *DrainerConfig {
 	cr := DrainerConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindDrainerConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindDrainerConfig, name, namespace)
 	return &cr
 }
 

@@ -8,9 +8,9 @@ import (
 )
 
 // NewCertConfigCR returns a CertConfig custom resource.
-func NewCertConfigCR(name string) *CertConfig {
+func NewCertConfigCR(name, namespace string) *CertConfig {
 	cr := CertConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindCertConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindCertConfig, name, namespace)
 	return &cr
 }
 

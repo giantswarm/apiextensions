@@ -8,9 +8,9 @@ import (
 )
 
 // NewMemcachedConfigCR returns a MemcachedConfig custom resource.
-func NewMemcachedConfigCR(name string) *MemcachedConfig {
+func NewMemcachedConfigCR(name, namespace string) *MemcachedConfig {
 	cr := MemcachedConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, example.KindMemcachedConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, example.KindMemcachedConfig, name, namespace)
 	return &cr
 }
 

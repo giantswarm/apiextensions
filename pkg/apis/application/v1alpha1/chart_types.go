@@ -8,9 +8,9 @@ import (
 )
 
 // NewChartCR returns a Chart custom resource.
-func NewChartCR(name string) *Chart {
+func NewChartCR(name, namespace string) *Chart {
 	cr := Chart{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindChart, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, application.KindChart, name, namespace)
 	return &cr
 }
 

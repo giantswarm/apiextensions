@@ -5,6 +5,7 @@ metadata:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/charts.application.giantswarm.io/
   creationTimestamp: null
   name: prometheus
+  namespace: giantswarm
 spec:
   config:
     configMap:

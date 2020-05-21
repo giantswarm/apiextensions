@@ -8,9 +8,9 @@ import (
 )
 
 // NewAWSConfigCR returns an AWSConfig custom resource.
-func NewAWSConfigCR(name string) *AWSConfig {
+func NewAWSConfigCR(name, namespace string) *AWSConfig {
 	cr := AWSConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAWSConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAWSConfig, name, namespace)
 	return &cr
 }
 

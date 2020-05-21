@@ -9,9 +9,9 @@ import (
 )
 
 // NewKVMConfigCR returns a KVMConfig custom resource.
-func NewKVMConfigCR(name string) *KVMConfig {
+func NewKVMConfigCR(name, namespace string) *KVMConfig {
 	cr := KVMConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindKVMConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindKVMConfig, name, namespace)
 	return &cr
 }
 

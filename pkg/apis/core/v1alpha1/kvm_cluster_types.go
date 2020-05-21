@@ -9,9 +9,9 @@ import (
 )
 
 // NewKVMClusterConfigCR returns a KVMClusterConfig custom resource.
-func NewKVMClusterConfigCR(name string) *KVMClusterConfig {
+func NewKVMClusterConfigCR(name, namespace string) *KVMClusterConfig {
 	cr := KVMClusterConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindKVMClusterConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindKVMClusterConfig, name, namespace)
 	return &cr
 }
 

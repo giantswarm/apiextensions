@@ -8,9 +8,9 @@ import (
 )
 
 // NewAzureClusterConfigCR returns an AzureClusterConfig custom resource.
-func NewAzureClusterConfigCR(name string) *AzureClusterConfig {
+func NewAzureClusterConfigCR(name, namespace string) *AzureClusterConfig {
 	cr := AzureClusterConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindAzureClusterConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindAzureClusterConfig, name, namespace)
 	return &cr
 }
 

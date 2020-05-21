@@ -62,7 +62,7 @@ func Test_GenerateCertConfigYAML(t *testing.T) {
 }
 
 func newCertConfigExampleCR() *CertConfig {
-	cr := NewCertConfigCR("c68pn-prometheus")
+	cr := NewCertConfigCR("c68pn-prometheus", "giantswarm")
 	cr.Spec = CertConfigSpec{
 		Cert: CertConfigSpecCert{
 			AllowBareDomains: false,

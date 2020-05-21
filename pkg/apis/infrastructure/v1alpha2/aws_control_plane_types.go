@@ -8,9 +8,9 @@ import (
 )
 
 // NewAWSControlPlaneCR returns an AWSControlPlane custom resource.
-func NewAWSControlPlaneCR(name string) *AWSControlPlane {
+func NewAWSControlPlaneCR(name, namespace string) *AWSControlPlane {
 	cr := AWSControlPlane{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSControlPlane, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, infrastructure.KindAWSControlPlane, name, namespace)
 	return &cr
 }
 

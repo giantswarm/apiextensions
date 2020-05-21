@@ -8,9 +8,9 @@ import (
 )
 
 // NewAzureToolCR returns an AzureTool custom resource.
-func NewAzureToolCR(name string) *AzureTool {
+func NewAzureToolCR(name, namespace string) *AzureTool {
 	cr := AzureTool{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, tooling.KindAzureTool, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, tooling.KindAzureTool, name, namespace)
 	return &cr
 }
 

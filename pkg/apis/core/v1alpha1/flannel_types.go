@@ -8,9 +8,9 @@ import (
 )
 
 // NewFlannelConfigCR returns a FlannelConfig custom resource.
-func NewFlannelConfigCR(name string) *FlannelConfig {
+func NewFlannelConfigCR(name, namespace string) *FlannelConfig {
 	cr := FlannelConfig{}
-	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindFlannelConfig, name, "")
+	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindFlannelConfig, name, namespace)
 	return &cr
 }
 
