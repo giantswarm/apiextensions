@@ -63,15 +63,18 @@ func newCertConfigExampleCR() *CertConfig {
 	cr := NewCertConfigCR("c68pn-prometheus")
 	cr.Spec = CertConfigSpec{
 		Cert: CertConfigSpecCert{
-			AllowBareDomains:    false,
-			AltNames:            []string{},
+			AllowBareDomains: false,
+			AltNames: []string{
+				"api.c68pn.gollum.westeurope.azure.gigantic.io",
+			},
 			ClusterComponent:    "prometheus",
 			ClusterID:           "c68pn",
 			CommonName:          "api.c68pn.k8s.gollum.westeurope.azure.gigantic.io",
 			DisableRegeneration: false,
-			IPSANs:              []string{},
-			Organizations:       []string{},
-			TTL:                 "4320h",
+			Organizations: []string{
+				"giantswarm",
+			},
+			TTL: "4320h",
 		},
 		VersionBundle: CertConfigSpecVersionBundle{
 			Version: "0.1.0",

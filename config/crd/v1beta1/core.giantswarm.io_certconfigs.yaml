@@ -1,15 +1,18 @@
+
+---
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/certconfigs.core.giantswarm.io/
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
   name: certconfigs.core.giantswarm.io
 spec:
   group: core.giantswarm.io
   names:
     categories:
-    - giantswarm
     - common
+    - giantswarm
     kind: CertConfig
     listKind: CertConfigList
     plural: certconfigs
@@ -39,6 +42,7 @@ spec:
                 altNames:
                   items:
                     type: string
+                  nullable: true
                   type: array
                 clusterComponent:
                   type: string
@@ -51,22 +55,21 @@ spec:
                 ipSans:
                   items:
                     type: string
+                  nullable: true
                   type: array
                 organizations:
                   items:
                     type: string
+                  nullable: true
                   type: array
                 ttl:
                   type: string
               required:
               - allowBareDomains
-              - altNames
               - clusterComponent
               - clusterID
               - commonName
               - disableRegeneration
-              - ipSans
-              - organizations
               - ttl
               type: object
             versionBundle:

@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/crd"
@@ -14,8 +14,8 @@ const (
 	certConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/certconfigs.core.giantswarm.io/"
 )
 
-func NewCertConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindCertConfig)
+func NewCertConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindCertConfig)
 }
 
 // NewCertConfigTypeMeta returns the type part for the metadata section of a
@@ -44,7 +44,7 @@ func NewCertConfigCR(name string) *CertConfig {
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=giantswarm;common
+// +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
 
 type CertConfig struct {
@@ -59,15 +59,21 @@ type CertConfigSpec struct {
 }
 
 type CertConfigSpecCert struct {
-	AllowBareDomains    bool     `json:"allowBareDomains"`
-	AltNames            []string `json:"altNames"`
+	AllowBareDomains bool `json:"allowBareDomains"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	AltNames            []string `json:"altNames,omitempty"`
 	ClusterComponent    string   `json:"clusterComponent"`
 	ClusterID           string   `json:"clusterID"`
 	CommonName          string   `json:"commonName"`
 	DisableRegeneration bool     `json:"disableRegeneration"`
-	IPSANs              []string `json:"ipSans"`
-	Organizations       []string `json:"organizations"`
-	TTL                 string   `json:"ttl"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	IPSANs []string `json:"ipSans,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Organizations []string `json:"organizations,omitempty"`
+	TTL           string   `json:"ttl"`
 }
 
 type CertConfigSpecVersionBundle struct {

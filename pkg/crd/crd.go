@@ -88,10 +88,11 @@ var cache []v1.CustomResourceDefinition
 var cacheV1Beta1 []v1beta1.CustomResourceDefinition
 
 // ListV1Beta1 loads all v1beta1 CRDs from the virtual filesystem.
-func ListV1Beta1() []v1beta1.CustomResourceDefinition {
+func ListV1Beta1() ([]v1beta1.CustomResourceDefinition, error) {
 	if cacheV1Beta1 != nil {
-		return cacheV1Beta1
+		return cacheV1Beta1, nil
 	}
+
 	handler := func(unstructured unstructured.Unstructured) {
 		var crd v1beta1.CustomResourceDefinition
 		err := runtime.DefaultUnstructuredConverter.
@@ -101,18 +102,21 @@ func ListV1Beta1() []v1beta1.CustomResourceDefinition {
 		}
 		cacheV1Beta1 = append(cacheV1Beta1, crd)
 	}
+
 	err := iterateResources(v1beta1GroupVersionKind, handler)
 	if err != nil {
-		panic(microerror.Mask(err))
+		return nil, microerror.Mask(err)
 	}
-	return cacheV1Beta1
+
+	return cacheV1Beta1, nil
 }
 
 // ListV1 loads all v1 CRDs from the virtual filesystem.
-func List() []v1.CustomResourceDefinition {
+func ListV1() ([]v1.CustomResourceDefinition, error) {
 	if cache != nil {
-		return cache
+		return cache, nil
 	}
+
 	handler := func(unstructured unstructured.Unstructured) {
 		var crd v1.CustomResourceDefinition
 		err := runtime.DefaultUnstructuredConverter.
@@ -122,16 +126,23 @@ func List() []v1.CustomResourceDefinition {
 		}
 		cache = append(cache, crd)
 	}
+
 	err := iterateResources(v1GroupVersionKind, handler)
 	if err != nil {
-		panic(microerror.Mask(err))
+		return nil, microerror.Mask(err)
 	}
-	return cache
+
+	return cache, nil
 }
 
 // LoadV1Beta1 loads a v1beta1 CRD from the virtual filesystem.
 func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
-	for _, crd := range ListV1Beta1() {
+	crds, err := ListV1Beta1()
+	if err != nil {
+		panic(microerror.Mask(err))
+	}
+
+	for _, crd := range crds {
 		if crd.Spec.Names.Kind == kind && crd.Spec.Group == group {
 			return &crd
 		}
@@ -141,7 +152,12 @@ func LoadV1Beta1(group, kind string) *v1beta1.CustomResourceDefinition {
 
 // LoadV1 loads a v1 CRD from the virtual filesystem
 func LoadV1(group, kind string) *v1.CustomResourceDefinition {
-	for _, crd := range List() {
+	crds, err := ListV1()
+	if err != nil {
+		panic(microerror.Mask(err))
+	}
+
+	for _, crd := range crds {
 		if crd.Spec.Names.Kind == kind && crd.Spec.Group == group {
 			return &crd
 		}

@@ -7,7 +7,7 @@ import (
 // +genclient
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=giantswarm;common
+// +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
 
 type StorageConfig struct {

@@ -24,7 +24,7 @@ func NewChartCR(name string) *Chart {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:categories=giantswarm;common
+// +kubebuilder:resource:categories=common;giantswarm
 
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`

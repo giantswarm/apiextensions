@@ -1,16 +1,19 @@
+
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/g8scontrolplanes.infrastructure.giantswarm.io/
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
   name: g8scontrolplanes.infrastructure.giantswarm.io
 spec:
   group: infrastructure.giantswarm.io
   names:
     categories:
     - aws
-    - giantswarm
     - cluster-api
+    - giantswarm
     kind: G8sControlPlane
     listKind: G8sControlPlaneList
     plural: g8scontrolplanes

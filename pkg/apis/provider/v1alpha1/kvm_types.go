@@ -2,13 +2,15 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/pkg/serialization"
 )
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:categories=kvm;giantswarm
+// +kubebuilder:resource:categories=giantswarm;kvm
 
 type KVMConfig struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -53,11 +55,10 @@ type KVMConfigSpecKVMK8sKVMDocker struct {
 }
 
 type KVMConfigSpecKVMNode struct {
-	CPUs int `json:"cpus"`
-	// +kubebuilder:validation:Type=number
-	Disk               string `json:"disk"`
-	Memory             string `json:"memory"`
-	DockerVolumeSizeGB int    `json:"dockerVolumeSizeGB"`
+	CPUs               int                 `json:"cpus"`
+	Disk               serialization.Float `json:"disk"`
+	Memory             string              `json:"memory"`
+	DockerVolumeSizeGB int                 `json:"dockerVolumeSizeGB"`
 }
 
 type KVMConfigSpecKVMNetwork struct {
@@ -94,6 +95,8 @@ type KVMConfigStatus struct {
 }
 
 type KVMConfigStatusKVM struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// NodeIndexes is a map from nodeID -> nodeIndex. This is used to create deterministic iSCSI initiator names.
 	NodeIndexes map[string]int `json:"nodeIndexes"`
 }
