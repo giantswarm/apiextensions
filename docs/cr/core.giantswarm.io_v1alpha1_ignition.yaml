@@ -6,13 +6,13 @@ metadata:
   creationTimestamp: null
   name: abc12-master
 spec:
-  apiServerEncryptionKey: ""
-  baseDomain: ""
+  apiServerEncryptionKey: 5fd466f48df84f47bb8006b68f0355ba
+  baseDomain: https://abc12.k8s.example.eu-west-1.aws.gigantic.io
   calico:
-    cidr: ""
+    cidr: "16"
     disable: false
-    mtu: ""
-    subnet: ""
+    mtu: "1430"
+    subnet: 10.250.0.0
   clusterID: abc12
   disableEncryptionAtRest: false
   docker:
