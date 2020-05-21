@@ -62,7 +62,7 @@ func Test_GenerateAWSControlPlaneYAML(t *testing.T) {
 }
 
 func newAWSControlPlaneExampleCR() *AWSControlPlane {
-	cr := NewAWSControlPlaneCR("ier2s", "giantswarm")
+	cr := NewAWSControlPlaneCR("ier2s", "default")
 	cr.Spec = AWSControlPlaneSpec{
 		AvailabilityZones: []string{
 			"eu-central-1a",

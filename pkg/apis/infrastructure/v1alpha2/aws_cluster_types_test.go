@@ -78,7 +78,7 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 }
 
 func newAWSClusterExampleCR() *AWSCluster {
-	cr := NewAWSClusterCR("g8kw3", "giantswarm")
+	cr := NewAWSClusterCR("g8kw3", "default")
 	cr.Spec = AWSClusterSpec{
 		Cluster: AWSClusterSpecCluster{
 			Description: "Dev cluster",

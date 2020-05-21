@@ -34,7 +34,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", core.Group, version),
 			category: "cr",
 			filename: fmt.Sprintf("%s_%s_ignition.yaml", core.Group, version),
-			resource: NewIgnitionCR("abc12-master", "giantswarm", IgnitionSpec{
+			resource: NewIgnitionCR("abc12-master", "default", IgnitionSpec{
 				APIServerEncryptionKey: "5fd466f48df84f47bb8006b68f0355ba",
 				BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
 				Calico: IgnitionSpecCalico{

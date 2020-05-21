@@ -64,7 +64,7 @@ func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
 }
 
 func newG8sControlPlaneExampleCR() *G8sControlPlane {
-	cr := NewG8sControlPlaneCR("0p8h5", "giantswarm")
+	cr := NewG8sControlPlaneCR("0p8h5", "default")
 	cr.Spec = G8sControlPlaneSpec{
 		// ClusterNetwork does not occur in our practice, so leaving it empty.
 		// ClusterNetwork:    &apiv1alpha2.ClusterNetwork{},

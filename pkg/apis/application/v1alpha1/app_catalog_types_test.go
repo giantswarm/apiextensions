@@ -76,7 +76,7 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 }
 
 func newAppCatalogExampleCR() *AppCatalog {
-	cr := NewAppCatalogCR("my-playground-catalog", "giantswarm")
+	cr := NewAppCatalogCR("my-playground-catalog", "default")
 	cr.Spec = AppCatalogSpec{
 		Title:       "My Playground Catalog",
 		Description: "A catalog to store all new application packages.",

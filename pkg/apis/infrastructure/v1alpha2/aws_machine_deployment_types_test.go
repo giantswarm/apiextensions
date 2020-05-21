@@ -62,7 +62,7 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 }
 
 func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
-	cr := NewAWSMachineDeploymentCR("general-purpose-node-pool", "giantswarm")
+	cr := NewAWSMachineDeploymentCR("general-purpose-node-pool", "default")
 	cr.Spec = AWSMachineDeploymentSpec{
 		NodePool: AWSMachineDeploymentSpecNodePool{
 			Description: "General purpose worker nodes",
