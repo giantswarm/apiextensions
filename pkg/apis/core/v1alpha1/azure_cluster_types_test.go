@@ -8,4 +8,3 @@ func Test_NewAzureClusterConfigCRD(t *testing.T) {
 		t.Fatal("expected CRD to not be nil")
 	}
 }
-

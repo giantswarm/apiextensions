@@ -8,4 +8,3 @@ func Test_NewKVMConfigCRD(t *testing.T) {
 		t.Fatal("expected CRD to not be nil")
 	}
 }
-
