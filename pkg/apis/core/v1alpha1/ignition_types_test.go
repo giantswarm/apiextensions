@@ -30,6 +30,13 @@ func Test_NewIgnitionCRD(t *testing.T) {
 	}
 }
 
+// newIgnitionCRWithSpec returns an Ignition custom resource with the given spec.
+func newIgnitionCRWithSpec(name, namespace string, spec IgnitionSpec) *Ignition {
+	cr := NewIgnitionCR(name, namespace)
+	cr.Spec = spec
+	return cr
+}
+
 func Test_GenerateIgnitionYAML(t *testing.T) {
 	testCases := []struct {
 		name     string
@@ -41,7 +48,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 			name:     fmt.Sprintf("case 1: %s_%s_ignition.yaml is generated successfully", core.Group, version),
 			category: "cr",
 			filename: fmt.Sprintf("%s_%s_ignition.yaml", core.Group, version),
-			resource: NewIgnitionCR("abc12-master", "default", IgnitionSpec{
+			resource: newIgnitionCRWithSpec("abc12-master", "default", IgnitionSpec{
 				APIServerEncryptionKey: "5fd466f48df84f47bb8006b68f0355ba",
 				BaseDomain:             "https://abc12.k8s.example.eu-west-1.aws.gigantic.io",
 				Calico: IgnitionSpecCalico{

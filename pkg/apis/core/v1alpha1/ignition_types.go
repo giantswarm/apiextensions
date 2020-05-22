@@ -15,10 +15,8 @@ func NewIgnitionCRD() *v1.CustomResourceDefinition {
 }
 
 // NewIgnitionCR returns an Ignition custom resource.
-func NewIgnitionCR(name, namespace string, spec IgnitionSpec) *Ignition {
-	cr := Ignition{
-		Spec: spec,
-	}
+func NewIgnitionCR(name, namespace string) *Ignition {
+	cr := Ignition{}
 	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, core.KindIgnition, name, namespace)
 	return &cr
 }

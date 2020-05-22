@@ -27,10 +27,8 @@ func NewReleaseCRD() *v1.CustomResourceDefinition {
 }
 
 // NewReleaseCR returns a Release custom resource.
-func NewReleaseCR(name string, spec ReleaseSpec) *Release {
-	cr := Release{
-		Spec: spec,
-	}
+func NewReleaseCR(name string) *Release {
+	cr := Release{}
 	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, release.KindRelease, name, "")
 	return &cr
 }

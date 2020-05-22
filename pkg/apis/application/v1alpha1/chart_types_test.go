@@ -70,6 +70,10 @@ func Test_GenerateChartYAML(t *testing.T) {
 
 func newChartExampleCR() *Chart {
 	cr := NewChartCR("prometheus", "default")
+	cr.Labels = map[string]string{
+		"chart-operator.giantswarm.io/version": "1.0.0",
+	}
+
 	cr.Spec = ChartSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",

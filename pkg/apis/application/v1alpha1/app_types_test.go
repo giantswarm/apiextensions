@@ -70,6 +70,9 @@ func Test_GenerateAppYAML(t *testing.T) {
 
 func newAppExampleCR() *App {
 	cr := NewAppCR("prometheus", "default")
+	cr.Labels = map[string]string{
+		"app-operator.giantswarm.io/version": "1.0.0",
+	}
 	cr.Spec = AppSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",
@@ -106,6 +109,5 @@ func newAppExampleCR() *App {
 			},
 		},
 	}
-
 	return cr
 }

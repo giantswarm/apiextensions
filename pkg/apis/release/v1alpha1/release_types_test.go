@@ -39,6 +39,13 @@ func Test_NewReleaseCRD(t *testing.T) {
 	}
 }
 
+// newReleaseCRWithSpec returns a Release custom resource with the given spec.
+func newReleaseCRWithSpec(name string, spec ReleaseSpec) *Release {
+	cr := NewReleaseCR(name)
+	cr.Spec = spec
+	return cr
+}
+
 func Test_ReleaseCRValidation(t *testing.T) {
 	now := metav1.Now()
 	testCases := []struct {
@@ -48,7 +55,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 	}{
 		{
 			name: "case 0: empty release is invalid",
-			cr:   NewReleaseCR("v1.0.0", ReleaseSpec{}),
+			cr:   NewReleaseCR("v1.0.0"),
 			errors: []*errors.Validation{
 				{
 					Name:  "spec.apps",
@@ -74,7 +81,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 1: normal release is valid",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps: []ReleaseSpecApp{
@@ -95,7 +102,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 2: one component is required",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps: []ReleaseSpecApp{
@@ -117,7 +124,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 3: zero apps is valid",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -132,7 +139,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 4: non semver version is invalid",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -152,7 +159,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 5: semver with leading v is invalid",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -172,7 +179,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 6: unknown release state is invalid",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: "bad",
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -192,7 +199,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 7: pre-release component version is valid",
-			cr: NewReleaseCR("v13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("v13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -207,7 +214,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 8: non-semver name is invalid",
-			cr: NewReleaseCR("bad", ReleaseSpec{
+			cr: newReleaseCRWithSpec("bad", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -227,7 +234,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 		},
 		{
 			name: "case 9: semver name without v prefix is invalid",
-			cr: NewReleaseCR("13.1.2", ReleaseSpec{
+			cr: newReleaseCRWithSpec("13.1.2", ReleaseSpec{
 				State: stateActive,
 				Date:  &now,
 				Apps:  []ReleaseSpecApp{},
@@ -293,7 +300,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 }
 
 func newReleaseExampleCR() *Release {
-	cr := NewReleaseCR("v11.2.0", ReleaseSpec{
+	cr := newReleaseCRWithSpec("v11.2.0", ReleaseSpec{
 		Apps: []ReleaseSpecApp{
 			{
 				Name:    "cert-exporter",

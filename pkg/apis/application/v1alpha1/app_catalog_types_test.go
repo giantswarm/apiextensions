@@ -84,6 +84,11 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 
 func newAppCatalogExampleCR() *AppCatalog {
 	cr := NewAppCatalogCR("my-playground-catalog", "default")
+
+	cr.Labels = map[string]string{
+		"app-operator.giantswarm.io/version": "1.0.0",
+	}
+
 	cr.Spec = AppCatalogSpec{
 		Title:       "My Playground Catalog",
 		Description: "A catalog to store all new application packages.",

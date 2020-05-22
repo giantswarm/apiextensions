@@ -28,4 +28,5 @@ spec:
       instanceType: m5.2xlarge
     pods:
       cidrBlock: 10.2.0.0/16
+      externalSNAT: true
     region: eu-central-1
