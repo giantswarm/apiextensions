@@ -11,6 +11,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
@@ -83,7 +84,12 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 func newAppCatalogExampleCR() *AppCatalog {
 	cr := NewAppCatalogCR()
 
-	cr.Name = "my-playground-catalog"
+	cr.ObjectMeta = metav1.ObjectMeta{
+		Name: "my-playground-catalog",
+		Labels: map[string]string{
+			"app-operator.giantswarm.io/version": "1.0.0",
+		},
+	}
 	cr.Spec = AppCatalogSpec{
 		Title:       "My Playground Catalog",
 		Description: "A catalog to store all new application packages.",

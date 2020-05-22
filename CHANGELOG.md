@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Make `.status.kvm.nodeIndexes` of `KVMConfig` optional.
+- Update example application group CRDs to include version labels.
 
 ### Fixed
 
