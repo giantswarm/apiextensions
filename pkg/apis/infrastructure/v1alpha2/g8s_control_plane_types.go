@@ -2,11 +2,18 @@ package v1alpha2
 
 import (
 	corev1 "k8s.io/api/core/v1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewG8sControlPlaneCRD returns a CRD defining a G8sControlPlane.
+func NewG8sControlPlaneCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(infrastructure.Group, infrastructure.KindG8sControlPlane)
+}
 
 // NewG8sControlPlaneCR returns a G8sControlPlane custom resource.
 func NewG8sControlPlaneCR(name, namespace string) *G8sControlPlane {

@@ -15,6 +15,13 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/apis/application"
 )
 
+func Test_NewAppCRD(t *testing.T) {
+	crd := NewAppCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_GenerateAppYAML(t *testing.T) {
 	testCases := []struct {
 		category string

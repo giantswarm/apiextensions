@@ -15,6 +15,13 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 )
 
+func Test_NewAWSControlPlaneCRD(t *testing.T) {
+	crd := NewAWSControlPlaneCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_GenerateAWSControlPlaneYAML(t *testing.T) {
 	testCases := []struct {
 		category string

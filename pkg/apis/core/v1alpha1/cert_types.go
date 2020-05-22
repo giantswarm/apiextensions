@@ -1,11 +1,18 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewCertConfigCRD returns a CRD defining a CertConfig.
+func NewCertConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(core.Group, core.KindCertConfig)
+}
 
 // NewCertConfigCR returns a CertConfig custom resource.
 func NewCertConfigCR(name, namespace string) *CertConfig {

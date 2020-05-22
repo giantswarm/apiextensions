@@ -1,11 +1,18 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/application"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewChartCRD returns a CRD defining a Chart.
+func NewChartCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(application.Group, application.KindChart)
+}
 
 // NewChartCR returns a Chart custom resource.
 func NewChartCR(name, namespace string) *Chart {

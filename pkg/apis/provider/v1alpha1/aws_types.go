@@ -1,11 +1,18 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/provider"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAWSConfigCRD returns a CRD defining an AWSConfig.
+func NewAWSConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(provider.Group, provider.KindAWSConfig)
+}
 
 // NewAWSConfigCR returns an AWSConfig custom resource.
 func NewAWSConfigCR(name, namespace string) *AWSConfig {

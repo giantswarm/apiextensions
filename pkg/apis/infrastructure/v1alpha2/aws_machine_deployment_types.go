@@ -1,11 +1,18 @@
 package v1alpha2
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAWSMachineDeploymentCRD returns a CRD defining an AWSMachineDeployment.
+func NewAWSMachineDeploymentCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(infrastructure.Group, infrastructure.KindAWSMachineDeployment)
+}
 
 // NewAWSMachineDeploymentCR returns an AWSMachineDeployment custom resource.
 func NewAWSMachineDeploymentCR(name, namespace string) *AWSMachineDeployment {

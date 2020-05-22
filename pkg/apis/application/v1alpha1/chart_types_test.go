@@ -15,6 +15,13 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/apis/application"
 )
 
+func Test_NewChartCRD(t *testing.T) {
+	crd := NewChartCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_GenerateChartYAML(t *testing.T) {
 	testCases := []struct {
 		category string

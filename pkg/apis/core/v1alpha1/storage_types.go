@@ -1,11 +1,18 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/core"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewStorageConfigCRD returns a CRD defining a StorageConfig.
+func NewStorageConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(core.Group, core.KindStorageConfig)
+}
 
 // NewStorageConfigCR returns a StorageConfig custom resource.
 func NewStorageConfigCR(name, namespace string) *StorageConfig {

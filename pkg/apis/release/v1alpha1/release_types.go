@@ -1,9 +1,11 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/release"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
@@ -17,6 +19,11 @@ var (
 
 func (r ReleaseState) String() string {
 	return string(r)
+}
+
+// NewReleaseCRD returns a CRD defining an Release.
+func NewReleaseCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(release.Group, release.KindRelease)
 }
 
 // NewReleaseCR returns a Release custom resource.

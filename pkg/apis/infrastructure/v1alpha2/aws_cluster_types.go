@@ -1,11 +1,18 @@
 package v1alpha2
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAWSClusterCRD returns a CRD defining an AppCatalog.
+func NewAWSClusterCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(infrastructure.Group, infrastructure.KindAWSCluster)
+}
 
 // NewAWSClusterCR returns an AWSCluster custom resource.
 func NewAWSClusterCR(name, namespace string) *AWSCluster {

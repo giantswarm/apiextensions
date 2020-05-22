@@ -1,12 +1,19 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/provider"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 	"github.com/giantswarm/apiextensions/pkg/serialization"
 )
+
+// NewKVMConfigCRD returns a CRD defining a KVMConfig.
+func NewKVMConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(provider.Group, provider.KindKVMConfig)
+}
 
 // NewKVMConfigCR returns a KVMConfig custom resource.
 func NewKVMConfigCR(name, namespace string) *KVMConfig {

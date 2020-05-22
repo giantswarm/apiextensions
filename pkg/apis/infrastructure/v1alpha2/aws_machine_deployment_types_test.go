@@ -15,6 +15,13 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
 )
 
+func Test_NewAWSMachineDeploymentCRD(t *testing.T) {
+	crd := NewAWSMachineDeploymentCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 	testCases := []struct {
 		category string

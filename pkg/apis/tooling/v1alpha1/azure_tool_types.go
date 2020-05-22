@@ -1,11 +1,18 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/tooling"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAzureToolCRD returns a CRD defining an AzureTool.
+func NewAzureToolCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(tooling.Group, tooling.KindAzureTool)
+}
 
 // NewAzureToolCR returns an AzureTool custom resource.
 func NewAzureToolCR(name, namespace string) *AzureTool {

@@ -15,6 +15,13 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/apis/core"
 )
 
+func Test_NewCertConfigCRD(t *testing.T) {
+	crd := NewCertConfigCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_GenerateCertConfigYAML(t *testing.T) {
 	testCases := []struct {
 		category string

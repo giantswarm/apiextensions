@@ -23,6 +23,13 @@ var (
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
 
+func Test_NewIgnitionCRD(t *testing.T) {
+	crd := NewIgnitionCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_GenerateIgnitionYAML(t *testing.T) {
 	testCases := []struct {
 		name     string

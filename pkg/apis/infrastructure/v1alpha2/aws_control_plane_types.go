@@ -1,11 +1,18 @@
 package v1alpha2
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/infrastructure"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAWSControlPlaneCRD returns a CRD defining an AWSControlPlane.
+func NewAWSControlPlaneCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(infrastructure.Group, infrastructure.KindAWSControlPlane)
+}
 
 // NewAWSControlPlaneCR returns an AWSControlPlane custom resource.
 func NewAWSControlPlaneCR(name, namespace string) *AWSControlPlane {

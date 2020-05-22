@@ -1,11 +1,18 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/application"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
+
+// NewAppCRD returns a CRD defining an App.
+func NewAppCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(application.Group, application.KindApp)
+}
 
 // NewAppCR returns an App Custom Resource.
 func NewAppCR(name, namespace string) *App {

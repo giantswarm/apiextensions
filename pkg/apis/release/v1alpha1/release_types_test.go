@@ -32,6 +32,13 @@ var (
 	update     = flag.Bool("update", false, "update generated YAMLs")
 )
 
+func Test_NewReleaseCRD(t *testing.T) {
+	crd := NewReleaseCRD()
+	if crd == nil {
+		t.Fatal("expected CRD to not be nil")
+	}
+}
+
 func Test_ReleaseCRValidation(t *testing.T) {
 	now := metav1.Now()
 	testCases := []struct {

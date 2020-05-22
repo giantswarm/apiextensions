@@ -1,14 +1,21 @@
 package v1alpha1
 
 import (
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/apis/provider"
+	"github.com/giantswarm/apiextensions/pkg/crd"
 	"github.com/giantswarm/apiextensions/pkg/key"
 )
 
+// NewAzureConfigCRD returns a CRD defining an AzureConfig.
+func NewAzureConfigCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(provider.Group, provider.KindAzureConfig)
+}
+
 // NewAzureConfigCR returns an AzureConfig custom resource.
-func NewETCDBackupCR(name, namespace string) *AzureConfig {
+func NewAzureConfigCR(name, namespace string) *AzureConfig {
 	cr := AzureConfig{}
 	cr.TypeMeta, cr.ObjectMeta = key.NewMeta(SchemeGroupVersion, provider.KindAzureConfig, name, namespace)
 	return &cr
