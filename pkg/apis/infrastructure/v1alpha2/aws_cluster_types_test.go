@@ -78,6 +78,8 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 func newAWSClusterExampleCR() *AWSCluster {
 	cr := NewAWSClusterCR()
 
+	externalSNAT := true
+
 	cr.Name = "g8kw3"
 	cr.Spec = AWSClusterSpec{
 		Cluster: AWSClusterSpecCluster{
@@ -103,7 +105,8 @@ func newAWSClusterExampleCR() *AWSCluster {
 				Namespace: "example-namespace",
 			},
 			Pods: AWSClusterSpecProviderPods{
-				CIDRBlock: "10.2.0.0/16",
+				CIDRBlock:    "10.2.0.0/16",
+				ExternalSNAT: &externalSNAT,
 			},
 			Master: AWSClusterSpecProviderMaster{
 				AvailabilityZone: "eu-central-1b",
