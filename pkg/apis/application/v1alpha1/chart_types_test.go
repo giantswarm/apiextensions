@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
@@ -69,7 +70,13 @@ func Test_GenerateChartYAML(t *testing.T) {
 func newChartExampleCR() *Chart {
 	cr := NewChartCR()
 
-	cr.Name = "prometheus"
+	cr.ObjectMeta = metav1.ObjectMeta{
+		Name:      "prometheus",
+		Namespace: "default",
+		Labels: map[string]string{
+			"chart-operator.giantswarm.io/version": "1.0.0",
+		},
+	}
 	cr.Spec = ChartSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",
