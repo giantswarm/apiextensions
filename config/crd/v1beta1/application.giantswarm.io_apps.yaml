@@ -202,7 +202,6 @@ spec:
                   description: Status is the status of the deployed app, e.g. DEPLOYED.
                   type: string
               required:
-              - lastDeployed
               - status
               type: object
             version:
