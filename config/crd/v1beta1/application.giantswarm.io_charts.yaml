@@ -139,7 +139,6 @@ spec:
                   description: Status is the status of the deployed chart, e.g. DEPLOYED.
                   type: string
               required:
-              - lastDeployed
               - revision
               - status
               type: object

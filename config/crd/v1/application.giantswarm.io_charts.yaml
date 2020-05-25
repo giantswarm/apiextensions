@@ -142,7 +142,6 @@ spec:
                       DEPLOYED.
                     type: string
                 required:
-                - lastDeployed
                 - revision
                 - status
                 type: object
