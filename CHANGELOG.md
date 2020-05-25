@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- No longer required to have `lastDeployed` in App, Chart CRs.
+- Make .status.release.lastDeployed of app and chart CRs optional.
 
 ## [0.4.1] 2020-05-22
 
