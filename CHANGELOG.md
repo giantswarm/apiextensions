@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Fixing AppCatalog CRD as Cluster-scoped resource.
+
+## [0.4.2] 2020-05-25
+
 ### Changed
 
 - Make .status.release.lastDeployed of app and chart CRs optional.
@@ -275,7 +279,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.2...HEAD
+[0.4.2]: https://github.com/giantswarm/apiextensions/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/giantswarm/apiextensions/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...v0.4.0
 [0.3.11]: https://github.com/giantswarm/apiextensions/compare/v0.3.10...v0.3.11
