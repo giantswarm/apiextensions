@@ -11,7 +11,6 @@ TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 # Need to use abspath so we can invoke these from subdirectories
 CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
-DEEPCOPY_GEN := $(abspath $(TOOLS_BIN_DIR)/deepcopy-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
@@ -32,6 +31,7 @@ DEEPCOPY_BASE = zz_generated.deepcopy
 MODULE = $(shell go list -m)
 BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
+YEAR = $(shell date +'%Y')
 
 INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
@@ -48,11 +48,6 @@ $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
 	@echo "$(BUILD_COLOR)Building controller-gen$(NO_COLOR)"
 	cd $(TOOLS_DIR)/controller-gen \
  	&& go build -tags=tools -o $(CONTROLLER_GEN) sigs.k8s.io/controller-tools/cmd/controller-gen
-
-$(DEEPCOPY_GEN): $(TOOLS_DIR)/deepcopy-gen/go.mod
-	@echo "$(BUILD_COLOR)Building deepcopy-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/deepcopy-gen \
-	&& go build -tags=tools -o $(DEEPCOPY_GEN) k8s.io/code-generator/cmd/deepcopy-gen
 
 $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	@echo "$(BUILD_COLOR)Building goimports$(NO_COLOR)"
@@ -98,13 +93,11 @@ generate-clientset: $(CLIENT_GEN)
 	rm -rf $(SCRIPTS_DIR)/github.com/
 
 .PHONY: generate-deepcopy
-generate-deepcopy: $(DEEPCOPY_GEN)
+generate-deepcopy: $(CONTROLLER_GEN)
 	@echo "$(GEN_COLOR)Generating deepcopy$(NO_COLOR)"
-	$(DEEPCOPY_GEN) \
-	--input-dirs $(INPUT_DIRS) \
-	--output-base . \
-	--output-file-base $(DEEPCOPY_BASE) \
-	--go-header-file $(BOILERPLATE)
+	$(CONTROLLER_GEN) \
+	object:headerFile=$(BOILERPLATE),year=$(YEAR) \
+	paths=./$(APIS_DIR)/...
 
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)

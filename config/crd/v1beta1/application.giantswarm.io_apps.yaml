@@ -10,6 +10,9 @@ metadata:
 spec:
   group: application.giantswarm.io
   names:
+    categories:
+    - common
+    - giantswarm
     kind: App
     listKind: AppList
     plural: apps
@@ -199,7 +202,6 @@ spec:
                   description: Status is the status of the deployed app, e.g. DEPLOYED.
                   type: string
               required:
-              - lastDeployed
               - status
               type: object
             version:

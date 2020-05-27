@@ -40,6 +40,7 @@ func NewAWSClusterCR() *AWSCluster {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=aws;cluster-api;giantswarm
 
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
@@ -139,6 +140,9 @@ type AWSClusterSpecProviderPods struct {
 	// +kubebuilder:validation:Optional
 	// IPv4 address block used for pods, in CIDR notation.
 	CIDRBlock string `json:"cidrBlock,omitempty"`
+	// +kubebuilder:validation:Optional
+	// When set to false, pod connections outside the VPC where the pod is located will be NATed through the node primary IP. When set to true, all connections will use the pod IP.
+	ExternalSNAT *bool `json:"externalSNAT,omitempty"`
 }
 
 // AWSClusterStatus holds status information about the cluster, populated once the

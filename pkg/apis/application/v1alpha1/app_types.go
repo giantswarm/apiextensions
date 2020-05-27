@@ -39,6 +39,7 @@ func NewAppCR() *App {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
+// +kubebuilder:resource:categories=common;giantswarm
 
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -166,7 +167,7 @@ type AppStatus struct {
 
 type AppStatusRelease struct {
 	// LastDeployed is the time when the app was last deployed.
-	LastDeployed metav1.Time `json:"lastDeployed"`
+	LastDeployed metav1.Time `json:"lastDeployed,omitempty"`
 	// Reason is the description of the last status of helm release when the app is
 	// not installed successfully, e.g. deploy resource already exists.
 	Reason string `json:"reason,omitempty"`

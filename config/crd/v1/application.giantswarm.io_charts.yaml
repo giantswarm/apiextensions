@@ -10,6 +10,9 @@ metadata:
 spec:
   group: application.giantswarm.io
   names:
+    categories:
+    - common
+    - giantswarm
     kind: Chart
     listKind: ChartList
     plural: charts
@@ -139,7 +142,6 @@ spec:
                       DEPLOYED.
                     type: string
                 required:
-                - lastDeployed
                 - revision
                 - status
                 type: object

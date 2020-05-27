@@ -21,6 +21,9 @@ spec:
     type: string
   group: release.giantswarm.io
   names:
+    categories:
+    - common
+    - giantswarm
     kind: Release
     listKind: ReleaseList
     plural: releases

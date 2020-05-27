@@ -10,6 +10,10 @@ metadata:
 spec:
   group: infrastructure.giantswarm.io
   names:
+    categories:
+    - aws
+    - cluster-api
+    - giantswarm
     kind: AWSCluster
     listKind: AWSClusterList
     plural: awsclusters
@@ -116,6 +120,12 @@ spec:
                     cidrBlock:
                       description: IPv4 address block used for pods, in CIDR notation.
                       type: string
+                    externalSNAT:
+                      description: When set to false, pod connections outside the
+                        VPC where the pod is located will be NATed through the node
+                        primary IP. When set to true, all connections will use the
+                        pod IP.
+                      type: boolean
                   type: object
                 region:
                   description: AWS region the cluster is to be running in.
