@@ -179,14 +179,20 @@ func LoadV1(group, kind string) *v1.CustomResourceDefinition {
 func ExtractV1CRDVersions(crd *v1.CustomResourceDefinition, versions ...string) *v1.CustomResourceDefinition {
 	crd = crd.DeepCopy()
 
-VERSION_LOOP:
+	inSpecifiedVersions := func(v string) bool {
+		for _, name := range versions {
+			if v == name {
+				return true
+			}
+		}
+		return false
+	}
+
 	for i := 0; i < len(crd.Spec.Versions); i++ {
 		v := crd.Spec.Versions[i]
-		for _, name := range versions {
-			if v.Name == name {
-				// Keep current version and proceed to next.
-				continue VERSION_LOOP
-			}
+
+		if inSpecifiedVersions(v.Name) {
+			continue
 		}
 
 		// Remove current element since its version was not specified in versions.
