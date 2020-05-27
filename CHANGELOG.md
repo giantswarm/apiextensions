@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `ExtractV1CRDVersions()` and `WithStorageVersion()` functions to work with
+  multi-versioned CRDs easier on different platforms.
+
 ## [0.4.3] 2020-05-25
 
 ### Changed
