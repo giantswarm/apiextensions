@@ -165,3 +165,63 @@ func LoadV1(group, kind string) *v1.CustomResourceDefinition {
 	}
 	panic(microerror.Mask(notFoundError))
 }
+
+// ExtractV1CRDVersions takes instance of CRD and variable number of versions
+// and returns CRD with those versions. This function does not guarantee that
+// all defined versions are present in returned CRDs.
+//
+// Example:
+//	crd contains versions for v1alpha1 and v1alpha3.
+//	versions is v1alpha3.
+// Returned:
+//	crd with only v1alpha3 version.
+//
+func ExtractV1CRDVersions(crd *v1.CustomResourceDefinition, versions ...string) *v1.CustomResourceDefinition {
+	crd = crd.DeepCopy()
+
+VERSION_LOOP:
+	for i := 0; i < len(crd.Spec.Versions); i++ {
+		v := crd.Spec.Versions[i]
+		for _, name := range versions {
+			if v.Name == name {
+				// Keep current version and proceed to next.
+				continue VERSION_LOOP
+			}
+		}
+
+		// Remove current element since its version was not specified in versions.
+		crd.Spec.Versions = append(crd.Spec.Versions[:i], crd.Spec.Versions[i+1:]...)
+		i--
+	}
+
+	return crd
+}
+
+// WithStorageVersion takes CRD and version and sets storage flag for this
+// version as true while setting others to false.
+//
+// Example:
+//	crd contains versions v1alpha2 and v1alpha3 and v1alpha3 has storage == true.
+//	version is v1alpha2.
+// Returned:
+//	crd with v1alpha2.Storage as true and v1alpha3.Storage as false.
+//
+func WithStorageVersion(crd *v1.CustomResourceDefinition, version string) *v1.CustomResourceDefinition {
+	crd = crd.DeepCopy()
+
+	versionSet := false
+	for i := 0; i < len(crd.Spec.Versions); i++ {
+		if crd.Spec.Versions[i].Name == version {
+			crd.Spec.Versions[i].Storage = true
+			versionSet = true
+		} else {
+			crd.Spec.Versions[i].Storage = false
+		}
+	}
+
+	if !versionSet {
+		panic(microerror.Maskf(notFoundError, "version: %q", version))
+	}
+
+	return crd
+}
