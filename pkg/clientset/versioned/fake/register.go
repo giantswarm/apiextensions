@@ -32,6 +32,7 @@ import (
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1"
 	releasev1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1"
+	securityv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1"
 	toolingv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1"
 )
 
@@ -46,6 +47,7 @@ var localSchemeBuilder = runtime.SchemeBuilder{
 	infrastructurev1alpha2.AddToScheme,
 	providerv1alpha1.AddToScheme,
 	releasev1alpha1.AddToScheme,
+	securityv1alpha1.AddToScheme,
 	toolingv1alpha1.AddToScheme,
 }
 

@@ -1255,6 +1255,27 @@ KLki8b59uAfhPwEAAP//mcpqv1sRAAA=
 `,
 	},
 
+	"/config/crd/v1/security.giantswarm.io_organizations.yaml": {
+		name:    "security.giantswarm.io_organizations.yaml",
+		local:   "config/crd/v1/security.giantswarm.io_organizations.yaml",
+		size:    1588,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RUPZMkNQzN+1eojuASuocFAqozaiG4Ag7q9moTikBja3rEdstGkgf2fj1l98xO71IH
+JOdMH36S35PV9X3fYeZ7UuMkI2Bm+stJqmXDwzc2cNqdbroHljjCbTFPyzuyVDTQd3RgYeck3UKOER3H
+DgBFkmN1WzUBQhLXNM+k/UQyPJQ97QvPkbSBX0qfvhi+HL7uAIJSu/6eFzLHJY8gZZ47AMGFRkg6ofCH
+tcRgFIqyPw4To7j9iboMnDrLFGr5SVPJI3wka4W89IlOU1K+2D2EtCxJzsb1ZnOsjPy86aW5Zzb/4R+h
+H9m8hfNcFOcXb2gRY5nKjPo81gFYSJlGeFsbzRgodgBn0lqj/ZmW0w3O+Yg3K1o40oLrOwBSJvn2lzf3
+X909cwNkTZnUn568ns1AbLwAkSwoZ29yva6AaxbEOglk4Ee6tEbx3AOkA/iRDZSykpH4lazrSQdAgbT/
+nYIPcEdaYcCOqcyxDtCJ1EEppEn4wxO2gadWdEanM8PXw+KkgjOccC70OaBEWPARlGoVKLLBayk2wE9J
+CVgOaYSje7Zxt5vYLx+hzkMR9sddm2neF09qu0gnmnfGU48ajuwUvCjtMHPfWpd1Upf4mZ6/jr1+1qs/
+VoXNlWXaBNqI/YsCdc6ADfB8dX3Flejqquy8+/7uPVxKNzFest94v160qwSVMJYD6SriQdPSMEliTize
+jDAzyUv6rewX9qr7H4XMq1YD3LbtAHuCkiM6xQHeCNziQvMtGn1yASrT1ldi/58E28X2MnllbRO47Jz/
+SKyEsNJG2v6pzsZV0bqPAlnVJ47gWmh1eFKc6OwxRy/tU2MIlJ3i2+uiW1fXq1fPNlIzQ5LI6+qGX3/r
+VlSK95d1U51/BwAA//+XU14aNAYAAA==
+`,
+	},
+
 	"/config/crd/v1/tooling.giantswarm.io_azuretools.yaml": {
 		name:    "tooling.giantswarm.io_azuretools.yaml",
 		local:   "config/crd/v1/tooling.giantswarm.io_azuretools.yaml",
@@ -2276,6 +2297,27 @@ XFyNoleU7xs03vh3AAAA///GaqvwwBAAAA==
 `,
 	},
 
+	"/config/crd/v1beta1/security.giantswarm.io_organizations.yaml": {
+		name:    "security.giantswarm.io_organizations.yaml",
+		local:   "config/crd/v1beta1/security.giantswarm.io_organizations.yaml",
+		size:    1575,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RUwZLkNAy95ytUy2EvJM0AByo3auCwBSzUztZcKA5qW50W49hGkht6v56y0+l0Awsn
+ctOz/KS8J6vr+77DzM8kyimOgJnpD6NYIx1evtKB0+70sCfDh+6Fox/hsail+R1pKuLoGzpwZOMUu5kM
+PRqOHQDGmAwrrDUEcCmapBBI+oni8FL2tC8cPEmrsNY/fTZ8PnzZATihdv09z6SGcx4hlhA6gIgzjZBk
+wsgflhKDkivCdh4mxmj6O8o8cOo0k6vlJ0klj/CRrIVy7RONpiS8xj24NM8pXoLtZgMWRX686aXBgdW+
++9vR96zWjnMoguEv/9BOlONUAsr9WQegLmUa4W1tNKMj3wGcMLBvCUurKVP8+qc3z188uSPNuIAAWVIm
+sesf1e/G8isG4EmdcG6M8LpSLTngq8mkYEeCi1XkQVsZSAewIysIZSGlaJsO65cOgBHS/ldyNsATSSUB
+PaYSfJ2ME4mBkEtT5A9XZgVLrWRAo4t068fRSCKGKkKhTwGjhxnPIFRrQIk3bC1FB/ghCQHHQxrhaJZ1
+3O0mtnXIq80lsp13bVR5XyyJ7jydKOyUpx7FHdnIWRHaYea+NR6XAZz9J3J5Efr6plM7V9vUhON0hdvU
+fFT3OjjACni5tvS/yVuhqsq7b5/ew1q0WXCveVN7u6ab8FUojgeSxbiDpLkxUvQ5cbQWuMAU70XXsp/Z
+qtO/FVKr/gzw2J467AlK9mjkB3gT4RFnCo+o9L/LXhXWvkr638Lfbqj7xEWtK7wujn9JqiKw0NXI/sp+
+BSpL948E2757wJCP+LBh7ZX2ly13cwyg1T4/gkmhBbAkONEFUUMr7TY6R9nIv93W2rKoXr262z8tdCl6
+XhY1/PxLt7CSf167qeCfAQAA//+jxv0pJwYAAA==
+`,
+	},
+
 	"/config/crd/v1beta1/tooling.giantswarm.io_azuretools.yaml": {
 		name:    "tooling.giantswarm.io_azuretools.yaml",
 		local:   "config/crd/v1beta1/tooling.giantswarm.io_azuretools.yaml",
@@ -2404,6 +2446,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_kvmconfigs.yaml"],
 		_escData["/config/crd/v1/release.giantswarm.io_releases.yaml"],
+		_escData["/config/crd/v1/security.giantswarm.io_organizations.yaml"],
 		_escData["/config/crd/v1/tooling.giantswarm.io_azuretools.yaml"],
 	},
 
@@ -2432,6 +2475,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_kvmconfigs.yaml"],
 		_escData["/config/crd/v1beta1/release.giantswarm.io_releases.yaml"],
+		_escData["/config/crd/v1beta1/security.giantswarm.io_organizations.yaml"],
 		_escData["/config/crd/v1beta1/tooling.giantswarm.io_azuretools.yaml"],
 	},
 }
