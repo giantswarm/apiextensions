@@ -17,7 +17,7 @@ spec:
     listKind: OrganizationList
     plural: organizations
     singular: organization
-  scope: Namespaced
+  scope: Cluster
   versions:
   - name: v1alpha1
     schema:
