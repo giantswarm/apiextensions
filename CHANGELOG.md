@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make LastDeployed a nullable field.
+
 ## [0.4.3] 2020-05-25
 
 ### Changed

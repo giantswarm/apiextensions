@@ -193,6 +193,7 @@ spec:
                   lastDeployed:
                     description: LastDeployed is the time when the app was last deployed.
                     format: date-time
+                    nullable: true
                     type: string
                   reason:
                     description: Reason is the description of the last status of helm
