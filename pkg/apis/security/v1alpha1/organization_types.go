@@ -19,7 +19,7 @@ func NewOrganizationCRD() *v1beta1.CustomResourceDefinition {
 // +genclient:noStatus
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=common;giantswarm
+// +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +kubebuilder:storageversion
 
 type Organization struct {
