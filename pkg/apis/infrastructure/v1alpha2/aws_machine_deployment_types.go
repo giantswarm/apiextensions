@@ -50,7 +50,7 @@ type AWSMachineDeployment struct {
 	Spec AWSMachineDeploymentSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
 	// Holds status information.
-	Status AWSMachineDeploymentStatus `json:"status"`
+	Status AWSMachineDeploymentStatus `json:"status,omitempty"`
 }
 
 type AWSMachineDeploymentSpec struct {
@@ -93,7 +93,7 @@ type AWSMachineDeploymentSpecProvider struct {
 	AvailabilityZones []string `json:"availabilityZones"`
 	// +kubebuilder:validation:Optional
 	// Settings defining the distribution of on-demand and spot instances in the node pool.
-	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution"`
+	InstanceDistribution AWSMachineDeploymentSpecInstanceDistribution `json:"instanceDistribution,omitempty"`
 	// Specification of worker nodes.
 	Worker AWSMachineDeploymentSpecProviderWorker `json:"worker"`
 }
@@ -104,14 +104,14 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 	// Base capacity of on-demand instances to use for worker nodes in this pool. When this larger
 	// than 0, this value defines a number of worker nodes that will be created using on-demand
 	// EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.
-	OnDemandBaseCapacity int `json:"onDemandBaseCapacity"`
+	OnDemandBaseCapacity int `json:"onDemandBaseCapacity,omitempty"`
 	// +kubebuilder:default=100
 	// +kubebuilder:validation:Maximum=100
 	// +kubebuilder:validation:Minimum=0
 	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
 	// for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes
 	// use spot instances and half use on-demand, set this value to 50.
-	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity"`
+	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity,omitempty"`
 }
 
 type AWSMachineDeploymentSpecProviderWorker struct {
@@ -125,22 +125,22 @@ type AWSMachineDeploymentSpecProviderWorker struct {
 type AWSMachineDeploymentStatus struct {
 	// +kubebuilder:validation:Optional
 	// Status specific to AWS.
-	Provider AWSMachineDeploymentStatusProvider `json:"provider"`
+	Provider AWSMachineDeploymentStatusProvider `json:"provider,omitempty"`
 }
 
 type AWSMachineDeploymentStatusProvider struct {
 	// +kubebuilder:validation:Optional
 	// Status of worker nodes.
-	Worker AWSMachineDeploymentStatusProviderWorker `json:"worker"`
+	Worker AWSMachineDeploymentStatusProviderWorker `json:"worker,omitempty"`
 }
 
 type AWSMachineDeploymentStatusProviderWorker struct {
 	// +kubebuilder:validation:Optional
 	// AWS EC2 instance types used for the worker nodes in this node pool.
-	InstanceTypes []string `json:"instanceTypes"`
+	InstanceTypes []string `json:"instanceTypes,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Number of EC2 spot instances used in this node pool.
-	SpotInstances int `json:"spotInstances"`
+	SpotInstances int `json:"spotInstances,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
