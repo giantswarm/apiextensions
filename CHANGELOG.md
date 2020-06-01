@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.6] 2020-06-01
+
+- Add Cluster-scoped Organization CRD
 
 ## [0.4.5] 2020-06-01
 
@@ -27,7 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fixing AppCatalog CRD as Cluster-scoped resource.
-- Add Cluster-scoped Organization CRD
 
 ## [0.4.2] 2020-05-25
 
@@ -297,7 +299,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.5...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.6...HEAD
+[0.4.6]: https://github.com/giantswarm/apiextensions/compare/v0.4.5...v0.4.6
 [0.4.5]: https://github.com/giantswarm/apiextensions/compare/v0.4.4...v0.4.5
 [0.4.4]: https://github.com/giantswarm/apiextensions/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/giantswarm/apiextensions/compare/v0.4.2...v0.4.3
