@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fixing AppCatalog CRD as Cluster-scoped resource.
+- Add Cluster-scoped Organization CRD
 
 ## [0.4.2] 2020-05-25
 
