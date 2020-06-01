@@ -2,7 +2,10 @@ module github.com/giantswarm/apiextensions/hack
 
 go 1.14
 
-require sigs.k8s.io/cluster-api v0.2.10
+require (
+	sigs.k8s.io/cluster-api v0.3.5
+	sigs.k8s.io/cluster-api-provider-azure v0.4.3 // indirect
+)
 
 replace (
 	k8s.io/api => k8s.io/api v0.16.6
