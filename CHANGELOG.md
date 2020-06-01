@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Import latest upstream Cluster API & Azure Cluster API CRDs.
 
+## [0.4.4] 2020-05-29
+
+### Changed
+
+- Make LastDeployed a nullable field.
+
 ## [0.4.3] 2020-05-25
 
 ### Changed
@@ -287,7 +293,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.3...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.4...HEAD
+[0.4.4]: https://github.com/giantswarm/apiextensions/compare/v0.4.3...v0.4.4
 [0.4.3]: https://github.com/giantswarm/apiextensions/compare/v0.4.2...v0.4.3
 [0.4.2]: https://github.com/giantswarm/apiextensions/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/giantswarm/apiextensions/compare/v0.4.0...v0.4.1
