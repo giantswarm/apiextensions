@@ -1,2 +1,2 @@
 // Package openapi exists to hold generated openapi code.
-package main
+package openapi
