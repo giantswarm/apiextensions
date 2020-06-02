@@ -40,6 +40,7 @@ func NewAppCR() *App {
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
+// +k8s:openapi-gen=true
 
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -49,6 +50,7 @@ type App struct {
 	Status AppStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpec struct {
 	// Catalog is the name of the app catalog this app belongs to.
 	// e.g. giantswarm
@@ -71,6 +73,7 @@ type AppSpec struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecConfig struct {
 	// ConfigMap references a config map containing values that should be
 	// applied to the app.
@@ -80,6 +83,7 @@ type AppSpecConfig struct {
 	Secret AppSpecConfigSecret `json:"secret"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecConfigConfigMap struct {
 	// Name is the name of the config map containing app values to apply,
 	// e.g. prometheus-values.
@@ -98,6 +102,7 @@ type AppSpecConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecKubeConfig struct {
 	// InCluster is a flag for whether to use InCluster credentials. When true the
 	// context name and secret should not be set.
@@ -108,12 +113,14 @@ type AppSpecKubeConfig struct {
 	Secret AppSpecKubeConfigSecret `json:"secret"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecKubeConfigContext struct {
 	// Name is the name of the kubeconfig context.
 	// e.g. giantswarm-12345.
 	Name string `json:"name"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecKubeConfigSecret struct {
 	// Name is the name of the secret containing the kubeconfig,
 	// e.g. app-operator-kubeconfig.
@@ -123,6 +130,7 @@ type AppSpecKubeConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecUserConfig struct {
 	// ConfigMap references a config map containing user values that should be
 	// applied to the app.
@@ -132,6 +140,7 @@ type AppSpecUserConfig struct {
 	Secret AppSpecUserConfigSecret `json:"secret"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecUserConfigConfigMap struct {
 	// Name is the name of the config map containing user values to apply,
 	// e.g. prometheus-user-values.
@@ -141,6 +150,7 @@ type AppSpecUserConfigConfigMap struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecUserConfigSecret struct {
 	// Name is the name of the secret containing user values to apply,
 	// e.g. prometheus-user-secret.
@@ -150,6 +160,7 @@ type AppSpecUserConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppStatus struct {
 	// AppVersion is the value of the AppVersion field in the Chart.yaml of the
 	// deployed app. This is an optional field with the version of the
@@ -165,6 +176,7 @@ type AppStatus struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type AppStatusRelease struct {
 	// +kubebuilder:validation:Optional
 	// +nullable

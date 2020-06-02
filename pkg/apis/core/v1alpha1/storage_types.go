@@ -21,6 +21,7 @@ func NewStorageConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
 
 type StorageConfig struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -28,10 +29,12 @@ type StorageConfig struct {
 	Spec              StorageConfigSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type StorageConfigSpec struct {
 	Storage StorageConfigSpecStorage `json:"storage"`
 }
 
+// +k8s:openapi-gen=true
 type StorageConfigSpecStorage struct {
 	Data map[string]string `json:"data"`
 }
