@@ -117,7 +117,7 @@ generate-openapi-spec: $(OPENAPI_GEN)
 	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
 	$(OPENAPI_GEN) \
 	--input-dirs $(INPUT_DIRS) \
-	--output-package $(MODULE)/$(CLIENTSET_DIR) \
+	--output-package $(MODULE)/$(OPENAPI_DIR) \
 	--go-header-file $(BOILERPLATE)
 
 .PHONY: generate-fs
