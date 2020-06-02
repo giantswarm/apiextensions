@@ -18,9 +18,7 @@ spec:
     availabilityZones:
     - eu-central-1b
     - eu-central-1c
-    instanceDistribution:
-      onDemandBaseCapacity: 0
-      onDemandPercentageAboveBaseCapacity: 0
+    instanceDistribution: {}
     worker:
       instanceType: m5.4xlarge
       useAlikeInstanceTypes: true
