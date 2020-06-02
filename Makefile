@@ -1,6 +1,7 @@
 # Directories.
 APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
+OPENAPI_DIR := pkg/openapi
 CRDV1_DIR := config/crd/v1
 CRDV1BETA1_DIR := config/crd/v1beta1
 SCRIPTS_DIR := hack
