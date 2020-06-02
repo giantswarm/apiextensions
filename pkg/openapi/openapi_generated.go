@@ -4090,7 +4090,6 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecInstanceDis
 						},
 					},
 				},
-				Required: []string{"onDemandBaseCapacity", "onDemandPercentageAboveBaseCapacity"},
 			},
 		},
 	}
@@ -4217,7 +4216,7 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecProvider(re
 						},
 					},
 				},
-				Required: []string{"availabilityZones", "instanceDistribution", "worker"},
+				Required: []string{"availabilityZones", "worker"},
 			},
 		},
 		Dependencies: []string{
@@ -4265,7 +4264,6 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatus(ref comm
 						},
 					},
 				},
-				Required: []string{"provider"},
 			},
 		},
 		Dependencies: []string{
@@ -4286,7 +4284,6 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatusProvider(
 						},
 					},
 				},
-				Required: []string{"worker"},
 			},
 		},
 		Dependencies: []string{
@@ -4322,7 +4319,6 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatusProviderW
 						},
 					},
 				},
-				Required: []string{"instanceTypes", "spotInstances"},
 			},
 		},
 	}
