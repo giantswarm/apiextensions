@@ -132,6 +132,7 @@ spec:
                     description: LastDeployed is the time when the deployed chart
                       was last deployed.
                     format: date-time
+                    nullable: true
                     type: string
                   revision:
                     description: Revision is the revision number for this deployed
@@ -142,7 +143,6 @@ spec:
                       DEPLOYED.
                     type: string
                 required:
-                - lastDeployed
                 - revision
                 - status
                 type: object

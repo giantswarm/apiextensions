@@ -17,7 +17,7 @@ spec:
     listKind: AppCatalogList
     plural: appcatalogs
     singular: appcatalog
-  scope: Namespaced
+  scope: Cluster
   validation:
     openAPIV3Schema:
       properties:

@@ -32,6 +32,7 @@ import (
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/provider/v1alpha1"
 	releasev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/release/v1alpha1"
+	securityv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/security/v1alpha1"
 	toolingv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/tooling/v1alpha1"
 )
 
@@ -44,6 +45,7 @@ type Interface interface {
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface
 	ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface
+	SecurityV1alpha1() securityv1alpha1.SecurityV1alpha1Interface
 	ToolingV1alpha1() toolingv1alpha1.ToolingV1alpha1Interface
 }
 
@@ -58,6 +60,7 @@ type Clientset struct {
 	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
 	providerV1alpha1       *providerv1alpha1.ProviderV1alpha1Client
 	releaseV1alpha1        *releasev1alpha1.ReleaseV1alpha1Client
+	securityV1alpha1       *securityv1alpha1.SecurityV1alpha1Client
 	toolingV1alpha1        *toolingv1alpha1.ToolingV1alpha1Client
 }
 
@@ -94,6 +97,11 @@ func (c *Clientset) ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interfac
 // ReleaseV1alpha1 retrieves the ReleaseV1alpha1Client
 func (c *Clientset) ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface {
 	return c.releaseV1alpha1
+}
+
+// SecurityV1alpha1 retrieves the SecurityV1alpha1Client
+func (c *Clientset) SecurityV1alpha1() securityv1alpha1.SecurityV1alpha1Interface {
+	return c.securityV1alpha1
 }
 
 // ToolingV1alpha1 retrieves the ToolingV1alpha1Client
@@ -150,6 +158,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.securityV1alpha1, err = securityv1alpha1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.toolingV1alpha1, err = toolingv1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -173,6 +185,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
 	cs.providerV1alpha1 = providerv1alpha1.NewForConfigOrDie(c)
 	cs.releaseV1alpha1 = releasev1alpha1.NewForConfigOrDie(c)
+	cs.securityV1alpha1 = securityv1alpha1.NewForConfigOrDie(c)
 	cs.toolingV1alpha1 = toolingv1alpha1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
@@ -189,6 +202,7 @@ func New(c rest.Interface) *Clientset {
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
 	cs.providerV1alpha1 = providerv1alpha1.New(c)
 	cs.releaseV1alpha1 = releasev1alpha1.New(c)
+	cs.securityV1alpha1 = securityv1alpha1.New(c)
 	cs.toolingV1alpha1 = toolingv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)

@@ -152,8 +152,10 @@ type AppStatus struct {
 }
 
 type AppStatusRelease struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// LastDeployed is the time when the app was last deployed.
-	LastDeployed metav1.Time `json:"lastDeployed"`
+	LastDeployed metav1.Time `json:"lastDeployed,omitempty"`
 	// Reason is the description of the last status of helm release when the app is
 	// not installed successfully, e.g. deploy resource already exists.
 	Reason string `json:"reason,omitempty"`

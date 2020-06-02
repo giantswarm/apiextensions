@@ -24,7 +24,7 @@ func NewAppCatalogCR(name, namespace string) *AppCatalog {
 // +genclient
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=common;giantswarm
+// +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
 // +kubebuilder:storageversion
 
 type AppCatalog struct {

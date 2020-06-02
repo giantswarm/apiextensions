@@ -9,6 +9,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+
+### Changed
+
+- Make more fields `omitempty` in `AWSMachineDeployment` CRs.
+
+
+
+## [0.4.6] 2020-06-01
+
+### Added
+
+- Add Cluster-scoped Organization CRD
+
+
+
+## [0.4.5] 2020-06-01
+
+### Changed
+
+- Import latest upstream Cluster API & Azure Cluster API CRDs.
+
+
+
+## [0.4.4] 2020-05-29
+
+### Changed
+
+- Make LastDeployed a nullable field.
+
+
+
+## [0.4.3] 2020-05-25
+
+### Changed
+
+- Fixing AppCatalog CRD as Cluster-scoped resource.
+
+
+
+## [0.4.2] 2020-05-25
+
+### Changed
+
+- Make .status.release.lastDeployed of app and chart CRs optional.
+
+
+
 ## [0.4.1] 2020-05-22
 
 ### Added
@@ -277,7 +325,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.6...HEAD
+
+[0.4.6]: https://github.com/giantswarm/apiextensions/compare/v0.4.5...v0.4.6
+[0.4.5]: https://github.com/giantswarm/apiextensions/compare/v0.4.4...v0.4.5
+[0.4.4]: https://github.com/giantswarm/apiextensions/compare/v0.4.3...v0.4.4
+[0.4.3]: https://github.com/giantswarm/apiextensions/compare/v0.4.2...v0.4.3
+[0.4.2]: https://github.com/giantswarm/apiextensions/compare/v0.4.1...v0.4.2
 [0.4.1]: https://github.com/giantswarm/apiextensions/compare/v0.4.0...v0.4.1
 [0.4.0]: https://github.com/giantswarm/apiextensions/compare/v0.3.11...v0.4.0
 [0.3.11]: https://github.com/giantswarm/apiextensions/compare/v0.3.10...v0.3.11
@@ -301,4 +355,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [0.2.0]: https://github.com/giantswarm/apiextensions/compare/v0.1.2...v0.2.0
 [0.1.2]: https://github.com/giantswarm/apiextensions/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/giantswarm/apiextensions/compare/v0.1.0...v0.1.1
+
 [0.1.0]: https://github.com/giantswarm/apiextensions/releases/tag/v0.1.0
