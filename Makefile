@@ -14,6 +14,7 @@ CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
+OPENAPI_GEN := $(abspath $(TOOLS_BIN_DIR)/openapi-gen)
 
 BUILD_COLOR = ""
 GEN_COLOR = ""
@@ -64,11 +65,17 @@ $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@cd $(TOOLS_DIR)/esc \
 	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
+$(OPENAPI_GEN): $(TOOLS_DIR)/openapi-gen/go.mod
+	@echo "$(BUILD_COLOR)Building openapi-gen$(NO_COLOR)"
+	cd $(TOOLS_DIR)/openapi-gen \
+	&& go build -tags=tools -o $(OPENAPI_GEN) k8s.io/kube-openapi/cmd/openapi-gen
+
 .PHONY: generate
 generate:
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
+	@$(MAKE) generate-openapi-spec
 	@$(MAKE) generate-fs
 	@$(MAKE) imports
 	@$(MAKE) patch
@@ -103,6 +110,14 @@ generate-deepcopy: $(CONTROLLER_GEN)
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
+
+.PHONY: generate-openapi-spec
+generate-openapi-spec: $(OPENAPI_GEN)
+	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
+	$(OPENAPI_GEN) \
+	--input-dirs $(INPUT_DIRS) \
+	--output-package $(MODULE)/$(CLIENTSET_DIR) \
+	--go-header-file $(BOILERPLATE)
 
 .PHONY: generate-fs
 generate-fs: $(ESC) config/crd
