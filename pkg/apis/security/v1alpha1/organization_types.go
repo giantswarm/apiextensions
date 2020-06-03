@@ -18,16 +18,18 @@ func NewOrganizationCRD() *v1beta1.CustomResourceDefinition {
 // +genclient
 // +genclient:noStatus
 // +genclient:nonNamespaced
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
+
 type Organization struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              OrganizationSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type OrganizationSpec struct {
 }
 

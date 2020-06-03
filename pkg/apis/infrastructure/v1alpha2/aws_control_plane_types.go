@@ -37,10 +37,11 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 
 // +genclient
 // +genclient:noStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=aws;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
+
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
 // CRs. Represents the master nodes (also called Control Plane) of a tenant
 // cluster on AWS. Reconciled by aws-operator.
@@ -51,6 +52,7 @@ type AWSControlPlane struct {
 	Spec AWSControlPlaneSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type AWSControlPlaneSpec struct {
 	// +kubebuilder:validation:Optional
 	// Configures which AWS availability zones to use by master nodes, as a list

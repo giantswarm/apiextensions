@@ -17,16 +17,18 @@ func NewMemcachedConfigCRD() *v1beta1.CustomResourceDefinition {
 
 // +genclient
 // +genclient:noStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=example;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
+
 type MemcachedConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              MemcachedConfigSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type MemcachedConfigSpec struct {
 	// Replicas is the number of instances of Memcache.
 	Replicas int `json:"replicas"`

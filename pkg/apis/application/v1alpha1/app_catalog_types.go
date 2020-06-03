@@ -38,10 +38,10 @@ func NewAppCatalogCR() *AppCatalog {
 
 // +genclient
 // +genclient:nonNamespaced
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
 
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -49,6 +49,7 @@ type AppCatalog struct {
 	Spec              AppCatalogSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type AppCatalogSpec struct {
 	// Title is the name of the app catalog for this CR
 	// e.g. Catalog of Apps by Giant Swarm
@@ -64,6 +65,7 @@ type AppCatalogSpec struct {
 	Storage AppCatalogSpecStorage `json:"storage"`
 }
 
+// +k8s:openapi-gen=true
 type AppCatalogSpecConfig struct {
 	// ConfigMap references a config map containing catalog values that
 	// should be applied to apps in this catalog.
@@ -73,6 +75,7 @@ type AppCatalogSpecConfig struct {
 	Secret AppCatalogSpecConfigSecret `json:"secret"`
 }
 
+// +k8s:openapi-gen=true
 type AppCatalogSpecConfigConfigMap struct {
 	// Name is the name of the config map containing catalog values to
 	// apply, e.g. app-catalog-values.
@@ -82,6 +85,7 @@ type AppCatalogSpecConfigConfigMap struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppCatalogSpecConfigSecret struct {
 	// Name is the name of the secret containing catalog values to apply,
 	// e.g. app-catalog-secret.
@@ -91,6 +95,7 @@ type AppCatalogSpecConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppCatalogSpecStorage struct {
 	// Type indicates which repository type would be used for this AppCatalog.
 	// e.g. helm

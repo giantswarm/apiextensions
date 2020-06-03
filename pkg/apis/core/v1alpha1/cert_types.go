@@ -40,21 +40,24 @@ func NewCertConfigCR() *CertConfig {
 
 // +genclient
 // +genclient:noStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
+
 type CertConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              CertConfigSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type CertConfigSpec struct {
 	Cert          CertConfigSpecCert          `json:"cert"`
 	VersionBundle CertConfigSpecVersionBundle `json:"versionBundle"`
 }
 
+// +k8s:openapi-gen=true
 type CertConfigSpecCert struct {
 	AllowBareDomains bool `json:"allowBareDomains"`
 	// +kubebuilder:validation:Optional
@@ -73,6 +76,7 @@ type CertConfigSpecCert struct {
 	TTL           string   `json:"ttl"`
 }
 
+// +k8s:openapi-gen=true
 type CertConfigSpecVersionBundle struct {
 	Version string `json:"version"`
 }

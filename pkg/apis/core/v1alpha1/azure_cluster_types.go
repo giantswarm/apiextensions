@@ -17,21 +17,24 @@ func NewAzureClusterConfigCRD() *v1.CustomResourceDefinition {
 
 // +genclient
 // +genclient:noStatus
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=azure;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
+
 type AzureClusterConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AzureClusterConfigSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type AzureClusterConfigSpec struct {
 	Guest         AzureClusterConfigSpecGuest         `json:"guest"`
 	VersionBundle AzureClusterConfigSpecVersionBundle `json:"versionBundle"`
 }
 
+// +k8s:openapi-gen=true
 type AzureClusterConfigSpecGuest struct {
 	ClusterGuestConfig `json:",inline"`
 	CredentialSecret   AzureClusterConfigSpecGuestCredentialSecret `json:"credentialSecret"`
@@ -42,6 +45,7 @@ type AzureClusterConfigSpecGuest struct {
 // AzureClusterConfigSpecGuestCredentialSecret points to the K8s Secret
 // containing credentials for an Azure subscription in which the tenant cluster
 // should be created.
+// +k8s:openapi-gen=true
 type AzureClusterConfigSpecGuestCredentialSecret struct {
 	Name      string `json:"name"`
 	Namespace string `json:"namespace"`

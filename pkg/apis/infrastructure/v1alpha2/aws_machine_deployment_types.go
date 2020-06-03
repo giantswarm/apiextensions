@@ -35,11 +35,12 @@ func NewAWSMachineDeploymentCR() *AWSMachineDeployment {
 }
 
 // +genclient
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;giantswarm;cluster-api
+// +k8s:openapi-gen=true
+
 // AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources.
 // It contains provider-specific specification and status for a node pool.
 // In use on AWS since Giant Swarm release v10.x.x and reconciled by aws-operator.
@@ -53,6 +54,7 @@ type AWSMachineDeployment struct {
 	Status AWSMachineDeploymentStatus `json:"status,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpec struct {
 	// Specifies details of node pool and the worker nodes it should contain.
 	NodePool AWSMachineDeploymentSpecNodePool `json:"nodePool"`
@@ -60,6 +62,7 @@ type AWSMachineDeploymentSpec struct {
 	Provider AWSMachineDeploymentSpecProvider `json:"provider"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecNodePool struct {
 	// User-friendly name or description of the purpose of the node pool.
 	Description string `json:"description"`
@@ -70,6 +73,7 @@ type AWSMachineDeploymentSpecNodePool struct {
 	Scaling AWSMachineDeploymentSpecNodePoolScaling `json:"scaling"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecNodePoolMachine struct {
 	// Size of the volume reserved for Docker images and overlay file systems of
 	// Docker containers. Unit: 1 GB = 1,000,000,000 Bytes.
@@ -79,6 +83,7 @@ type AWSMachineDeploymentSpecNodePoolMachine struct {
 	KubeletVolumeSizeGB int `json:"kubeletVolumeSizeGB"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecNodePoolScaling struct {
 	// Maximum number of worker nodes in this node pool.
 	Max int `json:"max"`
@@ -86,6 +91,7 @@ type AWSMachineDeploymentSpecNodePoolScaling struct {
 	Min int `json:"min"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecProvider struct {
 	// Name(s) of the availability zone(s) to use for worker nodes. Using multiple
 	// availability zones results in higher resilience but can also result in higher
@@ -98,6 +104,7 @@ type AWSMachineDeploymentSpecProvider struct {
 	Worker AWSMachineDeploymentSpecProviderWorker `json:"worker"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecInstanceDistribution struct {
 	// +kubebuilder:default=0
 	// +kubebuilder:validation:Minimum=0
@@ -114,6 +121,7 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecProviderWorker struct {
 	// AWS EC2 instance type name to use for the worker nodes in this node pool.
 	InstanceType string `json:"instanceType"`
@@ -122,18 +130,21 @@ type AWSMachineDeploymentSpecProviderWorker struct {
 	UseAlikeInstanceTypes bool `json:"useAlikeInstanceTypes"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentStatus struct {
 	// +kubebuilder:validation:Optional
 	// Status specific to AWS.
 	Provider AWSMachineDeploymentStatusProvider `json:"provider,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentStatusProvider struct {
 	// +kubebuilder:validation:Optional
 	// Status of worker nodes.
 	Worker AWSMachineDeploymentStatusProviderWorker `json:"worker,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AWSMachineDeploymentStatusProviderWorker struct {
 	// +kubebuilder:validation:Optional
 	// AWS EC2 instance types used for the worker nodes in this node pool.

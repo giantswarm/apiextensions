@@ -16,11 +16,12 @@ func NewAzureConfigCRD() *v1.CustomResourceDefinition {
 }
 
 // +genclient
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=azure;giantswarm
+// +k8s:openapi-gen=true
+
 type AzureConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -29,12 +30,14 @@ type AzureConfig struct {
 	Status AzureConfigStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigSpec struct {
 	Cluster       Cluster                      `json:"cluster"`
 	Azure         AzureConfigSpecAzure         `json:"azure"`
 	VersionBundle AzureConfigSpecVersionBundle `json:"versionBundle"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigSpecAzure struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -47,6 +50,7 @@ type AzureConfigSpecAzure struct {
 }
 
 // AzureConfigSpecAzureDNSZones contains the DNS Zones of the cluster.
+// +k8s:openapi-gen=true
 type AzureConfigSpecAzureDNSZones struct {
 	// API is the DNS Zone for the Kubernetes API.
 	API AzureConfigSpecAzureDNSZonesDNSZone `json:"api"`
@@ -57,6 +61,7 @@ type AzureConfigSpecAzureDNSZones struct {
 }
 
 // AzureConfigSpecAzureDNSZonesDNSZone points to a DNS Zone in Azure.
+// +k8s:openapi-gen=true
 type AzureConfigSpecAzureDNSZonesDNSZone struct {
 	// ResourceGroup is the resource group of the zone.
 	ResourceGroup string `json:"resourceGroup"`
@@ -64,6 +69,7 @@ type AzureConfigSpecAzureDNSZonesDNSZone struct {
 	Name string `json:"name"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigSpecAzureVirtualNetwork struct {
 	// CIDR is the CIDR for the Virtual Network.
 	CIDR string `json:"cidr"`
@@ -82,6 +88,7 @@ type AzureConfigSpecAzureVirtualNetwork struct {
 	CalicoSubnetCIDR string `json:"calicoSubnetCIDR"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigSpecAzureNode struct {
 	// VMSize is the master vm size (e.g. Standard_A1)
 	VMSize string `json:"vmSize"`
@@ -91,10 +98,12 @@ type AzureConfigSpecAzureNode struct {
 	KubeletVolumeSizeGB int `json:"kubeletVolumeSizeGB"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigSpecVersionBundle struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigStatus struct {
 	// +kubebuilder:validation:Optional
 	Cluster StatusCluster `json:"cluster"`
@@ -102,6 +111,7 @@ type AzureConfigStatus struct {
 	Provider AzureConfigStatusProvider `json:"provider"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigStatusProvider struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -111,12 +121,14 @@ type AzureConfigStatusProvider struct {
 	Ingress AzureConfigStatusProviderIngress `json:"ingress"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigStatusProviderIngress struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	LoadBalancer AzureConfigStatusProviderIngressLoadBalancer `json:"loadBalancer"`
 }
 
+// +k8s:openapi-gen=true
 type AzureConfigStatusProviderIngressLoadBalancer struct {
 	// +kubebuilder:validation:Optional
 	PublicIPName string `json:"publicIPName"`

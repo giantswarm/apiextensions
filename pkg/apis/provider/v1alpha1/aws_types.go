@@ -38,11 +38,12 @@ func NewAWSConfigCR() *AWSConfig {
 }
 
 // +genclient
-// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;giantswarm
+// +k8s:openapi-gen=true
+
 type AWSConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -51,12 +52,14 @@ type AWSConfig struct {
 	Status AWSConfigStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpec struct {
 	Cluster       Cluster                    `json:"cluster"`
 	AWS           AWSConfigSpecAWS           `json:"aws"`
 	VersionBundle AWSConfigSpecVersionBundle `json:"versionBundle"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWS struct {
 	API AWSConfigSpecAWSAPI `json:"api"`
 	// TODO remove the deprecated AZ field due to AvailabilityZones.
@@ -104,54 +107,64 @@ type AWSConfigSpecAWS struct {
 }
 
 // AWSConfigSpecAWSAPI deprecated since aws-operator v12 resources.
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSAPI struct {
 	HostedZones string                 `json:"hostedZones"`
 	ELB         AWSConfigSpecAWSAPIELB `json:"elb"`
 }
 
 // AWSConfigSpecAWSAPIELB deprecated since aws-operator v12 resources.
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSAPIELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds"`
 }
 
 // AWSConfigSpecAWSEtcd deprecated since aws-operator v12 resources.
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSEtcd struct {
 	HostedZones string                  `json:"hostedZones"`
 	ELB         AWSConfigSpecAWSEtcdELB `json:"elb"`
 }
 
 // AWSConfigSpecAWSEtcdELB deprecated since aws-operator v12 resources.
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSEtcdELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSHostedZones struct {
 	API     AWSConfigSpecAWSHostedZonesZone `json:"api"`
 	Etcd    AWSConfigSpecAWSHostedZonesZone `json:"etcd"`
 	Ingress AWSConfigSpecAWSHostedZonesZone `json:"ingress"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSHostedZonesZone struct {
 	Name string `json:"name"`
 }
 
 // AWSConfigSpecAWSIngress deprecated since aws-operator v12 resources.
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSIngress struct {
 	HostedZones string                     `json:"hostedZones"`
 	ELB         AWSConfigSpecAWSIngressELB `json:"elb"`
 }
 
 // AWSConfigSpecAWSIngressELB deprecated since aws-operator v12 resources.
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSIngressELB struct {
 	IdleTimeoutSeconds int `json:"idleTimeoutSeconds"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSNode struct {
 	ImageID            string `json:"imageID"`
 	InstanceType       string `json:"instanceType"`
 	DockerVolumeSizeGB int    `json:"dockerVolumeSizeGB"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpecAWSVPC struct {
 	CIDR              string   `json:"cidr"`
 	PrivateSubnetCIDR string   `json:"privateSubnetCidr"`
@@ -160,38 +173,46 @@ type AWSConfigSpecAWSVPC struct {
 	PeerID            string   `json:"peerId"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigSpecVersionBundle struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatus struct {
 	AWS     AWSConfigStatusAWS `json:"aws"`
 	Cluster StatusCluster      `json:"cluster"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatusAWS struct {
 	AvailabilityZones []AWSConfigStatusAWSAvailabilityZone `json:"availabilityZones"`
 	AutoScalingGroup  AWSConfigStatusAWSAutoScalingGroup   `json:"autoScalingGroup"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatusAWSAutoScalingGroup struct {
 	Name string `json:"name"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatusAWSAvailabilityZone struct {
 	Name   string                                   `json:"name"`
 	Subnet AWSConfigStatusAWSAvailabilityZoneSubnet `json:"subnet"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatusAWSAvailabilityZoneSubnet struct {
 	Private AWSConfigStatusAWSAvailabilityZoneSubnetPrivate `json:"private"`
 	Public  AWSConfigStatusAWSAvailabilityZoneSubnetPublic  `json:"public"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatusAWSAvailabilityZoneSubnetPrivate struct {
 	CIDR string `json:"cidr"`
 }
 
+// +k8s:openapi-gen=true
 type AWSConfigStatusAWSAvailabilityZoneSubnetPublic struct {
 	CIDR string `json:"cidr"`
 }
