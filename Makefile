@@ -116,7 +116,7 @@ generate-openapi-spec: $(OPENAPI_GEN)
 	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
 	@for gv in $(INPUT_DIRS) ; do \
 		$(OPENAPI_GEN) \
-		--input-dirs "$(MODULE)/$(APIS_DIR)/$$gv,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version" \
+		--input-dirs "$(MODULE)/$(APIS_DIR)/$$gv,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version,k8s.io/api/core/v1" \
 		--output-package "$$gv" \
 		--output-base $(APIS_DIR) \
 		--go-header-file $(BOILERPLATE) ; \
