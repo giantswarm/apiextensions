@@ -66,10 +66,10 @@ $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@cd $(TOOLS_DIR)/esc \
 	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
-$(OPENAPI_GEN): $(TOOLS_DIR)/openapi-gen/go.mod
+$(OPENAPI_GEN): $(TOOLS_DIR)/client-gen/go.mod
 	@echo "$(BUILD_COLOR)Building openapi-gen$(NO_COLOR)"
 	cd $(TOOLS_DIR)/openapi-gen \
-	&& go build -tags=tools -o $(OPENAPI_GEN) k8s.io/kube-openapi/cmd/openapi-gen
+	&& go build -tags=tools -o $(OPENAPI_GEN) k8s.io/code-generator/cmd/openapi-gen
 
 .PHONY: generate
 generate:

@@ -3,5 +3,5 @@
 package tools
 
 import (
-	_ "k8s.io/kube-openapi"
+	_ "k8s.io/code-generator/cmd/openapi-gen"
 )
