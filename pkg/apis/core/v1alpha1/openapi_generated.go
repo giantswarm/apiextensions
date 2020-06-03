@@ -31,17 +31,31 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfig":                            schema_pkg_apis_core_v1alpha1_AWSClusterConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigList":                        schema_pkg_apis_core_v1alpha1_AWSClusterConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpec":                        schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuest":                   schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuest(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestCredentialSecret":   schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestCredentialSecret(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestMaster":             schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestMaster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestNode":               schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestWorker":             schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestWorker(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecVersionBundle":           schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfig":                          schema_pkg_apis_core_v1alpha1_AzureClusterConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigList":                      schema_pkg_apis_core_v1alpha1_AzureClusterConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpec":                      schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuest":                 schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuest(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestCredentialSecret": schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestCredentialSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestMaster":           schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestMaster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestNode":             schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestWorker":           schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestWorker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecVersionBundle":         schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfig":                                  schema_pkg_apis_core_v1alpha1_CertConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigList":                              schema_pkg_apis_core_v1alpha1_CertConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpec":                              schema_pkg_apis_core_v1alpha1_CertConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecCert":                          schema_pkg_apis_core_v1alpha1_CertConfigSpecCert(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecVersionBundle":                 schema_pkg_apis_core_v1alpha1_CertConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfig":                                 schema_pkg_apis_core_v1alpha1_ChartConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigList":                             schema_pkg_apis_core_v1alpha1_ChartConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpec":                             schema_pkg_apis_core_v1alpha1_ChartConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecChart":                        schema_pkg_apis_core_v1alpha1_ChartConfigSpecChart(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecConfigMap":                    schema_pkg_apis_core_v1alpha1_ChartConfigSpecConfigMap(ref),
@@ -50,6 +64,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigStatus":                           schema_pkg_apis_core_v1alpha1_ChartConfigStatus(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfig":                          schema_pkg_apis_core_v1alpha1_ClusterGuestConfig(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle":             schema_pkg_apis_core_v1alpha1_ClusterGuestConfigVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfig":                               schema_pkg_apis_core_v1alpha1_DrainerConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigList":                           schema_pkg_apis_core_v1alpha1_DrainerConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpec":                           schema_pkg_apis_core_v1alpha1_DrainerConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuest":                      schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuest(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestCluster":               schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestCluster(ref),
@@ -58,6 +74,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecVersionBundle":              schema_pkg_apis_core_v1alpha1_DrainerConfigSpecVersionBundle(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatus":                         schema_pkg_apis_core_v1alpha1_DrainerConfigStatus(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatusCondition":                schema_pkg_apis_core_v1alpha1_DrainerConfigStatusCondition(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfig":                               schema_pkg_apis_core_v1alpha1_FlannelConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigList":                           schema_pkg_apis_core_v1alpha1_FlannelConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpec":                           schema_pkg_apis_core_v1alpha1_FlannelConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridge":                     schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridge(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeDocker":               schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeDocker(ref),
@@ -70,6 +88,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealth":                     schema_pkg_apis_core_v1alpha1_FlannelConfigSpecHealth(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealthDocker":               schema_pkg_apis_core_v1alpha1_FlannelConfigSpecHealthDocker(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecVersionBundle":              schema_pkg_apis_core_v1alpha1_FlannelConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.Ignition":                                    schema_pkg_apis_core_v1alpha1_Ignition(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionList":                                schema_pkg_apis_core_v1alpha1_IgnitionList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpec":                                schema_pkg_apis_core_v1alpha1_IgnitionSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecCalico":                          schema_pkg_apis_core_v1alpha1_IgnitionSpecCalico(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDocker":                          schema_pkg_apis_core_v1alpha1_IgnitionSpecDocker(ref),
@@ -96,12 +116,16 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatus":                              schema_pkg_apis_core_v1alpha1_IgnitionStatus(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusSecret":                        schema_pkg_apis_core_v1alpha1_IgnitionStatusSecret(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusVerification":                  schema_pkg_apis_core_v1alpha1_IgnitionStatusVerification(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfig":                            schema_pkg_apis_core_v1alpha1_KVMClusterConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigList":                        schema_pkg_apis_core_v1alpha1_KVMClusterConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpec":                        schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuest":                   schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuest(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestMaster":             schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestMaster(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestNode":               schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestNode(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestWorker":             schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestWorker(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecVersionBundle":           schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfig":                               schema_pkg_apis_core_v1alpha1_StorageConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigList":                           schema_pkg_apis_core_v1alpha1_StorageConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpec":                           schema_pkg_apis_core_v1alpha1_StorageConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpecStorage":                    schema_pkg_apis_core_v1alpha1_StorageConfigSpecStorage(ref),
 		"k8s.io/apimachinery/pkg/api/resource.Quantity":                                                          schema_apimachinery_pkg_api_resource_Quantity(ref),
@@ -157,6 +181,91 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                                                               schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                                                                schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                                                                   schema_k8sio_apimachinery_pkg_version_Info(ref),
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpec"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -329,6 +438,70 @@ func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestMaster(ref common.Re
 	}
 }
 
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"instanceType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestWorker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"instanceType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"labels": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"id", "labels"},
+			},
+		},
+	}
+}
+
 func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -345,6 +518,91 @@ func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecVersionBundle(ref common.
 				Required: []string{"version"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpec"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -492,6 +750,199 @@ func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestCredentialSecret(r
 	}
 }
 
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestMaster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"vmSize": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"vmSize": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestWorker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"vmSize": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"labels": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"id", "labels"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_CertConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpec"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_CertConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
 func schema_pkg_apis_core_v1alpha1_CertConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -621,6 +1072,96 @@ func schema_pkg_apis_core_v1alpha1_CertConfigSpecVersionBundle(ref common.Refere
 				Required: []string{"version"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigStatus"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -913,6 +1454,96 @@ func schema_pkg_apis_core_v1alpha1_ClusterGuestConfigVersionBundle(ref common.Re
 	}
 }
 
+func schema_pkg_apis_core_v1alpha1_DrainerConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatus"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
 func schema_pkg_apis_core_v1alpha1_DrainerConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -1115,6 +1746,91 @@ func schema_pkg_apis_core_v1alpha1_DrainerConfigStatusCondition(ref common.Refer
 		},
 		Dependencies: []string{
 			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpec"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -1434,6 +2150,97 @@ func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecVersionBundle(ref common.Ref
 				Required: []string{"version"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_Ignition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.\n\nAn example Ignition resource can be viewed here https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_ignition.yaml",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatus"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpec", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.Ignition"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.Ignition", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -2337,6 +3144,91 @@ func schema_pkg_apis_core_v1alpha1_IgnitionStatusVerification(ref common.Referen
 	}
 }
 
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpec"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
 func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -2591,6 +3483,91 @@ func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecVersionBundle(ref common.
 				Required: []string{"version"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_StorageConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpec"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_StorageConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 

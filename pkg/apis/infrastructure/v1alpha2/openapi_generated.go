@@ -31,6 +31,8 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSCluster":                                   schema_pkg_apis_infrastructure_v1alpha2_AWSCluster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterList":                               schema_pkg_apis_infrastructure_v1alpha2_AWSClusterList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpec":                               schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecCluster":                        schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecCluster(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterDNS":                     schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterDNS(ref),
@@ -44,7 +46,11 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatus":                             schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatus(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProvider":                     schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProvider(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProviderNetwork":              schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProviderNetwork(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlane":                              schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlane(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneList":                          schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneSpec":                          schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeployment":                         schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeployment(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentList":                     schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpec":                     schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecInstanceDistribution": schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecInstanceDistribution(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePool":             schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePool(ref),
@@ -58,6 +64,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatus":                          schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatus(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusCondition":                 schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusCondition(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusVersion":                   schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusVersion(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlane":                              schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlane(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneList":                          schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneSpec":                          schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneStatus":                        schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneStatus(ref),
 		"k8s.io/apimachinery/pkg/api/resource.Quantity":                                                                     schema_apimachinery_pkg_api_resource_Quantity(ref),
@@ -113,6 +121,99 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                                                                          schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                                                                           schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                                                                              schema_k8sio_apimachinery_pkg_version_Info(ref),
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSCluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster CRs.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Spec part of the AWSCluster resource.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatus"),
+						},
+					},
+				},
+				Required: []string{"spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpec", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterList is the type returned when listing AWSCLuster resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSCluster"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSCluster", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -481,6 +582,93 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProviderNetwork(ref
 	}
 }
 
+func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlane(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSControlPlane is the infrastructure provider referenced in ControlPlane CRs. Represents the master nodes (also called Control Plane) of a tenant cluster on AWS. Reconciled by aws-operator.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specification part of the resource.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneSpec"),
+						},
+					},
+				},
+				Required: []string{"spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlane"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlane", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
 func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
@@ -511,6 +699,99 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneSpec(ref common.Refe
 				},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeployment(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources. It contains provider-specific specification and status for a node pool. In use on AWS since Giant Swarm release v10.x.x and reconciled by aws-operator.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Contains the specification.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Holds status information.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatus"),
+						},
+					},
+				},
+				Required: []string{"spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpec", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeployment"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeployment", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -899,6 +1180,99 @@ func schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusVersion(ref comm
 		},
 		Dependencies: []string{
 			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlane(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of a Giant Swarm tenant cluster. It is reconciled by cluster-operator.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specification part.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status information.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneStatus"),
+						},
+					},
+				},
+				Required: []string{"spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneSpec", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlane"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlane", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 

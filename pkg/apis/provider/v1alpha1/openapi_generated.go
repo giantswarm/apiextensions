@@ -31,6 +31,8 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfig":                                       schema_pkg_apis_provider_v1alpha1_AWSConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigList":                                   schema_pkg_apis_provider_v1alpha1_AWSConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpec":                                   schema_pkg_apis_provider_v1alpha1_AWSConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWS":                                schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWS(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPI":                             schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSAPI(ref),
@@ -51,6 +53,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnet":        schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnet(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPrivate": schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetPrivate(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPublic":  schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetPublic(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfig":                                     schema_pkg_apis_provider_v1alpha1_AzureConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigList":                                 schema_pkg_apis_provider_v1alpha1_AzureConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpec":                                 schema_pkg_apis_provider_v1alpha1_AzureConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzure":                            schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzure(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZones":                    schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureDNSZones(ref),
@@ -82,6 +86,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterNode":                                     schema_pkg_apis_provider_v1alpha1_ClusterNode(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterScaling":                                  schema_pkg_apis_provider_v1alpha1_ClusterScaling(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.CredentialSecret":                                schema_pkg_apis_provider_v1alpha1_CredentialSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfig":                                       schema_pkg_apis_provider_v1alpha1_KVMConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigList":                                   schema_pkg_apis_provider_v1alpha1_KVMConfigList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpec":                                   schema_pkg_apis_provider_v1alpha1_KVMConfigSpec(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVM":                                schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVM(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdater":                 schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMEndpointUpdater(ref),
@@ -158,6 +164,96 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                                                                       schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
 		"k8s.io/apimachinery/pkg/runtime.Unknown":                                                                        schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
 		"k8s.io/apimachinery/pkg/version.Info":                                                                           schema_k8sio_apimachinery_pkg_version_Info(ref),
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatus"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -733,6 +829,96 @@ func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetP
 				Required: []string{"cidr"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatus"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
@@ -1686,6 +1872,96 @@ func schema_pkg_apis_provider_v1alpha1_CredentialSecret(ref common.ReferenceCall
 				Required: []string{"name", "namespace"},
 			},
 		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpec"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatus"),
+						},
+					},
+				},
+				Required: []string{"metadata", "spec", "status"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfig"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"metadata", "items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfig", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
