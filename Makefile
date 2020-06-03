@@ -1,7 +1,6 @@
 # Directories.
 APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
-OPENAPI_DIR := pkg/openapi
 CRDV1_DIR := config/crd/v1
 CRDV1BETA1_DIR := config/crd/v1beta1
 SCRIPTS_DIR := hack
@@ -35,7 +34,7 @@ BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 YEAR = $(shell date +'%Y')
 
-INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2)
+INPUT_DIRS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2 | sed 's|pkg/apis/||')
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
@@ -117,8 +116,9 @@ generate-openapi-spec: $(OPENAPI_GEN)
 	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
 	@for gv in $(INPUT_DIRS) ; do \
 		$(OPENAPI_GEN) \
-		--input-dirs "$$gv,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version" \
-		--output-package $$gv \
+		--input-dirs "$(MODULE)/$(APIS_DIR)/$$gv,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version" \
+		--output-package "$$gv" \
+		--output-base $(APIS_DIR) \
 		--go-header-file $(BOILERPLATE) ; \
 	done
 
