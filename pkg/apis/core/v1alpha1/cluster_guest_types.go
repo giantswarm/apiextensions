@@ -1,6 +1,5 @@
 package v1alpha1
 
-// +k8s:openapi-gen=true
 type ClusterGuestConfig struct {
 	AvailabilityZones int `json:"availabilityZones,omitempty"`
 	// DNSZone for guest cluster is supplemented with host prefixes for
@@ -15,7 +14,6 @@ type ClusterGuestConfig struct {
 	VersionBundles []ClusterGuestConfigVersionBundle `json:"versionBundles,omitempty"`
 }
 
-// +k8s:openapi-gen=true
 type ClusterGuestConfigVersionBundle struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`

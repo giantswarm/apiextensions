@@ -23,12 +23,11 @@ func NewIgnitionTypeMeta() metav1.TypeMeta {
 }
 
 // +genclient
+// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
-// +k8s:openapi-gen=true
-
 // Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.
 //
 // An example Ignition resource can be viewed here
@@ -43,7 +42,6 @@ type Ignition struct {
 
 // IgnitionSpec is the interface which defines the input parameters for
 // a newly rendered g8s ignition template.
-// +k8s:openapi-gen=true
 type IgnitionSpec struct {
 	// APIServerEncryptionKey is used in EncryptionConfiguration to encrypt Kubernetes secrets at rest.
 	APIServerEncryptionKey string `json:"apiServerEncryptionKey"`
@@ -77,7 +75,6 @@ type IgnitionSpec struct {
 	SSO IgnitionSpecSSO `json:"sso"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecCalico struct {
 	// CIDR is the CIDR-component of the IPv4 overlay subnetwork. Combined with Subnet below.
 	CIDR string `json:"cidr"`
@@ -89,7 +86,6 @@ type IgnitionSpecCalico struct {
 	Subnet string `json:"subnet"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecDocker struct {
 	// Daemon provides information about the Docker daemon running on TC nodes.
 	Daemon IgnitionSpecDockerDaemon `json:"daemon"`
@@ -97,19 +93,16 @@ type IgnitionSpecDocker struct {
 	NetworkSetup IgnitionSpecDockerNetworkSetup `json:"networkSetup"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecDockerDaemon struct {
 	// CIDR is the fully specified subnet used for DOCKER_OPT_BIP.
 	CIDR string `json:"cidr"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecDockerNetworkSetup struct {
 	// Image provides the Docker image to be used for network environment setup.
 	Image string `json:"image"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecEtcd struct {
 	// Domain is the domain of the etcd service.
 	Domain string `json:"domain"`
@@ -119,7 +112,6 @@ type IgnitionSpecEtcd struct {
 	Prefix string `json:"prefix"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtension struct {
 	// Files is an optional array of files which will be rendered and added to the final node ignition.
 	Files []IgnitionSpecExtensionFile `json:"files,omitempty"`
@@ -129,7 +121,6 @@ type IgnitionSpecExtension struct {
 	Users []IgnitionSpecExtensionUser `json:"users,omitempty"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionFile struct {
 	// Content is the string containing a file with optional go-template-style replacements.
 	Content string `json:"content"`
@@ -137,7 +128,6 @@ type IgnitionSpecExtensionFile struct {
 	Metadata IgnitionSpecExtensionFileMetadata `json:"metadata"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionFileMetadata struct {
 	// Compression allows a file to be passed in as a base64-encoded compressed string.
 	Compression bool `json:"compression"`
@@ -149,7 +139,6 @@ type IgnitionSpecExtensionFileMetadata struct {
 	Permissions int `json:"permissions"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionFileMetadataOwner struct {
 	// Group is the group which owns the file.
 	Group IgnitionSpecExtensionFileMetadataOwnerGroup `json:"group"`
@@ -157,7 +146,6 @@ type IgnitionSpecExtensionFileMetadataOwner struct {
 	User IgnitionSpecExtensionFileMetadataOwnerUser `json:"user"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionFileMetadataOwnerUser struct {
 	// ID is the UID of the user.
 	ID string `json:"id"`
@@ -165,7 +153,6 @@ type IgnitionSpecExtensionFileMetadataOwnerUser struct {
 	Name string `json:"name"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionFileMetadataOwnerGroup struct {
 	// ID is the GID of the group.
 	ID string `json:"id"`
@@ -173,7 +160,6 @@ type IgnitionSpecExtensionFileMetadataOwnerGroup struct {
 	Name string `json:"name"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionUnit struct {
 	// Content is the string containing a systemd unit with optional go-template-style replacements.
 	Content string `json:"content"`
@@ -181,7 +167,6 @@ type IgnitionSpecExtensionUnit struct {
 	Metadata IgnitionSpecExtensionUnitMetadata `json:"metadata"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionUnitMetadata struct {
 	// Enabled indicates that the unit should be enabled by default.
 	Enabled bool `json:"enabled"`
@@ -189,7 +174,6 @@ type IgnitionSpecExtensionUnitMetadata struct {
 	Name string `json:"name"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecExtensionUser struct {
 	// Name is the name of the user to be added to the node via ignition.
 	Name string `json:"name"`
@@ -197,13 +181,11 @@ type IgnitionSpecExtensionUser struct {
 	PublicKey string `json:"publicKey"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecIngress struct {
 	// Disable will disable the ingress controller in the TC when true.
 	Disable bool `json:"disable"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecKubernetes struct {
 	// API holds information about the desired TC Kubernetes API.
 	API IgnitionSpecKubernetesAPI `json:"api"`
@@ -221,7 +203,6 @@ type IgnitionSpecKubernetes struct {
 	OIDC IgnitionSpecOIDC `json:"oidc"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecKubernetesAPI struct {
 	// Domain is the domain of the API server.
 	Domain string `json:"domain"`
@@ -229,20 +210,17 @@ type IgnitionSpecKubernetesAPI struct {
 	SecurePort int `json:"securePort"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecKubernetesDNS struct {
 	// IP is the IP of the in-cluster DNS service. Usually this is
 	// the same as the API server IP with the final component replaced with .10.
 	IP string `json:"ip"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecKubernetesKubelet struct {
 	// Domain is the domain of the network.
 	Domain string `json:"domain"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecRegistry struct {
 	// Domain is the domain of the registry to be used for pulling core component images.
 	Domain string `json:"domain"`
@@ -251,13 +229,11 @@ type IgnitionSpecRegistry struct {
 	PullProgressDeadline string `json:"pullProgressDeadline"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecSSO struct {
 	// PublicKey is the public key of the SSO service.
 	PublicKey string `json:"publicKey"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionSpecOIDC struct {
 	// Enabled indicates that the OIDC settings should be applied when true.
 	Enabled bool `json:"enabled"`
@@ -282,7 +258,6 @@ type IgnitionSpecOIDC struct {
 }
 
 // IgnitionStatus holds the rendering result.
-// +k8s:openapi-gen=true
 type IgnitionStatus struct {
 	// DataSecret is a reference to the secret containing the rendered ignition once created.
 	DataSecret IgnitionStatusSecret `json:"dataSecretName"`
@@ -298,7 +273,6 @@ type IgnitionStatus struct {
 	Verification IgnitionStatusVerification `json:"verification"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionStatusVerification struct {
 	// The content of the full rendered ignition hashed by the corresponding algorithm.
 	Hash string `json:"hash"`
@@ -306,7 +280,6 @@ type IgnitionStatusVerification struct {
 	Algorithm string `json:"algorithm"`
 }
 
-// +k8s:openapi-gen=true
 type IgnitionStatusSecret struct {
 	// Name is the name of the secret containing the rendered ignition.
 	Name string `json:"name"`

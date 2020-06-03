@@ -17,12 +17,11 @@ func NewETCDBackupCRD() *v1.CustomResourceDefinition {
 
 // +genclient
 // +genclient:nonNamespaced
+// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
-// +k8s:openapi-gen=true
-
 type ETCDBackup struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -31,13 +30,11 @@ type ETCDBackup struct {
 	Status ETCDBackupStatus `json:"status,omitempty"`
 }
 
-// +k8s:openapi-gen=true
 type ETCDBackupSpec struct {
 	// GuestBackup is a boolean indicating if the tenant clusters have to be backupped
 	GuestBackup bool `json:"guestBackup"`
 }
 
-// +k8s:openapi-gen=true
 type ETCDBackupStatus struct {
 	// map containing the state of the backup for all instances
 	Instances map[string]ETCDInstanceBackupStatusIndex `json:"instances,omitempty"`
@@ -49,7 +46,6 @@ type ETCDBackupStatus struct {
 	FinishedTimestamp metav1.Time `json:"finishedTimestamp,omitempty"`
 }
 
-// +k8s:openapi-gen=true
 type ETCDInstanceBackupStatusIndex struct {
 	// Name of the tenant cluster or 'Control Plane'
 	Name string `json:"name"`
@@ -59,7 +55,6 @@ type ETCDInstanceBackupStatusIndex struct {
 	V3 ETCDInstanceBackupStatus `json:"v3"`
 }
 
-// +k8s:openapi-gen=true
 type ETCDInstanceBackupStatus struct {
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status"`

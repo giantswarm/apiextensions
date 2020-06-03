@@ -17,24 +17,21 @@ func NewAWSClusterConfigCRD() *v1beta1.CustomResourceDefinition {
 
 // +genclient
 // +genclient:noStatus
+// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=aws;giantswarm
 // +kubebuilder:storageversion
-// +k8s:openapi-gen=true
-
 type AWSClusterConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AWSClusterConfigSpec `json:"spec"`
 }
 
-// +k8s:openapi-gen=true
 type AWSClusterConfigSpec struct {
 	Guest         AWSClusterConfigSpecGuest         `json:"guest"`
 	VersionBundle AWSClusterConfigSpecVersionBundle `json:"versionBundle"`
 }
 
-// +k8s:openapi-gen=true
 type AWSClusterConfigSpecGuest struct {
 	ClusterGuestConfig `json:",inline"`
 	CredentialSecret   AWSClusterConfigSpecGuestCredentialSecret `json:"credentialSecret"`
@@ -45,13 +42,11 @@ type AWSClusterConfigSpecGuest struct {
 // AWSClusterConfigSpecGuestCredentialSecret points to the K8s Secret
 // containing credentials for an AWS account in which the guest cluster should
 // be created.
-// +k8s:openapi-gen=true
 type AWSClusterConfigSpecGuestCredentialSecret struct {
 	Name      string `json:"name"`
 	Namespace string `json:"namespace"`
 }
 
-// +k8s:openapi-gen=true
 type AWSClusterConfigSpecGuestMaster struct {
 	AWSClusterConfigSpecGuestNode `json:",inline"`
 }
@@ -65,7 +60,6 @@ type AWSClusterConfigSpecGuestNode struct {
 	InstanceType string `json:"instanceType,omitempty"`
 }
 
-// +k8s:openapi-gen=true
 type AWSClusterConfigSpecVersionBundle struct {
 	Version string `json:"version"`
 }

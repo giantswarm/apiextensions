@@ -53,10 +53,9 @@ func NewReleaseCR() *Release {
 // +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +genclient
 // +genclient:nonNamespaced
+// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
-// +k8s:openapi-gen=true
-
 // Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.
 type Release struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -64,7 +63,6 @@ type Release struct {
 	Spec              ReleaseSpec `json:"spec"`
 }
 
-// +k8s:openapi-gen=true
 type ReleaseSpec struct {
 	// Apps describes apps used in this release.
 	Apps []ReleaseSpecApp `json:"apps"`
@@ -79,7 +77,6 @@ type ReleaseSpec struct {
 	State ReleaseState `json:"state"`
 }
 
-// +k8s:openapi-gen=true
 type ReleaseSpecComponent struct {
 	// Name of the component.
 	Name string `json:"name"`
@@ -88,7 +85,6 @@ type ReleaseSpecComponent struct {
 	Version string `json:"version"`
 }
 
-// +k8s:openapi-gen=true
 type ReleaseSpecApp struct {
 	// Version of the upstream component used in the app.
 	ComponentVersion string `json:"componentVersion,omitempty"`

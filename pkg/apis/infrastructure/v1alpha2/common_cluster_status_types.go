@@ -91,7 +91,6 @@ var (
 
 // CommonClusterStatus is shared type to contain provider independent cluster
 // status information.
-// +k8s:openapi-gen=true
 type CommonClusterStatus struct {
 	// +kubebuilder:validation:Optional
 	// One or several conditions that are currently applicable to the cluster.
@@ -105,7 +104,6 @@ type CommonClusterStatus struct {
 }
 
 // CommonClusterStatusCondition explains the current condition(s) of the cluster.
-// +k8s:openapi-gen=true
 type CommonClusterStatusCondition struct {
 	// +kubebuilder:validation:Optional
 	// Time the condition occurred.
@@ -116,7 +114,6 @@ type CommonClusterStatusCondition struct {
 }
 
 // CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.
-// +k8s:openapi-gen=true
 type CommonClusterStatusVersion struct {
 	// +kubebuilder:validation:Optional
 	// Time the cluster assumed the given version.
