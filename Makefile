@@ -35,7 +35,7 @@ BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 YEAR = $(shell date +'%Y')
 
-INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
+INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2)
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
@@ -115,10 +115,12 @@ generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 .PHONY: generate-openapi-spec
 generate-openapi-spec: $(OPENAPI_GEN)
 	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
-	$(OPENAPI_GEN) \
-	--input-dirs $(INPUT_DIRS) \
-	--output-package $(MODULE)/$(OPENAPI_DIR) \
-	--go-header-file $(BOILERPLATE)
+	@for gv in $(INPUT_DIRS) ; do \
+		$(OPENAPI_GEN) \
+		--input-dirs "$$gv,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version" \
+		--output-package $$gv \
+		--go-header-file $(BOILERPLATE) ; \
+	done
 
 .PHONY: generate-fs
 generate-fs: $(ESC) config/crd

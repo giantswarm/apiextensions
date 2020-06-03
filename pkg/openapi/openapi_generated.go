@@ -24,520 +24,2344 @@ package openapi
 
 import (
 	spec "github.com/go-openapi/spec"
+	resource "k8s.io/apimachinery/pkg/api/resource"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	common "k8s.io/kube-openapi/pkg/common"
 )
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackup":                   schema_pkg_apis_backup_v1alpha1_ETCDBackup(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfig":               schema_pkg_apis_core_v1alpha1_AWSClusterConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfig":             schema_pkg_apis_core_v1alpha1_AzureClusterConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfig":                     schema_pkg_apis_core_v1alpha1_CertConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfig":                    schema_pkg_apis_core_v1alpha1_ChartConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfig":                  schema_pkg_apis_core_v1alpha1_DrainerConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfig":                  schema_pkg_apis_core_v1alpha1_FlannelConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.Ignition":                       schema_pkg_apis_core_v1alpha1_Ignition(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfig":               schema_pkg_apis_core_v1alpha1_KVMClusterConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfig":                  schema_pkg_apis_core_v1alpha1_StorageConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/example/v1alpha1.MemcachedConfig":             schema_pkg_apis_example_v1alpha1_MemcachedConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSCluster":           schema_pkg_apis_infrastructure_v1alpha2_AWSCluster(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlane":      schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlane(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeployment": schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeployment(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlane":      schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlane(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfig":                  schema_pkg_apis_provider_v1alpha1_AWSConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfig":                schema_pkg_apis_provider_v1alpha1_AzureConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfig":                  schema_pkg_apis_provider_v1alpha1_KVMConfig(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.Release":                     schema_pkg_apis_release_v1alpha1_Release(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.Organization":               schema_pkg_apis_security_v1alpha1_Organization(ref),
-		"github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureTool":                   schema_pkg_apis_tooling_v1alpha1_AzureTool(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpec":                                  schema_pkg_apis_application_v1alpha1_AppCatalogSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfig":                            schema_pkg_apis_application_v1alpha1_AppCatalogSpecConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfigConfigMap":                   schema_pkg_apis_application_v1alpha1_AppCatalogSpecConfigConfigMap(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfigSecret":                      schema_pkg_apis_application_v1alpha1_AppCatalogSpecConfigSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecStorage":                           schema_pkg_apis_application_v1alpha1_AppCatalogSpecStorage(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpec":                                         schema_pkg_apis_application_v1alpha1_AppSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfig":                                   schema_pkg_apis_application_v1alpha1_AppSpecConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfigConfigMap":                          schema_pkg_apis_application_v1alpha1_AppSpecConfigConfigMap(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfig":                               schema_pkg_apis_application_v1alpha1_AppSpecKubeConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfigContext":                        schema_pkg_apis_application_v1alpha1_AppSpecKubeConfigContext(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfigSecret":                         schema_pkg_apis_application_v1alpha1_AppSpecKubeConfigSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfig":                               schema_pkg_apis_application_v1alpha1_AppSpecUserConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfigConfigMap":                      schema_pkg_apis_application_v1alpha1_AppSpecUserConfigConfigMap(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfigSecret":                         schema_pkg_apis_application_v1alpha1_AppSpecUserConfigSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppStatus":                                       schema_pkg_apis_application_v1alpha1_AppStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppStatusRelease":                                schema_pkg_apis_application_v1alpha1_AppStatusRelease(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpec":                                       schema_pkg_apis_application_v1alpha1_ChartSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfig":                                 schema_pkg_apis_application_v1alpha1_ChartSpecConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfigConfigMap":                        schema_pkg_apis_application_v1alpha1_ChartSpecConfigConfigMap(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfigSecret":                           schema_pkg_apis_application_v1alpha1_ChartSpecConfigSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartStatus":                                     schema_pkg_apis_application_v1alpha1_ChartStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartStatusRelease":                              schema_pkg_apis_application_v1alpha1_ChartStatusRelease(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackupSpec":                                       schema_pkg_apis_backup_v1alpha1_ETCDBackupSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackupStatus":                                     schema_pkg_apis_backup_v1alpha1_ETCDBackupStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatus":                             schema_pkg_apis_backup_v1alpha1_ETCDInstanceBackupStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatusIndex":                        schema_pkg_apis_backup_v1alpha1_ETCDInstanceBackupStatusIndex(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpec":                                   schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuest":                              schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuest(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestCredentialSecret":              schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestCredentialSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestMaster":                        schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestMaster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecVersionBundle":                      schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpec":                                 schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuest":                            schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuest(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestCredentialSecret":            schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestCredentialSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpec":                                         schema_pkg_apis_core_v1alpha1_CertConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecCert":                                     schema_pkg_apis_core_v1alpha1_CertConfigSpecCert(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecVersionBundle":                            schema_pkg_apis_core_v1alpha1_CertConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpec":                                        schema_pkg_apis_core_v1alpha1_ChartConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecChart":                                   schema_pkg_apis_core_v1alpha1_ChartConfigSpecChart(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecConfigMap":                               schema_pkg_apis_core_v1alpha1_ChartConfigSpecConfigMap(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecSecret":                                  schema_pkg_apis_core_v1alpha1_ChartConfigSpecSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecVersionBundle":                           schema_pkg_apis_core_v1alpha1_ChartConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigStatus":                                      schema_pkg_apis_core_v1alpha1_ChartConfigStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfig":                                     schema_pkg_apis_core_v1alpha1_ClusterGuestConfig(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle":                        schema_pkg_apis_core_v1alpha1_ClusterGuestConfigVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpec":                                      schema_pkg_apis_core_v1alpha1_DrainerConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuest":                                 schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuest(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestCluster":                          schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestCluster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestClusterAPI":                       schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestClusterAPI(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestNode":                             schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecVersionBundle":                         schema_pkg_apis_core_v1alpha1_DrainerConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatus":                                    schema_pkg_apis_core_v1alpha1_DrainerConfigStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatusCondition":                           schema_pkg_apis_core_v1alpha1_DrainerConfigStatusCondition(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpec":                                      schema_pkg_apis_core_v1alpha1_FlannelConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridge":                                schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridge(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeDocker":                          schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpec":                            schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpecDNS":                         schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeSpecDNS(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpecNTP":                         schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeSpecNTP(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecCluster":                               schema_pkg_apis_core_v1alpha1_FlannelConfigSpecCluster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecFlannel":                               schema_pkg_apis_core_v1alpha1_FlannelConfigSpecFlannel(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecFlannelSpec":                           schema_pkg_apis_core_v1alpha1_FlannelConfigSpecFlannelSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealth":                                schema_pkg_apis_core_v1alpha1_FlannelConfigSpecHealth(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealthDocker":                          schema_pkg_apis_core_v1alpha1_FlannelConfigSpecHealthDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecVersionBundle":                         schema_pkg_apis_core_v1alpha1_FlannelConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpec":                                           schema_pkg_apis_core_v1alpha1_IgnitionSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecCalico":                                     schema_pkg_apis_core_v1alpha1_IgnitionSpecCalico(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDocker":                                     schema_pkg_apis_core_v1alpha1_IgnitionSpecDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDockerDaemon":                               schema_pkg_apis_core_v1alpha1_IgnitionSpecDockerDaemon(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDockerNetworkSetup":                         schema_pkg_apis_core_v1alpha1_IgnitionSpecDockerNetworkSetup(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecEtcd":                                       schema_pkg_apis_core_v1alpha1_IgnitionSpecEtcd(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtension":                                  schema_pkg_apis_core_v1alpha1_IgnitionSpecExtension(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFile":                              schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFile(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadata":                      schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadata(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwner":                 schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadataOwner(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwnerGroup":            schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadataOwnerGroup(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwnerUser":             schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadataOwnerUser(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUnit":                              schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionUnit(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUnitMetadata":                      schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionUnitMetadata(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUser":                              schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionUser(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecIngress":                                    schema_pkg_apis_core_v1alpha1_IgnitionSpecIngress(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetes":                                 schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetes(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesAPI":                              schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetesAPI(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesDNS":                              schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetesDNS(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesKubelet":                          schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetesKubelet(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecOIDC":                                       schema_pkg_apis_core_v1alpha1_IgnitionSpecOIDC(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecRegistry":                                   schema_pkg_apis_core_v1alpha1_IgnitionSpecRegistry(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecSSO":                                        schema_pkg_apis_core_v1alpha1_IgnitionSpecSSO(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatus":                                         schema_pkg_apis_core_v1alpha1_IgnitionStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusSecret":                                   schema_pkg_apis_core_v1alpha1_IgnitionStatusSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusVerification":                             schema_pkg_apis_core_v1alpha1_IgnitionStatusVerification(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpec":                                   schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuest":                              schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuest(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestMaster":                        schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestMaster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestNode":                          schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestWorker":                        schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestWorker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecVersionBundle":                      schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpec":                                      schema_pkg_apis_core_v1alpha1_StorageConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpecStorage":                               schema_pkg_apis_core_v1alpha1_StorageConfigSpecStorage(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/example/v1alpha1.MemcachedConfigSpec":                                 schema_pkg_apis_example_v1alpha1_MemcachedConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpec":                               schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecCluster":                        schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecCluster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterDNS":                     schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterDNS(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterKubeProxy":               schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterKubeProxy(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterOIDC":                    schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterOIDC(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterOIDCClaims":              schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterOIDCClaims(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProvider":                       schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProvider(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderCredentialSecret":       schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProviderCredentialSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderMaster":                 schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProviderMaster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderPods":                   schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProviderPods(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatus":                             schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProvider":                     schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProvider(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProviderNetwork":              schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProviderNetwork(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneSpec":                          schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpec":                     schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecInstanceDistribution": schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecInstanceDistribution(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePool":             schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePool(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePoolMachine":      schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePoolMachine(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePoolScaling":      schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePoolScaling(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecProvider":             schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecProvider(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecProviderWorker":       schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecProviderWorker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatus":                   schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatusProvider":           schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatusProvider(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatusProviderWorker":     schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatusProviderWorker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatus":                          schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusCondition":                 schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusCondition(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusVersion":                   schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusVersion(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneSpec":                          schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneStatus":                        schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpec":                                      schema_pkg_apis_provider_v1alpha1_AWSConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWS":                                   schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWS(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPI":                                schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSAPI(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPIELB":                             schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSAPIELB(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSEtcd":                               schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSEtcd(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSEtcdELB":                            schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSEtcdELB(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZones":                        schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSHostedZones(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZonesZone":                    schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSHostedZonesZone(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSIngress":                            schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSIngress(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSIngressELB":                         schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSIngressELB(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSNode":                               schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSVPC":                                schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSVPC(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecVersionBundle":                         schema_pkg_apis_provider_v1alpha1_AWSConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatus":                                    schema_pkg_apis_provider_v1alpha1_AWSConfigStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWS":                                 schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWS(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAutoScalingGroup":                 schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAutoScalingGroup(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZone":                 schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZone(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnet":           schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnet(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPrivate":    schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetPrivate(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPublic":     schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetPublic(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpec":                                    schema_pkg_apis_provider_v1alpha1_AzureConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzure":                               schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzure(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZones":                       schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureDNSZones(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZonesDNSZone":                schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureDNSZonesDNSZone(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureNode":                           schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureVirtualNetwork":                 schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureVirtualNetwork(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecVersionBundle":                       schema_pkg_apis_provider_v1alpha1_AzureConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatus":                                  schema_pkg_apis_provider_v1alpha1_AzureConfigStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProvider":                          schema_pkg_apis_provider_v1alpha1_AzureConfigStatusProvider(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProviderIngress":                   schema_pkg_apis_provider_v1alpha1_AzureConfigStatusProviderIngress(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProviderIngressLoadBalancer":       schema_pkg_apis_provider_v1alpha1_AzureConfigStatusProviderIngressLoadBalancer(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster":                                            schema_pkg_apis_provider_v1alpha1_Cluster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterCalico":                                      schema_pkg_apis_provider_v1alpha1_ClusterCalico(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterCustomer":                                    schema_pkg_apis_provider_v1alpha1_ClusterCustomer(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterDocker":                                      schema_pkg_apis_provider_v1alpha1_ClusterDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterDockerDaemon":                                schema_pkg_apis_provider_v1alpha1_ClusterDockerDaemon(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterEtcd":                                        schema_pkg_apis_provider_v1alpha1_ClusterEtcd(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetes":                                  schema_pkg_apis_provider_v1alpha1_ClusterKubernetes(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesAPI":                               schema_pkg_apis_provider_v1alpha1_ClusterKubernetesAPI(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesDNS":                               schema_pkg_apis_provider_v1alpha1_ClusterKubernetesDNS(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesIngressController":                 schema_pkg_apis_provider_v1alpha1_ClusterKubernetesIngressController(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesIngressControllerDocker":           schema_pkg_apis_provider_v1alpha1_ClusterKubernetesIngressControllerDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesKubelet":                           schema_pkg_apis_provider_v1alpha1_ClusterKubernetesKubelet(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetup":                      schema_pkg_apis_provider_v1alpha1_ClusterKubernetesNetworkSetup(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetupDocker":                schema_pkg_apis_provider_v1alpha1_ClusterKubernetesNetworkSetupDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetupKubeProxy":             schema_pkg_apis_provider_v1alpha1_ClusterKubernetesNetworkSetupKubeProxy(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesSSH":                               schema_pkg_apis_provider_v1alpha1_ClusterKubernetesSSH(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesSSHUser":                           schema_pkg_apis_provider_v1alpha1_ClusterKubernetesSSHUser(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterNode":                                        schema_pkg_apis_provider_v1alpha1_ClusterNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterScaling":                                     schema_pkg_apis_provider_v1alpha1_ClusterScaling(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.CredentialSecret":                                   schema_pkg_apis_provider_v1alpha1_CredentialSecret(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpec":                                      schema_pkg_apis_provider_v1alpha1_KVMConfigSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVM":                                   schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVM(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdater":                    schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMEndpointUpdater(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdaterDocker":              schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMEndpointUpdaterDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMK8sKVM":                             schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMK8sKVM(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMK8sKVMDocker":                       schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMK8sKVMDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNetwork":                            schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNetwork(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNetworkFlannel":                     schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNetworkFlannel(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNode":                               schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNodeController":                     schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNodeController(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNodeControllerDocker":               schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNodeControllerDocker(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMPortMappings":                       schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMPortMappings(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecVersionBundle":                         schema_pkg_apis_provider_v1alpha1_KVMConfigSpecVersionBundle(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatus":                                    schema_pkg_apis_provider_v1alpha1_KVMConfigStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatusKVM":                                 schema_pkg_apis_provider_v1alpha1_KVMConfigStatusKVM(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster":                                      schema_pkg_apis_provider_v1alpha1_StatusCluster(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterCondition":                             schema_pkg_apis_provider_v1alpha1_StatusClusterCondition(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterNetwork":                               schema_pkg_apis_provider_v1alpha1_StatusClusterNetwork(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterNode":                                  schema_pkg_apis_provider_v1alpha1_StatusClusterNode(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterResource":                              schema_pkg_apis_provider_v1alpha1_StatusClusterResource(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterResourceCondition":                     schema_pkg_apis_provider_v1alpha1_StatusClusterResourceCondition(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterScaling":                               schema_pkg_apis_provider_v1alpha1_StatusClusterScaling(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterVersion":                               schema_pkg_apis_provider_v1alpha1_StatusClusterVersion(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpec":                                         schema_pkg_apis_release_v1alpha1_ReleaseSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpecApp":                                      schema_pkg_apis_release_v1alpha1_ReleaseSpecApp(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpecComponent":                                schema_pkg_apis_release_v1alpha1_ReleaseSpecComponent(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.OrganizationSpec":                                   schema_pkg_apis_security_v1alpha1_OrganizationSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolSpec":                                       schema_pkg_apis_tooling_v1alpha1_AzureToolSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolStatus":                                     schema_pkg_apis_tooling_v1alpha1_AzureToolStatus(ref),
+		"github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolWorkspace":                                  schema_pkg_apis_tooling_v1alpha1_AzureToolWorkspace(ref),
+		"k8s.io/apimachinery/pkg/api/resource.Quantity":                                                                     schema_apimachinery_pkg_api_resource_Quantity(ref),
+		"k8s.io/apimachinery/pkg/api/resource.int64Amount":                                                                  schema_apimachinery_pkg_api_resource_int64Amount(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroup":                                                                     schema_pkg_apis_meta_v1_APIGroup(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroupList":                                                                 schema_pkg_apis_meta_v1_APIGroupList(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResource":                                                                  schema_pkg_apis_meta_v1_APIResource(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIResourceList":                                                              schema_pkg_apis_meta_v1_APIResourceList(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.APIVersions":                                                                  schema_pkg_apis_meta_v1_APIVersions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.CreateOptions":                                                                schema_pkg_apis_meta_v1_CreateOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.DeleteOptions":                                                                schema_pkg_apis_meta_v1_DeleteOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Duration":                                                                     schema_pkg_apis_meta_v1_Duration(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ExportOptions":                                                                schema_pkg_apis_meta_v1_ExportOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.FieldsV1":                                                                     schema_pkg_apis_meta_v1_FieldsV1(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GetOptions":                                                                   schema_pkg_apis_meta_v1_GetOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupKind":                                                                    schema_pkg_apis_meta_v1_GroupKind(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupResource":                                                                schema_pkg_apis_meta_v1_GroupResource(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersion":                                                                 schema_pkg_apis_meta_v1_GroupVersion(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionForDiscovery":                                                     schema_pkg_apis_meta_v1_GroupVersionForDiscovery(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionKind":                                                             schema_pkg_apis_meta_v1_GroupVersionKind(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionResource":                                                         schema_pkg_apis_meta_v1_GroupVersionResource(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.InternalEvent":                                                                schema_pkg_apis_meta_v1_InternalEvent(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelector":                                                                schema_pkg_apis_meta_v1_LabelSelector(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelectorRequirement":                                                     schema_pkg_apis_meta_v1_LabelSelectorRequirement(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.List":                                                                         schema_pkg_apis_meta_v1_List(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta":                                                                     schema_pkg_apis_meta_v1_ListMeta(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ListOptions":                                                                  schema_pkg_apis_meta_v1_ListOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ManagedFieldsEntry":                                                           schema_pkg_apis_meta_v1_ManagedFieldsEntry(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.MicroTime":                                                                    schema_pkg_apis_meta_v1_MicroTime(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta":                                                                   schema_pkg_apis_meta_v1_ObjectMeta(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.OwnerReference":                                                               schema_pkg_apis_meta_v1_OwnerReference(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadata":                                                        schema_pkg_apis_meta_v1_PartialObjectMetadata(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadataList":                                                    schema_pkg_apis_meta_v1_PartialObjectMetadataList(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Patch":                                                                        schema_pkg_apis_meta_v1_Patch(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.PatchOptions":                                                                 schema_pkg_apis_meta_v1_PatchOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Preconditions":                                                                schema_pkg_apis_meta_v1_Preconditions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.RootPaths":                                                                    schema_pkg_apis_meta_v1_RootPaths(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR":                                                    schema_pkg_apis_meta_v1_ServerAddressByClientCIDR(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Status":                                                                       schema_pkg_apis_meta_v1_Status(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.StatusCause":                                                                  schema_pkg_apis_meta_v1_StatusCause(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.StatusDetails":                                                                schema_pkg_apis_meta_v1_StatusDetails(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Table":                                                                        schema_pkg_apis_meta_v1_Table(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableColumnDefinition":                                                        schema_pkg_apis_meta_v1_TableColumnDefinition(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableOptions":                                                                 schema_pkg_apis_meta_v1_TableOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableRow":                                                                     schema_pkg_apis_meta_v1_TableRow(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TableRowCondition":                                                            schema_pkg_apis_meta_v1_TableRowCondition(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Time":                                                                         schema_pkg_apis_meta_v1_Time(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.Timestamp":                                                                    schema_pkg_apis_meta_v1_Timestamp(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.TypeMeta":                                                                     schema_pkg_apis_meta_v1_TypeMeta(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.UpdateOptions":                                                                schema_pkg_apis_meta_v1_UpdateOptions(ref),
+		"k8s.io/apimachinery/pkg/apis/meta/v1.WatchEvent":                                                                   schema_pkg_apis_meta_v1_WatchEvent(ref),
+		"k8s.io/apimachinery/pkg/runtime.RawExtension":                                                                      schema_k8sio_apimachinery_pkg_runtime_RawExtension(ref),
+		"k8s.io/apimachinery/pkg/runtime.TypeMeta":                                                                          schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref),
+		"k8s.io/apimachinery/pkg/runtime.Unknown":                                                                           schema_k8sio_apimachinery_pkg_runtime_Unknown(ref),
+		"k8s.io/apimachinery/pkg/version.Info":                                                                              schema_k8sio_apimachinery_pkg_version_Info(ref),
 	}
 }
 
-func schema_pkg_apis_backup_v1alpha1_ETCDBackup(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_application_v1alpha1_AppCatalogSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"title": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Description: "Title is the name of the app catalog for this CR e.g. Catalog of Apps by Giant Swarm",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"description": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"config": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Config is the config to be applied when apps belonging to this catalog are deployed.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfig"),
+						},
+					},
+					"logoURL": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LogoURL contains the links for logo image file for this app catalog",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"storage": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "Storage references a map containing values that should be applied to the appcatalog.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecStorage"),
 						},
 					},
-					"spec": {
+				},
+				Required: []string{"title", "description", "config", "logoURL", "storage"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfig", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecStorage"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppCatalogSpecConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"configMap": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackupSpec"),
+							Description: "ConfigMap references a config map containing catalog values that should be applied to apps in this catalog.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfigConfigMap"),
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret references a secret containing catalog values that should be applied to apps in this catalog.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfigSecret"),
+						},
+					},
+				},
+				Required: []string{"configMap", "secret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfigConfigMap", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppCatalogSpecConfigSecret"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppCatalogSpecConfigConfigMap(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the config map containing catalog values to apply, e.g. app-catalog-values.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the catalog values config map, e.g. giantswarm.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppCatalogSpecConfigSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the secret containing catalog values to apply, e.g. app-catalog-secret.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the secret, e.g. giantswarm.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppCatalogSpecStorage(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Type indicates which repository type would be used for this AppCatalog. e.g. helm",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"URL": {
+						SchemaProps: spec.SchemaProps{
+							Description: "URL is the link to where this AppCatalog's repository is located e.g. https://example.com/app-catalog/",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"type", "URL"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"catalog": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Catalog is the name of the app catalog this app belongs to. e.g. giantswarm",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"config": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Config is the config to be applied when the app is deployed.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfig"),
+						},
+					},
+					"kubeConfig": {
+						SchemaProps: spec.SchemaProps{
+							Description: "KubeConfig is the kubeconfig to connect to the cluster when deploying the app.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfig"),
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the app to be deployed. e.g. kubernetes-prometheus",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace where the app should be deployed. e.g. monitoring",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"userConfig": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UserConfig is the user config to be applied when the app is deployed.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfig"),
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version is the version of the app that should be deployed. e.g. 1.0.0",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"catalog", "config", "kubeConfig", "name", "namespace", "userConfig", "version"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfig", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfig", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfig"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"configMap": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ConfigMap references a config map containing values that should be applied to the app.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfigConfigMap"),
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret references a secret containing secret values that should be applied to the app.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfigSecret"),
+						},
+					},
+				},
+				Required: []string{"configMap", "secret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfigConfigMap", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecConfigSecret"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecConfigConfigMap(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the config map containing app values to apply, e.g. prometheus-values.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the values config map, e.g. monitoring.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecKubeConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"inCluster": {
+						SchemaProps: spec.SchemaProps{
+							Description: "InCluster is a flag for whether to use InCluster credentials. When true the context name and secret should not be set.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"context": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Context is the kubeconfig context.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfigContext"),
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret references a secret containing the kubconfig.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfigSecret"),
+						},
+					},
+				},
+				Required: []string{"inCluster", "context", "secret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfigContext", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecKubeConfigSecret"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecKubeConfigContext(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the kubeconfig context. e.g. giantswarm-12345.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecKubeConfigSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the secret containing the kubeconfig, e.g. app-operator-kubeconfig.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the secret containing the kubeconfig, e.g. giantswarm.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecUserConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"configMap": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ConfigMap references a config map containing user values that should be applied to the app.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfigConfigMap"),
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret references a secret containing user secret values that should be applied to the app.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfigSecret"),
+						},
+					},
+				},
+				Required: []string{"configMap", "secret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfigConfigMap", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppSpecUserConfigSecret"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecUserConfigConfigMap(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the config map containing user values to apply, e.g. prometheus-user-values.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the user values config map on the control plane, e.g. 123ab.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppSpecUserConfigSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the secret containing user values to apply, e.g. prometheus-user-secret.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the secret, e.g. kube-system.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"appVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AppVersion is the value of the AppVersion field in the Chart.yaml of the deployed app. This is an optional field with the version of the component being deployed. e.g. 0.21.0. https://helm.sh/docs/topics/charts/#the-chartyaml-file",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"release": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Release is the status of the Helm release for the deployed app.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppStatusRelease"),
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version is the value of the Version field in the Chart.yaml of the deployed app. e.g. 1.0.0.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"appVersion", "release", "version"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.AppStatusRelease"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_AppStatusRelease(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastDeployed": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastDeployed is the time when the app was last deployed.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"reason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Reason is the description of the last status of helm release when the app is not installed successfully, e.g. deploy resource already exists.",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackupStatus"),
+							Description: "Status is the status of the deployed app, e.g. DEPLOYED.",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackupSpec", "github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDBackupStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_AWSClusterConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_application_v1alpha1_ChartSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"config": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Description: "Config is the config to be applied when the chart is deployed.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfig"),
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the Helm chart to be deployed. e.g. kubernetes-prometheus",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"namespace": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Description: "Namespace is the namespace where the chart should be deployed. e.g. monitoring",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"tarballURL": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "TarballURL is the URL for the Helm chart tarball to be deployed. e.g. https://example.com/path/to/prom-1-0-0.tgz",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
-					"spec": {
+					"version": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpec"),
+							Description: "Version is the version of the chart that should be deployed. e.g. 1.0.0",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"config", "name", "namespace", "tarballURL", "version"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfig"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_AzureClusterConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_application_v1alpha1_ChartSpecConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"configMap": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
+							Description: "ConfigMap references a config map containing values that should be applied to the chart.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfigConfigMap"),
 						},
 					},
-					"apiVersion": {
+					"secret": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpec"),
+							Description: "Secret references a secret containing secret values that should be applied to the chart.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfigSecret"),
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"configMap", "secret"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfigConfigMap", "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartSpecConfigSecret"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_CertConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_application_v1alpha1_ChartSpecConfigConfigMap(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Description: "Name is the name of the config map containing chart values to apply, e.g. prometheus-chart-values.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"namespace": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Description: "Namespace is the namespace of the values config map, e.g. monitoring.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"resourceVersion": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpec"),
+							Description: "ResourceVersion is the Kubernetes resource version of the configmap. Used to detect if the configmap has changed, e.g. 12345.",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"name", "namespace", "resourceVersion"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_ChartConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_application_v1alpha1_ChartSpecConfigSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Description: "Name is the name of the secret containing chart values to apply, e.g. prometheus-chart-secret.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"namespace": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Description: "Namespace is the namespace of the secret, e.g. kube-system.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"resourceVersion": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "ResourceVersion is the Kubernetes resource version of the secret. Used to detect if the secret has changed, e.g. 12345.",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
-					"spec": {
+				},
+				Required: []string{"name", "namespace", "resourceVersion"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_ChartStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"appVersion": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpec"),
+							Description: "AppVersion is the value of the AppVersion field in the Chart.yaml of the deployed chart. This is an optional field with the version of the component being deployed. e.g. 0.21.0. https://helm.sh/docs/topics/charts/#the-chartyaml-file",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"reason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Reason is the description of the last status of helm release when the chart is not installed successfully, e.g. deploy resource already exists.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"release": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Release is the status of the Helm release for the deployed chart.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartStatusRelease"),
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version is the value of the Version field in the Chart.yaml of the deployed chart. e.g. 1.0.0.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"appVersion", "release", "version"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1.ChartStatusRelease"},
+	}
+}
+
+func schema_pkg_apis_application_v1alpha1_ChartStatusRelease(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastDeployed": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastDeployed is the time when the deployed chart was last deployed.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"revision": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Revision is the revision number for this deployed chart.",
+							Type:        []string{"integer"},
+							Format:      "int32",
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigStatus"),
+							Description: "Status is the status of the deployed chart, e.g. DEPLOYED.",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
+				Required: []string{"revision", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_DrainerConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_backup_v1alpha1_ETCDBackupSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"guestBackup": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
+							Description: "GuestBackup is a boolean indicating if the tenant clusters have to be backupped",
+							Type:        []string{"boolean"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+				},
+				Required: []string{"guestBackup"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_backup_v1alpha1_ETCDBackupStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"instances": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpec"),
+							Description: "map containing the state of the backup for all instances",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatusIndex"),
+									},
+								},
+							},
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatus"),
+							Description: "Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"startedTimestamp": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Timestamp when the first attempt was made",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"finishedTimestamp": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
+				Required: []string{"status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatusIndex", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_FlannelConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_backup_v1alpha1_ETCDInstanceBackupStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"status": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Description: "Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"startedTimestamp": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Description: "Timestamp when the first attempt was made",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"finishedTimestamp": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"latestError": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Latest backup error message",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"creationTime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "Time took by the backup creation process",
+							Type:        []string{"integer"},
+							Format:      "int64",
 						},
 					},
-					"spec": {
+					"encryptionTime": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpec"),
+							Description: "Time took by the backup encryption process",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"uploadTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Time took by the backup upload process",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"backupFileSize": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Size of the backup file",
+							Type:        []string{"integer"},
+							Format:      "int64",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_Ignition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_backup_v1alpha1_ETCDInstanceBackupStatusIndex(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Ignition is a Kubernetes resource (CR) which is based on the Ignition CRD defined above.\n\nAn example Ignition resource can be viewed here https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_ignition.yaml",
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the tenant cluster or 'Control Plane'",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"v2": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status of the V2 backup for this instance",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatus"),
+						},
+					},
+					"v3": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status of the V3 backup for this instance",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatus"),
+						},
+					},
+				},
+				Required: []string{"name", "v2", "v3"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1.ETCDInstanceBackupStatus"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"guest": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuest"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"guest", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuest", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuest(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"dnsZone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DNSZone for guest cluster is supplemented with host prefixes for specific services such as Kubernetes API or Etcd. In general this DNS Zone should start with \"k8s\" like for example \"k8s.cluster.example.com.\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"owner": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"releaseVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"versionBundles": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"),
+									},
+								},
+							},
+						},
+					},
+					"credentialSecret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestCredentialSecret"),
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestMaster"),
+									},
+								},
+							},
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestWorker"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"dnsZone", "id", "credentialSecret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestCredentialSecret", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestMaster", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AWSClusterConfigSpecGuestWorker", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestCredentialSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterConfigSpecGuestCredentialSecret points to the K8s Secret containing credentials for an AWS account in which the guest cluster should be created.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
-					"apiVersion": {
+					"namespace": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatus"),
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
+				Required: []string{"name", "namespace"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpec", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_KVMClusterConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecGuestMaster(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"id": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
-					"apiVersion": {
+					"instanceType": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpec"),
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"id"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_core_v1alpha1_StorageConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1alpha1_AWSClusterConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"version": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpec"),
+							Type:   []string{"string"},
+							Format: "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"version"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_example_v1alpha1_MemcachedConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"guest": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuest"),
 						},
 					},
-					"apiVersion": {
+					"versionBundle": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/example/v1alpha1.MemcachedConfigSpec"),
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecVersionBundle"),
 						},
 					},
 				},
-				Required: []string{"metadata", "spec"},
+				Required: []string{"guest", "versionBundle"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/example/v1alpha1.MemcachedConfigSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuest", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecVersionBundle"},
 	}
 }
 
-func schema_pkg_apis_infrastructure_v1alpha2_AWSCluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuest(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster CRs.",
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"dnsZone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DNSZone for guest cluster is supplemented with host prefixes for specific services such as Kubernetes API or Etcd. In general this DNS Zone should start with \"k8s\" like for example \"k8s.cluster.example.com.\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"owner": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"releaseVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"versionBundles": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"),
+									},
+								},
+							},
+						},
+					},
+					"credentialSecret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestCredentialSecret"),
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestMaster"),
+									},
+								},
+							},
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestWorker"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"dnsZone", "id", "credentialSecret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestCredentialSecret", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestMaster", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.AzureClusterConfigSpecGuestWorker", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_AzureClusterConfigSpecGuestCredentialSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AzureClusterConfigSpecGuestCredentialSecret points to the K8s Secret containing credentials for an Azure subscription in which the tenant cluster should be created.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_CertConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cert": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecCert"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"cert", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecCert", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.CertConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_CertConfigSpecCert(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"allowBareDomains": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"altNames": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"clusterComponent": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"clusterID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"commonName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"disableRegeneration": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"boolean"},
+							Format: "",
+						},
+					},
+					"ipSans": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"organizations": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"ttl": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"allowBareDomains", "clusterComponent", "clusterID", "commonName", "disableRegeneration", "ttl"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_CertConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"chart": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecChart"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"chart", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecChart", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigSpecChart(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"channel": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Channel is the name of the Appr channel to reconcile against, e.g. 1-0-stable.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"configMap": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Description: "ConfigMap references a config map containing values that should be applied to the chart.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecConfigMap"),
+						},
+					},
+					"userConfigMap": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UserConfigMap references a config map containing custom values. These custom values are specified by the user to override default values.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecConfigMap"),
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the Helm chart to deploy, e.g. kubernetes-node-exporter.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"namespace": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "Namespace is the namespace where the Helm chart is to be deployed, e.g. giantswarm.",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
-					"spec": {
+					"release": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpec"),
+							Description: "Release is the name of the Helm release when the chart is deployed, e.g. node-exporter.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"secret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secret references a secret containing secret values that should be applied to the chart.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecSecret"),
+						},
+					},
+				},
+				Required: []string{"channel", "configMap", "userConfigMap", "name", "namespace", "release", "secret"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecConfigMap", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ChartConfigSpecSecret"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigSpecConfigMap(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the config map containing chart values to apply, e.g. node-exporter-chart-values.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the values config map, e.g. kube-system.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ResourceVersion is the Kubernetes resource version of the configmap. Used to detect if the configmap has changed, e.g. 12345.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace", "resourceVersion"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigSpecSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the secret containing chart values to apply, e.g. node-exporter-chart-secret.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the secret, e.g. kube-system.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ResourceVersion is the Kubernetes resource version of the secret. Used to detect if the secret has changed, e.g. 12345.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace", "resourceVersion"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ChartConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"releaseStatus": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ReleaseStatus is the status of the Helm release when the chart is installed, e.g. DEPLOYED.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"reason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Reason is the description of the last status of helm release when the chart is not installed successfully, e.g. deploy resource already exists.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"releaseStatus"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ClusterGuestConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"dnsZone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DNSZone for guest cluster is supplemented with host prefixes for specific services such as Kubernetes API or Etcd. In general this DNS Zone should start with \"k8s\" like for example \"k8s.cluster.example.com.\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"owner": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"releaseVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"versionBundles": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"dnsZone", "id"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_ClusterGuestConfigVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name", "version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"guest": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuest"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"guest", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuest", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuest(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestCluster"),
+						},
+					},
+					"node": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestNode"),
+						},
+					},
+				},
+				Required: []string{"cluster", "node"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestCluster", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestNode"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestCluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"api": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestClusterAPI"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ID is the guest cluster ID of which a node should be drained.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"api", "id"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigSpecGuestClusterAPI"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestClusterAPI(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"endpoint": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Endpoint is the guest cluster API endpoint.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"endpoint"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigSpecGuestNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the identifier of the guest cluster's master and worker nodes. In Kubernetes/Kubectl they are represented as node names. The names are manage in an abstracted way because of provider specific differences.\n\n    AWS: EC2 instance DNS.\n    Azure: VM name.\n    KVM: host cluster pod name.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatusCondition"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"conditions"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.DrainerConfigStatusCondition"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_DrainerConfigStatusCondition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "DrainerConfigStatusCondition expresses a condition in which a node may is.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastHeartbeatTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastHeartbeatTime is the last time we got an update on a given condition.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastTransitionTime is the last time the condition transitioned from one status to another.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Spec part of the AWSCluster resource.",
-							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatus"),
+							Description: "Status may be True, False or Unknown.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Type may be Pending, Ready, Draining, Drained.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"lastHeartbeatTime", "lastTransitionTime", "status", "type"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"bridge": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridge"),
+						},
+					},
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecCluster"),
+						},
+					},
+					"flannel": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecFlannel"),
+						},
+					},
+					"health": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealth"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"bridge", "cluster", "flannel", "health", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridge", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecCluster", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecFlannel", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealth", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridge(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeDocker"),
+						},
+					},
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpec"),
+						},
+					},
+				},
+				Required: []string{"docker", "spec"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeDocker", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpec"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"interface": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"privateNetwork": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dns": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpecDNS"),
+						},
+					},
+					"ntp": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpecNTP"),
+						},
+					},
+				},
+				Required: []string{"interface", "privateNetwork", "dns", "ntp"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpecDNS", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecBridgeSpecNTP"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeSpecDNS(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"servers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"servers"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecBridgeSpecNTP(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"servers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"servers"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecCluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"customer": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"id", "customer", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecFlannel(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"spec": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecFlannelSpec"),
 						},
 					},
 				},
@@ -545,15 +2369,5486 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSCluster(ref common.ReferenceCall
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpec", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecFlannelSpec"},
 	}
 }
 
-func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlane(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecFlannelSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "AWSControlPlane is the infrastructure provider referenced in ControlPlane CRs. Represents the master nodes (also called Control Plane) of a tenant cluster on AWS. Reconciled by aws-operator.",
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"network": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"subnetLen": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"runDir": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"vni": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"network", "subnetLen", "runDir", "vni"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecHealth(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealthDocker"),
+						},
+					},
+				},
+				Required: []string{"docker"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.FlannelConfigSpecHealthDocker"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecHealthDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_FlannelConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IgnitionSpec is the interface which defines the input parameters for a newly rendered g8s ignition template.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"apiServerEncryptionKey": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIServerEncryptionKey is used in EncryptionConfiguration to encrypt Kubernetes secrets at rest.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"baseDomain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "BaseDomain is the base domain for all cluster services. For test installations, this may be in the form <clusterId>.k8s.<installation>.<region>.<provider>.gigantic.io.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"calico": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Calico provides configuration for all calico-related services.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecCalico"),
+						},
+					},
+					"clusterID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ClusterID is the name of the tenant cluster to be created.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"disableEncryptionAtRest": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DisableEncryptionAtRest will disable secret encryption at rest when set to true.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Docker provides configuration for all calico-related services.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDocker"),
+						},
+					},
+					"etcd": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Etcd provides configuration for all etcd-related services.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecEtcd"),
+						},
+					},
+					"extension": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Extension can be used to extend an ignition with extra configuration provided by the provider operator.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtension"),
+						},
+					},
+					"ingress": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Ingress provides configuration for all ingress-related services.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecIngress"),
+						},
+					},
+					"isMaster": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IsMaster determines if the rendered ignition should contain master-specific configuration.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"kubernetes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kubernetes provides configuration for all Kubernetes-related services.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetes"),
+						},
+					},
+					"provider": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Defines the provider which should be rendered.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"registry": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Registry provides configuration for the docker registry used for core component images.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecRegistry"),
+						},
+					},
+					"sso": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SSO provides configuration for all SSO-related services.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecSSO"),
+						},
+					},
+				},
+				Required: []string{"apiServerEncryptionKey", "baseDomain", "calico", "clusterID", "disableEncryptionAtRest", "docker", "etcd", "extension", "ingress", "isMaster", "kubernetes", "provider", "registry", "sso"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecCalico", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDocker", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecEtcd", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtension", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecIngress", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetes", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecRegistry", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecSSO"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecCalico(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CIDR is the CIDR-component of the IPv4 overlay subnetwork. Combined with Subnet below.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"disable": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Disable can be set to true to disable Calico setup.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"mtu": {
+						SchemaProps: spec.SchemaProps{
+							Description: "MTU is the maximum size of packets sent over Calico in bytes.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"subnet": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Subnet is the IP-component of the IPv4 overlay subnetwork. Combined with CIDR above.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"cidr", "disable", "mtu", "subnet"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"daemon": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Daemon provides information about the Docker daemon running on TC nodes.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDockerDaemon"),
+						},
+					},
+					"networkSetup": {
+						SchemaProps: spec.SchemaProps{
+							Description: "NetworkSetup provides the Docker image to be used for network environment setup.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDockerNetworkSetup"),
+						},
+					},
+				},
+				Required: []string{"daemon", "networkSetup"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDockerDaemon", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecDockerNetworkSetup"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecDockerDaemon(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CIDR is the fully specified subnet used for DOCKER_OPT_BIP.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"cidr"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecDockerNetworkSetup(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Image provides the Docker image to be used for network environment setup.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecEtcd(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain is the domain of the etcd service.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Port is the port of the etcd service, usually 2379.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"prefix": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Prefix is the prefix to add to all etcd keys created by Kubernetes.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"domain", "port", "prefix"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtension(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"files": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Files is an optional array of files which will be rendered and added to the final node ignition.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFile"),
+									},
+								},
+							},
+						},
+					},
+					"units": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Files is an optional array of systemd units which will be rendered and added to the final node ignition.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUnit"),
+									},
+								},
+							},
+						},
+					},
+					"users": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Files is an optional array of users which will be added to the final node ignition.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUser"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFile", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUnit", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUser"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFile(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"content": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Content is the string containing a file with optional go-template-style replacements.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Metadata is the filesystem metadata of the given file.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadata"),
+						},
+					},
+				},
+				Required: []string{"content", "metadata"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadata"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadata(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"compression": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Compression allows a file to be passed in as a base64-encoded compressed string.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"owner": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Owner is the owner of the file.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwner"),
+						},
+					},
+					"path": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Path is the path of the file.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"permissions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Permissions is the numeric permissions applied to the file.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"compression", "owner", "path", "permissions"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwner"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadataOwner(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Group is the group which owns the file.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwnerGroup"),
+						},
+					},
+					"user": {
+						SchemaProps: spec.SchemaProps{
+							Description: "User is the user which owns the file.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwnerUser"),
+						},
+					},
+				},
+				Required: []string{"group", "user"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwnerGroup", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionFileMetadataOwnerUser"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadataOwnerGroup(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ID is the GID of the group.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the group.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"id", "name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionFileMetadataOwnerUser(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ID is the UID of the user.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the user.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"id", "name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionUnit(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"content": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Content is the string containing a systemd unit with optional go-template-style replacements.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Metadata is the filesystem metadata of the given file.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUnitMetadata"),
+						},
+					},
+				},
+				Required: []string{"content", "metadata"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecExtensionUnitMetadata"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionUnitMetadata(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"enabled": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Enabled indicates that the unit should be enabled by default.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the unit on the filesystem and used in systemctl commands.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"enabled", "name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecExtensionUser(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the user to be added to the node via ignition.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"publicKey": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PublicKey is the public key of the user to be added to the node via ignition.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "publicKey"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecIngress(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"disable": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Disable will disable the ingress controller in the TC when true.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"disable"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetes(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"api": {
+						SchemaProps: spec.SchemaProps{
+							Description: "API holds information about the desired TC Kubernetes API.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesAPI"),
+						},
+					},
+					"cloudProvider": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CloudProvider is the provider upon which the cluster is running. It is passed to API server as a flag.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"dns": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DNS hold information about the in-cluster DNS service.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesDNS"),
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain is the domain used for services running in the cluster. Usually this is \"cluster.local\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kubelet": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kubelet holds information about the kubelet running on nodes.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesKubelet"),
+						},
+					},
+					"ipRange": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IPRange is the range of IPs used for pod networking.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"oidc": {
+						SchemaProps: spec.SchemaProps{
+							Description: "OIDC hold configuration which will be applied to the apiserver OIDC flags.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecOIDC"),
+						},
+					},
+				},
+				Required: []string{"api", "cloudProvider", "dns", "domain", "kubelet", "ipRange", "oidc"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesAPI", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesDNS", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecKubernetesKubelet", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionSpecOIDC"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetesAPI(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain is the domain of the API server.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"securePort": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Secure port is the port on which the API will listen.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"domain", "securePort"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetesDNS(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"ip": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IP is the IP of the in-cluster DNS service. Usually this is the same as the API server IP with the final component replaced with .10.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"ip"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecKubernetesKubelet(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain is the domain of the network.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"domain"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecOIDC(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"enabled": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Enabled indicates that the OIDC settings should be applied when true.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"clientID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The client ID for the OpenID Connect client, must be set if IssuerURL is set.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"issuerUrl": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The URL of the OpenID issuer, only HTTPS scheme will be accepted. If set, it will be used to verify the OIDC JSON Web Token (JWT).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"usernameClaim": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The OpenID claim to use as the user name. Note that claims other than the default ('sub') is not guaranteed to be unique and immutable.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"usernamePrefix": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If provided, all usernames will be prefixed with this value. If not provided, username claims other than 'email' are prefixed by the issuer URL to avoid clashes. To skip any prefixing, provide the value '-'.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"groupsClaim": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If provided, the name of a custom OpenID Connect claim for specifying user groups. The claim value is expected to be a string or JSON encoded array of strings.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"groupsPrefix": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If provided, all groups will be prefixed with this value to prevent conflicts with other authentication strategies.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"enabled", "clientID", "issuerUrl", "usernameClaim", "usernamePrefix", "groupsClaim", "groupsPrefix"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecRegistry(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Domain is the domain of the registry to be used for pulling core component images.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"pullProgressDeadline": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Pull progress deadline is a string representing a duration to be used as a deadline for pulling images.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"domain", "pullProgressDeadline"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionSpecSSO(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"publicKey": {
+						SchemaProps: spec.SchemaProps{
+							Description: "PublicKey is the public key of the SSO service.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"publicKey"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IgnitionStatus holds the rendering result.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"dataSecretName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DataSecret is a reference to the secret containing the rendered ignition once created.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusSecret"),
+						},
+					},
+					"failureReason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "FailureReason is a short string indicating the reason rendering failed (if it did).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"failureMessage": {
+						SchemaProps: spec.SchemaProps{
+							Description: "FailureMessage is a longer message indicating the reason rendering failed (if it did).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"ready": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Ready will be true when the referenced secret contains the rendered ignition and can be used for creating nodes.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"verification": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Verification is a hash of the rendered ignition to ensure that it has not been changed when loaded as a remote file by the bootstrap ignition. See https://coreos.com/ignition/docs/latest/configuration-v2_2.html",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusVerification"),
+						},
+					},
+				},
+				Required: []string{"dataSecretName", "failureReason", "failureMessage", "ready", "verification"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusSecret", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.IgnitionStatusVerification"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionStatusSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the secret containing the rendered ignition.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace is the namespace of the secret containing the rendered ignition.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ResourceVersion is the Kubernetes resource version of the secret. Used to detect if the secret has changed, e.g. 12345.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace", "resourceVersion"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_IgnitionStatusVerification(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"hash": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The content of the full rendered ignition hashed by the corresponding algorithm.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"algorithm": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The algorithm used for hashing. Must be sha512 for now.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"hash", "algorithm"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"guest": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuest"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"guest", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuest", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuest(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"dnsZone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DNSZone for guest cluster is supplemented with host prefixes for specific services such as Kubernetes API or Etcd. In general this DNS Zone should start with \"k8s\" like for example \"k8s.cluster.example.com.\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"owner": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"releaseVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"versionBundles": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle"),
+									},
+								},
+							},
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestMaster"),
+									},
+								},
+							},
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestWorker"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"dnsZone", "id"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.ClusterGuestConfigVersionBundle", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestMaster", "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.KVMClusterConfigSpecGuestWorker"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestMaster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"cpuCores": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"memorySizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+					"storageSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/serialization.Float"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"cpuCores": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"memorySizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+					"storageSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/serialization.Float"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecGuestWorker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"cpuCores": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"memorySizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+					"storageSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+					"labels": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"id", "labels"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/serialization.Float"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_KVMClusterConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_StorageConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"storage": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpecStorage"),
+						},
+					},
+				},
+				Required: []string{"storage"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1.StorageConfigSpecStorage"},
+	}
+}
+
+func schema_pkg_apis_core_v1alpha1_StorageConfigSpecStorage(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"data": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"data"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_example_v1alpha1_MemcachedConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"replicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Replicas is the number of instances of Memcache.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"memory": {
+						SchemaProps: spec.SchemaProps{
+							Description: "e.g. 3 Memory is how much RAM to use for item storage. e.g. 4G",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"replicas", "memory"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpec is the spec part for the AWSCluster resource.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Cluster specification details.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecCluster"),
+						},
+					},
+					"provider": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Provider-specific configuration details.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProvider"),
+						},
+					},
+				},
+				Required: []string{"cluster", "provider"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecCluster", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProvider"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecCluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecCluster provides cluster specification details.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"description": {
+						SchemaProps: spec.SchemaProps{
+							Description: "User-friendly description that should explain the purpose of the cluster to humans.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"dns": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DNS configuration details.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterDNS"),
+						},
+					},
+					"kubeProxy": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Flags passed to kube-proxy on each node.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterKubeProxy"),
+						},
+					},
+					"oidc": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Configuration for OpenID Connect (OIDC) authentication.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterOIDC"),
+						},
+					},
+				},
+				Required: []string{"description", "dns"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterDNS", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterKubeProxy", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterOIDC"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterDNS(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecClusterDNS holds DNS configuration details.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"domain"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterKubeProxy(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecClusterKubeProxy describes values passed to the kube-proxy running in a tenant cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conntrackMaxPerCore": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Maximum number of NAT connections to track per CPU core (0 for default). Passed to kube-proxy as --conntrack-max-per-core.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterOIDC(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecClusterOIDC holds configuration for OpenID Connect (OIDC) authentication.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"claims": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterOIDCClaims"),
+						},
+					},
+					"clientID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"issuerURL": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecClusterOIDCClaims"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecClusterOIDCClaims(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecClusterOIDCClaims defines OIDC claims.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"username": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"groups": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecProvider holds some AWS details.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"credentialSecret": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Location of a secret providing the ARN of AWS IAM identity to use with this cluster.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderCredentialSecret"),
+						},
+					},
+					"master": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Master holds master node configuration details. Note that this attribute is being deprecated. The master node specification can now be found in the AWSControlPlane resource.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderMaster"),
+						},
+					},
+					"pods": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Pod network configuration.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderPods"),
+						},
+					},
+					"region": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AWS region the cluster is to be running in.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"credentialSecret", "region"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderCredentialSecret", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderMaster", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterSpecProviderPods"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProviderCredentialSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecProviderCredentialSecret details how to chose the AWS IAM identity ARN to use with this cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the provider credential resoure.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kubernetes namespace holding the provider credential.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProviderMaster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecProviderMaster holds master node configuration details.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZone": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AWS availability zone to place the master node in.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"instanceType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AWS EC2 instance type to use for the master node.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"availabilityZone", "instanceType"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterSpecProviderPods(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterSpecProviderPods Pod network configuration.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidrBlock": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IPv4 address block used for pods, in CIDR notation.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"externalSNAT": {
+						SchemaProps: spec.SchemaProps{
+							Description: "When set to false, pod connections outside the VPC where the pod is located will be NATed through the node primary IP. When set to true, all connections will use the pod IP.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterStatus holds status information about the cluster, populated once the cluster is in creation or created.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Cluster-specific status details, including conditions and versions.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatus"),
+						},
+					},
+					"provider": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Provider-specific status details.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProvider"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProvider", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatus"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterStatusProvider holds provider-specific status details.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"network": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Network-specific configuration details",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProviderNetwork"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSClusterStatusProviderNetwork"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSClusterStatusProviderNetwork(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSClusterStatusProviderNetwork holds network details.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IPv4 address block used by the tenant cluster nodes, in CIDR notation.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"vpcID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Identifier of the AWS Virtual Private Cloud (VPC) of the tenant cluster, e.g. `vpc-1234567890abcdef0`.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlaneSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Configures which AWS availability zones to use by master nodes, as a list of availability zone names like e. g. `eu-central-1c`. We support either 1 or 3 availability zones.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"instanceType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "EC2 instance type identifier to use for the master node(s).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"nodePool": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specifies details of node pool and the worker nodes it should contain.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePool"),
+						},
+					},
+					"provider": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Contains AWS specific details.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecProvider"),
+						},
+					},
+				},
+				Required: []string{"nodePool", "provider"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePool", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecProvider"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecInstanceDistribution(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"onDemandBaseCapacity": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Base capacity of on-demand instances to use for worker nodes in this pool. When this larger than 0, this value defines a number of worker nodes that will be created using on-demand EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"onDemandPercentageAboveBaseCapacity": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances, for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes use spot instances and half use on-demand, set this value to 50.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePool(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"description": {
+						SchemaProps: spec.SchemaProps{
+							Description: "User-friendly name or description of the purpose of the node pool.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"machine": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specification of the worker node machine.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePoolMachine"),
+						},
+					},
+					"scaling": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Scaling settings for the node pool, configuring the cluster-autoscaler determining the number of nodes to have in this node pool.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePoolScaling"),
+						},
+					},
+				},
+				Required: []string{"description", "machine", "scaling"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePoolMachine", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecNodePoolScaling"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePoolMachine(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"dockerVolumeSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Size of the volume reserved for Docker images and overlay file systems of Docker containers. Unit: 1 GB = 1,000,000,000 Bytes.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"kubeletVolumeSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Size of the volume reserved for the kubelet, which can be used by Pods via volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"dockerVolumeSizeGB", "kubeletVolumeSizeGB"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecNodePoolScaling(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"max": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Maximum number of worker nodes in this node pool.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"min": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Minimum number of worker nodes in this node pool.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"max", "min"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name(s) of the availability zone(s) to use for worker nodes. Using multiple availability zones results in higher resilience but can also result in higher cost due to network traffic between availability zones.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"instanceDistribution": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Settings defining the distribution of on-demand and spot instances in the node pool.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecInstanceDistribution"),
+						},
+					},
+					"worker": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Specification of worker nodes.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecProviderWorker"),
+						},
+					},
+				},
+				Required: []string{"availabilityZones", "worker"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecInstanceDistribution", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpecProviderWorker"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentSpecProviderWorker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"instanceType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AWS EC2 instance type name to use for the worker nodes in this node pool.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"useAlikeInstanceTypes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If true, certain instance types with specs similar to instanceType will be used.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"instanceType", "useAlikeInstanceTypes"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"provider": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status specific to AWS.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatusProvider"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatusProvider"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatusProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"worker": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status of worker nodes.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatusProviderWorker"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatusProviderWorker"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeploymentStatusProviderWorker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"instanceTypes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AWS EC2 instance types used for the worker nodes in this node pool.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"spotInstances": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Number of EC2 spot instances used in this node pool.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CommonClusterStatus is shared type to contain provider independent cluster status information.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "One or several conditions that are currently applicable to the cluster.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusCondition"),
+									},
+								},
+							},
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Identifier of the cluster.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"versions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Release versions the cluster used so far.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusVersion"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusCondition", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.CommonClusterStatusVersion"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusCondition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CommonClusterStatusCondition explains the current condition(s) of the cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Time the condition occurred.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"condition": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Condition string, e. g. `Creating`, `Created`, `Upgraded`.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"lastTransitionTime", "condition"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_CommonClusterStatusVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Time the cluster assumed the given version.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The aws-operator version responsible for handling the cluster.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"lastTransitionTime", "version"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"replicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Number of master nodes.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"infrastructureRef": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Reference to a provider-specific resource. On AWS, this would be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).",
+							Ref:         ref("k8s.io/api/core/v1.ObjectReference"),
+						},
+					},
+				},
+				Required: []string{"infrastructureRef"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/api/core/v1.ObjectReference"},
+	}
+}
+
+func schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlaneStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "G8sControlPlaneStatus defines the observed state of G8sControlPlane.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"replicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Total number of non-terminated machines targeted by this control plane (their labels match the selector).",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"readyReplicas": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Total number of fully running and ready control plane machines.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster"),
+						},
+					},
+					"aws": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWS"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"cluster", "aws", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWS", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecVersionBundle", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWS(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"api": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPI"),
+						},
+					},
+					"az": {
+						SchemaProps: spec.SchemaProps{
+							Description: "\n\n    https://github.com/giantswarm/giantswarm/issues/4507",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Description: "AvailabilityZones is the number of AWS availability zones used to spread the tenant cluster's worker nodes across. There are limitations on availability zone settings due to binary IP range splitting and provider specific region capabilities. When for instance choosing 3 availability zones, the configured IP range will be split into 4 ranges and thus one of it will not be able to be utilized. Such limitations have to be considered when designing the network topology and configuring tenant cluster HA via AvailabilityZones.\n\nThe selection and usage of the actual availability zones for the created tenant cluster is randomized. In case there are 4 availability zones provided in the used region and the user selects 2 availability zones, the actually used availability zones in which tenant cluster workload is put into will tend to be different across tenant cluster creations. This is done in order to provide more HA during single availability zone failures. In case a specific availability zone fails, not all tenant clusters will be affected due to the described selection process.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"credentialSecret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.CredentialSecret"),
+						},
+					},
+					"etcd": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSEtcd"),
+						},
+					},
+					"hostedZones": {
+						SchemaProps: spec.SchemaProps{
+							Description: "HostedZones is AWS hosted zones names in the host cluster account. For each zone there will be \"CLUSTER_ID.k8s\" NS record created in the host cluster account. Then for each created NS record there will be a zone created in the guest account. After that component specific records under those zones:\n\t- api.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.API.Name }}\n\t- etcd.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Etcd.Name }}\n\t- ingress.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Ingress.Name }}\n\t- *.CLUSTER_ID.k8s.{{ .Spec.AWS.HostedZones.Ingress.Name }}",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZones"),
+						},
+					},
+					"ingress": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSIngress"),
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSNode"),
+									},
+								},
+							},
+						},
+					},
+					"region": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"vpc": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSVPC"),
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSNode"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"api", "az", "availabilityZones", "credentialSecret", "etcd", "hostedZones", "ingress", "masters", "region", "vpc", "workers"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPI", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSEtcd", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZones", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSIngress", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSNode", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSVPC", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.CredentialSecret"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSAPI(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSConfigSpecAWSAPI deprecated since aws-operator v12 resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"hostedZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"elb": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPIELB"),
+						},
+					},
+				},
+				Required: []string{"hostedZones", "elb"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSAPIELB"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSAPIELB(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSConfigSpecAWSAPIELB deprecated since aws-operator v12 resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"idleTimeoutSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"idleTimeoutSeconds"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSEtcd(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSConfigSpecAWSEtcd deprecated since aws-operator v12 resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"hostedZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"elb": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSEtcdELB"),
+						},
+					},
+				},
+				Required: []string{"hostedZones", "elb"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSEtcdELB"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSEtcdELB(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSConfigSpecAWSEtcdELB deprecated since aws-operator v12 resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"idleTimeoutSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"idleTimeoutSeconds"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSHostedZones(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"api": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZonesZone"),
+						},
+					},
+					"etcd": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZonesZone"),
+						},
+					},
+					"ingress": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZonesZone"),
+						},
+					},
+				},
+				Required: []string{"api", "etcd", "ingress"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSHostedZonesZone"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSHostedZonesZone(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSIngress(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSConfigSpecAWSIngress deprecated since aws-operator v12 resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"hostedZones": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"elb": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSIngressELB"),
+						},
+					},
+				},
+				Required: []string{"hostedZones", "elb"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpecAWSIngressELB"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSIngressELB(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AWSConfigSpecAWSIngressELB deprecated since aws-operator v12 resources.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"idleTimeoutSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"idleTimeoutSeconds"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"imageID": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"instanceType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dockerVolumeSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"imageID", "instanceType", "dockerVolumeSizeGB"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecAWSVPC(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"privateSubnetCidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"publicSubnetCidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"routeTableNames": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"peerId": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"cidr", "privateSubnetCidr", "publicSubnetCidr", "routeTableNames", "peerId"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"aws": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWS"),
+						},
+					},
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster"),
+						},
+					},
+				},
+				Required: []string{"aws", "cluster"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWS", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWS(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZone"),
+									},
+								},
+							},
+						},
+					},
+					"autoScalingGroup": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAutoScalingGroup"),
+						},
+					},
+				},
+				Required: []string{"availabilityZones", "autoScalingGroup"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAutoScalingGroup", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZone"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAutoScalingGroup(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZone(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"subnet": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnet"),
+						},
+					},
+				},
+				Required: []string{"name", "subnet"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnet"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnet(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"private": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPrivate"),
+						},
+					},
+					"public": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPublic"),
+						},
+					},
+				},
+				Required: []string{"private", "public"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPrivate", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatusAWSAvailabilityZoneSubnetPublic"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetPrivate(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"cidr"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AWSConfigStatusAWSAvailabilityZoneSubnetPublic(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"cidr"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster"),
+						},
+					},
+					"azure": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzure"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"cluster", "azure", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzure", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecVersionBundle", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzure(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"integer"},
+										Format: "int32",
+									},
+								},
+							},
+						},
+					},
+					"credentialSecret": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.CredentialSecret"),
+						},
+					},
+					"dnsZones": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZones"),
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureNode"),
+									},
+								},
+							},
+						},
+					},
+					"virtualNetwork": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureVirtualNetwork"),
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureNode"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"availabilityZones", "credentialSecret", "dnsZones", "masters", "virtualNetwork", "workers"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZones", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureNode", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureVirtualNetwork", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.CredentialSecret"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureDNSZones(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AzureConfigSpecAzureDNSZones contains the DNS Zones of the cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"api": {
+						SchemaProps: spec.SchemaProps{
+							Description: "API is the DNS Zone for the Kubernetes API.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZonesDNSZone"),
+						},
+					},
+					"etcd": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Etcd is the DNS Zone for the etcd cluster.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZonesDNSZone"),
+						},
+					},
+					"ingress": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Ingress is the DNS Zone for the Ingress resource, used for customer traffic.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZonesDNSZone"),
+						},
+					},
+				},
+				Required: []string{"api", "etcd", "ingress"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpecAzureDNSZonesDNSZone"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureDNSZonesDNSZone(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "AzureConfigSpecAzureDNSZonesDNSZone points to a DNS Zone in Azure.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"resourceGroup": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ResourceGroup is the resource group of the zone.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name is the name of the zone.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"resourceGroup", "name"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"vmSize": {
+						SchemaProps: spec.SchemaProps{
+							Description: "VMSize is the master vm size (e.g. Standard_A1)",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"dockerVolumeSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DockerVolumeSizeGB is the size of a volume mounted to /var/lib/docker.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"kubeletVolumeSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Description: "KubeletVolumeSizeGB is the size of a volume mounted to /var/lib/kubelet.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"vmSize", "dockerVolumeSizeGB", "kubeletVolumeSizeGB"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpecAzureVirtualNetwork(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CIDR is the CIDR for the Virtual Network.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"masterSubnetCIDR": {
+						SchemaProps: spec.SchemaProps{
+							Description: "is deleted. MasterSubnetCIDR is the CIDR for the master subnet.\n\n    https://github.com/giantswarm/giantswarm/issues/4358",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"workerSubnetCIDR": {
+						SchemaProps: spec.SchemaProps{
+							Description: "WorkerSubnetCIDR is the CIDR for the worker subnet.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"calicoSubnetCIDR": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CalicoSubnetCIDR is the CIDR for the calico subnet. It has to be also a worker subnet (Azure limitation).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"cidr", "masterSubnetCIDR", "workerSubnetCIDR", "calicoSubnetCIDR"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster"),
+						},
+					},
+					"provider": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProvider"),
+						},
+					},
+				},
+				Required: []string{"cluster", "provider"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProvider", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigStatusProvider(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"availabilityZones": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"integer"},
+										Format: "int32",
+									},
+								},
+							},
+						},
+					},
+					"ingress": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProviderIngress"),
+						},
+					},
+				},
+				Required: []string{"ingress"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProviderIngress"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigStatusProviderIngress(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"loadBalancer": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProviderIngressLoadBalancer"),
+						},
+					},
+				},
+				Required: []string{"loadBalancer"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatusProviderIngressLoadBalancer"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_AzureConfigStatusProviderIngressLoadBalancer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"publicIPName": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"publicIPName"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_Cluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"calico": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterCalico"),
+						},
+					},
+					"customer": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterCustomer"),
+						},
+					},
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterDocker"),
+						},
+					},
+					"etcd": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterEtcd"),
+						},
+					},
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"kubernetes": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetes"),
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterNode"),
+									},
+								},
+							},
+						},
+					},
+					"scaling": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterScaling"),
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version is DEPRECATED and should just be dropped.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterNode"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"calico", "customer", "docker", "etcd", "id", "kubernetes", "masters", "scaling", "version"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterCalico", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterCustomer", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterDocker", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterEtcd", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetes", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterNode", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterScaling"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterCalico(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"mtu": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"subnet": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"cidr", "mtu", "subnet"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterCustomer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"daemon": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterDockerDaemon"),
+						},
+					},
+				},
+				Required: []string{"daemon"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterDockerDaemon"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterDockerDaemon(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"cidr"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterEtcd(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"altNames": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"prefix": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"altNames", "domain", "port", "prefix"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetes(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"api": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesAPI"),
+						},
+					},
+					"cloudProvider": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dns": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesDNS"),
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"ingressController": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesIngressController"),
+						},
+					},
+					"kubelet": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesKubelet"),
+						},
+					},
+					"networkSetup": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetup"),
+						},
+					},
+					"ssh": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesSSH"),
+						},
+					},
+				},
+				Required: []string{"api", "cloudProvider", "dns", "domain", "ingressController", "kubelet", "networkSetup", "ssh"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesAPI", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesDNS", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesIngressController", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesKubelet", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetup", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesSSH"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesAPI(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"clusterIPRange": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"securePort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"clusterIPRange", "domain", "securePort"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesDNS(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"ip": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"ip"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesIngressController(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesIngressControllerDocker"),
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"wildcardDomain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"insecurePort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"securePort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"docker", "domain", "wildcardDomain", "insecurePort", "securePort"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesIngressControllerDocker"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesIngressControllerDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesKubelet(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"altNames": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"domain": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"labels": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"port": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"altNames", "domain", "labels", "port"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesNetworkSetup(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetupDocker"),
+						},
+					},
+					"kubeProxy": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetupKubeProxy"),
+						},
+					},
+				},
+				Required: []string{"docker", "kubeProxy"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetupDocker", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesNetworkSetupKubeProxy"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesNetworkSetupDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesNetworkSetupKubeProxy(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ClusterKubernetesNetworkSetupKubeProxy describes values passed to the kube-proxy running in a tenant cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conntrackMaxPerCore": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Maximum number of NAT connections to track per CPU core (0 to leave the limit as-is and ignore conntrack-min). Passed to kube-proxy as --conntrack-max-per-core.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"conntrackMaxPerCore"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesSSH(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"userList": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesSSHUser"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"userList"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.ClusterKubernetesSSHUser"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterKubernetesSSHUser(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"publicKey": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name", "publicKey"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"id"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_ClusterScaling(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"max": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Max defines maximum number of worker nodes guest cluster is allowed to have.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+					"min": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Min defines minimum number of worker nodes required to be present in guest cluster.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"max", "min"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_CredentialSecret(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name", "namespace"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster"),
+						},
+					},
+					"kvm": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVM"),
+						},
+					},
+					"versionBundle": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecVersionBundle"),
+						},
+					},
+				},
+				Required: []string{"cluster", "kvm", "versionBundle"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.Cluster", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVM", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecVersionBundle"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVM(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"endpointUpdater": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdater"),
+						},
+					},
+					"k8sKVM": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMK8sKVM"),
+						},
+					},
+					"masters": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNode"),
+									},
+								},
+							},
+						},
+					},
+					"network": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNetwork"),
+						},
+					},
+					"nodeController": {
+						SchemaProps: spec.SchemaProps{
+							Description: "NOTE THIS IS DEPRECATED",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNodeController"),
+						},
+					},
+					"portMappings": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMPortMappings"),
+									},
+								},
+							},
+						},
+					},
+					"workers": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNode"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"endpointUpdater", "k8sKVM", "masters", "network", "nodeController", "portMappings", "workers"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdater", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMK8sKVM", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNetwork", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNode", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNodeController", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMPortMappings"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMEndpointUpdater(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdaterDocker"),
+						},
+					},
+				},
+				Required: []string{"docker"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMEndpointUpdaterDocker"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMEndpointUpdaterDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMK8sKVM(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMK8sKVMDocker"),
+						},
+					},
+					"storageType": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"docker", "storageType"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMK8sKVMDocker"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMK8sKVMDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNetwork(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"flannel": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNetworkFlannel"),
+						},
+					},
+				},
+				Required: []string{"flannel"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNetworkFlannel"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNetworkFlannel(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"vni": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"vni"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cpus": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"disk": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/serialization.Float"),
+						},
+					},
+					"memory": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"dockerVolumeSizeGB": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"cpus", "disk", "memory", "dockerVolumeSizeGB"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/serialization.Float"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNodeController(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "NOTE THIS IS DEPRECATED",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"docker": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNodeControllerDocker"),
+						},
+					},
+				},
+				Required: []string{"docker"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpecKVMNodeControllerDocker"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMNodeControllerDocker(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "NOTE THIS IS DEPRECATED",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"image": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"image"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecKVMPortMappings(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"nodePort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+					"targetPort": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"name", "nodePort", "targetPort"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigSpecVersionBundle(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cluster": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster"),
+						},
+					},
+					"kvm": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatusKVM"),
+						},
+					},
+				},
+				Required: []string{"cluster", "kvm"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatusKVM", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusCluster"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_KVMConfigStatusKVM(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"nodeIndexes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "NodeIndexes is a map from nodeID -> nodeIndex. This is used to create deterministic iSCSI initiator names.",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"integer"},
+										Format: "int32",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"nodeIndexes"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusCluster(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Conditions is a list of status information expressing the current conditional state of a guest cluster. This may reflect the status of the guest cluster being updating or being up to date.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterCondition"),
+									},
+								},
+							},
+						},
+					},
+					"network": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterNetwork"),
+						},
+					},
+					"nodes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Nodes is a list of guest cluster node information reflecting the current state of the guest cluster nodes.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterNode"),
+									},
+								},
+							},
+						},
+					},
+					"resources": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Resources is a list of arbitrary conditions of operatorkit resource implementations.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterResource"),
+									},
+								},
+							},
+						},
+					},
+					"scaling": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterScaling"),
+						},
+					},
+					"versions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Versions is a list that acts like a historical track record of versions a guest cluster went through. A version is only added to the list as soon as the guest cluster successfully migrated to the version added here.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterVersion"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"network", "scaling"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterCondition", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterNetwork", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterNode", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterResource", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterScaling", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterVersion"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterCondition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusClusterCondition expresses the conditions in which a guest cluster may is.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastTransitionTime is the last time the condition transitioned from one status to another.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status may be True, False or Unknown.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Type may be Creating, Created, Scaling, Scaled, Draining, Drained, Updating, Updated, Deleting, Deleted.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"status", "type"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterNetwork(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusClusterNetwork expresses the network segment that is allocated for a guest cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cidr": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"cidr"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterNode(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusClusterNode holds information about a guest cluster node.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"labels": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Labels contains the kubernetes labels for corresponding node.",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastTransitionTime is the last time the condition transitioned from one status to another.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name referrs to a tenant cluster node name.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version referrs to the version used by the node as mandated by the provider operator.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "version"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterResource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Resource is structure holding arbitrary conditions of operatorkit resource implementations. Imagine an operator implements an instance resource. This resource may operates sequentially but has to operate based on a certain system state it manages. So it tracks the status as needed here specific to its own implementation and means in order to fulfil its premise.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Type: []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterResourceCondition"),
+									},
+								},
+							},
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"name"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.StatusClusterResourceCondition"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterResourceCondition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusClusterResourceCondition expresses the conditions in which an operatorkit resource may is.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastTransitionTime is the last time the condition transitioned from one status to another.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status may be True, False or Unknown.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Type may be anything an operatorkit resource may define.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"status", "type"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterScaling(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusClusterScaling expresses the current status of desired number of worker nodes in guest cluster.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"desiredCapacity": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"desiredCapacity"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_provider_v1alpha1_StatusClusterVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusClusterVersion expresses the versions in which a guest cluster was and may still be.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"date": {
+						SchemaProps: spec.SchemaProps{
+							Description: "This can be removed ones the new properties are properly used in all tenant clusters.\n\n    https://github.com/giantswarm/giantswarm/issues/3988",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"lastTransitionTime": {
+						SchemaProps: spec.SchemaProps{
+							Description: "LastTransitionTime is the last time the condition transitioned from one status to another.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"semver": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Semver is some semver version, e.g. 1.0.0.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"semver"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_release_v1alpha1_ReleaseSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"apps": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Apps describes apps used in this release.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpecApp"),
+									},
+								},
+							},
+						},
+					},
+					"components": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Components describes components used in this release.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpecComponent"),
+									},
+								},
+							},
+						},
+					},
+					"date": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Date that the release became active.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"state": {
+						SchemaProps: spec.SchemaProps{
+							Description: "State indicates the availability of the release: deprecated, active, or wip.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"apps", "components", "date", "state"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpecApp", "github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpecComponent", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_release_v1alpha1_ReleaseSpecApp(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"componentVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version of the upstream component used in the app.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the app.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version of the app.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_release_v1alpha1_ReleaseSpecComponent(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the component.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Version of the component.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_security_v1alpha1_OrganizationSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_tooling_v1alpha1_AzureToolSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"workspace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Workspace refers to the Azure Log Analytics Workspace.",
+							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolWorkspace"),
+						},
+					},
+				},
+				Required: []string{"workspace"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolWorkspace"},
+	}
+}
+
+func schema_pkg_apis_tooling_v1alpha1_AzureToolStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"workspace_status": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"workspace_status"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_tooling_v1alpha1_AzureToolWorkspace(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"id": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ID is the Workspace ID.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"mode": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Mode is the mode that the Workspace is running in.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"id", "mode"},
+			},
+		},
+	}
+}
+
+func schema_apimachinery_pkg_api_resource_Quantity(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Quantity is a fixed-point representation of a number. It provides convenient marshaling/unmarshaling in JSON and YAML, in addition to String() and AsInt64() accessors.\n\nThe serialization format is:\n\n<quantity>        ::= <signedNumber><suffix>\n  (Note that <suffix> may be empty, from the \"\" case in <decimalSI>.)\n<digit>           ::= 0 | 1 | ... | 9 <digits>          ::= <digit> | <digit><digits> <number>          ::= <digits> | <digits>.<digits> | <digits>. | .<digits> <sign>            ::= \"+\" | \"-\" <signedNumber>    ::= <number> | <sign><number> <suffix>          ::= <binarySI> | <decimalExponent> | <decimalSI> <binarySI>        ::= Ki | Mi | Gi | Ti | Pi | Ei\n  (International System of units; See: http://physics.nist.gov/cuu/Units/binary.html)\n<decimalSI>       ::= m | \"\" | k | M | G | T | P | E\n  (Note that 1024 = 1Ki but 1000 = 1k; I didn't choose the capitalization.)\n<decimalExponent> ::= \"e\" <signedNumber> | \"E\" <signedNumber>\n\nNo matter which of the three exponent forms is used, no quantity may represent a number greater than 2^63-1 in magnitude, nor may it have more than 3 decimal places. Numbers larger or more precise will be capped or rounded up. (E.g.: 0.1m will rounded up to 1m.) This may be extended in the future if we require larger or smaller quantities.\n\nWhen a Quantity is parsed from a string, it will remember the type of suffix it had, and will use the same type again when it is serialized.\n\nBefore serializing, Quantity will be put in \"canonical form\". This means that Exponent/suffix will be adjusted up or down (with a corresponding increase or decrease in Mantissa) such that:\n  a. No precision is lost\n  b. No fractional digits will be emitted\n  c. The exponent (or suffix) is as large as possible.\nThe sign will be omitted unless the number is negative.\n\nExamples:\n  1.5 will be serialized as \"1500m\"\n  1.5Gi will be serialized as \"1536Mi\"\n\nNote that the quantity will NEVER be internally represented by a floating point number. That is the whole point of this exercise.\n\nNon-canonical values will still parse as long as they are well formed, but will be re-emitted in their canonical form. (So always use canonical form, or don't diff.)\n\nThis format is intended to make it difficult to use these numbers without writing some sort of special handling code in the hopes that that will cause implementors to also use a fixed point implementation.",
+				Type:        resource.Quantity{}.OpenAPISchemaType(),
+				Format:      resource.Quantity{}.OpenAPISchemaFormat(),
+			},
+		},
+	}
+}
+
+func schema_apimachinery_pkg_api_resource_int64Amount(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "int64Amount represents a fixed precision numerator and arbitrary scale exponent. It is faster than operations on inf.Dec for values that can be represented as int64.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"value": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int64",
+						},
+					},
+					"scale": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"integer"},
+							Format: "int32",
+						},
+					},
+				},
+				Required: []string{"value", "scale"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_APIGroup(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "APIGroup contains the name, the supported versions, and the preferred version of a group.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "name is the name of the group.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"versions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "versions are the versions supported in this group.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionForDiscovery"),
+									},
+								},
+							},
+						},
+					},
+					"preferredVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "preferredVersion is the version preferred by the API server, which probably is the storage version.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionForDiscovery"),
+						},
+					},
+					"serverAddressByClientCIDRs": {
+						SchemaProps: spec.SchemaProps{
+							Description: "a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"name", "versions"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.GroupVersionForDiscovery", "k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_APIGroupList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "APIGroupList is a list of APIGroup, to allow clients to discover the API at /apis.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"groups": {
+						SchemaProps: spec.SchemaProps{
+							Description: "groups is a list of APIGroup.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.APIGroup"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"groups"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.APIGroup"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_APIResource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "APIResource specifies the name of a resource and whether it is namespaced.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "name is the plural name of the resource.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"singularName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "singularName is the singular name of the resource.  This allows clients to handle plural and singular opaquely. The singularName is more correct for reporting status on a single item and both singular and plural are allowed from the kubectl CLI interface.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespaced": {
+						SchemaProps: spec.SchemaProps{
+							Description: "namespaced indicates if a resource is namespaced or not.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Description: "group is the preferred group of the resource.  Empty implies the group of the containing resource list. For subresources, this may have a different value, for example: Scale\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "version is the preferred version of the resource.  Empty implies the version of the containing resource list For subresources, this may have a different value, for example: v1 (while inside a v1beta1 version of the core resource's group)\".",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "kind is the kind for the resource (e.g. 'Foo' is the kind for a resource 'foo')",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"verbs": {
+						SchemaProps: spec.SchemaProps{
+							Description: "verbs is a list of supported kube verbs (this includes get, list, watch, create, update, patch, delete, deletecollection, and proxy)",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"shortNames": {
+						SchemaProps: spec.SchemaProps{
+							Description: "shortNames is a list of suggested short names of the resource.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"categories": {
+						SchemaProps: spec.SchemaProps{
+							Description: "categories is a list of the grouped resources this resource belongs to (e.g. 'all')",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"storageVersionHash": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The hash value of the storage version, the version this resource is converted to when written to the data store. Value must be treated as opaque by clients. Only equality comparison on the value is valid. This is an alpha feature and may change or be removed in the future. The field is populated by the apiserver only if the StorageVersionHash feature gate is enabled. This field will remain optional even if it graduates.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"name", "singularName", "namespaced", "kind", "verbs"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_APIResourceList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "APIResourceList is a list of APIResource, it is used to expose the name of the resources supported in a specific group and version, and if the resource is namespaced.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"groupVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "groupVersion is the group and version this APIResourceList is for.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resources": {
+						SchemaProps: spec.SchemaProps{
+							Description: "resources contains the name of the resources and if they are namespaced.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.APIResource"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"groupVersion", "resources"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.APIResource"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_APIVersions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "APIVersions lists the versions that are available, to allow clients to discover the API at /api, which is the root path of the legacy v1 API.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"versions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "versions are the api versions that are available.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"serverAddressByClientCIDRs": {
+						SchemaProps: spec.SchemaProps{
+							Description: "a map of client CIDR to server address that is serving this group. This is to help clients reach servers in the most network-efficient way possible. Clients can use the appropriate server address as per the CIDR that they match. In case of multiple matches, clients should use the longest matching CIDR. The server returns only those CIDRs that it thinks that the client can match. For example: the master will return an internal IP CIDR only, if the client reaches the server using an internal IP. Server looks at X-Forwarded-For header or X-Real-Ip header or request.RemoteAddr (in that order) to get the client IP.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"versions", "serverAddressByClientCIDRs"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ServerAddressByClientCIDR"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_CreateOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "CreateOptions may be provided when creating an API object.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"dryRun": {
+						SchemaProps: spec.SchemaProps{
+							Description: "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"fieldManager": {
+						SchemaProps: spec.SchemaProps{
+							Description: "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_DeleteOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "DeleteOptions may be provided when deleting an API object.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"gracePeriodSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"preconditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Must be fulfilled before a deletion is carried out. If not possible, a 409 Conflict status will be returned.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Preconditions"),
+						},
+					},
+					"orphanDependents": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Deprecated: please use the PropagationPolicy, this field will be deprecated in 1.7. Should the dependent objects be orphaned. If true/false, the \"orphan\" finalizer will be added to/removed from the object's finalizers list. Either this field or PropagationPolicy may be set, but not both.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"propagationPolicy": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Whether and how garbage collection will be performed. Either this field or OrphanDependents may be set, but not both. The default policy is decided by the existing finalizer set in the metadata.finalizers and the resource-specific default policy. Acceptable values are: 'Orphan' - orphan the dependents; 'Background' - allow the garbage collector to delete the dependents in the background; 'Foreground' - a cascading policy that deletes all dependents in the foreground.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"dryRun": {
+						SchemaProps: spec.SchemaProps{
+							Description: "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Preconditions"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_Duration(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Duration is a wrapper around time.Duration which supports correct marshaling to YAML and JSON. In particular, it marshals into strings, which can be used as map keys in json.",
+				Type:        v1.Duration{}.OpenAPISchemaType(),
+				Format:      v1.Duration{}.OpenAPISchemaFormat(),
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_ExportOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ExportOptions is the query options to the standard REST get call. Deprecated. Planned for removal in 1.18.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"export": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Should this value be exported.  Export strips fields that a user can not specify. Deprecated. Planned for removal in 1.18.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"exact": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Should the export be exact.  Exact export maintains cluster-specific fields like 'Namespace'. Deprecated. Planned for removal in 1.18.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"export", "exact"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_FieldsV1(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "FieldsV1 stores a set of fields in a data structure like a Trie, in JSON format.\n\nEach key is either a '.' representing the field itself, and will always map to an empty set, or a string representing a sub-field or item. The string will follow one of these four formats: 'f:<name>', where <name> is the name of a field in a struct, or key in a map 'v:<value>', where <value> is the exact json formatted value of a list item 'i:<index>', where <index> is position of a item in a list 'k:<keys>', where <keys> is a map of  a list item's key fields to their unique values If a key maps to an empty Fields value, the field that key represents is part of the set.\n\nThe exact format is defined in sigs.k8s.io/structured-merge-diff",
+				Type:        []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GetOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GetOptions is the standard query options to the standard REST get call.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "When specified: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GroupKind(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GroupKind specifies a Group and a Kind, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"group", "kind"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GroupResource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GroupResource specifies a Group and a Resource, but does not force a version.  This is useful for identifying concepts during lookup stages without having partially valid types",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"resource": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"group", "resource"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GroupVersion(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GroupVersion contains the \"group\" and the \"version\", which uniquely identifies the API.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"group", "version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GroupVersionForDiscovery(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GroupVersion contains the \"group/version\" and \"version\" string of a version. It is made a struct to keep extensibility.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"groupVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "groupVersion specifies the API group and version in the form \"group/version\"",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Description: "version specifies the version in the form of \"version\". This is to save the clients the trouble of splitting the GroupVersion.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"groupVersion", "version"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GroupVersionKind(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GroupVersionKind unambiguously identifies a kind.  It doesn't anonymously include GroupVersion to avoid automatic coersion.  It doesn't use a GroupVersion to avoid custom marshalling",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"group", "version", "kind"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_GroupVersionResource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "GroupVersionResource unambiguously identifies a resource.  It doesn't anonymously include GroupVersion to avoid automatic coersion.  It doesn't use a GroupVersion to avoid custom marshalling",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"version": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"resource": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"group", "version", "resource"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_InternalEvent(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "InternalEvent makes watch.Event versioned",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"Type": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"Object": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Object is:\n * If Type is Added or Modified: the new state of the object.\n * If Type is Deleted: the state of the object immediately before deletion.\n * If Type is Bookmark: the object (instance of a type being watched) where\n   only ResourceVersion field is set. On successful restart of watch from a\n   bookmark resourceVersion, client is guaranteed to not get repeat event\n   nor miss any events.\n * If Type is Error: *api.Status is recommended; other types may make sense\n   depending on context.",
+							Ref:         ref("k8s.io/apimachinery/pkg/runtime.Object"),
+						},
+					},
+				},
+				Required: []string{"Type", "Object"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/runtime.Object"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_LabelSelector(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"matchLabels": {
+						SchemaProps: spec.SchemaProps{
+							Description: "matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is \"key\", the operator is \"In\", and the values array contains only \"value\". The requirements are ANDed.",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"matchExpressions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "matchExpressions is a list of label selector requirements. The requirements are ANDed.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelectorRequirement"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.LabelSelectorRequirement"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_LabelSelectorRequirement(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"key": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-merge-key": "key",
+								"x-kubernetes-patch-strategy":  "merge",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "key is the label key that the selector applies to.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"operator": {
+						SchemaProps: spec.SchemaProps{
+							Description: "operator represents a key's relationship to a set of values. Valid operators are In, NotIn, Exists and DoesNotExist.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"values": {
+						SchemaProps: spec.SchemaProps{
+							Description: "values is an array of string values. If the operator is In or NotIn, the values array must be non-empty. If the operator is Exists or DoesNotExist, the values array must be empty. This array is replaced during a strategic merge patch.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"key", "operator"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_List(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "List holds a list of objects, which may not be known by the server.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -572,29 +7867,455 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSControlPlane(ref common.Referenc
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
 						},
 					},
-					"spec": {
+					"items": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Specification part of the resource.",
-							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneSpec"),
+							Description: "List of objects",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+									},
+								},
+							},
 						},
 					},
 				},
-				Required: []string{"spec"},
+				Required: []string{"items"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSControlPlaneSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "k8s.io/apimachinery/pkg/runtime.RawExtension"},
 	}
 }
 
-func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeployment(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_meta_v1_ListMeta(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources. It contains provider-specific specification and status for a node pool. In use on AWS since Giant Swarm release v10.x.x and reconciled by aws-operator.",
+				Description: "ListMeta describes metadata that synthetic resources must have, including lists and various status objects. A resource may have only one of {ObjectMeta, ListMeta}.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"selfLink": {
+						SchemaProps: spec.SchemaProps{
+							Description: "selfLink is a URL representing this object. Populated by the system. Read-only.\n\nDEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "String that identifies the server's internal version of this object that can be used by clients to determine when objects have changed. Value must be treated as opaque by clients and passed unmodified back to the server. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"continue": {
+						SchemaProps: spec.SchemaProps{
+							Description: "continue may be set if the user set a limit on the number of items returned, and indicates that the server has more data available. The value is opaque and may be used to issue another request to the endpoint that served this list to retrieve the next set of available objects. Continuing a consistent list may not be possible if the server configuration has changed or more than a few minutes have passed. The resourceVersion field returned when using this continue value will be identical to the value in the first response, unless you have received this token from an error message.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"remainingItemCount": {
+						SchemaProps: spec.SchemaProps{
+							Description: "remainingItemCount is the number of subsequent items in the list which are not included in this list response. If the list request contained label or field selectors, then the number of remaining items is unknown and the field will be left unset and omitted during serialization. If the list is complete (either because it is not chunking or because this is the last chunk), then there are no more remaining items and this field will be left unset and omitted during serialization. Servers older than v1.15 do not set this field. The intended use of the remainingItemCount is *estimating* the size of a collection. Clients should not rely on the remainingItemCount to be set or to be exact.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_ListOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ListOptions is the query options to a standard REST list call.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"labelSelector": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A selector to restrict the list of returned objects by their labels. Defaults to everything.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"fieldSelector": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A selector to restrict the list of returned objects by their fields. Defaults to everything.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"watch": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Watch for changes to the described resources and return them as a stream of add, update, and remove notifications. Specify resourceVersion.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"allowWatchBookmarks": {
+						SchemaProps: spec.SchemaProps{
+							Description: "allowWatchBookmarks requests watch events with type \"BOOKMARK\". Servers that do not implement bookmarks may ignore this flag and bookmarks are sent at the server's discretion. Clients should not assume bookmarks are returned at any specific interval, nor may they assume the server will send any BOOKMARK event during a session. If this is not a watch, this field is ignored. If the feature gate WatchBookmarks is not enabled in apiserver, this field is ignored.\n\nThis field is beta.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "When specified with a watch call, shows changes that occur after that particular version of a resource. Defaults to changes from the beginning of history. When specified for list: - if unset, then the result is returned from remote storage based on quorum-read flag; - if it's 0, then we simply return what we currently have in cache, no guarantee; - if set to non zero, then the result is at least as fresh as given rv.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"timeoutSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Timeout for the list/watch call. This limits the duration of the call, regardless of any activity or inactivity.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"limit": {
+						SchemaProps: spec.SchemaProps{
+							Description: "limit is a maximum number of responses to return for a list call. If more items exist, the server will set the `continue` field on the list metadata to a value that can be used with the same initial query to retrieve the next set of results. Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.\n\nThe server guarantees that the objects returned when using continue will be identical to issuing a single list call without a limit - that is, no objects created, modified, or deleted after the first request is issued will be included in any subsequent continued requests. This is sometimes referred to as a consistent snapshot, and ensures that a client that is using limit to receive smaller chunks of a very large result can ensure they see all possible objects. If objects are updated during a chunked list the version of the object that was present at the time the first list result was calculated is returned.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"continue": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the \"next key\".\n\nThis field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_ManagedFieldsEntry(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"manager": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Manager is an identifier of the workflow managing these fields.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"operation": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Operation is the type of operation which lead to this ManagedFieldsEntry being created. The only valid values for this field are 'Apply' and 'Update'.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the version of this resource that this field set applies to. The format is \"group/version\" just like the top-level APIVersion field. It is necessary to track the version of a field set because it cannot be automatically converted.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"time": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Time is timestamp of when these fields were set. It should always be empty if Operation is 'Apply'",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"fieldsType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "FieldsType is the discriminator for the different fields format and version. There is currently only one possible value: \"FieldsV1\"",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"fieldsV1": {
+						SchemaProps: spec.SchemaProps{
+							Description: "FieldsV1 holds the first JSON version format as described in the \"FieldsV1\" type.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.FieldsV1"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.FieldsV1", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_MicroTime(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "MicroTime is version of Time with microsecond level precision.",
+				Type:        v1.MicroTime{}.OpenAPISchemaType(),
+				Format:      v1.MicroTime{}.OpenAPISchemaFormat(),
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_ObjectMeta(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name must be unique within a namespace. Is required when creating resources, although some resources may allow a client to request the generation of an appropriate name automatically. Name is primarily intended for creation idempotence and configuration definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"generateName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "GenerateName is an optional prefix, used by the server, to generate a unique name ONLY IF the Name field has not been provided. If this field is used, the name returned to the client will be different than the name passed. This value will also be combined with a unique suffix. The provided value has the same validation rules as the Name field, and may be truncated by the length of the suffix required to make the value unique on the server.\n\nIf this field is specified and the generated name exists, the server will NOT return a 409 - instead, it will either return 201 Created or 500 with Reason ServerTimeout indicating a unique name could not be found in the time allotted, and the client should retry (optionally after the time indicated in the Retry-After header).\n\nApplied only if Name is not specified. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"namespace": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Namespace defines the space within each name must be unique. An empty namespace is equivalent to the \"default\" namespace, but \"default\" is the canonical representation. Not all objects are required to be scoped to a namespace - the value of this field for those objects will be empty.\n\nMust be a DNS_LABEL. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/namespaces",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"selfLink": {
+						SchemaProps: spec.SchemaProps{
+							Description: "SelfLink is a URL representing this object. Populated by the system. Read-only.\n\nDEPRECATED Kubernetes will stop propagating this field in 1.20 release and the field is planned to be removed in 1.21 release.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"uid": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UID is the unique in time and space value for this object. It is typically generated by the server on successful creation of a resource and is not allowed to change on PUT operations.\n\nPopulated by the system. Read-only. More info: http://kubernetes.io/docs/user-guide/identifiers#uids",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"resourceVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "An opaque value that represents the internal version of this object that can be used by clients to determine when objects have changed. May be used for optimistic concurrency, change detection, and the watch operation on a resource or set of resources. Clients must treat these values as opaque and passed unmodified back to the server. They may only be valid for a particular resource or set of resources.\n\nPopulated by the system. Read-only. Value must be treated as opaque by clients and . More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"generation": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A sequence number representing a specific generation of the desired state. Populated by the system. Read-only.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"creationTimestamp": {
+						SchemaProps: spec.SchemaProps{
+							Description: "CreationTimestamp is a timestamp representing the server time when this object was created. It is not guaranteed to be set in happens-before order across separate operations. Clients may not set this value. It is represented in RFC3339 form and is in UTC.\n\nPopulated by the system. Read-only. Null for lists. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"deletionTimestamp": {
+						SchemaProps: spec.SchemaProps{
+							Description: "DeletionTimestamp is RFC 3339 date and time at which this resource will be deleted. This field is set by the server when a graceful deletion is requested by the user, and is not directly settable by a client. The resource is expected to be deleted (no longer visible from resource lists, and not reachable by name) after the time in this field, once the finalizers list is empty. As long as the finalizers list contains items, deletion is blocked. Once the deletionTimestamp is set, this value may not be unset or be set further into the future, although it may be shortened or the resource may be deleted prior to this time. For example, a user may request that a pod is deleted in 30 seconds. The Kubelet will react by sending a graceful termination signal to the containers in the pod. After that 30 seconds, the Kubelet will send a hard termination signal (SIGKILL) to the container and after cleanup, remove the pod from the API. In the presence of network partitions, this object may still exist after this timestamp, until an administrator or automated process can determine the resource is fully terminated. If not set, graceful deletion of the object has not been requested.\n\nPopulated by the system when a graceful deletion is requested. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"deletionGracePeriodSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Number of seconds allowed for this object to gracefully terminate before it will be removed from the system. Only set when deletionTimestamp is also set. May only be shortened. Read-only.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"labels": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Map of string keys and values that can be used to organize and categorize (scope and select) objects. May match selectors of replication controllers and services. More info: http://kubernetes.io/docs/user-guide/labels",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"annotations": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Annotations is an unstructured key value map stored with a resource that may be set by external tools to store and retrieve arbitrary metadata. They are not queryable and should be preserved when modifying objects. More info: http://kubernetes.io/docs/user-guide/annotations",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Allows: true,
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"ownerReferences": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-merge-key": "uid",
+								"x-kubernetes-patch-strategy":  "merge",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "List of objects depended by this object. If ALL objects in the list have been deleted, this object will be garbage collected. If this object is managed by a controller, then an entry in this list will point to this controller, with the controller field set to true. There cannot be more than one managing controller.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.OwnerReference"),
+									},
+								},
+							},
+						},
+					},
+					"finalizers": {
+						VendorExtensible: spec.VendorExtensible{
+							Extensions: spec.Extensions{
+								"x-kubernetes-patch-strategy": "merge",
+							},
+						},
+						SchemaProps: spec.SchemaProps{
+							Description: "Must be empty before the object is deleted from the registry. Each entry is an identifier for the responsible component that will remove the entry from the list. If the deletionTimestamp of the object is non-nil, entries in this list can only be removed.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"clusterName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The name of the cluster which the object belongs to. This is used to distinguish resources with same name and namespace in different clusters. This field is not set anywhere right now and apiserver is going to ignore it if set in create or update request.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"managedFields": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ManagedFields maps workflow-id and version to the set of fields that are managed by that workflow. This is mostly for internal housekeeping, and users typically shouldn't need to set or understand this field. A workflow can be the user's name, a controller's name, or the name of a specific apply path like \"ci-cd\". The set of fields is always in the version that the workflow used when modifying the object.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ManagedFieldsEntry"),
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ManagedFieldsEntry", "k8s.io/apimachinery/pkg/apis/meta/v1.OwnerReference", "k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_OwnerReference(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "API version of the referent.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Name of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#names",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"uid": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UID of the referent. More info: http://kubernetes.io/docs/user-guide/identifiers#uids",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"controller": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If true, this reference points to the managing controller.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+					"blockOwnerDeletion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If true, AND if the owner has the \"foregroundDeletion\" finalizer, then the owner cannot be deleted from the key-value store until this reference is removed. Defaults to false. To set this field, a user needs \"delete\" permission of the owner, otherwise 422 (Unprocessable Entity) will be returned.",
+							Type:        []string{"boolean"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"apiVersion", "kind", "name", "uid"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_PartialObjectMetadata(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PartialObjectMetadata is a generic representation of any object with ObjectMeta. It allows clients to get access to a particular ObjectMeta schema without knowing the details of the version.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -613,35 +8334,23 @@ func schema_pkg_apis_infrastructure_v1alpha2_AWSMachineDeployment(ref common.Ref
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Contains the specification.",
-							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Holds status information.",
-							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatus"),
+							Description: "Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
 						},
 					},
 				},
-				Required: []string{"spec"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentSpec", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.AWSMachineDeploymentStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlane(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_meta_v1_PartialObjectMetadataList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of a Giant Swarm tenant cluster. It is reconciled by cluster-operator.",
+				Description: "PartialObjectMetadataList contains a list of objects containing only their metadata",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -660,35 +8369,49 @@ func schema_pkg_apis_infrastructure_v1alpha2_G8sControlPlane(ref common.Referenc
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
 						},
 					},
-					"spec": {
+					"items": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Specification part.",
-							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Status information.",
-							Ref:         ref("github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneStatus"),
+							Description: "items contains each of the included items.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadata"),
+									},
+								},
+							},
 						},
 					},
 				},
-				Required: []string{"spec", "status"},
+				Required: []string{"items"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneSpec", "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2.G8sControlPlaneStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.PartialObjectMetadata"},
 	}
 }
 
-func schema_pkg_apis_provider_v1alpha1_AWSConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_meta_v1_Patch(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
+				Description: "Patch is provided to give a concrete name and type to the Kubernetes PATCH request body.",
+				Type:        []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_PatchOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "PatchOptions may be provided when patching an API object. PatchOptions is meant to be a superset of UpdateOptions.",
+				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
 						SchemaProps: spec.SchemaProps{
@@ -704,123 +8427,128 @@ func schema_pkg_apis_provider_v1alpha1_AWSConfig(ref common.ReferenceCallback) c
 							Format:      "",
 						},
 					},
-					"metadata": {
+					"dryRun": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+							Description: "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
-					"spec": {
+					"force": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpec"),
+							Description: "Force is going to \"force\" Apply requests. It means user will re-acquire conflicting fields owned by other people. Force flag must be unset for non-apply patch requests.",
+							Type:        []string{"boolean"},
+							Format:      "",
 						},
 					},
-					"status": {
+					"fieldManager": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatus"),
+							Description: "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint. This field is required for apply requests (application/apply-patch) but optional for non-apply patch types (JsonPatch, MergePatch, StrategicMergePatch).",
+							Type:        []string{"string"},
+							Format:      "",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AWSConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_provider_v1alpha1_AzureConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_meta_v1_Preconditions(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
+				Description: "Preconditions must be fulfilled before an operation (update, delete, etc.) is carried out.",
+				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"uid": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Description: "Specifies the target UID.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
-					"apiVersion": {
+					"resourceVersion": {
 						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Description: "Specifies the target ResourceVersion",
 							Type:        []string{"string"},
 							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatus"),
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.AzureConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_provider_v1alpha1_KVMConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_meta_v1_RootPaths(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
+				Description: "RootPaths lists the paths available at root. For example: \"/healthz\", \"/apis\".",
+				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
-					"kind": {
+					"paths": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpec"),
-						},
-					},
-					"status": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatus"),
+							Description: "paths are the paths available at root.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
+				Required: []string{"paths"},
 			},
 		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigSpec", "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1.KVMConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_pkg_apis_release_v1alpha1_Release(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_pkg_apis_meta_v1_ServerAddressByClientCIDR(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.",
+				Description: "ServerAddressByClientCIDR helps the client to determine the server address that they should use, depending on the clientCIDR that they match.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"clientCIDR": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The CIDR with which clients can match their IP to figure out the server address that they should use.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"serverAddress": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Address of this server, suitable for a client that matches the above CIDR. This can be a hostname, hostname:port, IP or IP:port.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"clientCIDR", "serverAddress"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_Status(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Status is a return value for calls that don't return other objects.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"kind": {
@@ -839,102 +8567,675 @@ func schema_pkg_apis_release_v1alpha1_Release(ref common.ReferenceCallback) comm
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpec"),
-						},
-					},
-				},
-				Required: []string{"metadata", "spec"},
-			},
-		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1.ReleaseSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
-	}
-}
-
-func schema_pkg_apis_security_v1alpha1_Organization(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.OrganizationSpec"),
-						},
-					},
-				},
-				Required: []string{"metadata", "spec"},
-			},
-		},
-		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.OrganizationSpec", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
-	}
-}
-
-func schema_pkg_apis_tooling_v1alpha1_AzureTool(ref common.ReferenceCallback) common.OpenAPIDefinition {
-	return common.OpenAPIDefinition{
-		Schema: spec.Schema{
-			SchemaProps: spec.SchemaProps{
-				Type: []string{"object"},
-				Properties: map[string]spec.Schema{
-					"kind": {
-						SchemaProps: spec.SchemaProps{
-							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"apiVersion": {
-						SchemaProps: spec.SchemaProps{
-							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-							Type:        []string{"string"},
-							Format:      "",
-						},
-					},
-					"metadata": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
-						},
-					},
-					"spec": {
-						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolSpec"),
+							Description: "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
-							Ref: ref("github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolStatus"),
+							Description: "Status of the operation. One of: \"Success\" or \"Failure\". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"message": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A human-readable description of the status of this operation.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"reason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A machine-readable description of why this operation is in the \"Failure\" status. If this value is empty there is no information available. A Reason clarifies an HTTP status code but does not override it.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"details": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Extended data associated with the reason.  Each reason may define its own extended details. This field is optional and the data returned is not guaranteed to conform to any schema except that defined by the reason type.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.StatusDetails"),
+						},
+					},
+					"code": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Suggested HTTP return code for this status, 0 if not set.",
+							Type:        []string{"integer"},
+							Format:      "int32",
 						},
 					},
 				},
-				Required: []string{"metadata", "spec", "status"},
 			},
 		},
 		Dependencies: []string{
-			"github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolSpec", "github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1.AzureToolStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.StatusDetails"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_StatusCause(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusCause provides more information about an api.Status failure, including cases when multiple errors are encountered.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"reason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A machine-readable description of the cause of the error. If this value is empty there is no information available.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"message": {
+						SchemaProps: spec.SchemaProps{
+							Description: "A human-readable description of the cause of the error.  This field may be presented as-is to a reader.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"field": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The field of the resource that has caused this error, as named by its JSON serialization. May include dot and postfix notation for nested attributes. Arrays are zero-indexed.  Fields may appear more than once in an array of causes due to fields having multiple errors. Optional.\n\nExamples:\n  \"name\" - the field \"name\" on the current resource\n  \"items[0].name\" - the field \"name\" on the first array entry in \"items\"",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_StatusDetails(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "StatusDetails is a set of additional properties that MAY be set by the server to provide additional information about a response. The Reason field of a Status object defines what attributes will be set. Clients must ignore fields that do not match the defined type of each attribute, and should assume that any attribute may be empty, invalid, or under defined.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The name attribute of the resource associated with the status StatusReason (when there is a single name which can be described).",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"group": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The group attribute of the resource associated with the status StatusReason.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The kind attribute of the resource associated with the status StatusReason. On some operations may differ from the requested resource Kind. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"uid": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"causes": {
+						SchemaProps: spec.SchemaProps{
+							Description: "The Causes array includes more details associated with the StatusReason failure. Not all StatusReasons may provide detailed causes.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.StatusCause"),
+									},
+								},
+							},
+						},
+					},
+					"retryAfterSeconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "If specified, the time in seconds before the operation should be retried. Some errors may indicate the client must take an alternate action - for those errors this field may indicate how long to wait before taking the alternate action.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.StatusCause"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_Table(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Table is a tabular representation of a set of API resources. The server transforms the object into a set of preferred columns for quickly reviewing the objects.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"columnDefinitions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "columnDefinitions describes each column in the returned items array. The number of cells per row will always match the number of column definitions.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.TableColumnDefinition"),
+									},
+								},
+							},
+						},
+					},
+					"rows": {
+						SchemaProps: spec.SchemaProps{
+							Description: "rows is the list of items in the table.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.TableRow"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"columnDefinitions", "rows"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta", "k8s.io/apimachinery/pkg/apis/meta/v1.TableColumnDefinition", "k8s.io/apimachinery/pkg/apis/meta/v1.TableRow"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_TableColumnDefinition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TableColumnDefinition contains information about a column returned in the Table.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"name": {
+						SchemaProps: spec.SchemaProps{
+							Description: "name is a human readable name for the column.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "type is an OpenAPI type definition for this column, such as number, integer, string, or array. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for more.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"format": {
+						SchemaProps: spec.SchemaProps{
+							Description: "format is an optional OpenAPI type modifier for this column. A format modifies the type and imposes additional rules, like date or time formatting for a string. The 'name' format is applied to the primary identifier column which has type 'string' to assist in clients identifying column is the resource name. See https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md#data-types for more.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"description": {
+						SchemaProps: spec.SchemaProps{
+							Description: "description is a human readable description of this column.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"priority": {
+						SchemaProps: spec.SchemaProps{
+							Description: "priority is an integer defining the relative importance of this column compared to others. Lower numbers are considered higher priority. Columns that may be omitted in limited space scenarios should be given a higher priority.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"name", "type", "format", "description", "priority"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_TableOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TableOptions are used when a Table is requested by the caller.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"includeObject": {
+						SchemaProps: spec.SchemaProps{
+							Description: "includeObject decides whether to include each object along with its columnar information. Specifying \"None\" will return no object, specifying \"Object\" will return the full object contents, and specifying \"Metadata\" (the default) will return the object's metadata in the PartialObjectMetadata kind in version v1beta1 of the meta.k8s.io API group.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_TableRow(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TableRow is an individual row in a table.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"cells": {
+						SchemaProps: spec.SchemaProps{
+							Description: "cells will be as wide as the column definitions array and may contain strings, numbers (float64 or int64), booleans, simple maps, lists, or null. See the type field of the column definition for a more detailed description.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"object"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"conditions": {
+						SchemaProps: spec.SchemaProps{
+							Description: "conditions describe additional status of a row that are relevant for a human user. These conditions apply to the row, not to the object, and will be specific to table output. The only defined condition type is 'Completed', for a row that indicates a resource that has run to completion and can be given less visual priority.",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.TableRowCondition"),
+									},
+								},
+							},
+						},
+					},
+					"object": {
+						SchemaProps: spec.SchemaProps{
+							Description: "This field contains the requested additional information about each object based on the includeObject policy when requesting the Table. If \"None\", this field is empty, if \"Object\" this will be the default serialization of the object for the current API version, and if \"Metadata\" (the default) will contain the object metadata. Check the returned kind and apiVersion of the object before parsing. The media type of the object will always match the enclosing list - if this as a JSON table, these will be JSON encoded objects.",
+							Ref:         ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+						},
+					},
+				},
+				Required: []string{"cells"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.TableRowCondition", "k8s.io/apimachinery/pkg/runtime.RawExtension"},
+	}
+}
+
+func schema_pkg_apis_meta_v1_TableRowCondition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TableRowCondition allows a row to be marked with additional information.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Type of row condition. The only defined value is 'Completed' indicating that the object this row represents has reached a completed state and may be given less visual priority than other rows. Clients are not required to honor any conditions but should be consistent where possible about handling the conditions.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"status": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Status of the condition, one of True, False, Unknown.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"reason": {
+						SchemaProps: spec.SchemaProps{
+							Description: "(brief) machine readable reason for the condition's last transition.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"message": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Human readable message indicating details about last transition.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"type", "status"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_Time(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
+				Type:        v1.Time{}.OpenAPISchemaType(),
+				Format:      v1.Time{}.OpenAPISchemaFormat(),
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_Timestamp(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Timestamp is a struct that is equivalent to Time, but intended for protobuf marshalling/unmarshalling. It is generated into a serialization that matches Time. Do not use in Go structs.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"seconds": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Represents seconds of UTC time since Unix epoch 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to 9999-12-31T23:59:59Z inclusive.",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"nanos": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Non-negative fractions of a second at nanosecond resolution. Negative second values with fractions must still have non-negative nanos values that count forward in time. Must be from 0 to 999,999,999 inclusive. This field may be limited in precision depending on context.",
+							Type:        []string{"integer"},
+							Format:      "int32",
+						},
+					},
+				},
+				Required: []string{"seconds", "nanos"},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_TypeMeta(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TypeMeta describes an individual object in an API response or request with strings representing the type of the object and its API schema version. Structures that are versioned or persisted should inline TypeMeta.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_UpdateOptions(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "UpdateOptions may be provided when updating an API object. All fields in UpdateOptions should also be present in PatchOptions.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"dryRun": {
+						SchemaProps: spec.SchemaProps{
+							Description: "When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"fieldManager": {
+						SchemaProps: spec.SchemaProps{
+							Description: "fieldManager is a name associated with the actor or entity that is making these changes. The value must be less than or 128 characters long, and only contain printable characters, as defined by https://golang.org/pkg/unicode/#IsPrint.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_pkg_apis_meta_v1_WatchEvent(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Event represents a single event to a watched resource.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"type": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"object": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Object is:\n * If Type is Added or Modified: the new state of the object.\n * If Type is Deleted: the state of the object immediately before deletion.\n * If Type is Error: *Status is recommended; other types may make sense\n   depending on context.",
+							Ref:         ref("k8s.io/apimachinery/pkg/runtime.RawExtension"),
+						},
+					},
+				},
+				Required: []string{"type", "object"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/runtime.RawExtension"},
+	}
+}
+
+func schema_k8sio_apimachinery_pkg_runtime_RawExtension(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "RawExtension is used to hold extensions in external versions.\n\nTo use this, make a field which has RawExtension as its type in your external, versioned struct, and Object in your internal struct. You also need to register your various plugin types.\n\n// Internal package: type MyAPIObject struct {\n\truntime.TypeMeta `json:\",inline\"`\n\tMyPlugin runtime.Object `json:\"myPlugin\"`\n} type PluginA struct {\n\tAOption string `json:\"aOption\"`\n}\n\n// External package: type MyAPIObject struct {\n\truntime.TypeMeta `json:\",inline\"`\n\tMyPlugin runtime.RawExtension `json:\"myPlugin\"`\n} type PluginA struct {\n\tAOption string `json:\"aOption\"`\n}\n\n// On the wire, the JSON will look something like this: {\n\t\"kind\":\"MyAPIObject\",\n\t\"apiVersion\":\"v1\",\n\t\"myPlugin\": {\n\t\t\"kind\":\"PluginA\",\n\t\t\"aOption\":\"foo\",\n\t},\n}\n\nSo what happens? Decode first uses json or yaml to unmarshal the serialized data into your external MyAPIObject. That causes the raw JSON to be stored, but not unpacked. The next step is to copy (using pkg/conversion) into the internal struct. The runtime package's DefaultScheme has conversion functions installed which will unpack the JSON stored in RawExtension, turning it into the correct object type, and storing it in the Object. (TODO: In the case where the object is of an unknown type, a runtime.Unknown object will be created and stored.)",
+				Type:        []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_k8sio_apimachinery_pkg_runtime_TypeMeta(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "TypeMeta is shared by all top level objects. The proper way to use it is to inline it in your type, like this: type MyAwesomeAPIObject struct {\n     runtime.TypeMeta    `json:\",inline\"`\n     ... // other fields\n} func (obj *MyAwesomeAPIObject) SetGroupVersionKind(gvk *metav1.GroupVersionKind) { metav1.UpdateTypeMeta(obj,gvk) }; GroupVersionKind() *GroupVersionKind\n\nTypeMeta is provided here for convenience. You may use it directly from this package or define your own with the same fields.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+			},
+		},
+	}
+}
+
+func schema_k8sio_apimachinery_pkg_runtime_Unknown(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Unknown allows api objects with unknown types to be passed-through. This can be used to deal with the API objects from a plug-in. Unknown objects still have functioning TypeMeta features-- kind, version, etc. metadata and field mutatation.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"Raw": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Raw will hold the complete serialized object which couldn't be matched with a registered type. Most likely, nothing should be done with this except for passing it through the system.",
+							Type:        []string{"string"},
+							Format:      "byte",
+						},
+					},
+					"ContentEncoding": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ContentEncoding is encoding used to encode 'Raw' data. Unspecified means no encoding.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"ContentType": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ContentType  is serialization method used to serialize 'Raw'. Unspecified means ContentTypeJSON.",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+				},
+				Required: []string{"Raw", "ContentEncoding", "ContentType"},
+			},
+		},
+	}
+}
+
+func schema_k8sio_apimachinery_pkg_version_Info(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "Info contains versioning information. how we'll want to distribute that information.",
+				Type:        []string{"object"},
+				Properties: map[string]spec.Schema{
+					"major": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"minor": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"gitVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"gitCommit": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"gitTreeState": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"buildDate": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"goVersion": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"compiler": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+					"platform": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
+				},
+				Required: []string{"major", "minor", "gitVersion", "gitCommit", "gitTreeState", "buildDate", "goVersion", "compiler", "platform"},
+			},
+		},
 	}
 }
