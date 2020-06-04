@@ -23,6 +23,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	serialization "github.com/giantswarm/apiextensions/pkg/serialization"
 	spec "github.com/go-openapi/spec"
 	resource "k8s.io/apimachinery/pkg/api/resource"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,6 +35,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.Organization":     schema_pkg_apis_security_v1alpha1_Organization(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.OrganizationList": schema_pkg_apis_security_v1alpha1_OrganizationList(ref),
 		"github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1.OrganizationSpec": schema_pkg_apis_security_v1alpha1_OrganizationSpec(ref),
+		"github.com/giantswarm/apiextensions/pkg/serialization.Float":                     schema_giantswarm_apiextensions_pkg_serialization_Float(ref),
 		"k8s.io/api/core/v1.AWSElasticBlockStoreVolumeSource":                             schema_k8sio_api_core_v1_AWSElasticBlockStoreVolumeSource(ref),
 		"k8s.io/api/core/v1.Affinity":                                                     schema_k8sio_api_core_v1_Affinity(ref),
 		"k8s.io/api/core/v1.AttachedVolume":                                               schema_k8sio_api_core_v1_AttachedVolume(ref),
@@ -383,6 +385,17 @@ func schema_pkg_apis_security_v1alpha1_OrganizationSpec(ref common.ReferenceCall
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
 				Type: []string{"object"},
+			},
+		},
+	}
+}
+
+func schema_giantswarm_apiextensions_pkg_serialization_Float(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type:   serialization.Float{}.OpenAPISchemaType(),
+				Format: serialization.Float{}.OpenAPISchemaFormat(),
 			},
 		},
 	}
