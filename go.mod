@@ -6,7 +6,7 @@ require (
 	github.com/evanphx/json-patch v4.5.0+incompatible // indirect
 	github.com/giantswarm/microerror v0.2.0
 	github.com/go-openapi/errors v0.19.4
-	github.com/go-openapi/spec v0.19.2
+	github.com/go-openapi/spec v0.19.8
 	github.com/google/go-cmp v0.4.0
 	golang.org/x/net v0.0.0-20200324143707-d3edc9973b7e // indirect
 	k8s.io/api v0.16.6
