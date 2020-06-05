@@ -4,6 +4,14 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"github.com/go-openapi/spec"
+	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	"k8s.io/apimachinery/pkg/runtime/serializer"
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
+	"k8s.io/kube-openapi/pkg/common"
+
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1"
 	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
@@ -13,13 +21,6 @@ import (
 	releasev1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1"
 	securityv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1"
 	toolingv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1"
-	"github.com/go-openapi/spec"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/apimachinery/pkg/runtime/schema"
-	"k8s.io/apimachinery/pkg/runtime/serializer"
-	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	"k8s.io/kube-openapi/pkg/common"
 
 	"github.com/giantswarm/apiextensions/hack/tools/openapi-spec-gen/pkg/openapi"
 )
