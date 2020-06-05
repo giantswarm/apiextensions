@@ -2,3 +2,4 @@
 hack/tools/bin
 # There's a small chance this could remain after code generation so explicitly ignore it so it's not accidentally commmitted
 hack/github.com
+hack/tools/openapi-spec-gen/apiserver.local.config

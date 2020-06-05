@@ -1,6 +1,7 @@
 # Directories.
 APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
+OPENAPI_DIR := pkg/openapi-spec
 CRDV1_DIR := config/crd/v1
 CRDV1BETA1_DIR := config/crd/v1beta1
 SCRIPTS_DIR := hack
@@ -14,7 +15,7 @@ CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
-OPENAPI_GEN := $(abspath $(TOOLS_BIN_DIR)/openapi-gen)
+OPENAPI_MODEL_GEN := $(abspath $(TOOLS_BIN_DIR)/openapi-model-gen)
 
 BUILD_COLOR = ""
 GEN_COLOR = ""
@@ -65,10 +66,10 @@ $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@cd $(TOOLS_DIR)/esc \
 	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
-$(OPENAPI_GEN): $(TOOLS_DIR)/client-gen/go.mod
-	@echo "$(BUILD_COLOR)Building openapi-gen$(NO_COLOR)"
+$(OPENAPI_MODEL_GEN): $(TOOLS_DIR)/openapi-gen/go.mod
+	@echo "$(BUILD_COLOR)Building openapi-model-gen$(NO_COLOR)"
 	cd $(TOOLS_DIR)/openapi-gen \
-	&& go build -tags=tools -o $(OPENAPI_GEN) k8s.io/code-generator/cmd/openapi-gen
+	&& go build -tags=tools -o $(OPENAPI_MODEL_GEN) k8s.io/code-generator/cmd/openapi-gen
 
 .PHONY: generate
 generate:
@@ -112,15 +113,17 @@ generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
 
 .PHONY: generate-openapi-spec
-generate-openapi-spec: $(OPENAPI_GEN)
+generate-openapi-spec: $(OPENAPI_MODEL_GEN)
 	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
 	@for gv in $(INPUT_DIRS) ; do \
-		$(OPENAPI_GEN) \
+		$(OPENAPI_MODEL_GEN) \
 		--input-dirs "$(MODULE)/$(APIS_DIR)/$$gv,github.com/giantswarm/apiextensions/pkg/serialization,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version,k8s.io/api/core/v1" \
 		--output-package "$$gv" \
 		--output-base $(APIS_DIR) \
 		--go-header-file $(BOILERPLATE) ; \
 	done
+	cd $(TOOLS_DIR)/openapi-spec-gen && go run main.go
+	mv $(TOOLS_DIR)/openapi-spec-gen/swagger.json $(OPENAPI_DIR)/swagger.json
 
 .PHONY: generate-fs
 generate-fs: $(ESC) config/crd
