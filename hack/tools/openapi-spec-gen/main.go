@@ -128,6 +128,18 @@ func writeSpec(apiSpec *spec.Swagger) error {
 	return nil
 }
 
+func getKindName(res interface{}) string {
+	return reflect.TypeOf(res).Name()
+}
+
+func getResourceName(res interface{}) string {
+	name := strings.ToLower(getKindName(res))
+	// Transform to plural.
+	name += "s"
+
+	return name
+}
+
 func getInfrastructureTypes() []openapi.TypeInfo {
 	var (
 		awsClusterType           = infrastructurev1alpha2.AWSCluster{}
@@ -351,16 +363,4 @@ func getToolingTypes() []openapi.TypeInfo {
 			NamespaceScoped: true,
 		},
 	}
-}
-
-func getKindName(res interface{}) string {
-	return reflect.TypeOf(res).Name()
-}
-
-func getResourceName(res interface{}) string {
-	name := strings.ToLower(getKindName(res))
-	// Transform to plural.
-	name += "s"
-
-	return name
 }
