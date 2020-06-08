@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 
@@ -91,12 +92,17 @@ func main() {
 		Resources:       resources,
 		GetterResources: getterResources,
 	}
-	apiSpec, err := openapi.RenderOpenAPISpec(c)
+	apiSpec, err := openapi.GenerateSpec(c)
 	if err != nil {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(outputFile, []byte(apiSpec), 0777)
+	data, err := json.MarshalIndent(apiSpec, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(outputFile, data, 0777)
 	if err != nil {
 		panic(err)
 	}
