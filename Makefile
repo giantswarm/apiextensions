@@ -66,9 +66,9 @@ $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@cd $(TOOLS_DIR)/esc \
 	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
-$(OPENAPI_MODEL_GEN): $(TOOLS_DIR)/openapi-gen/go.mod
+$(OPENAPI_MODEL_GEN): $(TOOLS_DIR)/openapi-model-gen/go.mod
 	@echo "$(BUILD_COLOR)Building openapi-model-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/openapi-gen \
+	cd $(TOOLS_DIR)/openapi-model-gen \
 	&& go build -tags=tools -o $(OPENAPI_MODEL_GEN) k8s.io/code-generator/cmd/openapi-gen
 
 .PHONY: generate
@@ -114,7 +114,7 @@ generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 
 .PHONY: generate-openapi-spec
 generate-openapi-spec: $(OPENAPI_MODEL_GEN)
-	@echo "$(GEN_COLOR)Generating openapi spec$(NO_COLOR)"
+	@echo "$(GEN_COLOR)Generating OpenAPI models$(NO_COLOR)"
 	@for gv in $(INPUT_DIRS) ; do \
 		$(OPENAPI_MODEL_GEN) \
 		--input-dirs "$(MODULE)/$(APIS_DIR)/$$gv,github.com/giantswarm/apiextensions/pkg/serialization,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version,k8s.io/api/core/v1" \
@@ -122,6 +122,7 @@ generate-openapi-spec: $(OPENAPI_MODEL_GEN)
 		--output-base $(APIS_DIR) \
 		--go-header-file $(BOILERPLATE) ; \
 	done
+	@echo "$(GEN_COLOR)Generating OpenAPI spec$(NO_COLOR)"
 	cd $(TOOLS_DIR)/openapi-spec-gen && go run main.go
 	mv $(TOOLS_DIR)/openapi-spec-gen/swagger.json $(OPENAPI_DIR)/swagger.json
 
