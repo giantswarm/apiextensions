@@ -124,7 +124,7 @@ generate-openapi-spec: $(OPENAPI_MODEL_GEN)
 	done
 	@echo "$(GEN_COLOR)Generating OpenAPI spec$(NO_COLOR)"
 	cd $(TOOLS_DIR)/openapi-spec-gen && go run main.go
-	mv $(TOOLS_DIR)/openapi-spec-gen/swagger.json $(OPENAPI_DIR)/swagger.json
+	mv $(TOOLS_DIR)/openapi-spec-gen/swagger.yaml $(OPENAPI_DIR)/swagger.yaml
 
 .PHONY: generate-fs
 generate-fs: $(ESC) config/crd

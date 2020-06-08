@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"reflect"
@@ -15,6 +14,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/serializer"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/kube-openapi/pkg/common"
+	"sigs.k8s.io/yaml"
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/backup/v1alpha1"
@@ -32,7 +32,7 @@ import (
 const (
 	clientName    = "giantswarm-cp-client"
 	clientVersion = "1.0"
-	outputFile    = "swagger.json"
+	outputFile    = "swagger.yaml"
 )
 
 var (
@@ -115,7 +115,7 @@ func main() {
 }
 
 func writeSpec(apiSpec *spec.Swagger) error {
-	data, err := json.MarshalIndent(apiSpec, "", "  ")
+	data, err := yaml.Marshal(apiSpec)
 	if err != nil {
 		return microerror.Mask(err)
 	}

@@ -9,6 +9,7 @@ require (
 	k8s.io/apimachinery v0.16.6
 	k8s.io/apiserver v0.16.6
 	k8s.io/kube-openapi v0.0.0-20191217135631-a0384dd483d9
+	sigs.k8s.io/yaml v1.2.0
 )
 
 replace sigs.k8s.io/structured-merge-diff => sigs.k8s.io/structured-merge-diff v1.0.1
