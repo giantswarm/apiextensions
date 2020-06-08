@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/giantswarm/apiextensions v0.4.7-0.20200605183009-6034049fbc37
+	github.com/giantswarm/microerror v0.2.0
 	github.com/go-openapi/spec v0.19.8
 	k8s.io/apimachinery v0.16.6
 	k8s.io/apiserver v0.16.6
