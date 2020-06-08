@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"reflect"
+	"strings"
 
 	"github.com/go-openapi/spec"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -111,175 +113,238 @@ func main() {
 }
 
 func getInfrastructureTypes() []openapi.TypeInfo {
+	var (
+		awsClusterType           = infrastructurev1alpha2.AWSCluster{}
+		awsControlPlaneType      = infrastructurev1alpha2.AWSControlPlane{}
+		awsMachineDeploymentType = infrastructurev1alpha2.AWSMachineDeployment{}
+		g8sControlPlaneType      = infrastructurev1alpha2.G8sControlPlane{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    infrastructurev1alpha2.SchemeGroupVersion,
-			Resource:        "awsclusters",
-			Kind:            "AWSCluster",
+			Resource:        getResourceName(awsClusterType),
+			Kind:            getKindName(awsClusterType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    infrastructurev1alpha2.SchemeGroupVersion,
-			Resource:        "awscontrolplanes",
-			Kind:            "AWSControlPlane",
+			Resource:        getResourceName(awsControlPlaneType),
+			Kind:            getKindName(awsControlPlaneType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    infrastructurev1alpha2.SchemeGroupVersion,
-			Resource:        "awsmachinedeployments",
-			Kind:            "AWSMachineDeployment",
+			Resource:        getResourceName(awsMachineDeploymentType),
+			Kind:            getKindName(awsMachineDeploymentType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    infrastructurev1alpha2.SchemeGroupVersion,
-			Resource:        "g8scontrolplanes",
-			Kind:            "G8sControlPlane",
+			Resource:        getResourceName(g8sControlPlaneType),
+			Kind:            getKindName(g8sControlPlaneType),
 			NamespaceScoped: true,
 		},
 	}
 }
 
 func getApplicationTypes() []openapi.TypeInfo {
+	var (
+		appCatalogType = applicationv1alpha1.AppCatalog{}
+		appType        = applicationv1alpha1.App{}
+		chartType      = applicationv1alpha1.Chart{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    applicationv1alpha1.SchemeGroupVersion,
-			Resource:        "appcatalogs",
-			Kind:            "AppCatalog",
+			Resource:        getResourceName(appCatalogType),
+			Kind:            getKindName(appCatalogType),
 			NamespaceScoped: false,
 		}, {
 			GroupVersion:    applicationv1alpha1.SchemeGroupVersion,
-			Resource:        "apps",
-			Kind:            "App",
+			Resource:        getResourceName(appType),
+			Kind:            getKindName(appType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    applicationv1alpha1.SchemeGroupVersion,
-			Resource:        "charts",
-			Kind:            "Chart",
+			Resource:        getResourceName(chartType),
+			Kind:            getKindName(chartType),
 			NamespaceScoped: true,
 		},
 	}
 }
 
 func getBackupTypes() []openapi.TypeInfo {
+	var (
+		etcdBackupType = backupv1alpha1.ETCDBackup{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    backupv1alpha1.SchemeGroupVersion,
-			Resource:        "etcdbackups",
-			Kind:            "ETCDBackup",
+			Resource:        getResourceName(etcdBackupType),
+			Kind:            getKindName(etcdBackupType),
 			NamespaceScoped: false,
 		},
 	}
 }
 
 func getCoreTypes() []openapi.TypeInfo {
+	var (
+		certConfigType         = corev1alpha1.CertConfig{}
+		chartConfigType        = corev1alpha1.ChartConfig{}
+		drainerConfigType      = corev1alpha1.DrainerConfig{}
+		awsClusterConfigType   = corev1alpha1.AWSClusterConfig{}
+		azureClusterConfigType = corev1alpha1.AzureClusterConfig{}
+		kvmClusterConfigType   = corev1alpha1.KVMClusterConfig{}
+		flannelConfigType      = corev1alpha1.FlannelConfig{}
+		ignitionType           = corev1alpha1.Ignition{}
+		storageConfigType      = corev1alpha1.StorageConfig{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "certconfigs",
-			Kind:            "CertConfig",
+			Resource:        getResourceName(certConfigType),
+			Kind:            getKindName(certConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "chartconfigs",
-			Kind:            "ChartConfig",
+			Resource:        getResourceName(chartConfigType),
+			Kind:            getKindName(chartConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "drainerconfigs",
-			Kind:            "DrainerConfig",
+			Resource:        getResourceName(drainerConfigType),
+			Kind:            getKindName(drainerConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "awsclusterconfigs",
-			Kind:            "AWSClusterConfig",
+			Resource:        getResourceName(awsClusterConfigType),
+			Kind:            getKindName(awsClusterConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "azureclusterconfigs",
-			Kind:            "AzureClusterConfig",
+			Resource:        getResourceName(azureClusterConfigType),
+			Kind:            getKindName(azureClusterConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "kvmclusterconfigs",
-			Kind:            "KVMClusterConfig",
+			Resource:        getResourceName(kvmClusterConfigType),
+			Kind:            getKindName(kvmClusterConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "flannelconfigs",
-			Kind:            "FlannelConfig",
+			Resource:        getResourceName(flannelConfigType),
+			Kind:            getKindName(flannelConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "ignitions",
-			Kind:            "Ignition",
+			Resource:        getResourceName(ignitionType),
+			Kind:            getKindName(ignitionType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    corev1alpha1.SchemeGroupVersion,
-			Resource:        "storageconfigs",
-			Kind:            "StorageConfig",
+			Resource:        getResourceName(storageConfigType),
+			Kind:            getKindName(storageConfigType),
 			NamespaceScoped: true,
 		},
 	}
 }
 
 func getExampleTypes() []openapi.TypeInfo {
+	var (
+		memcachedConfigType = examplev1alpha1.MemcachedConfig{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    examplev1alpha1.SchemeGroupVersion,
-			Resource:        "memcachedconfigs",
-			Kind:            "MemcachedConfig",
+			Resource:        getResourceName(memcachedConfigType),
+			Kind:            getKindName(memcachedConfigType),
 			NamespaceScoped: true,
 		},
 	}
 }
 
 func getProviderTypes() []openapi.TypeInfo {
+	var (
+		awsConfigType   = providerv1alpha1.AWSConfig{}
+		azureConfigType = providerv1alpha1.AzureConfig{}
+		kvmConfigType   = providerv1alpha1.KVMConfig{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    providerv1alpha1.SchemeGroupVersion,
-			Resource:        "awsconfigs",
-			Kind:            "AWSConfig",
+			Resource:        getResourceName(awsConfigType),
+			Kind:            getKindName(awsConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    providerv1alpha1.SchemeGroupVersion,
-			Resource:        "azureconfigs",
-			Kind:            "AzureConfig",
+			Resource:        getResourceName(azureConfigType),
+			Kind:            getKindName(azureConfigType),
 			NamespaceScoped: true,
 		}, {
 			GroupVersion:    providerv1alpha1.SchemeGroupVersion,
-			Resource:        "kvmconfigs",
-			Kind:            "KVMConfig",
+			Resource:        getResourceName(kvmConfigType),
+			Kind:            getKindName(kvmConfigType),
 			NamespaceScoped: true,
 		},
 	}
 }
 
 func getReleaseTypes() []openapi.TypeInfo {
+	var (
+		releaseType = releasev1alpha1.Release{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    releasev1alpha1.SchemeGroupVersion,
-			Resource:        "releases",
-			Kind:            "Release",
+			Resource:        getResourceName(releaseType),
+			Kind:            getKindName(releaseType),
 			NamespaceScoped: false,
 		},
 	}
 }
 
 func getSecurityTypes() []openapi.TypeInfo {
+	var (
+		organizationType = securityv1alpha1.Organization{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    securityv1alpha1.SchemeGroupVersion,
-			Resource:        "organizations",
-			Kind:            "Organization",
+			Resource:        getResourceName(organizationType),
+			Kind:            getKindName(organizationType),
 			NamespaceScoped: false,
 		},
 	}
 }
 
 func getToolingTypes() []openapi.TypeInfo {
+	var (
+		azureToolType = toolingv1alpha1.AzureTool{}
+	)
+
 	return []openapi.TypeInfo{
 		{
 			GroupVersion:    toolingv1alpha1.SchemeGroupVersion,
-			Resource:        "azuretools",
-			Kind:            "AzureTool",
+			Resource:        getResourceName(azureToolType),
+			Kind:            getKindName(azureToolType),
 			NamespaceScoped: true,
 		},
 	}
+}
+
+func getKindName(res interface{}) string {
+	return reflect.TypeOf(res).Name()
+}
+
+func getResourceName(res interface{}) string {
+	name := strings.ToLower(getKindName(res))
+	// Transform to plural.
+	name += "s"
+
+	return name
 }
