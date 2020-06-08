@@ -7,6 +7,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/giantswarm/microerror"
 	"github.com/go-openapi/spec"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -32,6 +33,12 @@ const (
 	clientName    = "giantswarm-cp-client"
 	clientVersion = "1.0"
 	outputFile    = "swagger.json"
+)
+
+var (
+	securityDefinition = &spec.SecurityDefinitions{
+		"oauth2": spec.OAuth2AccessToken("https://foo.com/authorization", "https://foo.com/token"),
+	}
 )
 
 func main() {
@@ -70,6 +77,18 @@ func main() {
 		getterResources = append(getterResources, getExampleTypes()...)
 	}
 
+	definitionFactories := []common.GetOpenAPIDefinitions{
+		corev1alpha1.GetOpenAPIDefinitions,
+		applicationv1alpha1.GetOpenAPIDefinitions,
+		backupv1alpha1.GetOpenAPIDefinitions,
+		infrastructurev1alpha2.GetOpenAPIDefinitions,
+		examplev1alpha1.GetOpenAPIDefinitions,
+		providerv1alpha1.GetOpenAPIDefinitions,
+		releasev1alpha1.GetOpenAPIDefinitions,
+		securityv1alpha1.GetOpenAPIDefinitions,
+		toolingv1alpha1.GetOpenAPIDefinitions,
+	}
+
 	c := openapi.Config{
 		Scheme: s,
 		Codecs: codec,
@@ -77,39 +96,36 @@ func main() {
 			Title:   clientName,
 			Version: clientVersion,
 		},
-		SecurityDefinitions: &spec.SecurityDefinitions{
-			"oauth2": spec.OAuth2AccessToken("https://foo.com/authorization", "https://foo.com/token"),
-		},
-		OpenAPIDefinitions: []common.GetOpenAPIDefinitions{
-			corev1alpha1.GetOpenAPIDefinitions,
-			applicationv1alpha1.GetOpenAPIDefinitions,
-			backupv1alpha1.GetOpenAPIDefinitions,
-			infrastructurev1alpha2.GetOpenAPIDefinitions,
-			examplev1alpha1.GetOpenAPIDefinitions,
-			providerv1alpha1.GetOpenAPIDefinitions,
-			releasev1alpha1.GetOpenAPIDefinitions,
-			securityv1alpha1.GetOpenAPIDefinitions,
-			toolingv1alpha1.GetOpenAPIDefinitions,
-		},
-		Resources:       resources,
-		GetterResources: getterResources,
+		SecurityDefinitions: securityDefinition,
+		OpenAPIDefinitions:  definitionFactories,
+		Resources:           resources,
+		GetterResources:     getterResources,
 	}
 	apiSpec, err := openapi.GenerateSpec(c)
 	if err != nil {
 		panic(err)
 	}
 
-	data, err := json.MarshalIndent(apiSpec, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-
-	err = ioutil.WriteFile(outputFile, data, 0777)
+	err = writeSpec(apiSpec)
 	if err != nil {
 		panic(err)
 	}
 
 	fmt.Println(fmt.Sprintf("API Spec written to '%s'", outputFile))
+}
+
+func writeSpec(apiSpec *spec.Swagger) error {
+	data, err := json.MarshalIndent(apiSpec, "", "  ")
+	if err != nil {
+		return microerror.Mask(err)
+	}
+
+	err = ioutil.WriteFile(outputFile, data, 0777)
+	if err != nil {
+		return microerror.Mask(err)
+	}
+
+	return nil
 }
 
 func getInfrastructureTypes() []openapi.TypeInfo {
