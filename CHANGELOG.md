@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Generate OpenAPI Spec as part of the generation process.
+- Add macros for OpenAPI spec generation.
 - Make more fields `omitempty` in `AWSMachineDeployment` CRs.
 
 

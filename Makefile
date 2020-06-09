@@ -1,7 +1,6 @@
 # Directories.
 APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
-OPENAPI_DIR := pkg/openapi-spec
 CRDV1_DIR := config/crd/v1
 CRDV1BETA1_DIR := config/crd/v1beta1
 SCRIPTS_DIR := hack
@@ -15,7 +14,6 @@ CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
 ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
-OPENAPI_MODEL_GEN := $(abspath $(TOOLS_BIN_DIR)/openapi-model-gen)
 
 BUILD_COLOR = ""
 GEN_COLOR = ""
@@ -35,7 +33,7 @@ BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 YEAR = $(shell date +'%Y')
 
-INPUT_DIRS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2 | sed 's|pkg/apis/||')
+INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
 
@@ -66,17 +64,11 @@ $(ESC): $(TOOLS_DIR)/esc/go.mod
 	@cd $(TOOLS_DIR)/esc \
 	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
-$(OPENAPI_MODEL_GEN): $(TOOLS_DIR)/openapi-model-gen/go.mod
-	@echo "$(BUILD_COLOR)Building openapi-model-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/openapi-model-gen \
-	&& go build -tags=tools -o $(OPENAPI_MODEL_GEN) k8s.io/code-generator/cmd/openapi-gen
-
 .PHONY: generate
 generate:
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
-	@$(MAKE) generate-openapi-spec
 	@$(MAKE) generate-fs
 	@$(MAKE) imports
 	@$(MAKE) patch
@@ -111,20 +103,6 @@ generate-deepcopy: $(CONTROLLER_GEN)
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
-
-.PHONY: generate-openapi-spec
-generate-openapi-spec: $(OPENAPI_MODEL_GEN)
-	@echo "$(GEN_COLOR)Generating OpenAPI models$(NO_COLOR)"
-	@for gv in $(INPUT_DIRS) ; do \
-		$(OPENAPI_MODEL_GEN) \
-		--input-dirs "$(MODULE)/$(APIS_DIR)/$$gv,github.com/giantswarm/apiextensions/pkg/serialization,k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/version,k8s.io/api/core/v1" \
-		--output-package "$$gv" \
-		--output-base $(APIS_DIR) \
-		--go-header-file $(BOILERPLATE) ; \
-	done
-	@echo "$(GEN_COLOR)Generating OpenAPI spec$(NO_COLOR)"
-	cd $(TOOLS_DIR)/openapi-spec-gen && go run main.go
-	mv $(TOOLS_DIR)/openapi-spec-gen/swagger.yaml $(OPENAPI_DIR)/swagger.yaml
 
 .PHONY: generate-fs
 generate-fs: $(ESC) config/crd
