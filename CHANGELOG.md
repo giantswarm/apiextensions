@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Update the `status` comment in `App` CRs.
 - Make more fields `omitempty` in `AWSMachineDeployment` CRs.
 
 
