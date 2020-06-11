@@ -180,6 +180,8 @@ spec:
             - version
             type: object
           status:
+            description: Status Spec part of the App resource. Initially, it would
+              be left as empty until the operator reconciles the helm release.
             properties:
               appVersion:
                 description: AppVersion is the value of the AppVersion field in the
