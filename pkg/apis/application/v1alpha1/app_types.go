@@ -47,6 +47,8 @@ type App struct {
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              AppSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
+	// Status Spec part of the App resource.
+	// Initially, it would be left as empty until the operator reconciles the helm release.
 	Status AppStatus `json:"status"`
 }
 
