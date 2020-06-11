@@ -6,6 +6,7 @@ import (
 
 // +kubebuilder:validation:Type=number
 // +kubebuilder:validation:Format=double
+// +k8s:openapi-gen=true
 type Float struct {
 	Value float64 `json:"-"`
 }

@@ -41,6 +41,7 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
+// +k8s:openapi-gen=true
 
 // The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
 // a Giant Swarm tenant cluster. It is reconciled by cluster-operator.
@@ -54,6 +55,7 @@ type G8sControlPlane struct {
 	Status G8sControlPlaneStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type G8sControlPlaneSpec struct {
 	// +kubebuilder:validation:Enum=1;3
 	// +kubebuilder:validation:Optional
@@ -65,6 +67,7 @@ type G8sControlPlaneSpec struct {
 }
 
 // G8sControlPlaneStatus defines the observed state of G8sControlPlane.
+// +k8s:openapi-gen=true
 type G8sControlPlaneStatus struct {
 	// +kubebuilder:validation:Optional
 	// Total number of non-terminated machines targeted by this control plane

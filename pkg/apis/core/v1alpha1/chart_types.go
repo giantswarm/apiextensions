@@ -20,6 +20,7 @@ func NewChartConfigCRD() *v1beta1.CustomResourceDefinition {
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
+// +k8s:openapi-gen=true
 
 type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -29,11 +30,13 @@ type ChartConfig struct {
 	Status ChartConfigStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type ChartConfigSpec struct {
 	Chart         ChartConfigSpecChart         `json:"chart"`
 	VersionBundle ChartConfigSpecVersionBundle `json:"versionBundle"`
 }
 
+// +k8s:openapi-gen=true
 type ChartConfigSpecChart struct {
 	// Channel is the name of the Appr channel to reconcile against,
 	// e.g. 1-0-stable.
@@ -58,6 +61,7 @@ type ChartConfigSpecChart struct {
 	Secret ChartConfigSpecSecret `json:"secret"`
 }
 
+// +k8s:openapi-gen=true
 type ChartConfigSpecConfigMap struct {
 	// Name is the name of the config map containing chart values to apply,
 	// e.g. node-exporter-chart-values.
@@ -70,6 +74,7 @@ type ChartConfigSpecConfigMap struct {
 	ResourceVersion string `json:"resourceVersion"`
 }
 
+// +k8s:openapi-gen=true
 type ChartConfigSpecSecret struct {
 	// Name is the name of the secret containing chart values to apply,
 	// e.g. node-exporter-chart-secret.
@@ -82,6 +87,7 @@ type ChartConfigSpecSecret struct {
 	ResourceVersion string `json:"resourceVersion"`
 }
 
+// +k8s:openapi-gen=true
 type ChartConfigStatus struct {
 	// ReleaseStatus is the status of the Helm release when the chart is
 	// installed, e.g. DEPLOYED.
@@ -91,6 +97,7 @@ type ChartConfigStatus struct {
 	Reason string `json:"reason,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type ChartConfigSpecVersionBundle struct {
 	Version string `json:"version"`
 }

@@ -40,6 +40,7 @@ func NewChartCR() *Chart {
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
+// +k8s:openapi-gen=true
 
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -49,6 +50,7 @@ type Chart struct {
 	Status ChartStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type ChartSpec struct {
 	// Config is the config to be applied when the chart is deployed.
 	Config ChartSpecConfig `json:"config"`
@@ -66,6 +68,7 @@ type ChartSpec struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type ChartSpecConfig struct {
 	// ConfigMap references a config map containing values that should be
 	// applied to the chart.
@@ -75,6 +78,7 @@ type ChartSpecConfig struct {
 	Secret ChartSpecConfigSecret `json:"secret"`
 }
 
+// +k8s:openapi-gen=true
 type ChartSpecConfigConfigMap struct {
 	// Name is the name of the config map containing chart values to apply,
 	// e.g. prometheus-chart-values.
@@ -87,6 +91,7 @@ type ChartSpecConfigConfigMap struct {
 	ResourceVersion string `json:"resourceVersion"`
 }
 
+// +k8s:openapi-gen=true
 type ChartSpecConfigSecret struct {
 	// Name is the name of the secret containing chart values to apply,
 	// e.g. prometheus-chart-secret.
@@ -99,6 +104,7 @@ type ChartSpecConfigSecret struct {
 	ResourceVersion string `json:"resourceVersion"`
 }
 
+// +k8s:openapi-gen=true
 type ChartStatus struct {
 	// AppVersion is the value of the AppVersion field in the Chart.yaml of the
 	// deployed chart. This is an optional field with the version of the
@@ -117,6 +123,7 @@ type ChartStatus struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type ChartStatusRelease struct {
 	// +kubebuilder:validation:Optional
 	// +nullable

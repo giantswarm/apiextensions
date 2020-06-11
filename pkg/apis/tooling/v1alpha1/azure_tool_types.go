@@ -19,6 +19,7 @@ func NewAzureToolCRD() *v1.CustomResourceDefinition {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=azure;giantswarm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
 
 type AzureTool struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -28,15 +29,18 @@ type AzureTool struct {
 	Status AzureToolStatus `json:"status"`
 }
 
+// +k8s:openapi-gen=true
 type AzureToolSpec struct {
 	// Workspace refers to the Azure Log Analytics Workspace.
 	Workspace AzureToolWorkspace `json:"workspace" yaml:"workspace"`
 }
 
+// +k8s:openapi-gen=true
 type AzureToolStatus struct {
 	WorkspaceStatus string `json:"workspace_status"`
 }
 
+// +k8s:openapi-gen=true
 type AzureToolWorkspace struct {
 	// ID is the Workspace ID.
 	ID string `json:"id" yaml:"id"`
