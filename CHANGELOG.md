@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make optional fields not required for `App` and `AppCatalog` CRDs to avoid
+needing to enter empty strings.
+- Make optional fields `omitempty` for `App` and `AppCatalog` CRDs.
+
 
 ## [0.4.7] 2020-06-11
 
