@@ -57,6 +57,8 @@ type AppSpec struct {
 	// Catalog is the name of the app catalog this app belongs to.
 	// e.g. giantswarm
 	Catalog string `json:"catalog"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Config is the config to be applied when the app is deployed.
 	Config AppSpecConfig `json:"config,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
@@ -68,6 +70,8 @@ type AppSpec struct {
 	// Namespace is the namespace where the app should be deployed.
 	// e.g. monitoring
 	Namespace string `json:"namespace"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// UserConfig is the user config to be applied when the app is deployed.
 	UserConfig AppSpecUserConfig `json:"userConfig,omitempty"`
 	// Version is the version of the app that should be deployed.
@@ -77,9 +81,13 @@ type AppSpec struct {
 
 // +k8s:openapi-gen=true
 type AppSpecConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// ConfigMap references a config map containing values that should be
 	// applied to the app.
 	ConfigMap AppSpecConfigConfigMap `json:"configMap,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing secret values that should be
 	// applied to the app.
 	Secret AppSpecConfigSecret `json:"secret,omitempty"`
@@ -109,8 +117,12 @@ type AppSpecKubeConfig struct {
 	// InCluster is a flag for whether to use InCluster credentials. When true the
 	// context name and secret should not be set.
 	InCluster bool `json:"inCluster"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Context is the kubeconfig context.
 	Context AppSpecKubeConfigContext `json:"context,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing the kubconfig.
 	Secret AppSpecKubeConfigSecret `json:"secret,omitempty"`
 }
@@ -134,9 +146,13 @@ type AppSpecKubeConfigSecret struct {
 
 // +k8s:openapi-gen=true
 type AppSpecUserConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// ConfigMap references a config map containing user values that should be
 	// applied to the app.
 	ConfigMap AppSpecUserConfigConfigMap `json:"configMap,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing user secret values that should be
 	// applied to the app.
 	Secret AppSpecUserConfigSecret `json:"secret,omitempty"`
