@@ -76,9 +76,6 @@ spec:
                   - name
                   - namespace
                   type: object
-              required:
-              - configMap
-              - secret
               type: object
             kubeConfig:
               description: KubeConfig is the kubeconfig to connect to the cluster
@@ -114,9 +111,7 @@ spec:
                   - namespace
                   type: object
               required:
-              - context
               - inCluster
-              - secret
               type: object
             name:
               description: Name is the name of the app to be deployed. e.g. kubernetes-prometheus
@@ -161,9 +156,6 @@ spec:
                   - name
                   - namespace
                   type: object
-              required:
-              - configMap
-              - secret
               type: object
             version:
               description: Version is the version of the app that should be deployed.
@@ -171,11 +163,9 @@ spec:
               type: string
           required:
           - catalog
-          - config
           - kubeConfig
           - name
           - namespace
-          - userConfig
           - version
           type: object
         status:
@@ -217,7 +207,6 @@ spec:
           - version
           type: object
       required:
-      - metadata
       - spec
       type: object
   version: v1alpha1
