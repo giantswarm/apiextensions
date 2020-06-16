@@ -44,12 +44,12 @@ func NewAppCR() *App {
 
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              AppSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
 	// Status Spec part of the App resource.
 	// Initially, it would be left as empty until the operator successfully reconciles the helm release.
-	Status AppStatus `json:"status"`
+	Status AppStatus `json:"status,omitempty"`
 }
 
 // +k8s:openapi-gen=true
@@ -58,7 +58,7 @@ type AppSpec struct {
 	// e.g. giantswarm
 	Catalog string `json:"catalog"`
 	// Config is the config to be applied when the app is deployed.
-	Config AppSpecConfig `json:"config"`
+	Config AppSpecConfig `json:"config,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
 	// the app.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig"`
@@ -69,7 +69,7 @@ type AppSpec struct {
 	// e.g. monitoring
 	Namespace string `json:"namespace"`
 	// UserConfig is the user config to be applied when the app is deployed.
-	UserConfig AppSpecUserConfig `json:"userConfig"`
+	UserConfig AppSpecUserConfig `json:"userConfig,omitempty"`
 	// Version is the version of the app that should be deployed.
 	// e.g. 1.0.0
 	Version string `json:"version"`
@@ -79,10 +79,10 @@ type AppSpec struct {
 type AppSpecConfig struct {
 	// ConfigMap references a config map containing values that should be
 	// applied to the app.
-	ConfigMap AppSpecConfigConfigMap `json:"configMap"`
+	ConfigMap AppSpecConfigConfigMap `json:"configMap,omitempty"`
 	// Secret references a secret containing secret values that should be
 	// applied to the app.
-	Secret AppSpecConfigSecret `json:"secret"`
+	Secret AppSpecConfigSecret `json:"secret,omitempty"`
 }
 
 // +k8s:openapi-gen=true
@@ -110,9 +110,9 @@ type AppSpecKubeConfig struct {
 	// context name and secret should not be set.
 	InCluster bool `json:"inCluster"`
 	// Context is the kubeconfig context.
-	Context AppSpecKubeConfigContext `json:"context"`
+	Context AppSpecKubeConfigContext `json:"context,omitempty"`
 	// Secret references a secret containing the kubconfig.
-	Secret AppSpecKubeConfigSecret `json:"secret"`
+	Secret AppSpecKubeConfigSecret `json:"secret,omitempty"`
 }
 
 // +k8s:openapi-gen=true
@@ -136,10 +136,10 @@ type AppSpecKubeConfigSecret struct {
 type AppSpecUserConfig struct {
 	// ConfigMap references a config map containing user values that should be
 	// applied to the app.
-	ConfigMap AppSpecUserConfigConfigMap `json:"configMap"`
+	ConfigMap AppSpecUserConfigConfigMap `json:"configMap,omitempty"`
 	// Secret references a secret containing user secret values that should be
 	// applied to the app.
-	Secret AppSpecUserConfigSecret `json:"secret"`
+	Secret AppSpecUserConfigSecret `json:"secret,omitempty"`
 }
 
 // +k8s:openapi-gen=true

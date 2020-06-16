@@ -45,7 +45,7 @@ func NewAppCatalogCR() *AppCatalog {
 
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              AppCatalogSpec `json:"spec"`
 }
 
@@ -57,7 +57,7 @@ type AppCatalogSpec struct {
 	Description string `json:"description"`
 	// Config is the config to be applied when apps belonging to this
 	// catalog are deployed.
-	Config AppCatalogSpecConfig `json:"config"`
+	Config AppCatalogSpecConfig `json:"config,omitempty"`
 	// LogoURL contains the links for logo image file for this app catalog
 	LogoURL string `json:"logoURL"`
 	// Storage references a map containing values that should be applied to
@@ -69,10 +69,10 @@ type AppCatalogSpec struct {
 type AppCatalogSpecConfig struct {
 	// ConfigMap references a config map containing catalog values that
 	// should be applied to apps in this catalog.
-	ConfigMap AppCatalogSpecConfigConfigMap `json:"configMap"`
+	ConfigMap AppCatalogSpecConfigConfigMap `json:"configMap,omitempty"`
 	// Secret references a secret containing catalog values that should be
 	// applied to apps in this catalog.
-	Secret AppCatalogSpecConfigSecret `json:"secret"`
+	Secret AppCatalogSpecConfigSecret `json:"secret,omitempty"`
 }
 
 // +k8s:openapi-gen=true
