@@ -73,9 +73,6 @@ spec:
                     - name
                     - namespace
                     type: object
-                required:
-                - configMap
-                - secret
                 type: object
               description:
                 type: string
@@ -104,7 +101,6 @@ spec:
                   Catalog of Apps by Giant Swarm
                 type: string
             required:
-            - config
             - description
             - logoURL
             - storage
