@@ -1,8 +1,117 @@
 package crd
 
 import (
+	"fmt"
+	"strings"
 	"testing"
+
+	"sigs.k8s.io/controller-tools/pkg/crd"
+	"sigs.k8s.io/controller-tools/pkg/genall"
+	"sigs.k8s.io/controller-tools/pkg/markers"
 )
+
+func Test_Comments(t *testing.T) {
+	crdGenerator := crd.Generator{}
+
+	// allOutputRules defines the list of all known output rules, giving
+	// them names for use on the command line.
+	// Each output rule turns into two command line options:
+	// - output:<generator>:<form> (per-generator output)
+	// - output:<form> (default output)
+	allOutputRules := map[string]genall.OutputRule{
+		"dir":       genall.OutputToDirectory(""),
+		"none":      genall.OutputToNothing,
+		"stdout":    genall.OutputToStdout,
+		"artifacts": genall.OutputArtifacts{},
+	}
+
+	// optionsRegistry contains all the marker definitions used to process command line options
+	optionsRegistry := &markers.Registry{}
+
+	// make the generator options marker itself
+	defn := markers.Must(markers.MakeDefinition("crd", markers.DescribesPackage, crdGenerator))
+	if err := optionsRegistry.Register(defn); err != nil {
+		panic(err)
+	}
+
+	// make per-generation output rule markers
+	for ruleName, rule := range allOutputRules {
+		ruleMarker := markers.Must(markers.MakeDefinition(fmt.Sprintf("output:%s:%s", "crd", ruleName), markers.DescribesPackage, rule))
+		if err := optionsRegistry.Register(ruleMarker); err != nil {
+			panic(err)
+		}
+		if helpGiver, hasHelp := rule.(genall.HasHelp); hasHelp {
+			if help := helpGiver.Help(); help != nil {
+				optionsRegistry.AddHelp(ruleMarker, help)
+			}
+		}
+	}
+
+	// make "default output" output rule markers
+	for ruleName, rule := range allOutputRules {
+		ruleMarker := markers.Must(markers.MakeDefinition("output:"+ruleName, markers.DescribesPackage, rule))
+		if err := optionsRegistry.Register(ruleMarker); err != nil {
+			panic(err)
+		}
+		if helpGiver, hasHelp := rule.(genall.HasHelp); hasHelp {
+			if help := helpGiver.Help(); help != nil {
+				optionsRegistry.AddHelp(ruleMarker, help)
+			}
+		}
+	}
+
+	// add in the common options markers
+	if err := genall.RegisterOptionsMarkers(optionsRegistry); err != nil {
+		panic(err)
+	}
+
+	// otherwise, set up the runtime for actually running the generators
+	rt, err := genall.FromOptions(optionsRegistry, []string{
+		"crd",
+		"paths=../../pkg/apis/...",
+		"output:stdout",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	ctx := rt.GenerationContext
+	var gen genall.Generator = &crdGenerator
+	ctx.OutputRule = rt.OutputRules.ForGenerator(&gen)
+	parser := &crd.Parser{
+		Collector: ctx.Collector,
+		Checker:   ctx.Checker,
+	}
+
+	crd.AddKnownTypes(parser)
+	for _, root := range ctx.Roots {
+		parser.NeedPackage(root)
+	}
+
+	metav1Pkg := crd.FindMetav1(ctx.Roots)
+	if metav1Pkg == nil {
+		t.Fatal("here")
+	}
+
+	kubeKinds := crd.FindKubeKinds(parser, metav1Pkg)
+	if len(kubeKinds) == 0 {
+		t.Fatal("here")
+	}
+
+	for groupKind := range kubeKinds {
+		parser.NeedCRDFor(groupKind, crdGenerator.MaxDescLen)
+	}
+
+	for _, parsedType := range parser.Types {
+		for _, field := range parsedType.Fields {
+			_, optional := field.Markers["kubebuilder:validation:Optional"]
+			omitempty := strings.Contains(field.Tag.Get("json"), ",omitempty")
+			if !optional && omitempty {
+				t.Errorf("field %s for CR %s has omitempty, should have corresponding kubebuilder:validation:Optional comment", field.Name, parsedType.Name)
+			}
+		}
+	}
+}
 
 func Test_List(t *testing.T) {
 	crdV1, err := ListV1()
