@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Graduate StorageConfig, KVMConfig, and KVMClusterConfig CRD to `v1`.
+- Graduate StorageConfig, FlannelConfig, KVMConfig, and KVMClusterConfig CRD to `v1`.
 
 
 
