@@ -98,16 +98,21 @@ func Test_Comments(t *testing.T) {
 		t.Fatal("here")
 	}
 
-	for groupKind := range kubeKinds {
-		parser.NeedCRDFor(groupKind, crdGenerator.MaxDescLen)
-	}
-
-	for _, parsedType := range parser.Types {
-		for _, field := range parsedType.Fields {
-			_, optional := field.Markers["kubebuilder:validation:Optional"]
-			omitempty := strings.Contains(field.Tag.Get("json"), ",omitempty")
-			if !optional && omitempty {
-				t.Errorf("field %s for CR %s has omitempty, should have corresponding kubebuilder:validation:Optional comment", field.Name, parsedType.Name)
+	for _, groupKind := range kubeKinds {
+		for pkg, gv := range parser.GroupVersions {
+			if gv.Group != groupKind.Group {
+				continue
+			}
+			if err := markers.EachType(parser.Collector, pkg, func(info *markers.TypeInfo) {
+				for _, field := range info.Fields {
+					_, optional := field.Markers["kubebuilder:validation:Optional"]
+					omitempty := strings.Contains(field.Tag.Get("json"), ",omitempty")
+					if !optional && omitempty {
+						t.Errorf("in CR %s, field %s for type %s has omitempty, should have corresponding kubebuilder:validation:Optional comment", groupKind.Kind, field.Name, info.Name)
+					}
+				}
+			}); err != nil {
+				t.Error(err)
 			}
 		}
 	}
