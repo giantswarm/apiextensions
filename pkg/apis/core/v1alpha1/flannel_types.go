@@ -26,6 +26,7 @@ func NewFlannelConfigCR(name, namespace string) *FlannelConfig {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=giantswarm;kvm
 // +kubebuilder:storageversion
+// +k8s:openapi-gen=true
 
 type FlannelConfig struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -33,6 +34,7 @@ type FlannelConfig struct {
 	Spec              FlannelConfigSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpec struct {
 	Bridge        FlannelConfigSpecBridge        `json:"bridge"`
 	Cluster       FlannelConfigSpecCluster       `json:"cluster"`
@@ -41,15 +43,18 @@ type FlannelConfigSpec struct {
 	VersionBundle FlannelConfigSpecVersionBundle `json:"versionBundle"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecBridge struct {
 	Docker FlannelConfigSpecBridgeDocker `json:"docker"`
 	Spec   FlannelConfigSpecBridgeSpec   `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecBridgeDocker struct {
 	Image string `json:"image"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecBridgeSpec struct {
 	Interface      string                         `json:"interface"`
 	PrivateNetwork string                         `json:"privateNetwork"`
@@ -57,24 +62,29 @@ type FlannelConfigSpecBridgeSpec struct {
 	NTP            FlannelConfigSpecBridgeSpecNTP `json:"ntp"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecBridgeSpecDNS struct {
 	Servers []string `json:"servers"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecBridgeSpecNTP struct {
 	Servers []string `json:"servers"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecCluster struct {
 	ID        string `json:"id"`
 	Customer  string `json:"customer"`
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecFlannel struct {
 	Spec FlannelConfigSpecFlannelSpec `json:"spec"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecFlannelSpec struct {
 	Network   string `json:"network"`
 	SubnetLen int    `json:"subnetLen"`
@@ -82,14 +92,17 @@ type FlannelConfigSpecFlannelSpec struct {
 	VNI       int    `json:"vni"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecHealth struct {
 	Docker FlannelConfigSpecHealthDocker `json:"docker"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecHealthDocker struct {
 	Image string `json:"image"`
 }
 
+// +k8s:openapi-gen=true
 type FlannelConfigSpecVersionBundle struct {
 	Version string `json:"version"`
 }

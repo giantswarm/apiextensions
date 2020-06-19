@@ -26,21 +26,27 @@ func NewAppCR(name, namespace string) *App {
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
+// +k8s:openapi-gen=true
 
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              AppSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
-	Status AppStatus `json:"status"`
+	// Status Spec part of the App resource.
+	// Initially, it would be left as empty until the operator successfully reconciles the helm release.
+	Status AppStatus `json:"status,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpec struct {
 	// Catalog is the name of the app catalog this app belongs to.
 	// e.g. giantswarm
 	Catalog string `json:"catalog"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Config is the config to be applied when the app is deployed.
-	Config AppSpecConfig `json:"config"`
+	Config AppSpecConfig `json:"config,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
 	// the app.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig"`
@@ -50,22 +56,30 @@ type AppSpec struct {
 	// Namespace is the namespace where the app should be deployed.
 	// e.g. monitoring
 	Namespace string `json:"namespace"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// UserConfig is the user config to be applied when the app is deployed.
-	UserConfig AppSpecUserConfig `json:"userConfig"`
+	UserConfig AppSpecUserConfig `json:"userConfig,omitempty"`
 	// Version is the version of the app that should be deployed.
 	// e.g. 1.0.0
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// ConfigMap references a config map containing values that should be
 	// applied to the app.
-	ConfigMap AppSpecConfigConfigMap `json:"configMap"`
+	ConfigMap AppSpecConfigConfigMap `json:"configMap,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing secret values that should be
 	// applied to the app.
-	Secret AppSpecConfigSecret `json:"secret"`
+	Secret AppSpecConfigSecret `json:"secret,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecConfigConfigMap struct {
 	// Name is the name of the config map containing app values to apply,
 	// e.g. prometheus-values.
@@ -84,22 +98,29 @@ type AppSpecConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecKubeConfig struct {
 	// InCluster is a flag for whether to use InCluster credentials. When true the
 	// context name and secret should not be set.
 	InCluster bool `json:"inCluster"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Context is the kubeconfig context.
-	Context AppSpecKubeConfigContext `json:"context"`
+	Context AppSpecKubeConfigContext `json:"context,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing the kubconfig.
-	Secret AppSpecKubeConfigSecret `json:"secret"`
+	Secret AppSpecKubeConfigSecret `json:"secret,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecKubeConfigContext struct {
 	// Name is the name of the kubeconfig context.
 	// e.g. giantswarm-12345.
 	Name string `json:"name"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecKubeConfigSecret struct {
 	// Name is the name of the secret containing the kubeconfig,
 	// e.g. app-operator-kubeconfig.
@@ -109,15 +130,21 @@ type AppSpecKubeConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecUserConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// ConfigMap references a config map containing user values that should be
 	// applied to the app.
-	ConfigMap AppSpecUserConfigConfigMap `json:"configMap"`
+	ConfigMap AppSpecUserConfigConfigMap `json:"configMap,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing user secret values that should be
 	// applied to the app.
-	Secret AppSpecUserConfigSecret `json:"secret"`
+	Secret AppSpecUserConfigSecret `json:"secret,omitempty"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecUserConfigConfigMap struct {
 	// Name is the name of the config map containing user values to apply,
 	// e.g. prometheus-user-values.
@@ -127,6 +154,7 @@ type AppSpecUserConfigConfigMap struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppSpecUserConfigSecret struct {
 	// Name is the name of the secret containing user values to apply,
 	// e.g. prometheus-user-secret.
@@ -136,6 +164,7 @@ type AppSpecUserConfigSecret struct {
 	Namespace string `json:"namespace"`
 }
 
+// +k8s:openapi-gen=true
 type AppStatus struct {
 	// AppVersion is the value of the AppVersion field in the Chart.yaml of the
 	// deployed app. This is an optional field with the version of the
@@ -151,6 +180,7 @@ type AppStatus struct {
 	Version string `json:"version"`
 }
 
+// +k8s:openapi-gen=true
 type AppStatusRelease struct {
 	// +kubebuilder:validation:Optional
 	// +nullable

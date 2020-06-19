@@ -26,6 +26,7 @@ func NewAWSClusterCR(name, namespace string) *AWSCluster {
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
+// +k8s:openapi-gen=true
 
 // AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
@@ -39,6 +40,7 @@ type AWSCluster struct {
 }
 
 // AWSClusterSpec is the spec part for the AWSCluster resource.
+// +k8s:openapi-gen=true
 type AWSClusterSpec struct {
 	// Cluster specification details.
 	Cluster AWSClusterSpecCluster `json:"cluster"`
@@ -47,6 +49,7 @@ type AWSClusterSpec struct {
 }
 
 // AWSClusterSpecCluster provides cluster specification details.
+// +k8s:openapi-gen=true
 type AWSClusterSpecCluster struct {
 	// User-friendly description that should explain the purpose of the
 	// cluster to humans.
@@ -61,11 +64,13 @@ type AWSClusterSpecCluster struct {
 }
 
 // AWSClusterSpecClusterDNS holds DNS configuration details.
+// +k8s:openapi-gen=true
 type AWSClusterSpecClusterDNS struct {
 	Domain string `json:"domain"`
 }
 
 // AWSClusterSpecClusterOIDC holds configuration for OpenID Connect (OIDC) authentication.
+// +k8s:openapi-gen=true
 type AWSClusterSpecClusterOIDC struct {
 	Claims    AWSClusterSpecClusterOIDCClaims `json:"claims,omitempty"`
 	ClientID  string                          `json:"clientID,omitempty"`
@@ -73,12 +78,14 @@ type AWSClusterSpecClusterOIDC struct {
 }
 
 // AWSClusterSpecClusterOIDCClaims defines OIDC claims.
+// +k8s:openapi-gen=true
 type AWSClusterSpecClusterOIDCClaims struct {
 	Username string `json:"username,omitempty"`
 	Groups   string `json:"groups,omitempty"`
 }
 
 // AWSClusterSpecClusterKubeProxy describes values passed to the kube-proxy running in a tenant cluster.
+// +k8s:openapi-gen=true
 type AWSClusterSpecClusterKubeProxy struct {
 	// Maximum number of NAT connections to track per CPU core (0 for default).
 	// Passed to kube-proxy as --conntrack-max-per-core.
@@ -86,6 +93,7 @@ type AWSClusterSpecClusterKubeProxy struct {
 }
 
 // AWSClusterSpecProvider holds some AWS details.
+// +k8s:openapi-gen=true
 type AWSClusterSpecProvider struct {
 	// Location of a secret providing the ARN of AWS IAM identity
 	// to use with this cluster.
@@ -103,6 +111,7 @@ type AWSClusterSpecProvider struct {
 
 // AWSClusterSpecProviderCredentialSecret details how to chose the AWS IAM identity ARN
 // to use with this cluster.
+// +k8s:openapi-gen=true
 type AWSClusterSpecProviderCredentialSecret struct {
 	// Name of the provider credential resoure.
 	Name string `json:"name"`
@@ -111,6 +120,7 @@ type AWSClusterSpecProviderCredentialSecret struct {
 }
 
 // AWSClusterSpecProviderMaster holds master node configuration details.
+// +k8s:openapi-gen=true
 type AWSClusterSpecProviderMaster struct {
 	// +kubebuilder:validation:Optional
 	// AWS availability zone to place the master node in.
@@ -121,6 +131,7 @@ type AWSClusterSpecProviderMaster struct {
 }
 
 // AWSClusterSpecProviderPods Pod network configuration.
+// +k8s:openapi-gen=true
 type AWSClusterSpecProviderPods struct {
 	// +kubebuilder:validation:Optional
 	// IPv4 address block used for pods, in CIDR notation.
@@ -132,6 +143,7 @@ type AWSClusterSpecProviderPods struct {
 
 // AWSClusterStatus holds status information about the cluster, populated once the
 // cluster is in creation or created.
+// +k8s:openapi-gen=true
 type AWSClusterStatus struct {
 	// +kubebuilder:validation:Optional
 	// Cluster-specific status details, including conditions and versions.
@@ -142,6 +154,7 @@ type AWSClusterStatus struct {
 }
 
 // AWSClusterStatusProvider holds provider-specific status details.
+// +k8s:openapi-gen=true
 type AWSClusterStatusProvider struct {
 	// +kubebuilder:validation:Optional
 	// Network-specific configuration details
@@ -149,6 +162,7 @@ type AWSClusterStatusProvider struct {
 }
 
 // AWSClusterStatusProviderNetwork holds network details.
+// +k8s:openapi-gen=true
 type AWSClusterStatusProviderNetwork struct {
 	// +kubebuilder:validation:Optional
 	// IPv4 address block used by the tenant cluster nodes, in CIDR notation.

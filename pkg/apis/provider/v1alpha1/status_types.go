@@ -28,6 +28,7 @@ const (
 	StatusClusterTypeUpdating = "Updating"
 )
 
+// +k8s:openapi-gen=true
 type StatusCluster struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -61,6 +62,7 @@ type StatusCluster struct {
 
 // StatusClusterCondition expresses the conditions in which a guest cluster may
 // is.
+// +k8s:openapi-gen=true
 type StatusClusterCondition struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -78,12 +80,14 @@ type StatusClusterCondition struct {
 
 // StatusClusterNetwork expresses the network segment that is allocated for a
 // guest cluster.
+// +k8s:openapi-gen=true
 type StatusClusterNetwork struct {
 	// +kubebuilder:validation:Optional
 	CIDR string `json:"cidr"`
 }
 
 // StatusClusterNode holds information about a guest cluster node.
+// +k8s:openapi-gen=true
 type StatusClusterNode struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -108,6 +112,7 @@ type StatusClusterNode struct {
 // resource may operates sequentially but has to operate based on a certain
 // system state it manages. So it tracks the status as needed here specific to
 // its own implementation and means in order to fulfil its premise.
+// +k8s:openapi-gen=true
 type StatusClusterResource struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -118,6 +123,7 @@ type StatusClusterResource struct {
 
 // StatusClusterResourceCondition expresses the conditions in which an
 // operatorkit resource may is.
+// +k8s:openapi-gen=true
 type StatusClusterResourceCondition struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -134,6 +140,7 @@ type StatusClusterResourceCondition struct {
 
 // StatusClusterScaling expresses the current status of desired number of
 // worker nodes in guest cluster.
+// +k8s:openapi-gen=true
 type StatusClusterScaling struct {
 	// +kubebuilder:validation:Optional
 	DesiredCapacity int `json:"desiredCapacity"`
@@ -141,6 +148,7 @@ type StatusClusterScaling struct {
 
 // StatusClusterVersion expresses the versions in which a guest cluster was and
 // may still be.
+// +k8s:openapi-gen=true
 type StatusClusterVersion struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
