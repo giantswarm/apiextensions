@@ -38,10 +38,12 @@ spec:
             config:
               description: Config is the config to be applied when apps belonging
                 to this catalog are deployed.
+              nullable: true
               properties:
                 configMap:
                   description: ConfigMap references a config map containing catalog
                     values that should be applied to apps in this catalog.
+                  nullable: true
                   properties:
                     name:
                       description: Name is the name of the config map containing catalog
@@ -58,6 +60,7 @@ spec:
                 secret:
                   description: Secret references a secret containing catalog values
                     that should be applied to apps in this catalog.
+                  nullable: true
                   properties:
                     name:
                       description: Name is the name of the secret containing catalog
@@ -71,9 +74,6 @@ spec:
                   - name
                   - namespace
                   type: object
-              required:
-              - configMap
-              - secret
               type: object
             description:
               type: string
@@ -102,14 +102,12 @@ spec:
                 of Apps by Giant Swarm
               type: string
           required:
-          - config
           - description
           - logoURL
           - storage
           - title
           type: object
       required:
-      - metadata
       - spec
       type: object
   version: v1alpha1
