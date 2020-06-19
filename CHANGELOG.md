@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Make optional fields not required for `App` and `AppCatalog` CRDs to avoid
+needing to enter empty strings.
+- Make optional fields `omitempty` for `App` and `AppCatalog` CRDs.
 - Graduate StorageConfig, FlannelConfig, KVMConfig, and KVMClusterConfig CRD to `v1`.
 
 
