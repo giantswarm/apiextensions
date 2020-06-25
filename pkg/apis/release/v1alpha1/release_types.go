@@ -86,6 +86,9 @@ type ReleaseSpecComponent struct {
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the component.
 	Version string `json:"version"`
+	// +kubebuilder:validation:Optional
+	// Reference is the git tag or SHA specifying the component source.
+	Reference string `json:"version"`
 }
 
 // +k8s:openapi-gen=true
