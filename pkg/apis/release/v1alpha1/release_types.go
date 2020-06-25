@@ -88,7 +88,7 @@ type ReleaseSpecComponent struct {
 	Version string `json:"version"`
 	// +kubebuilder:validation:Optional
 	// Reference is the git tag or SHA specifying the component source.
-	Reference string `json:"reference"`
+	Reference string `json:"reference,omitempty"`
 }
 
 // +k8s:openapi-gen=true
