@@ -109,13 +109,23 @@ spec:
             - date
             - state
             type: object
+          status:
+            properties:
+              ready:
+                description: Ready indicates if all components of the release have
+                  been deployed.
+                type: boolean
+            required:
+            - ready
+            type: object
         required:
         - metadata
         - spec
         type: object
     served: true
     storage: true
-    subresources: {}
+    subresources:
+      status: {}
 status:
   acceptedNames:
     kind: ""

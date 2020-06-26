@@ -29,7 +29,8 @@ spec:
     plural: releases
     singular: release
   scope: Cluster
-  subresources: {}
+  subresources:
+    status: {}
   validation:
     openAPIV3Schema:
       description: Release is a Kubernetes resource (CR) representing a Giant Swarm
@@ -107,6 +108,15 @@ spec:
           - components
           - date
           - state
+          type: object
+        status:
+          properties:
+            ready:
+              description: Ready indicates if all components of the release have been
+                deployed.
+              type: boolean
+          required:
+          - ready
           type: object
       required:
       - metadata

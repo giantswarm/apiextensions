@@ -55,6 +55,7 @@ func NewReleaseCR() *Release {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
+// +kubebuilder:subresource:status
 // +k8s:openapi-gen=true
 
 // Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.
@@ -62,6 +63,8 @@ type Release struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              ReleaseSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ReleaseStatus `json:"status,omitempty"`
 }
 
 // +k8s:openapi-gen=true
@@ -100,6 +103,12 @@ type ReleaseSpecApp struct {
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the app.
 	Version string `json:"version"`
+}
+
+// +k8s:openapi-gen=true
+type ReleaseStatus struct {
+	// Ready indicates if all components of the release have been deployed.
+	Ready bool `json:"ready"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
