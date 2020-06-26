@@ -64,7 +64,7 @@ type Release struct {
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              ReleaseSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
-	Status ReleaseStatus `json:"status,omitempty"`
+	Status ReleaseStatus `json:"status"`
 }
 
 // +k8s:openapi-gen=true
