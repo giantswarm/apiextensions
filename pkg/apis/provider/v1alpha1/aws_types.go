@@ -43,7 +43,7 @@ func NewAWSConfigCR() *AWSConfig {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;giantswarm
 // +k8s:openapi-gen=true
-
+// AWSConfig held provider-specific tenant cluster configuration for AWS. Deprecated.
 type AWSConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

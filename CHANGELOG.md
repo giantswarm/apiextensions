@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-
+- Mark AWSConfig as deprecated.
+- Mark AWSClusterConfig as deprecated.
 
 ## [0.4.8] 2020-06-22
 
