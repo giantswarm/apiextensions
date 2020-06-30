@@ -21,7 +21,7 @@ func NewAWSClusterConfigCRD() *v1beta1.CustomResourceDefinition {
 // +kubebuilder:resource:categories=aws;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-
+// AWSClusterConfig used to represent tenant cluster configuration in earlier releases. Deprecated.
 type AWSClusterConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
