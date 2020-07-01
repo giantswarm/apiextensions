@@ -84,17 +84,17 @@ type ReleaseSpec struct {
 
 // +k8s:openapi-gen=true
 type ReleaseSpecComponent struct {
-	// Name of the component.
-	Name string `json:"name"`
-	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
-	// Version of the component.
-	Version string `json:"version"`
-	// +kubebuilder:validation:Optional
-	// Reference is the git tag or SHA specifying the component source.
-	Reference string `json:"reference,omitempty"`
 	// +kubebuilder:default=control-plane-catalog
 	// Catalog specifies the name of the app catalog that this component belongs to.
 	Catalog string `json:"catalog,omitempty"`
+	// Name of the component.
+	Name string `json:"name"`
+	// +kubebuilder:validation:Optional
+	// Reference is the git tag or SHA specifying the component source.
+	Reference string `json:"reference,omitempty"`
+	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
+	// Version of the component.
+	Version string `json:"version"`
 }
 
 // +k8s:openapi-gen=true
