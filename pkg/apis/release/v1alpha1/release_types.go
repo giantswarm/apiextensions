@@ -93,6 +93,7 @@ type ReleaseSpecComponent struct {
 	// Reference is the git tag or SHA specifying the component source.
 	Reference string `json:"reference,omitempty"`
 	// +kubebuilder:default=control-plane-catalog
+	// Catalog specifies the name of the app catalog that this component belongs to.
 	Catalog string `json:"catalog,omitempty"`
 }
 
