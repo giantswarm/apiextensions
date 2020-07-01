@@ -92,6 +92,8 @@ type ReleaseSpecComponent struct {
 	// +kubebuilder:validation:Optional
 	// Reference is the git tag or SHA specifying the component source.
 	Reference string `json:"reference,omitempty"`
+	// +kubebuilder:default=control-plane-catalog
+	Catalog string `json:"catalog,omitempty"`
 }
 
 // +k8s:openapi-gen=true

@@ -77,6 +77,10 @@ spec:
               description: Components describes components used in this release.
               items:
                 properties:
+                  catalog:
+                    default: "control-plane-catalog"
+                    description: Catalog specifies the name of the app catalog that this component belongs to.
+                    type: string
                   name:
                     description: Name of the component.
                     type: string

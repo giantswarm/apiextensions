@@ -291,6 +291,48 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "case 10: no reference is valid",
+			cr: Release{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: "v13.1.2",
+				},
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State: stateActive,
+					Date:  &now,
+					Apps:  []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "1.18.0",
+						},
+					},
+				},
+			},
+			errors: nil,
+		},
+		{
+			name: "case 11: no catalog is valid",
+			cr: Release{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: "v13.1.2",
+				},
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State: stateActive,
+					Date:  &now,
+					Apps:  []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "1.18.0",
+						},
+					},
+				},
+			},
+			errors: nil,
+		},
 	}
 	crd := NewReleaseCRD()
 
