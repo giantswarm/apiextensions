@@ -122,6 +122,8 @@ spec:
                         maximum: 100
                         minimum: 0
                         type: integer
+                    required:
+                    - onDemandPercentageAboveBaseCapacity
                     type: object
                   worker:
                     description: Specification of worker nodes.
