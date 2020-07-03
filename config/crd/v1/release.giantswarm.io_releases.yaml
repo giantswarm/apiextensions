@@ -89,6 +89,10 @@ spec:
                       description: Reference is the git tag or SHA specifying the
                         component source.
                       type: string
+                    releaseOperatorDeploy:
+                      description: ReleaseOperatorDeploy informs the release-operator
+                        that it should deploy the component.
+                      type: boolean
                     version:
                       description: Version of the component.
                       pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
