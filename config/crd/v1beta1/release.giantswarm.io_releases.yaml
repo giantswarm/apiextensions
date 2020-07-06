@@ -48,7 +48,7 @@ spec:
         metadata:
           properties:
             name:
-              pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
+              pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[1-9a-z]*)?$
               type: string
           type: object
         spec:
