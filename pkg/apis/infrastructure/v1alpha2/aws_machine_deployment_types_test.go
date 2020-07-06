@@ -8,6 +8,7 @@ import (
 	"regexp"
 	"testing"
 
+	"github.com/giantswarm/to"
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
@@ -78,8 +79,8 @@ func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
 		Provider: AWSMachineDeploymentSpecProvider{
 			AvailabilityZones: []string{"eu-central-1b", "eu-central-1c"},
 			InstanceDistribution: AWSMachineDeploymentSpecInstanceDistribution{
-				OnDemandBaseCapacity:                2,
-				OnDemandPercentageAboveBaseCapacity: 50,
+				OnDemandBaseCapacity:                to.IntP(2),
+				OnDemandPercentageAboveBaseCapacity: to.IntP(50),
 			},
 			Worker: AWSMachineDeploymentSpecProviderWorker{
 				InstanceType:          "m5.4xlarge",
