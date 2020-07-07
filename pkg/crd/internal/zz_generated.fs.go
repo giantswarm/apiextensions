@@ -224,12 +224,12 @@ wFqNlcpGI6xdJRPLOcLPYq7pvxb+0oWFnVWqJJgowrPnZe6uZvQxwp56VD8CAAD//3wQcdX1AAAA
 	"/config/crd/patches/v1/release.giantswarm.io_releases/patch.yaml": {
 		name:    "patch.yaml",
 		local:   "config/crd/patches/v1/release.giantswarm.io_releases/patch.yaml",
-		size:    233,
+		size:    232,
 		modtime: 0,
 		compressed: `
-H4sIAAAAAAAC/3TNMUvHMBQE8D2f4gaHfwtpKk7NIh3dBMHBtsKzediKTR7Js6D44R2KdnK733FwFkk8
-KAQDCOni4Yrw7HbOZU2xuNaVeeGNXBKO/f3d483DYclJOOvKxW2sFEjJADu9f7A3AHAODgORNv7NgH4K
-exTNa3z9K4VUOUcPPO+X9nu4tt00hroam/91scPYtLYj+9Xbp6mubq/MeZBe3nhW8xMAAP///tJMI+kA
+H4sIAAAAAAAC/3TMMUvHMBQE8D2f4gaHfwtpKk7NIh3dBMHBtsKzediKTR7Js6D44R2KdnK733GcRRIP
+CsEAQrp4uCI8u51zWVMsrnVlXngjl4Rjf3/3ePNwWHISzrpycRsrBVIywE7vH+wNAJyDw0CkjX8zoJ/C
+HkXzGl//SiFVztHjeb+038O17aYx1NXY/K+LHcamtR3Zr94+TXV1e2XO//TyxrOanwAAAP//PnFdH+gA
 AAA=
 `,
 	},
@@ -250,12 +250,12 @@ AA==
 	"/config/crd/patches/v1beta1/release.giantswarm.io_releases/patch.yaml": {
 		name:    "patch.yaml",
 		local:   "config/crd/patches/v1beta1/release.giantswarm.io_releases/patch.yaml",
-		size:    226,
+		size:    225,
 		modtime: 0,
 		compressed: `
-H4sIAAAAAAAC/3TNMUvHMBQE8D2f4gaHfwtpKk7NIh3dBMHBtsKzedhImzzSZ0HxwzuIdnK733FwFlk8
-KAQDCOni4Xbh2R20xkAac3JZOPX3d483D/PCGzkpWbho5N1trBRIyQAHre/sDQCcgx8DiTb+zYB+CHvs
-WmJ6/SuFVLkkDzwfl/ZruLbdNIa6Gpv/dbHD2LS2I/vZ26eprm6vzHmQX954VvMdAAD//4HG25ziAAAA
+H4sIAAAAAAAC/3TMMUvHMBQE8D2f4gaHfwtpKk7NIh3dBMHBtsKzedhImzzSZ0HxwzuIdnK733GcRRYP
+CsEAQrp4uF14dgetMZDGnFwWTv393ePNw7zwRk5KFi4aeXcbKwVSMsBB6zt7AwDn4MdAoo1/M6Afwh67
+lphe/0ohVS7J4/m4tF/Dte2mMdTV2Pyvix3GprUd2c/ePk11dXtlzv/88sazmu8AAAD//w0YKFjhAAAA
 `,
 	},
 
