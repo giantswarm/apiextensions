@@ -114,7 +114,6 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 	// EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.
 	OnDemandBaseCapacity *int `json:"onDemandBaseCapacity"`
 	// +kubebuilder:validation:Optional
-	// +kubebuilder:default=100
 	// +kubebuilder:validation:Maximum=100
 	// +kubebuilder:validation:Minimum=0
 	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
