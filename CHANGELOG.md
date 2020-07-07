@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
 
+- Allow `AzureConfig.Spec.Azure.Workers` to be null when moving towards node
+  pools.
 
 ## [0.4.8] 2020-06-22
 
