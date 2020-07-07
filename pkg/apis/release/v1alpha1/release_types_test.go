@@ -291,6 +291,27 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "case 10: semver name with a suffix is valid",
+			cr: Release{
+				ObjectMeta: metav1.ObjectMeta{
+					Name: "v13.1.2-beta.10",
+				},
+				TypeMeta: NewReleaseTypeMeta(),
+				Spec: ReleaseSpec{
+					State: stateActive,
+					Date:  &now,
+					Apps:  []ReleaseSpecApp{},
+					Components: []ReleaseSpecComponent{
+						{
+							Name:    "kubernetes",
+							Version: "1.18.0",
+						},
+					},
+				},
+			},
+			errors: nil,
+		},
 	}
 	crd := NewReleaseCRD()
 
