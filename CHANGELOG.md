@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update architect-orb to 0.10.0
+- Add release notes URL to additionalPrinterColumns for Release CRD
 
 ## [0.4.9] 2020-07-07
 
