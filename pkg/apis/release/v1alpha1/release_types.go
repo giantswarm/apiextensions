@@ -8,9 +8,11 @@ import (
 )
 
 const (
-	crDocsAnnotation         = "giantswarm.io/docs"
-	kindRelease              = "Release"
-	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
+	crDocsAnnotation            = "giantswarm.io/docs"
+	crReleaseNotesURLAnnotation = "giantswarm.io/release-notes"
+	kindRelease                 = "Release"
+	releaseDocumentationLink    = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
+	releaseNotesLink            = "https://github.com/giantswarm/releases/tree/master/kvm/v11.2.0"
 )
 
 type ReleaseState string
@@ -40,7 +42,8 @@ func NewReleaseCR() *Release {
 	return &Release{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: releaseDocumentationLink,
+				crDocsAnnotation:            releaseDocumentationLink,
+				crReleaseNotesURLAnnotation: releaseNotesLink,
 			},
 		},
 		TypeMeta: NewReleaseTypeMeta(),
