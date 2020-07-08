@@ -3,7 +3,7 @@ kind: Release
 metadata:
   annotations:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/
-    giantswarm.io/release-notes: https://github.com/giantswarm/releases/tree/master/kvm/v11.2.0
+    giantswarm.io/release-notes: https://github.com/giantswarm/releases
   creationTimestamp: null
   name: v11.2.0
 spec:

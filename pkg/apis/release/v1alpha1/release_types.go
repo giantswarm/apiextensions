@@ -12,7 +12,7 @@ const (
 	crReleaseNotesURLAnnotation = "giantswarm.io/release-notes"
 	kindRelease                 = "Release"
 	releaseDocumentationLink    = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
-	releaseNotesLink            = "https://github.com/giantswarm/releases/tree/master/kvm/v11.2.0"
+	releaseNotesLink            = "https://github.com/giantswarm/releases"
 )
 
 type ReleaseState string
