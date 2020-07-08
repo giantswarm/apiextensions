@@ -30,6 +30,11 @@ spec:
       jsonPath: .spec.date
       name: Age
       type: string
+    - description: Release notes for this release
+      jsonPath: .metadata.annotations['giantswarm\.io/release-notes']
+      name: Release notes
+      priority: 1
+      type: string
     name: v1alpha1
     schema:
       openAPIV3Schema:
