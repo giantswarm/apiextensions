@@ -46,7 +46,9 @@ type AzureConfigSpecAzure struct {
 	DNSZones          AzureConfigSpecAzureDNSZones       `json:"dnsZones"`
 	Masters           []AzureConfigSpecAzureNode         `json:"masters"`
 	VirtualNetwork    AzureConfigSpecAzureVirtualNetwork `json:"virtualNetwork"`
-	Workers           []AzureConfigSpecAzureNode         `json:"workers"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Workers []AzureConfigSpecAzureNode `json:"workers"`
 }
 
 // AzureConfigSpecAzureDNSZones contains the DNS Zones of the cluster.

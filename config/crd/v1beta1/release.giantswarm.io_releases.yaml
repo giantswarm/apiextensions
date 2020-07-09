@@ -19,6 +19,11 @@ spec:
     description: Time since release creation
     name: Age
     type: string
+  - JSONPath: .metadata.annotations['giantswarm\.io/release-notes']
+    description: Release notes for this release
+    name: Release notes
+    priority: 1
+    type: string
   group: release.giantswarm.io
   names:
     categories:
