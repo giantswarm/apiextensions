@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.11] - 2020-07-09
+
 ### Changed
 
 - Update architect-orb to 0.10.0
@@ -348,7 +350,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...HEAD
+[0.4.11]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...v0.4.11
 [0.4.10]: https://github.com/giantswarm/apiextensions/compare/v0.4.9...v0.4.10
 [0.4.9]: https://github.com/giantswarm/apiextensions/compare/v0.4.8...v0.4.9
 [0.4.8]: https://github.com/giantswarm/apiextensions/compare/v0.4.7...v0.4.8
