@@ -119,7 +119,7 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
 	// for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes
 	// use spot instances and half use on-demand, set this value to 50.
-	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity"`
+	OnDemandPercentageAboveBaseCapacity *int `json:"onDemandPercentageAboveBaseCapacity"`
 }
 
 // +k8s:openapi-gen=true
