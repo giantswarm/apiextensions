@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- `AWSMachineDeployment`: Made `OnDemandBaseCapacity` and `OnDemandPercentageAboveBaseCapacity` optional attributes, removed default value for `OnDemandPercentageAboveBaseCapacity`.
+
 ## [0.4.11] - 2020-07-09
 
 ### Changed
