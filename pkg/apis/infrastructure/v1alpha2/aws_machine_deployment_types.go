@@ -112,14 +112,14 @@ type AWSMachineDeploymentSpecInstanceDistribution struct {
 	// Base capacity of on-demand instances to use for worker nodes in this pool. When this larger
 	// than 0, this value defines a number of worker nodes that will be created using on-demand
 	// EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.
-	OnDemandBaseCapacity *int `json:"onDemandBaseCapacity"`
+	OnDemandBaseCapacity int `json:"onDemandBaseCapacity"`
 	// +kubebuilder:validation:Optional
 	// +kubebuilder:validation:Maximum=100
 	// +kubebuilder:validation:Minimum=0
 	// Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances,
 	// for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes
 	// use spot instances and half use on-demand, set this value to 50.
-	OnDemandPercentageAboveBaseCapacity *int `json:"onDemandPercentageAboveBaseCapacity"`
+	OnDemandPercentageAboveBaseCapacity int `json:"onDemandPercentageAboveBaseCapacity"`
 }
 
 // +k8s:openapi-gen=true
