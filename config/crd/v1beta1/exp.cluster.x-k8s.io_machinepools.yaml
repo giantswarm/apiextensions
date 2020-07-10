@@ -9,6 +9,10 @@ metadata:
   name: machinepools.exp.cluster.x-k8s.io
 spec:
   additionalPrinterColumns:
+  - JSONPath: .status.replicas
+    description: MachinePool replicas count
+    name: Replicas
+    type: string
   - JSONPath: .status.phase
     description: MachinePool status such as Terminating/Pending/Provisioning/Running/Failed
       etc
@@ -26,6 +30,9 @@ spec:
     singular: machinepool
   scope: Namespaced
   subresources:
+    scale:
+      specReplicasPath: .spec.replicas
+      statusReplicasPath: .status.replicas
     status: {}
   validation:
     openAPIV3Schema:
@@ -51,6 +58,12 @@ spec:
                 to.
               minLength: 1
               type: string
+            failureDomains:
+              description: FailureDomains is the list of failure domains this MachinePool
+                should be attached to.
+              items:
+                type: string
+              type: array
             minReadySeconds:
               description: Minimum number of seconds for which a newly created machine
                 instances should be ready. Defaults to 0 (machine instance will be
@@ -424,6 +437,11 @@ spec:
                     type: string
                 type: object
               type: array
+            observedGeneration:
+              description: ObservedGeneration is the latest generation observed by
+                the controller.
+              format: int64
+              type: integer
             phase:
               description: Phase represents the current phase of cluster actuation.
                 E.g. Pending, Running, Terminating, Failed etc.
