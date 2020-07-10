@@ -18,7 +18,7 @@ spec:
   - JSONPath: .spec.date
     description: Time since release creation
     name: Age
-    type: string
+    type: date
   - JSONPath: .metadata.annotations['giantswarm\.io/release-notes']
     description: Release notes for this release
     name: Release notes

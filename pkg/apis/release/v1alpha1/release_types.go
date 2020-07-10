@@ -52,7 +52,7 @@ func NewReleaseCR() *Release {
 
 // +kubebuilder:printcolumn:name="Kubernetes version",type=string,JSONPath=`.spec.components[?(@.name=="kubernetes")].version`,description="Version of the kubernetes component in this release"
 // +kubebuilder:printcolumn:name="State",type=string,JSONPath=`.spec.state`,description="State of the release"
-// +kubebuilder:printcolumn:name="Age",type=string,JSONPath=`.spec.date`,description="Time since release creation"
+// +kubebuilder:printcolumn:name="Age",type=date,JSONPath=`.spec.date`,description="Time since release creation"
 // +kubebuilder:printcolumn:name="Release notes",type=string,JSONPath=`.metadata.annotations['giantswarm\.io/release-notes']`,priority=1,description="Release notes for this release"
 // +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +genclient
