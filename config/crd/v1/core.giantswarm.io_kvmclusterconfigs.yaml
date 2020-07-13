@@ -103,7 +103,6 @@ spec:
                           type: number
                       required:
                       - id
-                      - labels
                       type: object
                     type: array
                 required:
