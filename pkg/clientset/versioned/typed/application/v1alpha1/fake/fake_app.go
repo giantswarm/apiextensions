@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var appsResource = schema.GroupVersionResource{Group: "application.giantswarm.io
 var appsKind = schema.GroupVersionKind{Group: "application.giantswarm.io", Version: "v1alpha1", Kind: "App"}
 
 // Get takes name of the app, and returns the corresponding app object, and an error if there is any.
-func (c *FakeApps) Get(name string, options v1.GetOptions) (result *v1alpha1.App, err error) {
+func (c *FakeApps) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.App, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(appsResource, c.ns, name), &v1alpha1.App{})
 
@@ -51,7 +53,7 @@ func (c *FakeApps) Get(name string, options v1.GetOptions) (result *v1alpha1.App
 }
 
 // List takes label and field selectors, and returns the list of Apps that match those selectors.
-func (c *FakeApps) List(opts v1.ListOptions) (result *v1alpha1.AppList, err error) {
+func (c *FakeApps) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AppList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(appsResource, appsKind, c.ns, opts), &v1alpha1.AppList{})
 
@@ -73,14 +75,14 @@ func (c *FakeApps) List(opts v1.ListOptions) (result *v1alpha1.AppList, err erro
 }
 
 // Watch returns a watch.Interface that watches the requested apps.
-func (c *FakeApps) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeApps) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(appsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a app and creates it.  Returns the server's representation of the app, and an error, if there is any.
-func (c *FakeApps) Create(app *v1alpha1.App) (result *v1alpha1.App, err error) {
+func (c *FakeApps) Create(ctx context.Context, app *v1alpha1.App, opts v1.CreateOptions) (result *v1alpha1.App, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(appsResource, c.ns, app), &v1alpha1.App{})
 
@@ -91,7 +93,7 @@ func (c *FakeApps) Create(app *v1alpha1.App) (result *v1alpha1.App, err error) {
 }
 
 // Update takes the representation of a app and updates it. Returns the server's representation of the app, and an error, if there is any.
-func (c *FakeApps) Update(app *v1alpha1.App) (result *v1alpha1.App, err error) {
+func (c *FakeApps) Update(ctx context.Context, app *v1alpha1.App, opts v1.UpdateOptions) (result *v1alpha1.App, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(appsResource, c.ns, app), &v1alpha1.App{})
 
@@ -103,7 +105,7 @@ func (c *FakeApps) Update(app *v1alpha1.App) (result *v1alpha1.App, err error) {
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeApps) UpdateStatus(app *v1alpha1.App) (*v1alpha1.App, error) {
+func (c *FakeApps) UpdateStatus(ctx context.Context, app *v1alpha1.App, opts v1.UpdateOptions) (*v1alpha1.App, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(appsResource, "status", c.ns, app), &v1alpha1.App{})
 
@@ -114,7 +116,7 @@ func (c *FakeApps) UpdateStatus(app *v1alpha1.App) (*v1alpha1.App, error) {
 }
 
 // Delete takes name of the app and deletes it. Returns an error if one occurs.
-func (c *FakeApps) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeApps) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(appsResource, c.ns, name), &v1alpha1.App{})
 
@@ -122,15 +124,15 @@ func (c *FakeApps) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeApps) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(appsResource, c.ns, listOptions)
+func (c *FakeApps) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(appsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.AppList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched app.
-func (c *FakeApps) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.App, err error) {
+func (c *FakeApps) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.App, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(appsResource, c.ns, name, pt, data, subresources...), &v1alpha1.App{})
 

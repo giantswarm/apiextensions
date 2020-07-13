@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var awsmachinedeploymentsResource = schema.GroupVersionResource{Group: "infrastr
 var awsmachinedeploymentsKind = schema.GroupVersionKind{Group: "infrastructure.giantswarm.io", Version: "v1alpha2", Kind: "AWSMachineDeployment"}
 
 // Get takes name of the aWSMachineDeployment, and returns the corresponding aWSMachineDeployment object, and an error if there is any.
-func (c *FakeAWSMachineDeployments) Get(name string, options v1.GetOptions) (result *v1alpha2.AWSMachineDeployment, err error) {
+func (c *FakeAWSMachineDeployments) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.AWSMachineDeployment, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(awsmachinedeploymentsResource, c.ns, name), &v1alpha2.AWSMachineDeployment{})
 
@@ -51,7 +53,7 @@ func (c *FakeAWSMachineDeployments) Get(name string, options v1.GetOptions) (res
 }
 
 // List takes label and field selectors, and returns the list of AWSMachineDeployments that match those selectors.
-func (c *FakeAWSMachineDeployments) List(opts v1.ListOptions) (result *v1alpha2.AWSMachineDeploymentList, err error) {
+func (c *FakeAWSMachineDeployments) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.AWSMachineDeploymentList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(awsmachinedeploymentsResource, awsmachinedeploymentsKind, c.ns, opts), &v1alpha2.AWSMachineDeploymentList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAWSMachineDeployments) List(opts v1.ListOptions) (result *v1alpha2.
 }
 
 // Watch returns a watch.Interface that watches the requested aWSMachineDeployments.
-func (c *FakeAWSMachineDeployments) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAWSMachineDeployments) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(awsmachinedeploymentsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a aWSMachineDeployment and creates it.  Returns the server's representation of the aWSMachineDeployment, and an error, if there is any.
-func (c *FakeAWSMachineDeployments) Create(aWSMachineDeployment *v1alpha2.AWSMachineDeployment) (result *v1alpha2.AWSMachineDeployment, err error) {
+func (c *FakeAWSMachineDeployments) Create(ctx context.Context, aWSMachineDeployment *v1alpha2.AWSMachineDeployment, opts v1.CreateOptions) (result *v1alpha2.AWSMachineDeployment, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(awsmachinedeploymentsResource, c.ns, aWSMachineDeployment), &v1alpha2.AWSMachineDeployment{})
 
@@ -91,7 +93,7 @@ func (c *FakeAWSMachineDeployments) Create(aWSMachineDeployment *v1alpha2.AWSMac
 }
 
 // Update takes the representation of a aWSMachineDeployment and updates it. Returns the server's representation of the aWSMachineDeployment, and an error, if there is any.
-func (c *FakeAWSMachineDeployments) Update(aWSMachineDeployment *v1alpha2.AWSMachineDeployment) (result *v1alpha2.AWSMachineDeployment, err error) {
+func (c *FakeAWSMachineDeployments) Update(ctx context.Context, aWSMachineDeployment *v1alpha2.AWSMachineDeployment, opts v1.UpdateOptions) (result *v1alpha2.AWSMachineDeployment, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(awsmachinedeploymentsResource, c.ns, aWSMachineDeployment), &v1alpha2.AWSMachineDeployment{})
 
@@ -103,7 +105,7 @@ func (c *FakeAWSMachineDeployments) Update(aWSMachineDeployment *v1alpha2.AWSMac
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeAWSMachineDeployments) UpdateStatus(aWSMachineDeployment *v1alpha2.AWSMachineDeployment) (*v1alpha2.AWSMachineDeployment, error) {
+func (c *FakeAWSMachineDeployments) UpdateStatus(ctx context.Context, aWSMachineDeployment *v1alpha2.AWSMachineDeployment, opts v1.UpdateOptions) (*v1alpha2.AWSMachineDeployment, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(awsmachinedeploymentsResource, "status", c.ns, aWSMachineDeployment), &v1alpha2.AWSMachineDeployment{})
 
@@ -114,7 +116,7 @@ func (c *FakeAWSMachineDeployments) UpdateStatus(aWSMachineDeployment *v1alpha2.
 }
 
 // Delete takes name of the aWSMachineDeployment and deletes it. Returns an error if one occurs.
-func (c *FakeAWSMachineDeployments) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAWSMachineDeployments) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(awsmachinedeploymentsResource, c.ns, name), &v1alpha2.AWSMachineDeployment{})
 
@@ -122,15 +124,15 @@ func (c *FakeAWSMachineDeployments) Delete(name string, options *v1.DeleteOption
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAWSMachineDeployments) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(awsmachinedeploymentsResource, c.ns, listOptions)
+func (c *FakeAWSMachineDeployments) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(awsmachinedeploymentsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha2.AWSMachineDeploymentList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched aWSMachineDeployment.
-func (c *FakeAWSMachineDeployments) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSMachineDeployment, err error) {
+func (c *FakeAWSMachineDeployments) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSMachineDeployment, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(awsmachinedeploymentsResource, c.ns, name, pt, data, subresources...), &v1alpha2.AWSMachineDeployment{})
 

@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var awsconfigsResource = schema.GroupVersionResource{Group: "provider.giantswarm
 var awsconfigsKind = schema.GroupVersionKind{Group: "provider.giantswarm.io", Version: "v1alpha1", Kind: "AWSConfig"}
 
 // Get takes name of the aWSConfig, and returns the corresponding aWSConfig object, and an error if there is any.
-func (c *FakeAWSConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.AWSConfig, err error) {
+func (c *FakeAWSConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AWSConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(awsconfigsResource, c.ns, name), &v1alpha1.AWSConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeAWSConfigs) Get(name string, options v1.GetOptions) (result *v1alph
 }
 
 // List takes label and field selectors, and returns the list of AWSConfigs that match those selectors.
-func (c *FakeAWSConfigs) List(opts v1.ListOptions) (result *v1alpha1.AWSConfigList, err error) {
+func (c *FakeAWSConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AWSConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(awsconfigsResource, awsconfigsKind, c.ns, opts), &v1alpha1.AWSConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAWSConfigs) List(opts v1.ListOptions) (result *v1alpha1.AWSConfigLi
 }
 
 // Watch returns a watch.Interface that watches the requested aWSConfigs.
-func (c *FakeAWSConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAWSConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(awsconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a aWSConfig and creates it.  Returns the server's representation of the aWSConfig, and an error, if there is any.
-func (c *FakeAWSConfigs) Create(aWSConfig *v1alpha1.AWSConfig) (result *v1alpha1.AWSConfig, err error) {
+func (c *FakeAWSConfigs) Create(ctx context.Context, aWSConfig *v1alpha1.AWSConfig, opts v1.CreateOptions) (result *v1alpha1.AWSConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(awsconfigsResource, c.ns, aWSConfig), &v1alpha1.AWSConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeAWSConfigs) Create(aWSConfig *v1alpha1.AWSConfig) (result *v1alpha1
 }
 
 // Update takes the representation of a aWSConfig and updates it. Returns the server's representation of the aWSConfig, and an error, if there is any.
-func (c *FakeAWSConfigs) Update(aWSConfig *v1alpha1.AWSConfig) (result *v1alpha1.AWSConfig, err error) {
+func (c *FakeAWSConfigs) Update(ctx context.Context, aWSConfig *v1alpha1.AWSConfig, opts v1.UpdateOptions) (result *v1alpha1.AWSConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(awsconfigsResource, c.ns, aWSConfig), &v1alpha1.AWSConfig{})
 
@@ -103,7 +105,7 @@ func (c *FakeAWSConfigs) Update(aWSConfig *v1alpha1.AWSConfig) (result *v1alpha1
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeAWSConfigs) UpdateStatus(aWSConfig *v1alpha1.AWSConfig) (*v1alpha1.AWSConfig, error) {
+func (c *FakeAWSConfigs) UpdateStatus(ctx context.Context, aWSConfig *v1alpha1.AWSConfig, opts v1.UpdateOptions) (*v1alpha1.AWSConfig, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(awsconfigsResource, "status", c.ns, aWSConfig), &v1alpha1.AWSConfig{})
 
@@ -114,7 +116,7 @@ func (c *FakeAWSConfigs) UpdateStatus(aWSConfig *v1alpha1.AWSConfig) (*v1alpha1.
 }
 
 // Delete takes name of the aWSConfig and deletes it. Returns an error if one occurs.
-func (c *FakeAWSConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAWSConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(awsconfigsResource, c.ns, name), &v1alpha1.AWSConfig{})
 
@@ -122,15 +124,15 @@ func (c *FakeAWSConfigs) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAWSConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(awsconfigsResource, c.ns, listOptions)
+func (c *FakeAWSConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(awsconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.AWSConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched aWSConfig.
-func (c *FakeAWSConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.AWSConfig, err error) {
+func (c *FakeAWSConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AWSConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(awsconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.AWSConfig{})
 

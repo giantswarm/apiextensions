@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var azureclusterconfigsResource = schema.GroupVersionResource{Group: "core.giant
 var azureclusterconfigsKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "AzureClusterConfig"}
 
 // Get takes name of the azureClusterConfig, and returns the corresponding azureClusterConfig object, and an error if there is any.
-func (c *FakeAzureClusterConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.AzureClusterConfig, err error) {
+func (c *FakeAzureClusterConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AzureClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(azureclusterconfigsResource, c.ns, name), &v1alpha1.AzureClusterConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeAzureClusterConfigs) Get(name string, options v1.GetOptions) (resul
 }
 
 // List takes label and field selectors, and returns the list of AzureClusterConfigs that match those selectors.
-func (c *FakeAzureClusterConfigs) List(opts v1.ListOptions) (result *v1alpha1.AzureClusterConfigList, err error) {
+func (c *FakeAzureClusterConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AzureClusterConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(azureclusterconfigsResource, azureclusterconfigsKind, c.ns, opts), &v1alpha1.AzureClusterConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAzureClusterConfigs) List(opts v1.ListOptions) (result *v1alpha1.Az
 }
 
 // Watch returns a watch.Interface that watches the requested azureClusterConfigs.
-func (c *FakeAzureClusterConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAzureClusterConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(azureclusterconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a azureClusterConfig and creates it.  Returns the server's representation of the azureClusterConfig, and an error, if there is any.
-func (c *FakeAzureClusterConfigs) Create(azureClusterConfig *v1alpha1.AzureClusterConfig) (result *v1alpha1.AzureClusterConfig, err error) {
+func (c *FakeAzureClusterConfigs) Create(ctx context.Context, azureClusterConfig *v1alpha1.AzureClusterConfig, opts v1.CreateOptions) (result *v1alpha1.AzureClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(azureclusterconfigsResource, c.ns, azureClusterConfig), &v1alpha1.AzureClusterConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeAzureClusterConfigs) Create(azureClusterConfig *v1alpha1.AzureClust
 }
 
 // Update takes the representation of a azureClusterConfig and updates it. Returns the server's representation of the azureClusterConfig, and an error, if there is any.
-func (c *FakeAzureClusterConfigs) Update(azureClusterConfig *v1alpha1.AzureClusterConfig) (result *v1alpha1.AzureClusterConfig, err error) {
+func (c *FakeAzureClusterConfigs) Update(ctx context.Context, azureClusterConfig *v1alpha1.AzureClusterConfig, opts v1.UpdateOptions) (result *v1alpha1.AzureClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(azureclusterconfigsResource, c.ns, azureClusterConfig), &v1alpha1.AzureClusterConfig{})
 
@@ -102,7 +104,7 @@ func (c *FakeAzureClusterConfigs) Update(azureClusterConfig *v1alpha1.AzureClust
 }
 
 // Delete takes name of the azureClusterConfig and deletes it. Returns an error if one occurs.
-func (c *FakeAzureClusterConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAzureClusterConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(azureclusterconfigsResource, c.ns, name), &v1alpha1.AzureClusterConfig{})
 
@@ -110,15 +112,15 @@ func (c *FakeAzureClusterConfigs) Delete(name string, options *v1.DeleteOptions)
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAzureClusterConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(azureclusterconfigsResource, c.ns, listOptions)
+func (c *FakeAzureClusterConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(azureclusterconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.AzureClusterConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched azureClusterConfig.
-func (c *FakeAzureClusterConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.AzureClusterConfig, err error) {
+func (c *FakeAzureClusterConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AzureClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(azureclusterconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.AzureClusterConfig{})
 

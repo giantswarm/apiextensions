@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha2
 
 import (
+	"context"
 	"time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -38,14 +39,14 @@ type AWSControlPlanesGetter interface {
 
 // AWSControlPlaneInterface has methods to work with AWSControlPlane resources.
 type AWSControlPlaneInterface interface {
-	Create(*v1alpha2.AWSControlPlane) (*v1alpha2.AWSControlPlane, error)
-	Update(*v1alpha2.AWSControlPlane) (*v1alpha2.AWSControlPlane, error)
-	Delete(name string, options *v1.DeleteOptions) error
-	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
-	Get(name string, options v1.GetOptions) (*v1alpha2.AWSControlPlane, error)
-	List(opts v1.ListOptions) (*v1alpha2.AWSControlPlaneList, error)
-	Watch(opts v1.ListOptions) (watch.Interface, error)
-	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSControlPlane, err error)
+	Create(ctx context.Context, aWSControlPlane *v1alpha2.AWSControlPlane, opts v1.CreateOptions) (*v1alpha2.AWSControlPlane, error)
+	Update(ctx context.Context, aWSControlPlane *v1alpha2.AWSControlPlane, opts v1.UpdateOptions) (*v1alpha2.AWSControlPlane, error)
+	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
+	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.AWSControlPlane, error)
+	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.AWSControlPlaneList, error)
+	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSControlPlane, err error)
 	AWSControlPlaneExpansion
 }
 
@@ -64,20 +65,20 @@ func newAWSControlPlanes(c *InfrastructureV1alpha2Client, namespace string) *aWS
 }
 
 // Get takes name of the aWSControlPlane, and returns the corresponding aWSControlPlane object, and an error if there is any.
-func (c *aWSControlPlanes) Get(name string, options v1.GetOptions) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *aWSControlPlanes) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.AWSControlPlane, err error) {
 	result = &v1alpha2.AWSControlPlane{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of AWSControlPlanes that match those selectors.
-func (c *aWSControlPlanes) List(opts v1.ListOptions) (result *v1alpha2.AWSControlPlaneList, err error) {
+func (c *aWSControlPlanes) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.AWSControlPlaneList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -88,13 +89,13 @@ func (c *aWSControlPlanes) List(opts v1.ListOptions) (result *v1alpha2.AWSContro
 		Resource("awscontrolplanes").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested aWSControlPlanes.
-func (c *aWSControlPlanes) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *aWSControlPlanes) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -105,71 +106,74 @@ func (c *aWSControlPlanes) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("awscontrolplanes").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(ctx)
 }
 
 // Create takes the representation of a aWSControlPlane and creates it.  Returns the server's representation of the aWSControlPlane, and an error, if there is any.
-func (c *aWSControlPlanes) Create(aWSControlPlane *v1alpha2.AWSControlPlane) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *aWSControlPlanes) Create(ctx context.Context, aWSControlPlane *v1alpha2.AWSControlPlane, opts v1.CreateOptions) (result *v1alpha2.AWSControlPlane, err error) {
 	result = &v1alpha2.AWSControlPlane{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(aWSControlPlane).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Update takes the representation of a aWSControlPlane and updates it. Returns the server's representation of the aWSControlPlane, and an error, if there is any.
-func (c *aWSControlPlanes) Update(aWSControlPlane *v1alpha2.AWSControlPlane) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *aWSControlPlanes) Update(ctx context.Context, aWSControlPlane *v1alpha2.AWSControlPlane, opts v1.UpdateOptions) (result *v1alpha2.AWSControlPlane, err error) {
 	result = &v1alpha2.AWSControlPlane{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
 		Name(aWSControlPlane.Name).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(aWSControlPlane).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Delete takes name of the aWSControlPlane and deletes it. Returns an error if one occurs.
-func (c *aWSControlPlanes) Delete(name string, options *v1.DeleteOptions) error {
+func (c *aWSControlPlanes) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
 		Name(name).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *aWSControlPlanes) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+func (c *aWSControlPlanes) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	var timeout time.Duration
-	if listOptions.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
+	if listOpts.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
-		VersionedParams(&listOptions, scheme.ParameterCodec).
+		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // Patch applies the patch and returns the patched aWSControlPlane.
-func (c *aWSControlPlanes) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *aWSControlPlanes) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSControlPlane, err error) {
 	result = &v1alpha2.AWSControlPlane{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("awscontrolplanes").
-		SubResource(subresources...).
 		Name(name).
+		SubResource(subresources...).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(data).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }

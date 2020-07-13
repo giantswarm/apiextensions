@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha2
 
 import (
+	"context"
 	"time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -38,15 +39,15 @@ type AWSClustersGetter interface {
 
 // AWSClusterInterface has methods to work with AWSCluster resources.
 type AWSClusterInterface interface {
-	Create(*v1alpha2.AWSCluster) (*v1alpha2.AWSCluster, error)
-	Update(*v1alpha2.AWSCluster) (*v1alpha2.AWSCluster, error)
-	UpdateStatus(*v1alpha2.AWSCluster) (*v1alpha2.AWSCluster, error)
-	Delete(name string, options *v1.DeleteOptions) error
-	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
-	Get(name string, options v1.GetOptions) (*v1alpha2.AWSCluster, error)
-	List(opts v1.ListOptions) (*v1alpha2.AWSClusterList, error)
-	Watch(opts v1.ListOptions) (watch.Interface, error)
-	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSCluster, err error)
+	Create(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.CreateOptions) (*v1alpha2.AWSCluster, error)
+	Update(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.UpdateOptions) (*v1alpha2.AWSCluster, error)
+	UpdateStatus(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.UpdateOptions) (*v1alpha2.AWSCluster, error)
+	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
+	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.AWSCluster, error)
+	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.AWSClusterList, error)
+	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSCluster, err error)
 	AWSClusterExpansion
 }
 
@@ -65,20 +66,20 @@ func newAWSClusters(c *InfrastructureV1alpha2Client, namespace string) *aWSClust
 }
 
 // Get takes name of the aWSCluster, and returns the corresponding aWSCluster object, and an error if there is any.
-func (c *aWSClusters) Get(name string, options v1.GetOptions) (result *v1alpha2.AWSCluster, err error) {
+func (c *aWSClusters) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.AWSCluster, err error) {
 	result = &v1alpha2.AWSCluster{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("awsclusters").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of AWSClusters that match those selectors.
-func (c *aWSClusters) List(opts v1.ListOptions) (result *v1alpha2.AWSClusterList, err error) {
+func (c *aWSClusters) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.AWSClusterList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -89,13 +90,13 @@ func (c *aWSClusters) List(opts v1.ListOptions) (result *v1alpha2.AWSClusterList
 		Resource("awsclusters").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested aWSClusters.
-func (c *aWSClusters) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *aWSClusters) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -106,87 +107,90 @@ func (c *aWSClusters) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("awsclusters").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(ctx)
 }
 
 // Create takes the representation of a aWSCluster and creates it.  Returns the server's representation of the aWSCluster, and an error, if there is any.
-func (c *aWSClusters) Create(aWSCluster *v1alpha2.AWSCluster) (result *v1alpha2.AWSCluster, err error) {
+func (c *aWSClusters) Create(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.CreateOptions) (result *v1alpha2.AWSCluster, err error) {
 	result = &v1alpha2.AWSCluster{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("awsclusters").
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(aWSCluster).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Update takes the representation of a aWSCluster and updates it. Returns the server's representation of the aWSCluster, and an error, if there is any.
-func (c *aWSClusters) Update(aWSCluster *v1alpha2.AWSCluster) (result *v1alpha2.AWSCluster, err error) {
+func (c *aWSClusters) Update(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.UpdateOptions) (result *v1alpha2.AWSCluster, err error) {
 	result = &v1alpha2.AWSCluster{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("awsclusters").
 		Name(aWSCluster.Name).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(aWSCluster).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-
-func (c *aWSClusters) UpdateStatus(aWSCluster *v1alpha2.AWSCluster) (result *v1alpha2.AWSCluster, err error) {
+func (c *aWSClusters) UpdateStatus(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.UpdateOptions) (result *v1alpha2.AWSCluster, err error) {
 	result = &v1alpha2.AWSCluster{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("awsclusters").
 		Name(aWSCluster.Name).
 		SubResource("status").
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(aWSCluster).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Delete takes name of the aWSCluster and deletes it. Returns an error if one occurs.
-func (c *aWSClusters) Delete(name string, options *v1.DeleteOptions) error {
+func (c *aWSClusters) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("awsclusters").
 		Name(name).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *aWSClusters) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+func (c *aWSClusters) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	var timeout time.Duration
-	if listOptions.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
+	if listOpts.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("awsclusters").
-		VersionedParams(&listOptions, scheme.ParameterCodec).
+		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // Patch applies the patch and returns the patched aWSCluster.
-func (c *aWSClusters) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSCluster, err error) {
+func (c *aWSClusters) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSCluster, err error) {
 	result = &v1alpha2.AWSCluster{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("awsclusters").
-		SubResource(subresources...).
 		Name(name).
+		SubResource(subresources...).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(data).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }

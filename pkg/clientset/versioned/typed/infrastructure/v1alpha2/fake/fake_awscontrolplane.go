@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var awscontrolplanesResource = schema.GroupVersionResource{Group: "infrastructur
 var awscontrolplanesKind = schema.GroupVersionKind{Group: "infrastructure.giantswarm.io", Version: "v1alpha2", Kind: "AWSControlPlane"}
 
 // Get takes name of the aWSControlPlane, and returns the corresponding aWSControlPlane object, and an error if there is any.
-func (c *FakeAWSControlPlanes) Get(name string, options v1.GetOptions) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *FakeAWSControlPlanes) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.AWSControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(awscontrolplanesResource, c.ns, name), &v1alpha2.AWSControlPlane{})
 
@@ -51,7 +53,7 @@ func (c *FakeAWSControlPlanes) Get(name string, options v1.GetOptions) (result *
 }
 
 // List takes label and field selectors, and returns the list of AWSControlPlanes that match those selectors.
-func (c *FakeAWSControlPlanes) List(opts v1.ListOptions) (result *v1alpha2.AWSControlPlaneList, err error) {
+func (c *FakeAWSControlPlanes) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.AWSControlPlaneList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(awscontrolplanesResource, awscontrolplanesKind, c.ns, opts), &v1alpha2.AWSControlPlaneList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAWSControlPlanes) List(opts v1.ListOptions) (result *v1alpha2.AWSCo
 }
 
 // Watch returns a watch.Interface that watches the requested aWSControlPlanes.
-func (c *FakeAWSControlPlanes) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAWSControlPlanes) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(awscontrolplanesResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a aWSControlPlane and creates it.  Returns the server's representation of the aWSControlPlane, and an error, if there is any.
-func (c *FakeAWSControlPlanes) Create(aWSControlPlane *v1alpha2.AWSControlPlane) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *FakeAWSControlPlanes) Create(ctx context.Context, aWSControlPlane *v1alpha2.AWSControlPlane, opts v1.CreateOptions) (result *v1alpha2.AWSControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(awscontrolplanesResource, c.ns, aWSControlPlane), &v1alpha2.AWSControlPlane{})
 
@@ -91,7 +93,7 @@ func (c *FakeAWSControlPlanes) Create(aWSControlPlane *v1alpha2.AWSControlPlane)
 }
 
 // Update takes the representation of a aWSControlPlane and updates it. Returns the server's representation of the aWSControlPlane, and an error, if there is any.
-func (c *FakeAWSControlPlanes) Update(aWSControlPlane *v1alpha2.AWSControlPlane) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *FakeAWSControlPlanes) Update(ctx context.Context, aWSControlPlane *v1alpha2.AWSControlPlane, opts v1.UpdateOptions) (result *v1alpha2.AWSControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(awscontrolplanesResource, c.ns, aWSControlPlane), &v1alpha2.AWSControlPlane{})
 
@@ -102,7 +104,7 @@ func (c *FakeAWSControlPlanes) Update(aWSControlPlane *v1alpha2.AWSControlPlane)
 }
 
 // Delete takes name of the aWSControlPlane and deletes it. Returns an error if one occurs.
-func (c *FakeAWSControlPlanes) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAWSControlPlanes) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(awscontrolplanesResource, c.ns, name), &v1alpha2.AWSControlPlane{})
 
@@ -110,15 +112,15 @@ func (c *FakeAWSControlPlanes) Delete(name string, options *v1.DeleteOptions) er
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAWSControlPlanes) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(awscontrolplanesResource, c.ns, listOptions)
+func (c *FakeAWSControlPlanes) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(awscontrolplanesResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha2.AWSControlPlaneList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched aWSControlPlane.
-func (c *FakeAWSControlPlanes) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSControlPlane, err error) {
+func (c *FakeAWSControlPlanes) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(awscontrolplanesResource, c.ns, name, pt, data, subresources...), &v1alpha2.AWSControlPlane{})
 

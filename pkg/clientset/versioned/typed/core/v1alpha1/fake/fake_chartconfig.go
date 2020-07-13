@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var chartconfigsResource = schema.GroupVersionResource{Group: "core.giantswarm.i
 var chartconfigsKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "ChartConfig"}
 
 // Get takes name of the chartConfig, and returns the corresponding chartConfig object, and an error if there is any.
-func (c *FakeChartConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.ChartConfig, err error) {
+func (c *FakeChartConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.ChartConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(chartconfigsResource, c.ns, name), &v1alpha1.ChartConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeChartConfigs) Get(name string, options v1.GetOptions) (result *v1al
 }
 
 // List takes label and field selectors, and returns the list of ChartConfigs that match those selectors.
-func (c *FakeChartConfigs) List(opts v1.ListOptions) (result *v1alpha1.ChartConfigList, err error) {
+func (c *FakeChartConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.ChartConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(chartconfigsResource, chartconfigsKind, c.ns, opts), &v1alpha1.ChartConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeChartConfigs) List(opts v1.ListOptions) (result *v1alpha1.ChartConf
 }
 
 // Watch returns a watch.Interface that watches the requested chartConfigs.
-func (c *FakeChartConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeChartConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(chartconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a chartConfig and creates it.  Returns the server's representation of the chartConfig, and an error, if there is any.
-func (c *FakeChartConfigs) Create(chartConfig *v1alpha1.ChartConfig) (result *v1alpha1.ChartConfig, err error) {
+func (c *FakeChartConfigs) Create(ctx context.Context, chartConfig *v1alpha1.ChartConfig, opts v1.CreateOptions) (result *v1alpha1.ChartConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(chartconfigsResource, c.ns, chartConfig), &v1alpha1.ChartConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeChartConfigs) Create(chartConfig *v1alpha1.ChartConfig) (result *v1
 }
 
 // Update takes the representation of a chartConfig and updates it. Returns the server's representation of the chartConfig, and an error, if there is any.
-func (c *FakeChartConfigs) Update(chartConfig *v1alpha1.ChartConfig) (result *v1alpha1.ChartConfig, err error) {
+func (c *FakeChartConfigs) Update(ctx context.Context, chartConfig *v1alpha1.ChartConfig, opts v1.UpdateOptions) (result *v1alpha1.ChartConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(chartconfigsResource, c.ns, chartConfig), &v1alpha1.ChartConfig{})
 
@@ -103,7 +105,7 @@ func (c *FakeChartConfigs) Update(chartConfig *v1alpha1.ChartConfig) (result *v1
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeChartConfigs) UpdateStatus(chartConfig *v1alpha1.ChartConfig) (*v1alpha1.ChartConfig, error) {
+func (c *FakeChartConfigs) UpdateStatus(ctx context.Context, chartConfig *v1alpha1.ChartConfig, opts v1.UpdateOptions) (*v1alpha1.ChartConfig, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(chartconfigsResource, "status", c.ns, chartConfig), &v1alpha1.ChartConfig{})
 
@@ -114,7 +116,7 @@ func (c *FakeChartConfigs) UpdateStatus(chartConfig *v1alpha1.ChartConfig) (*v1a
 }
 
 // Delete takes name of the chartConfig and deletes it. Returns an error if one occurs.
-func (c *FakeChartConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeChartConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(chartconfigsResource, c.ns, name), &v1alpha1.ChartConfig{})
 
@@ -122,15 +124,15 @@ func (c *FakeChartConfigs) Delete(name string, options *v1.DeleteOptions) error 
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeChartConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(chartconfigsResource, c.ns, listOptions)
+func (c *FakeChartConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(chartconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.ChartConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched chartConfig.
-func (c *FakeChartConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.ChartConfig, err error) {
+func (c *FakeChartConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.ChartConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(chartconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.ChartConfig{})
 

@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var kvmclusterconfigsResource = schema.GroupVersionResource{Group: "core.giantsw
 var kvmclusterconfigsKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "KVMClusterConfig"}
 
 // Get takes name of the kVMClusterConfig, and returns the corresponding kVMClusterConfig object, and an error if there is any.
-func (c *FakeKVMClusterConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.KVMClusterConfig, err error) {
+func (c *FakeKVMClusterConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.KVMClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(kvmclusterconfigsResource, c.ns, name), &v1alpha1.KVMClusterConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeKVMClusterConfigs) Get(name string, options v1.GetOptions) (result 
 }
 
 // List takes label and field selectors, and returns the list of KVMClusterConfigs that match those selectors.
-func (c *FakeKVMClusterConfigs) List(opts v1.ListOptions) (result *v1alpha1.KVMClusterConfigList, err error) {
+func (c *FakeKVMClusterConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.KVMClusterConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(kvmclusterconfigsResource, kvmclusterconfigsKind, c.ns, opts), &v1alpha1.KVMClusterConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeKVMClusterConfigs) List(opts v1.ListOptions) (result *v1alpha1.KVMC
 }
 
 // Watch returns a watch.Interface that watches the requested kVMClusterConfigs.
-func (c *FakeKVMClusterConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeKVMClusterConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(kvmclusterconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a kVMClusterConfig and creates it.  Returns the server's representation of the kVMClusterConfig, and an error, if there is any.
-func (c *FakeKVMClusterConfigs) Create(kVMClusterConfig *v1alpha1.KVMClusterConfig) (result *v1alpha1.KVMClusterConfig, err error) {
+func (c *FakeKVMClusterConfigs) Create(ctx context.Context, kVMClusterConfig *v1alpha1.KVMClusterConfig, opts v1.CreateOptions) (result *v1alpha1.KVMClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(kvmclusterconfigsResource, c.ns, kVMClusterConfig), &v1alpha1.KVMClusterConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeKVMClusterConfigs) Create(kVMClusterConfig *v1alpha1.KVMClusterConf
 }
 
 // Update takes the representation of a kVMClusterConfig and updates it. Returns the server's representation of the kVMClusterConfig, and an error, if there is any.
-func (c *FakeKVMClusterConfigs) Update(kVMClusterConfig *v1alpha1.KVMClusterConfig) (result *v1alpha1.KVMClusterConfig, err error) {
+func (c *FakeKVMClusterConfigs) Update(ctx context.Context, kVMClusterConfig *v1alpha1.KVMClusterConfig, opts v1.UpdateOptions) (result *v1alpha1.KVMClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(kvmclusterconfigsResource, c.ns, kVMClusterConfig), &v1alpha1.KVMClusterConfig{})
 
@@ -102,7 +104,7 @@ func (c *FakeKVMClusterConfigs) Update(kVMClusterConfig *v1alpha1.KVMClusterConf
 }
 
 // Delete takes name of the kVMClusterConfig and deletes it. Returns an error if one occurs.
-func (c *FakeKVMClusterConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeKVMClusterConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(kvmclusterconfigsResource, c.ns, name), &v1alpha1.KVMClusterConfig{})
 
@@ -110,15 +112,15 @@ func (c *FakeKVMClusterConfigs) Delete(name string, options *v1.DeleteOptions) e
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeKVMClusterConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(kvmclusterconfigsResource, c.ns, listOptions)
+func (c *FakeKVMClusterConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(kvmclusterconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.KVMClusterConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched kVMClusterConfig.
-func (c *FakeKVMClusterConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.KVMClusterConfig, err error) {
+func (c *FakeKVMClusterConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KVMClusterConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(kvmclusterconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.KVMClusterConfig{})
 

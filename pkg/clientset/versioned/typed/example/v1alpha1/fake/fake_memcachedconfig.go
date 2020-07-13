@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var memcachedconfigsResource = schema.GroupVersionResource{Group: "example.giant
 var memcachedconfigsKind = schema.GroupVersionKind{Group: "example.giantswarm.io", Version: "v1alpha1", Kind: "MemcachedConfig"}
 
 // Get takes name of the memcachedConfig, and returns the corresponding memcachedConfig object, and an error if there is any.
-func (c *FakeMemcachedConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.MemcachedConfig, err error) {
+func (c *FakeMemcachedConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.MemcachedConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(memcachedconfigsResource, c.ns, name), &v1alpha1.MemcachedConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeMemcachedConfigs) Get(name string, options v1.GetOptions) (result *
 }
 
 // List takes label and field selectors, and returns the list of MemcachedConfigs that match those selectors.
-func (c *FakeMemcachedConfigs) List(opts v1.ListOptions) (result *v1alpha1.MemcachedConfigList, err error) {
+func (c *FakeMemcachedConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.MemcachedConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(memcachedconfigsResource, memcachedconfigsKind, c.ns, opts), &v1alpha1.MemcachedConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeMemcachedConfigs) List(opts v1.ListOptions) (result *v1alpha1.Memca
 }
 
 // Watch returns a watch.Interface that watches the requested memcachedConfigs.
-func (c *FakeMemcachedConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeMemcachedConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(memcachedconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a memcachedConfig and creates it.  Returns the server's representation of the memcachedConfig, and an error, if there is any.
-func (c *FakeMemcachedConfigs) Create(memcachedConfig *v1alpha1.MemcachedConfig) (result *v1alpha1.MemcachedConfig, err error) {
+func (c *FakeMemcachedConfigs) Create(ctx context.Context, memcachedConfig *v1alpha1.MemcachedConfig, opts v1.CreateOptions) (result *v1alpha1.MemcachedConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(memcachedconfigsResource, c.ns, memcachedConfig), &v1alpha1.MemcachedConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeMemcachedConfigs) Create(memcachedConfig *v1alpha1.MemcachedConfig)
 }
 
 // Update takes the representation of a memcachedConfig and updates it. Returns the server's representation of the memcachedConfig, and an error, if there is any.
-func (c *FakeMemcachedConfigs) Update(memcachedConfig *v1alpha1.MemcachedConfig) (result *v1alpha1.MemcachedConfig, err error) {
+func (c *FakeMemcachedConfigs) Update(ctx context.Context, memcachedConfig *v1alpha1.MemcachedConfig, opts v1.UpdateOptions) (result *v1alpha1.MemcachedConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(memcachedconfigsResource, c.ns, memcachedConfig), &v1alpha1.MemcachedConfig{})
 
@@ -102,7 +104,7 @@ func (c *FakeMemcachedConfigs) Update(memcachedConfig *v1alpha1.MemcachedConfig)
 }
 
 // Delete takes name of the memcachedConfig and deletes it. Returns an error if one occurs.
-func (c *FakeMemcachedConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeMemcachedConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(memcachedconfigsResource, c.ns, name), &v1alpha1.MemcachedConfig{})
 
@@ -110,15 +112,15 @@ func (c *FakeMemcachedConfigs) Delete(name string, options *v1.DeleteOptions) er
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeMemcachedConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(memcachedconfigsResource, c.ns, listOptions)
+func (c *FakeMemcachedConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(memcachedconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.MemcachedConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched memcachedConfig.
-func (c *FakeMemcachedConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.MemcachedConfig, err error) {
+func (c *FakeMemcachedConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.MemcachedConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(memcachedconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.MemcachedConfig{})
 

@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var ignitionsResource = schema.GroupVersionResource{Group: "core.giantswarm.io",
 var ignitionsKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "Ignition"}
 
 // Get takes name of the ignition, and returns the corresponding ignition object, and an error if there is any.
-func (c *FakeIgnitions) Get(name string, options v1.GetOptions) (result *v1alpha1.Ignition, err error) {
+func (c *FakeIgnitions) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Ignition, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(ignitionsResource, c.ns, name), &v1alpha1.Ignition{})
 
@@ -51,7 +53,7 @@ func (c *FakeIgnitions) Get(name string, options v1.GetOptions) (result *v1alpha
 }
 
 // List takes label and field selectors, and returns the list of Ignitions that match those selectors.
-func (c *FakeIgnitions) List(opts v1.ListOptions) (result *v1alpha1.IgnitionList, err error) {
+func (c *FakeIgnitions) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.IgnitionList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(ignitionsResource, ignitionsKind, c.ns, opts), &v1alpha1.IgnitionList{})
 
@@ -73,14 +75,14 @@ func (c *FakeIgnitions) List(opts v1.ListOptions) (result *v1alpha1.IgnitionList
 }
 
 // Watch returns a watch.Interface that watches the requested ignitions.
-func (c *FakeIgnitions) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeIgnitions) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(ignitionsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a ignition and creates it.  Returns the server's representation of the ignition, and an error, if there is any.
-func (c *FakeIgnitions) Create(ignition *v1alpha1.Ignition) (result *v1alpha1.Ignition, err error) {
+func (c *FakeIgnitions) Create(ctx context.Context, ignition *v1alpha1.Ignition, opts v1.CreateOptions) (result *v1alpha1.Ignition, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(ignitionsResource, c.ns, ignition), &v1alpha1.Ignition{})
 
@@ -91,7 +93,7 @@ func (c *FakeIgnitions) Create(ignition *v1alpha1.Ignition) (result *v1alpha1.Ig
 }
 
 // Update takes the representation of a ignition and updates it. Returns the server's representation of the ignition, and an error, if there is any.
-func (c *FakeIgnitions) Update(ignition *v1alpha1.Ignition) (result *v1alpha1.Ignition, err error) {
+func (c *FakeIgnitions) Update(ctx context.Context, ignition *v1alpha1.Ignition, opts v1.UpdateOptions) (result *v1alpha1.Ignition, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(ignitionsResource, c.ns, ignition), &v1alpha1.Ignition{})
 
@@ -103,7 +105,7 @@ func (c *FakeIgnitions) Update(ignition *v1alpha1.Ignition) (result *v1alpha1.Ig
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeIgnitions) UpdateStatus(ignition *v1alpha1.Ignition) (*v1alpha1.Ignition, error) {
+func (c *FakeIgnitions) UpdateStatus(ctx context.Context, ignition *v1alpha1.Ignition, opts v1.UpdateOptions) (*v1alpha1.Ignition, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(ignitionsResource, "status", c.ns, ignition), &v1alpha1.Ignition{})
 
@@ -114,7 +116,7 @@ func (c *FakeIgnitions) UpdateStatus(ignition *v1alpha1.Ignition) (*v1alpha1.Ign
 }
 
 // Delete takes name of the ignition and deletes it. Returns an error if one occurs.
-func (c *FakeIgnitions) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeIgnitions) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(ignitionsResource, c.ns, name), &v1alpha1.Ignition{})
 
@@ -122,15 +124,15 @@ func (c *FakeIgnitions) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeIgnitions) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(ignitionsResource, c.ns, listOptions)
+func (c *FakeIgnitions) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(ignitionsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.IgnitionList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched ignition.
-func (c *FakeIgnitions) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Ignition, err error) {
+func (c *FakeIgnitions) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Ignition, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(ignitionsResource, c.ns, name, pt, data, subresources...), &v1alpha1.Ignition{})
 

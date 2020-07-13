@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -40,7 +42,7 @@ var g8scontrolplanesResource = schema.GroupVersionResource{Group: "infrastructur
 var g8scontrolplanesKind = schema.GroupVersionKind{Group: "infrastructure.giantswarm.io", Version: "v1alpha2", Kind: "G8sControlPlane"}
 
 // Get takes name of the g8sControlPlane, and returns the corresponding g8sControlPlane object, and an error if there is any.
-func (c *FakeG8sControlPlanes) Get(name string, options v1.GetOptions) (result *v1alpha2.G8sControlPlane, err error) {
+func (c *FakeG8sControlPlanes) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.G8sControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(g8scontrolplanesResource, c.ns, name), &v1alpha2.G8sControlPlane{})
 
@@ -51,7 +53,7 @@ func (c *FakeG8sControlPlanes) Get(name string, options v1.GetOptions) (result *
 }
 
 // List takes label and field selectors, and returns the list of G8sControlPlanes that match those selectors.
-func (c *FakeG8sControlPlanes) List(opts v1.ListOptions) (result *v1alpha2.G8sControlPlaneList, err error) {
+func (c *FakeG8sControlPlanes) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.G8sControlPlaneList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(g8scontrolplanesResource, g8scontrolplanesKind, c.ns, opts), &v1alpha2.G8sControlPlaneList{})
 
@@ -73,14 +75,14 @@ func (c *FakeG8sControlPlanes) List(opts v1.ListOptions) (result *v1alpha2.G8sCo
 }
 
 // Watch returns a watch.Interface that watches the requested g8sControlPlanes.
-func (c *FakeG8sControlPlanes) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeG8sControlPlanes) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(g8scontrolplanesResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a g8sControlPlane and creates it.  Returns the server's representation of the g8sControlPlane, and an error, if there is any.
-func (c *FakeG8sControlPlanes) Create(g8sControlPlane *v1alpha2.G8sControlPlane) (result *v1alpha2.G8sControlPlane, err error) {
+func (c *FakeG8sControlPlanes) Create(ctx context.Context, g8sControlPlane *v1alpha2.G8sControlPlane, opts v1.CreateOptions) (result *v1alpha2.G8sControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(g8scontrolplanesResource, c.ns, g8sControlPlane), &v1alpha2.G8sControlPlane{})
 
@@ -91,7 +93,7 @@ func (c *FakeG8sControlPlanes) Create(g8sControlPlane *v1alpha2.G8sControlPlane)
 }
 
 // Update takes the representation of a g8sControlPlane and updates it. Returns the server's representation of the g8sControlPlane, and an error, if there is any.
-func (c *FakeG8sControlPlanes) Update(g8sControlPlane *v1alpha2.G8sControlPlane) (result *v1alpha2.G8sControlPlane, err error) {
+func (c *FakeG8sControlPlanes) Update(ctx context.Context, g8sControlPlane *v1alpha2.G8sControlPlane, opts v1.UpdateOptions) (result *v1alpha2.G8sControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(g8scontrolplanesResource, c.ns, g8sControlPlane), &v1alpha2.G8sControlPlane{})
 
@@ -103,7 +105,7 @@ func (c *FakeG8sControlPlanes) Update(g8sControlPlane *v1alpha2.G8sControlPlane)
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeG8sControlPlanes) UpdateStatus(g8sControlPlane *v1alpha2.G8sControlPlane) (*v1alpha2.G8sControlPlane, error) {
+func (c *FakeG8sControlPlanes) UpdateStatus(ctx context.Context, g8sControlPlane *v1alpha2.G8sControlPlane, opts v1.UpdateOptions) (*v1alpha2.G8sControlPlane, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(g8scontrolplanesResource, "status", c.ns, g8sControlPlane), &v1alpha2.G8sControlPlane{})
 
@@ -114,7 +116,7 @@ func (c *FakeG8sControlPlanes) UpdateStatus(g8sControlPlane *v1alpha2.G8sControl
 }
 
 // Delete takes name of the g8sControlPlane and deletes it. Returns an error if one occurs.
-func (c *FakeG8sControlPlanes) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeG8sControlPlanes) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(g8scontrolplanesResource, c.ns, name), &v1alpha2.G8sControlPlane{})
 
@@ -122,15 +124,15 @@ func (c *FakeG8sControlPlanes) Delete(name string, options *v1.DeleteOptions) er
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeG8sControlPlanes) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(g8scontrolplanesResource, c.ns, listOptions)
+func (c *FakeG8sControlPlanes) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(g8scontrolplanesResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha2.G8sControlPlaneList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched g8sControlPlane.
-func (c *FakeG8sControlPlanes) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.G8sControlPlane, err error) {
+func (c *FakeG8sControlPlanes) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.G8sControlPlane, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(g8scontrolplanesResource, c.ns, name, pt, data, subresources...), &v1alpha2.G8sControlPlane{})
 
