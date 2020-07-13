@@ -6,12 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-
 ## [Unreleased]
 
 ### Changed
 
 - Deprecated AWSConfig and StorageConfig
+
+## [0.4.13] - 2020-07-13
+
+- `AWSMachineDeployment`: Made `OnDemandBaseCapacity` and `OnDemandPercentageAboveBaseCapacity` optional attributes, removed default value for `OnDemandPercentageAboveBaseCapacity`.
+- `AWSMachineDeployment`: Made `OnDemandPercentageAboveBaseCapacity` an int pointer instead of an int.
+
+## [0.4.12] - 2020-07-10
+
+- Change `type` of `age` column to `date` in `additionalPrinterColumn` of release CRD
 
 ## [0.4.11] - 2020-07-09
 
@@ -354,7 +362,9 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...HEAD
+[0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
+[0.4.12]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...v0.4.12
 [0.4.11]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...v0.4.11
 [0.4.10]: https://github.com/giantswarm/apiextensions/compare/v0.4.9...v0.4.10
 [0.4.9]: https://github.com/giantswarm/apiextensions/compare/v0.4.8...v0.4.9
