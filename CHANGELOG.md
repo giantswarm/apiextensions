@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.13] - 2020-07-13
+
 - `AWSMachineDeployment`: Made `OnDemandBaseCapacity` and `OnDemandPercentageAboveBaseCapacity` optional attributes, removed default value for `OnDemandPercentageAboveBaseCapacity`.
 - `AWSMachineDeployment`: Made `OnDemandPercentageAboveBaseCapacity` an int pointer instead of an int.
 
@@ -357,7 +359,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...HEAD
+[0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
 [0.4.12]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...v0.4.12
 [0.4.11]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...v0.4.11
 [0.4.10]: https://github.com/giantswarm/apiextensions/compare/v0.4.9...v0.4.10
