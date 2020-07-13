@@ -22,7 +22,6 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: StorageConfig used to provide storage for Giant Swarm API microservices. Deprecated.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

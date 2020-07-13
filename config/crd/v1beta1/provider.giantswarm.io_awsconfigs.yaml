@@ -22,8 +22,6 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
-      description: AWSConfig used to represent tenant cluster configuration
-        in earlier releases. Deprecated.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
