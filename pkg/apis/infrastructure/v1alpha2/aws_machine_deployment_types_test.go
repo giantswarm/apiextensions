@@ -62,6 +62,8 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
 	cr := NewAWSMachineDeploymentCR()
 
+	var fifty int = 50
+
 	cr.Name = "general-purpose-node-pool"
 	cr.Spec = AWSMachineDeploymentSpec{
 		NodePool: AWSMachineDeploymentSpecNodePool{
@@ -79,7 +81,7 @@ func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
 			AvailabilityZones: []string{"eu-central-1b", "eu-central-1c"},
 			InstanceDistribution: AWSMachineDeploymentSpecInstanceDistribution{
 				OnDemandBaseCapacity:                2,
-				OnDemandPercentageAboveBaseCapacity: 50,
+				OnDemandPercentageAboveBaseCapacity: &fifty,
 			},
 			Worker: AWSMachineDeploymentSpecProviderWorker{
 				InstanceType:          "m5.4xlarge",
