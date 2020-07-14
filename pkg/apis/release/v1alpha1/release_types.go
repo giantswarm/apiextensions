@@ -90,7 +90,7 @@ type ReleaseSpecComponent struct {
 	// Name of the component.
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
-	// Reference is the git tag or SHA specifying the component source.
+	// Reference is the component's version in the catalog (e.g. my-app-1.2.3 or my-test-component-0.0.0-abc8675309).
 	Reference string `json:"reference,omitempty"`
 	// +kubebuilder:validation:Optional
 	// ReleaseOperatorDeploy informs the release-operator that it should deploy the component.
