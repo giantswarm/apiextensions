@@ -41,6 +41,7 @@ type ReleasesGetter interface {
 type ReleaseInterface interface {
 	Create(ctx context.Context, release *v1alpha1.Release, opts v1.CreateOptions) (*v1alpha1.Release, error)
 	Update(ctx context.Context, release *v1alpha1.Release, opts v1.UpdateOptions) (*v1alpha1.Release, error)
+	UpdateStatus(ctx context.Context, release *v1alpha1.Release, opts v1.UpdateOptions) (*v1alpha1.Release, error)
 	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
 	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
 	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.Release, error)
@@ -122,6 +123,21 @@ func (c *releases) Update(ctx context.Context, release *v1alpha1.Release, opts v
 	err = c.client.Put().
 		Resource("releases").
 		Name(release.Name).
+		VersionedParams(&opts, scheme.ParameterCodec).
+		Body(release).
+		Do(ctx).
+		Into(result)
+	return
+}
+
+// UpdateStatus was generated because the type contains a Status member.
+// Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
+func (c *releases) UpdateStatus(ctx context.Context, release *v1alpha1.Release, opts v1.UpdateOptions) (result *v1alpha1.Release, err error) {
+	result = &v1alpha1.Release{}
+	err = c.client.Put().
+		Resource("releases").
+		Name(release.Name).
+		SubResource("status").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(release).
 		Do(ctx).
