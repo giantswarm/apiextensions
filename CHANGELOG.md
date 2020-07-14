@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.14] - 2020-07-14
+
 ### Added
 
 - Add `pkg/label` and `pkg/annotation` as strategic single source of truth.
@@ -364,7 +366,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.14...HEAD
+[0.4.14]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...v0.4.14
 [0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
 [0.4.12]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...v0.4.12
 [0.4.11]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...v0.4.11
