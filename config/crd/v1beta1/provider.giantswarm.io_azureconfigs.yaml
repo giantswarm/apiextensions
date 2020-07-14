@@ -168,13 +168,13 @@ spec:
                     - kubeletVolumeSizeGB
                     - vmSize
                     type: object
+                  nullable: true
                   type: array
               required:
               - credentialSecret
               - dnsZones
               - masters
               - virtualNetwork
-              - workers
               type: object
             cluster:
               properties:

@@ -113,7 +113,6 @@ spec:
                         minimum: 0
                         type: integer
                       onDemandPercentageAboveBaseCapacity:
-                        default: 100
                         description: Percentage of on-demand EC2 instances to use
                           for worker nodes, instead of spot instances, for instances
                           exceeding `onDemandBaseCapacity`. For example, to have half

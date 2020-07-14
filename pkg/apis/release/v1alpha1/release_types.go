@@ -8,9 +8,11 @@ import (
 )
 
 const (
-	crDocsAnnotation         = "giantswarm.io/docs"
-	kindRelease              = "Release"
-	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
+	crDocsAnnotation            = "giantswarm.io/docs"
+	crReleaseNotesURLAnnotation = "giantswarm.io/release-notes"
+	kindRelease                 = "Release"
+	releaseDocumentationLink    = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
+	releaseNotesLink            = "https://github.com/giantswarm/releases"
 )
 
 type ReleaseState string
@@ -40,7 +42,8 @@ func NewReleaseCR() *Release {
 	return &Release{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: releaseDocumentationLink,
+				crDocsAnnotation:            releaseDocumentationLink,
+				crReleaseNotesURLAnnotation: releaseNotesLink,
 			},
 		},
 		TypeMeta: NewReleaseTypeMeta(),
@@ -49,7 +52,8 @@ func NewReleaseCR() *Release {
 
 // +kubebuilder:printcolumn:name="Kubernetes version",type=string,JSONPath=`.spec.components[?(@.name=="kubernetes")].version`,description="Version of the kubernetes component in this release"
 // +kubebuilder:printcolumn:name="State",type=string,JSONPath=`.spec.state`,description="State of the release"
-// +kubebuilder:printcolumn:name="Age",type=string,JSONPath=`.spec.date`,description="Time since release creation"
+// +kubebuilder:printcolumn:name="Age",type=date,JSONPath=`.spec.date`,description="Time since release creation"
+// +kubebuilder:printcolumn:name="Release notes",type=string,JSONPath=`.metadata.annotations['giantswarm\.io/release-notes']`,priority=1,description="Release notes for this release"
 // +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +genclient
 // +genclient:nonNamespaced

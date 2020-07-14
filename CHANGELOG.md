@@ -9,13 +9,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `pkg/label` and `pkg/annotation` as strategic single source of truth.
+
+
+
+## [0.4.13] - 2020-07-13
+
+- `AWSMachineDeployment`: Made `OnDemandBaseCapacity` and `OnDemandPercentageAboveBaseCapacity` optional attributes, removed default value for `OnDemandPercentageAboveBaseCapacity`.
+- `AWSMachineDeployment`: Made `OnDemandPercentageAboveBaseCapacity` an int pointer instead of an int.
+
+## [0.4.12] - 2020-07-10
+
+- Change `type` of `age` column to `date` in `additionalPrinterColumn` of release CRD
+
+## [0.4.11] - 2020-07-09
+
+### Changed
+
+- Update architect-orb to 0.10.0
+- Add release notes URL to additionalPrinterColumns for Release CRD
+
+## [0.4.10] - 2020-07-08
+
+### Changed
+
+- Allow `AzureConfig.Spec.Azure.Workers` to be null when moving towards node
+  pools.
 
 ## [0.4.9] 2020-07-07
 
 ### Changed
 
 - Allow suffixes in release names
-
 
 ## [0.4.8] 2020-06-22
 
@@ -338,8 +365,11 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.9...HEAD
-
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...HEAD
+[0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
+[0.4.12]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...v0.4.12
+[0.4.11]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...v0.4.11
+[0.4.10]: https://github.com/giantswarm/apiextensions/compare/v0.4.9...v0.4.10
 [0.4.9]: https://github.com/giantswarm/apiextensions/compare/v0.4.8...v0.4.9
 [0.4.8]: https://github.com/giantswarm/apiextensions/compare/v0.4.7...v0.4.8
 [0.4.7]: https://github.com/giantswarm/apiextensions/compare/v0.4.6...v0.4.7
