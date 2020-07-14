@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `pkg/label` and `pkg/annotation` as strategic single source of truth.
-- Add `catalog`, `reference`, and `releaseOperatorDeploy` fields to `release` CRs, and expose a `Ready` status.
+- Add `catalog`, `reference`, and `releaseOperatorDeploy` fields to `release` CRDs, and expose a `Ready` status.
 
 ## [0.4.13] - 2020-07-13
 
