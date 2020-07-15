@@ -82,9 +82,22 @@ spec:
                 description: Components describes components used in this release.
                 items:
                   properties:
+                    catalog:
+                      default: control-plane-catalog
+                      description: Catalog specifies the name of the app catalog that
+                        this component belongs to.
+                      type: string
                     name:
                       description: Name of the component.
                       type: string
+                    reference:
+                      description: Reference is the component's version in the catalog
+                        (e.g. 1.2.3 or 1.2.3-abc8675309).
+                      type: string
+                    releaseOperatorDeploy:
+                      description: ReleaseOperatorDeploy informs the release-operator
+                        that it should deploy the component.
+                      type: boolean
                     version:
                       description: Version of the component.
                       pattern: ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$
@@ -110,13 +123,23 @@ spec:
             - date
             - state
             type: object
+          status:
+            properties:
+              ready:
+                description: Ready indicates if all components of the release have
+                  been deployed.
+                type: boolean
+            required:
+            - ready
+            type: object
         required:
         - metadata
         - spec
         type: object
     served: true
     storage: true
-    subresources: {}
+    subresources:
+      status: {}
 status:
   acceptedNames:
     kind: ""

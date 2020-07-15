@@ -59,6 +59,7 @@ func NewReleaseCR() *Release {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
+// +kubebuilder:subresource:status
 // +k8s:openapi-gen=true
 
 // Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.
@@ -66,6 +67,8 @@ type Release struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	Spec              ReleaseSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status ReleaseStatus `json:"status"`
 }
 
 // +k8s:openapi-gen=true
@@ -85,8 +88,17 @@ type ReleaseSpec struct {
 
 // +k8s:openapi-gen=true
 type ReleaseSpecComponent struct {
+	// +kubebuilder:default=control-plane-catalog
+	// Catalog specifies the name of the app catalog that this component belongs to.
+	Catalog string `json:"catalog,omitempty"`
 	// Name of the component.
 	Name string `json:"name"`
+	// +kubebuilder:validation:Optional
+	// Reference is the component's version in the catalog (e.g. 1.2.3 or 1.2.3-abc8675309).
+	Reference string `json:"reference,omitempty"`
+	// +kubebuilder:validation:Optional
+	// ReleaseOperatorDeploy informs the release-operator that it should deploy the component.
+	ReleaseOperatorDeploy bool `json:"releaseOperatorDeploy,omitempty"`
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the component.
 	Version string `json:"version"`
@@ -101,6 +113,12 @@ type ReleaseSpecApp struct {
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the app.
 	Version string `json:"version"`
+}
+
+// +k8s:openapi-gen=true
+type ReleaseStatus struct {
+	// Ready indicates if all components of the release have been deployed.
+	Ready bool `json:"ready"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
