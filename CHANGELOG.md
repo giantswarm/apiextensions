@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Added CODEOWNERS file so that teams can more easily watch files that are relevant to them
+
 ## [0.4.14] - 2020-07-14
 
 ### Added
