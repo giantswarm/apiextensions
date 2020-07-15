@@ -92,7 +92,7 @@ spec:
                       type: string
                     reference:
                       description: Reference is the component's version in the catalog
-                        (e.g. my-app-1.2.3 or my-test-component-0.0.0-abc8675309).
+                        (e.g. 1.2.3 or 1.2.3-abc8675309).
                       type: string
                     releaseOperatorDeploy:
                       description: ReleaseOperatorDeploy informs the release-operator
