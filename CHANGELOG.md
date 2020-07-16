@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.15] - 2020-07-15
+
 ### Added
 
 - Added CODEOWNERS file so that teams can more easily watch files that are relevant to them
@@ -375,7 +377,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.14...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.15...HEAD
+[0.4.15]: https://github.com/giantswarm/apiextensions/compare/v0.4.14...v0.4.15
 [0.4.14]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...v0.4.14
 [0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
 [0.4.12]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...v0.4.12
