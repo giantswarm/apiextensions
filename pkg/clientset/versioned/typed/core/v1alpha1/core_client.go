@@ -35,6 +35,7 @@ type CoreV1alpha1Interface interface {
 	FlannelConfigsGetter
 	IgnitionsGetter
 	KVMClusterConfigsGetter
+	SparksGetter
 	StorageConfigsGetter
 }
 
@@ -73,6 +74,10 @@ func (c *CoreV1alpha1Client) Ignitions(namespace string) IgnitionInterface {
 
 func (c *CoreV1alpha1Client) KVMClusterConfigs(namespace string) KVMClusterConfigInterface {
 	return newKVMClusterConfigs(c, namespace)
+}
+
+func (c *CoreV1alpha1Client) Sparks(namespace string) SparkInterface {
+	return newSparks(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) StorageConfigs(namespace string) StorageConfigInterface {
