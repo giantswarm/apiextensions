@@ -22,7 +22,7 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsmachinedeployment.yaml", group, version),
-			resource: newAWSMachineDeploymentExampleCR(),
+			resource: TODO(),
 		},
 	}
 
@@ -57,49 +57,4 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 			}
 		})
 	}
-}
-
-func newAWSMachineDeploymentExampleCR() *AWSMachineDeployment {
-	cr := NewAWSMachineDeploymentCR()
-
-	var fifty int = 50
-
-	cr.Name = "general-purpose-node-pool"
-	cr.Spec = AWSMachineDeploymentSpec{
-		NodePool: AWSMachineDeploymentSpecNodePool{
-			Description: "General purpose worker nodes",
-			Machine: AWSMachineDeploymentSpecNodePoolMachine{
-				DockerVolumeSizeGB:  30,
-				KubeletVolumeSizeGB: 100,
-			},
-			Scaling: AWSMachineDeploymentSpecNodePoolScaling{
-				Min: 2,
-				Max: 50,
-			},
-		},
-		Provider: AWSMachineDeploymentSpecProvider{
-			AvailabilityZones: []string{"eu-central-1b", "eu-central-1c"},
-			InstanceDistribution: AWSMachineDeploymentSpecInstanceDistribution{
-				OnDemandBaseCapacity:                2,
-				OnDemandPercentageAboveBaseCapacity: &fifty,
-			},
-			Worker: AWSMachineDeploymentSpecProviderWorker{
-				InstanceType:          "m5.4xlarge",
-				UseAlikeInstanceTypes: true,
-			},
-		},
-	}
-	cr.Status = AWSMachineDeploymentStatus{
-		Provider: AWSMachineDeploymentStatusProvider{
-			Worker: AWSMachineDeploymentStatusProviderWorker{
-				InstanceTypes: []string{
-					"m4.xlarge",
-					"m5.xlarge",
-				},
-				SpotInstances: 39,
-			},
-		},
-	}
-
-	return cr
 }
