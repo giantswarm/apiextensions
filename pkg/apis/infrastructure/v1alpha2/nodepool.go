@@ -10,6 +10,8 @@ import (
 	"github.com/giantswarm/apiextensions/pkg/label"
 )
 
+// +k8s:deepcopy-gen=false
+
 type NodePoolCRsConfig struct {
 	AvailabilityZones                   []string
 	AWSInstanceType                     string
@@ -25,6 +27,8 @@ type NodePoolCRsConfig struct {
 	ReleaseVersion                      string
 	UseAlikeInstanceTypes               bool
 }
+
+// +k8s:deepcopy-gen=false
 
 type NodePoolCRs struct {
 	MachineDeployment    *apiv1alpha2.MachineDeployment

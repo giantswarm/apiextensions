@@ -14,6 +14,8 @@ const (
 	defaultMasterInstanceType = "m5.xlarge"
 )
 
+// +k8s:deepcopy-gen=false
+
 type ClusterConfig struct {
 	ClusterID         string
 	ControlPlaneID    string
@@ -29,6 +31,8 @@ type ClusterConfig struct {
 	ReleaseVersion    string
 	Labels            map[string]string
 }
+
+// +k8s:deepcopy-gen=false
 
 type ClusterCRs struct {
 	Cluster         *apiv1alpha2.Cluster
