@@ -16,7 +16,7 @@ const (
 
 // +k8s:deepcopy-gen=false
 
-type ClusterConfig struct {
+type ClusterCRsConfig struct {
 	ClusterID         string
 	ControlPlaneID    string
 	Credential        string
@@ -41,7 +41,7 @@ type ClusterCRs struct {
 	AWSControlPlane *AWSControlPlane
 }
 
-func NewClusterCRs(config ClusterConfig) (ClusterCRs, error) {
+func NewClusterCRs(config ClusterCRsConfig) (ClusterCRs, error) {
 	// Default some essentials in case certain information are not given. E.g.
 	// the Tenant Cluster ID may be provided by the user.
 	{
@@ -68,7 +68,7 @@ func NewClusterCRs(config ClusterConfig) (ClusterCRs, error) {
 	return crs, nil
 }
 
-func newAWSClusterCR(c ClusterConfig) *AWSCluster {
+func newAWSClusterCR(c ClusterCRsConfig) *AWSCluster {
 	awsClusterCR := &AWSCluster{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       kindAWSCluster,
@@ -120,7 +120,7 @@ func newAWSClusterCR(c ClusterConfig) *AWSCluster {
 	return awsClusterCR
 }
 
-func newAWSControlPlaneCR(c ClusterConfig) *AWSControlPlane {
+func newAWSControlPlaneCR(c ClusterCRsConfig) *AWSControlPlane {
 	return &AWSControlPlane{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       kindAWSControlPlane,
@@ -147,7 +147,7 @@ func newAWSControlPlaneCR(c ClusterConfig) *AWSControlPlane {
 	}
 }
 
-func newClusterCR(obj *AWSCluster, c ClusterConfig) *apiv1alpha2.Cluster {
+func newClusterCR(obj *AWSCluster, c ClusterCRsConfig) *apiv1alpha2.Cluster {
 	clusterLabels := map[string]string{}
 	{
 		for key, value := range c.Labels {
@@ -192,7 +192,7 @@ func newClusterCR(obj *AWSCluster, c ClusterConfig) *apiv1alpha2.Cluster {
 	return clusterCR
 }
 
-func newG8sControlPlaneCR(obj *AWSControlPlane, c ClusterConfig) *G8sControlPlane {
+func newG8sControlPlaneCR(obj *AWSControlPlane, c ClusterCRsConfig) *G8sControlPlane {
 	return &G8sControlPlane{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       kindG8sControlPlane,
