@@ -110,6 +110,9 @@ func newMachineDeploymentCR(obj *AWSMachineDeployment, c NodePoolCRsConfig) *api
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      c.MachineDeploymentID,
 			Namespace: metav1.NamespaceDefault,
+			Annotations: map[string]string{
+				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/machinedeployments.cluster.x-k8s.io",
+			},
 			Labels: map[string]string{
 				label.Cluster:                c.ClusterID,
 				label.ClusterOperatorVersion: c.ReleaseComponents["cluster-operator"],

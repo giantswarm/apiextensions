@@ -5,6 +5,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	apiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/id"
 	"github.com/giantswarm/apiextensions/pkg/label"
 )
@@ -72,6 +73,9 @@ func newAWSClusterCR(c ClusterConfig) *AWSCluster {
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      c.ClusterID,
 			Namespace: metav1.NamespaceDefault,
+			Annotations: map[string]string{
+				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/awsclusters.infrastructure.giantswarm.io",
+			},
 			Labels: map[string]string{
 				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
 				label.Cluster:            c.ClusterID,
@@ -121,6 +125,9 @@ func newAWSControlPlaneCR(c ClusterConfig) *AWSControlPlane {
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      c.ControlPlaneID,
 			Namespace: metav1.NamespaceDefault,
+			Annotations: map[string]string{
+				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io",
+			},
 			Labels: map[string]string{
 				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
 				label.Cluster:            c.ClusterID,
@@ -163,7 +170,10 @@ func newClusterCR(obj *AWSCluster, c ClusterConfig) *apiv1alpha2.Cluster {
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      c.ClusterID,
 			Namespace: metav1.NamespaceDefault,
-			Labels:    clusterLabels,
+			Annotations: map[string]string{
+				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/clusters.cluster.x-k8s.io",
+			},
+			Labels: clusterLabels,
 		},
 		Spec: apiv1alpha2.ClusterSpec{
 			InfrastructureRef: &corev1.ObjectReference{
@@ -187,6 +197,9 @@ func newG8sControlPlaneCR(obj *AWSControlPlane, c ClusterConfig) *G8sControlPlan
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      c.ControlPlaneID,
 			Namespace: metav1.NamespaceDefault,
+			Annotations: map[string]string{
+				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/g8scontrolplanes.infrastructure.giantswarm.io",
+			},
 			Labels: map[string]string{
 				label.ClusterOperatorVersion: c.ReleaseComponents["cluster-operator"],
 				label.Cluster:                c.ClusterID,
