@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.16] - 2020-07-20
+
 ### Added
 
 - Add CR templating for external use.
@@ -384,7 +386,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.15...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.16...HEAD
+[0.4.16]: https://github.com/giantswarm/apiextensions/compare/v0.4.15...v0.4.16
 [0.4.15]: https://github.com/giantswarm/apiextensions/compare/v0.4.14...v0.4.15
 [0.4.14]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...v0.4.14
 [0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
