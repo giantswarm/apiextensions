@@ -1,14 +1,11 @@
 package v1alpha2
 
 import (
-	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
-	infrastructurev1alpha2scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
-	"github.com/giantswarm/microerror"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/runtime"
-	"k8s.io/client-go/tools/reference"
 	apiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/id"
 	"github.com/giantswarm/apiextensions/pkg/label"
 )
@@ -17,7 +14,8 @@ type NodePoolCRsConfig struct {
 	AvailabilityZones                   []string
 	AWSInstanceType                     string
 	ClusterID                           string
-	Name                                string
+	MachineDeploymentID                 string
+	Description                         string
 	NodesMax                            int
 	NodesMin                            int
 	OnDemandBaseCapacity                int
@@ -25,25 +23,28 @@ type NodePoolCRsConfig struct {
 	Owner                               string
 	ReleaseComponents                   map[string]string
 	ReleaseVersion                      string
+	UseAlikeInstanceTypes               bool
 }
 
 type NodePoolCRs struct {
 	MachineDeployment    *apiv1alpha2.MachineDeployment
-	AWSMachineDeployment *infrastructurev1alpha2.AWSMachineDeployment
+	AWSMachineDeployment *AWSMachineDeployment
 }
 
 func NewNodePoolCRs(config NodePoolCRsConfig) (NodePoolCRs, error) {
-	machineDeploymentID := id.Generate()
-
-	awsMachineDeploymentCR, err := newAWSMachineDeploymentCR(config.ClusterID, machineDeploymentID, config)
-	if err != nil {
-		return NodePoolCRs{}, microerror.Mask(err)
+	// Default some essentials in case certain information are not given. E.g.
+	// the Tenant Cluster ID may be provided by the user.
+	{
+		if config.ClusterID == "" {
+			config.ClusterID = id.Generate()
+		}
+		if config.MachineDeploymentID == "" {
+			config.MachineDeploymentID = id.Generate()
+		}
 	}
 
-	machineDeploymentCR, err := newMachineDeploymentCR(awsMachineDeploymentCR, config.ClusterID, machineDeploymentID, config)
-	if err != nil {
-		return NodePoolCRs{}, microerror.Mask(err)
-	}
+	awsMachineDeploymentCR := newAWSMachineDeploymentCR(config)
+	machineDeploymentCR := newMachineDeploymentCR(awsMachineDeploymentCR, config)
 
 	crs := NodePoolCRs{
 		MachineDeployment:    machineDeploymentCR,
@@ -53,26 +54,66 @@ func NewNodePoolCRs(config NodePoolCRsConfig) (NodePoolCRs, error) {
 	return crs, nil
 }
 
-func newMachineDeploymentCR(obj interface{}, clusterID, machineDeploymentID string, c NodePoolCRsConfig) (*apiv1alpha2.MachineDeployment, error) {
-	runtimeObj, _ := obj.(runtime.Object)
-
-	infrastructureCRRef, err := reference.GetReference(infrastructurev1alpha2scheme.Scheme, runtimeObj)
-	if err != nil {
-		return nil, microerror.Mask(err)
+func newAWSMachineDeploymentCR(c NodePoolCRsConfig) *AWSMachineDeployment {
+	return &AWSMachineDeployment{
+		TypeMeta: metav1.TypeMeta{
+			Kind:       kindAWSMachineDeployment,
+			APIVersion: SchemeGroupVersion.String(),
+		},
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      c.MachineDeploymentID,
+			Namespace: metav1.NamespaceDefault,
+			Annotations: map[string]string{
+				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/awsmachinedeployments.infrastructure.giantswarm.io",
+			},
+			Labels: map[string]string{
+				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
+				label.Cluster:            c.ClusterID,
+				label.MachineDeployment:  c.MachineDeploymentID,
+				label.Organization:       c.Owner,
+				label.ReleaseVersion:     c.ReleaseVersion,
+			},
+		},
+		Spec: AWSMachineDeploymentSpec{
+			NodePool: AWSMachineDeploymentSpecNodePool{
+				Description: c.Description,
+				Machine: AWSMachineDeploymentSpecNodePoolMachine{
+					DockerVolumeSizeGB:  100,
+					KubeletVolumeSizeGB: 100,
+				},
+				Scaling: AWSMachineDeploymentSpecNodePoolScaling{
+					Max: c.NodesMax,
+					Min: c.NodesMin,
+				},
+			},
+			Provider: AWSMachineDeploymentSpecProvider{
+				AvailabilityZones: c.AvailabilityZones,
+				Worker: AWSMachineDeploymentSpecProviderWorker{
+					InstanceType:          c.AWSInstanceType,
+					UseAlikeInstanceTypes: c.UseAlikeInstanceTypes,
+				},
+				InstanceDistribution: AWSMachineDeploymentSpecInstanceDistribution{
+					OnDemandBaseCapacity:                c.OnDemandBaseCapacity,
+					OnDemandPercentageAboveBaseCapacity: &c.OnDemandPercentageAboveBaseCapacity,
+				},
+			},
+		},
 	}
+}
 
-	machineDeploymentCR := &apiv1alpha2.MachineDeployment{
+func newMachineDeploymentCR(obj *AWSMachineDeployment, c NodePoolCRsConfig) *apiv1alpha2.MachineDeployment {
+	return &apiv1alpha2.MachineDeployment{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       "MachineDeployment",
 			APIVersion: "cluster.x-k8s.io/v1alpha2",
 		},
 		ObjectMeta: metav1.ObjectMeta{
-			Name:      machineDeploymentID,
+			Name:      c.MachineDeploymentID,
 			Namespace: metav1.NamespaceDefault,
 			Labels: map[string]string{
-				label.Cluster:                clusterID,
+				label.Cluster:                c.ClusterID,
 				label.ClusterOperatorVersion: c.ReleaseComponents["cluster-operator"],
-				label.MachineDeployment:      machineDeploymentID,
+				label.MachineDeployment:      c.MachineDeploymentID,
 				label.Organization:           c.Owner,
 				label.ReleaseVersion:         c.ReleaseVersion,
 			},
@@ -80,56 +121,14 @@ func newMachineDeploymentCR(obj interface{}, clusterID, machineDeploymentID stri
 		Spec: apiv1alpha2.MachineDeploymentSpec{
 			Template: apiv1alpha2.MachineTemplateSpec{
 				Spec: apiv1alpha2.MachineSpec{
-					InfrastructureRef: *infrastructureCRRef,
+					InfrastructureRef: corev1.ObjectReference{
+						APIVersion: obj.TypeMeta.APIVersion,
+						Kind:       obj.TypeMeta.Kind,
+						Name:       obj.GetName(),
+						Namespace:  obj.GetNamespace(),
+					},
 				},
 			},
 		},
 	}
-
-	return machineDeploymentCR, nil
-}
-
-func newAWSMachineDeploymentCR(clusterID, machineDeploymentID string, c NodePoolCRsConfig) (*infrastructurev1alpha2.AWSMachineDeployment, error) {
-	awsMachineDeploymentCR := &infrastructurev1alpha2.AWSMachineDeployment{
-		TypeMeta: metav1.TypeMeta{
-			Kind:       "AWSMachineDeployment",
-			APIVersion: SchemeGroupVersion.String(),
-		},
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      machineDeploymentID,
-			Namespace: metav1.NamespaceDefault,
-			Labels: map[string]string{
-				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
-				label.Cluster:            clusterID,
-				label.MachineDeployment:  machineDeploymentID,
-				label.Organization:       c.Owner,
-				label.ReleaseVersion:     c.ReleaseVersion,
-			},
-		},
-		Spec: infrastructurev1alpha2.AWSMachineDeploymentSpec{
-			NodePool: infrastructurev1alpha2.AWSMachineDeploymentSpecNodePool{
-				Description: c.Name,
-				Machine: infrastructurev1alpha2.AWSMachineDeploymentSpecNodePoolMachine{
-					DockerVolumeSizeGB:  100,
-					KubeletVolumeSizeGB: 100,
-				},
-				Scaling: infrastructurev1alpha2.AWSMachineDeploymentSpecNodePoolScaling{
-					Max: c.NodesMax,
-					Min: c.NodesMin,
-				},
-			},
-			Provider: infrastructurev1alpha2.AWSMachineDeploymentSpecProvider{
-				AvailabilityZones: c.AvailabilityZones,
-				Worker: infrastructurev1alpha2.AWSMachineDeploymentSpecProviderWorker{
-					InstanceType: c.AWSInstanceType,
-				},
-				InstanceDistribution: infrastructurev1alpha2.AWSMachineDeploymentSpecInstanceDistribution{
-					OnDemandBaseCapacity:                c.OnDemandBaseCapacity,
-					OnDemandPercentageAboveBaseCapacity: &c.OnDemandPercentageAboveBaseCapacity,
-				},
-			},
-		},
-	}
-
-	return awsMachineDeploymentCR, nil
 }

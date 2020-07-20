@@ -22,7 +22,26 @@ func Test_GenerateAWSMachineDeploymentYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsmachinedeployment.yaml", group, version),
-			resource: TODO(),
+			resource: newAWSMachineDeploymentCR(NodePoolCRsConfig{
+				AvailabilityZones: []string{
+					"eu-central-1b",
+					"eu-central-1c",
+				},
+				AWSInstanceType:                     "m5.4xlarge",
+				ClusterID:                           "al9qy",
+				Description:                         "General purpose worker nodes",
+				MachineDeploymentID:                 "wk4np",
+				NodesMax:                            50,
+				NodesMin:                            2,
+				OnDemandBaseCapacity:                2,
+				OnDemandPercentageAboveBaseCapacity: 50,
+				Owner:                               "giantswarm",
+				ReleaseComponents: map[string]string{
+					"aws-operator": "8.7.0",
+				},
+				ReleaseVersion:        "11.5.0",
+				UseAlikeInstanceTypes: true,
+			}),
 		},
 	}
 

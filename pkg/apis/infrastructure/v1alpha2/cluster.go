@@ -1,11 +1,8 @@
 package v1alpha2
 
 import (
-	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
-	infrastructurev1alpha2scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
-	"github.com/giantswarm/microerror"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/client-go/tools/reference"
 	apiv1alpha2 "sigs.k8s.io/cluster-api/api/v1alpha2"
 
 	"github.com/giantswarm/apiextensions/pkg/id"
@@ -34,9 +31,9 @@ type ClusterConfig struct {
 
 type ClusterCRs struct {
 	Cluster         *apiv1alpha2.Cluster
-	AWSCluster      *infrastructurev1alpha2.AWSCluster
-	G8sControlPlane *infrastructurev1alpha2.G8sControlPlane
-	AWSControlPlane *infrastructurev1alpha2.AWSControlPlane
+	AWSCluster      *AWSCluster
+	G8sControlPlane *G8sControlPlane
+	AWSControlPlane *AWSControlPlane
 }
 
 func NewClusterCRs(config ClusterConfig) (ClusterCRs, error) {
@@ -52,16 +49,9 @@ func NewClusterCRs(config ClusterConfig) (ClusterCRs, error) {
 	}
 
 	awsClusterCR := newAWSClusterCR(config)
-	clusterCR, err := newClusterCR(awsClusterCR, config)
-	if err != nil {
-		return ClusterCRs{}, microerror.Mask(err)
-	}
-
+	clusterCR := newClusterCR(awsClusterCR, config)
 	awsControlPlaneCR := newAWSControlPlaneCR(config)
-	g8sControlPlaneCR, err := newG8sControlPlaneCR(awsControlPlaneCR, config)
-	if err != nil {
-		return ClusterCRs{}, microerror.Mask(err)
-	}
+	g8sControlPlaneCR := newG8sControlPlaneCR(awsControlPlaneCR, config)
 
 	crs := ClusterCRs{
 		Cluster:         clusterCR,
@@ -73,8 +63,8 @@ func NewClusterCRs(config ClusterConfig) (ClusterCRs, error) {
 	return crs, nil
 }
 
-func newAWSClusterCR(c ClusterConfig) *infrastructurev1alpha2.AWSCluster {
-	awsClusterCR := &infrastructurev1alpha2.AWSCluster{
+func newAWSClusterCR(c ClusterConfig) *AWSCluster {
+	awsClusterCR := &AWSCluster{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       kindAWSCluster,
 			APIVersion: SchemeGroupVersion.String(),
@@ -89,20 +79,20 @@ func newAWSClusterCR(c ClusterConfig) *infrastructurev1alpha2.AWSCluster {
 				label.ReleaseVersion:     c.ReleaseVersion,
 			},
 		},
-		Spec: infrastructurev1alpha2.AWSClusterSpec{
-			Cluster: infrastructurev1alpha2.AWSClusterSpecCluster{
+		Spec: AWSClusterSpec{
+			Cluster: AWSClusterSpecCluster{
 				Description: c.Name,
-				DNS: infrastructurev1alpha2.AWSClusterSpecClusterDNS{
+				DNS: AWSClusterSpecClusterDNS{
 					Domain: c.Domain,
 				},
-				OIDC: infrastructurev1alpha2.AWSClusterSpecClusterOIDC{},
+				OIDC: AWSClusterSpecClusterOIDC{},
 			},
-			Provider: infrastructurev1alpha2.AWSClusterSpecProvider{
-				CredentialSecret: infrastructurev1alpha2.AWSClusterSpecProviderCredentialSecret{
+			Provider: AWSClusterSpecProvider{
+				CredentialSecret: AWSClusterSpecProviderCredentialSecret{
 					Name:      c.Credential,
 					Namespace: "giantswarm",
 				},
-				Pods: infrastructurev1alpha2.AWSClusterSpecProviderPods{
+				Pods: AWSClusterSpecProviderPods{
 					CIDRBlock:    c.PodsCIDR,
 					ExternalSNAT: &c.ExternalSNAT,
 				},
@@ -113,7 +103,7 @@ func newAWSClusterCR(c ClusterConfig) *infrastructurev1alpha2.AWSCluster {
 
 	// Single master node
 	if len(c.MasterAZ) == 1 {
-		awsClusterCR.Spec.Provider.Master = infrastructurev1alpha2.AWSClusterSpecProviderMaster{
+		awsClusterCR.Spec.Provider.Master = AWSClusterSpecProviderMaster{
 			AvailabilityZone: c.MasterAZ[0],
 			InstanceType:     defaultMasterInstanceType,
 		}
@@ -122,8 +112,8 @@ func newAWSClusterCR(c ClusterConfig) *infrastructurev1alpha2.AWSCluster {
 	return awsClusterCR
 }
 
-func newAWSControlPlaneCR(c ClusterConfig) *infrastructurev1alpha2.AWSControlPlane {
-	return &infrastructurev1alpha2.AWSControlPlane{
+func newAWSControlPlaneCR(c ClusterConfig) *AWSControlPlane {
+	return &AWSControlPlane{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       kindAWSControlPlane,
 			APIVersion: SchemeGroupVersion.String(),
@@ -139,19 +129,14 @@ func newAWSControlPlaneCR(c ClusterConfig) *infrastructurev1alpha2.AWSControlPla
 				label.ReleaseVersion:     c.ReleaseVersion,
 			},
 		},
-		Spec: infrastructurev1alpha2.AWSControlPlaneSpec{
+		Spec: AWSControlPlaneSpec{
 			AvailabilityZones: c.MasterAZ,
 			InstanceType:      defaultMasterInstanceType,
 		},
 	}
 }
 
-func newClusterCR(obj *infrastructurev1alpha2.AWSCluster, c ClusterConfig) (*apiv1alpha2.Cluster, error) {
-	infrastructureCRRef, err := reference.GetReference(infrastructurev1alpha2scheme.Scheme, obj)
-	if err != nil {
-		return nil, microerror.Mask(err)
-	}
-
+func newClusterCR(obj *AWSCluster, c ClusterConfig) *apiv1alpha2.Cluster {
 	clusterLabels := map[string]string{}
 	{
 		for key, value := range c.Labels {
@@ -181,20 +166,20 @@ func newClusterCR(obj *infrastructurev1alpha2.AWSCluster, c ClusterConfig) (*api
 			Labels:    clusterLabels,
 		},
 		Spec: apiv1alpha2.ClusterSpec{
-			InfrastructureRef: infrastructureCRRef,
+			InfrastructureRef: &corev1.ObjectReference{
+				APIVersion: obj.TypeMeta.APIVersion,
+				Kind:       obj.TypeMeta.Kind,
+				Name:       obj.GetName(),
+				Namespace:  obj.GetNamespace(),
+			},
 		},
 	}
 
-	return clusterCR, nil
+	return clusterCR
 }
 
-func newG8sControlPlaneCR(obj *infrastructurev1alpha2.AWSControlPlane, c ClusterConfig) (*infrastructurev1alpha2.G8sControlPlane, error) {
-	infrastructureCRRef, err := reference.GetReference(infrastructurev1alpha2scheme.Scheme, obj)
-	if err != nil {
-		return nil, microerror.Mask(err)
-	}
-
-	cr := &infrastructurev1alpha2.G8sControlPlane{
+func newG8sControlPlaneCR(obj *AWSControlPlane, c ClusterConfig) *G8sControlPlane {
+	return &G8sControlPlane{
 		TypeMeta: metav1.TypeMeta{
 			Kind:       kindG8sControlPlane,
 			APIVersion: SchemeGroupVersion.String(),
@@ -210,11 +195,14 @@ func newG8sControlPlaneCR(obj *infrastructurev1alpha2.AWSControlPlane, c Cluster
 				label.ReleaseVersion:         c.ReleaseVersion,
 			},
 		},
-		Spec: infrastructurev1alpha2.G8sControlPlaneSpec{
-			Replicas:          len(c.MasterAZ),
-			InfrastructureRef: *infrastructureCRRef,
+		Spec: G8sControlPlaneSpec{
+			Replicas: len(c.MasterAZ),
+			InfrastructureRef: corev1.ObjectReference{
+				APIVersion: obj.TypeMeta.APIVersion,
+				Kind:       obj.TypeMeta.Kind,
+				Name:       obj.GetName(),
+				Namespace:  obj.GetNamespace(),
+			},
 		},
 	}
-
-	return cr, nil
 }
