@@ -23,7 +23,7 @@ type ClusterCRsConfig struct {
 	Domain            string
 	ExternalSNAT      bool
 	MasterAZ          []string
-	Name              string
+	Description       string
 	PodsCIDR          string
 	Owner             string
 	Region            string
@@ -89,7 +89,7 @@ func newAWSClusterCR(c ClusterCRsConfig) *AWSCluster {
 		},
 		Spec: AWSClusterSpec{
 			Cluster: AWSClusterSpecCluster{
-				Description: c.Name,
+				Description: c.Description,
 				DNS: AWSClusterSpecClusterDNS{
 					Domain: c.Domain,
 				},
