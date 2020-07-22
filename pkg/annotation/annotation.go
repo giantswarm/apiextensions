@@ -1,3 +1,5 @@
+// Package annotation defines annotation keys used by Giant Swarm within
+// Kubernetes resources.
 package annotation
 
 // Docs is the docs annotation put into all CRs to link to its CR specific
