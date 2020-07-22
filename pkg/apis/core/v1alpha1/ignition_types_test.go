@@ -10,11 +10,12 @@ import (
 	goruntime "runtime"
 	"testing"
 
-	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/google/go-cmp/cmp"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 )
 
 var (
