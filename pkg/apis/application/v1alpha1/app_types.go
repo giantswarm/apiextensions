@@ -4,6 +4,7 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
@@ -28,7 +29,7 @@ func NewAppCR() *App {
 	return &App{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: appDocumentationLink,
+				annotation.Docs: appDocumentationLink,
 			},
 		},
 		TypeMeta: NewAppTypeMeta(),

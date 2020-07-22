@@ -10,6 +10,7 @@ import (
 	goruntime "runtime"
 	"testing"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/google/go-cmp/cmp"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -38,7 +39,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 				ObjectMeta: v1.ObjectMeta{
 					Name: "abc12-master",
 					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
+						annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
 					},
 				},
 				Spec: IgnitionSpec{

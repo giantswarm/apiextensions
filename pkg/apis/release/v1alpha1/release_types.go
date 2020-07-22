@@ -4,15 +4,14 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
-	crDocsAnnotation            = "giantswarm.io/docs"
-	crReleaseNotesURLAnnotation = "giantswarm.io/release-notes"
-	kindRelease                 = "Release"
-	releaseDocumentationLink    = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
-	releaseNotesLink            = "https://github.com/giantswarm/releases"
+	kindRelease              = "Release"
+	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
+	releaseNotesLink         = "https://github.com/giantswarm/releases"
 )
 
 type ReleaseState string
@@ -42,8 +41,8 @@ func NewReleaseCR() *Release {
 	return &Release{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation:            releaseDocumentationLink,
-				crReleaseNotesURLAnnotation: releaseNotesLink,
+				annotation.Docs:         releaseDocumentationLink,
+				annotation.ReleaseNotes: releaseNotesLink,
 			},
 		},
 		TypeMeta: NewReleaseTypeMeta(),

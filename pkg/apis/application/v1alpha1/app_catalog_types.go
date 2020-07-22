@@ -4,11 +4,11 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
-	crDocsAnnotation            = "giantswarm.io/docs"
 	kindAppCatalog              = "AppCatalog"
 	appCatalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/"
 )
@@ -29,7 +29,7 @@ func NewAppCatalogCR() *AppCatalog {
 	return &AppCatalog{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: appCatalogDocumentationLink,
+				annotation.Docs: appCatalogDocumentationLink,
 			},
 		},
 		TypeMeta: NewAppCatalogTypeMeta(),
