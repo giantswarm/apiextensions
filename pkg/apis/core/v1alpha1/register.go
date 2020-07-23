@@ -31,6 +31,8 @@ var knownTypes = []runtime.Object{
 	&FlannelConfigList{},
 	&Ignition{},
 	&IgnitionList{},
+	&Spark{},
+	&SparkList{},
 	&StorageConfig{},
 	&StorageConfigList{},
 }
