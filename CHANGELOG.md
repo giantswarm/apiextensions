@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `AzureOperatorVersion` to `pkg/label`.
+- Add `MachinePool` to `pkg/label`
+- Add `MachinePoolName` to `pkg/annotation`
 - Add `ReleaseNotesURL` to `pkg/annotation`.
 - Add descriptions to `App`, `AppCatalog` and `Chart` CRDs.
 - Add deprecation notice to `ChartConfig` CRD.
