@@ -31,6 +31,8 @@ var (
 
 func Test_ReleaseCRValidation(t *testing.T) {
 	now := metav1.Now()
+	inTenDays := metav1.NewTime(now.Time.Add(240 * time.Hour))
+
 	testCases := []struct {
 		name   string
 		errors []*errors.Validation
@@ -72,8 +74,9 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
-					Date:  &now,
+					State:         stateActive,
+					Date:          &now,
+					EndOfLifeDate: &inTenDays,
 					Apps: []ReleaseSpecApp{
 						{
 							Name:             "test-app",
@@ -354,7 +357,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 			}
 			result := validator.Validate(tc.cr)
 
-			if !cmp.Equal(len(result.Errors), len(tc.errors)) {
+			if len(result.Errors) != len(tc.errors) {
 				t.Fatalf("\n\n%s %s\n", tc.name, cmp.Diff(len(result.Errors), len(tc.errors)))
 			}
 
@@ -464,8 +467,9 @@ func newReleaseExampleCR() *Release {
 				Version: "3.3.17",
 			},
 		},
-		Date:  &metav1.Time{Time: time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
-		State: stateActive,
+		Date:          &metav1.Time{Time: time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
+		EndOfLifeDate: &metav1.Time{Time: time.Date(2020, 10, 3, 0, 0, 0, 0, time.UTC)},
+		State:         stateActive,
 	}
 	return cr
 }

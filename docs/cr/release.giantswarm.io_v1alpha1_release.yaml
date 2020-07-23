@@ -51,4 +51,5 @@ spec:
   - name: etcd
     version: 3.3.17
   date: "2020-03-03T11:12:13Z"
+  endOfLifeDate: "2020-10-03T00:00:00Z"
   state: active

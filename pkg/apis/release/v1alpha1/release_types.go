@@ -74,11 +74,21 @@ type Release struct {
 type ReleaseSpec struct {
 	// Apps describes apps used in this release.
 	Apps []ReleaseSpecApp `json:"apps"`
+
 	// +kubebuilder:validation:MinItems=1
 	// Components describes components used in this release.
 	Components []ReleaseSpecComponent `json:"components"`
+
 	// Date that the release became active.
 	Date *metav1.Time `json:"date"`
+
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// EndOfLifeDate is the date and time when support for a tenant cluster using
+	// this release ends. This may not be set at the time of release creation
+	// and can be specififed later.
+	EndOfLifeDate *metav1.Time `json:"endOfLifeDate"`
+
 	// +kubebuilder:validation:Type=string
 	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip)$`
 	// State indicates the availability of the release: deprecated, active, or wip.
