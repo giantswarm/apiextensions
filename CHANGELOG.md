@@ -11,6 +11,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `AzureOperatorVersion` to `pkg/label`.
+- Add `MachinePool` to `pkg/label`
+- Add `MachinePoolName` to `pkg/annotation`
+- Add `ReleaseNotesURL` to `pkg/annotation`.
+- Add descriptions to `App`, `AppCatalog` and `Chart` CRDs.
+- Add deprecation notice to `ChartConfig` CRD.
+
+## [0.4.16] - 2020-07-20
+
+### Added
+
+- Add CR templating for external use.
+
+
+
+## [0.4.15] - 2020-07-15
+
+### Added
+
+- Added CODEOWNERS file so that teams can more easily watch files that are relevant to them
+
+### Changed
+
+- Deprecated AWSConfig and StorageConfig
+- Update `sigs.k8s.io/cluster-api` to v0.3.7-rc.1
+- Update `sigs.k8s.io/cluster-api-provider-azure` to v0.4.5
+
+## [0.4.14] - 2020-07-14
+
+### Added
+
 - Add `pkg/label` and `pkg/annotation` as strategic single source of truth.
 - Add `catalog`, `reference`, and `releaseOperatorDeploy` fields to `release` CRDs, and expose a `Ready` status.
 
@@ -364,7 +395,10 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.16...HEAD
+[0.4.16]: https://github.com/giantswarm/apiextensions/compare/v0.4.15...v0.4.16
+[0.4.15]: https://github.com/giantswarm/apiextensions/compare/v0.4.14...v0.4.15
+[0.4.14]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...v0.4.14
 [0.4.13]: https://github.com/giantswarm/apiextensions/compare/v0.4.12...v0.4.13
 [0.4.12]: https://github.com/giantswarm/apiextensions/compare/v0.4.11...v0.4.12
 [0.4.11]: https://github.com/giantswarm/apiextensions/compare/v0.4.10...v0.4.11

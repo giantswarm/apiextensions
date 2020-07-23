@@ -23,6 +23,7 @@ func NewStorageConfigCRD() *apiextensionsv1beta1.CustomResourceDefinition {
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 
+// StorageConfig used to provide storage for Giant Swarm API microservices. Deprecated.
 type StorageConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
