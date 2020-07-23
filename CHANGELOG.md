@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `AzureOperatorVersion` to `pkg/label`.
 - Add `ReleaseNotesURL` to `pkg/annotation`.
+- Add descriptions to `App`, `AppCatalog` and `Chart` CRDs.
+- Add deprecation notice to `ChartConfig` CRD.
 
 ## [0.4.16] - 2020-07-20
 
