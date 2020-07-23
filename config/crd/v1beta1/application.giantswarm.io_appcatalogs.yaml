@@ -20,6 +20,7 @@ spec:
   scope: Cluster
   validation:
     openAPIV3Schema:
+      description: AppCatalog represents a catalog of managed apps.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

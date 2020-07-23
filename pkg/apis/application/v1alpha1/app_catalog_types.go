@@ -42,7 +42,7 @@ func NewAppCatalogCR() *AppCatalog {
 // +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-
+// AppCatalog represents a catalog of managed apps.
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
