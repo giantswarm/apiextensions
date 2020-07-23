@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `AzureOperatorVersion` to `pkg/label`.
+- Add `ReleaseNotesURL` to `pkg/annotation`.
 
 ## [0.4.16] - 2020-07-20
 
