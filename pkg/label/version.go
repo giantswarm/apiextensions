@@ -8,8 +8,8 @@ const AWSOperatorVersion = "aws-operator.giantswarm.io/version"
 
 // AzureOperatorVersion is the version label put into Azure specific CRs to define
 // which azure-operator version should reconcile the given CR. Versions are
-// defined as semver version without the "v" prefix, e.g. 8.7.0, which means
-// that there is an azure-operator release v8.7.0.
+// defined as semver version without the "v" prefix, e.g. 4.1.0, which means
+// that there is an azure-operator release v4.1.0.
 const AzureOperatorVersion = "azure-operator.giantswarm.io/version"
 
 // ClusterOperatorVersion is the version label put into provider independent CRs
