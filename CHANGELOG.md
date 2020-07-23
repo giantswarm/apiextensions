@@ -9,13 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `AzureOperatorVersion` to `pkg/label`.
+- Add `ReleaseNotesURL` to `pkg/annotation`.
+
 ### Changed
 
 - Graduate AppCatalog CRDs to `v1`.
 - Graduate App CRDs to `v1`.
 - Graduate Chart CRDs to `v1`.
-
-
 
 ## [0.4.16] - 2020-07-20
 
