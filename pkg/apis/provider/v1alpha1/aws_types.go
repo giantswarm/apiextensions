@@ -4,11 +4,11 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
 const (
-	crDocsAnnotation           = "giantswarm.io/docs"
 	kindAWSConfig              = "AWSConfig"
 	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/"
 )
@@ -30,7 +30,7 @@ func NewAWSConfigCR() *AWSConfig {
 	return &AWSConfig{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: awsConfigDocumentationLink,
+				annotation.Docs: awsConfigDocumentationLink,
 			},
 		},
 		TypeMeta: NewAWSClusterTypeMeta(),
