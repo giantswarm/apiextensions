@@ -9,10 +9,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- Annotation key constant `ReleaseNotes`.
-
 ## [0.4.17] - 2020-07-23
 
 ### Added

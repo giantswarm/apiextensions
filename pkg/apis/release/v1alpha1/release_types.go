@@ -41,8 +41,8 @@ func NewReleaseCR() *Release {
 	return &Release{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				annotation.Docs:         releaseDocumentationLink,
-				annotation.ReleaseNotes: releaseNotesLink,
+				annotation.Docs:            releaseDocumentationLink,
+				annotation.ReleaseNotesURL: releaseNotesLink,
 			},
 		},
 		TypeMeta: NewReleaseTypeMeta(),
