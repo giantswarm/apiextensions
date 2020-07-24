@@ -22,6 +22,7 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
+      description: App represents a managed app.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

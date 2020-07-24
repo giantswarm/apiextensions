@@ -1,7 +1,7 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/pkg/annotation"
@@ -13,8 +13,8 @@ const (
 	appCatalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/"
 )
 
-func NewAppCatalogCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindAppCatalog)
+func NewAppCatalogCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindAppCatalog)
 }
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {
@@ -42,7 +42,7 @@ func NewAppCatalogCR() *AppCatalog {
 // +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-
+// AppCatalog represents a catalog of managed apps.
 type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
