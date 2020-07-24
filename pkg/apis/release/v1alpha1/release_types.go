@@ -11,7 +11,7 @@ import (
 const (
 	kindRelease              = "Release"
 	releaseDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/releases.release.giantswarm.io/"
-	releaseNotesLink         = "https://github.com/giantswarm/releases"
+	releaseNotesLink         = "https://github.com/giantswarm/releases/tree/master/aws/v11.2.0"
 )
 
 type ReleaseState string
