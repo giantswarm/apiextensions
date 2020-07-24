@@ -87,7 +87,7 @@ type ReleaseSpec struct {
 	// EndOfLifeDate is the date and time when support for a tenant cluster using
 	// this release ends. This may not be set at the time of release creation
 	// and can be specififed later.
-	EndOfLifeDate *metav1.Time `json:"endOfLifeDate"`
+	EndOfLifeDate *metav1.Time `json:"endOfLifeDate,omitempty"`
 
 	// +kubebuilder:validation:Type=string
 	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip)$`
