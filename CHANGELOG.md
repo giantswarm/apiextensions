@@ -9,10 +9,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.17] - 2020-07-23
+
 ### Added
 
 - Add `AzureOperatorVersion` to `pkg/label`.
+- Add `MachinePool` to `pkg/label`
+- Add `MachinePoolName` to `pkg/annotation`
 - Add `ReleaseNotesURL` to `pkg/annotation`.
+- Add descriptions to `App`, `AppCatalog` and `Chart` CRDs.
+- Add deprecation notice to `ChartConfig` CRD.
+
+### Changed
+
+- Graduate AppCatalog CRDs to `v1`.
+- Graduate App CRDs to `v1`.
+- Graduate Chart CRDs to `v1`.
 
 ## [0.4.16] - 2020-07-20
 
@@ -391,7 +403,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.16...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.17...HEAD
+[0.4.17]: https://github.com/giantswarm/apiextensions/compare/v0.4.16...v0.4.17
 [0.4.16]: https://github.com/giantswarm/apiextensions/compare/v0.4.15...v0.4.16
 [0.4.15]: https://github.com/giantswarm/apiextensions/compare/v0.4.14...v0.4.15
 [0.4.14]: https://github.com/giantswarm/apiextensions/compare/v0.4.13...v0.4.14

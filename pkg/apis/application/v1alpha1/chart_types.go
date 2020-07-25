@@ -1,9 +1,10 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
@@ -12,8 +13,8 @@ const (
 	chartDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/charts.application.giantswarm.io/"
 )
 
-func NewChartCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindChart)
+func NewChartCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindChart)
 }
 
 func NewChartTypeMeta() metav1.TypeMeta {
@@ -28,7 +29,7 @@ func NewChartCR() *Chart {
 	return &Chart{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: chartDocumentationLink,
+				annotation.Docs: chartDocumentationLink,
 			},
 		},
 		TypeMeta: NewChartTypeMeta(),
@@ -41,7 +42,7 @@ func NewChartCR() *Chart {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
 // +k8s:openapi-gen=true
-
+// Chart represents a Helm Chart deployed as a Helm Release.
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

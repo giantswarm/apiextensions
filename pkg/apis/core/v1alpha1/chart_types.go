@@ -21,7 +21,7 @@ func NewChartConfigCRD() *v1beta1.CustomResourceDefinition {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
 // +k8s:openapi-gen=true
-
+// ChartConfig used to represent an app deployed as a Helm Release. Deprecated.
 type ChartConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

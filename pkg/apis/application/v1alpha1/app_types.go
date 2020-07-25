@@ -1,9 +1,10 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
@@ -12,8 +13,8 @@ const (
 	appDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/"
 )
 
-func NewAppCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindApp)
+func NewAppCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindApp)
 }
 
 func NewAppTypeMeta() metav1.TypeMeta {
@@ -28,7 +29,7 @@ func NewAppCR() *App {
 	return &App{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: appDocumentationLink,
+				annotation.Docs: appDocumentationLink,
 			},
 		},
 		TypeMeta: NewAppTypeMeta(),
@@ -41,7 +42,7 @@ func NewAppCR() *App {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
 // +k8s:openapi-gen=true
-
+// App represents a managed app.
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

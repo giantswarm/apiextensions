@@ -22,6 +22,7 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
+        description: AppCatalog represents a catalog of managed apps.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
