@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `ReleaseNotesURL` to `pkg/annotation`.
 - Add descriptions to `App`, `AppCatalog` and `Chart` CRDs.
 - Add deprecation notice to `ChartConfig` CRD.
+- Add `EndOfLifeDate` to `Release` CRD.
 
 ### Changed
 

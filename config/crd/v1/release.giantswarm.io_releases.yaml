@@ -112,6 +112,13 @@ spec:
                 description: Date that the release became active.
                 format: date-time
                 type: string
+              endOfLifeDate:
+                description: EndOfLifeDate is the date and time when support for a
+                  tenant cluster using this release ends. This may not be set at the
+                  time of release creation and can be specififed later.
+                format: date-time
+                nullable: true
+                type: string
               state:
                 description: 'State indicates the availability of the release: deprecated,
                   active, or wip.'
