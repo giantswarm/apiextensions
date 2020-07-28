@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add `ClusterDescription` to `pkg/annotation`
 - Add `Spark` CRD for Azure Cluster API migration.
 
 ## [0.4.18] - 2020-07-27
