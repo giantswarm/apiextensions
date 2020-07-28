@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `ClusterDescription` to `pkg/annotation`
+
 ## [0.4.18] - 2020-07-27
 
 - Add `EndOfLifeDate` to `Release` CRD.
