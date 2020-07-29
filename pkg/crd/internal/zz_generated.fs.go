@@ -904,6 +904,38 @@ dwAAAP//CJ8YNIcRAAA=
 `,
 	},
 
+	"/config/crd/v1/core.giantswarm.io_sparks.yaml": {
+		name:    "core.giantswarm.io_sparks.yaml",
+		local:   "config/crd/v1/core.giantswarm.io_sparks.yaml",
+		size:    4043,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7xXW2/cthJ+168Y+DwkAY60xz7nAMG+BU4LBGmCwA780hbBiBxJrClS5WUdt+h/L4aU
+Vtpd+dIArd44HA6H3zc3FWVZFjioG3JeWbMFHBR9DWR45avb175SdrM7L26VkVu4jD7Y/oq8jU7QW2qU
+UUFZU/QUUGLAbQGAxtiALPa8BBDWBGe1Jle2ZKrbWFMdlZbkkvHp6t1/qovqfwWAcJSOf1Y9+YD9sAUT
+tS4ADPa0BT+gu/WVsI6qVqEJ/g5dXylb+IEE39k6G4ctrGhkG5NjGKi1Tk3rEoTte2vGxXwyCTIE13x5
+Wmvlw/tZ9oPyIckHHR3qyc0k8sq0UaMbhQWAF3agLXxkZwYUJAuAEYnkTDm+dXeOeujwPJsRHfWYfQWw
+A5k3n97d/Pf6QAwgyQunhpBQPUvOgfKA8D7W5AwF8uBGDuHl5dUruOuU6FinRk8SrIHQ0eKp+bu8eguS
+OScJWNsdVfCTgTcG6Cv2gx4PzKYFGqgJdoruSEJHjqALYfDbzaZVoYt1JWy/mVHeHATfpta23vToA7mN
+tMJvhNucMvplQuhLgra6x16f7Z0enB3IhT3D+VsE/EJ6BNwLxjZrja/2CZWRJZIjHWAbCJ1iSAdHnkyO
+/QPDwEpowNa/kAgVXJNjM+A7G7XkBNmRC+BI2Nao3/a2PQSbLtUYaAyv+VMmkDOoYYc60r8BjYQe78ER
+3wLRLOwlFV/BB+sIlGnsdsnFlOgc/tGocL9JOavqGKzzG0k70huv2hKd6FQgEaIjpqtMrpuU7FUv/zVx
+718c+BruOdh9cMq0i42UUY8wwNmVIzcfza+YgWYRo3P13fXnOeyYjGP0E+7zQT9TwIAp05DLJDbO9skm
+GTlYZUJaCK3IHMPvY92rwLz/GskH5qqCy1T9OOzjIDGQrOCdgUvsSV+ip7+dAEbalwzs8yhYFu5j5Yza
+YmMqrw/wldL/eiDBnDFsKUAbFDQWmGUaKTPEAAM67CmQO2assQ4QDN1pjmcjyZGE9rUH1eaWA4H6gdOi
+Oji5nvD85Qw4lgKglMkg6k8Pnn0EwPxxf8Ja0xaCi1Ssnz3B82GgA4bon4Q6aUFntcyYZqA4Kxz5qMNz
+oeEAuCbhKHA/On38wdVvD5RzenKvynWQwKe91PRRmTFFV/Dcs7pn1BpuGtz8SVbFX8C/QaWjow/kPbZP
++f/9gXL2X1vTkoN+khmpBO7LiyP0JwV9fgKrsQck4aVqQAWQSr76lgdcpYue53/WHatjZ12YauQ/7rwj
+lPdPOH3FOnCntObSyDkCdx2Z0cOGHBnBXe8gdvxaFu7DfBk53PnGaSPyAMPVI0+RpgVjJfmHXlRbqwmP
+8dmRU01C8Uk6bhaqmY0OfTclw6mrwQIZHx2tPg4DU9Chh9xFyIDo0LQkM17aouTpi+9x1NtA0ChNUN8/
+kGW1tcEHh8PeA2598yDGA5X1aRCbFPKwlScObkONaqNL7yt3F18uqi70+uSm4dHaiZrH7ND1a5tHgH7u
+aNaf6WRUlWkr+BB96q++w/+fX/Deqk0AY++q1a1HKzmkm57pJwcqmTCx3UStVyhng2nAX/syc/yr4sgP
+1kgO2f37v+EBPI4oR/L0CeVsd2WPvXx+41q/pTxqJUebh3V6ffPqtF6VucQcyZY5+nRPPfW33M8+CxFP
+OMWDhjzPjHLR432wjjvOQhLr/Qw83TV2c/j9j2Ju7CgEDYHkx/l3NP9gnp0d/EWmpeC4yH/U8OPPRb6Y
+5M30w8jCPwMAAP///mtYpcsPAAA=
+`,
+	},
+
 	"/config/crd/v1/core.giantswarm.io_storageconfigs.yaml": {
 		name:    "core.giantswarm.io_storageconfigs.yaml",
 		local:   "config/crd/v1/core.giantswarm.io_storageconfigs.yaml",
@@ -2435,6 +2467,38 @@ Fl8CU063m+JReIuxTwbWc+5m+780IZdTmR8OC7jn3JTDva2YcTpk9/A19r7L8nD/PQjSda6YdXB8mp8r
 `,
 	},
 
+	"/config/crd/v1beta1/core.giantswarm.io_sparks.yaml": {
+		name:    "core.giantswarm.io_sparks.yaml",
+		local:   "config/crd/v1beta1/core.giantswarm.io_sparks.yaml",
+		size:    3920,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RXX2/bNhB/96c4ZA9tgVlesg0o/FakG1B0LYqkyMs2FCfyLHGhSI08Os2GfffhSMmy
+bCdNMUxvPB6PP/7urxbL5XKBvbmhEI13a8De0GcmJ6tY3b6MlfGr7XlNjOeLW+P0Gi5TZN9dUfQpKHpN
+G+MMG+8WHTFqZFwvANA5zyjiKEsA5R0Hby2FZUOuuk011clYTSHfMN6//a66qH5YAKhA+fhH01Fk7Po1
+uGTtAsBhR2uIPYbbWCkfqGoMOo53GLrK+EXsScmdTfCpX8MJjWJjBIZMjQ9mXC9B+a7zblhMJ7OgUHAt
+l+e1NZHfTrJfTOQs720KaEeYWRSNa5LFMAgXAFH5ntbwXsD0qEiLLNVhoHYAFBk5xTX8/c8CYIvW6ExM
+2fQ9uVcf3tx8f61a6rAIATRFFUyf9eAsQwMTAeFtqik4YoowXgPPL69ewF1rVCs6NUbS4B1wS3sPle/y
+6jVo8TdpwNpvqYLfHLxyQJ+x6+2gPhlW6KAm2Bq6Iw0tBYKWuY/r1aox3Ka6Ur5bTQyvZtG3qq2vVx1G
+prDSXsWVCqtjb37anqPtWzz/lGmt7rGzZwPkPvieAu98K99etO9kB4Q9E0aLzvDemNkYopQ0xMw2+A1w
+a4TKPlAkVyJ+zyyICjrw9R+kuIJrCmIEYuuT1ZIUWwoMgZRvnPlrZzkC+3ylRaYhpMbPOKbg0EosJPoW
+0Gno8B4CyR2Q3J61rBIreOcDgXEbv973wJjfEvDJGb5f5Sw1dWIf4krTluwqmmaJQbWGSXEKJE5aZuAu
+p3fV6W92EftsDynfS3BHDsY1O3HOnwd5l0wqcVqOFfwTvSISVq5+uv44hZm4YM55Zns6FifihSjjNhSK
+4zbBd9kiOd174zgvlDXk5qTHVHeGxdN/Joos/qngMlc5CfHUa2TSFbxxcIkd2UuM9L/TLgzHpVD6ZeL3
+i/NcsbC1E4/l86SHcoJf96TES0JVDsYNKhoKyH66GNcnhh4DdsQU5j7a+AAIju6sRK7TFEhD8zKCaUo7
+Aaaul/Cv9s6dSmj5SpzPZQCodTaF9sMD5x6kq3zScbC2tAYOiRanzh2w9xCppYY/TmvWgdZbXfgrtEjM
+B4rJ8lOIEBdfkwrE0lUOHzu79PVMtaSd9MVS1Qhi3suNG40bU2/01RGNO795J6Vf2jfpavFErjdobAr0
+jmLE5nHcP89UC27rXUMBulHmtFHIE2aMB2VZvolfuZ00PDcbMAza6BdfC/wqX/EU3EVzqHKtDzzWupOg
+J5BH8P8D6ECo7x8FeyUacGeslfIm0Q93LbkB2YYCOSXdahYj8Ti39iJmihDpWMNskGTYkFpQ5j3XgPOa
+4umX1N5bwrkjtxTMJvP2Bfpv9hQL+y3Gdgz2Y5DsgVxMgU48ClkobzFCqf/kQLXoGtKFJetRy4wktwTq
+PBNsjCWo7/NltfccOWD/YBJJw5qGJRl6fMzD0qhQBqIyHUj72Jgmhfy25fbi00XVcmcPrPeP1EC0MgJz
+2x1vHdD4saVJe3KfcGlcU8G7FHNHjC3+eH4heycsAjh/V53YeKQWQ77jSfgkHMnx6NtNsvaEg8Ucaajv
+TwLMc4APgWLvnZbA3L36K4HLyGAC6UPoy8ni0Y5ge1q7OWV9edAGZlvzSntq6+qwXC5LwZhJ9vPu8e53
+iHC5m0V2Apk5FicNTD+Gw5Q/yXIYL4ffwb1tgCjDnt5r2pF9kLZSJFMzRqWoZ9Lvp9/B8oN3djb7i8tL
+JXFQ/mjh198XxSrpmxGNCP8NAAD//14QxPFQDwAA
+`,
+	},
+
 	"/config/crd/v1beta1/core.giantswarm.io_storageconfigs.yaml": {
 		name:    "core.giantswarm.io_storageconfigs.yaml",
 		local:   "config/crd/v1beta1/core.giantswarm.io_storageconfigs.yaml",
@@ -3416,6 +3480,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/core.giantswarm.io_flannelconfigs.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_ignitions.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_kvmclusterconfigs.yaml"],
+		_escData["/config/crd/v1/core.giantswarm.io_sparks.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_storageconfigs.yaml"],
 		_escData["/config/crd/v1/example.giantswarm.io_memcachedconfigs.yaml"],
 		_escData["/config/crd/v1/exp.cluster.x-k8s.io_machinepools.yaml"],
@@ -3452,6 +3517,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/core.giantswarm.io_flannelconfigs.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_ignitions.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_kvmclusterconfigs.yaml"],
+		_escData["/config/crd/v1beta1/core.giantswarm.io_sparks.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_storageconfigs.yaml"],
 		_escData["/config/crd/v1beta1/example.giantswarm.io_memcachedconfigs.yaml"],
 		_escData["/config/crd/v1beta1/exp.cluster.x-k8s.io_machinepools.yaml"],

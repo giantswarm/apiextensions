@@ -34,4 +34,6 @@ type IgnitionExpansion interface{}
 
 type KVMClusterConfigExpansion interface{}
 
+type SparkExpansion interface{}
+
 type StorageConfigExpansion interface{}
