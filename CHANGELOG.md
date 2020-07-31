@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.20] - 2020-07-31
+
 ### Changed
 
 - Graduate StorageConfig CRD to `v1`.
@@ -418,7 +420,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.19...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.20...HEAD
+[0.4.20]: https://github.com/giantswarm/apiextensions/compare/v0.4.19...v0.4.20
 [0.4.19]: https://github.com/giantswarm/apiextensions/compare/v0.4.18...v0.4.19
 [0.4.18]: https://github.com/giantswarm/apiextensions/compare/v0.4.17...v0.4.18
 [0.4.17]: https://github.com/giantswarm/apiextensions/compare/v0.4.16...v0.4.17
