@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Graduate StorageConfig CRD to `v1`.
+
 ## [0.4.19] - 2020-07-29
 
 ### Added
