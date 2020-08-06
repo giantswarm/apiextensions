@@ -4,6 +4,7 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
+	"github.com/giantswarm/apiextensions/pkg/annotation"
 	"github.com/giantswarm/apiextensions/pkg/crd"
 )
 
@@ -28,7 +29,7 @@ func NewChartCR() *Chart {
 	return &Chart{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				crDocsAnnotation: chartDocumentationLink,
+				annotation.Docs: chartDocumentationLink,
 			},
 		},
 		TypeMeta: NewChartTypeMeta(),

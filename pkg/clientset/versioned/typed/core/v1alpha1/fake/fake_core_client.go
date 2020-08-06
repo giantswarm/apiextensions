@@ -61,6 +61,10 @@ func (c *FakeCoreV1alpha1) KVMClusterConfigs(namespace string) v1alpha1.KVMClust
 	return &FakeKVMClusterConfigs{c, namespace}
 }
 
+func (c *FakeCoreV1alpha1) Sparks(namespace string) v1alpha1.SparkInterface {
+	return &FakeSparks{c, namespace}
+}
+
 func (c *FakeCoreV1alpha1) StorageConfigs(namespace string) v1alpha1.StorageConfigInterface {
 	return &FakeStorageConfigs{c, namespace}
 }
