@@ -27,8 +27,8 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1"
-	scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/provider/v1alpha1"
+	scheme "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/scheme"
 )
 
 // AzureConfigsGetter has a method to return a AzureConfigInterface.

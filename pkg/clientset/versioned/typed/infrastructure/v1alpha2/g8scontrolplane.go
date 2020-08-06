@@ -27,8 +27,8 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
 
-	v1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
-	scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
+	v1alpha2 "github.com/giantswarm/apiextensions/v2/pkg/apis/infrastructure/v1alpha2"
+	scheme "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/scheme"
 )
 
 // G8sControlPlanesGetter has a method to return a G8sControlPlaneInterface.
