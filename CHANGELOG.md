@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update Kubernetes dependencies to v1.18.5
+- Update `sigs.k8s.io/cluster-api` to v0.3.7
+- Update `sigs.k8s.io/cluster-api-provider-azure` to v0.4.6
+
 ## [0.4.20] - 2020-07-31
 
 ### Changed
