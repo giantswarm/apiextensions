@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added labels for configuring scraping of services by Prometheus
+  (`Monitoring`, `MonitoringPath`, `MonitoringPort`) to `pkg/label`.
+
 ## [0.4.20] - 2020-07-31
 
 ### Changed
