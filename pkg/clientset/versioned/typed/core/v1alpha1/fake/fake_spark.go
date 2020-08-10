@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/core/v1alpha1"
 )
 
 // FakeSparks implements SparkInterface
@@ -40,7 +42,7 @@ var sparksResource = schema.GroupVersionResource{Group: "core.giantswarm.io", Ve
 var sparksKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "Spark"}
 
 // Get takes name of the spark, and returns the corresponding spark object, and an error if there is any.
-func (c *FakeSparks) Get(name string, options v1.GetOptions) (result *v1alpha1.Spark, err error) {
+func (c *FakeSparks) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Spark, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(sparksResource, c.ns, name), &v1alpha1.Spark{})
 
@@ -51,7 +53,7 @@ func (c *FakeSparks) Get(name string, options v1.GetOptions) (result *v1alpha1.S
 }
 
 // List takes label and field selectors, and returns the list of Sparks that match those selectors.
-func (c *FakeSparks) List(opts v1.ListOptions) (result *v1alpha1.SparkList, err error) {
+func (c *FakeSparks) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.SparkList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(sparksResource, sparksKind, c.ns, opts), &v1alpha1.SparkList{})
 
@@ -73,14 +75,14 @@ func (c *FakeSparks) List(opts v1.ListOptions) (result *v1alpha1.SparkList, err 
 }
 
 // Watch returns a watch.Interface that watches the requested sparks.
-func (c *FakeSparks) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeSparks) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(sparksResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a spark and creates it.  Returns the server's representation of the spark, and an error, if there is any.
-func (c *FakeSparks) Create(spark *v1alpha1.Spark) (result *v1alpha1.Spark, err error) {
+func (c *FakeSparks) Create(ctx context.Context, spark *v1alpha1.Spark, opts v1.CreateOptions) (result *v1alpha1.Spark, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(sparksResource, c.ns, spark), &v1alpha1.Spark{})
 
@@ -91,7 +93,7 @@ func (c *FakeSparks) Create(spark *v1alpha1.Spark) (result *v1alpha1.Spark, err 
 }
 
 // Update takes the representation of a spark and updates it. Returns the server's representation of the spark, and an error, if there is any.
-func (c *FakeSparks) Update(spark *v1alpha1.Spark) (result *v1alpha1.Spark, err error) {
+func (c *FakeSparks) Update(ctx context.Context, spark *v1alpha1.Spark, opts v1.UpdateOptions) (result *v1alpha1.Spark, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(sparksResource, c.ns, spark), &v1alpha1.Spark{})
 
@@ -103,7 +105,7 @@ func (c *FakeSparks) Update(spark *v1alpha1.Spark) (result *v1alpha1.Spark, err 
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeSparks) UpdateStatus(spark *v1alpha1.Spark) (*v1alpha1.Spark, error) {
+func (c *FakeSparks) UpdateStatus(ctx context.Context, spark *v1alpha1.Spark, opts v1.UpdateOptions) (*v1alpha1.Spark, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(sparksResource, "status", c.ns, spark), &v1alpha1.Spark{})
 
@@ -114,7 +116,7 @@ func (c *FakeSparks) UpdateStatus(spark *v1alpha1.Spark) (*v1alpha1.Spark, error
 }
 
 // Delete takes name of the spark and deletes it. Returns an error if one occurs.
-func (c *FakeSparks) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeSparks) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(sparksResource, c.ns, name), &v1alpha1.Spark{})
 
@@ -122,15 +124,15 @@ func (c *FakeSparks) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeSparks) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(sparksResource, c.ns, listOptions)
+func (c *FakeSparks) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(sparksResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.SparkList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched spark.
-func (c *FakeSparks) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Spark, err error) {
+func (c *FakeSparks) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Spark, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(sparksResource, c.ns, name, pt, data, subresources...), &v1alpha1.Spark{})
 

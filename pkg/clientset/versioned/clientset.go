@@ -25,15 +25,15 @@ import (
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
 
-	applicationv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/application/v1alpha1"
-	backupv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/backup/v1alpha1"
-	corev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/core/v1alpha1"
-	examplev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/example/v1alpha1"
-	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
-	providerv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/provider/v1alpha1"
-	releasev1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/release/v1alpha1"
-	securityv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/security/v1alpha1"
-	toolingv1alpha1 "github.com/giantswarm/apiextensions/pkg/clientset/versioned/typed/tooling/v1alpha1"
+	applicationv1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/application/v1alpha1"
+	backupv1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/backup/v1alpha1"
+	corev1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/core/v1alpha1"
+	examplev1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/example/v1alpha1"
+	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
+	providerv1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/provider/v1alpha1"
+	releasev1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/release/v1alpha1"
+	securityv1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/security/v1alpha1"
+	toolingv1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/tooling/v1alpha1"
 )
 
 type Interface interface {
@@ -124,7 +124,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	configShallowCopy := *c
 	if configShallowCopy.RateLimiter == nil && configShallowCopy.QPS > 0 {
 		if configShallowCopy.Burst <= 0 {
-			return nil, fmt.Errorf("Burst is required to be greater than 0 when RateLimiter is not set and QPS is set to greater than 0")
+			return nil, fmt.Errorf("burst is required to be greater than 0 when RateLimiter is not set and QPS is set to greater than 0")
 		}
 		configShallowCopy.RateLimiter = flowcontrol.NewTokenBucketRateLimiter(configShallowCopy.QPS, configShallowCopy.Burst)
 	}

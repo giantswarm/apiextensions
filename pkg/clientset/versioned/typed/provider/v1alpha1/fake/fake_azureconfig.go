@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/provider/v1alpha1"
 )
 
 // FakeAzureConfigs implements AzureConfigInterface
@@ -40,7 +42,7 @@ var azureconfigsResource = schema.GroupVersionResource{Group: "provider.giantswa
 var azureconfigsKind = schema.GroupVersionKind{Group: "provider.giantswarm.io", Version: "v1alpha1", Kind: "AzureConfig"}
 
 // Get takes name of the azureConfig, and returns the corresponding azureConfig object, and an error if there is any.
-func (c *FakeAzureConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.AzureConfig, err error) {
+func (c *FakeAzureConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AzureConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(azureconfigsResource, c.ns, name), &v1alpha1.AzureConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeAzureConfigs) Get(name string, options v1.GetOptions) (result *v1al
 }
 
 // List takes label and field selectors, and returns the list of AzureConfigs that match those selectors.
-func (c *FakeAzureConfigs) List(opts v1.ListOptions) (result *v1alpha1.AzureConfigList, err error) {
+func (c *FakeAzureConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AzureConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(azureconfigsResource, azureconfigsKind, c.ns, opts), &v1alpha1.AzureConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAzureConfigs) List(opts v1.ListOptions) (result *v1alpha1.AzureConf
 }
 
 // Watch returns a watch.Interface that watches the requested azureConfigs.
-func (c *FakeAzureConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAzureConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(azureconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a azureConfig and creates it.  Returns the server's representation of the azureConfig, and an error, if there is any.
-func (c *FakeAzureConfigs) Create(azureConfig *v1alpha1.AzureConfig) (result *v1alpha1.AzureConfig, err error) {
+func (c *FakeAzureConfigs) Create(ctx context.Context, azureConfig *v1alpha1.AzureConfig, opts v1.CreateOptions) (result *v1alpha1.AzureConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(azureconfigsResource, c.ns, azureConfig), &v1alpha1.AzureConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeAzureConfigs) Create(azureConfig *v1alpha1.AzureConfig) (result *v1
 }
 
 // Update takes the representation of a azureConfig and updates it. Returns the server's representation of the azureConfig, and an error, if there is any.
-func (c *FakeAzureConfigs) Update(azureConfig *v1alpha1.AzureConfig) (result *v1alpha1.AzureConfig, err error) {
+func (c *FakeAzureConfigs) Update(ctx context.Context, azureConfig *v1alpha1.AzureConfig, opts v1.UpdateOptions) (result *v1alpha1.AzureConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(azureconfigsResource, c.ns, azureConfig), &v1alpha1.AzureConfig{})
 
@@ -103,7 +105,7 @@ func (c *FakeAzureConfigs) Update(azureConfig *v1alpha1.AzureConfig) (result *v1
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeAzureConfigs) UpdateStatus(azureConfig *v1alpha1.AzureConfig) (*v1alpha1.AzureConfig, error) {
+func (c *FakeAzureConfigs) UpdateStatus(ctx context.Context, azureConfig *v1alpha1.AzureConfig, opts v1.UpdateOptions) (*v1alpha1.AzureConfig, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(azureconfigsResource, "status", c.ns, azureConfig), &v1alpha1.AzureConfig{})
 
@@ -114,7 +116,7 @@ func (c *FakeAzureConfigs) UpdateStatus(azureConfig *v1alpha1.AzureConfig) (*v1a
 }
 
 // Delete takes name of the azureConfig and deletes it. Returns an error if one occurs.
-func (c *FakeAzureConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAzureConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(azureconfigsResource, c.ns, name), &v1alpha1.AzureConfig{})
 
@@ -122,15 +124,15 @@ func (c *FakeAzureConfigs) Delete(name string, options *v1.DeleteOptions) error 
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAzureConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(azureconfigsResource, c.ns, listOptions)
+func (c *FakeAzureConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(azureconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.AzureConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched azureConfig.
-func (c *FakeAzureConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.AzureConfig, err error) {
+func (c *FakeAzureConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AzureConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(azureconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.AzureConfig{})
 

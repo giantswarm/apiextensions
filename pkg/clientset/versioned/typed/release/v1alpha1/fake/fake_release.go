@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/release/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/release/v1alpha1"
 )
 
 // FakeReleases implements ReleaseInterface
@@ -39,7 +41,7 @@ var releasesResource = schema.GroupVersionResource{Group: "release.giantswarm.io
 var releasesKind = schema.GroupVersionKind{Group: "release.giantswarm.io", Version: "v1alpha1", Kind: "Release"}
 
 // Get takes name of the release, and returns the corresponding release object, and an error if there is any.
-func (c *FakeReleases) Get(name string, options v1.GetOptions) (result *v1alpha1.Release, err error) {
+func (c *FakeReleases) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Release, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(releasesResource, name), &v1alpha1.Release{})
 	if obj == nil {
@@ -49,7 +51,7 @@ func (c *FakeReleases) Get(name string, options v1.GetOptions) (result *v1alpha1
 }
 
 // List takes label and field selectors, and returns the list of Releases that match those selectors.
-func (c *FakeReleases) List(opts v1.ListOptions) (result *v1alpha1.ReleaseList, err error) {
+func (c *FakeReleases) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.ReleaseList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(releasesResource, releasesKind, opts), &v1alpha1.ReleaseList{})
 	if obj == nil {
@@ -70,13 +72,13 @@ func (c *FakeReleases) List(opts v1.ListOptions) (result *v1alpha1.ReleaseList, 
 }
 
 // Watch returns a watch.Interface that watches the requested releases.
-func (c *FakeReleases) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeReleases) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(releasesResource, opts))
 }
 
 // Create takes the representation of a release and creates it.  Returns the server's representation of the release, and an error, if there is any.
-func (c *FakeReleases) Create(release *v1alpha1.Release) (result *v1alpha1.Release, err error) {
+func (c *FakeReleases) Create(ctx context.Context, release *v1alpha1.Release, opts v1.CreateOptions) (result *v1alpha1.Release, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(releasesResource, release), &v1alpha1.Release{})
 	if obj == nil {
@@ -86,7 +88,7 @@ func (c *FakeReleases) Create(release *v1alpha1.Release) (result *v1alpha1.Relea
 }
 
 // Update takes the representation of a release and updates it. Returns the server's representation of the release, and an error, if there is any.
-func (c *FakeReleases) Update(release *v1alpha1.Release) (result *v1alpha1.Release, err error) {
+func (c *FakeReleases) Update(ctx context.Context, release *v1alpha1.Release, opts v1.UpdateOptions) (result *v1alpha1.Release, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(releasesResource, release), &v1alpha1.Release{})
 	if obj == nil {
@@ -97,7 +99,7 @@ func (c *FakeReleases) Update(release *v1alpha1.Release) (result *v1alpha1.Relea
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeReleases) UpdateStatus(release *v1alpha1.Release) (*v1alpha1.Release, error) {
+func (c *FakeReleases) UpdateStatus(ctx context.Context, release *v1alpha1.Release, opts v1.UpdateOptions) (*v1alpha1.Release, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateSubresourceAction(releasesResource, "status", release), &v1alpha1.Release{})
 	if obj == nil {
@@ -107,22 +109,22 @@ func (c *FakeReleases) UpdateStatus(release *v1alpha1.Release) (*v1alpha1.Releas
 }
 
 // Delete takes name of the release and deletes it. Returns an error if one occurs.
-func (c *FakeReleases) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeReleases) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(releasesResource, name), &v1alpha1.Release{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeReleases) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(releasesResource, listOptions)
+func (c *FakeReleases) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(releasesResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.ReleaseList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched release.
-func (c *FakeReleases) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Release, err error) {
+func (c *FakeReleases) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Release, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(releasesResource, name, pt, data, subresources...), &v1alpha1.Release{})
 	if obj == nil {

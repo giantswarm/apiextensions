@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"context"
 	"time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -26,8 +27,8 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/application/v1alpha1"
-	scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/application/v1alpha1"
+	scheme "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/scheme"
 )
 
 // AppCatalogsGetter has a method to return a AppCatalogInterface.
@@ -38,14 +39,14 @@ type AppCatalogsGetter interface {
 
 // AppCatalogInterface has methods to work with AppCatalog resources.
 type AppCatalogInterface interface {
-	Create(*v1alpha1.AppCatalog) (*v1alpha1.AppCatalog, error)
-	Update(*v1alpha1.AppCatalog) (*v1alpha1.AppCatalog, error)
-	Delete(name string, options *v1.DeleteOptions) error
-	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
-	Get(name string, options v1.GetOptions) (*v1alpha1.AppCatalog, error)
-	List(opts v1.ListOptions) (*v1alpha1.AppCatalogList, error)
-	Watch(opts v1.ListOptions) (watch.Interface, error)
-	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.AppCatalog, err error)
+	Create(ctx context.Context, appCatalog *v1alpha1.AppCatalog, opts v1.CreateOptions) (*v1alpha1.AppCatalog, error)
+	Update(ctx context.Context, appCatalog *v1alpha1.AppCatalog, opts v1.UpdateOptions) (*v1alpha1.AppCatalog, error)
+	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
+	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.AppCatalog, error)
+	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.AppCatalogList, error)
+	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AppCatalog, err error)
 	AppCatalogExpansion
 }
 
@@ -62,19 +63,19 @@ func newAppCatalogs(c *ApplicationV1alpha1Client) *appCatalogs {
 }
 
 // Get takes name of the appCatalog, and returns the corresponding appCatalog object, and an error if there is any.
-func (c *appCatalogs) Get(name string, options v1.GetOptions) (result *v1alpha1.AppCatalog, err error) {
+func (c *appCatalogs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AppCatalog, err error) {
 	result = &v1alpha1.AppCatalog{}
 	err = c.client.Get().
 		Resource("appcatalogs").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of AppCatalogs that match those selectors.
-func (c *appCatalogs) List(opts v1.ListOptions) (result *v1alpha1.AppCatalogList, err error) {
+func (c *appCatalogs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AppCatalogList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -84,13 +85,13 @@ func (c *appCatalogs) List(opts v1.ListOptions) (result *v1alpha1.AppCatalogList
 		Resource("appcatalogs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested appCatalogs.
-func (c *appCatalogs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *appCatalogs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -100,66 +101,69 @@ func (c *appCatalogs) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("appcatalogs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(ctx)
 }
 
 // Create takes the representation of a appCatalog and creates it.  Returns the server's representation of the appCatalog, and an error, if there is any.
-func (c *appCatalogs) Create(appCatalog *v1alpha1.AppCatalog) (result *v1alpha1.AppCatalog, err error) {
+func (c *appCatalogs) Create(ctx context.Context, appCatalog *v1alpha1.AppCatalog, opts v1.CreateOptions) (result *v1alpha1.AppCatalog, err error) {
 	result = &v1alpha1.AppCatalog{}
 	err = c.client.Post().
 		Resource("appcatalogs").
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(appCatalog).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Update takes the representation of a appCatalog and updates it. Returns the server's representation of the appCatalog, and an error, if there is any.
-func (c *appCatalogs) Update(appCatalog *v1alpha1.AppCatalog) (result *v1alpha1.AppCatalog, err error) {
+func (c *appCatalogs) Update(ctx context.Context, appCatalog *v1alpha1.AppCatalog, opts v1.UpdateOptions) (result *v1alpha1.AppCatalog, err error) {
 	result = &v1alpha1.AppCatalog{}
 	err = c.client.Put().
 		Resource("appcatalogs").
 		Name(appCatalog.Name).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(appCatalog).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Delete takes name of the appCatalog and deletes it. Returns an error if one occurs.
-func (c *appCatalogs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *appCatalogs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
 		Resource("appcatalogs").
 		Name(name).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *appCatalogs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+func (c *appCatalogs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	var timeout time.Duration
-	if listOptions.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
+	if listOpts.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Resource("appcatalogs").
-		VersionedParams(&listOptions, scheme.ParameterCodec).
+		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // Patch applies the patch and returns the patched appCatalog.
-func (c *appCatalogs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.AppCatalog, err error) {
+func (c *appCatalogs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AppCatalog, err error) {
 	result = &v1alpha1.AppCatalog{}
 	err = c.client.Patch(pt).
 		Resource("appcatalogs").
-		SubResource(subresources...).
 		Name(name).
+		SubResource(subresources...).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(data).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }

@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/core/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/core/v1alpha1"
 )
 
 // FakeStorageConfigs implements StorageConfigInterface
@@ -40,7 +42,7 @@ var storageconfigsResource = schema.GroupVersionResource{Group: "core.giantswarm
 var storageconfigsKind = schema.GroupVersionKind{Group: "core.giantswarm.io", Version: "v1alpha1", Kind: "StorageConfig"}
 
 // Get takes name of the storageConfig, and returns the corresponding storageConfig object, and an error if there is any.
-func (c *FakeStorageConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.StorageConfig, err error) {
+func (c *FakeStorageConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.StorageConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(storageconfigsResource, c.ns, name), &v1alpha1.StorageConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeStorageConfigs) Get(name string, options v1.GetOptions) (result *v1
 }
 
 // List takes label and field selectors, and returns the list of StorageConfigs that match those selectors.
-func (c *FakeStorageConfigs) List(opts v1.ListOptions) (result *v1alpha1.StorageConfigList, err error) {
+func (c *FakeStorageConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.StorageConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(storageconfigsResource, storageconfigsKind, c.ns, opts), &v1alpha1.StorageConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeStorageConfigs) List(opts v1.ListOptions) (result *v1alpha1.Storage
 }
 
 // Watch returns a watch.Interface that watches the requested storageConfigs.
-func (c *FakeStorageConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeStorageConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(storageconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a storageConfig and creates it.  Returns the server's representation of the storageConfig, and an error, if there is any.
-func (c *FakeStorageConfigs) Create(storageConfig *v1alpha1.StorageConfig) (result *v1alpha1.StorageConfig, err error) {
+func (c *FakeStorageConfigs) Create(ctx context.Context, storageConfig *v1alpha1.StorageConfig, opts v1.CreateOptions) (result *v1alpha1.StorageConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(storageconfigsResource, c.ns, storageConfig), &v1alpha1.StorageConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeStorageConfigs) Create(storageConfig *v1alpha1.StorageConfig) (resu
 }
 
 // Update takes the representation of a storageConfig and updates it. Returns the server's representation of the storageConfig, and an error, if there is any.
-func (c *FakeStorageConfigs) Update(storageConfig *v1alpha1.StorageConfig) (result *v1alpha1.StorageConfig, err error) {
+func (c *FakeStorageConfigs) Update(ctx context.Context, storageConfig *v1alpha1.StorageConfig, opts v1.UpdateOptions) (result *v1alpha1.StorageConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(storageconfigsResource, c.ns, storageConfig), &v1alpha1.StorageConfig{})
 
@@ -102,7 +104,7 @@ func (c *FakeStorageConfigs) Update(storageConfig *v1alpha1.StorageConfig) (resu
 }
 
 // Delete takes name of the storageConfig and deletes it. Returns an error if one occurs.
-func (c *FakeStorageConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeStorageConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(storageconfigsResource, c.ns, name), &v1alpha1.StorageConfig{})
 
@@ -110,15 +112,15 @@ func (c *FakeStorageConfigs) Delete(name string, options *v1.DeleteOptions) erro
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeStorageConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(storageconfigsResource, c.ns, listOptions)
+func (c *FakeStorageConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(storageconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.StorageConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched storageConfig.
-func (c *FakeStorageConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.StorageConfig, err error) {
+func (c *FakeStorageConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.StorageConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(storageconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.StorageConfig{})
 
