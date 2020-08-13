@@ -41,10 +41,12 @@ spec:
               config:
                 description: Config is the config to be applied when the chart is
                   deployed.
+                nullable: true
                 properties:
                   configMap:
                     description: ConfigMap references a config map containing values
                       that should be applied to the chart.
+                    nullable: true
                     properties:
                       name:
                         description: Name is the name of the config map containing
@@ -67,6 +69,7 @@ spec:
                   secret:
                     description: Secret references a secret containing secret values
                       that should be applied to the chart.
+                    nullable: true
                     properties:
                       name:
                         description: Name is the name of the secret containing chart
@@ -86,9 +89,6 @@ spec:
                     - namespace
                     - resourceVersion
                     type: object
-                required:
-                - configMap
-                - secret
                 type: object
               name:
                 description: Name is the name of the Helm chart to be deployed. e.g.
@@ -107,7 +107,6 @@ spec:
                   e.g. 1.0.0
                 type: string
             required:
-            - config
             - name
             - namespace
             - tarballURL
