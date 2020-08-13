@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make optional fields not required for `Chart` CRD to avoid
+needing to enter empty strings.
+- Make optional fields `omitempty` for `Chart` CRD.
+
+
 ## [2.0.0] - 2020-08-10
 
 ### Changed
