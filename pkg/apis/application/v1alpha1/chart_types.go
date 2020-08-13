@@ -53,6 +53,8 @@ type Chart struct {
 
 // +k8s:openapi-gen=true
 type ChartSpec struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Config is the config to be applied when the chart is deployed.
 	Config ChartSpecConfig `json:"config"`
 	// Name is the name of the Helm chart to be deployed.
@@ -71,9 +73,13 @@ type ChartSpec struct {
 
 // +k8s:openapi-gen=true
 type ChartSpecConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// ConfigMap references a config map containing values that should be
 	// applied to the chart.
 	ConfigMap ChartSpecConfigConfigMap `json:"configMap"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Secret references a secret containing secret values that should be
 	// applied to the chart.
 	Secret ChartSpecConfigSecret `json:"secret"`
