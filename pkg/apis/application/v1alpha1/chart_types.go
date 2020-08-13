@@ -56,7 +56,7 @@ type ChartSpec struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Config is the config to be applied when the chart is deployed.
-	Config ChartSpecConfig `json:"config"`
+	Config ChartSpecConfig `json:"config,omitempty"`
 	// Name is the name of the Helm chart to be deployed.
 	// e.g. kubernetes-prometheus
 	Name string `json:"name"`
@@ -77,12 +77,12 @@ type ChartSpecConfig struct {
 	// +nullable
 	// ConfigMap references a config map containing values that should be
 	// applied to the chart.
-	ConfigMap ChartSpecConfigConfigMap `json:"configMap"`
+	ConfigMap ChartSpecConfigConfigMap `json:"configMap,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Secret references a secret containing secret values that should be
 	// applied to the chart.
-	Secret ChartSpecConfigSecret `json:"secret"`
+	Secret ChartSpecConfigSecret `json:"secret,omitempty"`
 }
 
 // +k8s:openapi-gen=true
