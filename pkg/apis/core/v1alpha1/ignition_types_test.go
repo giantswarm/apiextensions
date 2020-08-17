@@ -15,7 +15,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 
-	"github.com/giantswarm/apiextensions/pkg/annotation"
+	"github.com/giantswarm/apiextensions/v2/pkg/annotation"
 )
 
 var (

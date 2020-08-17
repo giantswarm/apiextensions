@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
+	v1alpha2 "github.com/giantswarm/apiextensions/v2/pkg/apis/infrastructure/v1alpha2"
 )
 
 // FakeAWSClusters implements AWSClusterInterface
@@ -40,7 +42,7 @@ var awsclustersResource = schema.GroupVersionResource{Group: "infrastructure.gia
 var awsclustersKind = schema.GroupVersionKind{Group: "infrastructure.giantswarm.io", Version: "v1alpha2", Kind: "AWSCluster"}
 
 // Get takes name of the aWSCluster, and returns the corresponding aWSCluster object, and an error if there is any.
-func (c *FakeAWSClusters) Get(name string, options v1.GetOptions) (result *v1alpha2.AWSCluster, err error) {
+func (c *FakeAWSClusters) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.AWSCluster, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(awsclustersResource, c.ns, name), &v1alpha2.AWSCluster{})
 
@@ -51,7 +53,7 @@ func (c *FakeAWSClusters) Get(name string, options v1.GetOptions) (result *v1alp
 }
 
 // List takes label and field selectors, and returns the list of AWSClusters that match those selectors.
-func (c *FakeAWSClusters) List(opts v1.ListOptions) (result *v1alpha2.AWSClusterList, err error) {
+func (c *FakeAWSClusters) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.AWSClusterList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(awsclustersResource, awsclustersKind, c.ns, opts), &v1alpha2.AWSClusterList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAWSClusters) List(opts v1.ListOptions) (result *v1alpha2.AWSCluster
 }
 
 // Watch returns a watch.Interface that watches the requested aWSClusters.
-func (c *FakeAWSClusters) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAWSClusters) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(awsclustersResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a aWSCluster and creates it.  Returns the server's representation of the aWSCluster, and an error, if there is any.
-func (c *FakeAWSClusters) Create(aWSCluster *v1alpha2.AWSCluster) (result *v1alpha2.AWSCluster, err error) {
+func (c *FakeAWSClusters) Create(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.CreateOptions) (result *v1alpha2.AWSCluster, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(awsclustersResource, c.ns, aWSCluster), &v1alpha2.AWSCluster{})
 
@@ -91,7 +93,7 @@ func (c *FakeAWSClusters) Create(aWSCluster *v1alpha2.AWSCluster) (result *v1alp
 }
 
 // Update takes the representation of a aWSCluster and updates it. Returns the server's representation of the aWSCluster, and an error, if there is any.
-func (c *FakeAWSClusters) Update(aWSCluster *v1alpha2.AWSCluster) (result *v1alpha2.AWSCluster, err error) {
+func (c *FakeAWSClusters) Update(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.UpdateOptions) (result *v1alpha2.AWSCluster, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(awsclustersResource, c.ns, aWSCluster), &v1alpha2.AWSCluster{})
 
@@ -103,7 +105,7 @@ func (c *FakeAWSClusters) Update(aWSCluster *v1alpha2.AWSCluster) (result *v1alp
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeAWSClusters) UpdateStatus(aWSCluster *v1alpha2.AWSCluster) (*v1alpha2.AWSCluster, error) {
+func (c *FakeAWSClusters) UpdateStatus(ctx context.Context, aWSCluster *v1alpha2.AWSCluster, opts v1.UpdateOptions) (*v1alpha2.AWSCluster, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(awsclustersResource, "status", c.ns, aWSCluster), &v1alpha2.AWSCluster{})
 
@@ -114,7 +116,7 @@ func (c *FakeAWSClusters) UpdateStatus(aWSCluster *v1alpha2.AWSCluster) (*v1alph
 }
 
 // Delete takes name of the aWSCluster and deletes it. Returns an error if one occurs.
-func (c *FakeAWSClusters) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAWSClusters) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(awsclustersResource, c.ns, name), &v1alpha2.AWSCluster{})
 
@@ -122,15 +124,15 @@ func (c *FakeAWSClusters) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAWSClusters) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(awsclustersResource, c.ns, listOptions)
+func (c *FakeAWSClusters) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(awsclustersResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha2.AWSClusterList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched aWSCluster.
-func (c *FakeAWSClusters) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.AWSCluster, err error) {
+func (c *FakeAWSClusters) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.AWSCluster, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(awsclustersResource, c.ns, name, pt, data, subresources...), &v1alpha2.AWSCluster{})
 

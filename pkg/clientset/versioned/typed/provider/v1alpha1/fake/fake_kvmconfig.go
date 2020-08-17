@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/provider/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/provider/v1alpha1"
 )
 
 // FakeKVMConfigs implements KVMConfigInterface
@@ -40,7 +42,7 @@ var kvmconfigsResource = schema.GroupVersionResource{Group: "provider.giantswarm
 var kvmconfigsKind = schema.GroupVersionKind{Group: "provider.giantswarm.io", Version: "v1alpha1", Kind: "KVMConfig"}
 
 // Get takes name of the kVMConfig, and returns the corresponding kVMConfig object, and an error if there is any.
-func (c *FakeKVMConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.KVMConfig, err error) {
+func (c *FakeKVMConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.KVMConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(kvmconfigsResource, c.ns, name), &v1alpha1.KVMConfig{})
 
@@ -51,7 +53,7 @@ func (c *FakeKVMConfigs) Get(name string, options v1.GetOptions) (result *v1alph
 }
 
 // List takes label and field selectors, and returns the list of KVMConfigs that match those selectors.
-func (c *FakeKVMConfigs) List(opts v1.ListOptions) (result *v1alpha1.KVMConfigList, err error) {
+func (c *FakeKVMConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.KVMConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(kvmconfigsResource, kvmconfigsKind, c.ns, opts), &v1alpha1.KVMConfigList{})
 
@@ -73,14 +75,14 @@ func (c *FakeKVMConfigs) List(opts v1.ListOptions) (result *v1alpha1.KVMConfigLi
 }
 
 // Watch returns a watch.Interface that watches the requested kVMConfigs.
-func (c *FakeKVMConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeKVMConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(kvmconfigsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a kVMConfig and creates it.  Returns the server's representation of the kVMConfig, and an error, if there is any.
-func (c *FakeKVMConfigs) Create(kVMConfig *v1alpha1.KVMConfig) (result *v1alpha1.KVMConfig, err error) {
+func (c *FakeKVMConfigs) Create(ctx context.Context, kVMConfig *v1alpha1.KVMConfig, opts v1.CreateOptions) (result *v1alpha1.KVMConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(kvmconfigsResource, c.ns, kVMConfig), &v1alpha1.KVMConfig{})
 
@@ -91,7 +93,7 @@ func (c *FakeKVMConfigs) Create(kVMConfig *v1alpha1.KVMConfig) (result *v1alpha1
 }
 
 // Update takes the representation of a kVMConfig and updates it. Returns the server's representation of the kVMConfig, and an error, if there is any.
-func (c *FakeKVMConfigs) Update(kVMConfig *v1alpha1.KVMConfig) (result *v1alpha1.KVMConfig, err error) {
+func (c *FakeKVMConfigs) Update(ctx context.Context, kVMConfig *v1alpha1.KVMConfig, opts v1.UpdateOptions) (result *v1alpha1.KVMConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(kvmconfigsResource, c.ns, kVMConfig), &v1alpha1.KVMConfig{})
 
@@ -103,7 +105,7 @@ func (c *FakeKVMConfigs) Update(kVMConfig *v1alpha1.KVMConfig) (result *v1alpha1
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeKVMConfigs) UpdateStatus(kVMConfig *v1alpha1.KVMConfig) (*v1alpha1.KVMConfig, error) {
+func (c *FakeKVMConfigs) UpdateStatus(ctx context.Context, kVMConfig *v1alpha1.KVMConfig, opts v1.UpdateOptions) (*v1alpha1.KVMConfig, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(kvmconfigsResource, "status", c.ns, kVMConfig), &v1alpha1.KVMConfig{})
 
@@ -114,7 +116,7 @@ func (c *FakeKVMConfigs) UpdateStatus(kVMConfig *v1alpha1.KVMConfig) (*v1alpha1.
 }
 
 // Delete takes name of the kVMConfig and deletes it. Returns an error if one occurs.
-func (c *FakeKVMConfigs) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeKVMConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(kvmconfigsResource, c.ns, name), &v1alpha1.KVMConfig{})
 
@@ -122,15 +124,15 @@ func (c *FakeKVMConfigs) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeKVMConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(kvmconfigsResource, c.ns, listOptions)
+func (c *FakeKVMConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(kvmconfigsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.KVMConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched kVMConfig.
-func (c *FakeKVMConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.KVMConfig, err error) {
+func (c *FakeKVMConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KVMConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(kvmconfigsResource, c.ns, name, pt, data, subresources...), &v1alpha1.KVMConfig{})
 

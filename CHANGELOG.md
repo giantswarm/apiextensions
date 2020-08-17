@@ -14,6 +14,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added labels for configuring scraping of services by Prometheus
   (`Monitoring`, `MonitoringPath`, `MonitoringPort`) to `pkg/label`.
 
+## [2.0.1] - 2020-08-13
+
+### Changed
+
+- Make optional fields not required for `Chart` CRD to avoid
+needing to enter empty strings.
+- Make optional fields `omitempty` for `Chart` CRD.
+
+
+## [2.0.0] - 2020-08-10
+
+### Changed
+
+- Update Kubernetes dependencies to v1.18.5
+- Update `sigs.k8s.io/cluster-api` to v0.3.7
+- Update `sigs.k8s.io/cluster-api-provider-azure` to v0.4.6
+
 ## [0.4.20] - 2020-07-31
 
 ### Changed
@@ -425,7 +442,9 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v0.4.20...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/giantswarm/apiextensions/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/giantswarm/apiextensions/compare/v0.4.20...v2.0.0
 [0.4.20]: https://github.com/giantswarm/apiextensions/compare/v0.4.19...v0.4.20
 [0.4.19]: https://github.com/giantswarm/apiextensions/compare/v0.4.18...v0.4.19
 [0.4.18]: https://github.com/giantswarm/apiextensions/compare/v0.4.17...v0.4.18

@@ -21,8 +21,8 @@ package v1alpha2
 import (
 	rest "k8s.io/client-go/rest"
 
-	v1alpha2 "github.com/giantswarm/apiextensions/pkg/apis/infrastructure/v1alpha2"
-	"github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
+	v1alpha2 "github.com/giantswarm/apiextensions/v2/pkg/apis/infrastructure/v1alpha2"
+	"github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/scheme"
 )
 
 type InfrastructureV1alpha2Interface interface {

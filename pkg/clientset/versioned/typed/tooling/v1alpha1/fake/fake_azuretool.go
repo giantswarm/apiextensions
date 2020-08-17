@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/tooling/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/tooling/v1alpha1"
 )
 
 // FakeAzureTools implements AzureToolInterface
@@ -40,7 +42,7 @@ var azuretoolsResource = schema.GroupVersionResource{Group: "tooling.giantswarm.
 var azuretoolsKind = schema.GroupVersionKind{Group: "tooling.giantswarm.io", Version: "v1alpha1", Kind: "AzureTool"}
 
 // Get takes name of the azureTool, and returns the corresponding azureTool object, and an error if there is any.
-func (c *FakeAzureTools) Get(name string, options v1.GetOptions) (result *v1alpha1.AzureTool, err error) {
+func (c *FakeAzureTools) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AzureTool, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(azuretoolsResource, c.ns, name), &v1alpha1.AzureTool{})
 
@@ -51,7 +53,7 @@ func (c *FakeAzureTools) Get(name string, options v1.GetOptions) (result *v1alph
 }
 
 // List takes label and field selectors, and returns the list of AzureTools that match those selectors.
-func (c *FakeAzureTools) List(opts v1.ListOptions) (result *v1alpha1.AzureToolList, err error) {
+func (c *FakeAzureTools) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AzureToolList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(azuretoolsResource, azuretoolsKind, c.ns, opts), &v1alpha1.AzureToolList{})
 
@@ -73,14 +75,14 @@ func (c *FakeAzureTools) List(opts v1.ListOptions) (result *v1alpha1.AzureToolLi
 }
 
 // Watch returns a watch.Interface that watches the requested azureTools.
-func (c *FakeAzureTools) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeAzureTools) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(azuretoolsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a azureTool and creates it.  Returns the server's representation of the azureTool, and an error, if there is any.
-func (c *FakeAzureTools) Create(azureTool *v1alpha1.AzureTool) (result *v1alpha1.AzureTool, err error) {
+func (c *FakeAzureTools) Create(ctx context.Context, azureTool *v1alpha1.AzureTool, opts v1.CreateOptions) (result *v1alpha1.AzureTool, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(azuretoolsResource, c.ns, azureTool), &v1alpha1.AzureTool{})
 
@@ -91,7 +93,7 @@ func (c *FakeAzureTools) Create(azureTool *v1alpha1.AzureTool) (result *v1alpha1
 }
 
 // Update takes the representation of a azureTool and updates it. Returns the server's representation of the azureTool, and an error, if there is any.
-func (c *FakeAzureTools) Update(azureTool *v1alpha1.AzureTool) (result *v1alpha1.AzureTool, err error) {
+func (c *FakeAzureTools) Update(ctx context.Context, azureTool *v1alpha1.AzureTool, opts v1.UpdateOptions) (result *v1alpha1.AzureTool, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(azuretoolsResource, c.ns, azureTool), &v1alpha1.AzureTool{})
 
@@ -103,7 +105,7 @@ func (c *FakeAzureTools) Update(azureTool *v1alpha1.AzureTool) (result *v1alpha1
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeAzureTools) UpdateStatus(azureTool *v1alpha1.AzureTool) (*v1alpha1.AzureTool, error) {
+func (c *FakeAzureTools) UpdateStatus(ctx context.Context, azureTool *v1alpha1.AzureTool, opts v1.UpdateOptions) (*v1alpha1.AzureTool, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(azuretoolsResource, "status", c.ns, azureTool), &v1alpha1.AzureTool{})
 
@@ -114,7 +116,7 @@ func (c *FakeAzureTools) UpdateStatus(azureTool *v1alpha1.AzureTool) (*v1alpha1.
 }
 
 // Delete takes name of the azureTool and deletes it. Returns an error if one occurs.
-func (c *FakeAzureTools) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeAzureTools) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(azuretoolsResource, c.ns, name), &v1alpha1.AzureTool{})
 
@@ -122,15 +124,15 @@ func (c *FakeAzureTools) Delete(name string, options *v1.DeleteOptions) error {
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeAzureTools) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(azuretoolsResource, c.ns, listOptions)
+func (c *FakeAzureTools) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(azuretoolsResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.AzureToolList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched azureTool.
-func (c *FakeAzureTools) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.AzureTool, err error) {
+func (c *FakeAzureTools) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AzureTool, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(azuretoolsResource, c.ns, name, pt, data, subresources...), &v1alpha1.AzureTool{})
 

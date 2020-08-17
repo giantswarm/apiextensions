@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -26,7 +28,7 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/security/v1alpha1"
 )
 
 // FakeOrganizations implements OrganizationInterface
@@ -39,7 +41,7 @@ var organizationsResource = schema.GroupVersionResource{Group: "security.giantsw
 var organizationsKind = schema.GroupVersionKind{Group: "security.giantswarm.io", Version: "v1alpha1", Kind: "Organization"}
 
 // Get takes name of the organization, and returns the corresponding organization object, and an error if there is any.
-func (c *FakeOrganizations) Get(name string, options v1.GetOptions) (result *v1alpha1.Organization, err error) {
+func (c *FakeOrganizations) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Organization, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(organizationsResource, name), &v1alpha1.Organization{})
 	if obj == nil {
@@ -49,7 +51,7 @@ func (c *FakeOrganizations) Get(name string, options v1.GetOptions) (result *v1a
 }
 
 // List takes label and field selectors, and returns the list of Organizations that match those selectors.
-func (c *FakeOrganizations) List(opts v1.ListOptions) (result *v1alpha1.OrganizationList, err error) {
+func (c *FakeOrganizations) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.OrganizationList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(organizationsResource, organizationsKind, opts), &v1alpha1.OrganizationList{})
 	if obj == nil {
@@ -70,13 +72,13 @@ func (c *FakeOrganizations) List(opts v1.ListOptions) (result *v1alpha1.Organiza
 }
 
 // Watch returns a watch.Interface that watches the requested organizations.
-func (c *FakeOrganizations) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeOrganizations) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(organizationsResource, opts))
 }
 
 // Create takes the representation of a organization and creates it.  Returns the server's representation of the organization, and an error, if there is any.
-func (c *FakeOrganizations) Create(organization *v1alpha1.Organization) (result *v1alpha1.Organization, err error) {
+func (c *FakeOrganizations) Create(ctx context.Context, organization *v1alpha1.Organization, opts v1.CreateOptions) (result *v1alpha1.Organization, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(organizationsResource, organization), &v1alpha1.Organization{})
 	if obj == nil {
@@ -86,7 +88,7 @@ func (c *FakeOrganizations) Create(organization *v1alpha1.Organization) (result 
 }
 
 // Update takes the representation of a organization and updates it. Returns the server's representation of the organization, and an error, if there is any.
-func (c *FakeOrganizations) Update(organization *v1alpha1.Organization) (result *v1alpha1.Organization, err error) {
+func (c *FakeOrganizations) Update(ctx context.Context, organization *v1alpha1.Organization, opts v1.UpdateOptions) (result *v1alpha1.Organization, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(organizationsResource, organization), &v1alpha1.Organization{})
 	if obj == nil {
@@ -96,22 +98,22 @@ func (c *FakeOrganizations) Update(organization *v1alpha1.Organization) (result 
 }
 
 // Delete takes name of the organization and deletes it. Returns an error if one occurs.
-func (c *FakeOrganizations) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeOrganizations) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(organizationsResource, name), &v1alpha1.Organization{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeOrganizations) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(organizationsResource, listOptions)
+func (c *FakeOrganizations) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(organizationsResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.OrganizationList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched organization.
-func (c *FakeOrganizations) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Organization, err error) {
+func (c *FakeOrganizations) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Organization, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(organizationsResource, name, pt, data, subresources...), &v1alpha1.Organization{})
 	if obj == nil {

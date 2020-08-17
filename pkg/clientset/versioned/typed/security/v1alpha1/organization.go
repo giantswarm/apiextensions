@@ -19,6 +19,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"context"
 	"time"
 
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -26,8 +27,8 @@ import (
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/pkg/apis/security/v1alpha1"
-	scheme "github.com/giantswarm/apiextensions/pkg/clientset/versioned/scheme"
+	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/apis/security/v1alpha1"
+	scheme "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/scheme"
 )
 
 // OrganizationsGetter has a method to return a OrganizationInterface.
@@ -38,14 +39,14 @@ type OrganizationsGetter interface {
 
 // OrganizationInterface has methods to work with Organization resources.
 type OrganizationInterface interface {
-	Create(*v1alpha1.Organization) (*v1alpha1.Organization, error)
-	Update(*v1alpha1.Organization) (*v1alpha1.Organization, error)
-	Delete(name string, options *v1.DeleteOptions) error
-	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
-	Get(name string, options v1.GetOptions) (*v1alpha1.Organization, error)
-	List(opts v1.ListOptions) (*v1alpha1.OrganizationList, error)
-	Watch(opts v1.ListOptions) (watch.Interface, error)
-	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Organization, err error)
+	Create(ctx context.Context, organization *v1alpha1.Organization, opts v1.CreateOptions) (*v1alpha1.Organization, error)
+	Update(ctx context.Context, organization *v1alpha1.Organization, opts v1.UpdateOptions) (*v1alpha1.Organization, error)
+	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
+	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
+	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.Organization, error)
+	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.OrganizationList, error)
+	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
+	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Organization, err error)
 	OrganizationExpansion
 }
 
@@ -62,19 +63,19 @@ func newOrganizations(c *SecurityV1alpha1Client) *organizations {
 }
 
 // Get takes name of the organization, and returns the corresponding organization object, and an error if there is any.
-func (c *organizations) Get(name string, options v1.GetOptions) (result *v1alpha1.Organization, err error) {
+func (c *organizations) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Organization, err error) {
 	result = &v1alpha1.Organization{}
 	err = c.client.Get().
 		Resource("organizations").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of Organizations that match those selectors.
-func (c *organizations) List(opts v1.ListOptions) (result *v1alpha1.OrganizationList, err error) {
+func (c *organizations) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.OrganizationList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -84,13 +85,13 @@ func (c *organizations) List(opts v1.ListOptions) (result *v1alpha1.Organization
 		Resource("organizations").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested organizations.
-func (c *organizations) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *organizations) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -100,66 +101,69 @@ func (c *organizations) Watch(opts v1.ListOptions) (watch.Interface, error) {
 		Resource("organizations").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch()
+		Watch(ctx)
 }
 
 // Create takes the representation of a organization and creates it.  Returns the server's representation of the organization, and an error, if there is any.
-func (c *organizations) Create(organization *v1alpha1.Organization) (result *v1alpha1.Organization, err error) {
+func (c *organizations) Create(ctx context.Context, organization *v1alpha1.Organization, opts v1.CreateOptions) (result *v1alpha1.Organization, err error) {
 	result = &v1alpha1.Organization{}
 	err = c.client.Post().
 		Resource("organizations").
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(organization).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Update takes the representation of a organization and updates it. Returns the server's representation of the organization, and an error, if there is any.
-func (c *organizations) Update(organization *v1alpha1.Organization) (result *v1alpha1.Organization, err error) {
+func (c *organizations) Update(ctx context.Context, organization *v1alpha1.Organization, opts v1.UpdateOptions) (result *v1alpha1.Organization, err error) {
 	result = &v1alpha1.Organization{}
 	err = c.client.Put().
 		Resource("organizations").
 		Name(organization.Name).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(organization).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }
 
 // Delete takes name of the organization and deletes it. Returns an error if one occurs.
-func (c *organizations) Delete(name string, options *v1.DeleteOptions) error {
+func (c *organizations) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
 		Resource("organizations").
 		Name(name).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *organizations) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+func (c *organizations) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	var timeout time.Duration
-	if listOptions.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
+	if listOpts.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Resource("organizations").
-		VersionedParams(&listOptions, scheme.ParameterCodec).
+		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(options).
-		Do().
+		Body(&opts).
+		Do(ctx).
 		Error()
 }
 
 // Patch applies the patch and returns the patched organization.
-func (c *organizations) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.Organization, err error) {
+func (c *organizations) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Organization, err error) {
 	result = &v1alpha1.Organization{}
 	err = c.client.Patch(pt).
 		Resource("organizations").
-		SubResource(subresources...).
 		Name(name).
+		SubResource(subresources...).
+		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(data).
-		Do().
+		Do(ctx).
 		Into(result)
 	return
 }

@@ -5,8 +5,8 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/pkg/annotation"
-	"github.com/giantswarm/apiextensions/pkg/crd"
+	"github.com/giantswarm/apiextensions/v2/pkg/annotation"
+	"github.com/giantswarm/apiextensions/v2/pkg/crd"
 )
 
 const (
