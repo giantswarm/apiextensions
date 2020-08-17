@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added labels for configuring scraping of services by Prometheus
   (`Monitoring`, `MonitoringPath`, `MonitoringPort`) to `pkg/label`.
+- Add managed-by label.
+- Add version labels for app-operator and chart-operator.
 
 ## [2.0.1] - 2020-08-13
 
