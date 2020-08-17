@@ -1,5 +1,17 @@
 package label
 
+// AppOperatorVersion is the version label put into app CRs to define
+// which app-operator version should reconcile the given CR. Versions are
+// defined as semver version without the "v" prefix, e.g. 2.1.0, which means
+// that there is an app-operator release v2.1.0.
+const AppOperatorVersion = "app-operator.giantswarm.io/version"
+
+// ChartOperatorVersion is the version label put into app CRs to define
+// which app-operator version should reconcile the given CR. Versions are
+// defined as semver version without the "v" prefix, e.g. 1.0.0, which means
+// that there is a chart-operator release v1.0.0.
+const ChartOperatorVersion = "chart-operator.giantswarm.io/version"
+
 // AWSOperatorVersion is the version label put into AWS specific CRs to define
 // which aws-operator version should reconcile the given CR. Versions are
 // defined as semver version without the "v" prefix, e.g. 8.7.0, which means

@@ -17,6 +17,10 @@ const MachineDeployment = "giantswarm.io/machine-deployment"
 // giantswarm.io/machine-pool=de19f-h94vd.
 const MachinePool = "giantswarm.io/machine-pool"
 
+// ManagedBy is the name of the operator managing the object. E.g.
+// giantswarm.io/managed-by=app-operator.
+const ManagedBy = "giantswarm.io/managed-by"
+
 // Organization is the ID label put into all CRs to identify which Organization
 // the given CR is related to.
 const Organization = "giantswarm.io/organization"
