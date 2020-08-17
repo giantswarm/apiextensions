@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2020-08-17
+
 ### Added
 
 - Added labels for configuring scraping of services by Prometheus
@@ -444,7 +446,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/giantswarm/apiextensions/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/giantswarm/apiextensions/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/giantswarm/apiextensions/compare/v0.4.20...v2.0.0
 [0.4.20]: https://github.com/giantswarm/apiextensions/compare/v0.4.19...v0.4.20
