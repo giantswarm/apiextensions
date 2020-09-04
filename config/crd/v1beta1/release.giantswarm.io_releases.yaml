@@ -136,6 +136,9 @@ spec:
               description: Ready indicates if all components of the release have been
                 deployed.
               type: boolean
+            inUse:
+              description: InUse indicates if a deprecated release is currently used by a cluster.
+              type: boolean
           required:
           - ready
           type: object
