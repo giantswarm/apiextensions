@@ -137,7 +137,7 @@ spec:
                 deployed.
               type: boolean
             inUse:
-              description: InUse indicates if a deprecated release is currently used by a cluster.
+              description: InUse indicates if a release is currently used by a cluster.
               type: boolean
           required:
           - ready

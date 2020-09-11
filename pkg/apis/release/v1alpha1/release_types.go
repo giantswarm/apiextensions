@@ -128,7 +128,7 @@ type ReleaseSpecApp struct {
 type ReleaseStatus struct {
 	// Ready indicates if all components of the release have been deployed.
 	Ready bool `json:"ready"`
-	// InUse indicates whether a deprecated release is actually used by a cluster.
+	// InUse indicates whether a release is actually used by a cluster.
 	InUse bool `json:"inUse"`
 }
 
