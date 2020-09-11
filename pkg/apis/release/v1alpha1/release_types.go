@@ -17,9 +17,9 @@ const (
 type ReleaseState string
 
 var (
-	stateActive     ReleaseState = "active"     // nolint
-	stateDeprecated ReleaseState = "deprecated" // nolint
-	stateWIP        ReleaseState = "wip"        // nolint
+	StateActive     ReleaseState = "active"
+	StateDeprecated ReleaseState = "deprecated"
+	StateWIP        ReleaseState = "wip"
 )
 
 func (r ReleaseState) String() string {
