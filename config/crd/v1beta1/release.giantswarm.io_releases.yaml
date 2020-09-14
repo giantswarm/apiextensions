@@ -132,11 +132,16 @@ spec:
           type: object
         status:
           properties:
+            inUse:
+              description: InUse indicates whether a release is actually used by a
+                cluster.
+              type: boolean
             ready:
               description: Ready indicates if all components of the release have been
                 deployed.
               type: boolean
           required:
+          - inUse
           - ready
           type: object
       required:

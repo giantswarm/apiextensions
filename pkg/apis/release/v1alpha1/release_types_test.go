@@ -74,7 +74,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State:         stateActive,
+					State:         StateActive,
 					Date:          &now,
 					EndOfLifeDate: &inTenDays,
 					Apps: []ReleaseSpecApp{
@@ -102,7 +102,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps: []ReleaseSpecApp{
 						{
@@ -130,7 +130,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -151,7 +151,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -177,7 +177,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -229,7 +229,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -250,7 +250,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -276,7 +276,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -302,7 +302,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -323,7 +323,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				},
 				TypeMeta: NewReleaseTypeMeta(),
 				Spec: ReleaseSpec{
-					State: stateActive,
+					State: StateActive,
 					Date:  &now,
 					Apps:  []ReleaseSpecApp{},
 					Components: []ReleaseSpecComponent{
@@ -469,7 +469,7 @@ func newReleaseExampleCR() *Release {
 		},
 		Date:          &metav1.Time{Time: time.Date(2020, 3, 3, 11, 12, 13, 0, time.UTC)},
 		EndOfLifeDate: &metav1.Time{Time: time.Date(2020, 10, 3, 0, 0, 0, 0, time.UTC)},
-		State:         stateActive,
+		State:         StateActive,
 	}
 	return cr
 }
