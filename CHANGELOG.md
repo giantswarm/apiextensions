@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.2.0] - 2020-09-15
 
+## [2.2.0] - 2020-09-15
+
 ### Added
 
 - Add `InUse` to the `ReleaseStatus`.
@@ -455,6 +457,7 @@ needing to enter empty strings.
 
 
 [Unreleased]: https://github.com/giantswarm/apiextensions/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/giantswarm/apiextensions/compare/v2.2.0...v2.2.0
 [2.2.0]: https://github.com/giantswarm/apiextensions/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/giantswarm/apiextensions/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/giantswarm/apiextensions/compare/v2.0.0...v2.0.1
