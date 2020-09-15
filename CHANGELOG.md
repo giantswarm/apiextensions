@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `InUse` to the `ReleaseStatus`.
 - Add `KVMOperatorVersion` label.
+- Added constants for node pools autoscaling annotation names.
 
 ## [2.1.0] - 2020-08-17
 
