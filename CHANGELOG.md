@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `InUse` to the `ReleaseStatus`.
 - Add `KVMOperatorVersion` label.
 
+### Changed
+
+- Update `sigs.k8s.io/cluster-api` to v0.3.8
+- Update `sigs.k8s.io/cluster-api-provider-azure` to v0.4.7
+
 ## [2.1.0] - 2020-08-17
 
 ### Added
@@ -30,7 +35,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make optional fields not required for `Chart` CRD to avoid
 needing to enter empty strings.
 - Make optional fields `omitempty` for `Chart` CRD.
-
 
 ## [2.0.0] - 2020-08-10
 
