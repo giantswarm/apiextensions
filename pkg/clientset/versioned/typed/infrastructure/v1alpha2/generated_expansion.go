@@ -22,6 +22,8 @@ type AWSClusterExpansion interface{}
 
 type AWSControlPlaneExpansion interface{}
 
+type AWSIPPoolExpansion interface{}
+
 type AWSMachineDeploymentExpansion interface{}
 
 type G8sControlPlaneExpansion interface{}

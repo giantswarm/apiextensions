@@ -37,6 +37,10 @@ func (c *FakeInfrastructureV1alpha2) AWSControlPlanes(namespace string) v1alpha2
 	return &FakeAWSControlPlanes{c, namespace}
 }
 
+func (c *FakeInfrastructureV1alpha2) AWSIPPools(namespace string) v1alpha2.AWSIPPoolInterface {
+	return &FakeAWSIPPools{c, namespace}
+}
+
 func (c *FakeInfrastructureV1alpha2) AWSMachineDeployments(namespace string) v1alpha2.AWSMachineDeploymentInterface {
 	return &FakeAWSMachineDeployments{c, namespace}
 }
