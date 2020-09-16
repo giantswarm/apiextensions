@@ -549,16 +549,21 @@ spec:
       name: Phase
       type: string
     - JSONPath: .status.replicas
-      description: Total number of non-terminated machines targeted by this deployment
+      description: Total number of non-terminated machines targeted by this MachineDeployment
       name: Replicas
       type: integer
-    - JSONPath: .status.availableReplicas
-      description: Total number of available machines (ready for at least minReadySeconds)
-      name: Available
-      type: integer
     - JSONPath: .status.readyReplicas
-      description: Total number of ready machines targeted by this deployment.
+      description: Total number of ready machines targeted by this MachineDeployment
       name: Ready
+      type: integer
+    - JSONPath: .status.updatedReplicas
+      description: Total number of non-terminated machines targeted by this deployment
+        that have the desired template spec
+      name: Updated
+      type: integer
+    - JSONPath: .status.unavailableReplicas
+      description: Total number of unavailable machines targeted by this MachineDeployment
+      name: Unavailable
       type: integer
     name: v1alpha3
     schema:

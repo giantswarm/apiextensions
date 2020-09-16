@@ -19,8 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update `sigs.k8s.io/cluster-api` to v0.3.8
-- Update `sigs.k8s.io/cluster-api-provider-azure` to v0.4.7
+- Replace `sigs.k8s.io/cluster-api` with our fork.
+- Replace `sigs.k8s.io/cluster-api-provider-azure` with our fork.
 
 ## [2.1.0] - 2020-08-17
 
