@@ -62,7 +62,7 @@ func Test_GenerateAWSIPPoolYAML(t *testing.T) {
 func newAWSIPPoolCR() *AWSIPPool {
 	cr := NewAWSIPPoolCR()
 
-	cr.Name = "customIPPool"
+	cr.Name = "custom"
 	cr.Spec = AWSIPPoolSpec{
 		CIDRBlock: "192.168.0.0/16",
 	}

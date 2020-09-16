@@ -4,6 +4,6 @@ metadata:
   annotations:
     giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awsippools.infrastructure.giantswarm.io/
   creationTimestamp: null
-  name: customIPPool
+  name: custom
 spec:
   cidrBlock: 192.168.0.0/16
