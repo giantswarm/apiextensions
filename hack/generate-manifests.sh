@@ -1,4 +1,4 @@
-#!/run/current-system/sw/bin/bash
+#!/bin/sh
 set -euo pipefail
 IFS=$'\n\t'
 
