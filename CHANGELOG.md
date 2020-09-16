@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `KVMOperatorVersion` label.
 - Added constants for node pools autoscaling annotation names.
 
+### Changed
+
+- Replace `sigs.k8s.io/cluster-api` with our fork.
+- Replace `sigs.k8s.io/cluster-api-provider-azure` with our fork.
+
 ## [2.1.0] - 2020-08-17
 
 ### Added
@@ -33,7 +38,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make optional fields not required for `Chart` CRD to avoid
 needing to enter empty strings.
 - Make optional fields `omitempty` for `Chart` CRD.
-
 
 ## [2.0.0] - 2020-08-10
 
