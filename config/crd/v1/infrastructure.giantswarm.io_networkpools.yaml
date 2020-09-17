@@ -6,7 +6,7 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
-  name: awsippools.infrastructure.giantswarm.io
+  name: networkpools.infrastructure.giantswarm.io
 spec:
   group: infrastructure.giantswarm.io
   names:
@@ -14,16 +14,16 @@ spec:
     - aws
     - cluster-api
     - giantswarm
-    kind: AWSIPPool
-    listKind: AWSIPPoolList
-    plural: awsippools
-    singular: awsippool
+    kind: NetworkPool
+    listKind: NetworkPoolList
+    plural: networkpools
+    singular: networkpool
   scope: Namespaced
   versions:
   - name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: AWSIPPool is the infrastructure provider referenced in upstream
+        description: NetworkPool is the infrastructure provider referenced in upstream
           CAPI Cluster CRs.
         properties:
           apiVersion:
@@ -39,7 +39,7 @@ spec:
           metadata:
             type: object
           spec:
-            description: AWSIPPoolSpec is the spec part for the AWSIPPool resource.
+            description: NetworkPoolSpec is the spec part for the NetworkPool resource.
             properties:
               cidrBlock:
                 description: IPv4 address block in CIDR notation.

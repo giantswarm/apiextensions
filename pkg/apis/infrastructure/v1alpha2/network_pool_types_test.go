@@ -13,7 +13,7 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_GenerateAWSIPPoolYAML(t *testing.T) {
+func Test_GenerateNetworkPoolYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
@@ -22,7 +22,7 @@ func Test_GenerateAWSIPPoolYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awsippool.yaml", group, version),
-			resource: newAWSIPPoolCR(),
+			resource: newNetworkPoolCR(),
 		},
 	}
 
@@ -59,11 +59,11 @@ func Test_GenerateAWSIPPoolYAML(t *testing.T) {
 	}
 }
 
-func newAWSIPPoolCR() *AWSIPPool {
-	cr := NewAWSIPPoolCR()
+func newNetworkPoolCR() *NetworkPool {
+	cr := NewNetworkPoolCR()
 
 	cr.Name = "custom"
-	cr.Spec = AWSIPPoolSpec{
+	cr.Spec = NetworkPoolSpec{
 		CIDRBlock: "192.168.0.0/16",
 	}
 

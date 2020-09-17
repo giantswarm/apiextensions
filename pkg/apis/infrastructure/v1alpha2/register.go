@@ -21,8 +21,8 @@ var knownTypes = []runtime.Object{
 	&AWSControlPlaneList{},
 	&AWSMachineDeployment{},
 	&AWSMachineDeploymentList{},
-	&AWSIPPool{},
-	&AWSIPPoolList{},
+	&NetworkPool{},
+	&NetworkPoolList{},
 	&G8sControlPlane{},
 	&G8sControlPlaneList{},
 }

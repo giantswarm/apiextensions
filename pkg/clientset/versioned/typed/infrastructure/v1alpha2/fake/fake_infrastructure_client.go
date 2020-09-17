@@ -37,16 +37,16 @@ func (c *FakeInfrastructureV1alpha2) AWSControlPlanes(namespace string) v1alpha2
 	return &FakeAWSControlPlanes{c, namespace}
 }
 
-func (c *FakeInfrastructureV1alpha2) AWSIPPools(namespace string) v1alpha2.AWSIPPoolInterface {
-	return &FakeAWSIPPools{c, namespace}
-}
-
 func (c *FakeInfrastructureV1alpha2) AWSMachineDeployments(namespace string) v1alpha2.AWSMachineDeploymentInterface {
 	return &FakeAWSMachineDeployments{c, namespace}
 }
 
 func (c *FakeInfrastructureV1alpha2) G8sControlPlanes(namespace string) v1alpha2.G8sControlPlaneInterface {
 	return &FakeG8sControlPlanes{c, namespace}
+}
+
+func (c *FakeInfrastructureV1alpha2) NetworkPools(namespace string) v1alpha2.NetworkPoolInterface {
+	return &FakeNetworkPools{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

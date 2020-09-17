@@ -29,9 +29,9 @@ type InfrastructureV1alpha2Interface interface {
 	RESTClient() rest.Interface
 	AWSClustersGetter
 	AWSControlPlanesGetter
-	AWSIPPoolsGetter
 	AWSMachineDeploymentsGetter
 	G8sControlPlanesGetter
+	NetworkPoolsGetter
 }
 
 // InfrastructureV1alpha2Client is used to interact with features provided by the infrastructure.giantswarm.io group.
@@ -47,16 +47,16 @@ func (c *InfrastructureV1alpha2Client) AWSControlPlanes(namespace string) AWSCon
 	return newAWSControlPlanes(c, namespace)
 }
 
-func (c *InfrastructureV1alpha2Client) AWSIPPools(namespace string) AWSIPPoolInterface {
-	return newAWSIPPools(c, namespace)
-}
-
 func (c *InfrastructureV1alpha2Client) AWSMachineDeployments(namespace string) AWSMachineDeploymentInterface {
 	return newAWSMachineDeployments(c, namespace)
 }
 
 func (c *InfrastructureV1alpha2Client) G8sControlPlanes(namespace string) G8sControlPlaneInterface {
 	return newG8sControlPlanes(c, namespace)
+}
+
+func (c *InfrastructureV1alpha2Client) NetworkPools(namespace string) NetworkPoolInterface {
+	return newNetworkPools(c, namespace)
 }
 
 // NewForConfig creates a new InfrastructureV1alpha2Client for the given config.

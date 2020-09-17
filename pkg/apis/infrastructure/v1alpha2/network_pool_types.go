@@ -9,30 +9,30 @@ import (
 )
 
 const (
-	kindAWSIPPool              = "AWSIPPool"
-	awsIpPoolDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsippools.infrastructure.giantswarm.io/"
+	kindNetworkPool              = "NetworkPool"
+	networkpoolDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/networkpools.infrastructure.giantswarm.io/"
 )
 
-func NewAWSIPPoolCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAWSIPPool)
+func NewNetworkPoolCRD() *v1.CustomResourceDefinition {
+	return crd.LoadV1(group, kindNetworkPool)
 }
 
-func NewAWSIPPoolTypeMeta() metav1.TypeMeta {
+func NewNetworkPoolTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
 		APIVersion: SchemeGroupVersion.String(),
-		Kind:       kindAWSIPPool,
+		Kind:       kindNetworkPool,
 	}
 }
 
-// NewAWSIPPoolCR returns an AWSIPPool Custom Resource.
-func NewAWSIPPoolCR() *AWSIPPool {
-	return &AWSIPPool{
+// NewNetworkPoolCR returns an NetworkPool Custom Resource.
+func NewNetworkPoolCR() *NetworkPool {
+	return &NetworkPool{
 		ObjectMeta: metav1.ObjectMeta{
 			Annotations: map[string]string{
-				annotation.Docs: awsIpPoolDocumentationLink,
+				annotation.Docs: networkpoolDocumentationLink,
 			},
 		},
-		TypeMeta: NewAWSIPPoolTypeMeta(),
+		TypeMeta: NewNetworkPoolTypeMeta(),
 	}
 }
 
@@ -43,25 +43,25 @@ func NewAWSIPPoolCR() *AWSIPPool {
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
 // +k8s:openapi-gen=true
 
-// AWSIPPool is the infrastructure provider referenced in upstream CAPI Cluster
+// NetworkPool is the infrastructure provider referenced in upstream CAPI Cluster
 // CRs.
-type AWSIPPool struct {
+type NetworkPool struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              AWSIPPoolSpec `json:"spec"`
+	Spec              NetworkPoolSpec `json:"spec"`
 }
 
-// AWSIPPoolSpec is the spec part for the AWSIPPool resource.
+// NetworkPoolSpec is the spec part for the NetworkPool resource.
 // +k8s:openapi-gen=true
-type AWSIPPoolSpec struct {
+type NetworkPoolSpec struct {
 	// IPv4 address block in CIDR notation.
 	CIDRBlock string `json:"cidrBlock,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type AWSIPPoolList struct {
+type NetworkPoolList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata"`
-	Items           []AWSIPPool `json:"items"`
+	Items           []NetworkPool `json:"items"`
 }
