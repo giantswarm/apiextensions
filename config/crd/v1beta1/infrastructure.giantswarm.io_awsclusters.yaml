@@ -118,8 +118,8 @@ spec:
                   description: Node network configuration.
                   properties:
                     networkPool:
-                      description: IP Pool represents the collection of IPs that master
-                        and workers subnets will use.
+                      description: NetworkPool represents a range of IP addresses
+                        to chose chunks from for master and worker node subnets.
                       type: string
                   type: object
                 pods:
