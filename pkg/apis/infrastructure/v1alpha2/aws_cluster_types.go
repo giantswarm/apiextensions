@@ -163,7 +163,7 @@ type AWSClusterSpecProviderPods struct {
 // +k8s:openapi-gen=true
 type AWSClusterSpecProviderNodes struct {
 	// +kubebuilder:validation:Optional
-	// IP Pool represents the collection of IPs that master and workers subnets will use.
+	// NetworkPool represents a range of IP addresses to chose chunks from for master and worker node subnets.
 	NetworkPool string `json:"networkPool,omitempty"`
 }
 
