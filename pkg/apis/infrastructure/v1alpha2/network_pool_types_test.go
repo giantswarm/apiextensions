@@ -21,7 +21,7 @@ func Test_GenerateNetworkPoolYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_awsippool.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_networkpool.yaml", group, version),
 			resource: newNetworkPoolCR(),
 		},
 	}
