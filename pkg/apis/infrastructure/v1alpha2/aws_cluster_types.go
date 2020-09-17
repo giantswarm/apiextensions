@@ -164,7 +164,7 @@ type AWSClusterSpecProviderPods struct {
 type AWSClusterSpecProviderNodes struct {
 	// +kubebuilder:validation:Optional
 	// IP Pool represents the collection of IPs that master and workers subnets will use.
-	IPPool string `json:"ipPool,omitempty"`
+	NetworkPool string `json:"networkPool,omitempty"`
 }
 
 // AWSClusterStatus holds status information about the cluster, populated once the

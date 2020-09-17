@@ -118,7 +118,7 @@ spec:
                   nodes:
                     description: Node network configuration.
                     properties:
-                      ipPool:
+                      networkPool:
                         description: IP Pool represents the collection of IPs that
                           master and workers subnets will use.
                         type: string
