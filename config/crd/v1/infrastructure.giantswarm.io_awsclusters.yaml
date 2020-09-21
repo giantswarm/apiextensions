@@ -120,7 +120,7 @@ spec:
                     properties:
                       networkPool:
                         description: NetworkPool represents a range of IP addresses
-                          to chose chunks from for master and worker node subnets.
+                          to choose chunks from for master and worker node subnets.
                         type: string
                     type: object
                   pods:
