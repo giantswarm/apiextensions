@@ -64,17 +64,14 @@ spec:
                       backupFileSize:
                         description: Size of the backup file
                         format: int64
-                        nullable: true
                         type: integer
                       creationTime:
                         description: Time took by the backup creation process
                         format: int64
-                        nullable: true
                         type: integer
                       encryptionTime:
                         description: Time took by the backup encryption process
                         format: int64
-                        nullable: true
                         type: integer
                       finishedTimestamp:
                         description: Timestamp when the last (final) attempt was made
@@ -84,7 +81,6 @@ spec:
                         type: string
                       latestError:
                         description: Latest backup error message
-                        nullable: true
                         type: string
                       startedTimestamp:
                         description: Timestamp when the first attempt was made
@@ -98,7 +94,6 @@ spec:
                       uploadTime:
                         description: Time took by the backup upload process
                         format: int64
-                        nullable: true
                         type: integer
                     required:
                     - status
@@ -109,17 +104,14 @@ spec:
                       backupFileSize:
                         description: Size of the backup file
                         format: int64
-                        nullable: true
                         type: integer
                       creationTime:
                         description: Time took by the backup creation process
                         format: int64
-                        nullable: true
                         type: integer
                       encryptionTime:
                         description: Time took by the backup encryption process
                         format: int64
-                        nullable: true
                         type: integer
                       finishedTimestamp:
                         description: Timestamp when the last (final) attempt was made
@@ -129,7 +121,6 @@ spec:
                         type: string
                       latestError:
                         description: Latest backup error message
-                        nullable: true
                         type: string
                       startedTimestamp:
                         description: Timestamp when the first attempt was made
@@ -143,7 +134,6 @@ spec:
                       uploadTime:
                         description: Time took by the backup upload process
                         format: int64
-                        nullable: true
                         type: integer
                     required:
                     - status

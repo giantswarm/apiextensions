@@ -78,23 +78,18 @@ type ETCDInstanceBackupStatus struct {
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
 	FinishedTimestamp metav1.Time `json:"finishedTimestamp,omitempty"`
 	// +kubebuilder:validation:Optional
-	// +nullable
 	// Latest backup error message
 	LatestError string `json:"latestError,omitempty"`
 	// +kubebuilder:validation:Optional
-	// +nullable
 	// Time took by the backup creation process
 	CreationTime int64 `json:"creationTime,omitempty"`
 	// +kubebuilder:validation:Optional
-	// +nullable
 	// Time took by the backup encryption process
 	EncryptionTime int64 `json:"encryptionTime,omitempty"`
 	// +kubebuilder:validation:Optional
-	// +nullable
 	// Time took by the backup upload process
 	UploadTime int64 `json:"uploadTime,omitempty"`
 	// +kubebuilder:validation:Optional
-	// +nullable
 	// Size of the backup file
 	BackupFileSize int64 `json:"backupFileSize,omitempty"`
 }
