@@ -50,6 +50,7 @@ spec:
               description: Timestamp when the last (final) attempt was made (when
                 the Phase became either 'Completed' or 'Failed'
               format: date-time
+              nullable: true
               type: string
             instances:
               additionalProperties:
@@ -76,6 +77,7 @@ spec:
                         description: Timestamp when the last (final) attempt was made
                           (when the Phase became either 'Completed' or 'Failed'
                         format: date-time
+                        nullable: true
                         type: string
                       latestError:
                         description: Latest backup error message
@@ -83,6 +85,7 @@ spec:
                       startedTimestamp:
                         description: Timestamp when the first attempt was made
                         format: date-time
+                        nullable: true
                         type: string
                       status:
                         description: Status of this isntance's backup job (can be
@@ -114,6 +117,7 @@ spec:
                         description: Timestamp when the last (final) attempt was made
                           (when the Phase became either 'Completed' or 'Failed'
                         format: date-time
+                        nullable: true
                         type: string
                       latestError:
                         description: Latest backup error message
@@ -121,6 +125,7 @@ spec:
                       startedTimestamp:
                         description: Timestamp when the first attempt was made
                         format: date-time
+                        nullable: true
                         type: string
                       status:
                         description: Status of this isntance's backup job (can be
@@ -139,10 +144,12 @@ spec:
                 - v3
                 type: object
               description: map containing the state of the backup for all instances
+              nullable: true
               type: object
             startedTimestamp:
               description: Timestamp when the first attempt was made
               format: date-time
+              nullable: true
               type: string
             status:
               description: Status of the whole backup job (can be 'Pending', 'Running'.
