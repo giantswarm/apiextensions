@@ -115,6 +115,14 @@ spec:
                         description: AWS EC2 instance type to use for the master node.
                         type: string
                     type: object
+                  nodes:
+                    description: Node network configuration.
+                    properties:
+                      networkPool:
+                        description: NetworkPool represents a range of IP addresses
+                          to chose chunks from for master and worker node subnets.
+                        type: string
+                    type: object
                   pods:
                     description: Pod network configuration.
                     properties:

@@ -25,6 +25,7 @@ spec:
     master:
       availabilityZone: eu-central-1b
       instanceType: m5.2xlarge
+    nodes: {}
     pods:
       cidrBlock: 10.2.0.0/16
       externalSNAT: true

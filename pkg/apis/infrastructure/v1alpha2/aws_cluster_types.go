@@ -118,6 +118,9 @@ type AWSClusterSpecProvider struct {
 	// Note that this attribute is being deprecated. The master node specification can now be found in the AWSControlPlane resource.
 	Master AWSClusterSpecProviderMaster `json:"master,omitempty"`
 	// +kubebuilder:validation:Optional
+	// Node network configuration.
+	Nodes AWSClusterSpecProviderNodes `json:"nodes,omitempty"`
+	// +kubebuilder:validation:Optional
 	// Pod network configuration.
 	Pods AWSClusterSpecProviderPods `json:"pods,omitempty"`
 	// AWS region the cluster is to be running in.
@@ -154,6 +157,14 @@ type AWSClusterSpecProviderPods struct {
 	// +kubebuilder:validation:Optional
 	// When set to false, pod connections outside the VPC where the pod is located will be NATed through the node primary IP. When set to true, all connections will use the pod IP.
 	ExternalSNAT *bool `json:"externalSNAT,omitempty"`
+}
+
+// AWSClusterSpecProviderNodes Nodes network configuration.
+// +k8s:openapi-gen=true
+type AWSClusterSpecProviderNodes struct {
+	// +kubebuilder:validation:Optional
+	// NetworkPool represents a range of IP addresses to chose chunks from for master and worker node subnets.
+	NetworkPool string `json:"networkPool,omitempty"`
 }
 
 // AWSClusterStatus holds status information about the cluster, populated once the

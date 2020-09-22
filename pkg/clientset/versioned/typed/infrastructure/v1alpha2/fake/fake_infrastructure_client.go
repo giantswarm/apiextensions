@@ -45,6 +45,10 @@ func (c *FakeInfrastructureV1alpha2) G8sControlPlanes(namespace string) v1alpha2
 	return &FakeG8sControlPlanes{c, namespace}
 }
 
+func (c *FakeInfrastructureV1alpha2) NetworkPools(namespace string) v1alpha2.NetworkPoolInterface {
+	return &FakeNetworkPools{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeInfrastructureV1alpha2) RESTClient() rest.Interface {

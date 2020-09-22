@@ -1,0 +1,9 @@
+apiVersion: infrastructure.giantswarm.io/v1alpha2
+kind: NetworkPool
+metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/networkpools.infrastructure.giantswarm.io/
+  creationTimestamp: null
+  name: custom
+spec:
+  cidrBlock: 192.168.0.0/16

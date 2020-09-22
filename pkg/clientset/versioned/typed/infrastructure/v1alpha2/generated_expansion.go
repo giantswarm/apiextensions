@@ -25,3 +25,5 @@ type AWSControlPlaneExpansion interface{}
 type AWSMachineDeploymentExpansion interface{}
 
 type G8sControlPlaneExpansion interface{}
+
+type NetworkPoolExpansion interface{}
