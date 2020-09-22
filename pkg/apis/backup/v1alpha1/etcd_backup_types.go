@@ -39,12 +39,18 @@ type ETCDBackupSpec struct {
 
 // +k8s:openapi-gen=true
 type ETCDBackupStatus struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// map containing the state of the backup for all instances
 	Instances map[string]ETCDInstanceBackupStatusIndex `json:"instances,omitempty"`
 	// Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Timestamp when the first attempt was made
 	StartedTimestamp metav1.Time `json:"startedTimestamp,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
 	FinishedTimestamp metav1.Time `json:"finishedTimestamp,omitempty"`
 }
@@ -63,18 +69,32 @@ type ETCDInstanceBackupStatusIndex struct {
 type ETCDInstanceBackupStatus struct {
 	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Timestamp when the first attempt was made
 	StartedTimestamp metav1.Time `json:"startedTimestamp,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
 	FinishedTimestamp metav1.Time `json:"finishedTimestamp,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Latest backup error message
 	LatestError string `json:"latestError,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Time took by the backup creation process
 	CreationTime int64 `json:"creationTime,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Time took by the backup encryption process
 	EncryptionTime int64 `json:"encryptionTime,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Time took by the backup upload process
 	UploadTime int64 `json:"uploadTime,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Size of the backup file
 	BackupFileSize int64 `json:"backupFileSize,omitempty"`
 }

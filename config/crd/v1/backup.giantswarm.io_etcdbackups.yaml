@@ -50,6 +50,7 @@ spec:
                 description: Timestamp when the last (final) attempt was made (when
                   the Phase became either 'Completed' or 'Failed'
                 format: date-time
+                nullable: true
                 type: string
               instances:
                 additionalProperties:
@@ -63,26 +64,32 @@ spec:
                         backupFileSize:
                           description: Size of the backup file
                           format: int64
+                          nullable: true
                           type: integer
                         creationTime:
                           description: Time took by the backup creation process
                           format: int64
+                          nullable: true
                           type: integer
                         encryptionTime:
                           description: Time took by the backup encryption process
                           format: int64
+                          nullable: true
                           type: integer
                         finishedTimestamp:
                           description: Timestamp when the last (final) attempt was
                             made (when the Phase became either 'Completed' or 'Failed'
                           format: date-time
+                          nullable: true
                           type: string
                         latestError:
                           description: Latest backup error message
+                          nullable: true
                           type: string
                         startedTimestamp:
                           description: Timestamp when the first attempt was made
                           format: date-time
+                          nullable: true
                           type: string
                         status:
                           description: Status of this isntance's backup job (can be
@@ -91,6 +98,7 @@ spec:
                         uploadTime:
                           description: Time took by the backup upload process
                           format: int64
+                          nullable: true
                           type: integer
                       required:
                       - status
@@ -101,26 +109,32 @@ spec:
                         backupFileSize:
                           description: Size of the backup file
                           format: int64
+                          nullable: true
                           type: integer
                         creationTime:
                           description: Time took by the backup creation process
                           format: int64
+                          nullable: true
                           type: integer
                         encryptionTime:
                           description: Time took by the backup encryption process
                           format: int64
+                          nullable: true
                           type: integer
                         finishedTimestamp:
                           description: Timestamp when the last (final) attempt was
                             made (when the Phase became either 'Completed' or 'Failed'
                           format: date-time
+                          nullable: true
                           type: string
                         latestError:
                           description: Latest backup error message
+                          nullable: true
                           type: string
                         startedTimestamp:
                           description: Timestamp when the first attempt was made
                           format: date-time
+                          nullable: true
                           type: string
                         status:
                           description: Status of this isntance's backup job (can be
@@ -129,6 +143,7 @@ spec:
                         uploadTime:
                           description: Time took by the backup upload process
                           format: int64
+                          nullable: true
                           type: integer
                       required:
                       - status
@@ -139,10 +154,12 @@ spec:
                   - v3
                   type: object
                 description: map containing the state of the backup for all instances
+                nullable: true
                 type: object
               startedTimestamp:
                 description: Timestamp when the first attempt was made
                 format: date-time
+                nullable: true
                 type: string
               status:
                 description: Status of the whole backup job (can be 'Pending', 'Running'.
