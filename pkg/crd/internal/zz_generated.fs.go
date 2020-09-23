@@ -1166,97 +1166,6 @@ mwPGOVYW88Z33uGb8rOz1ifi/idXMnx1ZBbw8y+zQBjzj+nrbnr4fwEAAP//zenXX98/AAA=
 `,
 	},
 
-	"/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml": {
-		name:    "exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml",
-		local:   "config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml",
-		size:    2775,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/7RWzW7kNgy++ymI7WEvtae76aHwLZjuIWi3CJIgl6IHjsSx1diSSlGTZIu+eyHJk/H8
-ZdOi1cmi+PPxIymrquu6Qm/uiYNxtgX0hp6EbNqF5uGH0Bi32HyoHozVLSxjEDfeUHCRFf1Ia2ONGGer
-kQQ1CrYVAFrrBJM4pC2AclbYDQNx3ZFtHuKKVtEMmjg734befNd8bL6vABRTNr8zIwXB0bdg4zBUABZH
-agG/RKYRLXak1RCDEIeGnnxj7JoxCEclkamZzpqnuuRRBU8qQerYRd/CW0xKzG0iKNQ5Ntt9DZN+jd5k
-SaHpMgH8XAAui0Y+HUyQn85p/GyCZC0/RMbhdJpZIfSO5ZcdrBpwVOXE2C4OyCeNK4CgnKcWsq1HRboC
-mPjPvuqJ4c0HHHyPF8Wp6mnEEgrAebKX11f3F7d7YgBNQbHxkmt5Ij8wAaQnKHawdpy3Z7Ms6/L66mXn
-2XlieaG/rFn3zqQHeN4nyEULdGpbKmCm5ElPWYJbg/QmAJNnCmRLI+85hqSEFtzqd1LSwC1xcpPKEged
-un1DLMCkXGfNlxffAcTloAMKTbXeLWOF2OIAGxwifQtoNYz4DEwpCkQ785dVQgOfHRMYu3Yt9CI+tItF
-Z2Q7tcqNY7RGnhd5AM0qiuOw0LShYRFMVyOr3gjlzl+gN3WGbvPkNqP+hqc5D+/3sMpz6qEgbGw3O8it
-/0oFUuOnHsDJtGSxIzqJEjs3n27vYBs6F+OQ/cz7zjDsSpAIM3ZNXIq4Zjdmn2S1d8ZK3qjBkD2kP8TV
-aCTV/Y9IQVKtGljmqwxWBNFrFNINXFlY4kjDEgP97wVITIc6Efu2Esxv4UPlwtrsYHsZnqnXiQm+9aT2
-pkdTMJz6W1AoTcW5i+/1CZ79I64HtPRpqtahzgHC5QmTWVfsFz4G0iDuyGOKnKuU7nZ4NNKXHim+wSfn
-zZHV+TzS6l2QU/ID/Hc9ZdV05YKz8NgbVaJfXl9ByC2dBiZ9Gds1Jz2e6YQXoI7fCiWp/msYa8cjSptu
-sYuPrwBNt1x30BRppbFLrXSMtc4cnRAnvNXpKEe9fn4IBCWGfzgG2WZvENwq8/SfTAIT6uevtP5N0sk/
-VI4Ejz3ZDMOz2xhNvLs+858M9XNzhqmVcwOh/TpVR8KScJsRFIE4xo7mkrh6+YVsE5oIhz//qnbco1Lk
-hfTsTVMeUu/e7b2I8lY5q015XcKvv1UlMOn77TMmCf8OAAD//1eKhKHXCgAA
-`,
-	},
-
-	"/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml": {
-		name:    "exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml",
-		local:   "config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml",
-		size:    5772,
-		modtime: 0,
-		compressed: `
-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
-`,
-	},
-
-	"/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml": {
-		name:    "exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml",
-		local:   "config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml",
-		size:    3676,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/+RXS3MbNwy+61dg0kMu0SqPHjq6uU6n40ndeqzUl04PEAmtUHNJBiSVrDv97x2Su9bD
-ku2+Tt0bSRD88AH4uJxMp9MJer4hCezsHNAzfYlk8yg0t9+Eht1s82Zyy1bP4TyF6LprCi6Jove0YsuR
-nZ10FFFjxPkEAK11EfN0yEMA5WwUZwzJtCXb3KYlLRMbTVKcj0dvXjdvm68nAEqobP/IHYWInZ+DTcZM
-ACx2NAe8S0IdWmxJd6jWbMk7Z0JDX3zDdiUYoiQVk1CjTAqRpPkyrbFMgieVYbXikp/Dc7bUc8dgMFLr
-hMfxFAb7KXouM5WqswzysoK8rCCvnDPFwnCIHx6z+oFDLJbeJEFzOuRiFNZO4o9biFPArvN1iW2bDMpJ
-DxOAoJynORQHHhXpCcCQlOJwOtC+eYPGr/FddazW1GE9D8B5smdXFzfvFnvTAJqCEvaxJPhEsMAB4pqg
-7oWVkzJ8NOT6nV1d3I+8OE8S7/NSv53S3pk9wPUyQ69WoHNNUwU0kEB6iBbcCuKaAwh5oUC2VvmeY8hG
-aMEtfyMVG1iQZDc5R8no3AobkghCyrWW7+59B4iuHGow0pD87cc2klg0sEGT6BWg1dBhD0L5FEh2x18x
-CQ1cOiFgu3JzWMfow3w2azmOLa1c1yXLsZ+V7uRlik7CTNOGzCxwO0VRa45UWmKGnqcFui1t3XT6KxlE
-ILzcwxr7XEshCtt2Z6H0xCMZyN2Q6wCHrTWKLdF5KrNz/d3iI4xHl2Qcsl94324M2xRkwtiuSGoSV+K6
-4pOs9o5tLANlmOwh/SEtO445758ShZhz1cB50TlYEiSvMZJu4MLCOXZkzjHQf56AzHSYZmKfl4JdiT40
-rqztLIwqeSJfJzp54UntdZCmwJJrPGIkcKsDXh/TyMf7uqQ6vOdwu+A7+v7bw7UDvD8ttqaj3GgOtxD4
-jori0Iakh0FngO2x2iqC0pKNkIWogYsV9C4VrnjVw+tXwBE+szGA3pt+YGCFycQBbDnvmFelnOhS5FUF
-Nl0GO7hm0s2DTSsnHcZ5loZ3bx+s1rRm2WhJDla9uA1rkov3+Zp5grmrPeORu2T5UyJgnetxxSSAYQv2
-SIDLfugul/Q9gIdBcaQuzI/sP1HTu4sogv1h496mJ+JbfPh5DKrUQpF4gpvLUIuAwDpNNeGTZ6PKQpEL
-f//wacbzrO6LGFP4G/1X9u11oFuGLH9DCz68qv5ZC5KIk0sKAVt6gugz20MUtCHra92YEWIEp1QS0ElG
-kc+XmVVs+Nj1OuAesAZQaLMGo9akcxVS1sj723QwG68FtHrm5IhH49qW9Jjy7Q/rywAuRZ/iX0j+QMs1
-YTj87fhfsyKEun+Cj+tsUxpSEsHnNdWjR8XYXv3lLwx1fwrB0jlDaB9A8IYVhidRVLNRGToXyi8b2Wj6
-bUvZ1C1JMu+j339Ppo8qw4PJCmRe2KoT0UnuxZ2ZtLz/VRvDHvQFfv9jspUaVIp8JL3zkKgvmRcv9p4i
-Zaic1VyfePDLr5N6MOmb8dmQJ/8MAAD//7U7gZBcDgAA
-`,
-	},
-
 	"/config/crd/v1/infrastructure.cluster.x-k8s.io_azureclusters.yaml": {
 		name:    "infrastructure.cluster.x-k8s.io_azureclusters.yaml",
 		local:   "config/crd/v1/infrastructure.cluster.x-k8s.io_azureclusters.yaml",
@@ -2800,97 +2709,6 @@ usjHlm24LvIca4tF64u88PXfycnOx3z+Z65V+MqEZvDrb5NAFYu3iRtu/G8AAAD//6KscvNmPQAA
 `,
 	},
 
-	"/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml": {
-		name:    "exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml",
-		local:   "config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml",
-		size:    2712,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/7RWT2/ktg+9+1MQ+zvs5WdPd9ND4Vsw3UPQbhEkQS5FDxyLY6uxJZWiJskW/e4FJc/f
-ndluW1Qni6Kop8dHWlVd1xUG+0gcrXctYLD0IuR0Fpun72Jj/WLzbkWC76on60wLyxTFT3cUfeKOvqe1
-dVasd9VEggYF2woAnfOCao46Bei8E/bjSFz35JqntKJVsqMhzidsz99807xvvq0AOqa8/cFOFAWn0IJL
-41gBOJyoBfyUmCZ02JPpxhSFODb0Ehrr1oxROHWSmJp5rXmpy2WqGKhTSD37FFr4mi3lzO1FUKj3bLfz
-Gmb/GoPNlkLTtQL8WAAui0deHW2UHy55/GijZK8wJsbx/DWzQxw8y097WDXg1JUV6/o0Ip/dXAHEzgdq
-Ie8N2JFRW1rxnNA5XhSUFFv4/Y8KYIOjNTkdZdEHcte3N49X991AExYjgKHYsQ3Z79ztwEaQgaDsgrXn
-PL14Rx3Xtzfzd2AfiGVHvI4D6e5sJzjeKtDiA0bFSgXELDkyEAscvwYZbASmwBTJFfkehAV1QQd+9St1
-0sA9sQbRVKTRqMI3xAJMne+d/bSLHEF8PnJEoTm/22GdEDscleJE/wd0BiZ8BSY9A5I7iJZdYgMfPRNY
-t/YtDCIhtotFb2VbrJ2fpuSsvC5yydlVEs9xYWhD4yLavkbuBiuUtb7AYOsM3OVabSbzv50Q3h4glVfV
-TBS2rt+Zs9Av8q4i14zjvK3g39OrJmXl7sP9A2wPzSk45jyzvd8W98QrUdatiUvi1uynHJGcCd46yZNu
-tOSOSY9pNVnRTP+WKIrmp4FlblmwIkjBoJBp4MbBEicalxjpP6ddGY61UvrXxB922mPHwtbOvG12ZzN0
-pkLvA3VHVWIoWlYlCwqp/i+1tcs1etD9b0d09GHOzrHHCbblmQ0HGjhOc4pktMbmHGiHPokN8GxlKHoo
-kSFo6ObE7xJ+HYOP8rn1BPfDQNlRfxjgHTwPtivnXt/eQMzC1aLQL+v65ky8sxnfAfT8dSDU8R8CWHue
-UFrtTVfvLwLUztUfJV+HlpQK5hRjnVn5zKgoq3PRT3R8Sd7lJ/V3BJ53HEncrzIr/1rjTGhevyjqO/XI
-P0FOBM8DuQwgsN9YQ7xvgvkvhOa1OcvNyvuR0H2ZnBPT/oH1Dscw4NXelq9Rz8+qg2UoajFthjs/Cjxj
-T7Nlzz52HQUhc/AeKY+gN2+OXjN52nlnbHkZws+/VCUqmcctGjX+GQAA//85y1FrmAoAAA==
-`,
-	},
-
-	"/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml": {
-		name:    "exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml",
-		local:   "config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml",
-		size:    5551,
-		modtime: 0,
-		compressed: `
-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
-`,
-	},
-
-	"/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml": {
-		name:    "exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml",
-		local:   "config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml",
-		size:    3565,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/+RXTXMbNxK981d0eQ++mEN/7GFrblp5a0vlKFGJji6pHJpAc9gRBoAbAG0qlf+eAjDD
-ISmJdlLJKTwRQKP74XW/BmY2n89n6PmOJLCzLaBn+hLJ5lFo7v8TGnaL7ZsVRXwzu2erW7hMIbr+loJL
-oug9rdlyZGdnPUXUGLGdAaC1LmKeDnkIoJyN4owhmXdkm/u0olVio0lKhDH+9nXztvn3DEAJle0fuacQ
-sfct2GTMDMBiTy3gQxLq0WJHuke1YUveORMa+uIbtmvBECWpmIQaZVKIJM2XeT3QLHhSGVYnLvkWvmVL
-jTseBiN1Tngcz2Gwn6PnMlOpusggryvI6wryxjlTLAyH+OGc1XccYrH0Jgma549cjMLGSfx+gjgH7Htf
-l9h2yaA862EGEJTz1EJx4FGRznNpJUOWB6chYkyhhV9/mwFs0bAuOaqLzpO9uLm6e7dUG+qxTgJoCkrY
-F7vnjgocIG4I6k5YOynDswfOv4ubq+G/F+dJ4j4j+XdQ1/u5EzwvM+BqAzpXMlUgQz2ShlAhuTXEDQcQ
-8kKBbK3tA7eQTdCCW/1CKjawJMlOcl6S0bn8tyQRhJTrLD/sPQeIroQ0GGlI+PhjG0ksmkx1oleAVkOP
-OxDKMSDZA2/FJDRw7YSA7dq1sInRh3ax6DiOSlau75PluFsUPfIqRSdhoWlLZhG4m6OoDUcqIlig53kB
-bouQm17/a18QLw+Qxl2unRCFbbefLgp4lvdc+TnrOGyr+Cd681Rm5fZ/y48wBi0pOOa8sD1tCxPxmSi2
-a5KauLW4vngkq71jG8tAGSZ7THpIq55jzvSnRCHm/DRwWfoZrAiS1xhJN3Bl4RJ7MpcY6G+nPTMc5pnS
-rxN/2IaPDStb++mxCz6ZoWeUuvSkjpSiKbDkao4YKWvgXM97XqslmeE9h/slP9D//3u8coLth+VkOLYO
-zeEeAj9Q6R60JdnB0DOA7ePKKQ2iIxsht5QGrtawc6lwwusdvH4FHOEzGwPovdkNZ11jMnEAWqI99qmU
-E13Kt+p622egg2Mm3ZxsWTvpMbZZ7O/enqzVtOU20JEcrXlxW9YkV+/zNXGWrZsj05GvZPlTImCdq2zN
-JIBhAgmr3aOTVb24pPfBT4/CkfrQPt74VJUeLqEIHscL9+nsmZYffhwPUnJe2jPB3XWoySawTlNN7eyb
-0GS550I+DDvPOL6qonon/lEdlV1HSnKrkFvXJKUj4H9eViTi5JpCwI7OknphdxAFbcg9sW7LyDCCUyoJ
-6CRjW84Xj1Vs+PE1OFyFA8YACm3um6g16VxjlPva/tYbzMZGjlYvnIBxXVeeICf1VVM7PSVfBnAp+hS/
-MckDGbeE4fhR8I/kQgj17iwLt9miCE0SwecN1aCj/qeLubyMUO+ejr1yzhDak+DesMLwlfjVaNR670J5
-QpGNZjcJxqZ+RZKZHr3+FU32CbWfTE1fLW/Q+A2+m+bKuebDt8rBMkDF3BZKh0e1kyzNOjO1E1SKfCR9
-8KivXxUvXhx9FpShclZz/dyCn36eVa+k70Y0efL3AAAA//8n1f2B7Q0AAA==
-`,
-	},
-
 	"/config/crd/v1beta1/infrastructure.cluster.x-k8s.io_azureclusters.yaml": {
 		name:    "infrastructure.cluster.x-k8s.io_azureclusters.yaml",
 		local:   "config/crd/v1beta1/infrastructure.cluster.x-k8s.io_azureclusters.yaml",
@@ -3625,9 +3443,6 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/example.giantswarm.io_memcachedconfigs.yaml"],
 		_escData["/config/crd/v1/exp.cluster.x-k8s.io_machinepools.yaml"],
 		_escData["/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremachinepools.yaml"],
-		_escData["/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml"],
-		_escData["/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml"],
-		_escData["/config/crd/v1/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml"],
 		_escData["/config/crd/v1/infrastructure.cluster.x-k8s.io_azureclusters.yaml"],
 		_escData["/config/crd/v1/infrastructure.cluster.x-k8s.io_azuremachines.yaml"],
 		_escData["/config/crd/v1/infrastructure.giantswarm.io_awsclusters.yaml"],
@@ -3663,9 +3478,6 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/example.giantswarm.io_memcachedconfigs.yaml"],
 		_escData["/config/crd/v1beta1/exp.cluster.x-k8s.io_machinepools.yaml"],
 		_escData["/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremachinepools.yaml"],
-		_escData["/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml"],
-		_escData["/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml"],
-		_escData["/config/crd/v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml"],
 		_escData["/config/crd/v1beta1/infrastructure.cluster.x-k8s.io_azureclusters.yaml"],
 		_escData["/config/crd/v1beta1/infrastructure.cluster.x-k8s.io_azuremachines.yaml"],
 		_escData["/config/crd/v1beta1/infrastructure.giantswarm.io_awsclusters.yaml"],

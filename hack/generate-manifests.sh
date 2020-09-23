@@ -47,6 +47,10 @@ for version in v1 v1beta1; do
   rm ../config/crd/$version/cluster.x-k8s.io_machinesets.yaml
   rm ../config/crd/$version/cluster.x-k8s.io_machinehealthchecks.yaml
   rm ../config/crd/$version/infrastructure.cluster.x-k8s.io_azuremachinetemplates.yaml
+  rm ../config/crd/$version/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml
+  rm ../config/crd/$version/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml
+  rm ../config/crd/$version/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml
+
 
   # Add .metadata.name validation to Release CRD using kustomize since
   # kubebuilder comments can't modify metav1.ObjectMeta
