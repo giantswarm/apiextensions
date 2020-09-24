@@ -1,0 +1,94 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
+  name: appcatalogentries.application.giantswarm.io
+spec:
+  group: application.giantswarm.io
+  names:
+    categories:
+    - common
+    - giantswarm
+    kind: AppCatalogEntry
+    listKind: AppCatalogEntryList
+    plural: appcatalogentries
+    singular: appcatalogentry
+  scope: Cluster
+  validation:
+    openAPIV3Schema:
+      description: AppCatalogEntry represents an entry of an app in a catalog of managed
+        apps.
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            appName:
+              description: AppName is the name of the app this entry belongs to. e.g.
+                nginx-ingress-controller-app
+              type: string
+            appVersion:
+              description: AppVersion is the upstream version of the app for this
+                entry. e.g. v0.35.0
+              type: string
+            catalog:
+              description: Catalog is the name of the app catalog this entry belongs
+                to. e.g. giantswarm
+              type: string
+            chart:
+              description: Chart is metadata from the Chart.yaml of the app this entry
+                belongs to.
+              properties:
+                home:
+                  description: Home is the URL of this projects home page.
+                  nullable: true
+                  type: string
+                icon:
+                  description: Icon is a URL to an SVG or PNG image to be used as
+                    an icon.
+                  nullable: true
+                  type: string
+              type: object
+            dateUpdated:
+              description: DateUpdated is when this entry was last updated. e.g. 2020-09-02T09:40:39.223638219Z
+              format: date-time
+              type: string
+            version:
+              description: Version is the version of the app for this entry. e.g.
+                1.9.2
+              type: string
+          required:
+          - appName
+          - appVersion
+          - catalog
+          - dateUpdated
+          - version
+          type: object
+      required:
+      - spec
+      type: object
+  version: v1alpha1
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

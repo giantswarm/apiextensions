@@ -2,11 +2,14 @@ package v1alpha1
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
+	goruntime "runtime"
 	"testing"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -14,14 +17,26 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewAppCatalogCRD(t *testing.T) {
-	crd := NewAppCatalogCRD()
+var (
+	_, b, _, _ = goruntime.Caller(0)
+	root       = filepath.Dir(b)
+
+	// This flag allows to call the tests like
+	//
+	//   go test -v ./pkg/apis/application/v1alpha1 -update
+	//
+	// to create/overwrite the YAML files in /docs/crd and /docs/cr.
+	update = flag.Bool("update", false, "update generated YAMLs")
+)
+
+func Test_NewAppCatalogEntryCRD(t *testing.T) {
+	crd := NewAppCatalogEntryCRD()
 	if crd == nil {
-		t.Error("AppCatalog CRD was nil.")
+		t.Error("AppCatalogEntry CRD was nil.")
 	}
 }
 
-func Test_GenerateAppCatalogYAML(t *testing.T) {
+func Test_GenerateAppCatalogEntryYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
@@ -29,8 +44,8 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_appcatalog.yaml", group, version),
-			resource: newAppCatalogExampleCR(),
+			name:     fmt.Sprintf("%s_%s_AppCatalogEntry.yaml", group, version),
+			resource: newAppCatalogEntryExampleCR(),
 		},
 	}
 
@@ -67,33 +82,25 @@ func Test_GenerateAppCatalogYAML(t *testing.T) {
 	}
 }
 
-func newAppCatalogExampleCR() *AppCatalog {
-	cr := NewAppCatalogCR()
+func newAppCatalogEntryExampleCR() *AppCatalogEntry {
+	cr := NewAppCatalogEntryCR()
+
+	rawTime, _ := time.Parse(time.RFC3339, "2020-09-02T09:40:39.223638219Z")
+	dateUpdated := metav1.NewTime(rawTime)
 
 	cr.ObjectMeta = metav1.ObjectMeta{
-		Name: "my-playground-catalog",
-		Labels: map[string]string{
-			"app-operator.giantswarm.io/version": "1.0.0",
-		},
+		Name: "giantswarm-nginx-ingress-controller-app-1.9.2",
 	}
-	cr.Spec = AppCatalogSpec{
-		Title:       "My Playground Catalog",
-		Description: "A catalog to store all new application packages.",
-		Config: AppCatalogSpecConfig{
-			ConfigMap: AppCatalogSpecConfigConfigMap{
-				Name:      "my-playground-catalog",
-				Namespace: "my-namespace",
-			},
-			Secret: AppCatalogSpecConfigSecret{
-				Name:      "my-playground-catalog",
-				Namespace: "my-namespace",
-			},
+	cr.Spec = AppCatalogEntrySpec{
+		AppName:     "nginx-ingress-controller-app",
+		AppVersion:  "v0.35.0",
+		DateUpdated: &dateUpdated,
+		Chart: AppCatalogEntrySpecChart{
+			Home: "https://github.com/giantswarm/nginx-ingress-controller-app",
+			Icon: "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",
 		},
-		LogoURL: "https://my-org.github.com/logo.png",
-		Storage: AppCatalogSpecStorage{
-			Type: "helm",
-			URL:  "https://my-org.github.com/my-playground-catalog/",
-		},
+
+		Version: "1.9.2",
 	}
 
 	return cr

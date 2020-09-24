@@ -1,0 +1,14 @@
+apiVersion: application.giantswarm.io/v1alpha1
+kind: AppCatalogEntry
+metadata:
+  creationTimestamp: null
+  name: giantswarm-nginx-ingress-controller-app-1.9.2
+spec:
+  appName: nginx-ingress-controller-app
+  appVersion: v0.35.0
+  catalog: ""
+  chart:
+    home: https://github.com/giantswarm/nginx-ingress-controller-app
+    icon: https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg
+  dateUpdated: "2020-09-02T09:40:39Z"
+  version: 1.9.2
