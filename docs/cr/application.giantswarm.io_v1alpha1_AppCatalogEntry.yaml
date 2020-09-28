@@ -3,10 +3,11 @@ kind: AppCatalogEntry
 metadata:
   creationTimestamp: null
   name: giantswarm-nginx-ingress-controller-app-1.9.2
+  namespace: default
 spec:
   appName: nginx-ingress-controller-app
   appVersion: v0.35.0
-  catalog: ""
+  catalog: giantswarm
   chart:
     home: https://github.com/giantswarm/nginx-ingress-controller-app
     icon: https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg

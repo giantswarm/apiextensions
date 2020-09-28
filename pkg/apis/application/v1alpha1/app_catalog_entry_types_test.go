@@ -89,11 +89,13 @@ func newAppCatalogEntryExampleCR() *AppCatalogEntry {
 	dateUpdated := metav1.NewTime(rawTime)
 
 	cr.ObjectMeta = metav1.ObjectMeta{
-		Name: "giantswarm-nginx-ingress-controller-app-1.9.2",
+		Name:      "giantswarm-nginx-ingress-controller-app-1.9.2",
+		Namespace: metav1.NamespaceDefault,
 	}
 	cr.Spec = AppCatalogEntrySpec{
 		AppName:     "nginx-ingress-controller-app",
 		AppVersion:  "v0.35.0",
+		Catalog:     "giantswarm",
 		DateUpdated: &dateUpdated,
 		Chart: AppCatalogEntrySpecChart{
 			Home: "https://github.com/giantswarm/nginx-ingress-controller-app",
