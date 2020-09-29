@@ -14,6 +14,7 @@ import (
 )
 
 func Test_GenerateNetworkPoolYAML(t *testing.T) {
+
 	testCases := []struct {
 		category string
 		name     string
@@ -22,7 +23,12 @@ func Test_GenerateNetworkPoolYAML(t *testing.T) {
 		{
 			category: "cr",
 			name:     fmt.Sprintf("%s_%s_networkpool.yaml", group, version),
-			resource: newNetworkPoolCR(),
+			resource: newNetworkPoolCR(NetworkPoolCRsConfig{
+				CIDRBlock:     "192.168.0.0/16",
+				NetworkPoolID: "custom",
+				Namespace:     "default",
+				Owner:         "giantswarm",
+			}),
 		},
 	}
 
@@ -57,15 +63,4 @@ func Test_GenerateNetworkPoolYAML(t *testing.T) {
 			}
 		})
 	}
-}
-
-func newNetworkPoolCR() *NetworkPool {
-	cr := NewNetworkPoolCR()
-
-	cr.Name = "custom"
-	cr.Spec = NetworkPoolSpec{
-		CIDRBlock: "192.168.0.0/16",
-	}
-
-	return cr
 }
