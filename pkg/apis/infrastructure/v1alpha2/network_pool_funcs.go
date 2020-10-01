@@ -9,7 +9,6 @@ import (
 
 const (
 	kindNetworkPool              = "NetworkPool"
-	networkpoolDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/networkpools.infrastructure.giantswarm.io/"
 )
 
 func NewNetworkPoolCRD() *v1.CustomResourceDefinition {
