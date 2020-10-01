@@ -11,9 +11,8 @@ spec:
   group: infrastructure.giantswarm.io
   names:
     categories:
-    - aws
-    - cluster-api
     - giantswarm
+    - cluster-api
     kind: NetworkPool
     listKind: NetworkPoolList
     plural: networkpools
