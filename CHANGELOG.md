@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.2] - 2020-10-01
+
 ### Added
 
 - Functions for generating NetworkPools CRs
@@ -486,7 +488,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v2.5.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v2.5.2...HEAD
+[2.5.2]: https://github.com/giantswarm/apiextensions/compare/v2.5.1...v2.5.2
 [2.5.1]: https://github.com/giantswarm/apiextensions/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/giantswarm/apiextensions/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/giantswarm/apiextensions/compare/v2.3.0...v2.4.0
