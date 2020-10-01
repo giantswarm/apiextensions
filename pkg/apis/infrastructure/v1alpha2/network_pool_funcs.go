@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	kindNetworkPool              = "NetworkPool"
+	kindNetworkPool = "NetworkPool"
 )
 
 func NewNetworkPoolCRD() *v1.CustomResourceDefinition {
