@@ -17,7 +17,7 @@ spec:
     listKind: AppCatalogEntryList
     plural: appcatalogentries
     singular: appcatalogentry
-  scope: Cluster
+  scope: Namespaced
   validation:
     openAPIV3Schema:
       description: AppCatalogEntry represents an entry of an app in a catalog of managed
@@ -48,7 +48,18 @@ spec:
             catalog:
               description: Catalog is the name of the app catalog this entry belongs
                 to. e.g. giantswarm
-              type: string
+              properties:
+                name:
+                  description: Name is the name of the app catalog this entry belongs
+                    to. e.g. giantswarm-catalog
+                  type: string
+                namespace:
+                  description: Namespace is the namespace of the catalog. It is empty
+                    while the appcatalog CRD is cluster scoped.
+                  type: string
+              required:
+              - name
+              type: object
             chart:
               description: Chart is metadata from the Chart.yaml of the app this entry
                 belongs to.
@@ -63,18 +74,24 @@ spec:
                   nullable: true
                   type: string
               type: object
+            dateCreated:
+              description: DateCreated is when this entry was first created. e.g.
+                2020-09-02T09:40:39.223638219Z
+              format: date-time
+              type: string
             dateUpdated:
               description: DateUpdated is when this entry was last updated. e.g. 2020-09-02T09:40:39.223638219Z
               format: date-time
               type: string
             version:
-              description: Version is the version of the app for this entry. e.g.
-                1.9.2
+              description: Version is the version of the app chart for this entry.
+                e.g. 1.9.2
               type: string
           required:
           - appName
           - appVersion
           - catalog
+          - dateCreated
           - dateUpdated
           - version
           type: object

@@ -7,9 +7,12 @@ metadata:
 spec:
   appName: nginx-ingress-controller-app
   appVersion: v0.35.0
-  catalog: giantswarm
+  catalog:
+    name: giantswarm
+    namespace: ""
   chart:
     home: https://github.com/giantswarm/nginx-ingress-controller-app
     icon: https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg
+  dateCreated: "2020-09-02T09:40:39Z"
   dateUpdated: "2020-09-02T09:40:39Z"
   version: 1.9.2

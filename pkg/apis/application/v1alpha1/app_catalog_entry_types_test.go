@@ -86,17 +86,21 @@ func newAppCatalogEntryExampleCR() *AppCatalogEntry {
 	cr := NewAppCatalogEntryCR()
 
 	rawTime, _ := time.Parse(time.RFC3339, "2020-09-02T09:40:39.223638219Z")
-	dateUpdated := metav1.NewTime(rawTime)
+	timeVal := metav1.NewTime(rawTime)
 
 	cr.ObjectMeta = metav1.ObjectMeta{
 		Name:      "giantswarm-nginx-ingress-controller-app-1.9.2",
 		Namespace: metav1.NamespaceDefault,
 	}
 	cr.Spec = AppCatalogEntrySpec{
-		AppName:     "nginx-ingress-controller-app",
-		AppVersion:  "v0.35.0",
-		Catalog:     "giantswarm",
-		DateUpdated: &dateUpdated,
+		AppName:    "nginx-ingress-controller-app",
+		AppVersion: "v0.35.0",
+		Catalog: AppCatalogEntrySpecCatalog{
+			Name:      "giantswarm",
+			Namespace: "",
+		},
+		DateCreated: &timeVal,
+		DateUpdated: &timeVal,
 		Chart: AppCatalogEntrySpecChart{
 			Home: "https://github.com/giantswarm/nginx-ingress-controller-app",
 			Icon: "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",

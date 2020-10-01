@@ -34,7 +34,7 @@ import (
 // AppCatalogEntriesGetter has a method to return a AppCatalogEntryInterface.
 // A group's client should implement this interface.
 type AppCatalogEntriesGetter interface {
-	AppCatalogEntries() AppCatalogEntryInterface
+	AppCatalogEntries(namespace string) AppCatalogEntryInterface
 }
 
 // AppCatalogEntryInterface has methods to work with AppCatalogEntry resources.
@@ -53,12 +53,14 @@ type AppCatalogEntryInterface interface {
 // appCatalogEntries implements AppCatalogEntryInterface
 type appCatalogEntries struct {
 	client rest.Interface
+	ns     string
 }
 
 // newAppCatalogEntries returns a AppCatalogEntries
-func newAppCatalogEntries(c *ApplicationV1alpha1Client) *appCatalogEntries {
+func newAppCatalogEntries(c *ApplicationV1alpha1Client, namespace string) *appCatalogEntries {
 	return &appCatalogEntries{
 		client: c.RESTClient(),
+		ns:     namespace,
 	}
 }
 
@@ -66,6 +68,7 @@ func newAppCatalogEntries(c *ApplicationV1alpha1Client) *appCatalogEntries {
 func (c *appCatalogEntries) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AppCatalogEntry, err error) {
 	result = &v1alpha1.AppCatalogEntry{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -82,6 +85,7 @@ func (c *appCatalogEntries) List(ctx context.Context, opts v1.ListOptions) (resu
 	}
 	result = &v1alpha1.AppCatalogEntryList{}
 	err = c.client.Get().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -98,6 +102,7 @@ func (c *appCatalogEntries) Watch(ctx context.Context, opts v1.ListOptions) (wat
 	}
 	opts.Watch = true
 	return c.client.Get().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -108,6 +113,7 @@ func (c *appCatalogEntries) Watch(ctx context.Context, opts v1.ListOptions) (wat
 func (c *appCatalogEntries) Create(ctx context.Context, appCatalogEntry *v1alpha1.AppCatalogEntry, opts v1.CreateOptions) (result *v1alpha1.AppCatalogEntry, err error) {
 	result = &v1alpha1.AppCatalogEntry{}
 	err = c.client.Post().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(appCatalogEntry).
@@ -120,6 +126,7 @@ func (c *appCatalogEntries) Create(ctx context.Context, appCatalogEntry *v1alpha
 func (c *appCatalogEntries) Update(ctx context.Context, appCatalogEntry *v1alpha1.AppCatalogEntry, opts v1.UpdateOptions) (result *v1alpha1.AppCatalogEntry, err error) {
 	result = &v1alpha1.AppCatalogEntry{}
 	err = c.client.Put().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		Name(appCatalogEntry.Name).
 		VersionedParams(&opts, scheme.ParameterCodec).
@@ -132,6 +139,7 @@ func (c *appCatalogEntries) Update(ctx context.Context, appCatalogEntry *v1alpha
 // Delete takes name of the appCatalogEntry and deletes it. Returns an error if one occurs.
 func (c *appCatalogEntries) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		Name(name).
 		Body(&opts).
@@ -146,6 +154,7 @@ func (c *appCatalogEntries) DeleteCollection(ctx context.Context, opts v1.Delete
 		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -158,6 +167,7 @@ func (c *appCatalogEntries) DeleteCollection(ctx context.Context, opts v1.Delete
 func (c *appCatalogEntries) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AppCatalogEntry, err error) {
 	result = &v1alpha1.AppCatalogEntry{}
 	err = c.client.Patch(pt).
+		Namespace(c.ns).
 		Resource("appcatalogentries").
 		Name(name).
 		SubResource(subresources...).

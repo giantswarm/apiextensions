@@ -37,9 +37,8 @@ func NewAppCatalogEntryCR() *AppCatalogEntry {
 }
 
 // +genclient
-// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
+// +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 // AppCatalogEntry represents an entry of an app in a catalog of managed apps.
@@ -59,15 +58,29 @@ type AppCatalogEntrySpec struct {
 	AppVersion string `json:"appVersion"`
 	// Catalog is the name of the app catalog this entry belongs to.
 	// e.g. giantswarm
-	Catalog string `json:"catalog"`
+	Catalog AppCatalogEntrySpecCatalog `json:"catalog"`
 	// Chart is metadata from the Chart.yaml of the app this entry belongs to.
 	Chart AppCatalogEntrySpecChart `json:"chart,omitempty"`
+	// DateCreated is when this entry was first created.
+	// e.g. 2020-09-02T09:40:39.223638219Z
+	DateCreated *metav1.Time `json:"dateCreated"`
 	// DateUpdated is when this entry was last updated.
 	// e.g. 2020-09-02T09:40:39.223638219Z
 	DateUpdated *metav1.Time `json:"dateUpdated"`
-	// Version is the version of the app for this entry.
+	// Version is the version of the app chart for this entry.
 	// e.g. 1.9.2
 	Version string `json:"version"`
+}
+
+// +k8s:openapi-gen=true
+type AppCatalogEntrySpecCatalog struct {
+	// Name is the name of the app catalog this entry belongs to.
+	// e.g. giantswarm-catalog
+	Name string `json:"name"`
+	// +kubebuilder:validation:Optional
+	// Namespace is the namespace of the catalog. It is empty while the
+	// appcatalog CRD is cluster scoped.
+	Namespace string `json:"namespace"`
 }
 
 // +k8s:openapi-gen=true

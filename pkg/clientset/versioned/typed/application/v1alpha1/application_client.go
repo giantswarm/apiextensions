@@ -46,8 +46,8 @@ func (c *ApplicationV1alpha1Client) AppCatalogs() AppCatalogInterface {
 	return newAppCatalogs(c)
 }
 
-func (c *ApplicationV1alpha1Client) AppCatalogEntries() AppCatalogEntryInterface {
-	return newAppCatalogEntries(c)
+func (c *ApplicationV1alpha1Client) AppCatalogEntries(namespace string) AppCatalogEntryInterface {
+	return newAppCatalogEntries(c, namespace)
 }
 
 func (c *ApplicationV1alpha1Client) Charts(namespace string) ChartInterface {

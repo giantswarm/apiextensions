@@ -34,6 +34,7 @@ import (
 // FakeAppCatalogEntries implements AppCatalogEntryInterface
 type FakeAppCatalogEntries struct {
 	Fake *FakeApplicationV1alpha1
+	ns   string
 }
 
 var appcatalogentriesResource = schema.GroupVersionResource{Group: "application.giantswarm.io", Version: "v1alpha1", Resource: "appcatalogentries"}
@@ -43,7 +44,8 @@ var appcatalogentriesKind = schema.GroupVersionKind{Group: "application.giantswa
 // Get takes name of the appCatalogEntry, and returns the corresponding appCatalogEntry object, and an error if there is any.
 func (c *FakeAppCatalogEntries) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AppCatalogEntry, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootGetAction(appcatalogentriesResource, name), &v1alpha1.AppCatalogEntry{})
+		Invokes(testing.NewGetAction(appcatalogentriesResource, c.ns, name), &v1alpha1.AppCatalogEntry{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -53,7 +55,8 @@ func (c *FakeAppCatalogEntries) Get(ctx context.Context, name string, options v1
 // List takes label and field selectors, and returns the list of AppCatalogEntries that match those selectors.
 func (c *FakeAppCatalogEntries) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.AppCatalogEntryList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootListAction(appcatalogentriesResource, appcatalogentriesKind, opts), &v1alpha1.AppCatalogEntryList{})
+		Invokes(testing.NewListAction(appcatalogentriesResource, appcatalogentriesKind, c.ns, opts), &v1alpha1.AppCatalogEntryList{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -74,13 +77,15 @@ func (c *FakeAppCatalogEntries) List(ctx context.Context, opts v1.ListOptions) (
 // Watch returns a watch.Interface that watches the requested appCatalogEntries.
 func (c *FakeAppCatalogEntries) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
-		InvokesWatch(testing.NewRootWatchAction(appcatalogentriesResource, opts))
+		InvokesWatch(testing.NewWatchAction(appcatalogentriesResource, c.ns, opts))
+
 }
 
 // Create takes the representation of a appCatalogEntry and creates it.  Returns the server's representation of the appCatalogEntry, and an error, if there is any.
 func (c *FakeAppCatalogEntries) Create(ctx context.Context, appCatalogEntry *v1alpha1.AppCatalogEntry, opts v1.CreateOptions) (result *v1alpha1.AppCatalogEntry, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootCreateAction(appcatalogentriesResource, appCatalogEntry), &v1alpha1.AppCatalogEntry{})
+		Invokes(testing.NewCreateAction(appcatalogentriesResource, c.ns, appCatalogEntry), &v1alpha1.AppCatalogEntry{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -90,7 +95,8 @@ func (c *FakeAppCatalogEntries) Create(ctx context.Context, appCatalogEntry *v1a
 // Update takes the representation of a appCatalogEntry and updates it. Returns the server's representation of the appCatalogEntry, and an error, if there is any.
 func (c *FakeAppCatalogEntries) Update(ctx context.Context, appCatalogEntry *v1alpha1.AppCatalogEntry, opts v1.UpdateOptions) (result *v1alpha1.AppCatalogEntry, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootUpdateAction(appcatalogentriesResource, appCatalogEntry), &v1alpha1.AppCatalogEntry{})
+		Invokes(testing.NewUpdateAction(appcatalogentriesResource, c.ns, appCatalogEntry), &v1alpha1.AppCatalogEntry{})
+
 	if obj == nil {
 		return nil, err
 	}
@@ -100,13 +106,14 @@ func (c *FakeAppCatalogEntries) Update(ctx context.Context, appCatalogEntry *v1a
 // Delete takes name of the appCatalogEntry and deletes it. Returns an error if one occurs.
 func (c *FakeAppCatalogEntries) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteAction(appcatalogentriesResource, name), &v1alpha1.AppCatalogEntry{})
+		Invokes(testing.NewDeleteAction(appcatalogentriesResource, c.ns, name), &v1alpha1.AppCatalogEntry{})
+
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *FakeAppCatalogEntries) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(appcatalogentriesResource, listOpts)
+	action := testing.NewDeleteCollectionAction(appcatalogentriesResource, c.ns, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.AppCatalogEntryList{})
 	return err
@@ -115,7 +122,8 @@ func (c *FakeAppCatalogEntries) DeleteCollection(ctx context.Context, opts v1.De
 // Patch applies the patch and returns the patched appCatalogEntry.
 func (c *FakeAppCatalogEntries) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.AppCatalogEntry, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewRootPatchSubresourceAction(appcatalogentriesResource, name, pt, data, subresources...), &v1alpha1.AppCatalogEntry{})
+		Invokes(testing.NewPatchSubresourceAction(appcatalogentriesResource, c.ns, name, pt, data, subresources...), &v1alpha1.AppCatalogEntry{})
+
 	if obj == nil {
 		return nil, err
 	}
