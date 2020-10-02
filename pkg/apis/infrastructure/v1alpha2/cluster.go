@@ -30,6 +30,7 @@ type ClusterCRsConfig struct {
 	ReleaseComponents map[string]string
 	ReleaseVersion    string
 	Labels            map[string]string
+	NetworkPool       string
 }
 
 // +k8s:deepcopy-gen=false
@@ -103,6 +104,9 @@ func newAWSClusterCR(c ClusterCRsConfig) *AWSCluster {
 				Pods: AWSClusterSpecProviderPods{
 					CIDRBlock:    c.PodsCIDR,
 					ExternalSNAT: &c.ExternalSNAT,
+				},
+				Nodes: AWSClusterSpecProviderNodes{
+					NetworkPool: c.NetworkPool,
 				},
 				Region: c.Region,
 			},

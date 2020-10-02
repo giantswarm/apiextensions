@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add `AppCatalogEntry` CRD.
+- Add AppCatalogEntry CRD.
+- Add NetworkPool option for ClusterCRsConfig.
 
 ## [2.5.2] - 2020-10-01
 
