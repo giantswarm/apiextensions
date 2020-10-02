@@ -42,6 +42,11 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 		},
 		{
 			category: "cr",
+			name:     fmt.Sprintf("%s_%s_awscluster.yaml", group, version),
+			resource: newAWSClusterEmptyNetworkPoolCR(),
+		},
+		{
+			category: "cr",
 			name:     fmt.Sprintf("%s_%s_awscluster_networkpool.yaml", group, version),
 			resource: newAWSClusterNetworkPoolCR(),
 		},
@@ -148,6 +153,16 @@ func newAWSClusterExampleCR() *AWSCluster {
 	}
 
 	return cr
+}
+
+func newAWSClusterEmptyNetworkPoolCR() *AWSCluster {
+	awscluster := newAWSClusterExampleCR()
+
+	awscluster.Spec.Provider.Nodes = AWSClusterSpecProviderNodes{
+		NetworkPool: "",
+	}
+
+	return awscluster
 }
 
 func newAWSClusterNetworkPoolCR() *AWSCluster {
