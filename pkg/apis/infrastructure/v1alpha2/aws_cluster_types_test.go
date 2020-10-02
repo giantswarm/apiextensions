@@ -40,6 +40,11 @@ func Test_GenerateAWSClusterYAML(t *testing.T) {
 			name:     fmt.Sprintf("%s_%s_awscluster.yaml", group, version),
 			resource: newAWSClusterExampleCR(),
 		},
+		{
+			category: "cr",
+			name:     fmt.Sprintf("%s_%s_awscluster_networkpool.yaml", group, version),
+			resource: newAWSClusterNetworkPoolCR(),
+		},
 	}
 
 	docs := filepath.Join(root, "..", "..", "..", "..", "docs")
@@ -107,6 +112,79 @@ func newAWSClusterExampleCR() *AWSCluster {
 			Pods: AWSClusterSpecProviderPods{
 				CIDRBlock:    "10.2.0.0/16",
 				ExternalSNAT: &externalSNAT,
+			},
+			Master: AWSClusterSpecProviderMaster{
+				AvailabilityZone: "eu-central-1b",
+				InstanceType:     "m5.2xlarge",
+			},
+			Region: "eu-central-1",
+		},
+	}
+	cr.Status = AWSClusterStatus{
+		Cluster: CommonClusterStatus{
+			Conditions: []CommonClusterStatusCondition{
+				{
+					LastTransitionTime: metav1.Date(2020, 4, 16, 12, 51, 33, 432, time.UTC),
+					Condition:          "Created",
+				},
+				{
+					LastTransitionTime: metav1.Date(2020, 4, 16, 12, 35, 33, 432, time.UTC),
+					Condition:          "Creating",
+				},
+			},
+			ID: "g8kw3",
+			Versions: []CommonClusterStatusVersion{
+				{
+					LastTransitionTime: metav1.Now(),
+					Version:            "8.2.3",
+				},
+			},
+		},
+		Provider: AWSClusterStatusProvider{
+			Network: AWSClusterStatusProviderNetwork{
+				CIDR: "172.19.73.0/24",
+			},
+		},
+	}
+
+	return cr
+}
+
+func newAWSClusterNetworkPoolCR() *AWSCluster {
+	cr := NewAWSClusterCR()
+
+	externalSNAT := true
+
+	cr.Name = "asj5e"
+	cr.Spec = AWSClusterSpec{
+		Cluster: AWSClusterSpecCluster{
+			Description: "Dev cluster",
+			DNS: AWSClusterSpecClusterDNS{
+				Domain: "g8s.example.com",
+			},
+			KubeProxy: AWSClusterSpecClusterKubeProxy{
+				ConntrackMaxPerCore: 100000,
+			},
+			OIDC: AWSClusterSpecClusterOIDC{
+				Claims: AWSClusterSpecClusterOIDCClaims{
+					Username: "username-field",
+					Groups:   "groups-field",
+				},
+				ClientID:  "some-example-client-id",
+				IssuerURL: "https://idp.example.com/",
+			},
+		},
+		Provider: AWSClusterSpecProvider{
+			CredentialSecret: AWSClusterSpecProviderCredentialSecret{
+				Name:      "example-credential",
+				Namespace: "example-namespace",
+			},
+			Pods: AWSClusterSpecProviderPods{
+				CIDRBlock:    "10.2.0.0/16",
+				ExternalSNAT: &externalSNAT,
+			},
+			Nodes: AWSClusterSpecProviderNodes{
+				NetworkPool: "custom",
 			},
 			Master: AWSClusterSpecProviderMaster{
 				AvailabilityZone: "eu-central-1b",
