@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add `AppCatalogEntry` CRD.
+
 ## [2.5.3] - 2020-10-02
 
 ### Added
