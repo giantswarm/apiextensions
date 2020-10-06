@@ -1,4 +1,4 @@
-package v1alpha3
+package azure
 
 import (
 	capiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
@@ -7,8 +7,8 @@ import (
 // AzureMachinePool conditions
 const (
 	DeploymentSucceededCondition capiv1alpha3.ConditionType = "DeploymentSucceeded"
-	VMSSReadyCondition capiv1alpha3.ConditionType = "VMSSReady"
-	SubnetReadyCondition capiv1alpha3.ConditionType = "SubnetReady"
+	VMSSReadyCondition           capiv1alpha3.ConditionType = "VMSSReady"
+	SubnetReadyCondition         capiv1alpha3.ConditionType = "SubnetReady"
 )
 
 // Azure VMSS instance statuses used as condition reasons
