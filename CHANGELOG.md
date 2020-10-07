@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update k8s related dependencies.
+
 ## [2.6.0] - 2020-10-05
 
 - Add `AppCatalogEntry` CRD.
