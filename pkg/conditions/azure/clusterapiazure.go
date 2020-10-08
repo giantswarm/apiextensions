@@ -4,6 +4,14 @@ import (
 	capiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
 )
 
+// AzureCluster conditions
+const (
+	ResourceGroupReadyCondition  capiv1alpha3.ConditionType = "ResourceGroupReady"
+	VPNGatewayReadyCondition     capiv1alpha3.ConditionType = "VPNGatewayReady"
+	VirtualNetworkReadyCondition capiv1alpha3.ConditionType = "VirtualNetworkReady"
+	StorageAccountReadyCondition capiv1alpha3.ConditionType = "StorageAccountReady"
+)
+
 // AzureMachinePool conditions
 const (
 	DeploymentSucceededCondition capiv1alpha3.ConditionType = "DeploymentSucceeded"
