@@ -1,22 +1,28 @@
 package azure
 
 import (
-	capiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
+	capi "sigs.k8s.io/cluster-api/api/v1alpha3"
+)
+
+// Common AzureCluster and AzureMachinePool conditions
+const (
+	// DeploymentSucceededCondition is true when deployments of all Azure
+	// resources, required by a CR, are in succeeded provisioning state.
+	DeploymentSucceededCondition capi.ConditionType = "DeploymentSucceeded"
 )
 
 // AzureCluster conditions
 const (
-	ResourceGroupReadyCondition  capiv1alpha3.ConditionType = "ResourceGroupReady"
-	VPNGatewayReadyCondition     capiv1alpha3.ConditionType = "VPNGatewayReady"
-	VirtualNetworkReadyCondition capiv1alpha3.ConditionType = "VirtualNetworkReady"
-	StorageAccountReadyCondition capiv1alpha3.ConditionType = "StorageAccountReady"
+	ResourceGroupReadyCondition  capi.ConditionType = "ResourceGroupReady"
+	StorageAccountReadyCondition capi.ConditionType = "StorageAccountReady"
+	VirtualNetworkReadyCondition capi.ConditionType = "VirtualNetworkReady"
+	VPNGatewayReadyCondition     capi.ConditionType = "VPNGatewayReady"
 )
 
-// AzureMachinePool conditions
+// AzureMachinePool and AzureMachine conditions
 const (
-	DeploymentSucceededCondition capiv1alpha3.ConditionType = "DeploymentSucceeded"
-	VMSSReadyCondition           capiv1alpha3.ConditionType = "VMSSReady"
-	SubnetReadyCondition         capiv1alpha3.ConditionType = "SubnetReady"
+	VMSSReadyCondition   capi.ConditionType = "VMSSReady"
+	SubnetReadyCondition capi.ConditionType = "SubnetReady"
 )
 
 // Azure VMSS instance statuses used as condition reasons
