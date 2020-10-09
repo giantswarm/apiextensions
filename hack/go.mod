@@ -5,7 +5,7 @@ go 1.14
 require (
 	k8s.io/kube-openapi v0.0.0-20200410145947-bcb3869e6f29 // indirect
 	sigs.k8s.io/cluster-api v0.3.10
-	sigs.k8s.io/cluster-api-provider-azure v0.4.9 // indirect
+	sigs.k8s.io/cluster-api-provider-azure v0.4.9
 )
 
 replace (
