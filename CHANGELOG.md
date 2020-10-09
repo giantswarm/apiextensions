@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update CAPZ dependencies.
+
 ## [3.0.0] - 2020-10-08
 
 ### Changed
