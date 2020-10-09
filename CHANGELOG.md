@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.0] - 2020-10-09
+
 ### Changed
 
 - Update CAPZ dependencies.
@@ -519,7 +521,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/giantswarm/apiextensions/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/giantswarm/apiextensions/compare/v2.6.1...v3.0.0
 [2.6.1]: https://github.com/giantswarm/apiextensions/compare/v2.6.0...v2.6.1
 [2.6.0]: https://github.com/giantswarm/apiextensions/compare/v2.5.3...v2.6.0
