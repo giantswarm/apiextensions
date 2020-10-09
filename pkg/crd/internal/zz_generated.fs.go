@@ -259,6 +259,36 @@ lphe/0ohVS7J4/m4tF/Dte2mMdTV2Pyvix3GprUd2c/ePk11dXtlzv/88sazmu8AAAD//w0YKFjhAAAA
 `,
 	},
 
+	"/config/crd/v1/application.giantswarm.io_appcatalogentries.yaml": {
+		name:    "application.giantswarm.io_appcatalogentries.yaml",
+		local:   "config/crd/v1/application.giantswarm.io_appcatalogentries.yaml",
+		size:    4101,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/8xXTY/bNhC9+1cM0kMuFe31pkXWt8AJ0kXTINhN9tCih7E0ltlQJEuOvNn++mJIaa21
+ZccpEKA+WfwYvXl884aaFEUxQa/vKETt7ALQa/rCZOUpqs8vo9Juur2YfNa2WsCyjeyaG4quDSW9prW2
+mrWzk4YYK2RcTADQWscow1EeAUpnOThjKBQ1WfW5XdGq1aaikIL3r97O1Fy9mACUgdL2j7qhyNj4BdjW
+mAmAxYYEoy+R0biaLAdNUaH3Rpdpk6o1Wo73GBql3SR6KgVFHVzr09YjC3PwHjEy1U5C5+cCStc0znYP
+u51pIHPzyvtlRvXGcnhIM0ZH/nVs9p2OnFZ40wY0Izml2aht3RoM+/MSPZbO0wLeC2qPJVUTgI7LhLro
+2NpeoPEbvMgByw01mJMCcJ7sqw/Xd5e3T4YBKopl0J7TuexBh0A+UCTLEdBCggNuLf/Re9AWEDqo4NaP
+IQEatFhTJauiehz3wXkK/Eh1/g0kORjdA/ZcsOdVUIkWKQJvqGeBqi5dQccbHXfIkwCeBIYuBbf6i0pW
+cEtBwkDcuNZUIuEtBYZApaut/ucxdgR26aUGmboz3f20ZQoWDWzRtPQjoK2gQaFQ3gKtHcRLS6KC31wg
+0HbtFrBh9nExndaa+1IUHbZW88M0VZVetexCnFa0JTONui4wlBvNVHIbaIpeFwm6TeWomuqH0BVvfP4E
+Kz+ImCIHbevBRJL2iRMQcYOOgN3WnMWOaBkSdm7e3H6E/tXpMPbZT7wPtLU7AiFM2zWFfIjr4JoUk2zl
+nbacHkqjye7TH9tVo1nO/e+WIstZKVgmf4IVQesrZKoUXFtYYkNmiZG++wEI07EQYs87gqG17i/OrA0m
+ervb/cbrK9eYF/PYHz6sflklhyw8i6fkeqJU7ulIsgesyDhbJ5IPQgKQqhXYWtsvhbZ1oBiLQV9A7w/2
+HOGjgz5qD2Poe4foEmh95EDY9C4xTGbtwpg2E3xJUeUstjN1+ZOafQvgzhC/graz2WNc9656yPkIYJF6
+QrvXrM7ThvzsqDgOQJ9SxzchPoK66IKM7jhBeZ9Cao5n5pHWDpPJA11GHRAF1wz6WAbUeH6A+4021NPQ
+s7C8eS2xS9NGppAbeKW+PS+xMx2oOkwq9/wjwjwwiyTMDQb+mixljSDvrWjnwWlKPWBj9k3hWA2dtInT
+gty4swT5i9sJ8tPNu8fu74MTAmKKAx5rGude7pq4MrQADi39F9npcsyYDoBel9mWMMFkJ/eP27u34AJ8
+eP8WdIM1ybC0qigXp2OaQ5te+X3SOSEeaZ9LuayPafFJqq93KyXj+w3ZoSncY4S1DpHz3V96srjACNj5
+bD4rZlfFbP5xdrV4MVtcXqn5/PLny5fzi6vfDzasXWiQFwlpwfpobYzmLps+5TvCGel1K4+lZzDy7sbx
+P8hue1YD3eueI00zOchj6+wa5bELwIW6UvPzUY47XdFfXQ5HO7h7E2MdpBiqd2SmO869me1I/NECOURe
+pMvZ5OiuKNfdalClkV3Auq/byMhtskUsS/JM1fvd92r+An327MknZXosna10/haHP/6c5KhU3fUfijL4
+bwAAAP//wb7CgwUQAAA=
+`,
+	},
+
 	"/config/crd/v1/application.giantswarm.io_appcatalogs.yaml": {
 		name:    "application.giantswarm.io_appcatalogs.yaml",
 		local:   "config/crd/v1/application.giantswarm.io_appcatalogs.yaml",
@@ -1812,6 +1842,36 @@ VG21MN8yyzh/vvL45ONDOc6nCycm/zLnQcRdNmTq+HKpwDvfwyUb96jUyZLbPMN8mUg5KfZc9ITJzXXu
 tVx74XRz3Zzd+IKaT6p6i6+o+N5bnGvmLaB7oycM8sWSmHOrE/8LMrk7KeIZAWogeyaYiVTnSzxriJfg
 68X+V/WVGk3yjzvr93P7vijIV9lOkF8n/RypfjpLq1A+MdWLQJLvINuCxjTqJOqj6XGKLJ9nug6Dov2w
 vN/jk/zmzdF7W6adZ0vjjxH49bdqREV7Pz+pOfh3AAAA///Q6tHkBgkAAA==
+`,
+	},
+
+	"/config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml": {
+		name:    "application.giantswarm.io_appcatalogentries.yaml",
+		local:   "config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml",
+		size:    3952,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7xXQXPbNhO961fs5Dvk8pGS5bQT65ZRMqmnaSZjJz6008OKXFFoQAAFlnLcX99ZgJQo
+kortmbY6CYsF8Pbh7S44y7Jshk7dkQ/KmhWgU/SNycgo5F9fh1zZ+f5iQ4wXs6/KlCtYN4FtfUPBNr6g
+t7RVRrGyZlYTY4mMqxkAGmMZxRxkCFBYw95qTT6ryORfmw1tGqVL8vGE7vz9Il/mr2YAhae4/LOqKTDW
+bgWm0XoGYLAmAeoKZNS2IsNeUcjROa2KuCivFBoO9+jrXNlZcFQIisrbxsWlZxzT5h1iZKqsbJ3GGRS2
+rq1pB8eV0ZC4eePcOqF6Z9g/xBmtAv88NftBBY4eTjce9URMcTYoUzUa/XBedg+FdbSCj4LaYUHlDGCP
+WpUxuoTbOjJvPl3fXd4WO6oxGQFKCoVXLvoNkYEn5ymQ4QBoIJ4Gdiv/0TlQBhBaJGKu0WAVz04/dC7k
+7ch568jzgcU0fxDcwTYA9FIQJx8oRWIUgHcErVCohBCjkeN5p8IRcYy8ty20wO3mDyo4h1vysgmEnW10
+Kbrck2fwVNjKqL8OOwdgG4/UyNReVPdThskb1MJ1Q/8HNCXUKLTJGdCY3m7RJeTwi/UEymztCnbMLqzm
+80pxl2IircYofpjHRFGbhq0P85L2pOdBVRn6YqeYCm48zdGpLAI3McPyuvyfb/MxvOwh5QdRR2CvTHUw
+R6We5V2UCioAtssS/iO9YhJWbt7dfobu0HgFp5xHtns6OhIvRCmzJZ8ubuttHXckUzqrDMdBoRWZU9JD
+s6kVy03/2VBguZ8c1rHQwIagcSUylTlcG1hjTXqNgf512oXhkAmljxPfr4+njomtg7mrV91vKofaPJPM
+PzWOM1t85EqFV6lvKWcopnK8gpTfG9LWVIlWyqt8sCuAqZT5lilTeQoh6xV0dG7gPBl/C3ki9adQd9nf
+Am9cYE9YdxWgH8TW+rEC5RcDS9FIZ7n8IV88FWhb3r6Lsi2Z57jtKuSY4xHQjvNhV3lcA/FiJkQwAvs9
+FTwD6Rm0WbvFhP9ZijvosXM9CX/07AeRDG0kLYQcrll8qHb8MIn/fqc0dcF3sa9v3sqqQjeByafOWubP
+i0dKk/JUDoPJIthJ6Q1SP0pvh56/LzzxELRdSTlW0TiVP2Ctp9N8FFAv7Z8huZ19guR+skfJfbn5cOjV
+zlsJOsRdwGFFUzzLcw83mlbAvqHnCksV4xIzAnhdpAKDER5beSfc3r0H6+HTx/egaqxIzNJeApWA0/mA
+Jh73TwdxViDS6NbyPh4r7SS8t0c/ifJ+R6af4vcYYKt84PTYlt45WfeXi+UiW1xli+XnxdXq1WJ1eZUv
+l5c/Xr5eXlz9OnDfWl8jryLGjNUZ1U/EKwu+pB7+aFCt37mgNAY+vgdipfpvYtg/obUN+tpEO4v5f2hq
+bRMb9zYJ6yK/ypdPQzdVm7LuCTG0tSBPzOMKn/WVOLK3l3Ri34/2nRD5EGkWH0SzSf/jh+MFarfDi6Mt
+Vq2s/VzsTQMEeYmWvZQMbD1WXZIGRm7iaiwKckzlx+NXYfrOe/Hi5MMtDgtrSpW+eOG332dpVyrvOjRi
+/DsAAP//vkjP/nAPAAA=
 `,
 	},
 
@@ -3453,6 +3513,7 @@ var _escDirs = map[string][]os.FileInfo{
 	},
 
 	"config/crd/v1": {
+		_escData["/config/crd/v1/application.giantswarm.io_appcatalogentries.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_apps.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_charts.yaml"],
@@ -3488,6 +3549,7 @@ var _escDirs = map[string][]os.FileInfo{
 	},
 
 	"config/crd/v1beta1": {
+		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_apps.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_charts.yaml"],
