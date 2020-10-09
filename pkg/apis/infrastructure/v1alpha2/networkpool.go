@@ -3,9 +3,9 @@ package v1alpha2
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/v2/pkg/annotation"
-	"github.com/giantswarm/apiextensions/v2/pkg/id"
-	"github.com/giantswarm/apiextensions/v2/pkg/label"
+	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
+	"github.com/giantswarm/apiextensions/v3/pkg/id"
+	"github.com/giantswarm/apiextensions/v3/pkg/label"
 )
 
 // +k8s:deepcopy-gen=false

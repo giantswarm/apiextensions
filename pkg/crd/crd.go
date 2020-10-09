@@ -13,7 +13,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
 
-	"github.com/giantswarm/apiextensions/v2/pkg/crd/internal"
+	"github.com/giantswarm/apiextensions/v3/pkg/crd/internal"
 )
 
 const (

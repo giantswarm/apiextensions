@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update CAPZ dependencies.
 
+### Fixed
+
+- Bump go module major version to v3.
+
 ## [3.0.0] - 2020-10-08
 
 ### Changed

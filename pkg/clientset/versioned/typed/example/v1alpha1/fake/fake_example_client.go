@@ -22,7 +22,7 @@ import (
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 
-	v1alpha1 "github.com/giantswarm/apiextensions/v2/pkg/clientset/versioned/typed/example/v1alpha1"
+	v1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/example/v1alpha1"
 )
 
 type FakeExampleV1alpha1 struct {
