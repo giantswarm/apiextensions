@@ -135,12 +135,12 @@ spec:
                   type: string
                 revision:
                   description: Revision is the revision number for this deployed chart.
+                  nullable: true
                   type: integer
                 status:
                   description: Status is the status of the deployed chart, e.g. DEPLOYED.
                   type: string
               required:
-              - revision
               - status
               type: object
             version:

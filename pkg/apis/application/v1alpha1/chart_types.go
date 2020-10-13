@@ -135,9 +135,11 @@ type ChartStatusRelease struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// LastDeployed is the time when the deployed chart was last deployed.
-	LastDeployed metav1.Time `json:"lastDeployed,omitempty"`
+	LastDeployed *metav1.Time `json:"lastDeployed,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Revision is the revision number for this deployed chart.
-	Revision int `json:"revision"`
+	Revision *int `json:"revision,omitempty"`
 	// Status is the status of the deployed chart,
 	// e.g. DEPLOYED.
 	Status string `json:"status"`
