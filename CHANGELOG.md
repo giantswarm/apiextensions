@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `organization` CR description.
+
 ### Changed
 
 - Hide LastDeployed, revision if they are not presented.
