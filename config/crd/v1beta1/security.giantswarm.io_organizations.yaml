@@ -20,6 +20,8 @@ spec:
   scope: Cluster
   validation:
     openAPIV3Schema:
+      description: Organization represents schema for managed Kubernetes namespace.
+        Reconciled by organization-operator.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

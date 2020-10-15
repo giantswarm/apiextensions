@@ -22,7 +22,7 @@ func NewOrganizationCRD() *v1beta1.CustomResourceDefinition {
 // +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-
+// Organization represents schema for managed Kubernetes namespace. Reconciled by organization-operator.
 type Organization struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
