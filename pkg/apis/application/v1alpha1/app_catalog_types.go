@@ -47,6 +47,10 @@ type AppCatalog struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              AppCatalogSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	// Status Spec part of the App resource.
+	// Initially, it would be left as empty until the operator successfully reconciles the helm release.
+	Status AppCatalogStatus `json:"status,omitempty"`
 }
 
 // +k8s:openapi-gen=true
@@ -109,6 +113,20 @@ type AppCatalogSpecStorage struct {
 	// URL is the link to where this AppCatalog's repository is located
 	// e.g. https://example.com/app-catalog/
 	URL string `json:"URL"`
+}
+
+// +k8s:openapi-gen=true
+type AppCatalogStatus struct {
+	// Catalog is the status of the index for the deployed appcatalog.
+	Catalog AppCatalogStatusCatalog `json:"catalog"`
+}
+
+// +k8s:openapi-gen=true
+type AppCatalogStatusCatalog struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// LastGenerated is the time when the index of the appcatalog was last generated.
+	LastGenerated metav1.Time `json:"lastGenerated,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

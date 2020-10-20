@@ -110,6 +110,24 @@ spec:
             - storage
             - title
             type: object
+          status:
+            description: Status Spec part of the App resource. Initially, it would
+              be left as empty until the operator successfully reconciles the helm
+              release.
+            properties:
+              catalog:
+                description: Catalog is the status of the index for the deployed appcatalog.
+                properties:
+                  lastGenerated:
+                    description: LastGenerated is the time when the index of the appcatalog
+                      was last generated.
+                    format: date-time
+                    nullable: true
+                    type: string
+                type: object
+            required:
+            - catalog
+            type: object
         required:
         - spec
         type: object
