@@ -36,7 +36,7 @@ func NewAppCatalogEntryCR() *AppCatalogEntry {
 	}
 }
 
-// +kubebuilder:printcolumn:name="Catalog",type=string,JSONPath=`.spec.catalog`,description="Catalog this entry belongs to"
+// +kubebuilder:printcolumn:name="Catalog",type=string,JSONPath=`.spec.catalog.name`,description="Catalog this entry belongs to"
 // +kubebuilder:printcolumn:name="App Name",type=string,JSONPath=`.spec.appName`,description="App this entry belongs to"
 // +kubebuilder:printcolumn:name="App Version",type=string,JSONPath=`.spec.appVersion`,description="Upstream version of the app for this entry"
 // +kubebuilder:printcolumn:name="Version",type=string,JSONPath=`.spec.version`,description="Version of the app for this entry"

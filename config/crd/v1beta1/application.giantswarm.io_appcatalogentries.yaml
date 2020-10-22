@@ -9,7 +9,7 @@ metadata:
   name: appcatalogentries.application.giantswarm.io
 spec:
   additionalPrinterColumns:
-  - JSONPath: .spec.catalog
+  - JSONPath: .spec.catalog.name
     description: Catalog this entry belongs to
     name: Catalog
     type: string

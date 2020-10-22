@@ -21,7 +21,7 @@ spec:
   versions:
   - additionalPrinterColumns:
     - description: Catalog this entry belongs to
-      jsonPath: .spec.catalog
+      jsonPath: .spec.catalog.name
       name: Catalog
       type: string
     - description: App this entry belongs to
