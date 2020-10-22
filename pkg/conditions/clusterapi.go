@@ -26,6 +26,12 @@ const (
 	NodePoolsReadyCondition capi.ConditionType = "NodePoolsReady"
 )
 
+// Creating reasons
+const (
+	CreationCompletedReason = "CreationCompleted"
+	ExistingClusterReason   = "ExistingCluster"
+)
+
 // Upgrading reasons
 const (
 	UpgradeCompletedReason  = "UpgradeCompleted"
