@@ -1,6 +1,9 @@
 package conditions
 
 import (
+	"encoding/json"
+
+	"github.com/giantswarm/microerror"
 	capi "sigs.k8s.io/cluster-api/api/v1alpha3"
 )
 
@@ -22,3 +25,38 @@ const (
 	// NodePoolsReadyCondition tells if all node pools are ready.
 	NodePoolsReadyCondition capi.ConditionType = "NodePoolsReady"
 )
+
+// Upgrading reasons
+const (
+	UpgradeCompletedReason  = "UpgradeCompleted"
+	UpgradeNotStartedReason = "UpgradeNotStarted"
+)
+
+type UpgradingConditionMessage struct {
+	Message        string `json:"message"`
+	ReleaseVersion string `json:"release_version"`
+}
+
+// SerializeUpgradingConditionMessage converts specified message object into a
+// JSON string.
+func SerializeUpgradingConditionMessage(message UpgradingConditionMessage) (string, error) {
+	messageJson, err := json.Marshal(message)
+	if err != nil {
+		return "", microerror.Mask(err)
+	}
+
+	return string(messageJson), nil
+}
+
+// DeserializeUpgradingConditionMessage parses specified JSON string and
+// returns message UpgradingConditionMessage struct.
+func DeserializeUpgradingConditionMessage(messageJson string) (UpgradingConditionMessage, error) {
+	var message UpgradingConditionMessage
+
+	err := json.Unmarshal([]byte(messageJson), &message)
+	if err != nil {
+		return UpgradingConditionMessage{}, microerror.Mask(err)
+	}
+
+	return message, nil
+}
