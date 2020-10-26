@@ -54,6 +54,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Consumers of this library need to explicitly replace CAPI/CAPZ dependencies with GiantSwarm forks on their `go.mod` files.
 - Update microerror.
 
+## [2.6.2] - 2020-10-09
+
+### Fixed
+
+- Revert changes in release `v2.6.1`.
+
 ## [2.6.1] - 2020-10-07
 
 ### Changed
