@@ -16,6 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Cluster` `Creating` condition `CreationCompleted` reason: used when `Creating` is set to `False` because the creation has been completed
 - `Cluster` `Creating` condition `ExistingCluster` reason: used when `Creating` is set to `False` because an older cluster (created without Conditions support) is upgraded to newer release that has conditions.
 
+## [3.3.0] - 2020-10-23
+
+### Added
+
+- Add display columns to `AppCatalogEntry` CRD.
+
 ## [3.2.0] - 2020-10-15
 
 ### Added
@@ -538,7 +544,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.3.0...HEAD
+[3.3.0]: https://github.com/giantswarm/apiextensions/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/giantswarm/apiextensions/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/giantswarm/apiextensions/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/giantswarm/apiextensions/compare/v2.6.1...v3.0.0

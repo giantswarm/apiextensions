@@ -19,7 +19,28 @@ spec:
     singular: appcatalogentry
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - description: Catalog this entry belongs to
+      jsonPath: .spec.catalog.name
+      name: Catalog
+      type: string
+    - description: App this entry belongs to
+      jsonPath: .spec.appName
+      name: App Name
+      type: string
+    - description: Upstream version of the app for this entry
+      jsonPath: .spec.appVersion
+      name: App Version
+      type: string
+    - description: Version of the app for this entry
+      jsonPath: .spec.version
+      name: Version
+      type: string
+    - description: Time since entry was first created
+      jsonPath: .spec.dateCreated
+      name: Age
+      type: date
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: AppCatalogEntry represents an entry of an app in a catalog of
@@ -103,6 +124,7 @@ spec:
         type: object
     served: true
     storage: true
+    subresources: {}
 status:
   acceptedNames:
     kind: ""
