@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add annotation to enable node automatic repair feature.
+
 ## [3.3.0] - 2020-10-23
 
 ### Added
