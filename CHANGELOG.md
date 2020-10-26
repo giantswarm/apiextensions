@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add annotation to enable feature to terminate unhealthy nodes on a cluster.
+- `Cluster` condition `ProviderInfrastructureReady`: `True` when `AzureCluster` is ready
+- `Cluster` condition `NodePoolsReady`: `True` when all node pools are ready
+- `Cluster` `Upgrading` condition `UpgradeCompleted` reason: used when `Upgrading` is set to `False` because the upgrade has been completed
+- `Cluster` `Upgrading` condition `UpgradeNotStarted` reason: used when `Upgrading` is set to `False` because the upgrade has not been started
+- `Cluster` `Creating` condition `CreationCompleted` reason: used when `Creating` is set to `False` because the creation has been completed
+- `Cluster` `Creating` condition `ExistingCluster` reason: used when `Creating` is set to `False` because an older cluster (created without Conditions support) is upgraded to newer release that has conditions.
 
 ## [3.3.0] - 2020-10-23
 
