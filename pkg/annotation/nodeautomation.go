@@ -1,4 +1,4 @@
 package annotation
 
-// Annotation used to enable feature to terminate bad nodes.
-const NodeAutoRepair = "node.giantswarm.io/auto-repair"
+// Annotation used to enable feature to terminate unhealthy nodes on a cluster CR.
+const NodeTerminateUnhealthy = "node.giantswarm.io/terminate-unhealthy"
