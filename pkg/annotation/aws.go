@@ -3,7 +3,7 @@ package annotation
 // AWSUpdateMaxBatchSize is the aws update annotation used for configuring
 // maximum batch size for instances during ASG update.
 // The value can be either a whole number specifying the number of instances
-// or a percentage of total instances as decimal number ie: `0.30` for 30%.
+// or a percentage of total instances as decimal number ie: `0.3` for 30%.
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize
 const AWSUpdateMaxBatchSize = "aws.giantswarm.io/update-max-batch-size"
 
