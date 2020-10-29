@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add 'AWSUpdateMaxBatchSize' annotation to configure max batch size for AWS ASG update.
+- Add 'AWSUpdatePauseTime' annotation to configure pause time between rolling a single batch in ASG.
+
 ## [3.4.0] - 2020-10-26
 
 ### Added
