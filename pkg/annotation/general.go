@@ -7,6 +7,10 @@ package annotation
 // the system and how they relate to each other.
 const Docs = "giantswarm.io/docs"
 
+// Notes is for informational messages for resources managed by operators. Such
+// as whether they resources should be edited.
+const Notes = "giantswarm.io/notes"
+
 // ReleaseNotesURL defines where to find release notes about the CR at hand.
 // The value is expected to be a URI, e. g.
 // "https://github.com/giantswarm/releases/tree/master/aws/v11.5.0".
