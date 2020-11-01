@@ -17,8 +17,9 @@ func NewSilenceCRD() *v1beta1.CustomResourceDefinition {
 
 // +genclient
 // +genclient:noStatus
+// +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=common;giantswarm
+// +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 // Silence represents schema for managed silences in Alertmanager. Reconciled by silence-operator.

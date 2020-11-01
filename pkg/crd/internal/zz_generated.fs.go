@@ -1564,23 +1564,23 @@ XY3+urQxOJpeTPjl12a6GN3TPNmL8Z8AAAD//wCZZw+rBwAA
 	"/config/crd/v1/monitoring.giantswarm.io_silences.yaml": {
 		name:    "monitoring.giantswarm.io_silences.yaml",
 		local:   "config/crd/v1/monitoring.giantswarm.io_silences.yaml",
-		size:    2460,
+		size:    2457,
 		modtime: 0,
 		compressed: `
-H4sIAAAAAAAC/+xWQZPkNA+951eo9jvs5UuaAQ5UblsDhy1gi5rZmgvFQW2r02Ic2chKw/DrKTvp7kxP
-z0JRcMM3P9nPz0+Sk6Zt2wYTP5BmjtIDJqbfjKTMcvf4Ve44bg43zSOL7+F2yhbHO8pxUkdf046FjaM0
-Ixl6NOwbABSJhgXOZQrgopjGEEjbgaR7nLa0nTh40kp+PPrwWfd592UD4JTq9o88UjYcUw8yhdAACI7U
-Q+ZA4ih3YxS2qCxDNzCK5V9Rx45jkxO5cvagcUo9vLpuZjzKRKMhKh/nLbg4jlGWyXlnBWZD7mcpFQmc
-7ds1+h1nq5EUJsVwFl7BzDJMAfUENwDZxUQ9fCiiEjryDcDiTxXVLg4cbjCkPd7MRG5PI86aAWIieffD
-+4cv7p/BAJ6yU05WvV4UglJSyiSWFxrYRYURBQfyJ73AAu8Cqc0B7U6kAHfkojgO5GH7dNzRxkSKFlcr
-kxbMTu7OY1V6K/RC7Ntyn3kV+FJzlMH2dHSmCJ21xx3YnvP5VrWMnhFDWYQCcfszOevgnrTQQN7HKfhS
-qgdSAyUXB+HfT9wZLNZDAxotaT0PFiMVDHDAMNH/AcXDiE+gVE6BSVZ8dUnu4PuoBCy72MPeLOV+sxnY
-ji1XSm8StqdN7R7eThY1bzwdKGwyDy2q27ORs0lpg4nbKl1q23Wj/58uTZrfPtNqT6XAspVmWAVqNX8i
-A6WugTPgsnW+xdnoAhV37r65/wjHo2syLt2vvq/q7pyCYhjLjnRO4k7jWDlJfIosVicuMMml/Xnajmwl
-779MlK3kqoPb+g7BlmBKHo18B+8FbnGkcIuZ/vUEFKdzW4z9aylYP6GXi2fXVoHjA3ce1/urEqO5PekL
-HICNxivwp8jmUV+hq5FXr3cetXT+5u6SYVby17bPj+PVQD2yee20F+6ug6iKTxcxQx3I/jP0HzL0uob2
-VLgX8OL+n7fJS9721GUrqPRS8ypRLq+T78F0uXC2qDjQgmRDm2pS0TlKRv7D+Y9i/kd48+bZT0Cduiie
-518k+PGnZmYl/3D81hfwjwAAAP//c5MMY5wJAAA=
+H4sIAAAAAAAC/+xWTZPkNAy951eolsNeSJoBDlRuWwOHLT6KmtmaC8VBbavTYhw7SHLD8OspO+nuTE/P
+QlFwwzc/2c/PT5KTpm3bBid+IFFOsQecmH43imWm3eNX2nHaHG6aR46+h9uslsY70pTF0de048jGKTYj
+GXo07BsAjDEZFljLFMClaJJCIGkHit1j3tI2c/Aklfx49OGz7vPuywbACdXtH3gkNRynHmIOoQGIOFIP
+yoGiI+3GFNmScBy6gTGa/oYydpwanciVswdJeerh1XUz41EmGg1J+DhvwaVxTHGZnHdWYDbkfpZSkcBq
+367R71itRqaQBcNZeAWV45ADygluANSliXq4DVmNpAFYzKmK2uX6hxsM0x5vZha3pxFnwQBpovjux/cP
+X9w/gwE8qROerBq9yAOhSUgpmi40sEsCI0YcyJ/EAkd4F0hsDkh3IgW4I5ei40Aetk/HHW2aSNDSauUk
+BbOTtfNY1d0KvRD7ttxnXgW+FBwp2J6OzhShs/a0A9uznm9Va+gZMZRFGCFtfyFnHdyTFBrQfcrBlzo9
+kBgIuTRE/uPErWCpHhrQaMnpeXA0kogBDhgyfQoYPYz4BELlFMhxxVeXaAffJyHguEs97M0m7Tebge3Y
+b6XucmR72tTW4W22JLrxdKCwUR5aFLdnI2dZaIMTt1V6rD3Xjf4TWTpU3z7Tak+lutRKJ6wCtZQ/koFS
+1MAKuGydb3E2ukDFnbtv7j/A8eiajEv3q++rujunoBjGcUcyJ3EnaaycFP2UOFqduMAUL+3XvB3ZSt5/
+zaRWctXBbX2EYEuQJ49GvoP3EW5xpHCLSv95AorT2hZj/14K1u/n5eLZtVXg+Lqdx/X+qsRobk/yAgdg
+o/EK/DGyedRX6Grk1eudRy2df7i7ZJiF/LXt8+N4NVCPbF477YW76yCK4NNFzFAGsv8N/ZcMva6hPRXu
+Bby4/9dt8pK3PXXZCiq91LxKpOV18j2YLBdWS4IDLYgaWq5JRedoMvI/nH8n5h+EN2+e/QHUqUvR8/x/
+BD/93Mys5B+O3/oC/hkAAP//NvH1TpkJAAA=
 `,
 	},
 
@@ -3177,23 +3177,23 @@ eWVM8//Nm4vBXo82BkfTPoRffm2mqOieFjYF/CcAAP//tNGQpY4HAAA=
 	"/config/crd/v1beta1/monitoring.giantswarm.io_silences.yaml": {
 		name:    "monitoring.giantswarm.io_silences.yaml",
 		local:   "config/crd/v1beta1/monitoring.giantswarm.io_silences.yaml",
-		size:    2387,
+		size:    2384,
 		modtime: 0,
 		compressed: `
-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
+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
 `,
 	},
 

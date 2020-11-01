@@ -35,8 +35,8 @@ type MonitoringV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *MonitoringV1alpha1Client) Silences(namespace string) SilenceInterface {
-	return newSilences(c, namespace)
+func (c *MonitoringV1alpha1Client) Silences() SilenceInterface {
+	return newSilences(c)
 }
 
 // NewForConfig creates a new MonitoringV1alpha1Client for the given config.

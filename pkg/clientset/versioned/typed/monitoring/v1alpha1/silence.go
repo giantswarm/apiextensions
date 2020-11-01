@@ -34,7 +34,7 @@ import (
 // SilencesGetter has a method to return a SilenceInterface.
 // A group's client should implement this interface.
 type SilencesGetter interface {
-	Silences(namespace string) SilenceInterface
+	Silences() SilenceInterface
 }
 
 // SilenceInterface has methods to work with Silence resources.
@@ -53,14 +53,12 @@ type SilenceInterface interface {
 // silences implements SilenceInterface
 type silences struct {
 	client rest.Interface
-	ns     string
 }
 
 // newSilences returns a Silences
-func newSilences(c *MonitoringV1alpha1Client, namespace string) *silences {
+func newSilences(c *MonitoringV1alpha1Client) *silences {
 	return &silences{
 		client: c.RESTClient(),
-		ns:     namespace,
 	}
 }
 
@@ -68,7 +66,6 @@ func newSilences(c *MonitoringV1alpha1Client, namespace string) *silences {
 func (c *silences) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Silence, err error) {
 	result = &v1alpha1.Silence{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("silences").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -85,7 +82,6 @@ func (c *silences) List(ctx context.Context, opts v1.ListOptions) (result *v1alp
 	}
 	result = &v1alpha1.SilenceList{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("silences").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -102,7 +98,6 @@ func (c *silences) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interf
 	}
 	opts.Watch = true
 	return c.client.Get().
-		Namespace(c.ns).
 		Resource("silences").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -113,7 +108,6 @@ func (c *silences) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interf
 func (c *silences) Create(ctx context.Context, silence *v1alpha1.Silence, opts v1.CreateOptions) (result *v1alpha1.Silence, err error) {
 	result = &v1alpha1.Silence{}
 	err = c.client.Post().
-		Namespace(c.ns).
 		Resource("silences").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(silence).
@@ -126,7 +120,6 @@ func (c *silences) Create(ctx context.Context, silence *v1alpha1.Silence, opts v
 func (c *silences) Update(ctx context.Context, silence *v1alpha1.Silence, opts v1.UpdateOptions) (result *v1alpha1.Silence, err error) {
 	result = &v1alpha1.Silence{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("silences").
 		Name(silence.Name).
 		VersionedParams(&opts, scheme.ParameterCodec).
@@ -139,7 +132,6 @@ func (c *silences) Update(ctx context.Context, silence *v1alpha1.Silence, opts v
 // Delete takes name of the silence and deletes it. Returns an error if one occurs.
 func (c *silences) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("silences").
 		Name(name).
 		Body(&opts).
@@ -154,7 +146,6 @@ func (c *silences) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, 
 		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("silences").
 		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -167,7 +158,6 @@ func (c *silences) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, 
 func (c *silences) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Silence, err error) {
 	result = &v1alpha1.Silence{}
 	err = c.client.Patch(pt).
-		Namespace(c.ns).
 		Resource("silences").
 		Name(name).
 		SubResource(subresources...).

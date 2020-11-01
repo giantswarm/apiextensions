@@ -29,8 +29,8 @@ type FakeMonitoringV1alpha1 struct {
 	*testing.Fake
 }
 
-func (c *FakeMonitoringV1alpha1) Silences(namespace string) v1alpha1.SilenceInterface {
-	return &FakeSilences{c, namespace}
+func (c *FakeMonitoringV1alpha1) Silences() v1alpha1.SilenceInterface {
+	return &FakeSilences{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

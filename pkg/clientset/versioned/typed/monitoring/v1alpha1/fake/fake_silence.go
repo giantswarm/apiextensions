@@ -34,7 +34,6 @@ import (
 // FakeSilences implements SilenceInterface
 type FakeSilences struct {
 	Fake *FakeMonitoringV1alpha1
-	ns   string
 }
 
 var silencesResource = schema.GroupVersionResource{Group: "monitoring.giantswarm.io", Version: "v1alpha1", Resource: "silences"}
@@ -44,8 +43,7 @@ var silencesKind = schema.GroupVersionKind{Group: "monitoring.giantswarm.io", Ve
 // Get takes name of the silence, and returns the corresponding silence object, and an error if there is any.
 func (c *FakeSilences) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Silence, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(silencesResource, c.ns, name), &v1alpha1.Silence{})
-
+		Invokes(testing.NewRootGetAction(silencesResource, name), &v1alpha1.Silence{})
 	if obj == nil {
 		return nil, err
 	}
@@ -55,8 +53,7 @@ func (c *FakeSilences) Get(ctx context.Context, name string, options v1.GetOptio
 // List takes label and field selectors, and returns the list of Silences that match those selectors.
 func (c *FakeSilences) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.SilenceList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(silencesResource, silencesKind, c.ns, opts), &v1alpha1.SilenceList{})
-
+		Invokes(testing.NewRootListAction(silencesResource, silencesKind, opts), &v1alpha1.SilenceList{})
 	if obj == nil {
 		return nil, err
 	}
@@ -77,15 +74,13 @@ func (c *FakeSilences) List(ctx context.Context, opts v1.ListOptions) (result *v
 // Watch returns a watch.Interface that watches the requested silences.
 func (c *FakeSilences) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
-		InvokesWatch(testing.NewWatchAction(silencesResource, c.ns, opts))
-
+		InvokesWatch(testing.NewRootWatchAction(silencesResource, opts))
 }
 
 // Create takes the representation of a silence and creates it.  Returns the server's representation of the silence, and an error, if there is any.
 func (c *FakeSilences) Create(ctx context.Context, silence *v1alpha1.Silence, opts v1.CreateOptions) (result *v1alpha1.Silence, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(silencesResource, c.ns, silence), &v1alpha1.Silence{})
-
+		Invokes(testing.NewRootCreateAction(silencesResource, silence), &v1alpha1.Silence{})
 	if obj == nil {
 		return nil, err
 	}
@@ -95,8 +90,7 @@ func (c *FakeSilences) Create(ctx context.Context, silence *v1alpha1.Silence, op
 // Update takes the representation of a silence and updates it. Returns the server's representation of the silence, and an error, if there is any.
 func (c *FakeSilences) Update(ctx context.Context, silence *v1alpha1.Silence, opts v1.UpdateOptions) (result *v1alpha1.Silence, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(silencesResource, c.ns, silence), &v1alpha1.Silence{})
-
+		Invokes(testing.NewRootUpdateAction(silencesResource, silence), &v1alpha1.Silence{})
 	if obj == nil {
 		return nil, err
 	}
@@ -106,14 +100,13 @@ func (c *FakeSilences) Update(ctx context.Context, silence *v1alpha1.Silence, op
 // Delete takes name of the silence and deletes it. Returns an error if one occurs.
 func (c *FakeSilences) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(silencesResource, c.ns, name), &v1alpha1.Silence{})
-
+		Invokes(testing.NewRootDeleteAction(silencesResource, name), &v1alpha1.Silence{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
 func (c *FakeSilences) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(silencesResource, c.ns, listOpts)
+	action := testing.NewRootDeleteCollectionAction(silencesResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.SilenceList{})
 	return err
@@ -122,8 +115,7 @@ func (c *FakeSilences) DeleteCollection(ctx context.Context, opts v1.DeleteOptio
 // Patch applies the patch and returns the patched silence.
 func (c *FakeSilences) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.Silence, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(silencesResource, c.ns, name, pt, data, subresources...), &v1alpha1.Silence{})
-
+		Invokes(testing.NewRootPatchSubresourceAction(silencesResource, name, pt, data, subresources...), &v1alpha1.Silence{})
 	if obj == nil {
 		return nil, err
 	}
