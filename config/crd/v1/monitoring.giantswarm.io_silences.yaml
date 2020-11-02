@@ -42,16 +42,19 @@ spec:
               matchers:
                 items:
                   properties:
+                    isRegex:
+                      type: boolean
                     name:
                       type: string
                     value:
                       type: string
                   required:
+                  - isRegex
                   - name
                   - value
                   type: object
                 type: array
-              targets:
+              targetTags:
                 items:
                   properties:
                     name:
@@ -65,7 +68,7 @@ spec:
                 type: array
             required:
             - matchers
-            - targets
+            - targetTags
             type: object
         required:
         - metadata

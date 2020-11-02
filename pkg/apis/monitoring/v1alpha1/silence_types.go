@@ -31,18 +31,19 @@ type Silence struct {
 
 // +k8s:openapi-gen=true
 type SilenceSpec struct {
-	Targets  []Target  `json:"targets"`
-	Matchers []Matcher `json:"matchers"`
+	TargetTags []TargetTag `json:"targetTags"`
+	Matchers   []Matcher   `json:"matchers"`
 }
 
-type Target struct {
+type TargetTag struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
 
 type Matcher struct {
-	Name  string `json:"name"`
-	Value string `json:"value"`
+	IsRegex bool   `json:"isRegex"`
+	Name    string `json:"name"`
+	Value   string `json:"value"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
