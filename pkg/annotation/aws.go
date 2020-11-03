@@ -15,8 +15,8 @@ const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 
 // AWSMetadataV2 is the aws update annotation used for configuring
 // the state of token usage for your instance metadata requests.
-// The value can be either optional or required.
-// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httpendpoint
+// The value can be either "optional" or "required". Default is "optional".
+// https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httptokens
 const AWSMetadataV2 = "alpha.aws.giantswarm.io/metadata-v2"
 
 // AWSSubnetSize is the aws update annotation used for configuring
