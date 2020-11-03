@@ -8,7 +8,7 @@ package annotation
 const Docs = "giantswarm.io/docs"
 
 // Notes is for informational messages for resources managed by operators. Such
-// as whether they resources should be edited.
+// as whether the resource may or may not be edited.
 const Notes = "giantswarm.io/notes"
 
 // ReleaseNotesURL defines where to find release notes about the CR at hand.
