@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add catalog and kubernetes labels and notes annotation.
+- Add `release.giantswarm.io/last-deployed-version` `Cluster` CR annotation
 
 ## [3.5.0] - 2020-11-03
 
