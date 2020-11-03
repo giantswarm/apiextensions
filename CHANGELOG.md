@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add 'AWSMetadataV2' annotation to configure the metadata endpoint.
+- Add 'AWSSubnetSize' annotation to configure the subnet size of Control Plane and Machinedeployments.
+
 ## [3.4.1] - 2020-10-29
 
 ### Added
