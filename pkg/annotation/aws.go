@@ -22,7 +22,6 @@ const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 // requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the
 // version 1.0 credentials are not available.
 // Default: 'optional'
-// The value can be either "optional" or "required". Default is "optional".
 // https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-metadataoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-metadataoptions-httptokens
 const AWSMetadataV2 = "alpha.aws.giantswarm.io/metadata-v2"
 
