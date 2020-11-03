@@ -9,9 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add catalog and kubernetes labels and notes annotation.
+
 ## [3.5.0] - 2020-11-03
 
 ### Added
+
 - Add 'AWSMetadataV2' annotation to configure the metadata endpoint.
 - Add 'AWSSubnetSize' annotation to configure the subnet size of Control Plane and Machinedeployments.
 
