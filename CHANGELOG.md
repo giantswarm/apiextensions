@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `Silence` CRD. 
+
 ## [3.6.0] - 2020-11-03
 
 ### Added

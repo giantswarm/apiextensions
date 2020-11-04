@@ -1561,6 +1561,29 @@ XY3+urQxOJpeTPjl12a6GN3TPNmL8Z8AAAD//wCZZw+rBwAA
 `,
 	},
 
+	"/config/crd/v1/monitoring.giantswarm.io_silences.yaml": {
+		name:    "monitoring.giantswarm.io_silences.yaml",
+		local:   "config/crd/v1/monitoring.giantswarm.io_silences.yaml",
+		size:    2556,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/8xWz2/sNBC+568YPQ7vQrIUOKDcnhYOT/wQaqteEIdZZzY71LHDzGTp8tcjO8km3W4L
+QoDwzd/Ynz9/M2O5KMuywJ4fSJRjqAF7piejkGZaPX6lFcfN8aZ45NDUsB3UYndLGgdx9DXtObBxDEVH
+hg0a1gUAhhANE6xpCuBiMInek5Qthepx2NFuYN+QZPL56ONn1efVlwWAE8rb77kjNez6GsLgfQEQsKMa
+lD0FR1p1MbBF4dBWLWMw/Q2lqzgW2pNLZ7cSh76GV9eNjLNMNGqj8DwvwcWui2GaLDszMBpyN0rJiGe1
+b9fod6yWI70fBP0iPIPKoR08yhkuANTFnmrY+kGNpACYzMmKyun6xxv0/QFvRhZ3oA5HwQCxp/Dhx48P
+X9w9gwEaUifcWzZ6kgdCvZBSMJ1oYB8FOgzYUnMWCxzggyexMSDVmRTgllwMjj01sDvNO8rYk6DF1cpe
+EmZna8exqrsVeiH2fbrPuAqaVHCkYAeanUlCR+1xD3ZgXW6Va+gZMaRFGCDufiFnFdyRJBrQQxx8k+r0
+SGIg5GIb+Pczt4LFfKhHoymny+BgJAE9HNEP9ClgaKDDEwilU2AIK768RCv4PgoBh32s4WDWa73ZtGxz
+v6W6GwLbaZNbh3eDRdFNQ0fyG+W2RHEHNnI2CG2w5zJLD7nnqq75RKYO1ffPtNopVZda6oRVIJfyGxlI
+RQ2sgNPW8RaL0QlK7tx+c3cP89E5GZfuZ99XdbekIBnGYU8yJnEvscucFJo+crA8cZ4pXNqvw65jS3n/
+dSC1lKsKtvkRgh3B0Ddo1FTwMcAWO/JbVPrXE5Cc1jIZ+9dSsH4/LxePrq0C8+u2jOv9lYnR3IHkBQ7A
+Rt0V+C2yaaPeUktP14Oz6F2MnjBcXZOfsTd3v/BnGbn2/ubuVCIs1FzbXs73uhpLkq8GspziNSUvUrcO
+ogieLmKG0pLdY/tPJux/6vd/4+l1DeW5MS7gJQF/3okvqctzI6+g1K7Fq0SaHsCmBpPpzmpRsKUJUUMb
+cl7ROeqNmh+WH8v4B3n37tknI09dDA2PXzD46ediZKXmYf5OJPCPAAAA///JohFP/AkAAA==
+`,
+	},
+
 	"/config/crd/v1/provider.giantswarm.io_awsconfigs.yaml": {
 		name:    "provider.giantswarm.io_awsconfigs.yaml",
 		local:   "config/crd/v1/provider.giantswarm.io_awsconfigs.yaml",
@@ -3151,6 +3174,29 @@ eWVM8//Nm4vBXo82BkfTPoRffm2mqOieFjYF/CcAAP//tNGQpY4HAAA=
 `,
 	},
 
+	"/config/crd/v1beta1/monitoring.giantswarm.io_silences.yaml": {
+		name:    "monitoring.giantswarm.io_silences.yaml",
+		local:   "config/crd/v1beta1/monitoring.giantswarm.io_silences.yaml",
+		size:    2477,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/8xWTY/kRA++51dY+x728ibNAAeU22rgsOJDaGY0F8TBXeVOm6lUBdsZdvj1qCpf3b09
+i4RYidzq8deTx3apqrquKxz4kUQ5xRZwYPpgFPNJm6dvtOG0e77Zk+FN9cTRt3A7qqX+jjSN4uhbOnBk
+4xSrngw9GrYVAMaYDDOs+QjgUjRJIZDUHcXmadzTfuTgSUqFpf7zF82XzdcVgBMq4Q/ckxr2QwtxDKEC
+iNhTC8qBoiNt+hTZknDsmo4xmv6B0jecKh3I5dqdpHFo4VW/KeNCE426JLyca3Cp71OcD1tkASZB7icq
+BQms9v0p+gOrFcsQRsGwES+gcuzGgLLCFYC6NFALt2FUI6kAnjGwL2JMnNJA8d3P7x+/undH6nECATyp
+Ex6K31IdhAYhpWgKWrzhkAR6jNiRX7kAR3gXSGwySDOnBLgjl6LjQB72L4t/nQYStLT6DZIRW1XL38lU
+rdgFybf5LyYf8HmOSMGOBPM0ZIIT53QAO7Juf1PUOEkL2QUjpP1v5KyBe5KcBPSYxuDz8D2TGAi51EX+
+c82sYKmUDGg0N2r5OBpJxJD1H+n/gNFDjy8glGvAGE+yFRdt4MckBBwPqYWj2aDtbtexLXuUR2mMbC+7
+sg28Hy2J7jw9U9gpdzWKO7KRs1FohwPXhXgsa9T0/n8yL52+PWFqL3lc1PJor3CZzFd1zxMKrIBz2MR/
+kzdDWZW77+4fYClaWnCueVH7ZMY24bNQHA8kU+MOkvqSkaIfEkcrBxeY4rnoOu57ttzp30dSy/1p4Lbc
+JrAnGAePRr6B9xFusadwi0qfXfassNZZ0r8X/vQSPHec1Frh5Xpavms7VBKiuSPJBQrARv1H4Otp5iC9
+o44+XDMtNPcpBcJ4xaNcvJ+IvFBi+8p0/YPIPAQs5D8OrZc/uWLJNK/AhUR1vf5Fa05NKIIvZxZD6cge
+sPt3WvKfUvXzanetcr0O+Bm4ifzpPbpMWa8LuAJ50aqrCbZXxw2G4Yg3G1ZaVc9vjRMzgOYbzrdgMkui
+lgQ7mhE1tLFEo3M0GPmfttfF9F548+bsQVCOLkXP03MJfvm1mrKSf1zYZPCvAAAA///l5zBfrQkAAA==
+`,
+	},
+
 	"/config/crd/v1beta1/provider.giantswarm.io_awsconfigs.yaml": {
 		name:    "provider.giantswarm.io_awsconfigs.yaml",
 		local:   "config/crd/v1beta1/provider.giantswarm.io_awsconfigs.yaml",
@@ -3546,6 +3592,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/infrastructure.giantswarm.io_awsmachinedeployments.yaml"],
 		_escData["/config/crd/v1/infrastructure.giantswarm.io_g8scontrolplanes.yaml"],
 		_escData["/config/crd/v1/infrastructure.giantswarm.io_networkpools.yaml"],
+		_escData["/config/crd/v1/monitoring.giantswarm.io_silences.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_awsconfigs.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_kvmconfigs.yaml"],
@@ -3582,6 +3629,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/infrastructure.giantswarm.io_awsmachinedeployments.yaml"],
 		_escData["/config/crd/v1beta1/infrastructure.giantswarm.io_g8scontrolplanes.yaml"],
 		_escData["/config/crd/v1beta1/infrastructure.giantswarm.io_networkpools.yaml"],
+		_escData["/config/crd/v1beta1/monitoring.giantswarm.io_silences.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_awsconfigs.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_kvmconfigs.yaml"],
