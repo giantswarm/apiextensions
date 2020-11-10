@@ -76,7 +76,7 @@ type AppCatalogEntrySpec struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Restrictions is metadata from Chart.yaml of the app this entry requires to validate them.
-	Restrictions AppCatalogEntrySpecRestrictions `json:"restrictions,omitempty"`
+	Restrictions *AppCatalogEntrySpecRestrictions `json:"restrictions,omitempty"`
 	// Version is the version of the app chart for this entry.
 	// e.g. 1.9.2
 	Version string `json:"version"`

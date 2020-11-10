@@ -15,4 +15,9 @@ spec:
     icon: https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg
   dateCreated: "2020-09-02T09:40:39Z"
   dateUpdated: "2020-09-02T09:40:39Z"
+  restrictions:
+    cluster_singleton: false
+    fixed_namespace: giantswarm
+    gpu_instances: false
+    namespace_singleton: false
   version: 1.9.2
