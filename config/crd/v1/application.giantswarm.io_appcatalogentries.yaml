@@ -107,6 +107,32 @@ spec:
                   2020-09-02T09:40:39.223638219Z
                 format: date-time
                 type: string
+              restrictions:
+                description: Restrictions is metadata from Chart.yaml of the app this
+                  entry requires to validate them.
+                nullable: true
+                properties:
+                  cluster_singleton:
+                    description: ClusterSingleton is a flag for whether this chart
+                      can be installed at most once per cluster.
+                    type: boolean
+                  fixed_namespace:
+                    description: FixedNamespace is the namespace which this chart
+                      can be installed only.
+                    type: string
+                  gpu_instances:
+                    description: GpuInstances is a flag for whether this chart requires
+                      GPU instances to run.
+                    type: boolean
+                  namespace_singleton:
+                    description: NamespaceSingleton is a flag for whether this chart
+                      can be installed at most once per namespace
+                    type: boolean
+                required:
+                - cluster_singleton
+                - gpu_instances
+                - namespace_singleton
+                type: object
               version:
                 description: Version is the version of the app chart for this entry.
                   e.g. 1.9.2
