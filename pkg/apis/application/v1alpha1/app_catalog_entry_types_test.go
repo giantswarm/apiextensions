@@ -106,7 +106,8 @@ func newAppCatalogEntryExampleCR() *AppCatalogEntry {
 			Icon: "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",
 		},
 		Restrictions: &AppCatalogEntrySpecRestrictions{
-			FixedNamespace: "giantswarm",
+			ClusterSingleton: true,
+			FixedNamespace:   "giantswarm",
 		},
 
 		Version: "1.9.2",

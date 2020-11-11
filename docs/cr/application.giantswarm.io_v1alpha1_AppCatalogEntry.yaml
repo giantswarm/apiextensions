@@ -16,8 +16,6 @@ spec:
   dateCreated: "2020-09-02T09:40:39Z"
   dateUpdated: "2020-09-02T09:40:39Z"
   restrictions:
-    cluster_singleton: false
+    cluster_singleton: true
     fixed_namespace: giantswarm
-    gpu_instances: false
-    namespace_singleton: false
   version: 1.9.2
