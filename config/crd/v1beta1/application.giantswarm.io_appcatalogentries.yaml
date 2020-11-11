@@ -112,7 +112,7 @@ spec:
               properties:
                 cluster_singleton:
                   description: ClusterSingleton is a flag for whether this app can
-                    be installed at most once per cluster.
+                    be installed at most once per cluster. Default is false.
                   type: boolean
                 fixed_namespace:
                   description: FixedNamespace is the namespace which this app must
@@ -120,16 +120,12 @@ spec:
                   type: string
                 gpu_instances:
                   description: GpuInstances is a flag for whether this app requires
-                    GPU instances to run.
+                    GPU instances to run. Default is false.
                   type: boolean
                 namespace_singleton:
                   description: NamespaceSingleton is a flag for whether this app can
-                    be installed at most once per namespace.
+                    be installed at most once per namespace. Default is false.
                   type: boolean
-              required:
-              - cluster_singleton
-              - gpu_instances
-              - namespace_singleton
               type: object
             version:
               description: Version is the version of the app chart for this entry.
