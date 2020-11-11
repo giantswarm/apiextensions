@@ -75,7 +75,7 @@ type AppCatalogEntrySpec struct {
 	DateUpdated *metav1.Time `json:"dateUpdated"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// Restrictions is metadata from Chart.yaml of the app this entry requires to validate them.
+	// Restrictions is metadata from Chart.yaml for this app and is used to validate app CRs.
 	Restrictions *AppCatalogEntrySpecRestrictions `json:"restrictions,omitempty"`
 	// Version is the version of the app chart for this entry.
 	// e.g. 1.9.2
@@ -107,13 +107,13 @@ type AppCatalogEntrySpecChart struct {
 
 // +k8s:openapi-gen=true
 type AppCatalogEntrySpecRestrictions struct {
-	// ClusterSingleton is a flag for whether this chart can be installed at most once per cluster.
+	// ClusterSingleton is a flag for whether this app can be installed at most once per cluster.
 	ClusterSingleton bool `json:"cluster_singleton"`
-	// NamespaceSingleton is a flag for whether this chart can be installed at most once per namespace
+	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace.
 	NamespaceSingleton bool `json:"namespace_singleton"`
-	// FixedNamespace is the namespace which this chart can be installed only.
+	// FixedNamespace is the namespace which this app must be installed in.
 	FixedNamespace string `json:"fixed_namespace,omitempty"`
-	// GpuInstances is a flag for whether this chart requires GPU instances to run.
+	// GpuInstances is a flag for whether this app requires GPU instances to run.
 	GpuInstances bool `json:"gpu_instances"`
 }
 
