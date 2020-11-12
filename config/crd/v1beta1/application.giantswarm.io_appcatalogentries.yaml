@@ -110,19 +110,19 @@ spec:
                 is used to validate app CRs.
               nullable: true
               properties:
-                cluster_singleton:
+                clusterSingleton:
                   description: ClusterSingleton is a flag for whether this app can
                     be installed at most once per cluster. Default is false.
                   type: boolean
-                fixed_namespace:
+                fixedNamespace:
                   description: FixedNamespace is the namespace which this app must
                     be installed in.
                   type: string
-                gpu_instances:
+                gpuInstances:
                   description: GpuInstances is a flag for whether this app requires
                     GPU instances to run. Default is false.
                   type: boolean
-                namespace_singleton:
+                namespaceSingleton:
                   description: NamespaceSingleton is a flag for whether this app can
                     be installed at most once per namespace. Default is false.
                   type: boolean
