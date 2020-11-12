@@ -16,6 +16,6 @@ spec:
   dateCreated: "2020-09-02T09:40:39Z"
   dateUpdated: "2020-09-02T09:40:39Z"
   restrictions:
-    cluster_singleton: true
-    fixed_namespace: giantswarm
+    clusterSingleton: true
+    fixedNamespace: giantswarm
   version: 1.9.2
