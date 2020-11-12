@@ -1,5 +1,9 @@
 package label
 
+// App label is used to identify Kubernetes resources. It is considered
+// deprecated by upstream and is replaced by `app.kubernetes.io/name`.
+const App = "app"
+
 // AppKubernetesInstance is a unique name identifying an instance of an app.
 const AppKubernetesInstance = "app.kubernetes.io/instance"
 
