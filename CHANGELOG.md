@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `Restrictions` metadata to `AppCatalogEntry` CRD.
+- Add legacy `app` label.
 
 ## [3.7.0] - 2020-11-04
 
