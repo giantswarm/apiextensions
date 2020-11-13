@@ -56,6 +56,13 @@ func Test_Load(t *testing.T) {
 			panicMatcher:    nilPanicMatcher,
 		},
 		{
+			name:            "case 3: Organization CRD loads normally",
+			inputGroup:      "security.giantswarm.io",
+			inputKind:       "Organization",
+			inputCRDVersion: "v1",
+			panicMatcher:    nilPanicMatcher,
+		},
+		{
 			name:            "case 3: non-existent v1 CRD panics with notFoundError",
 			inputGroup:      "application.giantswarm.io",
 			inputKind:       "Bad",
