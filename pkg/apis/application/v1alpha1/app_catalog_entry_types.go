@@ -107,14 +107,14 @@ type AppCatalogEntrySpecChart struct {
 
 // +k8s:openapi-gen=true
 type AppCatalogEntrySpecRestrictions struct {
-	// ClusterSingleton is a flag for whether this app can be installed at most once per cluster.
-	ClusterSingleton bool `json:"cluster_singleton"`
-	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace.
-	NamespaceSingleton bool `json:"namespace_singleton"`
+	// ClusterSingleton is a flag for whether this app can be installed at most once per cluster. Default is false.
+	ClusterSingleton bool `json:"clusterSingleton,omitempty"`
+	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace. Default is false.
+	NamespaceSingleton bool `json:"namespaceSingleton,omitempty"`
 	// FixedNamespace is the namespace which this app must be installed in.
-	FixedNamespace string `json:"fixed_namespace,omitempty"`
-	// GpuInstances is a flag for whether this app requires GPU instances to run.
-	GpuInstances bool `json:"gpu_instances"`
+	FixedNamespace string `json:"fixedNamespace,omitempty"`
+	// GpuInstances is a flag for whether this app requires GPU instances to run. Default is false.
+	GpuInstances bool `json:"gpuInstances,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
