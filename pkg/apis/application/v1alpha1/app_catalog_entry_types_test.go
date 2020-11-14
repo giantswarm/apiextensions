@@ -105,6 +105,10 @@ func newAppCatalogEntryExampleCR() *AppCatalogEntry {
 			Home: "https://github.com/giantswarm/nginx-ingress-controller-app",
 			Icon: "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",
 		},
+		Restrictions: &AppCatalogEntrySpecRestrictions{
+			ClusterSingleton: true,
+			FixedNamespace:   "giantswarm",
+		},
 
 		Version: "1.9.2",
 	}

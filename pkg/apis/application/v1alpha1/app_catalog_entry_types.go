@@ -73,6 +73,10 @@ type AppCatalogEntrySpec struct {
 	// DateUpdated is when this entry was last updated.
 	// e.g. 2020-09-02T09:40:39.223638219Z
 	DateUpdated *metav1.Time `json:"dateUpdated"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Restrictions is metadata from Chart.yaml for this app and is used to validate app CRs.
+	Restrictions *AppCatalogEntrySpecRestrictions `json:"restrictions,omitempty"`
 	// Version is the version of the app chart for this entry.
 	// e.g. 1.9.2
 	Version string `json:"version"`
@@ -99,6 +103,18 @@ type AppCatalogEntrySpecChart struct {
 	// +nullable
 	// Icon is a URL to an SVG or PNG image to be used as an icon.
 	Icon string `json:"icon,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type AppCatalogEntrySpecRestrictions struct {
+	// ClusterSingleton is a flag for whether this app can be installed at most once per cluster. Default is false.
+	ClusterSingleton bool `json:"clusterSingleton,omitempty"`
+	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace. Default is false.
+	NamespaceSingleton bool `json:"namespaceSingleton,omitempty"`
+	// FixedNamespace is the namespace which this app must be installed in.
+	FixedNamespace string `json:"fixedNamespace,omitempty"`
+	// GpuInstances is a flag for whether this app requires GPU instances to run. Default is false.
+	GpuInstances bool `json:"gpuInstances,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
