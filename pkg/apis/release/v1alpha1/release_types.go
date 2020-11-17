@@ -126,8 +126,10 @@ type ReleaseSpecApp struct {
 
 // +k8s:openapi-gen=true
 type ReleaseStatus struct {
+	// +kubebuilder:validation:Optional
 	// Ready indicates if all components of the release have been deployed.
 	Ready bool `json:"ready"`
+	// +kubebuilder:validation:Optional
 	// InUse indicates whether a release is actually used by a cluster.
 	InUse bool `json:"inUse"`
 }

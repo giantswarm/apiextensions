@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make Release Status fields `Ready` and `InUse` optional.
+
 ## [3.8.0] - 2020-11-13
 
 ### Added

@@ -140,9 +140,6 @@ spec:
                 description: Ready indicates if all components of the release have
                   been deployed.
                 type: boolean
-            required:
-            - inUse
-            - ready
             type: object
         required:
         - metadata
