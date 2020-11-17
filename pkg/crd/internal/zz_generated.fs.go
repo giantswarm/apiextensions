@@ -1795,7 +1795,7 @@ Iy2Hf/xrEgbGtApwfON/AwAA///o0S7INVQAAA==
 	"/config/crd/v1/release.giantswarm.io_releases.yaml": {
 		name:    "release.giantswarm.io_releases.yaml",
 		local:   "config/crd/v1/release.giantswarm.io_releases.yaml",
-		size:    6169,
+		size:    6107,
 		modtime: 0,
 		compressed: `
 H4sIAAAAAAAC/+xY3Y8ctw1/37+CcAPcruOZ88X9iAcIrsY6KIykiXHn+qF3V4A7w91VrJFUibPXTd3/
@@ -1823,9 +1823,8 @@ sBjZ6gHnkSp+Xv4olvT6uHXf93mb6uG1hg7Ka4b7NSlwlTHacmjIccy3w+azcrEf6Q4kb5VL4Z0n+T6j
 7gwcMUTXjAkVsaTuvjkE23JUQUA8NJZUhMbQfoovVSUlLiRlwLZ6lKvDs8oRF5/FZxqhCpH71jWeaBsU
 EhdCCt7uvOBkvipZ8rzFsxGvRMw888X5Xpj07EAHMo28HzuBH++FmT2iuxhPwiQ0ADuk7kayM9F7C2pI
 /eeow20MI1fu1EZGqL+5Y+F443l60bhfE6/JArYw8112zhVKuY13q8V2LAwN2NPJY04KS1hsj5h45Xl6
-JooloJT9K98QMbDGzVj+LIhUfcRR8Rgz90U9+HeHFjZ0PJQPRSZtw90j+XSe7BXkyG6o6KWpY21x1U9c
-Vy3ah5dGVw0i+Pd/Jh2eMM/JMBU/dS/b8a36yZPBY3QY5lrFJ2WXwc3dJCqm4n3z7OyJ/w0AAP//usqy
-fRkYAAA=
+JooloJT9K98QMbDGzVj+LIhUfcRR8RgzR4PxEApJ2zL3SD4hJ3sFObIbKnqJ5lhbXPVTz1WL9umk0VXD
+AP79n0mHCMxzMkzFT93bdHxtfvJk8JwchrlW8VHYZXBzN4mKqXjfPBx74n8DAAD//2xzms7bFwAA
 `,
 	},
 
@@ -3411,7 +3410,7 @@ ZsW0ckt8438DAAD//yjrl8foTwAA
 	"/config/crd/v1beta1/release.giantswarm.io_releases.yaml": {
 		name:    "release.giantswarm.io_releases.yaml",
 		local:   "config/crd/v1beta1/release.giantswarm.io_releases.yaml",
-		size:    5934,
+		size:    5878,
 		modtime: 0,
 		compressed: `
 H4sIAAAAAAAC/+xY227kuBF9768oTBZw9+xItndy2RGwcIz2InB2MzOwJ/MQ2wFKUnU3MxTJkKV2euP8
@@ -3439,9 +3438,9 @@ z9QJi63B7SWKVPlh9qOY0dVzqL4ftmwrgo8Xzi0+JjwuSIGrjdGWw7Ebm2PdFqHtMa928STQLyUekUvh
 kzf5PX6zL3fE0BASQunZaE896C4eAq4CVegey/6MynAQsz+XP1VLibmkDNjWR5MbLmMOknoSL2aEKkXh
 D4hxJVqikJgLKXi1cWeT+Spjybct32wxELXxxpfYR2HSk707/3Fs+dQ7e3oUZnLkrn5XYiVh+71m6PcM
 a+buAqk19FdWhw4N8aLiiGODUH91h0m/9i0GnD8uiBfk1WoHtxkF1yjlKu538hXgPhGno2OruyUsVweh
-3fgWA2hiBijlcPu1rgdY4NKXBtquWXE5ovJYeLtnNbC5ZgmDODxdm66S7tDaGXxCjnY66O9+z1GaBZ73
-tuaaNt7dDX4DOLJLKgfZ6VhbnLf52qsHi4IMU/m+v6mLd2+vXq1droXPQqt4XewyuHsYRa9Ufm7ReON/
-AwAA///x5tDgLhcAAA==
+3fgWA2hiBijlcPu1rgdY4NKXBtquWXE5ovJYeDto35zopDt8dgafWKOdDvo73HOUZoHnva25bo13cIPf
+AM6f7stBljnWFudt3vUqwKIgw1S+72/c4h3aq1drl2Ths9AqXvu6DO4eRtErlZ9bNN743wAAAP//Akzv
+zvYWAAA=
 `,
 	},
 
