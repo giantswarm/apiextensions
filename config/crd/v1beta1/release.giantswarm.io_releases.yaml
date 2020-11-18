@@ -22,11 +22,11 @@ spec:
   - JSONPath: .status.ready
     description: Whether or not the release is ready
     name: Ready
-    type: bool
+    type: boolean
   - JSONPath: .status.inUse
     description: Whether or not the release is in use
     name: InUse
-    type: bool
+    type: boolean
   - JSONPath: .metadata.annotations['giantswarm\.io/release-notes']
     description: Release notes for this release
     name: Release notes
