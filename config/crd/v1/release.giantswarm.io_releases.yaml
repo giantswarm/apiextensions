@@ -30,6 +30,14 @@ spec:
       jsonPath: .spec.date
       name: Age
       type: date
+    - description: Whether or not the release is ready
+      jsonPath: .status.ready
+      name: Ready
+      type: boolean
+    - description: Whether or not the release is in use
+      jsonPath: .status.inUse
+      name: InUse
+      type: boolean
     - description: Release notes for this release
       jsonPath: .metadata.annotations['giantswarm\.io/release-notes']
       name: Release notes
