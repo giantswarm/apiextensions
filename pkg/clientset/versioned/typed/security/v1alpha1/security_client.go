@@ -27,12 +27,17 @@ import (
 
 type SecurityV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	AzureServicePrincipalsGetter
 	OrganizationsGetter
 }
 
 // SecurityV1alpha1Client is used to interact with features provided by the security.giantswarm.io group.
 type SecurityV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *SecurityV1alpha1Client) AzureServicePrincipals(namespace string) AzureServicePrincipalInterface {
+	return newAzureServicePrincipals(c, namespace)
 }
 
 func (c *SecurityV1alpha1Client) Organizations() OrganizationInterface {

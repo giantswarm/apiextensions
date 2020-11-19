@@ -29,6 +29,10 @@ type FakeSecurityV1alpha1 struct {
 	*testing.Fake
 }
 
+func (c *FakeSecurityV1alpha1) AzureServicePrincipals(namespace string) v1alpha1.AzureServicePrincipalInterface {
+	return &FakeAzureServicePrincipals{c, namespace}
+}
+
 func (c *FakeSecurityV1alpha1) Organizations() v1alpha1.OrganizationInterface {
 	return &FakeOrganizations{c}
 }

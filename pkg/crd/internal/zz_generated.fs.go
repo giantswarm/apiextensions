@@ -1829,6 +1829,52 @@ yDCVP/Uj+Thkf/Jka4oe/hZaxVm4y+DmbhIVU/m+nZd74n8CAAD///9G6+vSGAAA
 `,
 	},
 
+	"/config/crd/v1/security.giantswarm.io_azureserviceprincipals.yaml": {
+		name:    "security.giantswarm.io_azureserviceprincipals.yaml",
+		local:   "config/crd/v1/security.giantswarm.io_azureserviceprincipals.yaml",
+		size:    7050,
+		modtime: 0,
+		compressed: `
+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
+`,
+	},
+
 	"/config/crd/v1/security.giantswarm.io_organizations.yaml": {
 		name:    "security.giantswarm.io_organizations.yaml",
 		local:   "config/crd/v1/security.giantswarm.io_organizations.yaml",
@@ -3445,6 +3491,52 @@ b/OujwIsCjJM5bt+4hZnaC9erA3JwmuhVZxuuwxu70dRK5WfWjRe+L8AAAD//xVn+uXdFwAA
 `,
 	},
 
+	"/config/crd/v1beta1/security.giantswarm.io_azureserviceprincipals.yaml": {
+		name:    "security.giantswarm.io_azureserviceprincipals.yaml",
+		local:   "config/crd/v1beta1/security.giantswarm.io_azureserviceprincipals.yaml",
+		size:    6837,
+		modtime: 0,
+		compressed: `
+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
+`,
+	},
+
 	"/config/crd/v1beta1/security.giantswarm.io_organizations.yaml": {
 		name:    "security.giantswarm.io_organizations.yaml",
 		local:   "config/crd/v1beta1/security.giantswarm.io_organizations.yaml",
@@ -3603,6 +3695,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1/provider.giantswarm.io_kvmconfigs.yaml"],
 		_escData["/config/crd/v1/release.giantswarm.io_releases.yaml"],
+		_escData["/config/crd/v1/security.giantswarm.io_azureserviceprincipals.yaml"],
 		_escData["/config/crd/v1/security.giantswarm.io_organizations.yaml"],
 		_escData["/config/crd/v1/tooling.giantswarm.io_azuretools.yaml"],
 	},
@@ -3640,6 +3733,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_azureconfigs.yaml"],
 		_escData["/config/crd/v1beta1/provider.giantswarm.io_kvmconfigs.yaml"],
 		_escData["/config/crd/v1beta1/release.giantswarm.io_releases.yaml"],
+		_escData["/config/crd/v1beta1/security.giantswarm.io_azureserviceprincipals.yaml"],
 		_escData["/config/crd/v1beta1/security.giantswarm.io_organizations.yaml"],
 		_escData["/config/crd/v1beta1/tooling.giantswarm.io_azuretools.yaml"],
 	},
