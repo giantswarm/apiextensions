@@ -26,28 +26,39 @@ func NewAzureServicePrincipalCRD() *v1beta1.CustomResourceDefinition {
 type AzureServicePrincipal struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
-	Spec              AzureServicePrincipalSpec   `json:"spec"`
-	Status            AzureServicePrincipalStatus `json:"status"`
+	// +kubebuilder:validation:Optional
+	Spec AzureServicePrincipalSpec `json:"spec"`
+	// +kubebuilder:validation:Optional
+	Status AzureServicePrincipalStatus `json:"status"`
 }
 
 // +k8s:openapi-gen=true
 type AzureServicePrincipalSpec struct {
-	Name      *string                 `json:"name"`
+	// +kubebuilder:validation:Optional
+	Name *string `json:"name"`
+	// +kubebuilder:validation:Optional
 	SecretRef *corev1.ObjectReference `json:"secretRef"`
 }
 
 // +k8s:openapi-gen=true
 type AzureServicePrincipalStatus struct {
-	InvitationLink  *string          `json:"invitationLink,omitempty"`
-	ExpirationDate  *metav1.Time     `json:"expirationDate,omitempty"`
+	// +kubebuilder:validation:Optional
+	InvitationLink *string `json:"invitationLink,omitempty"`
+	// +kubebuilder:validation:Optional
+	ExpirationDate *metav1.Time `json:"expirationDate,omitempty"`
+	// +kubebuilder:validation:Optional
 	AccessConfirmed *AccessConfirmed `json:"accessConfirmed,omitempty"`
 }
 
 // +k8s:openapi-gen=true
 type AccessConfirmed struct {
-	Confirmed       *bool        `json:"confirmed,omitempty"`
-	LastCheckDate   *metav1.Time `json:"lastCheckDate,omitempty"`
+	// +kubebuilder:validation:Optional
+	Confirmed *bool `json:"confirmed,omitempty"`
+	// +kubebuilder:validation:Optional
+	LastCheckDate *metav1.Time `json:"lastCheckDate,omitempty"`
+	// +kubebuilder:validation:Optional
 	LastSuccessDate *metav1.Time `json:"lastSuccessDate,omitempty"`
+	// +kubebuilder:validation:Optional
 	LastFailureDate *metav1.Time `json:"lastFailureDate,omitempty"`
 }
 

@@ -99,9 +99,6 @@ spec:
                   description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
                   type: string
               type: object
-          required:
-          - name
-          - secretRef
           type: object
         status:
           properties:
@@ -127,8 +124,6 @@ spec:
           type: object
       required:
       - metadata
-      - spec
-      - status
       type: object
   version: v1alpha1
   versions:
