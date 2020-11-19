@@ -27,16 +27,20 @@ type AzureServicePrincipal struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Spec AzureServicePrincipalSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Status AzureServicePrincipalStatus `json:"status"`
 }
 
 // +k8s:openapi-gen=true
 type AzureServicePrincipalSpec struct {
 	// +kubebuilder:validation:Optional
+	// +nullable
 	Name *string `json:"name"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	SecretRef *corev1.ObjectReference `json:"secretRef"`
 }
 
@@ -45,8 +49,10 @@ type AzureServicePrincipalStatus struct {
 	// +kubebuilder:validation:Optional
 	InvitationLink *string `json:"invitationLink,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	ExpirationDate *metav1.Time `json:"expirationDate,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	AccessConfirmed *AccessConfirmed `json:"accessConfirmed,omitempty"`
 }
 
@@ -55,10 +61,13 @@ type AccessConfirmed struct {
 	// +kubebuilder:validation:Optional
 	Confirmed *bool `json:"confirmed,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	LastCheckDate *metav1.Time `json:"lastCheckDate,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	LastSuccessDate *metav1.Time `json:"lastSuccessDate,omitempty"`
 	// +kubebuilder:validation:Optional
+	// +nullable
 	LastFailureDate *metav1.Time `json:"lastFailureDate,omitempty"`
 }
 

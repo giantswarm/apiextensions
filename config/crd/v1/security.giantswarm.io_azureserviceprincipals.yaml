@@ -38,8 +38,10 @@ spec:
           metadata:
             type: object
           spec:
+            nullable: true
             properties:
               name:
+                nullable: true
                 type: string
               secretRef:
                 description: 'ObjectReference contains enough information to let you
@@ -66,6 +68,7 @@ spec:
                   that is well-focused on your reference. For example, ServiceReferences
                   for admission registration: https://github.com/kubernetes/api/blob/release-1.17/admissionregistration/v1/types.go#L533
                   .'
+                nullable: true
                 properties:
                   apiVersion:
                     description: API version of the referent.
@@ -102,23 +105,29 @@ spec:
                 type: object
             type: object
           status:
+            nullable: true
             properties:
               accessConfirmed:
+                nullable: true
                 properties:
                   confirmed:
                     type: boolean
                   lastCheckDate:
                     format: date-time
+                    nullable: true
                     type: string
                   lastFailureDate:
                     format: date-time
+                    nullable: true
                     type: string
                   lastSuccessDate:
                     format: date-time
+                    nullable: true
                     type: string
                 type: object
               expirationDate:
                 format: date-time
+                nullable: true
                 type: string
               invitationLink:
                 type: string
