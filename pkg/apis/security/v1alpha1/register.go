@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&Organization{},
 	&OrganizationList{},
+	&AzureServicePrincipal{},
+	&AzureServicePrincipalList{},
 }
 
 // SchemeGroupVersion is group version used to register these objects
