@@ -20,10 +20,6 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - description: Upstream version of the app for this app
-      jsonPath: .status.appVersion
-      name: App Version
-      type: string
     - description: Version of the app
       jsonPath: .spec.version
       name: Version
@@ -35,7 +31,7 @@ spec:
     - description: Time since last deployment
       jsonPath: .status.release.status
       name: Status
-      type: date
+      type: string
     name: v1alpha1
     schema:
       openAPIV3Schema:

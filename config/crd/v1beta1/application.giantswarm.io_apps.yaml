@@ -9,10 +9,6 @@ metadata:
   name: apps.application.giantswarm.io
 spec:
   additionalPrinterColumns:
-  - JSONPath: .status.appVersion
-    description: Upstream version of the app for this app
-    name: App Version
-    type: string
   - JSONPath: .spec.version
     description: Version of the app
     name: Version
@@ -24,7 +20,7 @@ spec:
   - JSONPath: .status.release.status
     description: Time since last deployment
     name: Status
-    type: date
+    type: string
   group: application.giantswarm.io
   names:
     categories:
