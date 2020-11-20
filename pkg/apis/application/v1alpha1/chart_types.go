@@ -36,10 +36,9 @@ func NewChartCR() *Chart {
 	}
 }
 
-// +kubebuilder:printcolumn:name="App Version",type=string,JSONPath=`.status.appVersion`,description="Upstream version of the app for this app"
 // +kubebuilder:printcolumn:name="Version",type=string,JSONPath=`.spec.version`,description="Version of the app"
 // +kubebuilder:printcolumn:name="Last Deployed",type=date,JSONPath=`.status.release.lastDeployed`,description="Time since last deployment"
-// +kubebuilder:printcolumn:name="Status",type=date,JSONPath=`.status.release.status`,description="Time since last deployment"
+// +kubebuilder:printcolumn:name="Status",type=string,JSONPath=`.status.release.status`,description="Time since last deployment"
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
