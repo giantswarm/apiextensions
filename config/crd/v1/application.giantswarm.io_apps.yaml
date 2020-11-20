@@ -28,7 +28,7 @@ spec:
       jsonPath: .status.release.lastDeployed
       name: Last Deployed
       type: date
-    - description: Time since last deployment
+    - description: 'Deployment status of the app '
       jsonPath: .status.release.status
       name: Status
       type: string
