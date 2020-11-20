@@ -117,6 +117,10 @@ type ReleaseSpecComponent struct {
 
 // +k8s:openapi-gen=true
 type ReleaseSpecApp struct {
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default=default
+	// Catalog specifies the name of the app catalog that this app belongs to.
+	Catalog string `json:"catalog,omitempty"`
 	// Version of the upstream component used in the app.
 	ComponentVersion string `json:"componentVersion,omitempty"`
 	// Name of the app.
