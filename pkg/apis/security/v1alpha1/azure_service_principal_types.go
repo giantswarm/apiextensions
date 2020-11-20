@@ -36,12 +36,8 @@ type AzureServicePrincipal struct {
 
 // +k8s:openapi-gen=true
 type AzureServicePrincipalSpec struct {
-	// +kubebuilder:validation:Optional
-	// +nullable
-	Name *string `json:"name"`
-	// +kubebuilder:validation:Optional
-	// +nullable
-	SecretRef *corev1.ObjectReference `json:"secretRef"`
+	Name      string                 `json:"name"`
+	SecretRef corev1.ObjectReference `json:"secretRef"`
 }
 
 // +k8s:openapi-gen=true
