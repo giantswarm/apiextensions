@@ -35,6 +35,7 @@ func NewChartCR() *Chart {
 		TypeMeta: NewChartTypeMeta(),
 	}
 }
+
 // +kubebuilder:printcolumn:name="App Version",type=string,JSONPath=`.status.appVersion`,description="Upstream version of the app for this app"
 // +kubebuilder:printcolumn:name="Version",type=string,JSONPath=`.spec.version`,description="Version of the app"
 // +kubebuilder:printcolumn:name="Last Deployed",type=date,JSONPath=`.status.release.lastDeployed`,description="Time since last deployment"
