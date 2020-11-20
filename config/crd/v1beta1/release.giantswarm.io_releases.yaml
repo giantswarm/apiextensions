@@ -71,6 +71,11 @@ spec:
               description: Apps describes apps used in this release.
               items:
                 properties:
+                  catalog:
+                    default: default
+                    description: Catalog specifies the name of the app catalog that
+                      this app belongs to.
+                    type: string
                   componentVersion:
                     description: Version of the upstream component used in the app.
                     type: string
