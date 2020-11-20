@@ -36,14 +36,15 @@ type AzureServicePrincipal struct {
 
 // +k8s:openapi-gen=true
 type AzureServicePrincipalSpec struct {
-	Name      string                 `json:"name"`
 	SecretRef corev1.ObjectReference `json:"secretRef"`
 }
 
 // +k8s:openapi-gen=true
 type AzureServicePrincipalStatus struct {
 	// +kubebuilder:validation:Optional
-	InvitationLink *string `json:"invitationLink,omitempty"`
+	ServicePrincipalName string `json:"servicePrincipalName,omitempty"`
+	// +kubebuilder:validation:Optional
+	InvitationLink string `json:"invitationLink,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	ExpirationDate *metav1.Time `json:"expirationDate,omitempty"`

@@ -40,8 +40,6 @@ spec:
           spec:
             nullable: true
             properties:
-              name:
-                type: string
               secretRef:
                 description: 'ObjectReference contains enough information to let you
                   inspect or modify the referred object. --- New uses of this type
@@ -102,7 +100,6 @@ spec:
                     type: string
                 type: object
             required:
-            - name
             - secretRef
             type: object
           status:
@@ -131,6 +128,8 @@ spec:
                 nullable: true
                 type: string
               invitationLink:
+                type: string
+              servicePrincipalName:
                 type: string
             type: object
         required:
