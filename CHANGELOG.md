@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add `catalog` field to `apps` in `release`.
 - Make Release Status fields `Ready` and `InUse` optional.
 - Add printer columns for Release `Ready` and `InUse` fields.
+- Add printer columns for App, Chart `Version`, `Last Deployed` and `Status`.
 
 ## [3.8.0] - 2020-11-13
 

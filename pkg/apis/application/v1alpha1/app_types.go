@@ -36,6 +36,9 @@ func NewAppCR() *App {
 	}
 }
 
+// +kubebuilder:printcolumn:name="Version",type=string,JSONPath=`.spec.version`,description="Version of the app"
+// +kubebuilder:printcolumn:name="Last Deployed",type=date,JSONPath=`.status.release.lastDeployed`,description="Time since last deployment"
+// +kubebuilder:printcolumn:name="Status",type=string,JSONPath=`.status.release.status`,description="Deployment status of the app"
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion

@@ -8,6 +8,19 @@ metadata:
   creationTimestamp: null
   name: charts.application.giantswarm.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.version
+    description: Version of the app
+    name: Version
+    type: string
+  - JSONPath: .status.release.lastDeployed
+    description: Time since last deployment
+    name: Last Deployed
+    type: date
+  - JSONPath: .status.release.status
+    description: Deployment status of the app
+    name: Status
+    type: string
   group: application.giantswarm.io
   names:
     categories:

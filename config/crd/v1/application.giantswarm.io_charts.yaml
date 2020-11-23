@@ -19,7 +19,20 @@ spec:
     singular: chart
   scope: Namespaced
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - description: Version of the app
+      jsonPath: .spec.version
+      name: Version
+      type: string
+    - description: Time since last deployment
+      jsonPath: .status.release.lastDeployed
+      name: Last Deployed
+      type: date
+    - description: Deployment status of the app
+      jsonPath: .status.release.status
+      name: Status
+      type: string
+    name: v1alpha1
     schema:
       openAPIV3Schema:
         description: Chart represents a Helm Chart deployed as a Helm Release.
