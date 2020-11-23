@@ -18,7 +18,7 @@ spec:
     name: Last Deployed
     type: date
   - JSONPath: .status.release.status
-    description: 'Deployment status of the app '
+    description: Deployment status of the app
     name: Status
     type: string
   group: application.giantswarm.io
