@@ -1,3 +1,10 @@
+# Created by https://github.com/giantswarm/github
+# Full link: https://github.com/giantswarm/github/blob/master/repositories/override/apiextensions/Makefile
+
+# !!!
+# DO NOT EDIT MANUALLY
+# !!!
+
 # Directories.
 APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
