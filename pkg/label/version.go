@@ -15,7 +15,7 @@ const ChartOperatorVersion = "chart-operator.giantswarm.io/version"
 // ConfigControllerVersion is the version label put into app CRs to define
 // which config-controller version should reconcile the given CR. Versions are
 // defined as semver version without the "v" prefix, e.g. 1.0.0, which means
-// that there is a chart-operator release v1.0.0.
+// that there is a config-controller release v1.0.0.
 const ConfigControllerVersion = "config-controller.giantswarm.io/version"
 
 // AWSOperatorVersion is the version label put into AWS specific CRs to define
