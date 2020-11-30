@@ -139,7 +139,6 @@ spec:
                     - useAlikeInstanceTypes
                     type: object
                 required:
-                - availabilityZones
                 - worker
                 type: object
             required:
