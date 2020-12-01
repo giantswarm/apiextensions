@@ -63,6 +63,7 @@ type AWSMachineDeploymentSpecNodePoolScaling struct {
 
 // +k8s:openapi-gen=true
 type AWSMachineDeploymentSpecProvider struct {
+	// +kubebuilder:validation:Optional
 	// Name(s) of the availability zone(s) to use for worker nodes. Using multiple
 	// availability zones results in higher resilience but can also result in higher
 	// cost due to network traffic between availability zones.
