@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.10.0] - 2020-11-30
+
 ### Changed
 
 - Make `availabilityZones` attribute in `AWSMachineDeployment` optional.
@@ -610,7 +612,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.9.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.10.0...HEAD
+[3.10.0]: https://github.com/giantswarm/apiextensions/compare/v3.9.0...v3.10.0
 [3.9.0]: https://github.com/giantswarm/apiextensions/compare/v3.8.0...v3.9.0
 [3.8.0]: https://github.com/giantswarm/apiextensions/compare/v3.7.0...v3.8.0
 [3.7.0]: https://github.com/giantswarm/apiextensions/compare/v3.6.0...v3.7.0
