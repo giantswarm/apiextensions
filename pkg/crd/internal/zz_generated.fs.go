@@ -1470,7 +1470,7 @@ SYNgT1tLUtRcaURjKCrZT4fvgfGRf/Hi5NWuSxO85fGDB/78qxlRyd7vHuNi/C8AAP//yb2ZQmoJAAA=
 	"/config/crd/v1/infrastructure.giantswarm.io_awsmachinedeployments.yaml": {
 		name:    "infrastructure.giantswarm.io_awsmachinedeployments.yaml",
 		local:   "config/crd/v1/infrastructure.giantswarm.io_awsmachinedeployments.yaml",
-		size:    7843,
+		size:    7807,
 		modtime: 0,
 		compressed: `
 H4sIAAAAAAAC/7xZYW/bvPF/709xeP4v+h9gK063AYOBvWiTrguetQget32ADQN6ls4yF4rUeCcn7rDv
@@ -1502,10 +1502,10 @@ o7qR4WvjsFtyKRnBnN5s7J66/vs6XAqKWFTGHDilik0wYmKVO2o4DY8T2OoQGUHmyHvRa/MwmTDzWk9T
 Zx6E28cRpfSQEmXenV/70uRrAn+yDugBi1LTvO1sdqi3I1ofH3I4xP9ZgnsQvKb6CqvGZax/ZpKYBjGi
 xMLvlyORENueFVwuly8bLk/0rRGI7zkrdiH8Xv5rAP/kjZwWsr4N6IZnPI+EE3enCh99POKy72zlRqqY
 JyB6o9Ud3XR2xhMofYt6JMVOELjZgriK5pCS863RKRQM90p2oVNiYFUojWMYiD1xQku1/gT4FBAbazWh
-+a6etrvogEgvlP/ddvdRP9gjMxBGg2v2r7dor7/Ohps2eNIVXbhqH7mk+7PVGTc38spsrSuedUU3sSdf
-xwXablysT8vnNuPTqScu9wKcwz9COhyvSU7pJto2knDPoJvRjnoiHz3VWTfNbZNkUxH52LZrHpez6hlw
-6W50ZA8/engezf3Bl70vHmfuIsT4bHBWvGZbBT6OA2Id5tQdqTbtd5NGcZ3H8K9/z44pjWlKpVD28fgN
-NX4G/emnk6+Z4TG1JlPxSzH87e+zuDBlX5pPk37wPwEAAP//kKoa76MeAAA=
++a6etrvogEgvlP/ddncgRAb19etatFdbZ8NNizvp+i1co49cwP3Z6oyb23ZlttYVz7p+m9hvr+MCbact
+1qfccxvt6bQSl3sBPuEfIRSOVyCnVBJtG0mmZ1DJaLc8kWue6pqbxrVJoKmIfGxbMY/LWWUMuHQ3OrKH
+Hz0Yj+b14MveF48zdxFifDY4K16hrQLXxgGxDnPqjlSb9ptIo7jOY/jXv2fHlMY0pVIo+3j8Pho/cf70
+08mXyvCYWpOp+BUY/vb3WVyYsi/NZ0c/+J8AAAD//1vigq1/HgAA
 `,
 	},
 
@@ -3091,7 +3091,7 @@ R2FBCQAA
 	"/config/crd/v1beta1/infrastructure.giantswarm.io_awsmachinedeployments.yaml": {
 		name:    "infrastructure.giantswarm.io_awsmachinedeployments.yaml",
 		local:   "config/crd/v1beta1/infrastructure.giantswarm.io_awsmachinedeployments.yaml",
-		size:    7568,
+		size:    7534,
 		modtime: 0,
 		compressed: `
 H4sIAAAAAAAC/7xZX2/jyA1/96cgrg/XArbibFugMNCH/Nlug+sugvPuHtCiwNIa2mYzmlFnRk68Rb97
@@ -3123,10 +3123,10 @@ hyQ1POF5+NIE6Z5cLoftDV2t7I66MfsyROVFagnDQXu5+4zYflR3Ojx/nA5HYL02JabxUUIlOo8LZBqJ
 76CZnnIidS6AX/rK4UsGf7EO6AmLUtO0nT+2qNfHh4lBvSmjxK2TEhb3o570MqhGZCpj1fPjffeX8idY
 +ON8MPJpPFnA5Xz+ayXH2VkygfL601k3vD+H0xp4P4pxYxJTmnc3CdNpIJ5qOx10dJxfOWYN9iGQra80
 P9BdxyP/Ij2vUXsa4/fdGoKraAo5ORljjgHw8MhhG6caD54L1jjsebBHsLfEKWeu8+6vrNWE5tVTZne7
-XoFe8L7VAPpsXnsm0ZsqA3v17TNrXxsdLTZj6Yuvs9L79qEXWn+1Wvnm7TSbtXXF6NdZoybjZVLdzsTB
-Spm9ZiQeSx9po2/MG/7nE4dPLxqOKSNZNVg+oynjzFQ7ilHOT7fNkNmUzDgUPrQDlGBx0uEiFl33Bm3/
-JQfSMzU8cKtn+bQKZzF7J73yhw+Ll6jLLb45rEXQZvXnxM5tgPT2ahFJt/4oZh1uqF45lCzmOZWB1IfD
-t8L0ue+7746+2sXL3BrF6Yso/OOfk6SV1OfGGln8XwAAAP//09e+x5AdAAA=
+XoFe8L7VANqbCAOa+rTM2pdCR4vN0Pniy6r0Nn3oddVfrVa+effMZm1dMfpl1ai5d5lUtxNvsFJErxl4
+x5JD2ugbs4L/+bTg02uEY0JIVg0Wx2hCODOzjuKL87NrM0I2BTEOhQ/teCRYnPSviEXXvUHbf8lx80yF
+DtzqWT6twlnM3kmv/OGz4SXqcotvDmsRtFn9sbBzGyC9m1pESq0/eVmHG6pXDiWLeU5lIPXh8CUwfcz7
+7rujb3LxMrdGcfreCf/45yRpJfW5sUYW/xcAAP//MerBJ24dAAA=
 `,
 	},
 

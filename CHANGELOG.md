@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.10.0] - 2020-11-30
 
+
+### Changed
+
+- Make `availabilityZones` attribute in `AWSMachineDeployment` optional.
+
 ### Added
 
 - Add `config-controller.giantswarm.io/version` label.
