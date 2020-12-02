@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Change `config.giantswarm.io/major-version` annotation to `config.giantswarm.io/version`.
+- Change (unused yet) `config.giantswarm.io/major-version` annotation to `config.giantswarm.io/version`.
 
 ## [3.10.0] - 2020-11-30
 
