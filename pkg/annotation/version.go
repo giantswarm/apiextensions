@@ -4,8 +4,8 @@ package annotation
 // config-controller. This indicates what major version of the configuration
 // should be used for this application. Versions are configured in a
 // <major>.x.x format (e.g. 3.x.x), which means the latest v3.<minor>.<patch>
-// should be used to generate ConfigMap and Secret for this App CR.
-// When given version does not match the <major>.x.x format, config-controller
+// tag should be used to generate ConfigMap and Secret for this App CR. When
+// given version does not match the <major>.x.x format, config-controller
 // assumes given version is a branch reference (e.g. "master") and the matching
 // branch will be used to generate configuration instead.
 const ConfigVersion = "config.giantswarm.io/version"
