@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.12.0] - 2020-12-03
+
 ### Added
 
 - Add `app-operator.giantswarm.io/latest-configmap-version` annotation.
@@ -623,7 +625,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.11.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.12.0...HEAD
+[3.12.0]: https://github.com/giantswarm/apiextensions/compare/v3.11.0...v3.12.0
 [3.11.0]: https://github.com/giantswarm/apiextensions/compare/v3.10.0...v3.11.0
 [3.10.0]: https://github.com/giantswarm/apiextensions/compare/v3.9.0...v3.10.0
 [3.9.0]: https://github.com/giantswarm/apiextensions/compare/v3.8.0...v3.9.0
