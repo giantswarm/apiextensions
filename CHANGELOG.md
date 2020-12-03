@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Change (unused yet) `config.giantswarm.io/major-version` annotation to `config.giantswarm.io/version`.
 
+### Added
+
+- Add `app-operator.giantswarm.io/latest-configmap-version` annotation.
+- Add `app-operator.giantswarm.io/latest-secret-version` annotation.
+
 ## [3.10.0] - 2020-11-30
 
 ### Changed
