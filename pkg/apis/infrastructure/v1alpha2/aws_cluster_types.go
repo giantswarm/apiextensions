@@ -110,6 +110,7 @@ type AWSClusterSpecClusterKubeProxy struct {
 // AWSClusterSpecProvider holds some AWS details.
 // +k8s:openapi-gen=true
 type AWSClusterSpecProvider struct {
+	// +kubebuilder:validation:Optional
 	// Location of a secret providing the ARN of AWS IAM identity
 	// to use with this cluster.
 	CredentialSecret AWSClusterSpecProviderCredentialSecret `json:"credentialSecret"`
