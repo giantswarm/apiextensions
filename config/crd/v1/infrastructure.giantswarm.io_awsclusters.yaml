@@ -140,7 +140,6 @@ spec:
                     description: AWS region the cluster is to be running in.
                     type: string
                 required:
-                - credentialSecret
                 - region
                 type: object
             required:

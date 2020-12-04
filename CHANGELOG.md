@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Make `credentialSecret` attribute in `AWSCluster` optional. In case this attribute is not set it will be defaulted
+  by `aws-admission-controller` to the credential-secret for the organization the cluster is created in.
+
 ## [3.12.0] - 2020-12-03
 
 ### Added
