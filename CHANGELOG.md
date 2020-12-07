@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.13.0] - 2020-12-07
+
 - Make `credentialSecret` attribute in `AWSCluster` optional. In case this attribute is not set it will be defaulted
   by `aws-admission-controller` to the credential-secret for the organization the cluster is created in.
 
@@ -628,7 +630,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.12.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.13.0...HEAD
+[3.13.0]: https://github.com/giantswarm/apiextensions/compare/v3.12.0...v3.13.0
 [3.12.0]: https://github.com/giantswarm/apiextensions/compare/v3.11.0...v3.12.0
 [3.11.0]: https://github.com/giantswarm/apiextensions/compare/v3.10.0...v3.11.0
 [3.10.0]: https://github.com/giantswarm/apiextensions/compare/v3.9.0...v3.10.0
