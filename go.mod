@@ -3,7 +3,7 @@ module github.com/giantswarm/apiextensions/v3
 go 1.14
 
 require (
-	github.com/giantswarm/microerror v0.2.1
+	github.com/giantswarm/microerror v0.3.0
 	github.com/go-openapi/errors v0.19.4
 	github.com/google/go-cmp v0.5.4
 	k8s.io/api v0.18.9
