@@ -22,8 +22,9 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
-      description: "Spark is a Kubernetes resource (CR) which is based on the Spark
-        CRD defined above. \n An example Spark resource can be viewed here https://github.com/giantswarm/apiextensions/blob/master/docs/cr/core.giantswarm.io_v1alpha1_spark.yaml"
+      description: Spark is a placeholder resource to allow for the creation of ignition
+        templates in Azure tenant clusters, as of tenant cluster release v13.0.0.
+        Reconciled by azure-operator.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

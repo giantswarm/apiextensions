@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Changed
+
+- Update description and example annotation for the Spark CRD.
+
 ## [3.13.0] - 2020-12-07
 
 ### Changed

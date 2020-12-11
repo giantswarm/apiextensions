@@ -30,7 +30,7 @@ func Test_GenerateSparkYAML(t *testing.T) {
 				ObjectMeta: v1.ObjectMeta{
 					Name: "abc12-master",
 					Annotations: map[string]string{
-						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
+						"giantswarm.io/docs": "https://docs.giantswarm.io/reference/cp-k8s-api/sparks.core.giantswarm.io/",
 					},
 				},
 				Spec: SparkSpec{
