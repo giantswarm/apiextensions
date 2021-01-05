@@ -37,7 +37,7 @@ type NodePoolCRs struct {
 
 func NewNodePoolCRs(config NodePoolCRsConfig) (NodePoolCRs, error) {
 	// Default some essentials in case certain information are not given. E.g.
-	// the Tenant Cluster ID may be provided by the user.
+	// the workload cluster ID may be provided by the user.
 	{
 		if config.ClusterID == "" {
 			config.ClusterID = id.Generate()

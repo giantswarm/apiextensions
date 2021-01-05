@@ -4,7 +4,7 @@ import metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 const (
 	// ClusterConditionLimit is the maximum amount of conditions tracked in the
-	// condition list of a tenant cluster's status. The limit here is applied to
+	// condition list of a workload cluster's status. The limit here is applied to
 	// equal condition pairs. For instance a cluster having transitioned through 6
 	// cluster upgrades throughout its lifetime will only track 5 Updating/Updated
 	// condition pairs in its condition list.
@@ -37,7 +37,7 @@ const (
 	//
 	ClusterConditionLimit = 5
 	// ClusterVersionLimit is the maximum amount of versions tracked in the
-	// version list of a tenant cluster's status. The limit here is applied to the
+	// version list of a workload cluster's status. The limit here is applied to the
 	// total amount of the list's number of entries. For instance a cluster having
 	// transitioned through 6 cluster upgrades throughout its lifetime will only
 	// track 5 versions in its version list.

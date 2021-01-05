@@ -29,8 +29,8 @@ func NewSparkTypeMeta() metav1.TypeMeta {
 // +kubebuilder:resource:categories=common;giantswarm
 // +k8s:openapi-gen=true
 
-// Spark is a placeholder resource to allow for the creation of ignition templates in Azure tenant
-// clusters, as of tenant cluster release v13.0.0. Reconciled by azure-operator.
+// Spark is a placeholder resource to allow for the creation of ignition templates in Azure workload
+// clusters, as of workload cluster release v13.0.0. Reconciled by azure-operator.
 type Spark struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

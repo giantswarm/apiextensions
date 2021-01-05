@@ -1,6 +1,6 @@
 package label
 
-// Cluster is the ID label put into all CRs to identify which Tenant Cluster the
+// Cluster is the ID label put into all CRs to identify which workload cluster the
 // given CR is related to.
 const Cluster = "giantswarm.io/cluster"
 
@@ -13,7 +13,7 @@ const ControlPlane = "giantswarm.io/control-plane"
 const MachineDeployment = "giantswarm.io/machine-deployment"
 
 // MachinePool is the ID label put into all MachinePool and AzureMachinePool CRs
-// and it contains tenant cluster node pool ID (i.e. the machine pool ID). E.g.
+// and it contains workload cluster node pool ID (i.e. the machine pool ID). E.g.
 // giantswarm.io/machine-pool=de19f-h94vd.
 const MachinePool = "giantswarm.io/machine-pool"
 

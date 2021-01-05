@@ -45,7 +45,7 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 // +k8s:openapi-gen=true
 
 // The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of
-// a Giant Swarm tenant cluster. It is reconciled by cluster-operator.
+// a Giant Swarm workload cluster. It is reconciled by cluster-operator.
 type G8sControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
