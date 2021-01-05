@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.14.0] - 2021-01-05
+
 ### Added
 
 - Add `app-operator.giantswarm.io/paused` annotation.
@@ -638,7 +640,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.13.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.14.0...HEAD
+[3.14.0]: https://github.com/giantswarm/apiextensions/compare/v3.13.0...v3.14.0
 [3.13.0]: https://github.com/giantswarm/apiextensions/compare/v3.12.0...v3.13.0
 [3.12.0]: https://github.com/giantswarm/apiextensions/compare/v3.11.0...v3.12.0
 [3.11.0]: https://github.com/giantswarm/apiextensions/compare/v3.10.0...v3.11.0
