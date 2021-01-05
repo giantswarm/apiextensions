@@ -76,7 +76,7 @@ spec:
                 - subnet
                 type: object
               clusterID:
-                description: ClusterID is the name of the tenant cluster to be created.
+                description: ClusterID is the name of the workload cluster to be created.
                 type: string
               disableEncryptionAtRest:
                 description: DisableEncryptionAtRest will disable secret encryption

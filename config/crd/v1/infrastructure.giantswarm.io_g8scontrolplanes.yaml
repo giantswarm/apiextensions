@@ -24,7 +24,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: The G8sControlPlane resource defines the Control Plane nodes
-          (Kubernetes master nodes) of a Giant Swarm tenant cluster. It is reconciled
+          (Kubernetes master nodes) of a Giant Swarm workload cluster. It is reconciled
           by cluster-operator.
         properties:
           apiVersion:

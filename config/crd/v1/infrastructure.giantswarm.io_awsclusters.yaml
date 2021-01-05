@@ -197,12 +197,12 @@ spec:
                     description: Network-specific configuration details
                     properties:
                       cidr:
-                        description: IPv4 address block used by the tenant cluster
+                        description: IPv4 address block used by the workload cluster
                           nodes, in CIDR notation.
                         type: string
                       vpcID:
                         description: Identifier of the AWS Virtual Private Cloud (VPC)
-                          of the tenant cluster, e.g. `vpc-1234567890abcdef0`.
+                          of the workload cluster, e.g. `vpc-1234567890abcdef0`.
                         type: string
                     type: object
                 type: object

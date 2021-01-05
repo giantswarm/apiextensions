@@ -20,7 +20,7 @@ spec:
   scope: Namespaced
   validation:
     openAPIV3Schema:
-      description: AWSClusterConfig used to represent tenant cluster configuration
+      description: AWSClusterConfig used to represent workload cluster configuration
         in earlier releases. Deprecated.
       properties:
         apiVersion:
