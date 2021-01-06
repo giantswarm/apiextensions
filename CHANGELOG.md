@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed terminology from `tenant cluster` to `workload cluster`.
+- Changed terminology from `control plane` to `management cluster` (where appropriate).
 
 ## [3.14.0] - 2021-01-05
 
