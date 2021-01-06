@@ -153,7 +153,7 @@ type StatusClusterVersion struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// TODO date is deprecated due to LastTransitionTime
-	// This can be removed ones the new properties are properly used in all tenant
+	// This can be removed ones the new properties are properly used in all workload
 	// clusters.
 	//
 	//     https://github.com/giantswarm/giantswarm/issues/3988

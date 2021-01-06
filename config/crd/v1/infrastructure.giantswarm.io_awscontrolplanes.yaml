@@ -24,7 +24,7 @@ spec:
       openAPIV3Schema:
         description: AWSControlPlane is the infrastructure provider referenced in
           ControlPlane CRs. Represents the master nodes (also called Control Plane)
-          of a tenant cluster on AWS. Reconciled by aws-operator.
+          of a workload cluster on AWS. Reconciled by aws-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

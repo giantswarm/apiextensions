@@ -57,7 +57,7 @@ type ETCDBackupStatus struct {
 
 // +k8s:openapi-gen=true
 type ETCDInstanceBackupStatusIndex struct {
-	// Name of the workload cluster or 'Control Plane'
+	// Name of the workload cluster or management cluster
 	Name string `json:"name"`
 	// Status of the V2 backup for this instance
 	V2 ETCDInstanceBackupStatus `json:"v2"`
