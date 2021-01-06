@@ -44,7 +44,7 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 // +k8s:openapi-gen=true
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane
-// CRs. Represents the master nodes (also called Control Plane) of a tenant
+// CRs. Represents the master nodes (also called Control Plane) of a workload
 // cluster on AWS. Reconciled by aws-operator.
 type AWSControlPlane struct {
 	metav1.TypeMeta   `json:",inline"`
