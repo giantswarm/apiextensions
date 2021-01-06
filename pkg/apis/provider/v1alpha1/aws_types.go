@@ -44,7 +44,7 @@ func NewAWSConfigCR() *AWSConfig {
 // +kubebuilder:resource:categories=aws;giantswarm
 // +k8s:openapi-gen=true
 
-// AWSConfig used to represent tenant cluster configuration in earlier releases. Deprecated.
+// AWSConfig used to represent workload cluster configuration in earlier releases. Deprecated.
 type AWSConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -69,21 +69,21 @@ type AWSConfigSpecAWS struct {
 	//
 	AZ string `json:"az"`
 	// AvailabilityZones is the number of AWS availability zones used to spread
-	// the tenant cluster's worker nodes across. There are limitations on
+	// the workload cluster's worker nodes across. There are limitations on
 	// availability zone settings due to binary IP range splitting and provider
 	// specific region capabilities. When for instance choosing 3 availability
 	// zones, the configured IP range will be split into 4 ranges and thus one of
 	// it will not be able to be utilized. Such limitations have to be considered
-	// when designing the network topology and configuring tenant cluster HA via
+	// when designing the network topology and configuring workload cluster HA via
 	// AvailabilityZones.
 	//
 	// The selection and usage of the actual availability zones for the created
-	// tenant cluster is randomized. In case there are 4 availability zones
+	// workload cluster is randomized. In case there are 4 availability zones
 	// provided in the used region and the user selects 2 availability zones, the
-	// actually used availability zones in which tenant cluster workload is put
-	// into will tend to be different across tenant cluster creations. This is
+	// actually used availability zones in which workload cluster workload is put
+	// into will tend to be different across workload cluster creations. This is
 	// done in order to provide more HA during single availability zone failures.
-	// In case a specific availability zone fails, not all tenant clusters will be
+	// In case a specific availability zone fails, not all workload clusters will be
 	// affected due to the described selection process.
 	AvailabilityZones int                  `json:"availabilityZones"`
 	CredentialSecret  CredentialSecret     `json:"credentialSecret"`

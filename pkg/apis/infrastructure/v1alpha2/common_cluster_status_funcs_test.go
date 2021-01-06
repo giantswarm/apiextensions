@@ -137,7 +137,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 		expectedConditions []CommonClusterStatusCondition
 	}{
 		{
-			name:       "case 0: the creation of the tenant cluster starts",
+			name:       "case 0: the creation of the workload cluster starts",
 			conditions: []CommonClusterStatusCondition{},
 			condition: CommonClusterStatusCondition{
 				LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
@@ -152,7 +152,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 1: the creation of the tenant cluster ends",
+			name: "case 1: the creation of the workload cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
@@ -176,7 +176,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 2: the first update of the tenant cluster starts",
+			name: "case 2: the first update of the workload cluster starts",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(30, 0)},
@@ -208,7 +208,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 3: the first update of the tenant cluster ends",
+			name: "case 3: the first update of the workload cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
@@ -248,7 +248,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 4: the second update of the tenant cluster starts",
+			name: "case 4: the second update of the workload cluster starts",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(50, 0)},
@@ -296,7 +296,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 5: the second update of the tenant cluster ends",
+			name: "case 5: the second update of the workload cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(60, 0)},
@@ -352,7 +352,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 6: the third update of the tenant cluster starts",
+			name: "case 6: the third update of the workload cluster starts",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(70, 0)},
@@ -408,7 +408,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 7: the third update of the tenant cluster ends",
+			name: "case 7: the third update of the workload cluster ends",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},
@@ -472,7 +472,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 8: the second update of the tenant cluster starts before the first ended",
+			name: "case 8: the second update of the workload cluster starts before the first ended",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(40, 0)},
@@ -522,7 +522,7 @@ func Test_Provider_Status_withCondition(t *testing.T) {
 			},
 		},
 		{
-			name: "case 9: the fourth update of the tenant cluster starts before the thrird ended",
+			name: "case 9: the fourth update of the workload cluster starts before the thrird ended",
 			conditions: []CommonClusterStatusCondition{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(80, 0)},

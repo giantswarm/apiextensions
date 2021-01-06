@@ -33,7 +33,7 @@ type ETCDBackup struct {
 
 // +k8s:openapi-gen=true
 type ETCDBackupSpec struct {
-	// GuestBackup is a boolean indicating if the tenant clusters have to be backupped
+	// GuestBackup is a boolean indicating if the workload clusters have to be backupped
 	GuestBackup bool `json:"guestBackup"`
 }
 
@@ -57,7 +57,7 @@ type ETCDBackupStatus struct {
 
 // +k8s:openapi-gen=true
 type ETCDInstanceBackupStatusIndex struct {
-	// Name of the tenant cluster or 'Control Plane'
+	// Name of the workload cluster or 'Control Plane'
 	Name string `json:"name"`
 	// Status of the V2 backup for this instance
 	V2 ETCDInstanceBackupStatus `json:"v2"`

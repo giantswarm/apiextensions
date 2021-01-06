@@ -43,7 +43,7 @@ type AzureClusterConfigSpecGuest struct {
 }
 
 // AzureClusterConfigSpecGuestCredentialSecret points to the K8s Secret
-// containing credentials for an Azure subscription in which the tenant cluster
+// containing credentials for an Azure subscription in which the workload cluster
 // should be created.
 // +k8s:openapi-gen=true
 type AzureClusterConfigSpecGuestCredentialSecret struct {

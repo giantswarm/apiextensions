@@ -7,13 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Changed terminology from `tenant cluster` to `workload cluster`.
+
 ## [3.14.0] - 2021-01-05
 
 ### Added
 
 - Add `app-operator.giantswarm.io/paused` annotation.
 
-## Changed
+### Changed
 
 - Update description and example annotation for the Spark CRD.
 

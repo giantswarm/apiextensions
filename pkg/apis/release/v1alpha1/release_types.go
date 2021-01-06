@@ -63,7 +63,7 @@ func NewReleaseCR() *Release {
 // +kubebuilder:subresource:status
 // +k8s:openapi-gen=true
 
-// Release is a Kubernetes resource (CR) representing a Giant Swarm tenant cluster release.
+// Release is a Kubernetes resource (CR) representing a Giant Swarm workload cluster release.
 type Release struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -86,7 +86,7 @@ type ReleaseSpec struct {
 
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// EndOfLifeDate is the date and time when support for a tenant cluster using
+	// EndOfLifeDate is the date and time when support for a workload cluster using
 	// this release ends. This may not be set at the time of release creation
 	// and can be specififed later.
 	EndOfLifeDate *metav1.Time `json:"endOfLifeDate,omitempty"`

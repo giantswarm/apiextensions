@@ -99,7 +99,7 @@ type StatusClusterNode struct {
 	// status to another.
 	LastTransitionTime metav1.Time `json:"lastTransitionTime,omitempty"`
 	// +kubebuilder:validation:Optional
-	// Name referrs to a tenant cluster node name.
+	// Name referrs to a workload cluster node name.
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
 	// Version referrs to the version used by the node as mandated by the provider

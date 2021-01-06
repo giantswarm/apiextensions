@@ -42,7 +42,7 @@ spec:
                 credentialSecret:
                   description: AzureClusterConfigSpecGuestCredentialSecret points
                     to the K8s Secret containing credentials for an Azure subscription
-                    in which the tenant cluster should be created.
+                    in which the workload cluster should be created.
                   properties:
                     name:
                       type: string

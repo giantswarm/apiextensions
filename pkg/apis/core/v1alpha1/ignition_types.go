@@ -53,7 +53,7 @@ type IgnitionSpec struct {
 	BaseDomain string `json:"baseDomain"`
 	// Calico provides configuration for all calico-related services.
 	Calico IgnitionSpecCalico `json:"calico"`
-	// ClusterID is the name of the tenant cluster to be created.
+	// ClusterID is the name of the workload cluster to be created.
 	ClusterID string `json:"clusterID"`
 	// DisableEncryptionAtRest will disable secret encryption at rest when set to true.
 	DisableEncryptionAtRest bool `json:"disableEncryptionAtRest"`

@@ -99,7 +99,7 @@ type ClusterKubernetesNetworkSetup struct {
 	KubeProxy ClusterKubernetesNetworkSetupKubeProxy `json:"kubeProxy"`
 }
 
-// ClusterKubernetesNetworkSetupKubeProxy describes values passed to the kube-proxy running in a tenant cluster.
+// ClusterKubernetesNetworkSetupKubeProxy describes values passed to the kube-proxy running in a workload cluster.
 // +k8s:openapi-gen=true
 type ClusterKubernetesNetworkSetupKubeProxy struct {
 	// Maximum number of NAT connections to track per CPU core (0 to leave the limit as-is and ignore conntrack-min).

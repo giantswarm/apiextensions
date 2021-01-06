@@ -99,7 +99,7 @@ type AWSClusterSpecClusterOIDCClaims struct {
 	Groups   string `json:"groups,omitempty"`
 }
 
-// AWSClusterSpecClusterKubeProxy describes values passed to the kube-proxy running in a tenant cluster.
+// AWSClusterSpecClusterKubeProxy describes values passed to the kube-proxy running in a workload cluster.
 // +k8s:openapi-gen=true
 type AWSClusterSpecClusterKubeProxy struct {
 	// Maximum number of NAT connections to track per CPU core (0 for default).
@@ -192,10 +192,10 @@ type AWSClusterStatusProvider struct {
 // +k8s:openapi-gen=true
 type AWSClusterStatusProviderNetwork struct {
 	// +kubebuilder:validation:Optional
-	// IPv4 address block used by the tenant cluster nodes, in CIDR notation.
+	// IPv4 address block used by the workload cluster nodes, in CIDR notation.
 	CIDR string `json:"cidr,omitempty"`
 	// +kubebuilder:validation:Optional
-	// Identifier of the AWS Virtual Private Cloud (VPC) of the tenant cluster, e.g. `vpc-1234567890abcdef0`.
+	// Identifier of the AWS Virtual Private Cloud (VPC) of the workload cluster, e.g. `vpc-1234567890abcdef0`.
 	VPCID string `json:"vpcID,omitempty"`
 }
 

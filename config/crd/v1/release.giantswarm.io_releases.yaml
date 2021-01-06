@@ -47,7 +47,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: Release is a Kubernetes resource (CR) representing a Giant Swarm
-          tenant cluster release.
+          workload cluster release.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -127,8 +127,8 @@ spec:
                 type: string
               endOfLifeDate:
                 description: EndOfLifeDate is the date and time when support for a
-                  tenant cluster using this release ends. This may not be set at the
-                  time of release creation and can be specififed later.
+                  workload cluster using this release ends. This may not be set at
+                  the time of release creation and can be specififed later.
                 format: date-time
                 nullable: true
                 type: string

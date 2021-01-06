@@ -38,7 +38,7 @@ spec:
           spec:
             properties:
               guestBackup:
-                description: GuestBackup is a boolean indicating if the tenant clusters
+                description: GuestBackup is a boolean indicating if the workload clusters
                   have to be backupped
                 type: boolean
             required:
@@ -56,7 +56,7 @@ spec:
                 additionalProperties:
                   properties:
                     name:
-                      description: Name of the tenant cluster or 'Control Plane'
+                      description: Name of the workload cluster or 'Control Plane'
                       type: string
                     v2:
                       description: Status of the V2 backup for this instance
