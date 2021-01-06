@@ -155,7 +155,7 @@ spec:
                       type: string
                     namespace:
                       description: Namespace is the namespace of the user values config
-                        map on the control plane, e.g. 123ab.
+                        map on the management cluster, e.g. 123ab.
                       type: string
                   required:
                   - name

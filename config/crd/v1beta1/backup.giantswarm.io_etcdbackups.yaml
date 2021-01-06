@@ -56,7 +56,7 @@ spec:
               additionalProperties:
                 properties:
                   name:
-                    description: Name of the workload cluster or 'Control Plane'
+                    description: Name of the workload cluster or management cluster
                     type: string
                   v2:
                     description: Status of the V2 backup for this instance
