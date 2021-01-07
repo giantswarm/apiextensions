@@ -33,7 +33,7 @@ type ETCDBackup struct {
 
 // +k8s:openapi-gen=true
 type ETCDBackupSpec struct {
-	// GuestBackup is a boolean indicating if the workload clusters have to be backupped
+	// GuestBackup is a boolean indicating if the workload clusters have to be backed up
 	GuestBackup bool `json:"guestBackup"`
 }
 
