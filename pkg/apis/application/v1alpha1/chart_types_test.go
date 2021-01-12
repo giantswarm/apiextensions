@@ -89,6 +89,7 @@ func newChartExampleCR() *Chart {
 				Name:      "f2def-chart-values",
 				Namespace: "f2def",
 			},
+			SkipCRDInstall: false,
 		},
 		TarballURL: "prometheus-1.0.1.tgz",
 		Version:    "1.0.1",

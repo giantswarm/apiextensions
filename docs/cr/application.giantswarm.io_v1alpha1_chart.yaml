@@ -16,6 +16,7 @@ spec:
       name: f2def-chart-values
       namespace: f2def
       resourceVersion: ""
+    skipCrdInstall: false
   name: prometheus
   namespace: monitoring
   tarballURL: prometheus-1.0.1.tgz
