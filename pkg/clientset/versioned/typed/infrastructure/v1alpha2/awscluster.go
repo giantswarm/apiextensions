@@ -22,13 +22,12 @@ import (
 	"context"
 	"time"
 
+	v1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/apis/infrastructure/v1alpha2"
+	scheme "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/scheme"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
-
-	v1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/apis/infrastructure/v1alpha2"
-	scheme "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/scheme"
 )
 
 // AWSClustersGetter has a method to return a AWSClusterInterface.
