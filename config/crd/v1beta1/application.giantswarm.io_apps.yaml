@@ -94,17 +94,6 @@ spec:
                   - namespace
                   type: object
               type: object
-            install:
-              description: Install is the config sed to deploy the app and is passed
-                to chart operator.
-              nullable: true
-              properties:
-                skipCrds:
-                  description: SkipCRDs decides whether to install CRDs that might
-                    be supplied with the chart
-                  nullable: true
-                  type: boolean
-              type: object
             kubeConfig:
               description: KubeConfig is the kubeconfig to connect to the cluster
                 when deploying the app.
