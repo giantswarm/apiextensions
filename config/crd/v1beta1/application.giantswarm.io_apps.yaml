@@ -95,7 +95,7 @@ spec:
                   type: object
               type: object
             install:
-              description: Install is the config sed to deploy the app and is passed
+              description: Install is the config used to deploy the app and is passed
                 to chart operator.
               nullable: true
               properties:
