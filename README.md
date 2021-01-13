@@ -22,6 +22,7 @@ This library provides generated Kubernetes clients for the Giant Swarm infrastru
 
 - Make the desired changes in `pkg/apis/<group>/<version>`
 - Update generated files by calling `make`.
+    - `make generate && goimports -local github.com/giantswarm/apiextensions -w./pkg`
 - Review and commit all changes including generated code.
 
 #### Naming Convention
