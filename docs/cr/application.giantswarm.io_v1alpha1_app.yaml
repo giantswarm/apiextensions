@@ -15,7 +15,8 @@ spec:
     secret:
       name: f2def-cluster-values
       namespace: f2def
-    skipCrdInstall: false
+  install:
+    skipCrds: true
   kubeConfig:
     context:
       name: f2def

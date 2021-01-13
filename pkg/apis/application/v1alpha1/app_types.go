@@ -65,6 +65,10 @@ type AppSpec struct {
 	// +nullable
 	// Config is the config to be applied when the app is deployed.
 	Config AppSpecConfig `json:"config,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Install is the config sed to deploy the app and is passed to chart operator.
+	Install AppSpecInstall `json:"install,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
 	// the app.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig"`
@@ -85,8 +89,6 @@ type AppSpec struct {
 
 // +k8s:openapi-gen=true
 type AppSpecConfig struct {
-	// Whether to install CRDs that might be supplied with the chart
-	SkipCRDInstall bool `json:"skipCrdInstall"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// ConfigMap references a config map containing values that should be
@@ -97,6 +99,14 @@ type AppSpecConfig struct {
 	// Secret references a secret containing secret values that should be
 	// applied to the app.
 	Secret AppSpecConfigSecret `json:"secret,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type AppSpecInstall struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// SkipCRDs decides whether to install CRDs that might be supplied with the chart
+	SkipCRDs bool `json:"skipCrds,omitempty"`
 }
 
 // +k8s:openapi-gen=true

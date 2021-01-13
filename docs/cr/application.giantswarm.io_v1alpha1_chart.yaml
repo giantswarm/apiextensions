@@ -17,6 +17,8 @@ spec:
       namespace: f2def
       resourceVersion: ""
     skipCrdInstall: false
+  install:
+    skipCrds: true
   name: prometheus
   namespace: monitoring
   tarballURL: prometheus-1.0.1.tgz

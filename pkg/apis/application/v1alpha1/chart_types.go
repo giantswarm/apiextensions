@@ -60,6 +60,10 @@ type ChartSpec struct {
 	// +nullable
 	// Config is the config to be applied when the chart is deployed.
 	Config ChartSpecConfig `json:"config,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Install is the config used to deploy the app and is passed to Helm.
+	Install ChartSpecInstall `json:"install,omitempty"`
 	// Name is the name of the Helm chart to be deployed.
 	// e.g. kubernetes-prometheus
 	Name string `json:"name"`
@@ -72,6 +76,14 @@ type ChartSpec struct {
 	// Version is the version of the chart that should be deployed.
 	// e.g. 1.0.0
 	Version string `json:"version"`
+}
+
+// +k8s:openapi-gen=true
+type ChartSpecInstall struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// SkipCRDs decides whether to install CRDs that might be supplied with the chart
+	SkipCRDs bool `json:"skipCrds,omitempty"`
 }
 
 // +k8s:openapi-gen=true

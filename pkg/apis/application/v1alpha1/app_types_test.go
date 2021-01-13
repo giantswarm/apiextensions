@@ -76,7 +76,6 @@ func newAppExampleCR() *App {
 		Version:   "1.0.1",
 		Catalog:   "my-playground-catalog",
 		Config: AppSpecConfig{
-			SkipCRDInstall: false,
 			ConfigMap: AppSpecConfigConfigMap{
 				Name:      "f2def-cluster-values",
 				Namespace: "f2def",
@@ -85,6 +84,9 @@ func newAppExampleCR() *App {
 				Name:      "f2def-cluster-values",
 				Namespace: "f2def",
 			},
+		},
+		Install: AppSpecInstall{
+			SkipCRDs: true,
 		},
 		KubeConfig: AppSpecKubeConfig{
 			InCluster: false,
