@@ -16,7 +16,6 @@ spec:
       name: f2def-chart-values
       namespace: f2def
       resourceVersion: ""
-    skipCrdInstall: false
   install:
     skipCrds: true
   name: prometheus
