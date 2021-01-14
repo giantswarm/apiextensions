@@ -21,6 +21,10 @@ package versioned
 import (
 	"fmt"
 
+	discovery "k8s.io/client-go/discovery"
+	rest "k8s.io/client-go/rest"
+	flowcontrol "k8s.io/client-go/util/flowcontrol"
+
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/application/v1alpha1"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1"
@@ -31,9 +35,6 @@ import (
 	releasev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/release/v1alpha1"
 	securityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/security/v1alpha1"
 	toolingv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/tooling/v1alpha1"
-	discovery "k8s.io/client-go/discovery"
-	rest "k8s.io/client-go/rest"
-	flowcontrol "k8s.io/client-go/util/flowcontrol"
 )
 
 type Interface interface {
