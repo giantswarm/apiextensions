@@ -67,7 +67,7 @@ type AppSpec struct {
 	Config AppSpecConfig `json:"config,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// Install is the config used to deploy the app and is passed to chart operator.
+	// Install is the config used when installing the app.
 	Install AppSpecInstall `json:"install,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
 	// the app.
