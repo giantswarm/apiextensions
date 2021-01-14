@@ -113,11 +113,6 @@ generate-fs: $(ESC) config/crd
 	-modtime 0 \
 	config/crd
 
-.PHONY: imports
-imports: $(GOIMPORTS)
-	@echo "$(GEN_COLOR)Sorting imports$(NO_COLOR)"
-	$(GOIMPORTS) -local $(MODULE) -w ./pkg
-
 .PHONY: patch
 patch:
 	@echo "$(GEN_COLOR)Applying patch$(NO_COLOR)"
