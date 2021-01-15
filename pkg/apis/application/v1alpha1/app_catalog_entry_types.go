@@ -113,6 +113,8 @@ type AppCatalogEntrySpecRestrictions struct {
 	FixedNamespace string `json:"fixedNamespace,omitempty"`
 	// GpuInstances is a flag for whether this app requires GPU instances to run. Default is false.
 	GpuInstances bool `json:"gpuInstances,omitempty"`
+	// +kubebuilder:validation:Enum=aws;azure;kvm
+	// +nullable
 	// CompatibleProviders is string list the name of providers this app is compatible with. Default to empty.
 	// Empty list means compatible to all providers.
 	CompatibleProviders []string `json:"compatibleProviders,omitempty"`
