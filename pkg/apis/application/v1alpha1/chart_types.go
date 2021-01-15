@@ -82,7 +82,7 @@ type ChartSpec struct {
 type ChartSpecInstall struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// SkipCRDs decides whether to install CRDs that might be supplied with the chart
+	// SkipCRDs when true decides that CRDs which are supplied with the chart are not installed. Default: false.
 	SkipCRDs bool `json:"skipCrds,omitempty"`
 }
 
