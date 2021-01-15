@@ -118,8 +118,13 @@ spec:
                   description: CompatibleProviders is string list the name of providers
                     this app is compatible with. Default to empty. Empty list means
                     compatible to all providers.
+                  enum:
+                  - aws
+                  - azure
+                  - kvm
                   items:
                     type: string
+                  nullable: true
                   type: array
                 fixedNamespace:
                   description: FixedNamespace is the namespace which this app must
