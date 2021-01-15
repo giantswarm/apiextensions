@@ -95,6 +95,10 @@ type AppSpecConfig struct {
 	// Secret references a secret containing secret values that should be
 	// applied to the app.
 	Secret AppSpecConfigSecret `json:"secret,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// URL of an endpoint serving values to be applied to the app.
+	URL string `json:"url,omitempty"`
 }
 
 // +k8s:openapi-gen=true
@@ -160,6 +164,10 @@ type AppSpecUserConfig struct {
 	// Secret references a secret containing user secret values that should be
 	// applied to the app.
 	Secret AppSpecUserConfigSecret `json:"secret,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// URL of an endpoint serving values to be applied to the app.
+	URL string `json:"url,omitempty"`
 }
 
 // +k8s:openapi-gen=true
