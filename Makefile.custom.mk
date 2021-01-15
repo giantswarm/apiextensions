@@ -70,7 +70,7 @@ generate:
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
 	@$(MAKE) generate-fs
-	@$(MAKE) imports
+	@$(MAKE) ci-imports
 	@$(MAKE) patch
 
 .PHONY: verify
@@ -112,6 +112,11 @@ generate-fs: $(ESC) config/crd
 	-pkg internal \
 	-modtime 0 \
 	config/crd
+
+.PHONY: ci-imports
+ci-imports: $(GOIMPORTS)
+	@echo "$(GEN_COLOR)Sorting imports$(NO_COLOR)"
+	$(GOIMPORTS) -local $(MODULE) -w ./pkg
 
 .PHONY: patch
 patch:
