@@ -95,13 +95,12 @@ spec:
                   type: object
               type: object
             install:
-              description: Install is the config used to deploy the app and is passed
-                to chart operator.
+              description: Install is the config used when installing the app.
               nullable: true
               properties:
                 skipCrds:
-                  description: SkipCRDs decides whether to install CRDs that might
-                    be supplied with the chart
+                  description: 'SkipCRDs when true decides that CRDs which are supplied
+                    with the chart are not installed. Default: false.'
                   nullable: true
                   type: boolean
               type: object

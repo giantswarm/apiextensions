@@ -88,8 +88,6 @@ type ChartSpecInstall struct {
 
 // +k8s:openapi-gen=true
 type ChartSpecConfig struct {
-	// Whether to install CRDs that might be supplied with the chart
-	SkipCRDInstall bool `json:"skipCrdInstall"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// ConfigMap references a config map containing values that should be

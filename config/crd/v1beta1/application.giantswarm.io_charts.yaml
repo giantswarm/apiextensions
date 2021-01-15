@@ -101,12 +101,6 @@ spec:
                   - namespace
                   - resourceVersion
                   type: object
-                skipCrdInstall:
-                  description: Whether to install CRDs that might be supplied with
-                    the chart
-                  type: boolean
-              required:
-              - skipCrdInstall
               type: object
             install:
               description: Install is the config used to deploy the app and is passed
@@ -114,8 +108,8 @@ spec:
               nullable: true
               properties:
                 skipCrds:
-                  description: SkipCRDs decides whether to install CRDs that might
-                    be supplied with the chart
+                  description: 'SkipCRDs when true decides that CRDs which are supplied
+                    with the chart are not installed. Default: false.'
                   nullable: true
                   type: boolean
               type: object
