@@ -106,7 +106,7 @@ type AppSpecInstall struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// SkipCRDs when true decides that CRDs which are supplied with the chart are not installed. Default: false.
-	SkipCRDs bool `json:"skipCrds,omitempty"`
+	SkipCRDs bool `json:"skipCRDs,omitempty"`
 }
 
 // +k8s:openapi-gen=true
