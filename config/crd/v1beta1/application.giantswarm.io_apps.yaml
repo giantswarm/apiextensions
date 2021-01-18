@@ -94,6 +94,16 @@ spec:
                   - namespace
                   type: object
               type: object
+            install:
+              description: Install is the config used when installing the app.
+              nullable: true
+              properties:
+                skipCRDs:
+                  description: 'SkipCRDs when true decides that CRDs which are supplied
+                    with the chart are not installed. Default: false.'
+                  nullable: true
+                  type: boolean
+              type: object
             kubeConfig:
               description: KubeConfig is the kubeconfig to connect to the cluster
                 when deploying the app.

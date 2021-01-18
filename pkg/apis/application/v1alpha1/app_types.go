@@ -65,6 +65,10 @@ type AppSpec struct {
 	// +nullable
 	// Config is the config to be applied when the app is deployed.
 	Config AppSpecConfig `json:"config,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Install is the config used when installing the app.
+	Install AppSpecInstall `json:"install,omitempty"`
 	// KubeConfig is the kubeconfig to connect to the cluster when deploying
 	// the app.
 	KubeConfig AppSpecKubeConfig `json:"kubeConfig"`
@@ -95,6 +99,14 @@ type AppSpecConfig struct {
 	// Secret references a secret containing secret values that should be
 	// applied to the app.
 	Secret AppSpecConfigSecret `json:"secret,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type AppSpecInstall struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// SkipCRDs when true decides that CRDs which are supplied with the chart are not installed. Default: false.
+	SkipCRDs bool `json:"skipCRDs,omitempty"`
 }
 
 // +k8s:openapi-gen=true
