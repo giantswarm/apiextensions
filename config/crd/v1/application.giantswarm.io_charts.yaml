@@ -108,7 +108,7 @@ spec:
                   to Helm.
                 nullable: true
                 properties:
-                  skipCrds:
+                  skipCRDs:
                     description: 'SkipCRDs when true decides that CRDs which are supplied
                       with the chart are not installed. Default: false.'
                     nullable: true

@@ -98,7 +98,7 @@ spec:
                 description: Install is the config used when installing the app.
                 nullable: true
                 properties:
-                  skipCrds:
+                  skipCRDs:
                     description: 'SkipCRDs when true decides that CRDs which are supplied
                       with the chart are not installed. Default: false.'
                     nullable: true
