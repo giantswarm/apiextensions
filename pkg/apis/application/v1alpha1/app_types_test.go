@@ -85,6 +85,9 @@ func newAppExampleCR() *App {
 				Namespace: "f2def",
 			},
 		},
+		Install: AppSpecInstall{
+			SkipCRDs: true,
+		},
 		KubeConfig: AppSpecKubeConfig{
 			InCluster: false,
 			Context: AppSpecKubeConfigContext{
