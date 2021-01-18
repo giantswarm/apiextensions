@@ -44,7 +44,7 @@ func Test_GenerateAppCatalogEntryYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_AppCatalogEntry.yaml", group, version),
+			name:     fmt.Sprintf("%s_%s_app_catalog_entry.yaml", group, version),
 			resource: newAppCatalogEntryExampleCR(),
 		},
 	}
