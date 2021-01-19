@@ -31,6 +31,8 @@ type InfrastructureV1alpha2Interface interface {
 	AWSControlPlanesGetter
 	AWSMachineDeploymentsGetter
 	G8sControlPlanesGetter
+	KVMClustersGetter
+	KVMMachinesGetter
 	NetworkPoolsGetter
 }
 
@@ -53,6 +55,14 @@ func (c *InfrastructureV1alpha2Client) AWSMachineDeployments(namespace string) A
 
 func (c *InfrastructureV1alpha2Client) G8sControlPlanes(namespace string) G8sControlPlaneInterface {
 	return newG8sControlPlanes(c, namespace)
+}
+
+func (c *InfrastructureV1alpha2Client) KVMClusters(namespace string) KVMClusterInterface {
+	return newKVMClusters(c, namespace)
+}
+
+func (c *InfrastructureV1alpha2Client) KVMMachines(namespace string) KVMMachineInterface {
+	return newKVMMachines(c, namespace)
 }
 
 func (c *InfrastructureV1alpha2Client) NetworkPools(namespace string) NetworkPoolInterface {

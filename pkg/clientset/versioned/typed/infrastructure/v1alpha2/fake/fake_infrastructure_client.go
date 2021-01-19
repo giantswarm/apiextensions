@@ -45,6 +45,14 @@ func (c *FakeInfrastructureV1alpha2) G8sControlPlanes(namespace string) v1alpha2
 	return &FakeG8sControlPlanes{c, namespace}
 }
 
+func (c *FakeInfrastructureV1alpha2) KVMClusters(namespace string) v1alpha2.KVMClusterInterface {
+	return &FakeKVMClusters{c, namespace}
+}
+
+func (c *FakeInfrastructureV1alpha2) KVMMachines(namespace string) v1alpha2.KVMMachineInterface {
+	return &FakeKVMMachines{c, namespace}
+}
+
 func (c *FakeInfrastructureV1alpha2) NetworkPools(namespace string) v1alpha2.NetworkPoolInterface {
 	return &FakeNetworkPools{c, namespace}
 }

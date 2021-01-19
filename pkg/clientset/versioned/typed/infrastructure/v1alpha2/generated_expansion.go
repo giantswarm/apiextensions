@@ -26,4 +26,8 @@ type AWSMachineDeploymentExpansion interface{}
 
 type G8sControlPlaneExpansion interface{}
 
+type KVMClusterExpansion interface{}
+
+type KVMMachineExpansion interface{}
+
 type NetworkPoolExpansion interface{}
