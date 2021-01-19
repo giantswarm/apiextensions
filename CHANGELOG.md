@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Add `SkipCRDInstall` to `ChartSpecConfig` and `AppSpecConfig`
+### Added
+
+- Add `SkipCRDs` to `ChartSpecConfig` and `AppSpecConfig`.
+
+### Fixed
+
+- Fix name for `AppCatalogEntry` example.
 
 ## [3.14.1] - 2021-01-07
 
