@@ -47,8 +47,17 @@ spec:
                     description: User-friendly description that should explain the
                       purpose of the cluster to humans.
                     type: string
+                  dns:
+                    description: DNS configuration details.
+                    properties:
+                      domain:
+                        type: string
+                    required:
+                    - domain
+                    type: object
                 required:
                 - description
+                - dns
                 type: object
               controlPlaneEndpoint:
                 description: Endpoint used to connect to the target cluster's Kubernetes

@@ -42,6 +42,14 @@ type KVMClusterSpec struct {
 type KVMClusterSpecCluster struct {
 	// User-friendly description that should explain the purpose of the cluster to humans.
 	Description string `json:"description"`
+	// DNS configuration details.
+	DNS KVMClusterSpecClusterDNS `json:"dns"`
+}
+
+// KVMClusterSpecClusterDNS holds DNS configuration details.
+// +k8s:openapi-gen=true
+type KVMClusterSpecClusterDNS struct {
+	Domain string `json:"domain"`
 }
 
 // KVMClusterSpecProvider provides provider-specific cluster specification.
