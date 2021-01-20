@@ -37,9 +37,29 @@ spec:
             type: object
           spec:
             properties:
+              node:
+                description: Sizing information about the machine.
+                properties:
+                  cpus:
+                    type: integer
+                  disk:
+                    format: double
+                    type: number
+                  dockerVolumeSizeGB:
+                    type: integer
+                  memory:
+                    type: string
+                required:
+                - cpus
+                - disk
+                - dockerVolumeSizeGB
+                - memory
+                type: object
               providerID:
+                description: A cloud provider ID identifying the machine.
                 type: string
             required:
+            - node
             - providerID
             type: object
           status:

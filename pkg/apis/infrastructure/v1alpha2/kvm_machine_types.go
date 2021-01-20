@@ -2,10 +2,12 @@ package v1alpha2
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/v3/pkg/serialization"
 )
 
 const (
-	kindKVMMachine = "KVMMachine"
+	KindKVMMachine = "KVMMachine"
 )
 
 // +genclient
@@ -25,7 +27,18 @@ type KVMMachine struct {
 
 // +k8s:openapi-gen=true
 type KVMMachineSpec struct {
+	// A cloud provider ID identifying the machine.
 	ProviderID string `json:"providerID"`
+	// Sizing information about the machine.
+	Size KVMMachineSpecSize `json:"node"`
+}
+
+// +k8s:openapi-gen=true
+type KVMMachineSpecSize struct {
+	CPUs               int                 `json:"cpus"`
+	Disk               serialization.Float `json:"disk"`
+	Memory             string              `json:"memory"`
+	DockerVolumeSizeGB int                 `json:"dockerVolumeSizeGB"`
 }
 
 // +k8s:openapi-gen=true
