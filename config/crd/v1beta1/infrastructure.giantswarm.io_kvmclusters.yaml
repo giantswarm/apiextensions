@@ -55,6 +55,62 @@ spec:
                   required:
                   - domain
                   type: object
+                nodes:
+                  items:
+                    description: KVMClusterSpecClusterNode describes a single node
+                      in a cluster.
+                    properties:
+                      id:
+                        description: User-friendly description that should explain
+                          the purpose of the cluster to humans.
+                        type: string
+                      infrastructureRef:
+                        description: Reference to a provider-specific resource.
+                        properties:
+                          apiGroup:
+                            description: APIGroup is the group for the resource being
+                              referenced. If APIGroup is not specified, the specified
+                              Kind must be in the core API group. For any other third-party
+                              types, APIGroup is required.
+                            type: string
+                          kind:
+                            description: Kind is the type of resource being referenced
+                            type: string
+                          name:
+                            description: Name is the name of resource being referenced
+                            type: string
+                        required:
+                        - kind
+                        - name
+                        type: object
+                      role:
+                        description: DNS configuration details.
+                        type: string
+                      size:
+                        description: Machine size details.
+                        properties:
+                          cpus:
+                            type: integer
+                          disk:
+                            format: double
+                            type: number
+                          dockerVolumeSizeGB:
+                            type: integer
+                          memory:
+                            type: string
+                        required:
+                        - cpus
+                        - disk
+                        - dockerVolumeSizeGB
+                        - memory
+                        type: object
+                    required:
+                    - id
+                    - infrastructureRef
+                    - role
+                    - size
+                    type: object
+                  type: array
                 oidc:
                   description: Configuration for OpenID Connect (OIDC) authentication.
                   properties:
@@ -74,6 +130,7 @@ spec:
               required:
               - description
               - dns
+              - nodes
               type: object
             controlPlaneEndpoint:
               description: Endpoint used to connect to the target cluster's Kubernetes
@@ -176,17 +233,12 @@ spec:
             provider:
               description: Provider-specific status details.
               properties:
-                network:
-                  description: Network-specific configuration details
-                  properties:
-                    cidr:
-                      description: IPv4 address block used by the workload cluster
-                        nodes, in CIDR notation.
-                      type: string
-                    vpcID:
-                      description: Identifier of the AWS Virtual Private Cloud (VPC)
-                        of the workload cluster, e.g. `vpc-1234567890abcdef0`.
-                      type: string
+                nodeIndexes:
+                  additionalProperties:
+                    type: integer
+                  description: NodeIndexes is a map from nodeID -> nodeIndex. This
+                    is used to create deterministic iSCSI initiator names.
+                  nullable: true
                   type: object
               type: object
             ready:

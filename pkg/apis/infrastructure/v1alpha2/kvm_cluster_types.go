@@ -1,6 +1,7 @@
 package v1alpha2
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"sigs.k8s.io/cluster-api/api/v1alpha3"
 )
@@ -45,7 +46,21 @@ type KVMClusterSpecCluster struct {
 	// DNS configuration details.
 	DNS KVMClusterSpecClusterDNS `json:"dns"`
 	// Configuration for OpenID Connect (OIDC) authentication.
-	OIDC KVMClusterSpecClusterOIDC `json:"oidc,omitempty"`
+	OIDC  KVMClusterSpecClusterOIDC   `json:"oidc,omitempty"`
+	Nodes []KVMClusterSpecClusterNode `json:"nodes"`
+}
+
+// KVMClusterSpecClusterNode describes a single node in a cluster.
+// +k8s:openapi-gen=true
+type KVMClusterSpecClusterNode struct {
+	// User-friendly description that should explain the purpose of the cluster to humans.
+	ID string `json:"id"`
+	// DNS configuration details.
+	Role string `json:"role"`
+	// Machine size details.
+	Size KVMMachineSpecSize `json:"size"`
+	// Reference to a provider-specific resource.
+	InfrastructureRef corev1.TypedLocalObjectReference `json:"infrastructureRef"`
 }
 
 // KVMClusterSpecClusterOIDC holds configuration for OpenID Connect (OIDC) authentication.
@@ -97,7 +112,7 @@ type KVMClusterStatus struct {
 	Cluster CommonClusterStatus `json:"cluster,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Provider-specific status details.
-	Provider AWSClusterStatusProvider `json:"provider,omitempty"`
+	Provider KVMClusterStatusProvider `json:"provider,omitempty"`
 }
 
 // AWSClusterStatusProvider holds provider-specific status details.
