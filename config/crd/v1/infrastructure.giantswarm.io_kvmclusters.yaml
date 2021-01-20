@@ -55,6 +55,23 @@ spec:
                     required:
                     - domain
                     type: object
+                  oidc:
+                    description: Configuration for OpenID Connect (OIDC) authentication.
+                    properties:
+                      claims:
+                        description: KVMClusterSpecClusterOIDCClaims defines OIDC
+                          claims.
+                        properties:
+                          groups:
+                            type: string
+                          username:
+                            type: string
+                        type: object
+                      clientID:
+                        type: string
+                      issuerURL:
+                        type: string
+                    type: object
                 required:
                 - description
                 - dns

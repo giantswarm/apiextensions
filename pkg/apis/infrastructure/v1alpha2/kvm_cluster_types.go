@@ -44,6 +44,23 @@ type KVMClusterSpecCluster struct {
 	Description string `json:"description"`
 	// DNS configuration details.
 	DNS KVMClusterSpecClusterDNS `json:"dns"`
+	// Configuration for OpenID Connect (OIDC) authentication.
+	OIDC KVMClusterSpecClusterOIDC `json:"oidc,omitempty"`
+}
+
+// KVMClusterSpecClusterOIDC holds configuration for OpenID Connect (OIDC) authentication.
+// +k8s:openapi-gen=true
+type KVMClusterSpecClusterOIDC struct {
+	Claims    KVMClusterSpecClusterOIDCClaims `json:"claims,omitempty"`
+	ClientID  string                          `json:"clientID,omitempty"`
+	IssuerURL string                          `json:"issuerURL,omitempty"`
+}
+
+// KVMClusterSpecClusterOIDCClaims defines OIDC claims.
+// +k8s:openapi-gen=true
+type KVMClusterSpecClusterOIDCClaims struct {
+	Username string `json:"username,omitempty"`
+	Groups   string `json:"groups,omitempty"`
 }
 
 // KVMClusterSpecClusterDNS holds DNS configuration details.
