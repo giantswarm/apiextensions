@@ -43,11 +43,27 @@ type KVMClusterSpec struct {
 type KVMClusterSpecCluster struct {
 	// User-friendly description that should explain the purpose of the cluster to humans.
 	Description string `json:"description"`
+	// IP range of the cluster pods.
+	ClusterIPRange string `json:"clusterIPRange"`
 	// DNS configuration details.
 	DNS KVMClusterSpecClusterDNS `json:"dns"`
 	// Configuration for OpenID Connect (OIDC) authentication.
-	OIDC  KVMClusterSpecClusterOIDC   `json:"oidc,omitempty"`
+	OIDC KVMClusterSpecClusterOIDC `json:"oidc,omitempty"`
+	// Calico configuration.
+	Network KVMClusterSpecClusterNetwork `json:"network"`
+	// Nodes is a slice representing the nodes of the cluster.
 	Nodes []KVMClusterSpecClusterNode `json:"nodes"`
+}
+
+// KVMClusterSpecClusterNetwork describes the Calico CNI network configuration.
+// +k8s:openapi-gen=true
+type KVMClusterSpecClusterNetwork struct {
+	// MTU of overlay network.
+	MTU int `json:"role"`
+	// Subnet IP of overlay network.
+	Subnet string `json:"subnet"`
+	// Subnet mask bits of overlay network.
+	CIDR int `json:"cidr"`
 }
 
 // KVMClusterSpecClusterNode describes a single node in a cluster.

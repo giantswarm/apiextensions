@@ -43,6 +43,9 @@ spec:
             cluster:
               description: Cluster specification details.
               properties:
+                clusterIPRange:
+                  description: IP range of the cluster pods.
+                  type: string
                 description:
                   description: User-friendly description that should explain the purpose
                     of the cluster to humans.
@@ -55,7 +58,25 @@ spec:
                   required:
                   - domain
                   type: object
+                network:
+                  description: Calico configuration.
+                  properties:
+                    cidr:
+                      description: Subnet mask bits of overlay network.
+                      type: integer
+                    role:
+                      description: MTU of overlay network.
+                      type: integer
+                    subnet:
+                      description: Subnet IP of overlay network.
+                      type: string
+                  required:
+                  - cidr
+                  - role
+                  - subnet
+                  type: object
                 nodes:
+                  description: Nodes is a slice representing the nodes of the cluster.
                   items:
                     description: KVMClusterSpecClusterNode describes a single node
                       in a cluster.
@@ -128,8 +149,10 @@ spec:
                       type: string
                   type: object
               required:
+              - clusterIPRange
               - description
               - dns
+              - network
               - nodes
               type: object
             controlPlaneEndpoint:
