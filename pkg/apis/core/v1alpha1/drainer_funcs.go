@@ -14,6 +14,7 @@ func (s DrainerConfigStatus) HasTimeoutCondition() bool {
 
 func (s DrainerConfigStatus) NewDrainedCondition() DrainerConfigStatusCondition {
 	return DrainerConfigStatusCondition{
+		LastHeartbeatTime:  metav1.Now(),
 		LastTransitionTime: metav1.Now(),
 		Status:             DrainerConfigStatusStatusTrue,
 		Type:               DrainerConfigStatusTypeDrained,
@@ -22,6 +23,7 @@ func (s DrainerConfigStatus) NewDrainedCondition() DrainerConfigStatusCondition 
 
 func (s DrainerConfigStatus) NewTimeoutCondition() DrainerConfigStatusCondition {
 	return DrainerConfigStatusCondition{
+		LastHeartbeatTime:  metav1.Now(),
 		LastTransitionTime: metav1.Now(),
 		Status:             DrainerConfigStatusStatusTrue,
 		Type:               DrainerConfigStatusTypeTimeout,
