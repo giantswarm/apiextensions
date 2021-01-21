@@ -3,12 +3,12 @@ package annotation
 // AWSCNIMinimumIPTarget is the annotation to configure value for MINIMUM_IP_TARGET for AWS CNI
 // see https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables
 // and https://github.com/aws/amazon-vpc-cni-k8s/blob/master/docs/eni-and-ip-target.md
-const AWSCNIMinimumIPTarget = "alpha.aws.giantswarm.io/cni-minimum-ip-target"
+const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 
 // AWSCNIWarmIPTarget is the annotation to configure value for WARM_IP_TARGET for AWS CNI
 // see https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables
 // and https://github.com/aws/amazon-vpc-cni-k8s/blob/master/docs/eni-and-ip-target.md
-const AWSCNIWarmIPTarget = "alpha.aws.giantswarm.io/cni-warm-ip-target"
+const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 
 // AWSUpdateMaxBatchSize is the aws update annotation used for configuring
 // maximum batch size for instances during ASG update.
