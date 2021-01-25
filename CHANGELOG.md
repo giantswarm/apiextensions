@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Set a `LastHeartbeatTime` when creating new `Condition`s for `DrainerConfig`s.
+
 ## [3.15.0] - 2021-01-21
 
 ### Added
