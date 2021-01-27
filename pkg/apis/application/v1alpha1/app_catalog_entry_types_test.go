@@ -102,12 +102,14 @@ func newAppCatalogEntryExampleCR() *AppCatalogEntry {
 		DateCreated: &timeVal,
 		DateUpdated: &timeVal,
 		Chart: AppCatalogEntrySpecChart{
-			Home: "https://github.com/giantswarm/nginx-ingress-controller-app",
-			Icon: "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",
+			ApiVersion: "v1",
+			Home:       "https://github.com/giantswarm/nginx-ingress-controller-app",
+			Icon:       "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",
 		},
 		Restrictions: &AppCatalogEntrySpecRestrictions{
-			ClusterSingleton: true,
-			FixedNamespace:   "giantswarm",
+			ClusterSingleton:    true,
+			CompatibleProviders: []Provider{"aws"},
+			FixedNamespace:      "giantswarm",
 		},
 
 		Version: "1.9.2",
