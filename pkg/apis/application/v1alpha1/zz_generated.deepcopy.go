@@ -200,7 +200,7 @@ func (in *AppCatalogEntrySpecRestrictions) DeepCopyInto(out *AppCatalogEntrySpec
 	*out = *in
 	if in.CompatibleProviders != nil {
 		in, out := &in.CompatibleProviders, &out.CompatibleProviders
-		*out = make([]string, len(*in))
+		*out = make([]Provider, len(*in))
 		copy(*out, *in)
 	}
 }

@@ -115,14 +115,17 @@ type AppCatalogEntrySpecRestrictions struct {
 	FixedNamespace string `json:"fixedNamespace,omitempty"`
 	// GpuInstances is a flag for whether this app requires GPU instances to run. Default is false.
 	GpuInstances bool `json:"gpuInstances,omitempty"`
-	// +kubebuilder:validation:Enum=aws;azure;kvm
+	// +kubebuilder:validation:Optional
 	// +nullable
 	// CompatibleProviders is string list the name of providers this app is compatible with. Default to empty.
 	// Empty list means compatible to all providers.
-	CompatibleProviders []string `json:"compatibleProviders,omitempty"`
+	CompatibleProviders []Provider `json:"compatibleProviders,omitempty"`
 	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace. Default is false.
 	NamespaceSingleton bool `json:"namespaceSingleton,omitempty"`
 }
+
+// +kubebuilder:validation:Enum=aws;azure;kvm
+type Provider string
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
