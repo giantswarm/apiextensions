@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `Restrictions.CompatibleProviders` metadata to `AppCatalogEntry` CRD.
 
+## [3.15.1] - 2021-01-26
+
+### Fixed
+
+- Set a `LastHeartbeatTime` when creating new `Condition`s for `DrainerConfig`s.
+
+## [3.15.0] - 2021-01-21
+
+### Added
+
+- Add `SkipCRDs` to `ChartSpecConfig` and `AppSpecConfig`.
+- Add AWS CNI annotation to configure `WARM_IP_TARGET` and `MINIMUM_IP_TARGET`.
+
+### Fixed
+
+- Fix name for `AppCatalogEntry` example.
+
 ## [3.14.1] - 2021-01-07
 
 ### Changed
@@ -651,7 +668,9 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.14.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.15.1...HEAD
+[3.15.1]: https://github.com/giantswarm/apiextensions/compare/v3.15.0...v3.15.1
+[3.15.0]: https://github.com/giantswarm/apiextensions/compare/v3.14.1...v3.15.0
 [3.14.1]: https://github.com/giantswarm/apiextensions/compare/v3.14.0...v3.14.1
 [3.14.0]: https://github.com/giantswarm/apiextensions/compare/v3.13.0...v3.14.0
 [3.13.0]: https://github.com/giantswarm/apiextensions/compare/v3.12.0...v3.13.0

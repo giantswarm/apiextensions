@@ -80,6 +80,9 @@ func newChartExampleCR() *Chart {
 	cr.Spec = ChartSpec{
 		Name:      "prometheus",
 		Namespace: "monitoring",
+		Install: ChartSpecInstall{
+			SkipCRDs: true,
+		},
 		Config: ChartSpecConfig{
 			ConfigMap: ChartSpecConfigConfigMap{
 				Name:      "f2def-chart-values",
