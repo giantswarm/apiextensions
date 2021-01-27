@@ -88,7 +88,7 @@ spec:
                   entry belongs to.
                 properties:
                   apiVersion:
-                    description: ApiVersion is the The Helm chart API version.
+                    description: APIVersion is the Helm chart API version.
                     type: string
                   home:
                     description: Home is the URL of this projects home page.
@@ -123,8 +123,8 @@ spec:
                     type: boolean
                   compatibleProviders:
                     description: CompatibleProviders is a list of provider names which
-                      this app is compatible with. Default to empty. Empty list means
-                      compatible to all providers.
+                      this app is compatible with. Default is empty. Empty list means
+                      app is compatible with all providers.
                     items:
                       enum:
                       - aws
