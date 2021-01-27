@@ -102,7 +102,7 @@ func newAppCatalogEntryExampleCR() *AppCatalogEntry {
 		DateCreated: &timeVal,
 		DateUpdated: &timeVal,
 		Chart: AppCatalogEntrySpecChart{
-			ApiVersion: "v1",
+			APIVersion: "v1",
 			Home:       "https://github.com/giantswarm/nginx-ingress-controller-app",
 			Icon:       "https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg",
 		},

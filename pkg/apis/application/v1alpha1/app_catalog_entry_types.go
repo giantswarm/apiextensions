@@ -95,8 +95,8 @@ type AppCatalogEntrySpecCatalog struct {
 
 // +k8s:openapi-gen=true
 type AppCatalogEntrySpecChart struct {
-	// ApiVersion is the The Helm chart API version.
-	ApiVersion string `json:"apiVersion"`
+	// APIVersion is the Helm chart API version.
+	APIVersion string `json:"apiVersion"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Home is the URL of this projects home page.
@@ -117,8 +117,8 @@ type AppCatalogEntrySpecRestrictions struct {
 	GpuInstances bool `json:"gpuInstances,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// CompatibleProviders is a list of provider names which this app is compatible with. Default to empty.
-	// Empty list means compatible to all providers.
+	// CompatibleProviders is a list of provider names which this app is compatible with. Default is empty.
+	// Empty list means app is compatible with all providers.
 	CompatibleProviders []Provider `json:"compatibleProviders,omitempty"`
 	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace. Default is false.
 	NamespaceSingleton bool `json:"namespaceSingleton,omitempty"`
