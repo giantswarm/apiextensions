@@ -122,7 +122,7 @@ spec:
                       be installed at most once per cluster. Default is false.
                     type: boolean
                   compatibleProviders:
-                    description: CompatibleProviders is string list the name of providers
+                    description: CompatibleProviders is a list of provider names which
                       this app is compatible with. Default to empty. Empty list means
                       compatible to all providers.
                     items:
