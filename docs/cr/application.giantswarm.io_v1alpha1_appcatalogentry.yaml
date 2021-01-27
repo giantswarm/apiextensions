@@ -11,11 +11,14 @@ spec:
     name: giantswarm
     namespace: ""
   chart:
+    apiVersion: v1
     home: https://github.com/giantswarm/nginx-ingress-controller-app
     icon: https://upload.wikimedia.org/wikipedia/commons/nginx-logo.svg
   dateCreated: "2020-09-02T09:40:39Z"
   dateUpdated: "2020-09-02T09:40:39Z"
   restrictions:
     clusterSingleton: true
+    compatibleProviders:
+    - aws
     fixedNamespace: giantswarm
   version: 1.9.2

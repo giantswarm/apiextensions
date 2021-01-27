@@ -95,6 +95,8 @@ type AppCatalogEntrySpecCatalog struct {
 
 // +k8s:openapi-gen=true
 type AppCatalogEntrySpecChart struct {
+	// APIVersion is the Helm chart API version.
+	APIVersion string `json:"apiVersion"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Home is the URL of this projects home page.
@@ -109,13 +111,21 @@ type AppCatalogEntrySpecChart struct {
 type AppCatalogEntrySpecRestrictions struct {
 	// ClusterSingleton is a flag for whether this app can be installed at most once per cluster. Default is false.
 	ClusterSingleton bool `json:"clusterSingleton,omitempty"`
-	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace. Default is false.
-	NamespaceSingleton bool `json:"namespaceSingleton,omitempty"`
 	// FixedNamespace is the namespace which this app must be installed in.
 	FixedNamespace string `json:"fixedNamespace,omitempty"`
 	// GpuInstances is a flag for whether this app requires GPU instances to run. Default is false.
 	GpuInstances bool `json:"gpuInstances,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// CompatibleProviders is a list of provider names which this app is compatible with. Default is empty.
+	// Empty list means app is compatible with all providers.
+	CompatibleProviders []Provider `json:"compatibleProviders,omitempty"`
+	// NamespaceSingleton is a flag for whether this app can be installed at most once per namespace. Default is false.
+	NamespaceSingleton bool `json:"namespaceSingleton,omitempty"`
 }
+
+// +kubebuilder:validation:Enum=aws;azure;kvm
+type Provider string
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
