@@ -87,6 +87,9 @@ spec:
                 description: Chart is metadata from the Chart.yaml of the app this
                   entry belongs to.
                 properties:
+                  apiVersion:
+                    description: ApiVersion is the The Helm chart API version.
+                    type: string
                   home:
                     description: Home is the URL of this projects home page.
                     nullable: true
@@ -96,6 +99,8 @@ spec:
                       an icon.
                     nullable: true
                     type: string
+                required:
+                - apiVersion
                 type: object
               dateCreated:
                 description: DateCreated is when this entry was first created. e.g.

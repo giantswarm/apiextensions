@@ -95,6 +95,8 @@ type AppCatalogEntrySpecCatalog struct {
 
 // +k8s:openapi-gen=true
 type AppCatalogEntrySpecChart struct {
+	// ApiVersion is the The Helm chart API version.
+	ApiVersion string `json:"apiVersion"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Home is the URL of this projects home page.
