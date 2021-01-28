@@ -82,6 +82,18 @@ spec:
                   the same tag name with different values, the AzureMachine's value
                   takes precedence.
                 type: object
+              identity:
+                default: None
+                description: Identity is the type of identity used for the Virtual
+                  Machine Scale Set. The type 'SystemAssigned' is an implicitly created
+                  identity. The generated identity will be assigned a Subscription
+                  contributor role. The type 'UserAssigned' is a standalone Azure
+                  resource provided by the user and assigned to the VM
+                enum:
+                - None
+                - SystemAssigned
+                - UserAssigned
+                type: string
               location:
                 description: Location is the Azure region location e.g. westus2
                 type: string
@@ -97,6 +109,11 @@ spec:
                 items:
                   type: string
                 type: array
+              roleAssignmentName:
+                description: RoleAssignmentName is the name of the role assignment
+                  to create for a system assigned identity. It can be any valid GUID.
+                  If not specified, a random GUID will be generated.
+                type: string
               template:
                 description: Template contains the details used to build a replica
                   virtual machine within the Machine Pool
@@ -259,6 +276,15 @@ spec:
                         description: ManagedDisk defines the managed disk options
                           for a VM.
                         properties:
+                          diskEncryptionSet:
+                            description: DiskEncryptionSetParameters defines disk
+                              encryption options.
+                            properties:
+                              id:
+                                description: ID defines resourceID for diskEncryptionSet
+                                  resource. It must be in the same subscription
+                                type: string
+                            type: object
                           storageAccountType:
                             type: string
                         required:
@@ -270,6 +296,25 @@ spec:
                     - diskSizeGB
                     - managedDisk
                     - osType
+                    type: object
+                  securityProfile:
+                    description: SecurityProfile specifies the Security profile settings
+                      for a virtual machine.
+                    properties:
+                      encryptionAtHost:
+                        description: This field indicates whether Host Encryption
+                          should be enabled or disabled for a virtual machine or virtual
+                          machine scale set. Default is disabled.
+                        type: boolean
+                    type: object
+                  spotVMOptions:
+                    description: SpotVMOptions allows the ability to specify the Machine
+                      should use a Spot VM
+                    properties:
+                      maxPrice:
+                        description: MaxPrice defines the maximum price the user is
+                          willing to pay for Spot VM instances
+                        type: number
                     type: object
                   sshPublicKey:
                     description: SSHPublicKey is the SSH public key string base64
@@ -289,6 +334,23 @@ spec:
                 - sshPublicKey
                 - vmSize
                 type: object
+              userAssignedIdentities:
+                description: UserAssignedIdentities is a list of standalone Azure
+                  identities provided by the user The lifecycle of a user-assigned
+                  identity is managed separately from the lifecycle of the AzureMachinePool.
+                  See https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-manage-ua-identity-cli
+                items:
+                  description: UserAssignedIdentity defines the user-assigned identities
+                    provided by the user to be assigned to Azure resources.
+                  properties:
+                    providerID:
+                      description: 'ProviderID is the identification ID of the user-assigned
+                        Identity, the format of an identity is: ''azure:///subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'''
+                      type: string
+                  required:
+                  - providerID
+                  type: object
+                type: array
             required:
             - location
             - template
@@ -372,6 +434,68 @@ spec:
                   events to the MachinePool object and/or logged in the controller's
                   output."
                 type: string
+              instances:
+                description: Instances is the VM instance status for each VM in the
+                  VMSS
+                items:
+                  description: AzureMachinePoolInstanceStatus provides status information
+                    for each instance in the VMSS
+                  properties:
+                    instanceID:
+                      description: InstanceID is the identification of the Machine
+                        Instance within the VMSS
+                      type: string
+                    instanceName:
+                      description: InstanceName is the name of the Machine Instance
+                        within the VMSS
+                      type: string
+                    latestModelApplied:
+                      description: LatestModelApplied indicates the instance is running
+                        the most up-to-date VMSS model. A VMSS model describes the
+                        image version the VM is running. If the instance is not running
+                        the latest model, it means the instance may not be running
+                        the version of Kubernetes the Machine Pool has specified and
+                        needs to be updated.
+                      type: boolean
+                    providerID:
+                      description: ProviderID is the provider identification of the
+                        VMSS Instance
+                      type: string
+                    provisioningState:
+                      description: ProvisioningState is the provisioning state of
+                        the Azure virtual machine instance.
+                      type: string
+                    version:
+                      description: Version defines the Kubernetes version for the
+                        VM Instance
+                      type: string
+                  required:
+                  - latestModelApplied
+                  type: object
+                type: array
+              longRunningOperationState:
+                description: LongRunningOperationState saves the state for an Azure
+                  long running operations so it can be continued on the next reconciliation
+                  loop.
+                properties:
+                  futureData:
+                    description: FutureData is the base64 url encoded json Azure AutoRest
+                      Future
+                    type: string
+                  name:
+                    description: Name is the name of the Azure resource
+                    type: string
+                  resourceGroup:
+                    description: ResourceGroup is the Azure resource group for the
+                      resource
+                    type: string
+                  type:
+                    description: Type describes the type of future, update, create,
+                      delete, etc
+                    type: string
+                required:
+                - type
+                type: object
               provisioningState:
                 description: ProvisioningState is the provisioning state of the Azure
                   virtual machine.
@@ -383,6 +507,10 @@ spec:
                 description: Replicas is the most recently observed number of replicas.
                 format: int32
                 type: integer
+              version:
+                description: Version is the Kubernetes version for the current VMSS
+                  model
+                type: string
             type: object
         type: object
     served: true
