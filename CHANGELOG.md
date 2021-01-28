@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `Restrictions.CompatibleProviders`, `Chart.ApiVersion` metadata to `AppCatalogEntry` CRD.
+- Update CAPI fork to v0.3.13
 
 ## [3.15.1] - 2021-01-26
 
