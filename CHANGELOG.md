@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Update CAPZ fork to v0.4.11
+
 ## [3.16.0] - 2021-01-28
 
 ### Added

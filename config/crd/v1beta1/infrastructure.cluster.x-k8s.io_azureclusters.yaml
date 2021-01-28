@@ -85,11 +85,88 @@ spec:
               - host
               - port
               type: object
+            identityRef:
+              description: IdentityRef is a reference to a AzureIdentity to be used
+                when reconciling this cluster
+              properties:
+                apiVersion:
+                  description: API version of the referent.
+                  type: string
+                fieldPath:
+                  description: 'If referring to a piece of an object instead of an
+                    entire object, this string should contain a valid JSON/Go field
+                    access statement, such as desiredState.manifest.containers[2].
+                    For example, if the object reference is to a container within
+                    a pod, this would take on a value like: "spec.containers{name}"
+                    (where "name" refers to the name of the container that triggered
+                    the event) or if no container name is specified "spec.containers[2]"
+                    (container with index 2 in this pod). This syntax is chosen only
+                    to have some well-defined way of referencing a part of an object.
+                    TODO: this design is not final and this field is subject to change
+                    in the future.'
+                  type: string
+                kind:
+                  description: 'Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                  type: string
+                name:
+                  description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                  type: string
+                namespace:
+                  description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
+                  type: string
+                resourceVersion:
+                  description: 'Specific resourceVersion to which this reference is
+                    made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency'
+                  type: string
+                uid:
+                  description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
+                  type: string
+              type: object
             location:
               type: string
             networkSpec:
               description: NetworkSpec encapsulates all things related to Azure network.
               properties:
+                apiServerLB:
+                  description: APIServerLB is the configuration for the control-plane
+                    load balancer.
+                  properties:
+                    frontendIPs:
+                      items:
+                        description: FrontendIP defines a load balancer frontend IP
+                          configuration.
+                        properties:
+                          name:
+                            minLength: 1
+                            type: string
+                          privateIP:
+                            type: string
+                          publicIP:
+                            description: PublicIPSpec defines the inputs to create
+                              an Azure public IP address.
+                            properties:
+                              dnsName:
+                                type: string
+                              name:
+                                type: string
+                            required:
+                            - name
+                            type: object
+                        required:
+                        - name
+                        type: object
+                      type: array
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    sku:
+                      description: SKU defines an Azure load balancer SKU.
+                      type: string
+                    type:
+                      description: LBType defines an Azure load balancer Type.
+                      type: string
+                  type: object
                 subnets:
                   description: Subnets is the configuration for the control-plane
                     subnet and the node subnet.
@@ -112,9 +189,9 @@ spec:
                           resource.
                         type: string
                       internalLBIPAddress:
-                        description: InternalLBIPAddress is the IP address that will
+                        description: 'InternalLBIPAddress is the IP address that will
                           be used as the internal LB private IP. For the control plane
-                          subnet only.
+                          subnet only. Deprecated: Use LoadBalancer private IP instead'
                         type: string
                       name:
                         description: Name defines a name for the subnet resource.
@@ -316,52 +393,6 @@ spec:
                 to ensure the cluster is more resilient to failure. See: https://docs.microsoft.com/en-us/azure/availability-zones/az-overview
                 This list will be used by Cluster API to try and spread the machines
                 across the failure domains.'
-              type: object
-            network:
-              description: Network encapsulates the state of Azure networking resources.
-              properties:
-                apiServerIp:
-                  description: APIServerIP is the Kubernetes API server public IP
-                    address.
-                  properties:
-                    dnsName:
-                      type: string
-                    id:
-                      type: string
-                    ipAddress:
-                      type: string
-                    name:
-                      type: string
-                  type: object
-                apiServerLb:
-                  description: APIServerLB is the Kubernetes API server load balancer.
-                  properties:
-                    backendPool:
-                      description: BackendPool defines a load balancer backend pool
-                      properties:
-                        id:
-                          type: string
-                        name:
-                          type: string
-                      type: object
-                    frontendIpConfig:
-                      description: FrontendIPConfig - DO NOT USE this empty struct
-                        is here to preserve backwards compatibility and should be
-                        removed in v1alpha4
-                      type: object
-                    id:
-                      type: string
-                    name:
-                      type: string
-                    sku:
-                      description: SKU defines an Azure load balancer SKU.
-                      type: string
-                    tags:
-                      additionalProperties:
-                        type: string
-                      description: Tags defines a map of tags.
-                      type: object
-                  type: object
               type: object
             ready:
               description: Ready is true when the provider resource is ready.
