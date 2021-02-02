@@ -1,7 +1,7 @@
 package annotation
 
 // support:
-//   - crd: awscluster.infrastructure.giantswarm.io
+//   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
@@ -11,7 +11,7 @@ package annotation
 const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 
 // support:
-//   - crd: awscluster.infrastructure.giantswarm.io
+//   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
@@ -21,10 +21,10 @@ const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 
 // support:
-//   - crd: awscluster.infrastructure.giantswarm.io
+//   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
-//   - crd: awsmachinedeployment.infrastructure.giantswarm.io
+//   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
@@ -36,10 +36,10 @@ const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 
 // support:
-//   - crd: awscluster.infrastructure.giantswarm.io
+//   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
-//   - crd: awsmachinedeployment.infrastructure.giantswarm.io
+//   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
@@ -50,10 +50,10 @@ const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 
 // support:
-//   - crd: awscluster.infrastructure.giantswarm.io
+//   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
-//   - crd: awsmachinedeployment.infrastructure.giantswarm.io
+//   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
@@ -70,10 +70,10 @@ const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 const AWSMetadataV2 = "alpha.aws.giantswarm.io/metadata-v2"
 
 // support:
-//   - crd: awscluster.infrastructure.giantswarm.io
+//   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
-//   - crd: awsmachinedeployment.infrastructure.giantswarm.io
+//   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
