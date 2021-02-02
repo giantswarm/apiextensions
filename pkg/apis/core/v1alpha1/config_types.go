@@ -13,7 +13,7 @@ const (
 	configDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/configs." + group + "/"
 )
 
-func NewConfig() *v1.CustomResourceDefinition {
+func NewConfigCRD() *v1.CustomResourceDefinition {
 	return crd.LoadV1(group, kindConfig)
 }
 
