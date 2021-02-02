@@ -22,7 +22,7 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Config represents configuration of a Management Cluster App.
+      description: Config represents configuration of an App.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -60,7 +60,7 @@ spec:
           - app
           type: object
         status:
-          description: Spec part of the Config resource.
+          description: Status part of the Config resource.
           properties:
             app:
               description: App details for which the configuration was generated.
