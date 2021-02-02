@@ -66,7 +66,7 @@ type ConfigSpecApp struct {
 	Name string `json:"name"`
 	// Version is the version of the App.
 	Version string `json:"version"`
-	// Catalog is the name of App's App Catalog.
+	// Catalog is the name of the App's App Catalog.
 	Catalog string `json:"catalog"`
 }
 
@@ -93,7 +93,7 @@ type ConfigStatusApp struct {
 	Name string `json:"name"`
 	// Version is the version of the App.
 	Version string `json:"version"`
-	// Catalog is the name of App's App Catalog.
+	// Catalog is the name of the App's App Catalog.
 	Catalog string `json:"catalog"`
 }
 
