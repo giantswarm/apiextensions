@@ -60,9 +60,9 @@ spec:
           - app
           type: object
         status:
-          description: Spec part of the AWSCluster resource.
+          description: Spec part of the Config resource.
           properties:
-            cluster:
+            app:
               description: App details for which the configuration was generated.
               properties:
                 catalog:

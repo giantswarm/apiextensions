@@ -48,7 +48,7 @@ type Config struct {
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              ConfigSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
-	// Spec part of the AWSCluster resource.
+	// Spec part of the Config resource.
 	Status ConfigStatus `json:"status,omitempty"`
 }
 
@@ -75,7 +75,7 @@ type ConfigSpecApp struct {
 type ConfigStatus struct {
 	// +kubebuilder:validation:Optional
 	// App details for which the configuration was generated.
-	App ConfigStatusApp `json:"cluster,omitempty"`
+	App ConfigStatusApp `json:"app,omitempty"`
 	// +kubebuilder:validation:Optional
 	// Config holds the references to the generated configuration.
 	Config ConfigStatusConfig `json:"config,omitempty"`
