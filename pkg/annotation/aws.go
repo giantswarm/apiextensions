@@ -2,7 +2,7 @@ package annotation
 
 // support:
 //   - crd: awscluster.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
 //   AWSCNIMinimumIPTarget is an annotation to configure the value for MINIMUM_IP_TARGET for AWS CNI
@@ -12,7 +12,7 @@ const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 
 // support:
 //   - crd: awscluster.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
 //   AWSCNIWarmIPTarget is an annotation to configure the value for WARM_IP_TARGET for AWS CNI
@@ -22,10 +22,10 @@ const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 
 // support:
 //   - crd: awscluster.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 //   - crd: awsmachinedeployment.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
 //   AWSUpdateMaxBatchSize is the aws update annotation used for configuring
@@ -37,10 +37,10 @@ const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 
 // support:
 //   - crd: awscluster.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 //   - crd: awsmachinedeployment.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
 //   AWSUpdatePauseTime is the aws update annotation used for configuring
@@ -51,10 +51,10 @@ const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 
 // support:
 //   - crd: awscluster.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 //   - crd: awsmachinedeployment.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
 //   AWSMetadataV2 configures token usage for your AWS EC2 instance metadata requests.
@@ -71,10 +71,10 @@ const AWSMetadataV2 = "alpha.aws.giantswarm.io/metadata-v2"
 
 // support:
 //   - crd: awscluster.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 //   - crd: awsmachinedeployment.infrastructure.giantswarm.io
-//     apiVersion: v1alpha2
+//     apiversion: v1alpha2
 //     release: 12.0.0
 // documentation:
 //   AWSSubnetSize is the aws update annotation used for configuring
