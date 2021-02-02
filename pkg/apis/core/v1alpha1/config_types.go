@@ -42,13 +42,13 @@ func NewConfigCR() *Config {
 // +kubebuilder:resource:categories=config;giantswarm
 // +k8s:openapi-gen=true
 
-// Config represents configuration of a Management Cluster App.
+// Config represents configuration of an App.
 type Config struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	Spec              ConfigSpec `json:"spec"`
 	// +kubebuilder:validation:Optional
-	// Spec part of the Config resource.
+	// Status part of the Config resource.
 	Status ConfigStatus `json:"status,omitempty"`
 }
 
