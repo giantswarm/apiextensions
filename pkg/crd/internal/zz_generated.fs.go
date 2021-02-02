@@ -789,6 +789,33 @@ l8KsrtF45G+7v0Dpv86DB4MfNvG21oqL9DsLfv2tSA9G/rH9H0PCfwIAAP///ddrb0gbAAA=
 `,
 	},
 
+	"/config/crd/v1/core.giantswarm.io_configs.yaml": {
+		name:    "core.giantswarm.io_configs.yaml",
+		local:   "config/crd/v1/core.giantswarm.io_configs.yaml",
+		size:    4551,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/+xYT3MjtRO9z6fo2t9hL78ZE+BA+ZYyHLYgW1S8FQ4UB1lqj0VmJNFqOQSK705Jmn+2
+x96YwC0+WS2p+6nf6x7NFGVZFsLpBySvrVmCcBp/ZzRx5KvHb3yl7WJ/Uzxqo5awCp5te4/eBpL4LW61
+0aytKVpkoQSLZQEgjLEsotnHIYC0hsk2DVJZo6kewwY3QTcKKTnvQ++/qL6svi4AJGHa/km36Fm0bgkm
+NE0BYESLy+hvq2tfSUtY1VoY9k+C2krbwjuUMWhNNri48mRFdtIjE4y1Jd2Py853Nxh3JkOXg3FFoz1/
+PzH+oD2nCdcEEs2ANNm8NnVoBC3HGF5ah0v4GAE5IVEVAF06EqCyO/D+RjRuJ26yH7nDVmS8ANahuf3x
+w8NX6wMzgEIvSTtOqc3wgNARejTsOwyBUqLBbkHAnTCixhYNw6oJnpHg1rlq8OjIOiQekpV/E/FMrEfx
+30eIeRWoqBr0wDvsD4uqO1UEwjvtR6QJ34FjSGgN2M2vKLmCNVJ0A35nQ6PiwfZIDITS1kb/Mfj2wDYF
+bQRjx9P404aRjGhgL5qA/wdhFLTiGQhjFAhm4i8t8RXcWULQZmuXsGN2frlY1Jr7opG2bYPR/LxI+teb
+wJb8QuEem4XXdSlI7jSj5EC4EE6XCbpJhVO16n/UlZl/f4CVn6NmPJM29WQiifMCA1GnoD2Ibms+xZjo
+aIrZuf9u/Qn60ImM4+ynvE+0NFIQE6bNFimTuCXbJp9olLPacBrIRqM5Tr8Pm1Zz5P23gJ4jVxWsUieB
+DUJwSjCqCj4YWIkWm5Xw+J8TEDPty5jYl1EwbYLHi3PWJhN9pzrDV67YtUMZSYt5ixvACWLYWkqWoaoz
+WdWBt/lqzRXrjk1HwW+dA4UsdONTsKedlrtM3kHb6Epug1CjQUoUnXg+D6TrwKKx9dzUcUbyyj4dsTPG
+TnDr3HufEHcLqllXZyjrf6nPfh5D7NTHAOL/gz55Rdj9XOecjdx3T33QOF8XPxabJlSn4cuel5mZeO4Z
+c4eomEdwIv9z0csozxfVDwsO/kIFrYd66ZP007p/rl1bMjLv+5fK5kn4t4J5K5hrCwY6GX1Ghd1TYWcb
+lY9OuEVCI3G4AQ3iOxTm1VJMm++Eu8ftS/SYH2mpbvP/1cRBeksQ2sQbyoB41imcHmNwNE/q5WNclvML
+RNk7SHf4V3g5L68LQhqnUvgLop6VVGqlKAn5n5K47ne/isHs5Y2+q+m72JMm9TUzPfB+TQ8624Fnu2/X
+bscX6YUcXkWt12zpGYJHFQXRi2EmByfP0Kp4MT2zZznNWpku2MXZXT6+46glMIWM0LMlUePUEjbDO1vv
+uLumwJ9/FeONRUiJjlF9HL9E5G8L794dfD5IQ2mN0vlrCvz8S5EDo3rovxNE498BAAD//218tprHEQAA
+`,
+	},
+
 	"/config/crd/v1/core.giantswarm.io_drainerconfigs.yaml": {
 		name:    "core.giantswarm.io_drainerconfigs.yaml",
 		local:   "config/crd/v1/core.giantswarm.io_drainerconfigs.yaml",
@@ -2487,6 +2514,34 @@ RRoAAA==
 `,
 	},
 
+	"/config/crd/v1beta1/core.giantswarm.io_configs.yaml": {
+		name:    "core.giantswarm.io_configs.yaml",
+		local:   "config/crd/v1beta1/core.giantswarm.io_configs.yaml",
+		size:    4380,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/+xYTZPjNBC9+1d0LYe9YIcBDpRvU4HDFuwWNdkaDhQHReo4YmxJtFoZBor/TkmWP5I4
+md0puI1PUUvqbr/3ui2lKMuyEE7fI3ltTQ3CafyT0cSRrx6+85W2q8PNFlncFA/aqBrWwbPt7tDbQBK/
+x502mrU1RYcslGBRFwDCGMsimn0cAkhrmGzbIpUNmuohbHEbdKuQUoQh/uGr6uvq2wJAEqbtH3WHnkXn
+ajChbQsAIzqso7+dbnwlLWHVaGHYPwrqKm0L71DGoA3Z4OLKsxW9kyEzwdhY0sO4zL7zYNqZDBmDaUWr
+Pf84M/6kPacJ1wYS7ZhpsnltmtAKqqcYXlqHNXyICTkhUUVb2FLGNyflWXDwNfz9TwFwEK1WCZ1+0jo0
+tz+/u/9mI/fYid4IoNBL0i6ty8kBoSP0aNjnDAIlR2B3IOC9MKLBDg3Dug2ekeDWuSr7c2QdEo9AxWem
+ndF2EvltTK1fAyqqBT3wHiFzjgp8SjumwHvtpxxTZjO3kLI0YLe/o+QKNkjRCfi9Da2KL3RAYiCUtjH6
+r9GzB7YpZCsYMzvDow0jGdFGUAN+CcIo6MQTEMYYEMzMW1riK3hvCUGbna1hz+x8vVo1modqkbbrgtH8
+tEqa19vAlvxK4QHblddNKUjuNaPkQLgSTpcpcZOKperUFyP1b2eZ8lNUiWfSphnNSYwXcY+qBO1B5G19
+/hO80RRRufth8xGGoImCY8wT2jPlTMBHoLTZIfXE7ch2ySMa5aw2nAay1WiOQfdh22mOTP8R0HPkp4J1
+6hmwRQhOCUZVwTsDa9FhuxYe/3fYI8K+jJA+D/y81R0v7NEazUMvWmSor8mNQxlpiljF5eAEMewsJctY
+tz091czXUj32NemODSdhb50DhSx061OYx72W+56qo5aQy2qL0KBBSpSc+L2UQu6rorXN+cQpCv26AYLY
+mWOd3zr31qdc84JqwdEiOcOTPhTPRY999zR0/D3re58c8HDeCRdjDt1QHzXCl0eOZaQJ1WngcuDgzB7f
+9MyY8yiW4p7IejlmGaX3bEX0X7JLNbEZK2CA45fN8C36nCKQ/Z7/pBAehX8tgdcSOC0ByDK5qrHcv/e2
+Vf2rEu6Q0EgcTyWjtI5l91lCSxvfC3eHu+fV1n92Uh32v9ez7emkLrSJ54Yx1wWXcJ7+6GaJvGvpX5Pq
+s5IbNqfT8ws9XJLPRalMEynsRbEuiCY1QZSE/DKyNsPeRaaA7TJZR0z1Pl5pukrTlZ4yq5ezyZHbT+0i
+F3rmYr/MDXK6lK7keLGzXrOlJwgeVSzOge5iSQtXW80FGhbe4BSjMh1hi8X10yX/RrRuL24mWxJbma/2
+s+lYKXRAVQNTwHwTtiQazJbpNCGkRMeoPkw3+/6u/ubN0XU8DaU1Svf/TsCvvxW9V1T3QzbR+G8AAAD/
+//2mEOscEQAA
+`,
+	},
+
 	"/config/crd/v1beta1/core.giantswarm.io_drainerconfigs.yaml": {
 		name:    "core.giantswarm.io_drainerconfigs.yaml",
 		local:   "config/crd/v1beta1/core.giantswarm.io_drainerconfigs.yaml",
@@ -3748,6 +3803,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/core.giantswarm.io_azureclusterconfigs.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_certconfigs.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_chartconfigs.yaml"],
+		_escData["/config/crd/v1/core.giantswarm.io_configs.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_drainerconfigs.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_flannelconfigs.yaml"],
 		_escData["/config/crd/v1/core.giantswarm.io_ignitions.yaml"],
@@ -3786,6 +3842,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/core.giantswarm.io_azureclusterconfigs.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_certconfigs.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_chartconfigs.yaml"],
+		_escData["/config/crd/v1beta1/core.giantswarm.io_configs.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_drainerconfigs.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_flannelconfigs.yaml"],
 		_escData["/config/crd/v1beta1/core.giantswarm.io_ignitions.yaml"],

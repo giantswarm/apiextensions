@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add configs.core.giantswarm.io CRD.
+
 ## [3.16.1] - 2021-01-28
 
 ### Added
