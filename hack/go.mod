@@ -15,5 +15,5 @@ replace (
 	k8s.io/apiserver => k8s.io/apiserver v0.18.5
 	k8s.io/client-go => k8s.io/client-go v0.18.5
 	sigs.k8s.io/cluster-api v0.3.13 => github.com/giantswarm/cluster-api v0.3.13-gs
-	sigs.k8s.io/cluster-api-provider-azure v0.4.11 => github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs
+	sigs.k8s.io/cluster-api-provider-azure v0.4.11 => github.com/giantswarm/cluster-api-provider-azure v0.4.12-gsalpha1
 )
