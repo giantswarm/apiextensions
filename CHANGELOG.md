@@ -7,7 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add configs.core.giantswarm.io CRD.
+
 ## [3.17.0] - 2021-02-03
+
+### Changed
 
 - Update CAPZ fork to v0.4.12-alpha1
 
