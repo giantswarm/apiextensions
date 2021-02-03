@@ -225,6 +225,12 @@ github.com/giantswarm/cluster-api v0.3.13-gs h1:ZgOMYkSuM1KnRmdDkPTfYj8G+Bdn6K1+
 github.com/giantswarm/cluster-api v0.3.13-gs/go.mod h1:BCtzLFd2R77eDAvZGd5P1OlG38exdHlQietjFA/7u+0=
 github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs h1:CjAv3bpkiGGKYUBPKZaBco88cCMhPJESJtWbxio5wjw=
 github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs/go.mod h1:v/WBSPW45C0QHslLmrmg7YGGmaN70kT2XxjDKby8Yh4=
+github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs.0.20210201183537-9f944fc2c96b h1:UJHTEuJEeicnt9Deq68I6AaGLgE0h9koD+ad4W9PLZk=
+github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs.0.20210201183537-9f944fc2c96b/go.mod h1:v/WBSPW45C0QHslLmrmg7YGGmaN70kT2XxjDKby8Yh4=
+github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs.0.20210202095520-dba99d4df1e2 h1:sG/syB0A8AbjSzYy+gkono1pWqQG2Wy20M4el4Yu2Ts=
+github.com/giantswarm/cluster-api-provider-azure v0.4.11-gs.0.20210202095520-dba99d4df1e2/go.mod h1:v/WBSPW45C0QHslLmrmg7YGGmaN70kT2XxjDKby8Yh4=
+github.com/giantswarm/cluster-api-provider-azure v0.4.12-gsalpha1 h1:7Zu+/EKeexLnIrmoCQM9hGbbDC1FvwaCpKB+WAQqQ54=
+github.com/giantswarm/cluster-api-provider-azure v0.4.12-gsalpha1/go.mod h1:v/WBSPW45C0QHslLmrmg7YGGmaN70kT2XxjDKby8Yh4=
 github.com/globalsign/mgo v0.0.0-20180905125535-1ca0a4f7cbcb/go.mod h1:xkRDCp4j0OGD1HRkm4kmhM+pmpv3AKq5SU7GMg4oO/Q=
 github.com/globalsign/mgo v0.0.0-20181015135952-eeefdecb41b8/go.mod h1:xkRDCp4j0OGD1HRkm4kmhM+pmpv3AKq5SU7GMg4oO/Q=
 github.com/go-acme/lego v2.5.0+incompatible/go.mod h1:yzMNe9CasVUhkquNvti5nAtPmG94USbYxYrZfTkIn0M=
