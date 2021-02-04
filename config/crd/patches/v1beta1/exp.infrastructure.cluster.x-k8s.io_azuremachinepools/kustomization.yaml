@@ -1,0 +1,9 @@
+resources:
+  - ../../../v1beta1/exp.infrastructure.cluster.x-k8s.io_azuremachinepools.yaml
+patchesJson6902:
+  - target:
+      group: apiextensions.k8s.io
+      version: v1beta1
+      kind: CustomResourceDefinition
+      name: azuremachinepools.exp.infrastructure.cluster.x-k8s.io
+    path: patch.yaml
