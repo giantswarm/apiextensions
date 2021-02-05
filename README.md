@@ -115,6 +115,7 @@ This is example skeleton for adding new group and/or version.
 Example `doc.go` content.
 
 ```go
+// +k8s:openapi-gen=true
 // +k8s:deepcopy-gen=package,register
 
 // +groupName=GROUP.giantswarm.io

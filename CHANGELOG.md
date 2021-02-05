@@ -9,8 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add configs.core.giantswarm.io CRD.
+
+## [3.17.0] - 2021-02-03
+
+### Changed
+
+- Update CAPZ fork to v0.4.12-alpha1
+
+## [3.16.1] - 2021-01-28
+
+### Added
+
+- Update CAPZ fork to v0.4.11
+
+## [3.16.0] - 2021-01-28
+
+### Added
+
 - Add `Restrictions.CompatibleProviders`, `Chart.ApiVersion` metadata to `AppCatalogEntry` CRD.
 - Enable rendering documentation for annotations in public documentation.
+- Update CAPI fork to v0.3.13
 
 ## [3.15.1] - 2021-01-26
 
@@ -669,7 +688,10 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.15.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.17.0...HEAD
+[3.17.0]: https://github.com/giantswarm/apiextensions/compare/v3.16.1...v3.17.0
+[3.16.1]: https://github.com/giantswarm/apiextensions/compare/v3.16.0...v3.16.1
+[3.16.0]: https://github.com/giantswarm/apiextensions/compare/v3.15.1...v3.16.0
 [3.15.1]: https://github.com/giantswarm/apiextensions/compare/v3.15.0...v3.15.1
 [3.15.0]: https://github.com/giantswarm/apiextensions/compare/v3.14.1...v3.15.0
 [3.14.1]: https://github.com/giantswarm/apiextensions/compare/v3.14.0...v3.14.1

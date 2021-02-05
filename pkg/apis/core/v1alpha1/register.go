@@ -15,6 +15,8 @@ const (
 // should contain all zero values of custom objects and custom object lists
 // in the group version.
 var knownTypes = []runtime.Object{
+	&Config{},
+	&ConfigList{},
 	&CertConfig{},
 	&CertConfigList{},
 	&ChartConfig{},
