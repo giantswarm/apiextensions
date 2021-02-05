@@ -1,5 +1,7 @@
 package annotation
 
+//Keep the YAML documentation format as it is used to render in the CRD public documentation. You can use Markdown in the documentation field.
+
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
