@@ -5,8 +5,8 @@ package annotation
 //     apiversion: v1alpha2
 //     release: "Since 14.0.0"
 // documentation:
-//   AWSCNIMinimumIPTarget is an annotation to configure the value for MINIMUM_IP_TARGET for AWS CNI
-//   see [CNI Configuration Variables](https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables)
+//   AWSCNIMinimumIPTarget is an annotation to configure the value for MINIMUM_IP_TARGET for AWS CNI.
+//   See [CNI Configuration Variables](https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables)
 //   and [ENI and IP Target](https://github.com/aws/amazon-vpc-cni-k8s/blob/master/docs/eni-and-ip-target.md)
 const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 
@@ -15,8 +15,8 @@ const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 //     apiversion: v1alpha2
 //     release: "Since 14.0.0"
 // documentation:
-//   AWSCNIWarmIPTarget is an annotation to configure the value for WARM_IP_TARGET for AWS CNI
-//   see [CNI Configuration Variables](https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables)
+//   AWSCNIWarmIPTarget is an annotation to configure the value for WARM_IP_TARGET for AWS CNI.
+//   See [CNI Configuration Variables](https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables)
 //   and [ENI and IP Target](https://github.com/aws/amazon-vpc-cni-k8s/blob/master/docs/eni-and-ip-target.md)
 const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 
@@ -31,8 +31,8 @@ const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 //   AWSUpdateMaxBatchSize is the aws update annotation used for configuring
 //   maximum batch size for instances during ASG update.
 //   The value can be either a whole number specifying the number of instances
-//   or a percentage of total instances as decimal number ie `0.3` for 30%.
-//   [AWS Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize)
+//   or a percentage of total instances as decimal number ie `0.3` for 30%. See [Fine Tuning Upgrades](https://docs.giantswarm.io/guides/fine-tuning-upgrade-disruption-on-aws/)
+//   and [AWS Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
 const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 
 // support:
@@ -45,8 +45,8 @@ const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 // documentation:
 //   AWSUpdatePauseTime is the aws update annotation used for configuring
 //   time pause between rolling a single batch during ASG update.
-//   The value must be in ISO 8601 duration format, e. g. "PT5M" for five minutes or "PT10S" for 10 seconds.
-//   [AWS Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-pausetime)
+//   The value must be in ISO 8601 duration format, e. g. "PT5M" for five minutes or "PT10S" for 10 seconds. See [Fine Tuning Upgrades](https://docs.giantswarm.io/guides/fine-tuning-upgrade-disruption-on-aws/)
+//   and [AWS Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
 const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 
 // support:
