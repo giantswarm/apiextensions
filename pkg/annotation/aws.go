@@ -5,7 +5,7 @@ package annotation
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 14.0.0"
+//     release: Since 14.0.0
 // documentation:
 //   AWSCNIMinimumIPTarget is an annotation to configure the value for MINIMUM_IP_TARGET for AWS CNI.
 //   See [CNI Configuration Variables](https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables)
@@ -15,7 +15,7 @@ const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 14.0.0"
+//     release: Since 14.0.0
 // documentation:
 //   AWSCNIWarmIPTarget is an annotation to configure the value for WARM_IP_TARGET for AWS CNI.
 //   See [CNI Configuration Variables](https://github.com/aws/amazon-vpc-cni-k8s#cni-configuration-variables)
@@ -25,10 +25,10 @@ const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 //   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 // documentation:
 //   AWSUpdateMaxBatchSize is the aws update annotation used for configuring
 //   maximum batch size for instances during ASG update.
@@ -41,10 +41,10 @@ const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 //   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 // documentation:
 //   AWSUpdatePauseTime is the aws update annotation used for configuring time pause between rolling a single batch during ASG update.
 //   The value must be in ISO 8601 duration format, e. g. "PT5M" for five minutes or "PT10S" for 10 seconds.
@@ -55,10 +55,10 @@ const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 //   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 // documentation:
 //   AWSMetadataV2 configures token usage for your AWS EC2 instance metadata requests.
 //   If the value is 'optional', you can choose to retrieve instance metadata with or without a signed token
@@ -76,10 +76,10 @@ const AWSMetadataV2 = "alpha.aws.giantswarm.io/metadata-v2"
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 //   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: "Since 12.7.0"
+//     release: Since 12.7.0
 // documentation:
 //   AWSSubnetSize is the aws update annotation used for configuring the subnet size of AWSCluster or AWSMachineDeployment.
 //   The value is a number that will represent the subnet mask used when creating the subnet. This value must be smaller than 28 due to AWS restrictions.
