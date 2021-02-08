@@ -6,14 +6,14 @@ This library provides generated Kubernetes clients for the Giant Swarm infrastru
 
 ## Usage
 
-- [`pkg/apis`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc): Contains data structures for 
-    custom resources in `*.giantswarm.io` API groups. See full documentation 
+- [`pkg/apis`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc): Contains data structures for
+    custom resources in `*.giantswarm.io` API groups. See full documentation
     [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc).
-- [`pkg/clientset/versioned`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc): 
+- [`pkg/clientset/versioned`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc):
     Contains a clientset, a client for each custom resource, and a fake client for unit testing. See full documentation
     [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc).
-- [`pkg/crd`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc): Contains an interface for 
-    accessing individual CRDs or listing all CRDs. See full documentation 
+- [`pkg/crd`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc): Contains an interface for
+    accessing individual CRDs or listing all CRDs. See full documentation
     [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc).
 
 ## Contributing
@@ -193,13 +193,13 @@ and to reduce the chance of mistakes such as when, for example, defining an Open
 
 ### Makefile
 
-The `Makefile` at the root of the repository ensures that required tools (defined below) are installed in 
+The `Makefile` at the root of the repository ensures that required tools (defined below) are installed in
 `hack/tools/bin` and then runs each step of the code generation pipeline sequentially.
 
 The main code generation steps are as follows:
 - `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
 - `generate-deepcopy`: Generates `zz_generated.deepcopy.go` in each package in `pkg/apis` with deep copy functions.
-- `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`. 
+- `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`.
 - `generate-fs`: Generates `pkg/crd/internal` package containing a filesystem holding all files in `config/crd`.
 - `imports`: Sorts imports in all source files under `./pkg`.
 - `patch`: Applies the git patch `hack/generated.patch` to work around limitations in code generators.
@@ -213,7 +213,7 @@ Extra commands are provided including:
 
 ### Tools
 
-Tools are third-party executables which perform a particular action as part of the code generation pipeline. They are 
+Tools are third-party executables which perform a particular action as part of the code generation pipeline. They are
 defined in `hack/tools` in separate directories. Versions for the tools are defined in the `go.mod` file in their
 respective directories. A common `go.mod` isn't used so that their dependencies don't interfere.
 
@@ -232,7 +232,7 @@ files at runtime. This allows these files to be accessed from a binary outside o
 
 #### [`controller-gen`](https://book.kubebuilder.io/reference/controller-gen.html)
 
-Generates a custom resource definition (CRD) for each custom resource using special comments such as 
+Generates a custom resource definition (CRD) for each custom resource using special comments such as
 `// +kubebuilder:validation:Optional`.
 
 #### [`kustomize`](https://github.com/kubernetes-sigs/kustomize)
@@ -245,3 +245,22 @@ Provides an extra patch step for generated CRD YAML files because certain CRD fi
 Updates Go import lines by adding missing ones and removing unreferenced ones. This is required because CI checks for
 imports ordered in three sections (standard library, third-party, local) but certain code generators only generate
 source files with two sections.
+
+### Annotation Documentation
+
+Docs generator has support for documenting annotations. This is achieved by creating code annotations in YAML on the definition of the variables like:
+
+```
+// support:
+//   - crd: awsclusters.infrastructure.giantswarm.io
+//     apiversion: v1alpha2
+//     release: Since 14.0.0
+// documentation:
+//   Here is the documentation related to this annotation
+```
+
+Check [AWS Annotations](pkg/annotation/aws.go) for examples.
+
+The `documentation` is later on parsed as Markdown syntax.
+Annotations that don't have this YAML format are ignored and not published to the public docs.
+Annotations belong to specific API Version of the CRDs but they can be linked to multiple CRDs and multiple API Versions.
