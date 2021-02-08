@@ -261,5 +261,6 @@ Docs generator has support for documenting annotations. This is achieved by crea
 
 Check [AWS Annotations](pkg/annotation/aws.go) for examples.
 
+The `documentation` is later on parsed as Markdown syntax.
 Annotations that don't have this YAML format are ignored and not published to the public docs.
 Annotations belong to specific API Version of the CRDs but they can be linked to multiple CRDs and multiple API Versions.
