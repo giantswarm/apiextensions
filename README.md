@@ -248,7 +248,7 @@ source files with two sections.
 
 ### Annotation Documentation
 
-Docs generator has support for documenting annotations. This is achieved by creating code annotations on the definition of the variables like:
+Docs generator has support for documenting annotations. This is achieved by creating code annotations in YAML on the definition of the variables like:
 
 ```
 // support:
