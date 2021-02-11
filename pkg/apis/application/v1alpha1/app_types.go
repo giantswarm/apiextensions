@@ -45,7 +45,7 @@ func NewAppCR() *App {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
 // +k8s:openapi-gen=true
-// App represents a managed app.
+// App represents a managed app which a user intended to install. It is reconciled by app-operator.
 type App struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

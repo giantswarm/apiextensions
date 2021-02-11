@@ -35,7 +35,8 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
-      description: Chart represents a Helm Chart deployed as a Helm Release.
+      description: Chart represents a Helm chart to be deployed as a Helm release.
+        It is reconciled by chart-operator.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

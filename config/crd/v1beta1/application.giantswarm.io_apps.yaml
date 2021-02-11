@@ -35,7 +35,8 @@ spec:
     status: {}
   validation:
     openAPIV3Schema:
-      description: App represents a managed app.
+      description: App represents a managed app which a user intended to install.
+        It is reconciled by app-operator.
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

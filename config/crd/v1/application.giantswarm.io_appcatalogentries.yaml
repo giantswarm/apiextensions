@@ -44,7 +44,8 @@ spec:
     schema:
       openAPIV3Schema:
         description: AppCatalogEntry represents an entry of an app in a catalog of
-          managed apps.
+          managed apps. It stores metadata for specific versions and apps. It is generated
+          by app-operator and consumed by app-admission-controller.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation

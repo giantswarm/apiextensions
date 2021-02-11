@@ -45,7 +45,7 @@ func NewChartCR() *Chart {
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=common;giantswarm
 // +k8s:openapi-gen=true
-// Chart represents a Helm Chart deployed as a Helm Release.
+// Chart represents a Helm chart to be deployed as a Helm release. It is reconciled by chart-operator.
 type Chart struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
