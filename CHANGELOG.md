@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add sample CRs for Azure Cluster API types.
+
 ### Changed
 
 - Update comments in `App`, `AppCatalog` and `AppCatalogEntry` CRs.
