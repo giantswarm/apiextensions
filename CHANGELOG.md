@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.18.1] - 2021-02-15
+
 ### Added
 
 - Add sample CRs for Azure Cluster API types.
@@ -698,7 +700,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.18.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.18.1...HEAD
+[3.18.1]: https://github.com/giantswarm/apiextensions/compare/v3.18.0...v3.18.1
 [3.18.0]: https://github.com/giantswarm/apiextensions/compare/v3.17.0...v3.18.0
 [3.17.0]: https://github.com/giantswarm/apiextensions/compare/v3.16.1...v3.17.0
 [3.16.1]: https://github.com/giantswarm/apiextensions/compare/v3.16.0...v3.16.1
