@@ -6,6 +6,7 @@ require (
 	github.com/giantswarm/microerror v0.3.0
 	github.com/go-openapi/errors v0.19.4
 	github.com/google/go-cmp v0.5.4
+	golang.org/x/tools v0.1.0 // indirect
 	k8s.io/api v0.18.9
 	k8s.io/apiextensions-apiserver v0.18.9
 	k8s.io/apimachinery v0.18.9

@@ -330,9 +330,6 @@ func withCondition(conditions []CommonClusterStatusCondition, condition CommonCl
 // elements in the list by cutting off the tail with respect to the limit
 // parameter.
 func withVersion(versions []CommonClusterStatusVersion, version CommonClusterStatusVersion, limit int) []CommonClusterStatusVersion {
-	if hasVersion(versions, version.Version) {
-		return versions
-	}
 
 	// Create a copy to not manipulate the input list.
 	var newVersions []CommonClusterStatusVersion
