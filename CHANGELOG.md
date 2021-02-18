@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.18.2] - 2021-02-18
+
 ### Changed
 
 - Allow to add the same version again in the `common_cluster_status` to support rollbacks.
@@ -704,7 +706,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.18.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.18.2...HEAD
+[3.18.2]: https://github.com/giantswarm/apiextensions/compare/v3.18.1...v3.18.2
 [3.18.1]: https://github.com/giantswarm/apiextensions/compare/v3.18.0...v3.18.1
 [3.18.0]: https://github.com/giantswarm/apiextensions/compare/v3.17.0...v3.18.0
 [3.17.0]: https://github.com/giantswarm/apiextensions/compare/v3.16.1...v3.17.0
