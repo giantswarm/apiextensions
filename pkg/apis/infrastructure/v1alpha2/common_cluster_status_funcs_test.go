@@ -804,7 +804,7 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			},
 		},
 		{
-			Name: "case 6: list with one item results in a list with one item in case the version already exists",
+			Name: "case 6: the same version can be added again.",
 			Versions: []CommonClusterStatusVersion{
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(10, 0)},
@@ -817,6 +817,10 @@ func Test_Provider_Status_withVersion(t *testing.T) {
 			},
 			Limit: 3,
 			ExpectedVersions: []CommonClusterStatusVersion{
+				{
+					LastTransitionTime: metav1.Time{Time: time.Unix(20, 0)},
+					Version:            "1.0.0",
+				},
 				{
 					LastTransitionTime: metav1.Time{Time: time.Unix(10, 0)},
 					Version:            "1.0.0",

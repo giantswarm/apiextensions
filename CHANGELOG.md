@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Allow to add the same version again in the `common_cluster_status` to support rollbacks.
+
 ## [3.18.1] - 2021-02-15
 
 ### Added
