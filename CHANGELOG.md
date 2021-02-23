@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Register `AppCatalogEntry` CRD as a known type.
+
 ## [3.18.2] - 2021-02-18
 
 ### Changed

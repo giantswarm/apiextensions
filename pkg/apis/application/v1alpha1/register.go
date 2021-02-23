@@ -17,6 +17,8 @@ const (
 var knownTypes = []runtime.Object{
 	&AppCatalog{},
 	&AppCatalogList{},
+	&AppCatalogEntry{},
+	&AppCatalogEntryList{},
 	&App{},
 	&AppList{},
 	&Chart{},
