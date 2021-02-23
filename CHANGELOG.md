@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- erminology update to use 'workload cluster release' consistently.
+
 ## [3.19.0] - 2021-02-23
 
 ### Changed
