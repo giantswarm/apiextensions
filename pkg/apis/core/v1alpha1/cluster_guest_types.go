@@ -3,7 +3,7 @@ package v1alpha1
 // +k8s:openapi-gen=true
 type ClusterGuestConfig struct {
 	AvailabilityZones int `json:"availabilityZones,omitempty"`
-	// DNSZone for guest cluster is supplemented with host prefixes for
+	// DNSZone for the workload cluster is supplemented with host prefixes for
 	// specific services such as Kubernetes API or Etcd. In general this DNS
 	// Zone should start with "k8s" like for example
 	// "k8s.cluster.example.com.".

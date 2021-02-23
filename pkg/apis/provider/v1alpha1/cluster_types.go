@@ -130,8 +130,8 @@ type ClusterNode struct {
 
 // +k8s:openapi-gen=true
 type ClusterScaling struct {
-	// Max defines maximum number of worker nodes guest cluster is allowed to have.
+	// Max defines maximum number of worker nodes the workload cluster is allowed to have.
 	Max int `json:"max"`
-	// Min defines minimum number of worker nodes required to be present in guest cluster.
+	// Min defines minimum number of worker nodes required to be present in the workload cluster.
 	Min int `json:"min"`
 }
