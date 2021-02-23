@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Add `AppCatalogEntry` into the registry.
+- Register `AppCatalogEntry` CRD as a known type.
 
 ## [3.18.2] - 2021-02-18
 
