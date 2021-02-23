@@ -25,7 +25,7 @@ spec:
     openAPIV3Schema:
       description: AWSMachineDeployment is the infrastructure provider referenced
         in Kubernetes Cluster API MachineDeployment resources. It contains provider-specific
-        specification and status for a node pool. In use on AWS since Giant Swarm
+        specification and status for a node pool. In use on AWS since workload cluster
         release v10.x.x and reconciled by aws-operator.
       properties:
         apiVersion:
