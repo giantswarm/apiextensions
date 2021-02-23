@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.19.0] - 2021-02-23
+
 ### Changed
 
 - Register `AppCatalogEntry` CRD as a known type.
@@ -710,7 +712,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.18.2...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.19.0...HEAD
+[3.19.0]: https://github.com/giantswarm/apiextensions/compare/v3.18.2...v3.19.0
 [3.18.2]: https://github.com/giantswarm/apiextensions/compare/v3.18.1...v3.18.2
 [3.18.1]: https://github.com/giantswarm/apiextensions/compare/v3.18.0...v3.18.1
 [3.18.0]: https://github.com/giantswarm/apiextensions/compare/v3.17.0...v3.18.0
