@@ -100,7 +100,7 @@ type CommonClusterStatus struct {
 	// Identifier of the cluster.
 	ID string `json:"id,omitempty"`
 	// +kubebuilder:validation:Optional
-	// Release versions the cluster used so far.
+	// Workload cluster release versions the cluster used so far.
 	Versions []CommonClusterStatusVersion `json:"versions,omitempty"`
 }
 

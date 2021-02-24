@@ -64,19 +64,19 @@ type DrainerConfigSpecGuest struct {
 // +k8s:openapi-gen=true
 type DrainerConfigSpecGuestCluster struct {
 	API DrainerConfigSpecGuestClusterAPI `json:"api"`
-	// ID is the guest cluster ID of which a node should be drained.
+	// ID is the workload cluster ID of which a node should be drained.
 	ID string `json:"id"`
 }
 
 // +k8s:openapi-gen=true
 type DrainerConfigSpecGuestClusterAPI struct {
-	// Endpoint is the guest cluster API endpoint.
+	// Endpoint is the workload cluster API endpoint.
 	Endpoint string `json:"endpoint"`
 }
 
 // +k8s:openapi-gen=true
 type DrainerConfigSpecGuestNode struct {
-	// Name is the identifier of the guest cluster's master and worker nodes. In
+	// Name is the identifier of the workload cluster's master and worker nodes. In
 	// Kubernetes/Kubectl they are represented as node names. The names are manage
 	// in an abstracted way because of provider specific differences.
 	//

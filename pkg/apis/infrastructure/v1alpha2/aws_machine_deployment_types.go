@@ -13,7 +13,7 @@ import (
 
 // AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources.
 // It contains provider-specific specification and status for a node pool.
-// In use on AWS since Giant Swarm release v10.x.x and reconciled by aws-operator.
+// In use on AWS since workload cluster release v10.x.x and reconciled by aws-operator.
 type AWSMachineDeployment struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`

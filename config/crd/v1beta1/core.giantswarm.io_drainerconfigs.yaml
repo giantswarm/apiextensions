@@ -44,13 +44,13 @@ spec:
                     api:
                       properties:
                         endpoint:
-                          description: Endpoint is the guest cluster API endpoint.
+                          description: Endpoint is the workload cluster API endpoint.
                           type: string
                       required:
                       - endpoint
                       type: object
                     id:
-                      description: ID is the guest cluster ID of which a node should
+                      description: ID is the workload cluster ID of which a node should
                         be drained.
                       type: string
                   required:
@@ -60,7 +60,7 @@ spec:
                 node:
                   properties:
                     name:
-                      description: "Name is the identifier of the guest cluster's
+                      description: "Name is the identifier of the workload cluster's
                         master and worker nodes. In Kubernetes/Kubectl they are represented
                         as node names. The names are manage in an abstracted way because
                         of provider specific differences. \n     AWS: EC2 instance

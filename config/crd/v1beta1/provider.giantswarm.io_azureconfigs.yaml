@@ -359,12 +359,12 @@ spec:
                 scaling:
                   properties:
                     max:
-                      description: Max defines maximum number of worker nodes guest
-                        cluster is allowed to have.
+                      description: Max defines maximum number of worker nodes the
+                        workload cluster is allowed to have.
                       type: integer
                     min:
                       description: Min defines minimum number of worker nodes required
-                        to be present in guest cluster.
+                        to be present in the workload cluster.
                       type: integer
                   required:
                   - max
@@ -411,12 +411,12 @@ spec:
               properties:
                 conditions:
                   description: Conditions is a list of status information expressing
-                    the current conditional state of a guest cluster. This may reflect
-                    the status of the guest cluster being updating or being up to
-                    date.
+                    the current conditional state of a workload cluster. This may
+                    reflect the status of the workload cluster being updating or being
+                    up to date.
                   items:
                     description: StatusClusterCondition expresses the conditions in
-                      which a guest cluster may is.
+                      which a workload cluster may is.
                     properties:
                       lastTransitionTime:
                         description: LastTransitionTime is the last time the condition
@@ -436,17 +436,17 @@ spec:
                   type: array
                 network:
                   description: StatusClusterNetwork expresses the network segment
-                    that is allocated for a guest cluster.
+                    that is allocated for a workload cluster.
                   nullable: true
                   properties:
                     cidr:
                       type: string
                   type: object
                 nodes:
-                  description: Nodes is a list of guest cluster node information reflecting
-                    the current state of the guest cluster nodes.
+                  description: Nodes is a list of workload cluster node information
+                    reflecting the current state of the workload cluster nodes.
                   items:
-                    description: StatusClusterNode holds information about a guest
+                    description: StatusClusterNode holds information about a workload
                       cluster node.
                     properties:
                       labels:
@@ -511,7 +511,7 @@ spec:
                   type: array
                 scaling:
                   description: StatusClusterScaling expresses the current status of
-                    desired number of worker nodes in guest cluster.
+                    desired number of worker nodes in the workload cluster.
                   nullable: true
                   properties:
                     desiredCapacity:
@@ -519,12 +519,12 @@ spec:
                   type: object
                 versions:
                   description: Versions is a list that acts like a historical track
-                    record of versions a guest cluster went through. A version is
-                    only added to the list as soon as the guest cluster successfully
+                    record of versions a workload cluster went through. A version
+                    is only added to the list as soon as the workload cluster successfully
                     migrated to the version added here.
                   items:
                     description: StatusClusterVersion expresses the versions in which
-                      a guest cluster was and may still be.
+                      a workload cluster was and may still be.
                     properties:
                       date:
                         description: "TODO date is deprecated due to LastTransitionTime

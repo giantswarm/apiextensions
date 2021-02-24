@@ -44,7 +44,7 @@ spec:
                 credentialSecret:
                   description: AWSClusterConfigSpecGuestCredentialSecret points to
                     the K8s Secret containing credentials for an AWS account in which
-                    the guest cluster should be created.
+                    the workload cluster should be created.
                   properties:
                     name:
                       type: string
@@ -55,10 +55,10 @@ spec:
                   - namespace
                   type: object
                 dnsZone:
-                  description: DNSZone for guest cluster is supplemented with host
-                    prefixes for specific services such as Kubernetes API or Etcd.
-                    In general this DNS Zone should start with "k8s" like for example
-                    "k8s.cluster.example.com.".
+                  description: DNSZone for the workload cluster is supplemented with
+                    host prefixes for specific services such as Kubernetes API or
+                    Etcd. In general this DNS Zone should start with "k8s" like for
+                    example "k8s.cluster.example.com.".
                   type: string
                 id:
                   type: string

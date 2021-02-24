@@ -174,7 +174,8 @@ spec:
                     description: Identifier of the cluster.
                     type: string
                   versions:
-                    description: Release versions the cluster used so far.
+                    description: Workload cluster release versions the cluster used
+                      so far.
                     items:
                       description: CommonClusterStatusVersion informs which aws-operator
                         version was/responsible for this cluster.

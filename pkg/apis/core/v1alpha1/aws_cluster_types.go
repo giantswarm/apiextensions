@@ -43,7 +43,7 @@ type AWSClusterConfigSpecGuest struct {
 }
 
 // AWSClusterConfigSpecGuestCredentialSecret points to the K8s Secret
-// containing credentials for an AWS account in which the guest cluster should
+// containing credentials for an AWS account in which the workload cluster should
 // be created.
 // +k8s:openapi-gen=true
 type AWSClusterConfigSpecGuestCredentialSecret struct {

@@ -33,16 +33,16 @@ type StatusCluster struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Conditions is a list of status information expressing the current
-	// conditional state of a guest cluster. This may reflect the status of the
-	// guest cluster being updating or being up to date.
+	// conditional state of a workload cluster. This may reflect the status of the
+	// workload cluster being updating or being up to date.
 	Conditions []StatusClusterCondition `json:"conditions,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	Network StatusClusterNetwork `json:"network"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// Nodes is a list of guest cluster node information reflecting the current
-	// state of the guest cluster nodes.
+	// Nodes is a list of workload cluster node information reflecting the current
+	// state of the workload cluster nodes.
 	Nodes []StatusClusterNode `json:"nodes,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -55,12 +55,12 @@ type StatusCluster struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Versions is a list that acts like a historical track record of versions a
-	// guest cluster went through. A version is only added to the list as soon as
-	// the guest cluster successfully migrated to the version added here.
+	// workload cluster went through. A version is only added to the list as soon as
+	// the workload cluster successfully migrated to the version added here.
 	Versions []StatusClusterVersion `json:"versions,omitempty"`
 }
 
-// StatusClusterCondition expresses the conditions in which a guest cluster may
+// StatusClusterCondition expresses the conditions in which a workload cluster may
 // is.
 // +k8s:openapi-gen=true
 type StatusClusterCondition struct {
@@ -79,14 +79,14 @@ type StatusClusterCondition struct {
 }
 
 // StatusClusterNetwork expresses the network segment that is allocated for a
-// guest cluster.
+// workload cluster.
 // +k8s:openapi-gen=true
 type StatusClusterNetwork struct {
 	// +kubebuilder:validation:Optional
 	CIDR string `json:"cidr"`
 }
 
-// StatusClusterNode holds information about a guest cluster node.
+// StatusClusterNode holds information about a workload cluster node.
 // +k8s:openapi-gen=true
 type StatusClusterNode struct {
 	// +kubebuilder:validation:Optional
@@ -139,14 +139,14 @@ type StatusClusterResourceCondition struct {
 }
 
 // StatusClusterScaling expresses the current status of desired number of
-// worker nodes in guest cluster.
+// worker nodes in the workload cluster.
 // +k8s:openapi-gen=true
 type StatusClusterScaling struct {
 	// +kubebuilder:validation:Optional
 	DesiredCapacity int `json:"desiredCapacity"`
 }
 
-// StatusClusterVersion expresses the versions in which a guest cluster was and
+// StatusClusterVersion expresses the versions in which a workload cluster was and
 // may still be.
 // +k8s:openapi-gen=true
 type StatusClusterVersion struct {
