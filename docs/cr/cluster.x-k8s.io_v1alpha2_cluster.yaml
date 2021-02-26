@@ -4,7 +4,7 @@ metadata:
   annotations:
     giantswarm.io/docs: https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#Cluster
   labels:
-    tag.provider.giantswarm.io/Environment: PROD
+    tag.provider.giantswarm.io/environment: prod
   name: ca1p0
 spec:
   infrastructureRef:
