@@ -3,7 +3,8 @@ kind: Cluster
 metadata:
   annotations:
     giantswarm.io/docs: https://pkg.go.dev/sigs.k8s.io/cluster-api/api/v1alpha2?tab=doc#Cluster
-  creationTimestamp: null
+  labels:
+    tag.provider.giantswarm.io/environment: prod
   name: ca1p0
 spec:
   infrastructureRef:
