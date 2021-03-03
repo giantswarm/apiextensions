@@ -56,7 +56,7 @@ for version in v1 v1beta1; do
     output:dir="../config/crd/$version" \
     crd:crdVersions="$version"
 
-  # With ControlPlane related types.
+  # With vsphere related types.
   ./tools/bin/controller-gen \
     crd \
     paths=sigs.k8s.io/cluster-api-provider-vsphere/api/v1alpha3 \
