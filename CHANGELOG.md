@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add CAPI CRDs : `AzureManagedCluster`, `AzureManagedControlPlane`, `AzureManagedMachinePool`, `AzureMachineTemplate`, `Machine`, `MachineSet`, `MachineHealthCheck`, `KubeadmConfig`, `KubeadmConfigTemplate`, `KubeadmControlPlane`.
+
 ### Changed
 
 - Terminology update to use 'workload cluster release' consistently.
