@@ -42,19 +42,19 @@ for version in v1 v1beta1; do
     output:dir="../config/crd/$version" \
     crd:crdVersions="$version"
 
-  # With MachinePool related types.
+  # With Kubeadm related types.
   ./tools/bin/controller-gen \
     crd \
     paths=sigs.k8s.io/cluster-api/bootstrap/kubeadm/api/v1alpha3 \
     output:dir="../config/crd/$version" \
     crd:crdVersions="$version"
 
-  # Delete unused upstream CRDs.
-  rm ../config/crd/$version/infrastructure.cluster.x-k8s.io_azuremachinetemplates.yaml
-  rm ../config/crd/$version/exp.infrastructure.cluster.x-k8s.io_azuremanagedclusters.yaml
-  rm ../config/crd/$version/exp.infrastructure.cluster.x-k8s.io_azuremanagedcontrolplanes.yaml
-  rm ../config/crd/$version/exp.infrastructure.cluster.x-k8s.io_azuremanagedmachinepools.yaml
-
+  # With ControlPlane related types.
+  ./tools/bin/controller-gen \
+    crd \
+    paths=sigs.k8s.io/cluster-api/controlplane/kubeadm/api/v1alpha3 \
+    output:dir="../config/crd/$version" \
+    crd:crdVersions="$version"
 
   # Add .metadata.name validation to Release CRD using kustomize since
   # kubebuilder comments can't modify metav1.ObjectMeta
