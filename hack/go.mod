@@ -5,6 +5,7 @@ go 1.14
 require (
 	k8s.io/kube-openapi v0.0.0-20200410145947-bcb3869e6f29 // indirect
 	sigs.k8s.io/cluster-api v0.3.13
+	sigs.k8s.io/cluster-api-provider-aws v0.6.4
 	sigs.k8s.io/cluster-api-provider-azure v0.4.11
 	sigs.k8s.io/cluster-api-provider-vsphere v0.7.4
 )
