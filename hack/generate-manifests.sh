@@ -42,6 +42,13 @@ for version in v1 v1beta1; do
     output:dir="../config/crd/$version" \
     crd:crdVersions="$version"
 
+  # With Azure aad-pod-identity related types.
+  ./tools/bin/controller-gen \
+    crd \
+    paths=github.com/Azure/aad-pod-identity/pkg/apis/aadpodidentity/v1 \
+    output:dir="../config/crd/$version" \
+    crd:crdVersions="$version"
+
   # With Kubeadm related types.
   ./tools/bin/controller-gen \
     crd \
