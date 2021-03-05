@@ -315,6 +315,119 @@ lphe/0ohVS7J4/m4tF/Dte2mMdTV2Pyvix3GprUd2c/ePk11dXtlzv/88sazmu8AAAD//w0YKFjhAAAA
 `,
 	},
 
+	"/config/crd/v1/aadpodidentity.k8s.io_azureassignedidentities.yaml": {
+		name:    "aadpodidentity.k8s.io_azureassignedidentities.yaml",
+		local:   "config/crd/v1/aadpodidentity.k8s.io_azureassignedidentities.yaml",
+		size:    9261,
+		modtime: 0,
+		compressed: `
+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
+`,
+	},
+
+	"/config/crd/v1/aadpodidentity.k8s.io_azureidentities.yaml": {
+		name:    "aadpodidentity.k8s.io_azureidentities.yaml",
+		local:   "config/crd/v1/aadpodidentity.k8s.io_azureidentities.yaml",
+		size:    3695,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RXTY8bNw+++1cQeQ+5vB43SQ+Fb9tNCizapIs4yaXogZZom41GUijJqfPrC0kz/hh7
+st4F4tuQEvnw4Zc1mU6nE/T8iSSws3NAz/RvJJu/QvP5l9Cwm21fTD6z1XO4TSG69j0Fl0TRa1qx5cjO
+TlqKqDHifAKA1rqIWRzyJ4ByNoozhmS6Jtt8TktaJjaapBjvXW9/al42P08AlFC5/oFbChFbPwebjJkA
+WGxpDvgtCbEmGzkyhQZRe6c7wa4DPQmeVPa/Fpf8HC4fqiY7nDXGm2z9rjtX5IZD/P1c9weHWPTeJEFz
+hqvoAtt1Miin2mw3KOdpDu+yf4+K9ASg46LgmXbRbl9UQ2pDLVagAM6Tvbm/+/RqcSIG0BSUsI+F0RO4
+wAHihiDzwitWhWJwqyLscUFOIoQoScUk1OztenGeJId18AVwVDlH0gGK5xloPQU6lwxVIF2wpLvYKhYO
+IOSFAtlaRCeGIR9CC275D6nYwIIkm4GwccnoXGlbkghCyq0tf9vbDhBdcWowUpe2w49tJLFoYIsm0f8B
+rYYWdyCUvUCyR/bKkdDAWycEbFduDpsYfZjPZmuOfcco17bJctzNSvHzMkUnYaZpS2YWeD1FURuOVFie
+oedpgW5L1zSt/p90PRaen2CNu1wzIQrb9ZGiVO53MpCrN+cfu6s1igPRWZTZef9m8QF61yUZQ/YL74eL
+4ZCCTBjbFUlN4kpcW2yS1d6xjeVDGSY7pD+kZcsx5/1LohBzrhq4LWMElgTJa4ykG7izcIstmVsM9MMT
+kJkO00zsdSk4noDDw5W1I0U/m0byddK3C0+qUy+7zlFCRYnmtJvDxV7Z97az1XJzcuxyZ5fu1m+63A01
+oyzUa/2CuHt9fvEk0N+cQCDZsiLwwlaxR9PAn0UNHgVbWOUzJcpdX6Zw8/rMbrYckU1oHoO11uODOH91
+cQMfAwnchMDrPLPeLu7KnFjcg0ILKVBX90xGPwHDPYbw1Yl+AMnHQLpSMqTt7N54YvOvLJcL8oG/vJ7y
+5EiWvySCrxw3bAHr2sxrKw9WoRUJWUWAFy0CBFJCcT9amovHvsNRj7i4vBJ2hXe8caqki+HrhtWmigu4
+EeTZK7Qp1FFUWHgC+pE5MD44Hrgk5A0rvJDZlZMW4zzvtFcvR0zmfbcmObN5ZdeWRsDjRtivDH5c6Uey
+eEX7LYa13l18tLuseji2vsdzZE723u9HO22c1bzSWGjQ1dOj0XqmOAzPgaqfVRfF/fgYKPs6OROP+OgT
+MhTvPF211yLGFK7ebOV0eR4g29qiHeDOUv/39PLc+M7m2iIbXBp6/wP65AkNO1oGQ5wPk3xualrW4/Fn
+4W4yaiavDtJziJJqVkN0gmvqJIckolLkI+l3wzfSs2cnD5/yqZzVXF998Nffk2qV9Kf+SZOF/wUAAP//
+IGSx4W8OAAA=
+`,
+	},
+
+	"/config/crd/v1/aadpodidentity.k8s.io_azureidentitybindings.yaml": {
+		name:    "aadpodidentity.k8s.io_azureidentitybindings.yaml",
+		local:   "config/crd/v1/aadpodidentity.k8s.io_azureidentitybindings.yaml",
+		size:    2751,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RWwZLkNAy95ytUy2EvJM3ucqByWwYOU8AWNbMMB4qDYqsTMY5tbLmH3q+n7CTT3Znu
+ZYaqzS2y/CQ9Palc1XVdoec7CpGdbQE90z9CNv/F5v672LDb7N5U92x1C1cpihtvKLoUFP1AW7Ys7Gw1
+kqBGwbYCQGudYDbH/AugnJXgjKFQ92Sb+9RRl9hoCgV8Cb37pnnbfFsBqEDl+kceKQqOvgWbjKkALI7U
+An5KgViTFZZ9x1az7WODqL3Ti3lOvYqeVM6iDy75Fs47TcBztlOl73OM69nv+ylGOTYc5aeLLj9zlOLm
+TQpoLuRaPCLbPhkM530qgKicpxY+5NQ8KtIVwExWSbWe6di9mfDUQCNONQA4T/b9r9d3725PzACaogrs
+pVB+rgToQs4RxPUkAwWQgSDTCG4LI4oaspN3Oj5i5p7r4rdUAQ8DqyGb9qDQQorUPLr74DwF4YXxGeKg
+wiPrKuHXuabJC3SWH8USd+aF9ExDzlUGjhDIB4pkJ0GeAEN2Qguu+4uUNHBLIcNAHFwyOqt2R0EgkHK9
+5U+P2JmaEtSg0Nzuw8dWKFg0sEOT6OvCzIh7CJSjQLJHeMUlNvCLCwRst66FQcTHdrPpWZbpU24ck2XZ
+b8ogcZfEhbjRtCOzidzXGNTAQkpSoA16rkvqtkxgM+qvwjyv8fVJrrLP8ooSFmlPX9H/ZzqQxQ8cAeer
+UxUHorMps3Pz4+1HWEKXZqzZL7wfLsZDCzJhbLdFfBxhG9xYMMlq79hK+VGGya7pj6kbWXLf/04UJfeq
+gauykqAjSF6jkG7g2sIVjmSuMNIXb0BmOtaZ2Oe14Hibrp0n1o4Olg13oV/nRvw2T3MZ5Xl8vNPwwFIG
+FhbnZkXtb5F0ln7GUCg035TsjeaA58A4dw9bF6AjeSCyS4yNJm/cfnzattX+YIowq+I0i/OroyAc17k+
+vMj0ZbY/w3hhnQwpceFFkR6I+0GeXjlp2O/FKU9Ymgnfcp8CgUsyr9Wy3OiwjA+sPYEGeCjbrKM5ZdLN
+hZTz5uopnJzmMeJAq4VQn7K9OluoWZmn4p+laEFJ8aWaLpfKWwPZTrKegOY1f+7Ss8W1QzbYGbohb1hh
+fNrDrQsjSmHx3dsXMPy/9HexLes8/5vup1B1WSnHv4XG6iJMzFtbtyAh0WQQF7Cn2XJoJypFXkh/WL+2
+Xr06eTSVX+Ws5ukVCX/8WU2opO+WF1A2/hsAAP//adMaTr8KAAA=
+`,
+	},
+
+	"/config/crd/v1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml": {
+		name:    "aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
+		local:   "config/crd/v1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
+		size:    2604,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RWTY8bNwy9z68g0kMu8bhpeyh8C7Y5LJosFtlgL0UPtETb7GokVaScdX59IWlm/bFr
+JyiQuQ1FPZLvkZzpZrNZh5HvKQkHvwCMTI9KvrxJ//C79Bzm27fdA3u7gKssGoZPJCEnQ3/Qij0rB98N
+pGhRcdEBoPdBsZilvAKY4DUF5yjN1uT7h7ykZWZnKVXwKfT25/6X/rcOwCSq1z/zQKI4xAX47FwH4HGg
+BeDXnCgGy5a8su7o0VCs8XpEe3Aw5t9JJFNSWaeQ4wJedmroY8qt3Hcl0G2w16Pr+ylQ9XEs+udlvw8s
+Wn2jywndpdSrm7BfZ4fpgmMHICZEWsBNSTeiIdsBjCzW9GcjT9u3DdRsaMBWF0CI5N/dXt//endkBrAk
+JnGNcaGiKiayF9ANQQwWhBwZDUlgFRJg1Wl6YrDFERVs8K8VEv2bORHcfLwGDRBTMCQC6G09IlHQ8EAe
+gi/4nGBJG3Sr/gkzphApKU9Cteeggw+sJzW9LmU3L7CldakVMVJHdmQKwgp0wwKJYiIh35r5CBiKE3oI
+y3/IaA93lAoMyCZkZwtJW0qlXhPWnr8+YUspuwR1qDT2xv5hr5Q8Otiiy/Sm8jLgDhKVKJD9AV51kR4+
+hkTAfhUWsFGNspjP16zT5JowDNmz7uZ1CHmZi1JzS1tyc+H1DJPZsJLRnGiOkWc1dd+mabA/pXHW5fVR
+rrorHSia2K8PDurYXFCgjAuwAI5XWxV7ooupsPPp/d1nmEJXMU7Zr7zvL8pegkIY+xWlJuIqhaFikrcx
+sNf6YhyTP6Vf8nJglakVi1Y9XNV1BkuCHC0q2R6uPVzhQO4KhX64AIVpmRViv0+Cw0186txYOziYFuMZ
+vc5ugbtIBgZUsyFpQ/6FdVOZndbBCbdt4Ap5q6dRD4nX7MsgNJWw7pO6LibsQ8Q3J5B+YPjCzpWd8Lir
+rhNyGRyhulUkBi8ESzQPNcmQy/GudB7bOtj9Ee7LC+Y8sxfYHTfgB1ySk+e30Nr68UR3ezbmBaG/EXpc
+tSfjONsn9F39oahZ/leH1JvHX4uG1jbnSSFncX6oOC+Vd5Hxc6Q2oG8z+vz+rM5gdxbqGYyUNWcXoClT
+M2hIuKbRsi8JTaGQ7M3pX82rV0e/JPXVBN+aURbw199dQyV7P/1VFON/AQAA//+4K8qvLAoAAA==
+`,
+	},
+
 	"/config/crd/v1/application.giantswarm.io_appcatalogentries.yaml": {
 		name:    "application.giantswarm.io_appcatalogentries.yaml",
 		local:   "config/crd/v1/application.giantswarm.io_appcatalogentries.yaml",
@@ -3671,6 +3784,119 @@ VG21MN8yyzh/vvL45ONDOc6nCycm/zLnQcRdNmTq+HKpwDvfwyUb96jUyZLbPMN8mUg5KfZc9ITJzXXu
 tVx74XRz3Zzd+IKaT6p6i6+o+N5bnGvmLaB7oycM8sWSmHOrE/8LMrk7KeIZAWogeyaYiVTnSzxriJfg
 68X+V/WVGk3yjzvr93P7vijIV9lOkF8n/RypfjpLq1A+MdWLQJLvINuCxjTqJOqj6XGKLJ9nug6Dov2w
 vN/jk/zmzdF7W6adZ0vjjxH49bdqREV7Pz+pOfh3AAAA///Q6tHkBgkAAA==
+`,
+	},
+
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azureassignedidentities.yaml": {
+		name:    "aadpodidentity.k8s.io_azureassignedidentities.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azureassignedidentities.yaml",
+		size:    8892,
+		modtime: 0,
+		compressed: `
+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
+1yPw+x+TqBXF+94OP/h3AAAA//8BACh2vCIAAA==
+`,
+	},
+
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentities.yaml": {
+		name:    "aadpodidentity.k8s.io_azureidentities.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azureidentities.yaml",
+		size:    3558,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RXTXMbNw++76/A5D3k8mrVJD10dHOddMbTJvVEiS+dHiASklDvkgxIylV+fYfkrqRd
+ryx7ptWNAAE8fPClrWazWYWO70g8W7MAdEx/BzLp5Ov7n3zNdr57s6KAb6p7NnoB19EH234mb6Moek9r
+NhzYmqqlgBoDLioANMYGTGKfjgDKmiC2aUhmGzL1fVzRKnKjSXKEPv7uh/pt/WMFoISy+RduyQds3QJM
+bJoKwGBLC8DvUYg1mcCBydeI2lndCfYd8so7Uin+Rmx0C5i+VFx2OMsbr5L3m+5eljfsw6+Pdb+xD1nv
+mijYPMKVdZ7NJjYoQ23y65V1tIBPKb5DRboC2GHDOr+9ILKOzNXtzd27pdpSi0UIoMkrYZfvDTEBewhb
+gvR4XrPKvsCus7APDilT4INEFaJQ3Xl1Yh1JQt7HATipj4NsFP91AljugE4VQQVCl1fS4DP4goI9CDkh
+T6bUyIlbSFfQgF39RSrUsCRJTsBvbWx0KqMdSQAhZTeGvx88ewg2h2wwUJeT/scmkBhsErWR/g9oNLS4
+B6EUA6I58Zav+Bo+WiFgs7YL2Ibg/GI+33DoO0LZto2Gw36e65pXMVjxc007auaeNzMUteVAmds5Op5l
+4CY3RN3q/0nXPv71CdKwT8Xgg7DZHMS5IM/ynkoy5Rs7s4L/SG8SJVY+f1h+gT5oTsGQ88z20cwfiU9E
+sVmTlMStxbbZIxntLJuQD6phMkPSfVy1HFKmv0XyIeWnhus8F2BFEJ3GQLqGGwPX2FJzjZ7+c9oTw36W
+KL1M/Ok4G14sbB3E/ZCZzNCgM5eOVKdedR2ihLISm2G/erDrAZ9ojr1rTfFbn9yY6txspz90mRrKz7y6
+mPTT/eb92GjwuF+sgCfZsSJwwkaxw6aG37MaHAq2sE538sv2fTHC1fuR1+Q3IDe+fi7GUnEX8P1swxa+
+ehK48p43aQ59XN7k/l/egkID0VNX10yNfmH0W/T+wYp+EsNXT7qQMCZqZHUugemXd94j6ShS2iJpFkTD
+3yLBA4ctG8Cy3dJ2SSNSaE1CRlEaGaSEwoRbOIyKekJ7lpUeaQ72LLgF1unGKJIO+8OW1baIz0NNEaGN
+voyV/PYXop7s6nMj4EkDIdewwkcZXFtpMSzSJnr3dtJZ2lEbkmoqCReqPBc4nhb4YdDz80s6kMGLDbUc
+13Bn9qJASXHpPX2/ptdYOcS9PdM75zhMy4eFBh06OxmJI/Fx7A0U/ayZEPYjYKDqq2AknPTd0z4U7h1d
+3DoBQ/TP3Dv5bv4PjmxKo3UgOz/938Opvj+7WXbIDa4a+vyvVv0Lm+5MisfYnqZz7GSWV9bxkDmqJs2P
+ny5vjqdMxaz7VMkKyPOf9AKCxJJcH6zghjrJMZ+oFLlA+tP4q+TVq8GnRj4qazSX7yz448+qeCV91+NI
+wn8CAAD//7f2LLfmDQAA
+`,
+	},
+
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentitybindings.yaml": {
+		name:    "aadpodidentity.k8s.io_azureidentitybindings.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azureidentitybindings.yaml",
+		size:    2670,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RWTZPcNBC9+1d0hUMu2EMSDpRvYeGwBaSo3bAcKA5tqcduVpaE1Jpl8uspyfZ6PDVD
+Ngd8U/t199Prj1JV13WFnh8oRHa2BfRM/wjZfIrN43exYbc7vOlI8E31yFa3cJOiuPGOoktB0Q+0Z8vC
+zlYjCWoUbCsAtNYJZnPMRwDlrARnDIW6J9s8po66xEZTKBmW/IdvmrfNtxWAClTcP/JIUXD0LdhkTAVg
+caQW8FMKxJqssBw7tpptHxtE7Z1ezDP/KnpSmUUfXPItXAZNgWe2003f5xy3M+77KUf5bTjKT1chP3OU
+AvMmBTRXuBZEZNsng+EypgKIynlq4UOm5lGRrgAOaFgXcSayzpN9/+vtw7t7NdCIkxFAU1SBfcFd5Ald
+yERAXE8yUAAZCLJW4PYwoqghg7zTcY6Yy6oLaiEKTwOrIZuOoNBCitTMYB+cpyC8SFrc1057tp0RfZ1v
+MmFA596iWDLOHUIaYrll5igDRwjkA0WyU7edhIUMQQuu+4uUNHBPIQeBOLhkdG7IAwWBQMr1lj89R86C
+lJQGheZKLh9boWDR5Bok+rroMeIRAuUckOxJtAKJDfziAgHbvWthEPGx3e16lmW2lBvHZFmOuzIh3CVx
+Ie40HcjsIvc1BjWwkJIUaIee60LcltFqRv1VmAcxvj5hKsfcNVHC0rHPTX1V99zPwBFwdpv4r/JmU1bl
+7sf7j7AkLSXYal7UXt3iKnwWiu2+NBpH2Ac3lohktXdspRyUYbJb0WPqRpZc6b8TRcn1aeCmbBjoCJLX
+KKQbuLVwgyOZG4z0v8ueFY51lvTzwp8uxi1wUuvZvCyqixW6NML3eVrLqM5j4p2GJ5YykrCAm42cv0XS
+ucVzBIVCs59kLJo1mgPj3CPsXYCO5InILhl2mrxxx/G8UGfbgSnC3AWnDC4thuJ9er/tryu6XtP2qr5F
+YzKkxIUXZ3gi7gc5h29K83uB5OlJs7h77lMgcEnmFVnWFa1rddXoLDDAU9lPHc1USTcXqeZd1FM4+ZcH
+hANthrze6rr5s0ixMU7X/WynCkqKX9arxaU8BJDt1K5TmHlRX3J6UeMckA12hu7IG1YYz2u1d2FEKYq9
+e/tCLb+4s66If87tv4U9D1KXlbAeilzVRff1CfVmPRUp6vnJVH7kAQgH0i1ISDQZxAXsabaslUWlyAvp
+D+fvolevNs+bclTOap7ee/DHn9UUlfTDwiMb/w0AAP//pMi7524KAAA=
+`,
+	},
+
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml": {
+		name:    "aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
+		size:    2523,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/7RWzW4cNwy+z1MQ6cGX7Gzd9lDMLXBzMJoYRhz4UvTAkbg7rDWSKlKON09fSDPj3XW9
+GyBA5iaK/Eh+/Bk1q9Wqwcj3lISD7wAj05OSLydpH36XlsP68bInxcvmgb3t4CqLhvETScjJ0B+0Yc/K
+wTcjKVpU7BoA9D4oFrGUI4AJXlNwjtJqS759yD31mZ2lVD0s/h9/bn9pf2sATKJq/plHEsUxduCzcw2A
+x5E6wK85UQyWLXll3dGToVj9tYj24GJOopFIpoSyTSHHDl5XmtDnkKd03xVHt8Fez6rvF0dVx7Hon+f1
+PrBo1Y0uJ3TnQq9qwn6bHaYzig2AmBCpg5sSbkRDtgF4RMe2sjYlECL5d7fX97/emYFGnIQAlsQkrkBn
+wq4VQ/YCOhDEYEHIkdGQBDYhATpXpDKDAuiACjb4C4VE/2ZOBDcfr0EDxBQMiQB6W69IFDQ8kIfgCzon
+6GlAt2lnsJhCpKS8VKJ8B136LHuRy0VJdtIBW/qSpuDn7iILUomAsAEdWCBRTCTkp049gIWigh5C/w8Z
+beGOUgEBGUJ2tlDzSKnkacLW89dnZCnpFpcOleayLx97peTRlTJlelvZGHEHiYoPyP4ArapICx9DImC/
+CR0MqlG69XrLusylCeOYPetuXaeL+1yqs7b0SG4tvF1hMgMrGc2J1hh5VQP305iM9qc0D7FcHESqu9JY
+oon99llcZ+Ek72UCgAVwNpvi39NbRIWVT+/vPsPitJbgmPPK9t5M9sQXothvKE2F26QwVkTyNgb2Wg/G
+Mflj0iX3I6ssbVfq08JV3U7QE+RoUcm2cO3hCkdyVyj0w2kvDMuqUPpt4g+X6rHixNazeNlvr1bo5JTf
+RTIwopqBpI4zfGEdKpvLuB/xOY1VIWzzPMoh8ZZ9afipLli3RV0HC/Ih3lvwIx+BfuGyS1J42lXFBbcM
+iFDdGRKDF4IezUMNMORyvTvYeO0B4mvr4xSXJ/msQMF+wJ6cvLRAa+s/D93tCV8nC3rW5bw4j0ZttQ/j
+mz2gqFm+owuq3fHGn7DmPXjS8ofQ/v80zrD5OmUTxHm+Xlqu6gw1r0K8MN+/Vy73pxrxan6f1AsAKfvL
+dqAp0yTQkHBLs2SfKZrCKNmbl++PN2+OHg/1aIKf+k86+OvvZkIle7/EUYT/BQAA//8TrwHT2wkAAA==
 `,
 	},
 
@@ -7133,6 +7359,10 @@ var _escDirs = map[string][]os.FileInfo{
 	},
 
 	"config/crd/v1": {
+		_escData["/config/crd/v1/aadpodidentity.k8s.io_azureassignedidentities.yaml"],
+		_escData["/config/crd/v1/aadpodidentity.k8s.io_azureidentities.yaml"],
+		_escData["/config/crd/v1/aadpodidentity.k8s.io_azureidentitybindings.yaml"],
+		_escData["/config/crd/v1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_appcatalogentries.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_apps.yaml"],
@@ -7190,6 +7420,10 @@ var _escDirs = map[string][]os.FileInfo{
 	},
 
 	"config/crd/v1beta1": {
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azureassignedidentities.yaml"],
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentities.yaml"],
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentitybindings.yaml"],
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_apps.yaml"],
