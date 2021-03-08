@@ -102,6 +102,7 @@ generate-deepcopy: $(CONTROLLER_GEN)
 .PHONY: generate-manifests
 generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
+	cd $(SCRIPTS_DIR); ./get-capi-crds.sh
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
 	cd $(SCRIPTS_DIR); ./get-capi-crds.sh
 
