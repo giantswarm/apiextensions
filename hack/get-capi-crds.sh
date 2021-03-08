@@ -8,6 +8,11 @@ set -euo pipefail
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 
 OUTPUT=$SCRIPT_DIR/../config/crd/v1
+TMP_DIR=$(mktemp -d /tmp/apiextensions.XXXXXXXXXX)
+cleanup() {
+  rm -rf "${TMP_DIR}"
+}
+trap cleanup EXIT
 
 fetch() {
 	local REPO=$1
@@ -26,6 +31,17 @@ fetch() {
 	# filter only CRD files.
 	curl --progress-bar -L "${FILE_URL}" | \
 		yq --yaml-output -r 'select(.kind == "CustomResourceDefinition")' > ${OUTPUT_FILE}
+
+	# split the yaml into multiple files.
+	kubernetes-split-yaml --outdir ${TMP_DIR} ${OUTPUT_FILE}
+	rm ${OUTPUT_FILE}
+
+	# rename the file with <group>_<kind>.yaml
+	for file in $(ls ${TMP_DIR}); do
+		GROUP=$(yq -r '.spec.group' ${TMP_DIR}/${file})
+		KIND=$(yq -r '.spec.names.plural' ${TMP_DIR}/${file})
+		mv ${TMP_DIR}/${file} ${OUTPUT}/${GROUP}_${KIND}.yaml
+	done
 }
 
 ## cluster-api
