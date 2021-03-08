@@ -15,7 +15,7 @@ fetch() {
 	local FILE=$3
 
 	# remove "/" for output file name.
-	local OUTPUT_FILE=${OUTPUT}/${REPO/\//\-}_${VERSION}.yaml
+	local OUTPUT_FILE=${OUTPUT}/${REPO/\//\-}.yaml
 
 	echo "> fetching CRDs from ${REPO}@${VERSION} to ${OUTPUT_FILE}"
 	FILE_URL=$(curl -sS "https://api.github.com/repos/${REPO}/releases/tags/${VERSION}" | \
