@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-OUTPUT=test
+OUTPUT=../config/crd/v1
 
 ## cluster-api
 REPO=kubernetes-sigs/cluster-api
