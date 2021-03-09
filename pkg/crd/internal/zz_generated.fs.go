@@ -315,45 +315,6 @@ lphe/0ohVS7J4/m4tF/Dte2mMdTV2Pyvix3GprUd2c/ePk11dXtlzv/88sazmu8AAAD//w0YKFjhAAAA
 `,
 	},
 
-	"/config/crd/v1/aadpodidentity.k8s.io_azureidentities.yaml": {
-		name:    "aadpodidentity.k8s.io_azureidentities.yaml",
-		local:   "config/crd/v1/aadpodidentity.k8s.io_azureidentities.yaml",
-		size:    350,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/2yQvU4DMRCEez/FvkAOpUPuEDQ0FBT0G3sTreKzrf05BZ4e+WIKBJ13Z/zN2Nj5g0S5
-1QjYmW5GdUy6XB914fawHU9keAxXrjnCs6u19Z20uSR6oTNXNm41rGSY0TAGgIInKjpOAKm4GslyO0xe
-l7ZxJonA9SyoJp7MhQ745UIBoOJKEfaJM1VjY9IFMfeW5+JzlgvaKY2cizTvEf433ZGzz/0ZT4P+On37
-vhcXLH9yd025Xryg/FbHPU2tU4S3we+YKAeA7ec7t2P4DgAA///QckjjXgEAAA==
-`,
-	},
-
-	"/config/crd/v1/aadpodidentity.k8s.io_azureidentitybindings.yaml": {
-		name:    "aadpodidentity.k8s.io_azureidentitybindings.yaml",
-		local:   "config/crd/v1/aadpodidentity.k8s.io_azureidentitybindings.yaml",
-		size:    341,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/3SQv27zMAzEdz0FXyD+4O2Dtv5ZunTo0J2WmICITAkkZaR9+kKxs7WbTjzc/Uhs/Elq
-XCUCNqabkwxl0/W/TVz/bfNCjnO4suQIL928rh9ktWuiVzqzsHOVsJJjRscYAAouVGy8AFLp5qTT7XTk
-Na0bZ9IILGdFc+3Ju9IJv7tSABBcKcJdcSZx9q+FJbNcbELMrebH94EYrFEabRetvUX43bQHH1T7Mk+j
-4+3wPe8d93ErXbH8AREALNVGEd5HYMNEOQBsjytuc/gJAAD//21xxYBVAQAA
-`,
-	},
-
-	"/config/crd/v1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml": {
-		name:    "aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
-		local:   "config/crd/v1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
-		size:    396,
-		modtime: 0,
-		compressed: `
-H4sIAAAAAAAC/3yQsU7DMBCGdz/FvUCDsiFvCBhYEGJgv9rX6lTHPt2do8DTo6SpxIC6+Zc//f9no/AX
-qXGrEVCYFqe6JhsujzZwe5jHIzmO4cI1R3ju5m36JGtdE73QiSs7txomcszoGANAwSMVW08AqXRz0mE5
-7H2ibeZMGoHrSdFce/KudMCfrhQAKk4UYUvSMmeqzv5NSyLxTQwx/7nYPYMJpXXyrK1LhP+ha/uudn3R
-0zr00fLbjr7ehjZGSlcs93Q2zLiee0G9AwYAS00owvuqIJgoB4D59vnzGH4DAAD//1L3I3aMAQAA
-`,
-	},
-
 	"/config/crd/v1/addons.cluster.x-k8s.io_clusterresourcesetbindings.yaml": {
 		name:    "addons.cluster.x-k8s.io_clusterresourcesetbindings.yaml",
 		local:   "config/crd/v1/addons.cluster.x-k8s.io_clusterresourcesetbindings.yaml",
@@ -4396,6 +4357,45 @@ vN/jk/zmzdF7W6adZ0vjjxH49bdqREV7Pz+pOfh3AAAA///Q6tHkBgkAAA==
 `,
 	},
 
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentities.yaml": {
+		name:    "aadpodidentity.k8s.io_azureidentities.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azureidentities.yaml",
+		size:    350,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/2yQvU4DMRCEez/FvkAOpUPuEDQ0FBT0G3sTreKzrf05BZ4e+WIKBJ13Z/zN2Nj5g0S5
+1QjYmW5GdUy6XB914fawHU9keAxXrjnCs6u19Z20uSR6oTNXNm41rGSY0TAGgIInKjpOAKm4GslyO0xe
+l7ZxJonA9SyoJp7MhQ745UIBoOJKEfaJM1VjY9IFMfeW5+JzlgvaKY2cizTvEf433ZGzz/0ZT4P+On37
+vhcXLH9yd025Xryg/FbHPU2tU4S3we+YKAeA7ec7t2P4DgAA///QckjjXgEAAA==
+`,
+	},
+
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentitybindings.yaml": {
+		name:    "aadpodidentity.k8s.io_azureidentitybindings.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azureidentitybindings.yaml",
+		size:    341,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/3SQv27zMAzEdz0FXyD+4O2Dtv5ZunTo0J2WmICITAkkZaR9+kKxs7WbTjzc/Uhs/Elq
+XCUCNqabkwxl0/W/TVz/bfNCjnO4suQIL928rh9ktWuiVzqzsHOVsJJjRscYAAouVGy8AFLp5qTT7XTk
+Na0bZ9IILGdFc+3Ju9IJv7tSABBcKcJdcSZx9q+FJbNcbELMrebH94EYrFEabRetvUX43bQHH1T7Mk+j
+4+3wPe8d93ErXbH8AREALNVGEd5HYMNEOQBsjytuc/gJAAD//21xxYBVAQAA
+`,
+	},
+
+	"/config/crd/v1beta1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml": {
+		name:    "aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
+		local:   "config/crd/v1beta1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml",
+		size:    396,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/3yQsU7DMBCGdz/FvUCDsiFvCBhYEGJgv9rX6lTHPt2do8DTo6SpxIC6+Zc//f9no/AX
+qXGrEVCYFqe6JhsujzZwe5jHIzmO4cI1R3ju5m36JGtdE73QiSs7txomcszoGANAwSMVW08AqXRz0mE5
+7H2ibeZMGoHrSdFce/KudMCfrhQAKk4UYUvSMmeqzv5NSyLxTQwx/7nYPYMJpXXyrK1LhP+ha/uudn3R
+0zr00fLbjr7ehjZGSlcs93Q2zLiee0G9AwYAS00owvuqIJgoB4D59vnzGH4DAAD//1L3I3aMAQAA
+`,
+	},
+
 	"/config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml": {
 		name:    "application.giantswarm.io_appcatalogentries.yaml",
 		local:   "config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml",
@@ -5657,9 +5657,6 @@ var _escDirs = map[string][]os.FileInfo{
 	},
 
 	"config/crd/v1": {
-		_escData["/config/crd/v1/aadpodidentity.k8s.io_azureidentities.yaml"],
-		_escData["/config/crd/v1/aadpodidentity.k8s.io_azureidentitybindings.yaml"],
-		_escData["/config/crd/v1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml"],
 		_escData["/config/crd/v1/addons.cluster.x-k8s.io_clusterresourcesetbindings.yaml"],
 		_escData["/config/crd/v1/addons.cluster.x-k8s.io_clusterresourcesets.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_appcatalogentries.yaml"],
@@ -5722,6 +5719,9 @@ var _escDirs = map[string][]os.FileInfo{
 	},
 
 	"config/crd/v1beta1": {
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentities.yaml"],
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azureidentitybindings.yaml"],
+		_escData["/config/crd/v1beta1/aadpodidentity.k8s.io_azurepodidentityexceptions.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogentries.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_apps.yaml"],
