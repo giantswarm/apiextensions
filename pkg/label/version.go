@@ -30,6 +30,30 @@ const AWSOperatorVersion = "aws-operator.giantswarm.io/version"
 // that there is an azure-operator release v4.1.0.
 const AzureOperatorVersion = "azure-operator.giantswarm.io/version"
 
+// CAPIVersion is the version label put into provider independent CRs
+// to define which cluster-api-core version should reconcile the given CR.
+const CAPIVersion = "cluster-api.giantswarm.io/version"
+
+// CABPKVersion is the version label put into bootstrap CRs
+// to define which cluster-api-bootstrap-provider-kubeadm version should reconcile the given CR.
+const CABPKVersion = "cluster-api-bootstrap-kubeadm.giantswarm.io/version"
+
+// CACPKVersion is the version label put into control plane CRs
+// to define which cluster-api-control-plane-kubeadm version should reconcile the given CR.
+const CACPKVersion = "cluster-api-control-plane-kubeadm.giantswarm.io/version"
+
+// CAPAVersion is the version label put into AWS CRs
+// to define which CAPA version should reconcile the given CR.
+const CAPAVersion = "cluster-api-provider-aws.giantswarm.io/version"
+
+// CAPZVersion is the version label put into Azure CRs
+// to define which CAPZ version should reconcile the given CR.
+const CAPZVersion = "cluster-api-provider-azure.giantswarm.io/version"
+
+// ClusterOperatorVersion is the version label put into VSphere CRs
+// to define which CAPV version should reconcile the given CR.
+const CAPVVersion = "cluster-api-provider-vsphere.giantswarm.io/version"
+
 // ClusterOperatorVersion is the version label put into provider independent CRs
 // to define which cluster-operator version should reconcile the given CR.
 // Versions are defined as semver version without the "v" prefix, e.g. 2.3.0,

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add Cluster API labels that will be used to filter CR's by version.
+
 ### Changed
 
 - Terminology update to use 'workload cluster release' consistently.
