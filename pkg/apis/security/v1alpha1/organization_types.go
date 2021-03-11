@@ -19,7 +19,7 @@ func NewOrganizationCRD() *v1beta1.CustomResourceDefinition {
 // +genclient:noStatus
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:scope=Cluster,categories=common;giantswarm
+// +kubebuilder:resource:scope=Cluster,categories=common;giantswarm,shortName=org;orgs
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 // Organization represents schema for managed Kubernetes namespace. Reconciled by organization-operator.
