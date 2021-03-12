@@ -24,7 +24,7 @@ func TestGenerate(t *testing.T) {
 			}
 
 			if !unicode.IsLetter(idChars[0]) {
-				t.Fatalf("generated id starts does not start with a letter: %q", id)
+				t.Fatalf("generated id does not start with a letter: %q", id)
 			}
 
 			if lettersOnlyRegexp.MatchString(id) {
