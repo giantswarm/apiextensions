@@ -14,10 +14,12 @@ const (
 	IDLength = 5
 )
 
-func Generate() string {
-	idRegexp := regexp.MustCompile("^[a-z]([a-z][0-9]|[0-9][a-z])+$")
-	letterRunes := []rune(IDChars)
+var (
+	idRegexp    = regexp.MustCompile("^[a-z]([a-z][0-9]|[0-9][a-z])+$")
+	letterRunes = []rune(IDChars)
+)
 
+func Generate() string {
 	b := make([]rune, IDLength)
 	for {
 		rand.Seed(time.Now().UnixNano())

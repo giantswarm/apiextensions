@@ -34,6 +34,10 @@ func TestGenerate(t *testing.T) {
 			if digitsOnlyRegexp.MatchString(id) {
 				t.Fatalf("generated id only contains digits: %q", id)
 			}
+
+			if len(idChars) > IDLength {
+				t.Fatalf("generated id is too long: %d > %d", len(idChars), IDLength)
+			}
 		})
 	}
 }
