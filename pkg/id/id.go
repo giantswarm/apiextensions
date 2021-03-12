@@ -28,9 +28,7 @@ func Generate() string {
 		}
 
 		id := string(b)
-		matched := idRegexp.MatchString(id)
-
-		if !matched {
+		if !idRegexp.MatchString(id) {
 			continue
 		}
 
