@@ -99,7 +99,7 @@ func newAppExampleCR() *App {
 			},
 		},
 		NamespaceConfig: AppSpecNamespaceConfig{
-			Labels:      map[string]string{
+			Labels: map[string]string{
 				"linkerd.io/inject": "enabled",
 			},
 		},
