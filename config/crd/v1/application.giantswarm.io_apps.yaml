@@ -151,6 +151,26 @@ spec:
                 description: Namespace is the namespace where the app should be deployed.
                   e.g. monitoring
                 type: string
+              namespaceConfig:
+                description: NamespaceConfig is the namespace config to be applied
+                  to the target namespace when the app is deployed.
+                nullable: true
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Annotations references a string map the app is applying
+                      to the annotation of target namespace.
+                    nullable: true
+                    type: object
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Labels references a string map the app is applying
+                      to the label of target namespace.
+                    nullable: true
+                    type: object
+                type: object
               userConfig:
                 description: UserConfig is the user config to be applied when the
                   app is deployed.
