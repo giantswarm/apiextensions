@@ -3,7 +3,6 @@ package id
 import (
 	"math/rand"
 	"regexp"
-	"strconv"
 	"time"
 )
 
@@ -15,27 +14,21 @@ const (
 	IDLength = 5
 )
 
-func Generate() string {
-	compiledRegexp, _ := regexp.Compile("^[a-z]+$")
+var (
+	idRegexp    = regexp.MustCompile("^[a-z]([a-z][0-9]|[0-9][a-z])+$")
+	letterRunes = []rune(IDChars)
+)
 
+func Generate() string {
+	b := make([]rune, IDLength)
 	for {
-		letterRunes := []rune(IDChars)
-		b := make([]rune, IDLength)
 		rand.Seed(time.Now().UnixNano())
 		for i := range b {
 			b[i] = letterRunes[rand.Intn(len(letterRunes))]
 		}
 
 		id := string(b)
-
-		if _, err := strconv.Atoi(id); err == nil {
-			// ID is made up of numbers only, which we want to avoid.
-			continue
-		}
-
-		matched := compiledRegexp.MatchString(id)
-		if matched {
-			// ID is made up of letters only, which we also avoid.
+		if !idRegexp.MatchString(id) {
 			continue
 		}
 
