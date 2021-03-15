@@ -168,12 +168,12 @@ type AppSpecKubeConfigSecret struct {
 type AppSpecNamespaceConfig struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// Labels references a string map the app is applying to the label of target namespace.
-	Labels map[string]string `json:"labels,omitempty"`
+	// Annotations is a string map of annotations to apply to the target namespace.
+	Annotations map[string]string `json:"annotations,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// Annotations references a string map the app is applying to the annotation of target namespace.
-	Annotations map[string]string `json:"annotations,omitempty"`
+	// Labels is a string map of labels to apply to the target namespace.
+	Labels map[string]string `json:"labels,omitempty"`
 }
 
 // +k8s:openapi-gen=true
