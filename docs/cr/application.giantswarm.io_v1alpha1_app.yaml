@@ -26,6 +26,9 @@ spec:
       namespace: f2def
   name: prometheus
   namespace: monitoring
+  namespaceConfig:
+    labels:
+      linkerd.io/inject: enabled
   userConfig:
     configMap:
       name: prometheus-user-values
