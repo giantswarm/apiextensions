@@ -27,7 +27,7 @@ spec:
   name: prometheus
   namespace: monitoring
   namespaceConfig:
-    labels:
+    annotations:
       linkerd.io/inject: enabled
   userConfig:
     configMap:
