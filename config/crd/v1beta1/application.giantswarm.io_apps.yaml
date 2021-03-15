@@ -158,15 +158,15 @@ spec:
                 annotations:
                   additionalProperties:
                     type: string
-                  description: Annotations references a string map the app is applying
-                    to the annotation of target namespace.
+                  description: Annotations is a string map of annotations to apply
+                    to the target namespace.
                   nullable: true
                   type: object
                 labels:
                   additionalProperties:
                     type: string
-                  description: Labels references a string map the app is applying
-                    to the label of target namespace.
+                  description: Labels is a string map of labels to apply to the target
+                    namespace.
                   nullable: true
                   type: object
               type: object
