@@ -10,8 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `NamespaceConfig` spec to `App` CRD.
+
+## [3.20.0] - 2021-03-15
+
+
 - Add label `ui.giantswarm.io/display`.
 - Add shortnames `org` and `orgs` for CRD `organizations.security.giantswarm.io`.
+- Disallow generated IDs to start with digits.
 
 ### Changed
 
@@ -722,7 +727,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.19.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.20.0...HEAD
+[3.20.0]: https://github.com/giantswarm/apiextensions/compare/v3.19.0...v3.20.0
 [3.19.0]: https://github.com/giantswarm/apiextensions/compare/v3.18.2...v3.19.0
 [3.18.2]: https://github.com/giantswarm/apiextensions/compare/v3.18.1...v3.18.2
 [3.18.1]: https://github.com/giantswarm/apiextensions/compare/v3.18.0...v3.18.1
