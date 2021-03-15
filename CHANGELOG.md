@@ -7,7 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `NamespaceConfig` spec to `App` CRD.
+
 ## [3.20.0] - 2021-03-15
+
 
 - Add label `ui.giantswarm.io/display`.
 - Add shortnames `org` and `orgs` for CRD `organizations.security.giantswarm.io`.
