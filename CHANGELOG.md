@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.21.0] - 2021-03-16
+
 ### Added
 
 - Add `NamespaceConfig` spec to `App` CRD.
@@ -727,7 +729,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.20.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.21.0...HEAD
+[3.21.0]: https://github.com/giantswarm/apiextensions/compare/v3.20.0...v3.21.0
 [3.20.0]: https://github.com/giantswarm/apiextensions/compare/v3.19.0...v3.20.0
 [3.19.0]: https://github.com/giantswarm/apiextensions/compare/v3.18.2...v3.19.0
 [3.18.2]: https://github.com/giantswarm/apiextensions/compare/v3.18.1...v3.18.2
