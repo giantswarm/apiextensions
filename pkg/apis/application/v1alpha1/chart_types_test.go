@@ -93,6 +93,11 @@ func newChartExampleCR() *Chart {
 				Namespace: "f2def",
 			},
 		},
+		NamespaceConfig: ChartSpecNamespaceConfig{
+			Annotations: map[string]string{
+				"linkerd.io/inject": "enabled",
+			},
+		},
 		TarballURL: "prometheus-1.0.1.tgz",
 		Version:    "1.0.1",
 	}
