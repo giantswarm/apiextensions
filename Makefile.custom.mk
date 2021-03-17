@@ -69,6 +69,7 @@ generate:
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
+	@$(MAKE) check-imports
 	@$(MAKE) patch
 
 .PHONY: verify
