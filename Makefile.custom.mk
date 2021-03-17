@@ -13,7 +13,6 @@ CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
-ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 
 BUILD_COLOR = ""
 GEN_COLOR = ""
@@ -58,11 +57,6 @@ $(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
 	@echo "$(BUILD_COLOR)Building kustomize$(NO_COLOR)"
 	cd $(TOOLS_DIR)/kustomize \
 	&& go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
-
-$(ESC): $(TOOLS_DIR)/esc/go.mod
-	@echo "$(BUILD_COLOR)Building esc$(NO_COLOR)"
-	@cd $(TOOLS_DIR)/esc \
-	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
 
 .PHONY: generate
 generate:
