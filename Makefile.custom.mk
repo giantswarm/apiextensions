@@ -69,8 +69,7 @@ generate:
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
-	@$(MAKE) generate-fs
-	@$(MAKE) imports
+	@$(MAKE) check-imports
 	@$(MAKE) patch
 
 .PHONY: verify
@@ -104,17 +103,8 @@ generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
 	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
 	cd $(SCRIPTS_DIR); ./generate-manifests.sh
 
-.PHONY: generate-fs
-generate-fs: $(ESC) config/crd
-	@echo "$(GEN_COLOR)Generating filesystem$(NO_COLOR)"
-	$(ESC) \
-	-o pkg/crd/internal/zz_generated.fs.go \
-	-pkg internal \
-	-modtime 0 \
-	config/crd
-
-.PHONY: imports
-imports: $(GOIMPORTS)
+.PHONY: check-imports
+check-imports: $(GOIMPORTS)
 	@echo "$(GEN_COLOR)Sorting imports$(NO_COLOR)"
 	$(GOIMPORTS) -local $(MODULE) -w ./pkg
 
