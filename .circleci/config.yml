@@ -70,15 +70,11 @@ workflows:
             tags:
               only: /^v.*/
       - validate:
-          requires:
-            - go-test
           filters:
             # Trigger job also on git tag.
             tags:
               only: /^v.*/
       - test-install:
-          requires:
-            - validate
           filters:
             # Trigger job also on git tag.
             tags:
