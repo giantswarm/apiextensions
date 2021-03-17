@@ -20,5 +20,8 @@ spec:
     skipCRDs: true
   name: prometheus
   namespace: monitoring
+  namespaceConfig:
+    annotations:
+      linkerd.io/inject: enabled
   tarballURL: prometheus-1.0.1.tgz
   version: 1.0.1

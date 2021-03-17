@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `NamespaceConfig` spec to `Chart` CRD.
+
 ## [3.21.0] - 2021-03-16
 
 ### Added
