@@ -123,6 +123,26 @@ spec:
                 description: Namespace is the namespace where the chart should be
                   deployed. e.g. monitoring
                 type: string
+              namespaceConfig:
+                description: NamespaceConfig is the namespace config to be applied
+                  to the target namespace when the chart is deployed.
+                nullable: true
+                properties:
+                  annotations:
+                    additionalProperties:
+                      type: string
+                    description: Annotations is a string map of annotations to apply
+                      to the target namespace.
+                    nullable: true
+                    type: object
+                  labels:
+                    additionalProperties:
+                      type: string
+                    description: Labels is a string map of labels to apply to the
+                      target namespace.
+                    nullable: true
+                    type: object
+                type: object
               tarballURL:
                 description: TarballURL is the URL for the Helm chart tarball to be
                   deployed. e.g. https://example.com/path/to/prom-1-0-0.tgz
