@@ -13,7 +13,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"sigs.k8s.io/yaml"
 
-	"github.com/giantswarm/apiextensions/v3/pkg/crd/internal"
+	crdfs "github.com/giantswarm/apiextensions/v3/config"
 )
 
 const (
@@ -38,13 +38,9 @@ var (
 type objectHandler func(data []byte) error
 
 func iterateResources(groupVersionKind schema.GroupVersionKind, handle objectHandler) error {
-	crdDirectory := fmt.Sprintf("/config/crd/%s", groupVersionKind.Version)
-	fs := internal.FS(false)
-	directory, err := fs.Open(crdDirectory)
-	if err != nil {
-		return microerror.Mask(err)
-	}
-	files, err := directory.Readdir(0)
+	crdDirectory := fmt.Sprintf("crd/%s", groupVersionKind.Version)
+	fs := crdfs.FS
+	files, err := fs.ReadDir(crdDirectory)
 	if err != nil {
 		return microerror.Mask(err)
 	}

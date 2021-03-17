@@ -1,6 +1,6 @@
 module github.com/giantswarm/apiextensions/v3
 
-go 1.14
+go 1.16
 
 require (
 	github.com/giantswarm/microerror v0.3.0
