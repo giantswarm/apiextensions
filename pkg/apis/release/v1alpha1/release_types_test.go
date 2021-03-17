@@ -55,14 +55,19 @@ func Test_ReleaseCRValidation(t *testing.T) {
 					Value: "null",
 				},
 				{
-					Name:  "spec.state",
-					In:    "body",
-					Value: nil,
-				},
-				{
 					Name:  "spec.date",
 					In:    "body",
 					Value: "null",
+				},
+				{
+					Name:  "spec.state",
+					In:    "body",
+					Value: "null",
+				},
+				{
+					Name:  "spec.state",
+					In:    "body",
+					Value: nil,
 				},
 			},
 		},
