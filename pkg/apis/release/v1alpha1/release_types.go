@@ -197,13 +197,21 @@ type ReleaseSpec struct {
 }
 
 type ReleaseSpecComponent struct {
+	// Catalog specifies the name of the app catalog that this component belongs to.
+	Catalog string `json:"catalog,omitempty" yaml:"catalog,omitempty"`
 	// Name of the component.
 	Name string `json:"name" yaml:"name"`
+	// Reference is the component's version in the catalog (e.g. 1.2.3 or 1.2.3-abc8675309).
+	Reference string `json:"reference,omitempty" yaml:"reference,omitempty"`
+	// ReleaseOperatorDeploy informs the release-operator that it should deploy the component.
+	ReleaseOperatorDeploy bool `json:"releaseOperatorDeploy,omitempty" yaml:"releaseOperatorDeploy,omitempty"`
 	// Version of the component.
 	Version string `json:"version" yaml:"version"`
 }
 
 type ReleaseSpecApp struct {
+	// Catalog specifies the name of the app catalog that this app belongs to.
+	Catalog string `json:"catalog,omitempty" yaml:"catalog,omitempty"`
 	// Version of the upstream component used in the app.
 	ComponentVersion string `json:"componentVersion,omitempty" yaml:"componentVersion,omitempty"`
 	// Name of the app.
