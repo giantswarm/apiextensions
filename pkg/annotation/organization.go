@@ -6,4 +6,4 @@ package annotation
 // documentation:
 //   This annotation contains the original name of organizations migrated from
 //   our legacy organization management service.
-const UIOrganizationOriginalName = "ui.giantswarm.io/original-organization-name"
+const UIOriginalOrganizationName = "ui.giantswarm.io/original-organization-name"
