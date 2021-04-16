@@ -53,7 +53,7 @@ fetch $REPO $VERSION $FILE
 
 # cluster-api-provider-aws
 REPO=kubernetes-sigs/cluster-api-provider-aws
-VERSION=v0.6.4
+VERSION=v0.6.5
 FILE=infrastructure-components.yaml
 fetch $REPO $VERSION $FILE
 
