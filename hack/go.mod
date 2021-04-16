@@ -6,7 +6,7 @@ require (
 	github.com/Azure/aad-pod-identity v1.6.3
 	k8s.io/kube-openapi v0.0.0-20200410145947-bcb3869e6f29 // indirect
 	sigs.k8s.io/cluster-api v0.3.13
-	sigs.k8s.io/cluster-api-provider-aws v0.6.4
+	sigs.k8s.io/cluster-api-provider-aws v0.6.5
 	sigs.k8s.io/cluster-api-provider-azure v0.4.11
 	sigs.k8s.io/cluster-api-provider-vsphere v0.7.4
 )
@@ -18,6 +18,7 @@ replace (
 	k8s.io/apiserver => k8s.io/apiserver v0.18.5
 	k8s.io/client-go => k8s.io/client-go v0.18.5
 	sigs.k8s.io/cluster-api v0.3.13 => github.com/giantswarm/cluster-api v0.3.13-gs
+	sigs.k8s.io/cluster-api-provider-aws v0.6.5 => github.com/giantswarm/cluster-api-provider-aws v0.6.6-0.20210416125341-787579502a18
 	sigs.k8s.io/cluster-api-provider-azure v0.4.11 => github.com/giantswarm/cluster-api-provider-azure v0.4.12-gsalpha1
 	sigs.k8s.io/cluster-api-provider-vsphere v0.7.4 => github.com/giantswarm/cluster-api-provider-vsphere v0.7.5-0.20210303144349-2a70e74f8361
 )
