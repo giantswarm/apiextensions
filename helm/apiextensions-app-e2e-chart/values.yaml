@@ -26,7 +26,7 @@ appCatalogs:
     logoUrl: "http://giantswarm.com/catalog-logo.png"
     storage:
       type: "helm"
-      url: "https://giantswarm.github.com/sample-catalog/"
+      url: "https://giantswarm.github.io/sample-catalog/"
 
 configMaps:
   app-values:

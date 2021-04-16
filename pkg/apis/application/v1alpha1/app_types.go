@@ -80,6 +80,10 @@ type AppSpec struct {
 	Namespace string `json:"namespace"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// NamespaceConfig is the namespace config to be applied to the target namespace when the app is deployed.
+	NamespaceConfig AppSpecNamespaceConfig `json:"namespaceConfig,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// UserConfig is the user config to be applied when the app is deployed.
 	UserConfig AppSpecUserConfig `json:"userConfig,omitempty"`
 	// Version is the version of the app that should be deployed.
@@ -158,6 +162,18 @@ type AppSpecKubeConfigSecret struct {
 	// Namespace is the namespace of the secret containing the kubeconfig,
 	// e.g. giantswarm.
 	Namespace string `json:"namespace"`
+}
+
+// +k8s:openapi-gen=true
+type AppSpecNamespaceConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Annotations is a string map of annotations to apply to the target namespace.
+	Annotations map[string]string `json:"annotations,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Labels is a string map of labels to apply to the target namespace.
+	Labels map[string]string `json:"labels,omitempty"`
 }
 
 // +k8s:openapi-gen=true

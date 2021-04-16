@@ -70,6 +70,10 @@ type ChartSpec struct {
 	// Namespace is the namespace where the chart should be deployed.
 	// e.g. monitoring
 	Namespace string `json:"namespace"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// NamespaceConfig is the namespace config to be applied to the target namespace when the chart is deployed.
+	NamespaceConfig ChartSpecNamespaceConfig `json:"namespaceConfig,omitempty"`
 	// TarballURL is the URL for the Helm chart tarball to be deployed.
 	// e.g. https://example.com/path/to/prom-1-0-0.tgz
 	TarballURL string `json:"tarballURL"`
@@ -84,6 +88,18 @@ type ChartSpecInstall struct {
 	// +nullable
 	// SkipCRDs when true decides that CRDs which are supplied with the chart are not installed. Default: false.
 	SkipCRDs bool `json:"skipCRDs,omitempty"`
+}
+
+// +k8s:openapi-gen=true
+type ChartSpecNamespaceConfig struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Annotations is a string map of annotations to apply to the target namespace.
+	Annotations map[string]string `json:"annotations,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Labels is a string map of labels to apply to the target namespace.
+	Labels map[string]string `json:"labels,omitempty"`
 }
 
 // +k8s:openapi-gen=true

@@ -98,6 +98,11 @@ func newAppExampleCR() *App {
 				Namespace: "f2def",
 			},
 		},
+		NamespaceConfig: AppSpecNamespaceConfig{
+			Annotations: map[string]string{
+				"linkerd.io/inject": "enabled",
+			},
+		},
 		UserConfig: AppSpecUserConfig{
 			ConfigMap: AppSpecUserConfigConfigMap{
 				Name:      "prometheus-user-values",

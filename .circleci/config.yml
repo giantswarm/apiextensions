@@ -6,7 +6,7 @@ orbs:
 jobs:
   validate:
     docker:
-      - image: quay.io/giantswarm/architect
+      - image: quay.io/giantswarm/architect:3.2.2
     steps:
       - checkout
       - run:
