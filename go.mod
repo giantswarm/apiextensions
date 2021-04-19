@@ -1,6 +1,6 @@
 module github.com/giantswarm/apiextensions/v3
 
-go 1.14
+go 1.16
 
 require (
 	github.com/giantswarm/microerror v0.3.0
@@ -23,6 +23,8 @@ replace (
 
 	// Use v1.3.2 of gogo/protobuf to fix nancy alert.
 	github.com/gogo/protobuf v1.3.1 => github.com/gogo/protobuf v1.3.2
+
+	github.com/gorilla/websocket v1.4.0 => github.com/gorilla/websocket v1.4.2
 
 	sigs.k8s.io/cluster-api => github.com/giantswarm/cluster-api v0.3.13-gs
 )
