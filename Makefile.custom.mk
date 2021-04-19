@@ -33,7 +33,7 @@ YEAR = $(shell date +'%Y')
 INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
-CHART_GENERATED_FILES := $(shell find helm -name "*.yaml" -depth 3)
+CHART_GENERATED_FILES := $(shell find helm -name '*.yaml' -depth 3)
 
 all: generate
 
