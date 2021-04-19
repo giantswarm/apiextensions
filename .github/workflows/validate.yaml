@@ -1,0 +1,22 @@
+name: validate
+
+on: [push,pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: golang:1.16.3
+    steps:
+      - id: go-cache-paths
+        run: echo "::set-output name=go-mod::$(go env GOMODCACHE)"
+
+      - uses: actions/checkout@v2
+
+      - name: Go mod cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.go-cache-paths.outputs.go-mod }}
+          key: ${{ runner.os }}-go-mod-${{ hashFiles('**/go.sum') }}
+
+      - name: Run Makefile
+        run: make verify

@@ -1,10 +1,7 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
 const (
@@ -22,10 +19,6 @@ const (
 const (
 	kindDrainerConfig = "DrainerConfig"
 )
-
-func NewDrainerConfigCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindDrainerConfig)
-}
 
 func NewDrainerTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

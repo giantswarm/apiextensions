@@ -1,19 +1,8 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
-
-const (
-	kindAzureTool = "AzureTool"
-)
-
-func NewAzureToolCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAzureTool)
-}
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

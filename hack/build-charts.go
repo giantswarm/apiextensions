@@ -1,0 +1,299 @@
+//go:generate go run build-charts.go
+
+package main
+
+import (
+	"context"
+	"errors"
+	"io"
+	"log"
+	"net/http"
+	"os"
+	"path/filepath"
+
+	"github.com/giantswarm/to"
+	"github.com/google/go-github/v35/github"
+	"golang.org/x/oauth2"
+	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
+	capiyaml "sigs.k8s.io/cluster-api/util/yaml"
+	"sigs.k8s.io/yaml"
+)
+
+type releaseAssetFileDefinition struct {
+	owner    string
+	repo     string
+	version  string
+	file     string
+	provider string
+}
+
+var upstreamReleaseAssets = []releaseAssetFileDefinition{
+	{
+		owner:   "kubernetes-sigs",
+		repo:    "cluster-api",
+		version: "v0.3.14",
+		file:    "cluster-api-components.yaml",
+		provider: "common",
+	},
+	{
+		owner:   "kubernetes-sigs",
+		repo:    "cluster-api-provider-aws",
+		version: "v0.6.5",
+		file:    "infrastructure-components.yaml",
+		provider: "aws",
+	},
+	{
+		owner:   "kubernetes-sigs",
+		repo:    "cluster-api-provider-azure",
+		version: "v0.4.12",
+		file:    "infrastructure-components.yaml",
+		provider: "azure",
+	},
+	{
+		owner:   "kubernetes-sigs",
+		repo:    "cluster-api-provider-vsphere",
+		version: "v0.7.6",
+		file:    "infrastructure-components.yaml",
+		provider: "vmware",
+	},
+	{
+		owner:   "Azure",
+		repo:    "aad-pod-identity",
+		version: "v1.7.4",
+		file:    "deployment.yaml",
+		provider: "azure",
+	},
+}
+
+func decodeCRDs(readCloser io.ReadCloser) ([]v1.CustomResourceDefinition, error) {
+	decoder := capiyaml.NewYAMLDecoder(readCloser)
+	defer func(contentReader io.ReadCloser) {
+		err := decoder.Close()
+		if err != nil {
+			panic(err)
+		}
+	}(readCloser)
+
+	crdGVK := schema.GroupVersionKind{
+		Group: "apiextensions.k8s.io",
+		Version: "v1",
+		Kind:    "CustomResourceDefinition",
+	}
+	var crds []v1.CustomResourceDefinition
+	for {
+		var crd v1.CustomResourceDefinition
+		_, decodedGVK, err := decoder.Decode(nil, &crd)
+		if errors.Is(err, io.EOF) {
+			break
+		} else if err != nil {
+			return nil, err
+		}
+		if *decodedGVK != crdGVK {
+			continue
+		}
+		crds = append(crds, crd)
+	}
+
+	return crds, nil
+}
+
+func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset releaseAssetFileDefinition) ([]v1.CustomResourceDefinition, error) {
+	release, _, err := client.Repositories.GetReleaseByTag(ctx, asset.owner, asset.repo, asset.version)
+	if err != nil {
+		return nil, err
+	}
+
+	var targetAsset *github.ReleaseAsset
+	for _, releaseAsset := range release.Assets {
+		if releaseAsset.GetName() == asset.file {
+			targetAsset = releaseAsset
+			break
+		}
+	}
+	if targetAsset == nil {
+		return nil, errors.New("not found")
+	}
+
+	contentReader, _, err := client.Repositories.DownloadReleaseAsset(ctx, asset.owner, asset.repo, targetAsset.GetID(), http.DefaultClient)
+	if err != nil {
+		return nil, err
+	}
+
+	crds, err := decodeCRDs(contentReader)
+	if err != nil {
+		return nil, err
+	}
+
+	return crds, nil
+}
+
+var webhookDefinitions = map[string]v1.WebhookClientConfig{
+	"clusters.cluster.x-k8s.io": {
+		URL:      to.StringP("test"),
+		Service:  nil,
+		CABundle: nil,
+	},
+}
+
+func patchCRD(crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {
+	webhookDefinition, ok := webhookDefinitions[crd.Name]
+	if !ok {
+		return crd, nil
+	}
+
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig:             &webhookDefinition,
+			ConversionReviewVersions: nil,
+		},
+	}
+
+	return crd, nil
+}
+
+func getUpstreamCRDs(ctx context.Context, client *github.Client, provider string) ([]v1.CustomResourceDefinition, error) {
+	var crds []v1.CustomResourceDefinition
+	for _, releaseAsset := range upstreamReleaseAssets {
+		if releaseAsset.provider != provider {
+			continue
+		}
+
+		releaseAssetCRDs, err := downloadReleaseAssetCRDs(ctx, client, releaseAsset)
+		if err != nil {
+			return nil, err
+		}
+
+		crds = append(crds, releaseAssetCRDs...)
+	}
+
+	return crds, nil
+}
+
+func contains(s []string, str string) bool {
+	for _, v := range s {
+		if v == str {
+			return true
+		}
+	}
+
+	return false
+}
+
+func getLocalCRDs(category string) ([]v1.CustomResourceDefinition, error) {
+	var crds []v1.CustomResourceDefinition
+	err := filepath.WalkDir("../config/crd", func(path string, entry os.DirEntry, walkErr error) error {
+		if walkErr != nil {
+			return walkErr
+		}
+		if entry.IsDir() {
+			return nil
+		}
+
+		file, err := os.Open(path)
+		if err != nil {
+			return err
+		}
+
+		fileCRDs, err := decodeCRDs(file)
+		if err != nil {
+			return err
+		}
+
+		for _, crd := range fileCRDs {
+			if contains(crd.Spec.Names.Categories, category) {
+				crds = append(crds, crd)
+			}
+		}
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return crds, nil
+}
+
+func writeCRDsToFile(filename string, crds []v1.CustomResourceDefinition) error {
+	if len(crds) == 0 {
+		return nil
+	}
+
+	writeBuffer, err := os.OpenFile(filename, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0755)
+	if err != nil {
+		return err
+	}
+
+	defer func() {
+		err = writeBuffer.Close()
+		if err != nil {
+			panic(err)
+		}
+	}()
+
+	for _, crd := range crds {
+		crd, err := patchCRD(crd)
+		if err != nil {
+			return err
+		}
+
+		crdBytes, err := yaml.Marshal(crd)
+		if err != nil {
+			return err
+		}
+
+		_, err = writeBuffer.Write(crdBytes)
+		if err != nil {
+			return err
+		}
+
+		_, err = writeBuffer.Write([]byte("\n---\n"))
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func renderChart(ctx context.Context, client *github.Client, provider string) error {
+	localCRDs, err := getLocalCRDs(provider)
+	if err != nil {
+		return err
+	}
+
+	err = writeCRDsToFile("../helm/crds-"+provider+"/templates/giantswarm.yaml", localCRDs)
+	if err != nil {
+		return err
+	}
+
+	upstreamCRDs, err := getUpstreamCRDs(ctx, client, provider)
+	if err != nil {
+		return err
+	}
+
+	err = writeCRDsToFile("../helm/crds-"+provider+"/templates/upstream.yaml", upstreamCRDs)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func main() {
+	ctx := context.Background()
+	ts := oauth2.StaticTokenSource(
+		&oauth2.Token{AccessToken: os.Getenv("GITHUB_TOKEN")},
+	)
+	tc := oauth2.NewClient(ctx, ts)
+	client := github.NewClient(tc)
+
+	for _, provider := range []string{"common", "aws", "azure", "kvm", "vmware"} {
+		err := renderChart(ctx, client, provider)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}

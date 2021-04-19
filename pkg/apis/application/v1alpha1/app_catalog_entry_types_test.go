@@ -29,13 +29,6 @@ var (
 	update = flag.Bool("update", false, "update generated YAMLs")
 )
 
-func Test_NewAppCatalogEntryCRD(t *testing.T) {
-	crd := NewAppCatalogEntryCRD()
-	if crd == nil {
-		t.Error("AppCatalogEntry CRD was nil.")
-	}
-}
-
 func Test_GenerateAppCatalogEntryYAML(t *testing.T) {
 	testCases := []struct {
 		category string

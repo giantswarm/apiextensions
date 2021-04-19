@@ -41,7 +41,7 @@ jobs:
       - run:
           name: Install CRDs
           command: |
-            ./kubectl create -f config/crd/v1 > /dev/null
+            ./kubectl create -f config/crd > /dev/null
       - run:
           name: Check for NonStructuralSchema condition indicating invalid CRDs
           command: |
@@ -72,20 +72,3 @@ workflows:
             # Trigger job also on git tag.
             tags:
               only: /^v.*/
-
-      - architect/go-architect-legacy:
-          name: go-build
-          command: build
-          requires:
-            - go-test
-            - validate
-            - test-install
-
-      - architect/go-architect-legacy:
-          name: go-deploy
-          command: deploy
-          requires:
-            - go-build
-          filters:
-            branches:
-              only: master

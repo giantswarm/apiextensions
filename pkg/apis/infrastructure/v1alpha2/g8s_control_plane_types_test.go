@@ -15,21 +15,9 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewG8sControlPlaneCRD(t *testing.T) {
-	crd := NewG8sControlPlaneCRD()
-	if crd == nil {
-		t.Error("G8sControlPlane CRD was nil.")
-	}
-	if crd.Name == "" {
-		t.Error("G8sControlPlane CRD name was empty")
-	}
-}
-
 func Test_GenerateG8sControlPlaneYAML(t *testing.T) {
-	crd := NewG8sControlPlaneCRD()
-
-	crdGroup := crd.Spec.Group
-	crdKindLower := strings.ToLower(crd.Spec.Names.Kind)
+	crdGroup := SchemeGroupVersion.Group
+	crdKindLower := strings.ToLower(kindG8sControlPlane)
 
 	testCases := []struct {
 		category string
