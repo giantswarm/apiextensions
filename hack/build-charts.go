@@ -11,6 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/giantswarm/to"
 	"github.com/google/go-github/v35/github"
 	"golang.org/x/oauth2"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
@@ -133,7 +134,7 @@ var patches = map[string]func(crd *v1.CustomResourceDefinition){
 			Strategy: v1.WebhookConverter,
 			Webhook: &v1.WebhookConversion{
 				ClientConfig: &v1.WebhookClientConfig{
-					URL:      nil,
+					URL:      to.StringP("test"),
 					Service:  nil,
 					CABundle: nil,
 				},
