@@ -14,11 +14,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capa-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -117,11 +118,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capa-webhook-service
-          namespace: system
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -263,11 +265,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capa-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -1223,6 +1226,19 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: awsclusterstaticidentities.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Q2c9PQ==
+        service:
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1325,6 +1341,19 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: awsfargateprofiles.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Q2c9PQ==
+        service:
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1471,6 +1500,19 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: awsmachinepools.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Q2c9PQ==
+        service:
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1852,11 +1894,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capa-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -2414,11 +2457,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capa-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -2874,6 +2918,19 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: awsmanagedclusters.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Q2c9PQ==
+        service:
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -2981,6 +3038,19 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: awsmanagedmachinepools.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Q2c9PQ==
+        service:
+          name: cluster-api-provider-aws-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:

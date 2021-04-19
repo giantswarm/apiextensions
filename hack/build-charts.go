@@ -28,6 +28,8 @@ type releaseAssetFileDefinition struct {
 	provider string
 }
 
+var notFoundError = errors.New("not found")
+
 var upstreamReleaseAssets = []releaseAssetFileDefinition{
 	{
 		owner:    "kubernetes-sigs",
@@ -112,7 +114,7 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 		}
 	}
 	if targetAsset == nil {
-		return nil, errors.New("not found")
+		return nil, notFoundError
 	}
 
 	contentReader, _, err := client.Repositories.DownloadReleaseAsset(ctx, asset.owner, asset.repo, targetAsset.GetID(), http.DefaultClient)
@@ -128,33 +130,81 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 	return crds, nil
 }
 
-var patches = map[string]func(crd *v1.CustomResourceDefinition){
-	"clusters.cluster.x-k8s.io": func(crd *v1.CustomResourceDefinition) {
-		crd.Spec.Conversion = &v1.CustomResourceConversion{
-			Strategy: v1.WebhookConverter,
-			Webhook: &v1.WebhookConversion{
-				ClientConfig: &v1.WebhookClientConfig{
-					URL:      to.StringP("test"),
-					Service:  nil,
-					CABundle: nil,
+func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-core-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
 				},
-				ConversionReviewVersions: nil,
+				CABundle: []byte("Cg=="),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-provider-aws-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("Cg=="),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
+	for i := range crd.Spec.Versions {
+		crd.Spec.Versions[i].Schema.OpenAPIV3Schema.Properties["metadata"] = v1.JSONSchemaProps{
+			Type: "object",
+			Properties: map[string]v1.JSONSchemaProps{
+				"name": {
+					Pattern: "^v(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[\\.0-9a-zA-Z]*)?$",
+					Type:    "string",
+				},
 			},
 		}
-	},
-	"releases.release.giantswarm.io": func(crd *v1.CustomResourceDefinition) {
-		for i := range crd.Spec.Versions {
-			_ = crd.Spec.Versions[i].Schema
-			/*
-				TODO: apply this
-				crd.Spec.Versions[i].Schema.OpenAPIV3Schema =
-						properties:
-							name:
-								pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[\.0-9a-zA-Z]*)?$
-								type: string
-			*/
-		}
-	},
+	}
+}
+
+var patches = map[string]func(crd *v1.CustomResourceDefinition){
+	"clusters.cluster.x-k8s.io":                                      patchCAPIWebhook,
+	"machinedeployments.cluster.x-k8s.io":                            patchCAPIWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":                           patchCAPIWebhook,
+	"machines.cluster.x-k8s.io":                                      patchCAPIWebhook,
+	"machinesets.cluster.x-k8s.io":                                   patchCAPIWebhook,
+	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
+	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,
+	"awsclusters.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
+	"awsclusterstaticidentities.infrastructure.cluster.x-k8s.io":     patchCAPAWebhook,
+	"awsfargateprofiles.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
+	"awsmachinepools.infrastructure.cluster.x-k8s.io":                patchCAPAWebhook,
+	"awsmachines.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
+	"awsmachinetemplates.infrastructure.cluster.x-k8s.io":            patchCAPAWebhook,
+	"awsmanagedclusters.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
+	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
+	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
 
 func patchCRD(crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {

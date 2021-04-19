@@ -250,8 +250,15 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        url: test
-      conversionReviewVersions: null
+        caBundle: Q2c9PQ==
+        service:
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:
@@ -600,11 +607,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capi-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -1257,11 +1265,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capi-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -1838,11 +1847,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capi-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -2323,11 +2333,12 @@ spec:
     strategy: Webhook
     webhook:
       clientConfig:
-        caBundle: Cg==
+        caBundle: Q2c9PQ==
         service:
-          name: capi-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
