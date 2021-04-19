@@ -11,7 +11,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/giantswarm/to"
 	"github.com/google/go-github/v35/github"
 	"golang.org/x/oauth2"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
@@ -30,38 +29,38 @@ type releaseAssetFileDefinition struct {
 
 var upstreamReleaseAssets = []releaseAssetFileDefinition{
 	{
-		owner:   "kubernetes-sigs",
-		repo:    "cluster-api",
-		version: "v0.3.14",
-		file:    "cluster-api-components.yaml",
+		owner:    "kubernetes-sigs",
+		repo:     "cluster-api",
+		version:  "v0.3.14",
+		file:     "cluster-api-components.yaml",
 		provider: "common",
 	},
 	{
-		owner:   "kubernetes-sigs",
-		repo:    "cluster-api-provider-aws",
-		version: "v0.6.5",
-		file:    "infrastructure-components.yaml",
+		owner:    "kubernetes-sigs",
+		repo:     "cluster-api-provider-aws",
+		version:  "v0.6.5",
+		file:     "infrastructure-components.yaml",
 		provider: "aws",
 	},
 	{
-		owner:   "kubernetes-sigs",
-		repo:    "cluster-api-provider-azure",
-		version: "v0.4.12",
-		file:    "infrastructure-components.yaml",
+		owner:    "kubernetes-sigs",
+		repo:     "cluster-api-provider-azure",
+		version:  "v0.4.12",
+		file:     "infrastructure-components.yaml",
 		provider: "azure",
 	},
 	{
-		owner:   "kubernetes-sigs",
-		repo:    "cluster-api-provider-vsphere",
-		version: "v0.7.6",
-		file:    "infrastructure-components.yaml",
+		owner:    "kubernetes-sigs",
+		repo:     "cluster-api-provider-vsphere",
+		version:  "v0.7.6",
+		file:     "infrastructure-components.yaml",
 		provider: "vmware",
 	},
 	{
-		owner:   "Azure",
-		repo:    "aad-pod-identity",
-		version: "v1.7.4",
-		file:    "deployment.yaml",
+		owner:    "Azure",
+		repo:     "aad-pod-identity",
+		version:  "v1.7.4",
+		file:     "deployment.yaml",
 		provider: "azure",
 	},
 }
@@ -76,7 +75,7 @@ func decodeCRDs(readCloser io.ReadCloser) ([]v1.CustomResourceDefinition, error)
 	}(readCloser)
 
 	crdGVK := schema.GroupVersionKind{
-		Group: "apiextensions.k8s.io",
+		Group:   "apiextensions.k8s.io",
 		Version: "v1",
 		Kind:    "CustomResourceDefinition",
 	}
@@ -128,29 +127,45 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 	return crds, nil
 }
 
-var webhookDefinitions = map[string]v1.WebhookClientConfig{
-	"clusters.cluster.x-k8s.io": {
-		URL:      to.StringP("test"),
-		Service:  nil,
-		CABundle: nil,
+var patches = map[string]func(crd *v1.CustomResourceDefinition){
+	"clusters.cluster.x-k8s.io": func(crd *v1.CustomResourceDefinition) {
+		crd.Spec.Conversion = &v1.CustomResourceConversion{
+			Strategy: v1.WebhookConverter,
+			Webhook: &v1.WebhookConversion{
+				ClientConfig: &v1.WebhookClientConfig{
+					URL:      nil,
+					Service:  nil,
+					CABundle: nil,
+				},
+				ConversionReviewVersions: nil,
+			},
+		}
+	},
+	"releases.release.giantswarm.io": func(crd *v1.CustomResourceDefinition) {
+		for i := range crd.Spec.Versions {
+			_ = crd.Spec.Versions[i].Schema
+			/*
+				TODO: apply this
+				crd.Spec.Versions[i].Schema.OpenAPIV3Schema =
+						properties:
+							name:
+								pattern: ^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[\.0-9a-zA-Z]*)?$
+								type: string
+			*/
+		}
 	},
 }
 
 func patchCRD(crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {
-	webhookDefinition, ok := webhookDefinitions[crd.Name]
+	patch, ok := patches[crd.Name]
 	if !ok {
 		return crd, nil
 	}
 
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig:             &webhookDefinition,
-			ConversionReviewVersions: nil,
-		},
-	}
+	crdCopy := crd.DeepCopy()
+	patch(crdCopy)
 
-	return crd, nil
+	return *crdCopy, nil
 }
 
 func getUpstreamCRDs(ctx context.Context, client *github.Client, provider string) ([]v1.CustomResourceDefinition, error) {
