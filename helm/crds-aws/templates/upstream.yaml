@@ -1307,7 +1307,7 @@ spec:
                     type: object
                 type: object
               secretRef:
-                description: 'Reference to a secret containing the credentials. The secret should contain the following data keys:  AccessKeyID:  SecretAccessKey:   SessionToken: Optional'
+                description: 'Reference to a secret containing the credentials. The secret should contain the following data keys:  AccessKeyID: AKIAIOSFODNN7EXAMPLE  SecretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY  SessionToken: Optional'
                 properties:
                   name:
                     description: Name is unique within a namespace to reference a secret resource.
