@@ -132,6 +132,9 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 
 func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-unique-webhook"
+	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
@@ -154,6 +157,9 @@ func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 
 func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-unique-webhook"
+	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
