@@ -142,7 +142,7 @@ func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
-				CABundle: []byte("Cg=="),
+				CABundle: []byte("\n"),
 			},
 			ConversionReviewVersions: []string{
 				"v1",
@@ -164,7 +164,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
-				CABundle: []byte("Cg=="),
+				CABundle: []byte("\n"),
 			},
 			ConversionReviewVersions: []string{
 				"v1",
