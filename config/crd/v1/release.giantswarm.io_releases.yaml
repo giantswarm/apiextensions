@@ -100,6 +100,12 @@ spec:
                       description: Catalog specifies the name of the app catalog that
                         this component belongs to.
                       type: string
+                    charts:
+                      description: Charts contains a list of the chart names to be
+                        deployed for this component.
+                      items:
+                        type: string
+                      type: array
                     name:
                       description: Name of the component.
                       type: string
@@ -110,6 +116,10 @@ spec:
                     releaseOperatorDeploy:
                       description: ReleaseOperatorDeploy informs the release-operator
                         that it should deploy the component.
+                      type: boolean
+                    uniquePerRelease:
+                      description: UniquePerRelease enables deploying a copy of this
+                        component per-release version which uses it.
                       type: boolean
                     version:
                       description: Version of the component.
