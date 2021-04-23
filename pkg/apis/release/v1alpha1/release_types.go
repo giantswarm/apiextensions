@@ -102,6 +102,8 @@ type ReleaseSpecComponent struct {
 	// +kubebuilder:default=control-plane-catalog
 	// Catalog specifies the name of the app catalog that this component belongs to.
 	Catalog string `json:"catalog,omitempty"`
+	// Charts contains a list of the chart names to be deployed for this component.
+	Charts []string `json:"charts,omitempty"`
 	// Name of the component.
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
@@ -110,6 +112,8 @@ type ReleaseSpecComponent struct {
 	// +kubebuilder:validation:Optional
 	// ReleaseOperatorDeploy informs the release-operator that it should deploy the component.
 	ReleaseOperatorDeploy bool `json:"releaseOperatorDeploy,omitempty"`
+	// UniquePerRelease enables deploying a copy of this component per-release version which uses it.
+	UniquePerRelease bool `json:"uniquePerRelease,omitempty"`
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the component.
 	Version string `json:"version"`

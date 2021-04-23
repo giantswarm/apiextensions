@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - Added the `ui.giantswarm.io/original-organization-name` annotation
+- Add `uniquePerRelease` and `charts` fields to Releases.
 
 ## [3.22.0] - 2021-03-17
 
