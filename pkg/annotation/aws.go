@@ -72,6 +72,6 @@ const AWSMetadataV2 = "alpha.aws.giantswarm.io/metadata-v2"
 //     apiversion: v1alpha2
 //     release: Since 12.7.0
 // documentation:
-//   This annotation is used for configuring the subnet size of AWSCluster or AWSMachineDeployment.
-//   The value is a number that will represent the subnet mask used when creating the subnet. This value must be smaller than 28 due to AWS restrictions.
+//   This annotation is used to configure the workload cluster's control plane subnet size when used on an `AWSCluster` resource or to configure the workload cluster's node pool subnet size when used on an `AWSMachineDeployment` resource.
+//   The value is a number that will represent the subnet mask used when creating the subnet. It must be smaller than 28 due to AWS restrictions.
 const AWSSubnetSize = "alpha.aws.giantswarm.io/aws-subnet-size"
