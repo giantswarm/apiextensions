@@ -188,6 +188,56 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-controlplane-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-provider-aws-eks-controlplane-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-config-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-provider-aws-eks-config-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
 func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 	for i := range crd.Spec.Versions {
 		crd.Spec.Versions[i].Schema.OpenAPIV3Schema.Properties["metadata"] = v1.JSONSchemaProps{
@@ -217,10 +267,10 @@ var patches = map[string]func(crd *v1.CustomResourceDefinition){
 	"awsmachines.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
 	"awsmachinetemplates.infrastructure.cluster.x-k8s.io":            patchCAPAWebhook,
 	"awsmanagedclusters.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
-	"awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io":          patchCAPAWebhook,
+	"awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io":          patchEKSControlPlaneWebhook,
 	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
-	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchCAPAWebhook,
-	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchCAPAWebhook,
+	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchEKSConfigWebhook,
+	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchEKSConfigWebhook,
 	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
 
