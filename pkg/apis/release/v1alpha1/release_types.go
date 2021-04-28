@@ -112,8 +112,8 @@ type ReleaseSpecComponent struct {
 	// +kubebuilder:validation:Optional
 	// ReleaseOperatorDeploy informs the release-operator that it should deploy the component.
 	ReleaseOperatorDeploy bool `json:"releaseOperatorDeploy,omitempty"`
-	// UniquePerRelease enables deploying a copy of this component per-release version which uses it.
-	UniquePerRelease bool `json:"uniquePerRelease,omitempty"`
+	// DeployedOncePerRelease enables deploying a copy of this component per-release version which uses it.
+	DeployedOncePerRelease bool `json:"deployedOncePerRelease,omitempty"`
 	// +kubebuilder:validation:Pattern=`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`
 	// Version of the component.
 	Version string `json:"version"`
