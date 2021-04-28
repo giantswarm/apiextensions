@@ -209,7 +209,10 @@ var patches = map[string]func(crd *v1.CustomResourceDefinition){
 	"awsmachines.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
 	"awsmachinetemplates.infrastructure.cluster.x-k8s.io":            patchCAPAWebhook,
 	"awsmanagedclusters.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
+	"awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io":          patchCAPAWebhook,
 	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
+	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchCAPAWebhook,
+	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchCAPAWebhook,
 	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
 
