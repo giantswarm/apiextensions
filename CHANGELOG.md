@@ -9,8 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add CAPI CRDs : `AzureManagedCluster`, `AzureManagedControlPlane`, `AzureManagedMachinePool`, `AzureMachineTemplate`, `Machine`, `MachineSet`, `MachineHealthCheck`, `KubeadmConfig`, `KubeadmConfigTemplate`, `KubeadmControlPlane`.
-- Added the `ui.giantswarm.io/original-organization-name` annotation
+- Add CAPI CRDs.
+- Added the `ui.giantswarm.io/original-organization-name` annotation.
+
+### Changed
+- Updated the documentation for the `alpha.aws.giantswarm.io/aws-subnet-size` annotation to explain the current behaviour
 
 ## [3.22.0] - 2021-03-17
 
