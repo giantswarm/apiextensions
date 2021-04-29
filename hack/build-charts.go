@@ -24,7 +24,7 @@ type releaseAssetFileDefinition struct {
 	owner    string
 	repo     string
 	version  string
-	file     string
+	files    []string
 	provider string
 }
 
@@ -35,35 +35,39 @@ var upstreamReleaseAssets = []releaseAssetFileDefinition{
 		owner:    "kubernetes-sigs",
 		repo:     "cluster-api",
 		version:  "v0.3.14",
-		file:     "cluster-api-components.yaml",
+		files:    []string{"cluster-api-components.yaml"},
 		provider: "common",
 	},
 	{
-		owner:    "kubernetes-sigs",
-		repo:     "cluster-api-provider-aws",
-		version:  "v0.6.5",
-		file:     "infrastructure-components.yaml",
+		owner:   "kubernetes-sigs",
+		repo:    "cluster-api-provider-aws",
+		version: "v0.6.5",
+		files: []string{
+			"eks-bootstrap-components.yaml",
+			"eks-controlplane-components.yaml",
+			"infrastructure-components.yaml",
+		},
 		provider: "aws",
 	},
 	{
 		owner:    "kubernetes-sigs",
 		repo:     "cluster-api-provider-azure",
 		version:  "v0.4.12",
-		file:     "infrastructure-components.yaml",
+		files:    []string{"infrastructure-components.yaml"},
 		provider: "azure",
 	},
 	{
 		owner:    "kubernetes-sigs",
 		repo:     "cluster-api-provider-vsphere",
 		version:  "v0.7.6",
-		file:     "infrastructure-components.yaml",
+		files:    []string{"infrastructure-components.yaml"},
 		provider: "vmware",
 	},
 	{
 		owner:    "Azure",
 		repo:     "aad-pod-identity",
 		version:  "v1.7.4",
-		file:     "deployment.yaml",
+		files:    []string{"deployment.yaml"},
 		provider: "azure",
 	},
 }
@@ -106,28 +110,32 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 		return nil, err
 	}
 
-	var targetAsset *github.ReleaseAsset
+	var targetAssets []*github.ReleaseAsset
 	for _, releaseAsset := range release.Assets {
-		if releaseAsset.GetName() == asset.file {
-			targetAsset = releaseAsset
-			break
+		for _, file := range asset.files {
+			if releaseAsset.GetName() == file {
+				targetAssets = append(targetAssets, releaseAsset)
+			}
 		}
 	}
-	if targetAsset == nil {
+	if targetAssets == nil {
 		return nil, notFoundError
 	}
 
-	contentReader, _, err := client.Repositories.DownloadReleaseAsset(ctx, asset.owner, asset.repo, targetAsset.GetID(), http.DefaultClient)
-	if err != nil {
-		return nil, err
+	var allCrds []v1.CustomResourceDefinition
+	for _, targetAsset := range targetAssets {
+		contentReader, _, err := client.Repositories.DownloadReleaseAsset(ctx, asset.owner, asset.repo, targetAsset.GetID(), http.DefaultClient)
+		if err != nil {
+			return nil, err
+		}
+		crds, err := decodeCRDs(contentReader)
+		if err != nil {
+			return nil, err
+		}
+		allCrds = append(allCrds, crds...)
 	}
 
-	crds, err := decodeCRDs(contentReader)
-	if err != nil {
-		return nil, err
-	}
-
-	return crds, nil
+	return allCrds, nil
 }
 
 func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
@@ -180,6 +188,56 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-controlplane-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-provider-aws-eks-controlplane-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-config-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-provider-aws-eks-config-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
 func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 	for i := range crd.Spec.Versions {
 		crd.Spec.Versions[i].Schema.OpenAPIV3Schema.Properties["metadata"] = v1.JSONSchemaProps{
@@ -209,7 +267,10 @@ var patches = map[string]func(crd *v1.CustomResourceDefinition){
 	"awsmachines.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
 	"awsmachinetemplates.infrastructure.cluster.x-k8s.io":            patchCAPAWebhook,
 	"awsmanagedclusters.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
+	"awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io":          patchEKSControlPlaneWebhook,
 	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
+	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchEKSConfigWebhook,
+	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchEKSConfigWebhook,
 	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
 
