@@ -191,7 +191,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-controlplane-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-control-plane-unique-webhook"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -199,7 +199,7 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-aws-eks-controlplane-unique-webhook",
+					Name:      "cluster-api-provider-aws-eks-control-plane-unique-webhook",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
