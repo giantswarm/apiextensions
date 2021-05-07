@@ -57,7 +57,7 @@ func Test_ReleaseCRValidation(t *testing.T) {
 				{
 					Name:  "spec.state",
 					In:    "body",
-					Value: "null",
+					Value: nil,
 				},
 				{
 					Name:  "spec.date",
