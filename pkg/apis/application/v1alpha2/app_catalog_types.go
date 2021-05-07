@@ -19,7 +19,7 @@ func NewAppCatalogCRD() *v1.CustomResourceDefinition {
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
-		APIVersion: "application.x-giantswarm.io/v1alpha2",
+		APIVersion: SchemeGroupVersion.String(),
 		Kind:       kindAppCatalog,
 	}
 }
@@ -38,7 +38,7 @@ func NewAppCatalogCR() *AppCatalog {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
+// +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 // AppCatalog represents a catalog of managed apps. It stores general information for potential apps to install.
