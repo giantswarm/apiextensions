@@ -26,6 +26,7 @@ import (
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/application/v1alpha1"
+	applicationv1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/application/v1alpha2"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/example/v1alpha1"
@@ -40,6 +41,7 @@ import (
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
 	ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface
+	ApplicationV1alpha2() applicationv1alpha2.ApplicationV1alpha2Interface
 	BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
 	ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface
@@ -56,6 +58,7 @@ type Interface interface {
 type Clientset struct {
 	*discovery.DiscoveryClient
 	applicationV1alpha1    *applicationv1alpha1.ApplicationV1alpha1Client
+	applicationV1alpha2    *applicationv1alpha2.ApplicationV1alpha2Client
 	backupV1alpha1         *backupv1alpha1.BackupV1alpha1Client
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
 	exampleV1alpha1        *examplev1alpha1.ExampleV1alpha1Client
@@ -70,6 +73,11 @@ type Clientset struct {
 // ApplicationV1alpha1 retrieves the ApplicationV1alpha1Client
 func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface {
 	return c.applicationV1alpha1
+}
+
+// ApplicationV1alpha2 retrieves the ApplicationV1alpha2Client
+func (c *Clientset) ApplicationV1alpha2() applicationv1alpha2.ApplicationV1alpha2Interface {
+	return c.applicationV1alpha2
 }
 
 // BackupV1alpha1 retrieves the BackupV1alpha1Client
@@ -142,6 +150,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.applicationV1alpha2, err = applicationv1alpha2.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.backupV1alpha1, err = backupv1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -191,6 +203,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.NewForConfigOrDie(c)
+	cs.applicationV1alpha2 = applicationv1alpha2.NewForConfigOrDie(c)
 	cs.backupV1alpha1 = backupv1alpha1.NewForConfigOrDie(c)
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
 	cs.exampleV1alpha1 = examplev1alpha1.NewForConfigOrDie(c)
@@ -209,6 +222,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
 	cs.applicationV1alpha1 = applicationv1alpha1.New(c)
+	cs.applicationV1alpha2 = applicationv1alpha2.New(c)
 	cs.backupV1alpha1 = backupv1alpha1.New(c)
 	cs.coreV1alpha1 = corev1alpha1.New(c)
 	cs.exampleV1alpha1 = examplev1alpha1.New(c)

@@ -471,6 +471,37 @@ Npvuta9dKwUp/OvfWR+vWBSkHZUf+38+iP9O8N13o/8ZCJ+FkrFCtmv4+z+yuDCVj+2/B/jG/wQAAP//
 `,
 	},
 
+	"/config/crd/v1/application.x-giantswarm.io_appcatalogs.yaml": {
+		name:    "application.x-giantswarm.io_appcatalogs.yaml",
+		local:   "config/crd/v1/application.x-giantswarm.io_appcatalogs.yaml",
+		size:    4817,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/9xYTY/bNhO+61cM8h5yieQ3aQ+Fb4FbFEGToNjd5lL0MBbHMrsUyZKj3bi/vuBQsmWt
+ZGcDFGirG4fD0TzPfPCjKMuyQK8/UYja2TWg1/SZyaZRrO6/i5V2q4fXxb22ag2bLrJrbyi6LtT0Pe20
+1aydLVpiVMi4LgDQWseYxDENAWpnOThjKJQN2eq+29K200ZREOPDrx/+X72pvi0A6kCy/E63FBlbvwbb
+GVMAWGwp+ehrZDSuiRV6b3Qt6tXnstFoOT5iaCvtiuipTh40wXVeli2qZtODv8jUuKCHcQm1a1tn+8Fp
+pQgyM2+932SfRGh05J8mE+91ZJn0pgtoznCIPGrbdAbDeKYAiLXztIaPyUGPNakCoCdNHCx7Wh5eo/F7
+fJNt1XtqMfsP4DzZtz+/+/TN7ZkYQFGsg/YsATi5CoF8oEiWIyD0roDbQYsWG1LJwVjBO4bILlCEhiwF
+NEe7ANruXGiFbdi5AN4xWdZoZC2wA20jozFiRkcIVDtba0MKtoekVDpPAdmF6mjWhyTjY2TyN8rfkXQC
+7mXCn7VApcSlCLyngUlSPWUJJe/Fn54CwXBmGJISWnDb36nmCm4pJDMQ964zKuX7AwUWRI3Vfx5tC+z0
+U4NMfTKMGWMKFg08oOnoFaBV0OIBAqW/QGdH9kQlVvDBBRKq17Bn9nG9WjWah7pNadtZzYeVlKDeduxC
+XCl6ILOKuikx1HvNVHMXaIVel+K6ldqtWvW/0Fd6fHnmKx9SQkYO2jajCamECxFIBZEijf3SjOJEdBIl
+dm5+uL2D4dcSjCn7wvsoSU8hSIRpu6OQg7gLrhWbZJV32rIMaqPJTumP3bbVnOL+R0eRU6wq2Egzgy1B
+5xUyqQreWdhgS2aDkf72ACSmY5mI/bIQjPvwVDmzNpoY+uPpm6+vvofvdDOVTiK8EaUUYmE5j9gl+qT5
+koLHPdncAbZknG3O3T867HL4hs6DgUCRN+5AqnqinzYH3BpaA4eOnkwvgzoB+4B+bnIW3wf0EGhHgWxN
+0h8z0Ba9bHWobcrkerQdPP1yAQPvkYe2MWKJXeZI2zMeqlljV+Bfp0CMpC1kYW7CQtqIhhinZblj0jwN
+iybhGNyBCsFsDq+AqqaSDaDXKPtut2hroRim+GT3fAZI0R8jzYIB7pn7l3AeeemhjY4eXw8ptSkdSM3j
+yWeCC1MCpVj+85NmcWwaVAfiLyiWW1E8r5S8eKZKLrP4X6qSRQouZND1CslW/2EVkp3K3l5A9y8uhwuT
+Y66KZ8AxrnG/3Ly/stO+z1pDGuUAGG3voxy2kxHQLTYEO21IZDPnqHx49osZeMHNdO7Hhq64eZu1zpvA
+ZJ98uhPOeHle9Qns6YpUPXPHn2X3ieuJXX3iNf32cU8hn0dHV6WXclNwUbMLh4X81RGMS7dKlSt3OCnS
+Z2y9oap27WpUzaviK0pApq/Dujv4dF5V6SJMER73ut6PAIgZeBw6bRdJLWAaUmpERdWjI9M+H8FyAZcp
+FjPSZO45FcmazbWEvUs6c217VCYn6Jubpd62OV2Z38ph9wA/pjYHt8d3gy9iZp6Vcuz0ZKbvHxNpX64T
+qTBy/abw1IlS7g7F4qqYbmNqtNUO7SJLIiN3UptY1+SZ1MfT60t+T3nx4uypRIa1s0rndyX49bciWyX1
+aXgLScK/AgAA//8H/oNj0RIAAA==
+`,
+	},
+
 	"/config/crd/v1/backup.giantswarm.io_etcdbackups.yaml": {
 		name:    "backup.giantswarm.io_etcdbackups.yaml",
 		local:   "config/crd/v1/backup.giantswarm.io_etcdbackups.yaml",
@@ -2204,6 +2235,37 @@ pbG77DggAAA=
 `,
 	},
 
+	"/config/crd/v1beta1/application.x-giantswarm.io_appcatalogs.yaml": {
+		name:    "application.x-giantswarm.io_appcatalogs.yaml",
+		local:   "config/crd/v1beta1/application.x-giantswarm.io_appcatalogs.yaml",
+		size:    4658,
+		modtime: 0,
+		compressed: `
+H4sIAAAAAAAC/9xYwY7bNhC96ysG6SGXSG7SHgrfArcogiZBsbvNpehhLI5ldimSJUe7cb++mKFky157
+N0lRoK1uGg6H7z3ODClVdV1XGO0HStkGvwSMlj4yeXnLze13ubFhcfdyTYwvq1vrzRJWQ+bQX1EOQ2rp
+e9pYb9kGX/XEaJBxWQGg94FRzFleAdrgOQXnKNUd+eZ2WNN6sM5Q0hWm9e++bl4131YAbSKdfmN7yox9
+XIIfnKsAPPYkQGOLjC50ucEYnW3VvflYdxY953tMfWNDlSO1gqBLYYg67aJrCT3hRaYuJDu919CGvg9+
+fDnMVENR5nWMq4JJjc5m/ulk4K3NrIPRDQndEQ+1Z+u7wWGaj1QAuQ2RlvBeAEZsyVQAd+isUSoFYojk
+X//85sM31+2WeixGAEO5TTaq3wwJJIqJMnnOgDCuBGEDPXrsyMj6uYE3DJlDogwdeUroxqgA1m9C6nV9
+2IQEMTB5tuh0JnAA6zOjcxrEZkjUBt9aRwbWO3GqQ6SEHFIzBo1JLLwXXZ5Zdu5tJ6SeC+viA0bykTLw
+lmDMKjKQVRFhx1tFMlJX9LOwIC7oIax/p5YbuKYkQSBvw+CMJPEdJVYmnbd/7iMrXVnSIdO4wwedmJJH
+J/s10AtAb6DHHSSSNWDws2jqkht4FxKpwEvYMse8XCw6y1M9SiYO3vJuoVVl1wOHlBeG7sgtsu1qTO3W
+MrU8JFpgtLUC91qOTW++SmPx5uczpLyTDMucrO/2Zk3si7pLdsvO4jit4D/IKyZR5eqH6xuYFtUtONZc
+1Z4l5EF4Ecr6DaWycZsUeo1I3sRgPetL6yz5Y9HzsO4ty07/MVBm2Z8GVtqVYE0wRINMpoE3HlbYk1th
+pn9cdlE41yLp08LPm+mxY1Frb54a3PScq6GxAW9sd2w72c+VusiGqqrljYMIpn2TDNxvyZf6XpMLvptD
+3sMMZbOmnoKJwFB0YUemOfGWno5rR0vgNNDJ4CUqBzrvMD4cOsvqHUZItKFEviXteIVej1HPJrResrWd
+9e/TpxQn8BZ5aggzZTgUXaw/Yt+cCfUo6aeIawA5As+OnHCX82LaT5lUOiB9Afm5AMrU7V4ANV2jjXyc
+WY/960KEs4l+ykuPt08mp95zhsUw0RwzsMC6yOugxkhpdi/4MirSdmwic45HrTgvDiiB6tKKJ8W/bwLU
+JuInS+Fa3Y7roEw9kwaPqfZ/qIGLxP9G/peY/5r8L3AKzous/mPJfnFork31iQRc6MIvV28fPRXfFp8p
+UYrUzvrbrNdeCQG2x45gYx2p7cENp1xk44UMuwhPbt7Y0aPwrovPcVGfNPaHJ9cDdMdVLBQP3x/NZ5zL
+Z9R8AFnUtAcdZcH7LaVyM5x9ojzXm3rIlkPanc1Nm8EF+VQzpRanWxt9xD46atrQL2b1uag+M7l18Ck6
+N7sot0Yj35WU4X5r2+0MuAaB+6lXDpnMWS5T4swEaEZW5PrPQ36pJGvR/oFNAn1qlbFl93hC3ojHuYY7
+K4AD2dVV4bi60HvDRvTI8sX4ozQquN5/dD+pxDkV6jnYI/vYC45sYwEe2VSBx2/lpwvXekuvzvoffn28
+RBe3+Opg0/Kqxx8es2E579MdmdnZOXWKYsmMPOhsbFuKTOb94c9G+Vfx7NnRbwh9bYM3tvyzgV9/q0pU
+Mh8mNGL8KwAA///V2pVHMhIAAA==
+`,
+	},
+
 	"/config/crd/v1beta1/backup.giantswarm.io_etcdbackups.yaml": {
 		name:    "backup.giantswarm.io_etcdbackups.yaml",
 		local:   "config/crd/v1beta1/backup.giantswarm.io_etcdbackups.yaml",
@@ -3891,6 +3953,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_apps.yaml"],
 		_escData["/config/crd/v1/application.giantswarm.io_charts.yaml"],
+		_escData["/config/crd/v1/application.x-giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1/backup.giantswarm.io_etcdbackups.yaml"],
 		_escData["/config/crd/v1/cluster.x-k8s.io_clusters.yaml"],
 		_escData["/config/crd/v1/cluster.x-k8s.io_machinedeployments.yaml"],
@@ -3930,6 +3993,7 @@ var _escDirs = map[string][]os.FileInfo{
 		_escData["/config/crd/v1beta1/application.giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_apps.yaml"],
 		_escData["/config/crd/v1beta1/application.giantswarm.io_charts.yaml"],
+		_escData["/config/crd/v1beta1/application.x-giantswarm.io_appcatalogs.yaml"],
 		_escData["/config/crd/v1beta1/backup.giantswarm.io_etcdbackups.yaml"],
 		_escData["/config/crd/v1beta1/cluster.x-k8s.io_clusters.yaml"],
 		_escData["/config/crd/v1beta1/cluster.x-k8s.io_machinedeployments.yaml"],
