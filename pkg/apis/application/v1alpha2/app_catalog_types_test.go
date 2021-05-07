@@ -86,7 +86,7 @@ func newAppCatalogExampleCR() *AppCatalog {
 
 	cr.ObjectMeta = metav1.ObjectMeta{
 		Name:      "my-playground-catalog",
-		Namespace: "giantswarm",
+		Namespace: "default",
 		Labels: map[string]string{
 			"app-operator.giantswarm.io/version": "1.0.0",
 		},

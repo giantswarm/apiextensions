@@ -5,7 +5,7 @@ metadata:
   labels:
     app-operator.giantswarm.io/version: 1.0.0
   name: my-playground-catalog
-  namespace: giantswarm
+  namespace: default
 spec:
   config:
     configMap:
