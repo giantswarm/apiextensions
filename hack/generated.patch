@@ -2,7 +2,7 @@ diff --git a/pkg/clientset/versioned/fake/register.go b/pkg/clientset/versioned/
 index ddabbb93..02da0520 100644
 --- a/pkg/clientset/versioned/fake/register.go
 +++ b/pkg/clientset/versioned/fake/register.go
-@@ -36,7 +36,7 @@ import (
+@@ -40,7 +40,7 @@ import (
  
  var scheme = runtime.NewScheme()
  var codecs = serializer.NewCodecFactory(scheme)
@@ -10,4 +10,5 @@ index ddabbb93..02da0520 100644
 +var parameterCodec = runtime.NewParameterCodec(scheme) // nolint
  var localSchemeBuilder = runtime.SchemeBuilder{
  	applicationv1alpha1.AddToScheme,
+ 	applicationv1alpha2.AddToScheme,
  	backupv1alpha1.AddToScheme,
