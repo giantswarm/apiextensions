@@ -94,12 +94,12 @@ func newAppCatalogExampleCR() *AppCatalog {
 	cr.Spec = AppCatalogSpec{
 		Title:       "My Playground Catalog",
 		Description: "A catalog to store all new application packages.",
-		Config: AppCatalogSpecConfig{
-			ConfigMap: AppCatalogSpecConfigConfigMap{
+		Config: &AppCatalogSpecConfig{
+			ConfigMap: &AppCatalogSpecConfigConfigMap{
 				Name:      "my-playground-catalog",
 				Namespace: "my-namespace",
 			},
-			Secret: AppCatalogSpecConfigSecret{
+			Secret: &AppCatalogSpecConfigSecret{
 				Name:      "my-playground-catalog",
 				Namespace: "my-namespace",
 			},
