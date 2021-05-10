@@ -59,7 +59,7 @@ type AppCatalogSpec struct {
 	// +nullable
 	// Config is the config to be applied when apps belonging to this
 	// catalog are deployed.
-	Config AppCatalogSpecConfig `json:"config,omitempty"`
+	Config *AppCatalogSpecConfig `json:"config,omitempty"`
 	// LogoURL contains the links for logo image file for this app catalog
 	LogoURL string `json:"logoURL"`
 	// Storage references a map containing values that should be applied to
@@ -73,12 +73,12 @@ type AppCatalogSpecConfig struct {
 	// +nullable
 	// ConfigMap references a config map containing catalog values that
 	// should be applied to apps in this catalog.
-	ConfigMap AppCatalogSpecConfigConfigMap `json:"configMap,omitempty"`
+	ConfigMap *AppCatalogSpecConfigConfigMap `json:"configMap,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Secret references a secret containing catalog values that should be
 	// applied to apps in this catalog.
-	Secret AppCatalogSpecConfigSecret `json:"secret,omitempty"`
+	Secret *AppCatalogSpecConfigSecret `json:"secret,omitempty"`
 }
 
 // +k8s:openapi-gen=true
