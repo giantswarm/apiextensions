@@ -19,7 +19,12 @@ spec:
     singular: appcatalog
   scope: Namespaced
   versions:
-  - name: v1alpha2
+  - additionalPrinterColumns:
+    - description: URL of the app catalog
+      jsonPath: .spec.storage.URL
+      name: Catalog URL
+      type: string
+    name: v1alpha2
     schema:
       openAPIV3Schema:
         description: AppCatalog represents a catalog of managed apps. It stores general
@@ -116,6 +121,7 @@ spec:
         type: object
     served: true
     storage: true
+    subresources: {}
 status:
   acceptedNames:
     kind: ""

@@ -8,6 +8,11 @@ metadata:
   creationTimestamp: null
   name: appcatalogs.application.x-giantswarm.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.storage.URL
+    description: URL of the app catalog
+    name: Catalog URL
+    type: string
   group: application.x-giantswarm.io
   names:
     categories:
@@ -18,6 +23,7 @@ spec:
     plural: appcatalogs
     singular: appcatalog
   scope: Namespaced
+  subresources: {}
   validation:
     openAPIV3Schema:
       description: AppCatalog represents a catalog of managed apps. It stores general
