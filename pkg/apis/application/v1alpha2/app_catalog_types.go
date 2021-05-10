@@ -36,6 +36,7 @@ func NewAppCatalogCR() *AppCatalog {
 	}
 }
 
+// +kubebuilder:printcolumn:name="Catalog URL",type=string,JSONPath=`.spec.storage.URL`,description="URL of the app catalog"
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=common;giantswarm
