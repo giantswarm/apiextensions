@@ -138,6 +138,7 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 	return allCrds, nil
 }
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
@@ -163,6 +164,7 @@ func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates
 func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
@@ -188,6 +190,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/control-plane
 func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
@@ -213,6 +216,7 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/bootstrap
 func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
@@ -238,6 +242,7 @@ func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+// Kubebuilder comments can't add validation to metadata properties, so we manually specify the validation for release names here.
 func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 	for i := range crd.Spec.Versions {
 		crd.Spec.Versions[i].Schema.OpenAPIV3Schema.Properties["metadata"] = v1.JSONSchemaProps{
