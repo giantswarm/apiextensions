@@ -1,25 +1,14 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@0.10.0
+  architect: giantswarm/architect@2.7.0
 
 jobs:
-  validate:
-    docker:
-      - image: quay.io/giantswarm/architect:3.2.2
-    steps:
-      - checkout
-      - run:
-          name: Install make
-          command: apk add --no-cache make
-      - run:
-          name: Ensure unchanged
-          command: CGO_ENABLED=0 make verify
   test-install:
     machine: true
     environment:
-      KIND_VERSION: v0.7.0
-      KUBERNETES_VERSION: v1.16.4
+      KIND_VERSION: v0.10.0
+      KUBERNETES_VERSION: v1.20.2
     steps:
       - checkout
       - run:
@@ -41,7 +30,7 @@ jobs:
       - run:
           name: Install CRDs
           command: |
-            ./kubectl create -f config/crd/v1 > /dev/null
+            ./kubectl create -f config/crd > /dev/null
       - run:
           name: Check for NonStructuralSchema condition indicating invalid CRDs
           command: |
@@ -63,7 +52,6 @@ jobs:
 workflows:
   workflow:
     jobs:
-      - validate
       - test-install
 
       - architect/go-test:
@@ -72,20 +60,3 @@ workflows:
             # Trigger job also on git tag.
             tags:
               only: /^v.*/
-
-      - architect/go-architect-legacy:
-          name: go-build
-          command: build
-          requires:
-            - go-test
-            - validate
-            - test-install
-
-      - architect/go-architect-legacy:
-          name: go-deploy
-          command: deploy
-          requires:
-            - go-build
-          filters:
-            branches:
-              only: master

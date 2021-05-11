@@ -14,13 +14,6 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewAppCatalogCRD(t *testing.T) {
-	crd := NewAppCatalogCRD()
-	if crd == nil {
-		t.Error("AppCatalog CRD was nil.")
-	}
-}
-
 func Test_GenerateAppCatalogYAML(t *testing.T) {
 	testCases := []struct {
 		category string

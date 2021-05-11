@@ -14,13 +14,6 @@ import (
 	"sigs.k8s.io/yaml"
 )
 
-func Test_NewChartCRD(t *testing.T) {
-	crd := NewChartCRD()
-	if crd == nil {
-		t.Error("Chart CRD was nil.")
-	}
-}
-
 func Test_GenerateChartYAML(t *testing.T) {
 	testCases := []struct {
 		category string

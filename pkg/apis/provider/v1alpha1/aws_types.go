@@ -1,21 +1,15 @@
 package v1alpha1
 
 import (
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
 const (
 	kindAWSConfig              = "AWSConfig"
 	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/"
 )
-
-func NewAWSConfigCRD() *v1beta1.CustomResourceDefinition {
-	return crd.LoadV1Beta1(group, kindAWSConfig)
-}
 
 // NewAWSClusterTypeMeta returns the populated metav1 metadata object for this CRD.
 func NewAWSClusterTypeMeta() metav1.TypeMeta {

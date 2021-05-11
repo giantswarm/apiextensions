@@ -1,21 +1,15 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
 const (
 	kindConfig              = "Config"
 	configDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/configs." + group + "/"
 )
-
-func NewConfigCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindConfig)
-}
 
 func NewConfigTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{
@@ -39,7 +33,7 @@ func NewConfigCR() *Config {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:categories=config;giantswarm
+// +kubebuilder:resource:categories=common;config;giantswarm
 // +k8s:openapi-gen=true
 
 // Config represents configuration of an App.

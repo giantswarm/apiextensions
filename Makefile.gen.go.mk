@@ -17,8 +17,6 @@ LDFLAGS        ?= -w -linkmode 'auto' -extldflags '$(EXTLDFLAGS)' \
   -X '$(shell go list -m)/pkg/project.buildTimestamp=${BUILDTIMESTAMP}' \
   -X '$(shell go list -m)/pkg/project.gitSHA=${GITSHA1}'
 
-.DEFAULT_GOAL := build
-
 .PHONY: build build-darwin build-darwin-64 build-linux build-linux-arm64
 ## build: builds a local binary
 build: $(APPLICATION)

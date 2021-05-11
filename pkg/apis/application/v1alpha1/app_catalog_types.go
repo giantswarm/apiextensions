@@ -1,21 +1,15 @@
 package v1alpha1
 
 import (
-	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
 const (
 	kindAppCatalog              = "AppCatalog"
 	appCatalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/"
 )
-
-func NewAppCatalogCRD() *v1.CustomResourceDefinition {
-	return crd.LoadV1(group, kindAppCatalog)
-}
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {
 	return metav1.TypeMeta{

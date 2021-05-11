@@ -1,8 +1,7 @@
 # Directories.
 APIS_DIR := pkg/apis
 CLIENTSET_DIR := pkg/clientset
-CRDV1_DIR := config/crd/v1
-CRDV1BETA1_DIR := config/crd/v1beta1
+CRD_DIR := config/crd
 SCRIPTS_DIR := hack
 TOOLS_DIR := $(SCRIPTS_DIR)/tools
 TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
@@ -12,8 +11,6 @@ TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
-KUSTOMIZE := $(abspath $(TOOLS_BIN_DIR)/kustomize)
-ESC := $(abspath $(TOOLS_BIN_DIR)/esc)
 
 BUILD_COLOR = ""
 GEN_COLOR = ""
@@ -36,6 +33,7 @@ YEAR = $(shell date +'%Y')
 INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | paste -s -d, -)
 GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
+CHART_GENERATED_FILES := $(shell find helm -name '*.yaml' -depth 3)
 
 all: generate
 
@@ -54,24 +52,12 @@ $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	cd $(TOOLS_DIR)/goimports \
 	&& go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
 
-$(KUSTOMIZE): $(TOOLS_DIR)/kustomize/go.mod
-	@echo "$(BUILD_COLOR)Building kustomize$(NO_COLOR)"
-	cd $(TOOLS_DIR)/kustomize \
-	&& go build -tags=tools -o $(KUSTOMIZE) sigs.k8s.io/kustomize/kustomize/v3
-
-$(ESC): $(TOOLS_DIR)/esc/go.mod
-	@echo "$(BUILD_COLOR)Building esc$(NO_COLOR)"
-	@cd $(TOOLS_DIR)/esc \
-	&& go build -tags=tools -o $(ESC) github.com/mjibson/esc
-
 .PHONY: generate
 generate:
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
-	@$(MAKE) generate-fs
-	@$(MAKE) imports
-	@$(MAKE) patch
+	@$(MAKE) local-imports
 
 .PHONY: verify
 verify:
@@ -100,21 +86,13 @@ generate-deepcopy: $(CONTROLLER_GEN)
 	paths=./$(APIS_DIR)/...
 
 .PHONY: generate-manifests
-generate-manifests: $(CONTROLLER_GEN) $(KUSTOMIZE)
+generate-manifests: $(CONTROLLER_GEN)
 	@echo "$(GEN_COLOR)Generating CRDs$(NO_COLOR)"
-	cd $(SCRIPTS_DIR); ./generate-manifests.sh
+	cd $(SCRIPTS_DIR); ./generate-crds.sh
+	go generate hack/build-charts.go
 
-.PHONY: generate-fs
-generate-fs: $(ESC) config/crd
-	@echo "$(GEN_COLOR)Generating filesystem$(NO_COLOR)"
-	$(ESC) \
-	-o pkg/crd/internal/zz_generated.fs.go \
-	-pkg internal \
-	-modtime 0 \
-	config/crd
-
-.PHONY: imports
-imports: $(GOIMPORTS)
+.PHONY: local-imports
+local-imports: $(GOIMPORTS)
 	@echo "$(GEN_COLOR)Sorting imports$(NO_COLOR)"
 	$(GOIMPORTS) -local $(MODULE) -w ./pkg
 
@@ -126,7 +104,7 @@ patch:
 .PHONY: clean-generated
 clean-generated:
 	@echo "$(GEN_COLOR)Cleaning generated files$(NO_COLOR)"
-	rm -rf $(CRDV1_DIR) $(CRDV1BETA1_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES)
+	rm -rf $(CRD_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES) $(CHART_GENERATED_FILES)
 
 .PHONY: clean-tools
 clean-tools:

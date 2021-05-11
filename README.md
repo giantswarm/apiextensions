@@ -199,8 +199,7 @@ The `Makefile` at the root of the repository ensures that required tools (define
 The main code generation steps are as follows:
 - `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
 - `generate-deepcopy`: Generates `zz_generated.deepcopy.go` in each package in `pkg/apis` with deep copy functions.
-- `generate-manifests`: Generates CRDs in `config/crd/v1` and `config/crd/v1beta1` from CRs found in `pkg/apis`.
-- `generate-fs`: Generates `pkg/crd/internal` package containing a filesystem holding all files in `config/crd`.
+- `generate-manifests`: Generates CRDs in `config/crd` from CRs found in `pkg/apis`.
 - `imports`: Sorts imports in all source files under `./pkg`.
 - `patch`: Applies the git patch `hack/generated.patch` to work around limitations in code generators.
 
@@ -225,20 +224,10 @@ Generates `DeepCopy` and `DeepCopyInto` functions for all custom resources to sa
 
 Generates a "client set" which provides CRUD interfaces for each custom resource.
 
-#### [`esc`](https://github.com/mjibson/esc)
-
-Encodes local filesystem trees into a Go source file containing an `http.FileSystem` which provides access to the
-files at runtime. This allows these files to be accessed from a binary outside of the source tree containing those files.
-
 #### [`controller-gen`](https://book.kubebuilder.io/reference/controller-gen.html)
 
 Generates a custom resource definition (CRD) for each custom resource using special comments such as
 `// +kubebuilder:validation:Optional`.
-
-#### [`kustomize`](https://github.com/kubernetes-sigs/kustomize)
-
-Provides an extra patch step for generated CRD YAML files because certain CRD fields can't be modified with
-`controller-gen` directly.
 
 #### [`goimports`](https://pkg.go.dev/golang.org/x/tools/cmd/goimports)
 

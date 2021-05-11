@@ -24,7 +24,7 @@ func Generate() string {
 	for {
 		rand.Seed(time.Now().UnixNano())
 		for i := range b {
-			b[i] = letterRunes[rand.Intn(len(letterRunes))]
+			b[i] = letterRunes[rand.Intn(len(letterRunes))] //nolint:gosec
 		}
 
 		id := string(b)
