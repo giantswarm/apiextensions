@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add CAPI CRDs.
 - Added the `ui.giantswarm.io/original-organization-name` annotation.
+- Added status field to `Organization` CRD to hold the created namespace.
 
 ### Changed
 - Updated the documentation for the `alpha.aws.giantswarm.io/aws-subnet-size` annotation to explain the current behaviour
