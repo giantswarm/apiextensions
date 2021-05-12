@@ -3,6 +3,8 @@
 package main
 
 import (
+	"bufio"
+	"bytes"
 	"context"
 	"errors"
 	"io"
@@ -11,12 +13,17 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/giantswarm/microerror"
 	"github.com/giantswarm/to"
 	"github.com/google/go-github/v35/github"
 	"golang.org/x/oauth2"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
+	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	capiyaml "sigs.k8s.io/cluster-api/util/yaml"
+	apiyaml "k8s.io/apimachinery/pkg/util/yaml"
+	"k8s.io/client-go/kubernetes/scheme"
 	"sigs.k8s.io/yaml"
 )
 
@@ -72,39 +79,75 @@ var upstreamReleaseAssets = []releaseAssetFileDefinition{
 	},
 }
 
-func decodeCRDs(readCloser io.ReadCloser) ([]v1.CustomResourceDefinition, error) {
-	decoder := capiyaml.NewYAMLDecoder(readCloser)
+var (
+	crdV1GVK = schema.GroupVersionKind{
+		Group:   "apiextensions.k8s.io",
+		Version: "v1",
+		Kind:    "CustomResourceDefinition",
+	}
+	crdV1Beta1GVK = schema.GroupVersionKind{
+		Group:   "apiextensions.k8s.io",
+		Version: "v1beta1",
+		Kind:    "CustomResourceDefinition",
+	}
+)
+
+func decodeCRDs(readCloser io.ReadCloser) ([]runtime.Object, error) {
+	reader := apiyaml.NewYAMLReader(bufio.NewReader(readCloser))
+	decoder := scheme.Codecs.UniversalDecoder()
+
 	defer func(contentReader io.ReadCloser) {
-		err := decoder.Close()
+		err := readCloser.Close()
 		if err != nil {
 			panic(err)
 		}
 	}(readCloser)
 
-	crdGVK := schema.GroupVersionKind{
-		Group:   "apiextensions.k8s.io",
-		Version: "v1",
-		Kind:    "CustomResourceDefinition",
-	}
-	var crds []v1.CustomResourceDefinition
+	var crds []runtime.Object
+
 	for {
-		var crd v1.CustomResourceDefinition
-		_, decodedGVK, err := decoder.Decode(nil, &crd)
+		doc, err := reader.Read()
 		if errors.Is(err, io.EOF) {
 			break
 		} else if err != nil {
-			return nil, err
+			return nil, microerror.Mask(err)
 		}
-		if *decodedGVK != crdGVK {
+
+		//  Skip over empty documents, i.e. a leading `---`
+		if len(bytes.TrimSpace(doc)) == 0 {
 			continue
 		}
-		crds = append(crds, crd)
+
+		var object unstructured.Unstructured
+		_, decodedGVK, err := decoder.Decode(doc, nil, &object)
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+
+		switch *decodedGVK {
+		case crdV1GVK:
+			var crd v1.CustomResourceDefinition
+			_, _, err = decoder.Decode(doc, nil, &crd)
+			if err != nil {
+				return nil, microerror.Mask(err)
+			}
+
+			crds = append(crds, &crd)
+		case crdV1Beta1GVK:
+			var crd v1beta1.CustomResourceDefinition
+			_, _, err = decoder.Decode(doc, nil, &crd)
+			if err != nil {
+				return nil, microerror.Mask(err)
+			}
+
+			crds = append(crds, &crd)
+		}
 	}
 
 	return crds, nil
 }
 
-func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset releaseAssetFileDefinition) ([]v1.CustomResourceDefinition, error) {
+func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset releaseAssetFileDefinition) ([]runtime.Object, error) {
 	release, _, err := client.Repositories.GetReleaseByTag(ctx, asset.owner, asset.repo, asset.version)
 	if err != nil {
 		return nil, err
@@ -122,7 +165,7 @@ func downloadReleaseAssetCRDs(ctx context.Context, client *github.Client, asset 
 		return nil, notFoundError
 	}
 
-	var allCrds []v1.CustomResourceDefinition
+	var allCrds []runtime.Object
 	for _, targetAsset := range targetAssets {
 		contentReader, _, err := client.Repositories.DownloadReleaseAsset(ctx, asset.owner, asset.repo, targetAsset.GetID(), http.DefaultClient)
 		if err != nil {
@@ -279,7 +322,7 @@ var patches = map[string]func(crd *v1.CustomResourceDefinition){
 	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
 
-func patchCRD(crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {
+func patchCRD(crd *v1.CustomResourceDefinition) (*v1.CustomResourceDefinition, error) {
 	patch, ok := patches[crd.Name]
 	if !ok {
 		return crd, nil
@@ -288,11 +331,11 @@ func patchCRD(crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, err
 	crdCopy := crd.DeepCopy()
 	patch(crdCopy)
 
-	return *crdCopy, nil
+	return crdCopy, nil
 }
 
-func getUpstreamCRDs(ctx context.Context, client *github.Client, provider string) ([]v1.CustomResourceDefinition, error) {
-	var crds []v1.CustomResourceDefinition
+func getUpstreamCRDs(ctx context.Context, client *github.Client, provider string) ([]runtime.Object, error) {
+	var crds []runtime.Object
 	for _, releaseAsset := range upstreamReleaseAssets {
 		if releaseAsset.provider != provider {
 			continue
@@ -319,8 +362,8 @@ func contains(s []string, str string) bool {
 	return false
 }
 
-func getLocalCRDs(category string) ([]v1.CustomResourceDefinition, error) {
-	var crds []v1.CustomResourceDefinition
+func getLocalCRDs(category string) ([]runtime.Object, error) {
+	var crds []runtime.Object
 	err := filepath.WalkDir("../config/crd", func(path string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return walkErr
@@ -340,7 +383,13 @@ func getLocalCRDs(category string) ([]v1.CustomResourceDefinition, error) {
 		}
 
 		for _, crd := range fileCRDs {
-			if contains(crd.Spec.Names.Categories, category) {
+			var categories []string
+			if crdV1, ok := crd.(*v1.CustomResourceDefinition); ok {
+				categories = crdV1.Spec.Names.Categories
+			} else if crdV1Beta1, ok := crd.(*v1beta1.CustomResourceDefinition); ok {
+				categories = crdV1Beta1.Spec.Names.Categories
+			}
+			if contains(categories, category) {
 				crds = append(crds, crd)
 			}
 		}
@@ -354,7 +403,7 @@ func getLocalCRDs(category string) ([]v1.CustomResourceDefinition, error) {
 	return crds, nil
 }
 
-func writeCRDsToFile(filename string, crds []v1.CustomResourceDefinition) error {
+func writeCRDsToFile(filename string, crds []runtime.Object) error {
 	if len(crds) == 0 {
 		return nil
 	}
@@ -372,9 +421,11 @@ func writeCRDsToFile(filename string, crds []v1.CustomResourceDefinition) error 
 	}()
 
 	for _, crd := range crds {
-		crd, err := patchCRD(crd)
-		if err != nil {
-			return err
+		if crdV1, ok := crd.(*v1.CustomResourceDefinition); ok {
+			crd, err = patchCRD(crdV1)
+			if err != nil {
+				return err
+			}
 		}
 
 		crdBytes, err := yaml.Marshal(crd)
