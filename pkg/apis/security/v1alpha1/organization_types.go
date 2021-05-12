@@ -29,7 +29,7 @@ type OrganizationSpec struct {
 type OrganizationStatus struct {
 	// +kubebuilder:validation:Optional
 	// Namespace is the namespace containing the resources for this organization.
-	Namespace string `json:"namespace"`
+	Namespace string `json:"namespace,omitempty"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
