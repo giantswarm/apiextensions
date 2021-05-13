@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.23.0] - 2021-05-13
+
 ### Added
 
 - Add CAPI CRDs.
@@ -744,7 +746,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.22.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.23.0...HEAD
+[3.23.0]: https://github.com/giantswarm/apiextensions/compare/v3.22.0...v3.23.0
 [3.22.0]: https://github.com/giantswarm/apiextensions/compare/v3.21.0...v3.22.0
 [3.21.0]: https://github.com/giantswarm/apiextensions/compare/v3.20.0...v3.21.0
 [3.20.0]: https://github.com/giantswarm/apiextensions/compare/v3.19.0...v3.20.0
