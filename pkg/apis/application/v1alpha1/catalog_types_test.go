@@ -9,6 +9,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
@@ -65,9 +66,7 @@ func newCatalogExampleCR() *Catalog {
 
 	cr.ObjectMeta = metav1.ObjectMeta{
 		Name: "my-playground-catalog",
-		Labels: map[string]string{
-			"app-operator.giantswarm.io/version": "1.0.0",
-		},
+		Namespace: corev1.NamespaceDefault,
 	}
 	cr.Spec = CatalogSpec{
 		Title:       "My Playground Catalog",
