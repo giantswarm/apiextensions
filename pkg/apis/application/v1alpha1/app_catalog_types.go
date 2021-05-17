@@ -36,7 +36,7 @@ func NewAppCatalogCR() *AppCatalog {
 // +kubebuilder:resource:categories=common;giantswarm,scope=Cluster
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-// Deprecated, Use Catalog CRD instead.
+// Deprecated, use Catalog CRD instead.
 // AppCatalog represents a catalog of managed apps. It stores general information for potential apps to install.
 // It is reconciled by app-operator.
 type AppCatalog struct {
