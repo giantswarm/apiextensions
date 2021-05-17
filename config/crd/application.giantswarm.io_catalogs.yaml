@@ -1,0 +1,134 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
+  name: catalogs.application.giantswarm.io
+spec:
+  group: application.giantswarm.io
+  names:
+    categories:
+    - common
+    - giantswarm
+    kind: Catalog
+    listKind: CatalogList
+    plural: catalogs
+    singular: catalog
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - description: URL of the catalog
+      jsonPath: .spec.storage.URL
+      name: Catalog URL
+      type: string
+    - description: Time since created
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Catalog represents a catalog of managed apps. It stores general
+          information for potential apps to install. It is reconciled by app-operator.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            properties:
+              config:
+                description: Config is the config to be applied when apps belonging
+                  to this catalog are deployed.
+                nullable: true
+                properties:
+                  configMap:
+                    description: ConfigMap references a config map containing catalog
+                      values that should be applied to apps in this catalog.
+                    nullable: true
+                    properties:
+                      name:
+                        description: Name is the name of the config map containing
+                          catalog values to apply, e.g. app-catalog-values.
+                        type: string
+                      namespace:
+                        description: Namespace is the namespace of the catalog values
+                          config map, e.g. giantswarm.
+                        type: string
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  secret:
+                    description: Secret references a secret containing catalog values
+                      that should be applied to apps in this catalog.
+                    nullable: true
+                    properties:
+                      name:
+                        description: Name is the name of the secret containing catalog
+                          values to apply, e.g. app-catalog-secret.
+                        type: string
+                      namespace:
+                        description: Namespace is the namespace of the secret, e.g.
+                          giantswarm.
+                        type: string
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                type: object
+              description:
+                type: string
+              logoURL:
+                description: LogoURL contains the links for logo image file for this
+                  catalog
+                type: string
+              storage:
+                description: Storage references a map containing values that should
+                  be applied to the catalog.
+                properties:
+                  URL:
+                    description: URL is the link to where this Catalog's repository
+                      is located e.g. https://example.com/app-catalog/
+                    type: string
+                  type:
+                    description: Type indicates which repository type would be used
+                      for this Catalog. e.g. helm
+                    type: string
+                required:
+                - URL
+                - type
+                type: object
+              title:
+                description: Title is the name of the catalog for this CR e.g. Catalog
+                  of Apps by Giant Swarm
+                type: string
+            required:
+            - description
+            - logoURL
+            - storage
+            - title
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
