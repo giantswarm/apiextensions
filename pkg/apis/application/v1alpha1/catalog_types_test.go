@@ -65,7 +65,7 @@ func newCatalogExampleCR() *Catalog {
 	cr := NewCatalogCR()
 
 	cr.ObjectMeta = metav1.ObjectMeta{
-		Name: "my-playground-catalog",
+		Name:      "my-playground-catalog",
 		Namespace: corev1.NamespaceDefault,
 	}
 	cr.Spec = CatalogSpec{

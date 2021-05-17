@@ -22,8 +22,9 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: AppCatalog represents a catalog of managed apps. It stores general
-          information for potential apps to install. It is reconciled by app-operator.
+        description: Deprecated, Use Catalog CRD instead. AppCatalog represents a
+          catalog of managed apps. It stores general information for potential apps
+          to install. It is reconciled by app-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
