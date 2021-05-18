@@ -57,6 +57,11 @@ type AppSpec struct {
 	Catalog string `json:"catalog"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// CatalogNamespace is the namespace of the catalog this app belongs to.
+	// e.g. giantswarm
+	CatalogNamespace string `json:"catalogNamespace,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Config is the config to be applied when the app is deployed.
 	Config AppSpecConfig `json:"config,omitempty"`
 	// +kubebuilder:validation:Optional
