@@ -305,6 +305,10 @@ spec:
               catalog:
                 description: Catalog is the name of the app catalog this app belongs to. e.g. giantswarm
                 type: string
+              catalogNamespace:
+                description: CatalogNamespace is the namespace of the catalog this app belongs to. e.g. giantswarm
+                nullable: true
+                type: string
               config:
                 description: Config is the config to be applied when the app is deployed.
                 nullable: true
