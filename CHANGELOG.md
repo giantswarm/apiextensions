@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove `alpha` prefix from `NodeTerminateUnhealthy` annotation.
+
 ## [3.24.0] - 2021-05-18
 
 ### Added
