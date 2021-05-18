@@ -41,6 +41,10 @@ func (c *FakeApplicationV1alpha1) AppCatalogEntries(namespace string) v1alpha1.A
 	return &FakeAppCatalogEntries{c, namespace}
 }
 
+func (c *FakeApplicationV1alpha1) Catalogs(namespace string) v1alpha1.CatalogInterface {
+	return &FakeCatalogs{c, namespace}
+}
+
 func (c *FakeApplicationV1alpha1) Charts(namespace string) v1alpha1.ChartInterface {
 	return &FakeCharts{c, namespace}
 }

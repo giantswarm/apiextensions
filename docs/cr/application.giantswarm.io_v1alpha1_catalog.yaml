@@ -1,0 +1,20 @@
+apiVersion: application.giantswarm.io/v1alpha1
+kind: Catalog
+metadata:
+  creationTimestamp: null
+  name: my-playground-catalog
+  namespace: default
+spec:
+  config:
+    configMap:
+      name: my-playground-catalog
+      namespace: my-namespace
+    secret:
+      name: my-playground-catalog
+      namespace: my-namespace
+  description: A catalog to store all new application packages.
+  logoURL: https://my-org.github.com/logo.png
+  storage:
+    URL: https://my-org.github.com/my-playground-catalog/
+    type: helm
+  title: My Playground Catalog

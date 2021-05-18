@@ -21,6 +21,8 @@ var knownTypes = []runtime.Object{
 	&AppCatalogEntryList{},
 	&App{},
 	&AppList{},
+	&Catalog{},
+	&CatalogList{},
 	&Chart{},
 	&ChartList{},
 }

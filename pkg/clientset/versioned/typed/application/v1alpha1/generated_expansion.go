@@ -24,4 +24,6 @@ type AppCatalogExpansion interface{}
 
 type AppCatalogEntryExpansion interface{}
 
+type CatalogExpansion interface{}
+
 type ChartExpansion interface{}
