@@ -8,6 +8,7 @@ metadata:
   namespace: default
 spec:
   catalog: my-playground-catalog
+  catalogNamespace: giantswarm
   config:
     configMap:
       name: f2def-cluster-values
