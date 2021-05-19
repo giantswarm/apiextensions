@@ -67,7 +67,7 @@ type KVMConfigSpecKVMNode struct {
 	Disk               serialization.Float               `json:"disk"`
 	Memory             string                            `json:"memory"`
 	DockerVolumeSizeGB int                               `json:"dockerVolumeSizeGB"`
-	HostVolumes        []KVMConfigSpecKVMNodeHostVolumes `json:"host_volumes"`
+	HostVolumes        []KVMConfigSpecKVMNodeHostVolumes `json:"hostVolumes"`
 }
 
 type KVMConfigSpecKVMNodeHostVolumes struct {
