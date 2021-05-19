@@ -176,7 +176,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 `apiextensions` generates Giant Swarm CRDs based on code in the `pkg/apis` directory and also aggregates upstream
 CRDs from various sources. Any repository that publishes CRDs as a YAML-formatted manifest of CRDs attached as
 an asset to a GitHub release can be used. The current set of upstream CRDs including target version is defined in
-`hack/build-charts.go` in the `upstreamReleaseAssets` map. Update the map and re-run `make` to update the upstream
+`hack/assets.go` in the `upstreamReleaseAssets` map. Update the map and re-run `make` to update the upstream
 CRDs.
 
 #### Code Generation Tools
