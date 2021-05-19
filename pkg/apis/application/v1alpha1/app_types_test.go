@@ -75,6 +75,7 @@ func newAppExampleCR() *App {
 		Namespace: "monitoring",
 		Version:   "1.0.1",
 		Catalog:   "my-playground-catalog",
+		CatalogNamespace: "giantswarm",
 		Config: AppSpecConfig{
 			ConfigMap: AppSpecConfigConfigMap{
 				Name:      "f2def-cluster-values",
