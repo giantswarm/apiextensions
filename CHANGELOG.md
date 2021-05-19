@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `CatalogNamespace` spec to `App` CRD.
+- Add `KVMConfigSpecKVMNodeHostVolumes` spec to `KVMConfig` CRD.
 
 ## [3.25.0] - 2021-05-18
 
