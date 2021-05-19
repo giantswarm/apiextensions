@@ -147,4 +147,3 @@ var patches = map[string]crd.Patch{
 	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchEKSConfigWebhook,
 	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
-
