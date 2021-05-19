@@ -293,17 +293,18 @@ spec:
                           type: number
                         dockerVolumeSizeGB:
                           type: integer
-                        host_volumes:
+                        hostVolumes:
                           items:
                             properties:
-                              host_path:
+                              hostPath:
                                 type: string
-                              mount_tag:
+                              mountTag:
                                 type: string
                             required:
-                            - host_path
-                            - mount_tag
+                            - hostPath
+                            - mountTag
                             type: object
+                          nullable: true
                           type: array
                         memory:
                           type: string
@@ -365,17 +366,18 @@ spec:
                           type: number
                         dockerVolumeSizeGB:
                           type: integer
-                        host_volumes:
+                        hostVolumes:
                           items:
                             properties:
-                              host_path:
+                              hostPath:
                                 type: string
-                              mount_tag:
+                              mountTag:
                                 type: string
                             required:
-                            - host_path
-                            - mount_tag
+                            - hostPath
+                            - mountTag
                             type: object
+                          nullable: true
                           type: array
                         memory:
                           type: string

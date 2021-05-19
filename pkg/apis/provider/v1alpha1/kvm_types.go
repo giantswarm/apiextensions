@@ -63,11 +63,13 @@ type KVMConfigSpecKVMK8sKVMDocker struct {
 
 // +k8s:openapi-gen=true
 type KVMConfigSpecKVMNode struct {
-	CPUs               int                               `json:"cpus"`
-	Disk               serialization.Float               `json:"disk"`
-	Memory             string                            `json:"memory"`
-	DockerVolumeSizeGB int                               `json:"dockerVolumeSizeGB"`
-	HostVolumes        []KVMConfigSpecKVMNodeHostVolumes `json:"hostVolumes,omitempty"`
+	CPUs               int                 `json:"cpus"`
+	Disk               serialization.Float `json:"disk"`
+	Memory             string              `json:"memory"`
+	DockerVolumeSizeGB int                 `json:"dockerVolumeSizeGB"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	HostVolumes []KVMConfigSpecKVMNodeHostVolumes `json:"hostVolumes,omitempty"`
 }
 
 type KVMConfigSpecKVMNodeHostVolumes struct {
