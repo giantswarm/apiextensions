@@ -577,7 +577,6 @@ spec:
                       - cpus
                       - disk
                       - dockerVolumeSizeGB
-                      - host_volumes
                       - memory
                       type: object
                     type: array
@@ -650,7 +649,6 @@ spec:
                       - cpus
                       - disk
                       - dockerVolumeSizeGB
-                      - host_volumes
                       - memory
                       type: object
                     type: array
