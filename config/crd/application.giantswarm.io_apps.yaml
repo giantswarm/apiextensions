@@ -57,7 +57,7 @@ spec:
                   to. e.g. giantswarm
                 type: string
               catalogNamespace:
-                description: CatalogNamespace is the namespace of the catalog this
+                description: CatalogNamespace is the namespace of the Catalog CR this
                   app belongs to. e.g. giantswarm
                 nullable: true
                 type: string
