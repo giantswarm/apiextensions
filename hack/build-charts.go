@@ -14,8 +14,13 @@ import (
 )
 
 func main() {
+	githubToken := os.Getenv("GITHUB_TOKEN")
+	if githubToken == "" {
+		githubToken = os.Getenv("GIANTSWARM_GITHUB_TOKEN")
+	}
+
 	ctx := context.Background()
-	token := oauth2.Token{AccessToken: os.Getenv("GIANTSWARM_GITHUB_TOKEN")}
+	token := oauth2.Token{AccessToken: githubToken}
 	ts := oauth2.StaticTokenSource(&token)
 	tc := oauth2.NewClient(ctx, ts)
 	client := github.NewClient(tc)
