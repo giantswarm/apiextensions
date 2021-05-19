@@ -63,10 +63,10 @@ type KVMConfigSpecKVMK8sKVMDocker struct {
 
 // +k8s:openapi-gen=true
 type KVMConfigSpecKVMNode struct {
-	CPUs               int                 `json:"cpus"`
-	Disk               serialization.Float `json:"disk"`
-	Memory             string              `json:"memory"`
-	DockerVolumeSizeGB int                 `json:"dockerVolumeSizeGB"`
+	CPUs               int                               `json:"cpus"`
+	Disk               serialization.Float               `json:"disk"`
+	Memory             string                            `json:"memory"`
+	DockerVolumeSizeGB int                               `json:"dockerVolumeSizeGB"`
 	HostVolumes        []KVMConfigSpecKVMNodeHostVolumes `json:"host_volumes"`
 }
 
