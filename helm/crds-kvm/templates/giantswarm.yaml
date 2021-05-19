@@ -559,12 +559,25 @@ spec:
                           type: number
                         dockerVolumeSizeGB:
                           type: integer
+                        host_volumes:
+                          items:
+                            properties:
+                              host_path:
+                                type: string
+                              mount_tag:
+                                type: string
+                            required:
+                            - host_path
+                            - mount_tag
+                            type: object
+                          type: array
                         memory:
                           type: string
                       required:
                       - cpus
                       - disk
                       - dockerVolumeSizeGB
+                      - host_volumes
                       - memory
                       type: object
                     type: array
@@ -619,12 +632,25 @@ spec:
                           type: number
                         dockerVolumeSizeGB:
                           type: integer
+                        host_volumes:
+                          items:
+                            properties:
+                              host_path:
+                                type: string
+                              mount_tag:
+                                type: string
+                            required:
+                            - host_path
+                            - mount_tag
+                            type: object
+                          type: array
                         memory:
                           type: string
                       required:
                       - cpus
                       - disk
                       - dockerVolumeSizeGB
+                      - host_volumes
                       - memory
                       type: object
                     type: array
