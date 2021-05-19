@@ -71,7 +71,7 @@ type KVMConfigSpecKVMNode struct {
 }
 
 type KVMConfigSpecKVMNodeHostVolumes struct {
-	MountTag string `json:"mount_tag"`
+	MountTag string `json:"mountTag"`
 	HostPath string `json:"hostPath"`
 }
 
