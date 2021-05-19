@@ -7,10 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.26.0] - 2021-05-19
+
+### Added
+
+- Add `CatalogNamespace` spec to `App` CRD.
+- Add `KVMConfigSpecKVMNodeHostVolumes` spec to `KVMConfig` CRD.
+
+## [3.25.0] - 2021-05-18
+
+### Changed
+
+- Remove `alpha` prefix from `NodeTerminateUnhealthy` annotation.
+
+## [3.24.0] - 2021-05-18
+
+### Added
+
+- Add `Catalog` CRD.
+
+## [3.23.0] - 2021-05-13
+
 ### Added
 
 - Add CAPI CRDs.
 - Added the `ui.giantswarm.io/original-organization-name` annotation.
+- Added status field to `Organization` CRD to hold the created namespace.
 
 ### Changed
 - Updated the documentation for the `alpha.aws.giantswarm.io/aws-subnet-size` annotation to explain the current behaviour
@@ -743,7 +765,11 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.22.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.26.0...HEAD
+[3.26.0]: https://github.com/giantswarm/apiextensions/compare/v3.25.0...v3.26.0
+[3.25.0]: https://github.com/giantswarm/apiextensions/compare/v3.24.0...v3.25.0
+[3.24.0]: https://github.com/giantswarm/apiextensions/compare/v3.23.0...v3.24.0
+[3.23.0]: https://github.com/giantswarm/apiextensions/compare/v3.22.0...v3.23.0
 [3.22.0]: https://github.com/giantswarm/apiextensions/compare/v3.21.0...v3.22.0
 [3.21.0]: https://github.com/giantswarm/apiextensions/compare/v3.20.0...v3.21.0
 [3.20.0]: https://github.com/giantswarm/apiextensions/compare/v3.19.0...v3.20.0

@@ -6,25 +6,33 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
-  name: appcatalogs.application.giantswarm.io
+  name: catalogs.application.giantswarm.io
 spec:
   group: application.giantswarm.io
   names:
     categories:
     - common
     - giantswarm
-    kind: AppCatalog
-    listKind: AppCatalogList
-    plural: appcatalogs
-    singular: appcatalog
-  scope: Cluster
+    kind: Catalog
+    listKind: CatalogList
+    plural: catalogs
+    singular: catalog
+  scope: Namespaced
   versions:
-  - name: v1alpha1
+  - additionalPrinterColumns:
+    - description: URL of the catalog
+      jsonPath: .spec.storage.URL
+      name: Catalog URL
+      type: string
+    - description: Time since created
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Deprecated, use Catalog CRD instead. AppCatalog represents a
-          catalog of managed apps. It stores general information for potential apps
-          to install. It is reconciled by app-operator.
+        description: Catalog represents a catalog of managed apps. It stores general
+          information for potential apps to install. It is reconciled by app-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -84,27 +92,27 @@ spec:
                 type: string
               logoURL:
                 description: LogoURL contains the links for logo image file for this
-                  app catalog
+                  catalog
                 type: string
               storage:
                 description: Storage references a map containing values that should
-                  be applied to the appcatalog.
+                  be applied to the catalog.
                 properties:
                   URL:
-                    description: URL is the link to where this AppCatalog's repository
+                    description: URL is the link to where this Catalog's repository
                       is located e.g. https://example.com/app-catalog/
                     type: string
                   type:
                     description: Type indicates which repository type would be used
-                      for this AppCatalog. e.g. helm
+                      for this Catalog. e.g. helm
                     type: string
                 required:
                 - URL
                 - type
                 type: object
               title:
-                description: Title is the name of the app catalog for this CR e.g.
-                  Catalog of Apps by Giant Swarm
+                description: Title is the name of the catalog for this CR e.g. Catalog
+                  of Apps by Giant Swarm
                 type: string
             required:
             - description
@@ -117,6 +125,7 @@ spec:
         type: object
     served: true
     storage: true
+    subresources: {}
 status:
   acceptedNames:
     kind: ""

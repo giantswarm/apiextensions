@@ -42,12 +42,21 @@ spec:
             type: object
           spec:
             type: object
+          status:
+            properties:
+              namespace:
+                description: Namespace is the namespace containing the resources for
+                  this organization.
+                type: string
+            type: object
         required:
         - metadata
         - spec
         type: object
     served: true
     storage: true
+    subresources:
+      status: {}
 status:
   acceptedNames:
     kind: ""

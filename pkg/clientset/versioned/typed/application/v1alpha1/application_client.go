@@ -30,6 +30,7 @@ type ApplicationV1alpha1Interface interface {
 	AppsGetter
 	AppCatalogsGetter
 	AppCatalogEntriesGetter
+	CatalogsGetter
 	ChartsGetter
 }
 
@@ -48,6 +49,10 @@ func (c *ApplicationV1alpha1Client) AppCatalogs() AppCatalogInterface {
 
 func (c *ApplicationV1alpha1Client) AppCatalogEntries(namespace string) AppCatalogEntryInterface {
 	return newAppCatalogEntries(c, namespace)
+}
+
+func (c *ApplicationV1alpha1Client) Catalogs(namespace string) CatalogInterface {
+	return newCatalogs(c, namespace)
 }
 
 func (c *ApplicationV1alpha1Client) Charts(namespace string) ChartInterface {

@@ -9,12 +9,13 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
 )
 
-func Test_GenerateAppYAML(t *testing.T) {
+func Test_GenerateCatalogYAML(t *testing.T) {
 	testCases := []struct {
 		category string
 		name     string
@@ -22,8 +23,8 @@ func Test_GenerateAppYAML(t *testing.T) {
 	}{
 		{
 			category: "cr",
-			name:     fmt.Sprintf("%s_%s_app.yaml", group, version),
-			resource: newAppExampleCR(),
+			name:     fmt.Sprintf("%s_%s_catalog.yaml", group, version),
+			resource: newCatalogExampleCR(),
 		},
 	}
 
@@ -60,59 +61,30 @@ func Test_GenerateAppYAML(t *testing.T) {
 	}
 }
 
-func newAppExampleCR() *App {
-	cr := NewAppCR()
+func newCatalogExampleCR() *Catalog {
+	cr := NewCatalogCR()
 
 	cr.ObjectMeta = metav1.ObjectMeta{
-		Name:      "prometheus",
-		Namespace: "default",
-		Labels: map[string]string{
-			"app-operator.giantswarm.io/version": "1.0.0",
-		},
+		Name:      "my-playground-catalog",
+		Namespace: corev1.NamespaceDefault,
 	}
-	cr.Spec = AppSpec{
-		Name:             "prometheus",
-		Namespace:        "monitoring",
-		Version:          "1.0.1",
-		Catalog:          "my-playground-catalog",
-		CatalogNamespace: "giantswarm",
-		Config: AppSpecConfig{
-			ConfigMap: AppSpecConfigConfigMap{
-				Name:      "f2def-cluster-values",
-				Namespace: "f2def",
+	cr.Spec = CatalogSpec{
+		Title:       "My Playground Catalog",
+		Description: "A catalog to store all new application packages.",
+		Config: &CatalogSpecConfig{
+			ConfigMap: &CatalogSpecConfigConfigMap{
+				Name:      "my-playground-catalog",
+				Namespace: "my-namespace",
 			},
-			Secret: AppSpecConfigSecret{
-				Name:      "f2def-cluster-values",
-				Namespace: "f2def",
+			Secret: &CatalogSpecConfigSecret{
+				Name:      "my-playground-catalog",
+				Namespace: "my-namespace",
 			},
 		},
-		Install: AppSpecInstall{
-			SkipCRDs: true,
-		},
-		KubeConfig: AppSpecKubeConfig{
-			InCluster: false,
-			Context: AppSpecKubeConfigContext{
-				Name: "f2def",
-			},
-			Secret: AppSpecKubeConfigSecret{
-				Name:      "f2def-kubeconfig",
-				Namespace: "f2def",
-			},
-		},
-		NamespaceConfig: AppSpecNamespaceConfig{
-			Annotations: map[string]string{
-				"linkerd.io/inject": "enabled",
-			},
-		},
-		UserConfig: AppSpecUserConfig{
-			ConfigMap: AppSpecUserConfigConfigMap{
-				Name:      "prometheus-user-values",
-				Namespace: "f2def",
-			},
-			Secret: AppSpecUserConfigSecret{
-				Name:      "prometheus-user-values",
-				Namespace: "f2def",
-			},
+		LogoURL: "https://my-org.github.com/logo.png",
+		Storage: CatalogSpecStorage{
+			Type: "helm",
+			URL:  "https://my-org.github.com/my-playground-catalog/",
 		},
 	}
 
