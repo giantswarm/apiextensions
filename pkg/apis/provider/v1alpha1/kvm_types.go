@@ -67,6 +67,12 @@ type KVMConfigSpecKVMNode struct {
 	Disk               serialization.Float `json:"disk"`
 	Memory             string              `json:"memory"`
 	DockerVolumeSizeGB int                 `json:"dockerVolumeSizeGB"`
+	HostVolumes        []KVMConfigSpecKVMNodeHostVolumes `json:"host_volumes"`
+}
+
+type KVMConfigSpecKVMNodeHostVolumes struct {
+	MountTag string `json:"mount_tag"`
+	HostPath string `json:"host_path"`
 }
 
 // +k8s:openapi-gen=true
