@@ -72,7 +72,7 @@ type KVMConfigSpecKVMNode struct {
 
 type KVMConfigSpecKVMNodeHostVolumes struct {
 	MountTag string `json:"mount_tag"`
-	HostPath string `json:"host_path"`
+	HostPath string `json:"hostPath"`
 }
 
 // +k8s:openapi-gen=true
