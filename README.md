@@ -12,17 +12,19 @@ This library provides generated Kubernetes clients for the Giant Swarm infrastru
 - [`pkg/clientset/versioned`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc):
     Contains a clientset, a client for each custom resource, and a fake client for unit testing. See full documentation
     [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc).
-- [`pkg/crd`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc): Contains an interface for
-    accessing individual CRDs or listing all CRDs. See full documentation
-    [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/crd?tab=doc).
 
 ## Contributing
 
+### Setup
+
+The generation scripts require a GitHub token to be defined as an environment variable avoid rate limit issues.
+Giant Swarm engineers can generally use `export GITHUB_TOKEN=$OPSCTL_GITHUB_TOKEN` to configure this before
+running `make`.
+
 ### Changing Existing Custom Resources
 
-- Make the desired changes in `pkg/apis/<group>/<version>`
+- Make the desired changes in `pkg/apis/<group>/<version>`.
 - Update generated files by calling `make`.
-    - `make generate && goimports -local github.com/giantswarm/apiextensions -w ./pkg`
 - Review and commit all changes including generated code.
 
 #### Naming Convention
@@ -169,10 +171,13 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 
 ### Updating dependencies
 
-#### Cluster API
+#### Upstream CRDs
 
-Cluster API CRDs are also exported by this library using `controller-gen`. The version used is determined by the value
-of `sigs.k8s.io/cluster-api` in `hack/go.mod`.
+`apiextensions` generates Giant Swarm CRDs based on code in the `pkg/apis` directory and also aggregates upstream
+CRDs from various sources. Any repository that publishes CRDs as a YAML-formatted manifest of CRDs attached as
+an asset to a GitHub release can be used. The current set of upstream CRDs including target version is defined in
+`hack/build-charts.go` in the `upstreamReleaseAssets` map. Update the map and re-run `make` to update the upstream
+CRDs.
 
 #### Code Generation Tools
 
@@ -215,10 +220,6 @@ Extra commands are provided including:
 Tools are third-party executables which perform a particular action as part of the code generation pipeline. They are
 defined in `hack/tools` in separate directories. Versions for the tools are defined in the `go.mod` file in their
 respective directories. A common `go.mod` isn't used so that their dependencies don't interfere.
-
-#### [`deepcopy-gen`](https://godoc.org/k8s.io/code-generator/cmd/deepcopy-gen)
-
-Generates `DeepCopy` and `DeepCopyInto` functions for all custom resources to satisfy the `runtime.Object` interface.
 
 #### [`client-gen`](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/generating-clientset.md)
 
