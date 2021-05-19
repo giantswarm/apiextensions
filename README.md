@@ -18,7 +18,7 @@ This library provides generated Kubernetes clients for the Giant Swarm infrastru
 ### Setup
 
 The generation scripts require a GitHub token to be defined as an environment variable avoid rate limit issues.
-Giant Swarm engineers can generally use `export GITHUB_TOKEN=$OPSCTL_GITHUB_TOKEN` to configure this before
+Giant Swarm engineers can generally use `export GIANTSWARM_GITHUB_TOKEN=$OPSCTL_GITHUB_TOKEN` to configure this before
 running `make`.
 
 ### Changing Existing Custom Resources
@@ -176,7 +176,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 `apiextensions` generates Giant Swarm CRDs based on code in the `pkg/apis` directory and also aggregates upstream
 CRDs from various sources. Any repository that publishes CRDs as a YAML-formatted manifest of CRDs attached as
 an asset to a GitHub release can be used. The current set of upstream CRDs including target version is defined in
-`hack/build-charts.go` in the `upstreamReleaseAssets` map. Update the map and re-run `make` to update the upstream
+`hack/assets.go` in the `upstreamReleaseAssets` map. Update the map and re-run `make` to update the upstream
 CRDs.
 
 #### Code Generation Tools
