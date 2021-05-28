@@ -563,8 +563,11 @@ spec:
                           items:
                             properties:
                               hostPath:
+                                minLength: 1
                                 type: string
                               mountTag:
+                                maxLength: 31
+                                minLength: 1
                                 type: string
                             required:
                             - hostPath
@@ -636,8 +639,11 @@ spec:
                           items:
                             properties:
                               hostPath:
+                                minLength: 1
                                 type: string
                               mountTag:
+                                maxLength: 31
+                                minLength: 1
                                 type: string
                             required:
                             - hostPath
