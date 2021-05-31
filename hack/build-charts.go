@@ -5,6 +5,7 @@ package main
 import (
 	"context"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/google/go-github/v35/github"
@@ -14,19 +15,16 @@ import (
 )
 
 func main() {
-	githubToken := os.Getenv("GITHUB_TOKEN")
-	if githubToken == "" {
-		githubToken = os.Getenv("GIANTSWARM_GITHUB_TOKEN")
+	ctx := context.Background()
+	httpClient := http.DefaultClient
+	if githubToken := os.Getenv("GITHUB_TOKEN"); githubToken != "" {
+		token := oauth2.Token{AccessToken: githubToken}
+		ts := oauth2.StaticTokenSource(&token)
+		httpClient = oauth2.NewClient(ctx, ts)
 	}
 
-	ctx := context.Background()
-	token := oauth2.Token{AccessToken: githubToken}
-	ts := oauth2.StaticTokenSource(&token)
-	tc := oauth2.NewClient(ctx, ts)
-	client := github.NewClient(tc)
-
 	renderer := crd.Renderer{
-		GithubClient:      client,
+		GithubClient:      github.NewClient(httpClient),
 		LocalCRDDirectory: "../config/crd",
 		OutputDirectory:   "../helm",
 		Patches:           patches,

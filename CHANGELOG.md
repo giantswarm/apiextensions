@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add validation for node host volumes definition in KVMConfig CRD.
+
 ## [3.26.0] - 2021-05-19
 
 ### Added
