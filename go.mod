@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/giantswarm/microerror v0.3.0
 	github.com/giantswarm/to v0.3.0
-	github.com/google/go-cmp v0.5.4
+	github.com/google/go-cmp v0.5.6
 	github.com/google/go-github/v35 v35.2.0
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4 // indirect
