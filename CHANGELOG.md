@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add validation for node host volumes definition in KVMConfig CRD.
 
+### Changed
+
+- Update `aad-pod-identity` upstream CRDs to v1.8.0.
+
 ## [3.26.0] - 2021-05-19
 
 ### Added

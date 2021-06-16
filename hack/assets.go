@@ -40,7 +40,7 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	{
 		Owner:    "Azure",
 		Repo:     "aad-pod-identity",
-		Version:  "v1.7.4",
+		Version:  "v1.8.0",
 		Files:    []string{"deployment.yaml"},
 		Provider: "azure",
 	},
