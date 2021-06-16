@@ -22,12 +22,6 @@ var (
 		Version: "v1",
 		Kind:    "CustomResourceDefinition",
 	}
-	// Kubernetes API group, version and kind for v1beta1 CRDs
-	crdV1Beta1GVK = schema.GroupVersionKind{
-		Group:   "apiextensions.k8s.io",
-		Version: "v1beta1",
-		Kind:    "CustomResourceDefinition",
-	}
 )
 
 // Render creates helm chart templates for the given provider by downloading upstream CRDs, merging them with local
