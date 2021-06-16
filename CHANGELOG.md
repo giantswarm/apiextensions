@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Drop CRD v1beta1 support.
+
 ## [3.27.0] - 2021-06-16
 
 ### Added
