@@ -10,7 +10,6 @@ import (
 
 	"github.com/giantswarm/microerror"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
-	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime"
 	apiyaml "k8s.io/apimachinery/pkg/util/yaml"
@@ -54,14 +53,6 @@ func decodeCRDs(readCloser io.ReadCloser) ([]runtime.Object, error) {
 		switch *decodedGVK {
 		case crdV1GVK:
 			var crd v1.CustomResourceDefinition
-			_, _, err = decoder.Decode(doc, nil, &crd)
-			if err != nil {
-				return nil, microerror.Mask(err)
-			}
-
-			crds = append(crds, &crd)
-		case crdV1Beta1GVK:
-			var crd v1beta1.CustomResourceDefinition
 			_, _, err = decoder.Decode(doc, nil, &crd)
 			if err != nil {
 				return nil, microerror.Mask(err)
