@@ -38,7 +38,7 @@ func NewCertConfigCR() *CertConfig {
 // +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-
+// CertConfig specifies sdetails for an X.509 certificate to be issued, handled by cert-operator.
 type CertConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`
@@ -47,7 +47,9 @@ type CertConfig struct {
 
 // +k8s:openapi-gen=true
 type CertConfigSpec struct {
-	Cert          CertConfigSpecCert          `json:"cert"`
+	// This part specifies the configurable certificate details.
+	Cert CertConfigSpecCert `json:"cert"`
+	// Specifies the cert-operator version to use.
 	VersionBundle CertConfigSpecVersionBundle `json:"versionBundle"`
 }
 
@@ -56,18 +58,26 @@ type CertConfigSpecCert struct {
 	AllowBareDomains bool `json:"allowBareDomains"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	AltNames            []string `json:"altNames,omitempty"`
-	ClusterComponent    string   `json:"clusterComponent"`
-	ClusterID           string   `json:"clusterID"`
-	CommonName          string   `json:"commonName"`
-	DisableRegeneration bool     `json:"disableRegeneration"`
+	// Subject Alternative Names to be set in the certificate.
+	AltNames []string `json:"altNames,omitempty"`
+	// Host name of the service to create the certificate for.
+	ClusterComponent string `json:"clusterComponent"`
+	// Workload cluster ID to issue the certificate for.
+	ClusterID string `json:"clusterID"`
+	// Full common name (CN).
+	CommonName string `json:"commonName"`
+	// If set, cert-operator will forbid updating this certificate.
+	DisableRegeneration bool `json:"disableRegeneration"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// List of IP addresses to be set as SANs (Subject Alternative Names) in the certificate.
 	IPSANs []string `json:"ipSans,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// List of organizations to set in the certificate.
 	Organizations []string `json:"organizations,omitempty"`
-	TTL           string   `json:"ttl"`
+	// Expiry time as a Golang duration string, e. g. "1d" for one day.
+	TTL string `json:"ttl"`
 }
 
 // +k8s:openapi-gen=true
