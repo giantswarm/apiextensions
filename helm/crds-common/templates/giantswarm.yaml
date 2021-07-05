@@ -980,6 +980,7 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
+        description: CertConfig specifies sdetails for an X.509 certificate to be issued, handled by cert-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
@@ -992,33 +993,42 @@ spec:
           spec:
             properties:
               cert:
+                description: This part specifies the configurable certificate details.
                 properties:
                   allowBareDomains:
                     type: boolean
                   altNames:
+                    description: Subject Alternative Names to be set in the certificate.
                     items:
                       type: string
                     nullable: true
                     type: array
                   clusterComponent:
+                    description: Host name of the service to create the certificate for.
                     type: string
                   clusterID:
+                    description: Workload cluster ID to issue the certificate for.
                     type: string
                   commonName:
+                    description: Full common name (CN).
                     type: string
                   disableRegeneration:
+                    description: If set, cert-operator will forbid updating this certificate.
                     type: boolean
                   ipSans:
+                    description: List of IP addresses to be set as SANs (Subject Alternative Names) in the certificate.
                     items:
                       type: string
                     nullable: true
                     type: array
                   organizations:
+                    description: List of organizations to set in the certificate.
                     items:
                       type: string
                     nullable: true
                     type: array
                   ttl:
+                    description: Expiry time as a Golang duration string, e. g. "1d" for one day.
                     type: string
                 required:
                 - allowBareDomains
@@ -1029,6 +1039,7 @@ spec:
                 - ttl
                 type: object
               versionBundle:
+                description: Specifies the cert-operator version to use.
                 properties:
                   version:
                     type: string
