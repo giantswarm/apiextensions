@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add documentation for the certconfigs.core.giantswarm.io/v1alpha1 CRD.
+
 ### Removed
 
 - Drop CRD v1beta1 support.
