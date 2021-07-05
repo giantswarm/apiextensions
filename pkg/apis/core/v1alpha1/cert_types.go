@@ -47,7 +47,7 @@ type CertConfig struct {
 
 // +k8s:openapi-gen=true
 type CertConfigSpec struct {
-	// This part specifies the configurable certificate details.
+	// Specifies the configurable certificate details.
 	Cert CertConfigSpecCert `json:"cert"`
 	// Specifies the cert-operator version to use.
 	VersionBundle CertConfigSpecVersionBundle `json:"versionBundle"`
