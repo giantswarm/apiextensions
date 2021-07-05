@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Typo in certconfigs.core.giantswarm.io/v1alpha1
+
 ## [3.27.1] - 2021-07-05
 
 ### Changed
