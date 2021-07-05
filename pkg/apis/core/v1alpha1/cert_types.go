@@ -38,7 +38,7 @@ func NewCertConfigCR() *CertConfig {
 // +kubebuilder:resource:categories=common;giantswarm
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
-// CertConfig specifies sdetails for an X.509 certificate to be issued, handled by cert-operator.
+// CertConfig specifies details for an X.509 certificate to be issued, handled by cert-operator.
 type CertConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata"`

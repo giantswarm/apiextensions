@@ -980,7 +980,7 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CertConfig specifies sdetails for an X.509 certificate to be issued, handled by cert-operator.
+        description: CertConfig specifies details for an X.509 certificate to be issued, handled by cert-operator.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
