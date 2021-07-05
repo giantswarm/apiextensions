@@ -22,7 +22,7 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CertConfig specifies sdetails for an X.509 certificate to be
+        description: CertConfig specifies details for an X.509 certificate to be
           issued, handled by cert-operator.
         properties:
           apiVersion:
