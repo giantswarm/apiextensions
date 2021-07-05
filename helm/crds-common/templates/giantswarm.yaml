@@ -993,7 +993,7 @@ spec:
           spec:
             properties:
               cert:
-                description: This part specifies the configurable certificate details.
+                description: Specifies the configurable certificate details.
                 properties:
                   allowBareDomains:
                     type: boolean
