@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.27.1] - 2021-07-05
+
 ### Changed
 
 - Add documentation for the certconfigs.core.giantswarm.io/v1alpha1 CRD.
@@ -783,7 +785,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.27.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.27.1...HEAD
+[3.27.1]: https://github.com/giantswarm/apiextensions/compare/v3.27.0...v3.27.1
 [3.27.0]: https://github.com/giantswarm/apiextensions/compare/v3.26.0...v3.27.0
 [3.26.0]: https://github.com/giantswarm/apiextensions/compare/v3.25.0...v3.26.0
 [3.25.0]: https://github.com/giantswarm/apiextensions/compare/v3.24.0...v3.25.0
