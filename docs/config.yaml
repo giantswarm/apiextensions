@@ -47,7 +47,6 @@ crds:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
     hidden: true
   awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io:
-    awsclusterroleidentities.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
     hidden: true
