@@ -13,7 +13,7 @@
 # .crds.*.provider: array of strings. Possible values:
 #   - aws
 #   - azure
-# .crds.*.publish: Set to false to disable in docs. Defaults is true.
+# .crds.*.hidden: Set to true to disable in docs. Default is false.
 #
 crds:
   appcatalogs.application.giantswarm.io:
@@ -46,7 +46,16 @@ crds:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
     hidden: true
+  awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io:
+    awsclusterroleidentities.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   awsclusterroleidentities.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  awsclusterstaticidentities.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
     hidden: true
@@ -61,6 +70,10 @@ crds:
       - aws
     topics:
       - workloadcluster
+  awsfargateprofiles.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   awsmachinedeployments.infrastructure.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -72,9 +85,33 @@ crds:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
     hidden: true
+  awsmachines.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   awsmachinetemplates.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  awsmanagedclusters.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  awsmanagedmachinepools.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  azureassignedidentities.aadpodidentity.k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azureclusteridentities.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
     hidden: true
   azureclusters.infrastructure.cluster.x-k8s.io:
     owner:
@@ -88,6 +125,14 @@ crds:
       - https://github.com/orgs/giantswarm/teams/team-celestial
     hidden: true
   azureconfigs.provider.giantswarm.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azureidentities.aadpodidentity.k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azureidentitybindings.aadpodidentity.k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
     hidden: true
@@ -105,6 +150,26 @@ crds:
       - azure
     topics:
       - workloadcluster
+  azuremachinetemplates.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azuremanagedclusters.exp.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azuremanagedcontrolplanes.exp.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azuremanagedmachinepools.exp.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
+  azurepodidentityexceptions.aadpodidentity.k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-celestial
+    hidden: true
   azuretools.tooling.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
@@ -127,6 +192,10 @@ crds:
       - apps
   chartconfigs.core.giantswarm.io:
     hidden: true
+  clusterresourcesetbindings.addons.cluster.x-k8s.io:
+    hidden: true
+  clusterresourcesets.addons.cluster.x-k8s.io:
+    hidden: true
   clusters.core.giantswarm.io:
     hidden: true
   clusters.cluster.x-k8s.io:
@@ -148,6 +217,14 @@ crds:
     hidden: true
   draughtsmanconfigs.core.giantswarm.io:
     hidden: true
+  eksconfigs.bootstrap.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  eksconfigtemplates.bootstrap.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   etcdbackups.backup.giantswarm.io:
     hidden: true
   flannelconfigs.core.giantswarm.io:
@@ -159,6 +236,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+  haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
+    hidden: true
   ignitions.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-ludacris
@@ -168,6 +247,10 @@ crds:
   ingressconfigs.core.giantswarm.io:
     hidden: true
   kubeadmconfigs.bootstrap.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
     hidden: true
@@ -189,6 +272,10 @@ crds:
       - kvm
     topics:
       - workloadcluster
+  machinedeployments.cluster.x-k8s.io:
+    hidden: true
+  machinehealthchecks.cluster.x-k8s.io:
+    hidden: true
   machinepools.exp.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
@@ -196,6 +283,10 @@ crds:
       - azure
     topics:
       - workloadcluster
+  machines.cluster.x-k8s.io:
+    hidden: true
+  machinesets.cluster.x-k8s.io:
+    hidden: true
   memcachedconfigs.example.giantswarm.io:
     hidden: true
   networkpools.infrastructure.giantswarm.io:
