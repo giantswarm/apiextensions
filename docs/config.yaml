@@ -1,0 +1,158 @@
+# This file contains configuration and metadata for the CRD schema documentation
+# at https://docs.giantswarm.io/ui-api/management-api/crd/
+#
+# Schema:
+#
+# .crds.*: Each key is a full CRD name.
+# .crds.*.owner: List of URLs of teams owning the CRD.
+# .crds.*.topics:
+#   array of strings. Possible values:
+#   - apps: related to managed apps
+#   - managementcluster - deals with the management cluster.
+#   - workloadcluster - deals with workload clusters.
+# .crds.*.provider: array of strings. Possible values:
+#   - aws
+#   - azure
+# .crds.*.publish: Set to false to disable in docs. Defaults is true.
+#
+crds:
+  appcatalogs.application.giantswarm.io:
+    topics:
+      - apps
+  appcatalogentries.application.giantswarm.io:
+    topics:
+      - apps
+  apps.application.giantswarm.io:
+    topics:
+      - apps
+  awsclusters.infrastructure.giantswarm.io:
+    provider:
+      - aws
+    topics:
+      - workloadcluster
+  awsclusterconfigs.core.giantswarm.io:
+    publish: false
+  awsconfigs.provider.giantswarm.io:
+    publish: false
+  awscontrolplanes.infrastructure.giantswarm.io:
+    provider:
+      - aws
+    topics:
+      - workloadcluster
+  awsmachinedeployments.infrastructure.giantswarm.io:
+    provider:
+      - aws
+    topics:
+      - workloadcluster
+  azureclusters.infrastructure.cluster.x-k8s.io:
+    provider:
+      - azure
+    topics:
+      - workloadcluster
+  azureclusterconfigs.core.giantswarm.io:
+    publish: false
+  azureconfigs.provider.giantswarm.io:
+    publish: false
+  azuremachinepools.exp.infrastructure.cluster.x-k8s.io:
+    provider:
+      - azure
+    topics:
+      - workloadcluster
+  azuremachines.infrastructure.cluster.x-k8s.io:
+    provider:
+      - azure
+    topics:
+      - workloadcluster
+  azuretools.tooling.giantswarm.io:
+    publish: false
+  certconfigs.core.giantswarm.io:
+    topics:
+      - managementcluster
+      - workloadcluster
+  charts.application.giantswarm.io:
+    topics:
+      - apps
+  chartconfigs.core.giantswarm.io:
+    publish: false
+  clusters.core.giantswarm.io:
+    publish: false
+  clusters.cluster.x-k8s.io:
+    provider:
+      - aws
+      - azure
+    topics:
+      - workloadcluster
+  configs.core.giantswarm.io:
+    topics:
+      - apps
+      - managementcluster
+  drainerconfigs.core.giantswarm.io:
+    publish: false
+  draughtsmanconfigs.core.giantswarm.io:
+    publish: false
+  etcdbackups.backup.giantswarm.io:
+    publish: false
+  flannelconfigs.core.giantswarm.io:
+    publish: false
+  g8scontrolplanes.infrastructure.giantswarm.io:
+    provider:
+      - aws
+    topics:
+      - workloadcluster
+  ignitions.core.giantswarm.io:
+    topics:
+      - managementcluster
+      - workloadcluster
+  ingressconfigs.core.giantswarm.io:
+    publish: false
+  kvmclusterconfigs.core.giantswarm.io:
+    provider:
+      - kvm
+    topics:
+      - workloadcluster
+  kvmconfigs.provider.giantswarm.io:
+    provider:
+      - kvm
+    topics:
+      - workloadcluster
+  machinepools.exp.cluster.x-k8s.io:
+    provider:
+      - azure
+    topics:
+      - workloadcluster
+  memcachedconfigs.example.giantswarm.io:
+    publish: false
+  networkpools.infrastructure.giantswarm.io:
+    provider:
+      - aws
+    topics:
+      - workloadcluster
+  organizations.security.giantswarm.io:
+    topics:
+      - managementcluster
+  releasecycles.release.giantswarm.io:
+    publish: false
+  releases.release.giantswarm.io:
+    topics:
+      - managementcluster
+      - workloadcluster
+  silences.monitoring.giantswarm.io:
+    topics:
+      - managementcluster
+  sparks.core.giantswarm.io:
+    provider:
+      - azure
+    topics:
+      - workloadcluster
+  storageconfigs.core.giantswarm.io:
+    publish: false
+    topics:
+      - managementcluster
+  vsphereclusters.infrastructure.cluster.x-k8s.io:
+    publish: false
+  vspheremachines.infrastructure.cluster.x-k8s.io:
+    publish: false
+  vspheremachinetemplates.infrastructure.cluster.x-k8s.io:
+    publish: false
+  vspherevms.infrastructure.cluster.x-k8s.io:
+    publish: false
