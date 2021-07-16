@@ -110,7 +110,8 @@ crds:
       - https://github.com/orgs/giantswarm/teams/team-celestial
     hidden: true
   certconfigs.core.giantswarm.io:
-    owner: TODO
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-ludacris
     topics:
       - managementcluster
       - workloadcluster
@@ -154,7 +155,8 @@ crds:
     topics:
       - workloadcluster
   ignitions.core.giantswarm.io:
-    owner: TODO
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-ludacris
     topics:
       - managementcluster
       - workloadcluster
@@ -206,12 +208,14 @@ crds:
   releasecycles.release.giantswarm.io:
     hidden: true
   releases.release.giantswarm.io:
-    owner: TODO
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-ludacris
     topics:
       - managementcluster
       - workloadcluster
   silences.monitoring.giantswarm.io:
-    owner: TODO
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-biscuit
     topics:
       - managementcluster
   sparks.core.giantswarm.io:
@@ -222,7 +226,6 @@ crds:
     topics:
       - workloadcluster
   storageconfigs.core.giantswarm.io:
-    owner: TODO
     hidden: true
     topics:
       - managementcluster
