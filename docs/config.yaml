@@ -1,6 +1,8 @@
 # This file contains configuration and metadata for the CRD schema documentation
 # at https://docs.giantswarm.io/ui-api/management-api/crd/
 #
+# Only CRDs contained here will be published.
+#
 # Schema:
 #
 # .crds.*: Each key is a full CRD name.
