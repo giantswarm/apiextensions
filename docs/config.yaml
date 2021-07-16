@@ -31,6 +31,10 @@ crds:
       - https://github.com/orgs/giantswarm/teams/team-batman
     topics:
       - apps
+  awsclusters.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   awsclusters.infrastructure.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -41,11 +45,15 @@ crds:
   awsclusterconfigs.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
-    publish: false
+    hidden: true
+  awsclusterroleidentities.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   awsconfigs.provider.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
-    publish: false
+    hidden: true
   awscontrolplanes.infrastructure.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -60,6 +68,14 @@ crds:
       - aws
     topics:
       - workloadcluster
+  awsmachinepools.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  awsmachinetemplates.infrastructure.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   azureclusters.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
@@ -70,11 +86,11 @@ crds:
   azureclusterconfigs.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
-    publish: false
+    hidden: true
   azureconfigs.provider.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
-    publish: false
+    hidden: true
   azuremachinepools.exp.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
@@ -92,7 +108,7 @@ crds:
   azuretools.tooling.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
-    publish: false
+    hidden: true
   certconfigs.core.giantswarm.io:
     owner: TODO
     topics:
@@ -104,9 +120,9 @@ crds:
     topics:
       - apps
   chartconfigs.core.giantswarm.io:
-    publish: false
+    hidden: true
   clusters.core.giantswarm.io:
-    publish: false
+    hidden: true
   clusters.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
@@ -123,13 +139,13 @@ crds:
       - apps
       - managementcluster
   drainerconfigs.core.giantswarm.io:
-    publish: false
+    hidden: true
   draughtsmanconfigs.core.giantswarm.io:
-    publish: false
+    hidden: true
   etcdbackups.backup.giantswarm.io:
-    publish: false
+    hidden: true
   flannelconfigs.core.giantswarm.io:
-    publish: false
+    hidden: true
   g8scontrolplanes.infrastructure.giantswarm.io:
     owner: 
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -143,7 +159,15 @@ crds:
       - managementcluster
       - workloadcluster
   ingressconfigs.core.giantswarm.io:
-    publish: false
+    hidden: true
+  kubeadmconfigs.bootstrap.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
+  kubeadmcontrolplanes.controlplane.cluster.x-k8s.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    hidden: true
   kvmclusterconfigs.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-rocket
@@ -166,7 +190,7 @@ crds:
     topics:
       - workloadcluster
   memcachedconfigs.example.giantswarm.io:
-    publish: false
+    hidden: true
   networkpools.infrastructure.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -180,7 +204,7 @@ crds:
     topics:
       - managementcluster
   releasecycles.release.giantswarm.io:
-    publish: false
+    hidden: true
   releases.release.giantswarm.io:
     owner: TODO
     topics:
@@ -199,14 +223,14 @@ crds:
       - workloadcluster
   storageconfigs.core.giantswarm.io:
     owner: TODO
-    publish: false
+    hidden: true
     topics:
       - managementcluster
   vsphereclusters.infrastructure.cluster.x-k8s.io:
-    publish: false
+    hidden: true
   vspheremachines.infrastructure.cluster.x-k8s.io:
-    publish: false
+    hidden: true
   vspheremachinetemplates.infrastructure.cluster.x-k8s.io:
-    publish: false
+    hidden: true
   vspherevms.infrastructure.cluster.x-k8s.io:
-    publish: false
+    hidden: true
