@@ -109,6 +109,11 @@ crds:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-celestial
     hidden: true
+  catalogs.application.giantswarm.io:
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-batman
+    topics:
+      - apps
   certconfigs.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-ludacris
