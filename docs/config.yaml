@@ -15,6 +15,7 @@
 # .crds.*.provider: array of strings. Possible values:
 #   - aws
 #   - azure
+#   - kvm
 # .crds.*.hidden: Set to true to disable in docs. Default is false.
 #
 crds:
