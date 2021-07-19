@@ -274,7 +274,12 @@ crds:
     topics:
       - workloadcluster
   machinedeployments.cluster.x-k8s.io:
-    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-firecracker
+    provider:
+      - aws
+    topics:
+      - workloadcluster
   machinehealthchecks.cluster.x-k8s.io:
     hidden: true
   machinepools.exp.cluster.x-k8s.io:
