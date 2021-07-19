@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Set ownership of Silence CRD to Atlas.
+
 ## [3.27.2] - 2021-07-19
 
 ### Added
