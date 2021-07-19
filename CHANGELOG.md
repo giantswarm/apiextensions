@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Move CRD metadata for [docs.giantswarm.io](https://docs.giantswarm.io/ui-api/management-api/crd/) into this repository.
+
 ### Fixed
 
 - Typo in certconfigs.core.giantswarm.io/v1alpha1
