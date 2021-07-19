@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.27.2] - 2021-07-19
+
 ### Added
 
 - Move CRD metadata for [docs.giantswarm.io](https://docs.giantswarm.io/ui-api/management-api/crd/) into this repository.
@@ -793,7 +795,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.27.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.27.2...HEAD
+[3.27.2]: https://github.com/giantswarm/apiextensions/compare/v3.27.1...v3.27.2
 [3.27.1]: https://github.com/giantswarm/apiextensions/compare/v3.27.0...v3.27.1
 [3.27.0]: https://github.com/giantswarm/apiextensions/compare/v3.26.0...v3.27.0
 [3.26.0]: https://github.com/giantswarm/apiextensions/compare/v3.25.0...v3.26.0
