@@ -1,0 +1,32 @@
+apiVersion: infrastructure.giantswarm.io/v1alpha3
+kind: AWSCluster
+metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/awsclusters.infrastructure.giantswarm.io/
+  creationTimestamp: null
+  name: g8kw3
+spec:
+  cluster:
+    description: Dev cluster
+    dns:
+      domain: g8s.example.com
+    kubeProxy:
+      conntrackMaxPerCore: 100000
+    oidc:
+      claims:
+        groups: groups-field
+        username: username-field
+      clientID: some-example-client-id
+      issuerURL: https://idp.example.com/
+  provider:
+    credentialSecret:
+      name: example-credential
+      namespace: example-namespace
+    master:
+      availabilityZone: eu-central-1b
+      instanceType: m5.2xlarge
+    nodes: {}
+    pods:
+      cidrBlock: 10.2.0.0/16
+      externalSNAT: true
+    region: eu-central-1
