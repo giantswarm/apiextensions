@@ -23,6 +23,10 @@ crds:
       - https://github.com/orgs/giantswarm/teams/team-batman
     topics:
       - apps
+    deprecation:
+      replaced_by:
+        full_name: catalogs.application.giantswarm.io
+        short_name: Catalog
   appcatalogentries.application.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-batman
