@@ -15,6 +15,7 @@
 # .crds.*.provider: array of strings. Possible values:
 #   - aws
 #   - azure
+#   - kvm
 # .crds.*.hidden: Set to true to disable in docs. Default is false.
 # .crds.*.deprecation: If set, the CRD is marked as deprecated. Please also specify either .replaced_by or .info (but not both).
 # .crds.*.deprecation.info: Text explaining the deprecation.

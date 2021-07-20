@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Add `kvm` as a valid provider in docs metadata.
+
 ## [3.27.3] - 2021-07-20
 
 ### Added
