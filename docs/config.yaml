@@ -48,6 +48,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+    deprecation:
+      info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   awsclusterconfigs.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -75,6 +77,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+    deprecation:
+      info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   awsfargateprofiles.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -241,6 +245,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+    deprecation:
+      info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
     hidden: true
   ignitions.core.giantswarm.io:
