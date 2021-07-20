@@ -17,13 +17,20 @@
 #   - azure
 #   - kvm
 # .crds.*.hidden: Set to true to disable in docs. Default is false.
-#
+# .crds.*.deprecation: If set, the CRD is marked as deprecated. Please also specify either .replaced_by or .info (but not both).
+# .crds.*.deprecation.info: Text explaining the deprecation.
+# .crds.*.deprecation.replaced_by.full_name: full name of the CRD to be used instead.
+# .crds.*.deprecation.replaced_by.short_name: short name of the CRD to be used instead.
 crds:
   appcatalogs.application.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-batman
     topics:
       - apps
+    deprecation:
+      replaced_by:
+        full_name: catalogs.application.giantswarm.io
+        short_name: Catalog
   appcatalogentries.application.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-batman
@@ -45,6 +52,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+    deprecation:
+      info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   awsclusterconfigs.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -72,6 +81,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+    deprecation:
+      info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   awsfargateprofiles.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-firecracker
@@ -238,6 +249,8 @@ crds:
       - aws
     topics:
       - workloadcluster
+    deprecation:
+      info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
     hidden: true
   ignitions.core.giantswarm.io:
@@ -318,7 +331,7 @@ crds:
       - workloadcluster
   silences.monitoring.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-biscuit
+      - https://github.com/orgs/giantswarm/teams/team-atlas
     topics:
       - managementcluster
   sparks.core.giantswarm.io:
