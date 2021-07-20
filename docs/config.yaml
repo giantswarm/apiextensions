@@ -16,7 +16,10 @@
 #   - aws
 #   - azure
 # .crds.*.hidden: Set to true to disable in docs. Default is false.
-#
+# .crds.*.deprecation: If set, the CRD is marked as deprecated. Please also specify either .replaced_by or .info (but not both).
+# .crds.*.deprecation.info: Text explaining the deprecation.
+# .crds.*.deprecation.replaced_by.full_name: full name of the CRD to be used instead.
+# .crds.*.deprecation.replaced_by.short_name: short name of the CRD to be used instead.
 crds:
   appcatalogs.application.giantswarm.io:
     owner:
