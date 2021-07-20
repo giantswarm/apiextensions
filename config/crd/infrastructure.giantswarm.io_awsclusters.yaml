@@ -212,6 +212,201 @@ spec:
         - spec
         type: object
     served: true
+    storage: false
+    subresources:
+      status: {}
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        description: AWSCluster is the infrastructure provider referenced in upstream
+          CAPI Cluster CRs.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AWSClusterSpec is the spec part for the AWSCluster resource.
+            properties:
+              cluster:
+                description: Cluster specification details.
+                properties:
+                  description:
+                    description: User-friendly description that should explain the
+                      purpose of the cluster to humans.
+                    type: string
+                  dns:
+                    description: DNS configuration details.
+                    properties:
+                      domain:
+                        type: string
+                    required:
+                    - domain
+                    type: object
+                  kubeProxy:
+                    description: Flags passed to kube-proxy on each node.
+                    properties:
+                      conntrackMaxPerCore:
+                        description: Maximum number of NAT connections to track per
+                          CPU core (0 for default). Passed to kube-proxy as --conntrack-max-per-core.
+                        type: integer
+                    type: object
+                  oidc:
+                    description: Configuration for OpenID Connect (OIDC) authentication.
+                    properties:
+                      claims:
+                        description: AWSClusterSpecClusterOIDCClaims defines OIDC
+                          claims.
+                        properties:
+                          groups:
+                            type: string
+                          username:
+                            type: string
+                        type: object
+                      clientID:
+                        type: string
+                      issuerURL:
+                        type: string
+                    type: object
+                required:
+                - description
+                - dns
+                type: object
+              provider:
+                description: Provider-specific configuration details.
+                properties:
+                  credentialSecret:
+                    description: Location of a secret providing the ARN of AWS IAM
+                      identity to use with this cluster.
+                    properties:
+                      name:
+                        description: Name of the provider credential resoure.
+                        type: string
+                      namespace:
+                        description: Kubernetes namespace holding the provider credential.
+                        type: string
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  master:
+                    description: Master holds master node configuration details. Note
+                      that this attribute is being deprecated. The master node specification
+                      can now be found in the AWSControlPlane resource.
+                    properties:
+                      availabilityZone:
+                        description: AWS availability zone to place the master node
+                          in.
+                        type: string
+                      instanceType:
+                        description: AWS EC2 instance type to use for the master node.
+                        type: string
+                    type: object
+                  nodes:
+                    description: Node network configuration.
+                    properties:
+                      networkPool:
+                        description: NetworkPool represents a range of IP addresses
+                          to chose chunks from for master and worker node subnets.
+                        type: string
+                    type: object
+                  pods:
+                    description: Pod network configuration.
+                    properties:
+                      cidrBlock:
+                        description: IPv4 address block used for pods, in CIDR notation.
+                        type: string
+                      externalSNAT:
+                        description: When set to false, pod connections outside the
+                          VPC where the pod is located will be NATed through the node
+                          primary IP. When set to true, all connections will use the
+                          pod IP.
+                        type: boolean
+                    type: object
+                  region:
+                    description: AWS region the cluster is to be running in.
+                    type: string
+                required:
+                - region
+                type: object
+            required:
+            - cluster
+            - provider
+            type: object
+          status:
+            description: Spec part of the AWSCluster resource.
+            properties:
+              cluster:
+                description: Cluster-specific status details, including conditions
+                  and versions.
+                properties:
+                  conditions:
+                    description: One or several conditions that are currently applicable
+                      to the cluster.
+                    items:
+                      description: CommonClusterStatusCondition explains the current
+                        condition(s) of the cluster.
+                      properties:
+                        condition:
+                          description: Condition string, e. g. `Creating`, `Created`,
+                            `Upgraded`.
+                          type: string
+                        lastTransitionTime:
+                          description: Time the condition occurred.
+                          format: date-time
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    description: Identifier of the cluster.
+                    type: string
+                  versions:
+                    description: Workload cluster release versions the cluster used
+                      so far.
+                    items:
+                      description: CommonClusterStatusVersion informs which aws-operator
+                        version was/responsible for this cluster.
+                      properties:
+                        lastTransitionTime:
+                          description: Time the cluster assumed the given version.
+                          format: date-time
+                          type: string
+                        version:
+                          description: The aws-operator version responsible for handling
+                            the cluster.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              provider:
+                description: Provider-specific status details.
+                properties:
+                  network:
+                    description: Network-specific configuration details
+                    properties:
+                      cidr:
+                        description: IPv4 address block used by the workload cluster
+                          nodes, in CIDR notation.
+                        type: string
+                      vpcID:
+                        description: Identifier of the AWS Virtual Private Cloud (VPC)
+                          of the workload cluster, e.g. `vpc-1234567890abcdef0`.
+                        type: string
+                    type: object
+                type: object
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
     storage: true
     subresources:
       status: {}
