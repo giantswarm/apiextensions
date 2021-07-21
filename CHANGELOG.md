@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Add documentation for the silence.monitoring.giantswarm.io/v1alpha1 CRD.
+
 ### Fixed
 
 - Add `kvm` as a valid provider in docs metadata.

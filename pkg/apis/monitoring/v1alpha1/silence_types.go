@@ -2,7 +2,33 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
 )
+
+const (
+	kindSilence              = "Silence"
+	silenceDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/silences.monitoring.giantswarm.io/"
+)
+
+func NewSilenceTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindSilence,
+	}
+}
+
+// NewSilenceCR returns an Silence Custom Resource.
+func NewSilenceCR() *Silence {
+	return &Silence{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				annotation.Docs: silenceDocumentationLink,
+			},
+		},
+		TypeMeta: NewSilenceTypeMeta(),
+	}
+}
 
 // +genclient
 // +genclient:noStatus
