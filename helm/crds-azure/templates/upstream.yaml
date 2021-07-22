@@ -120,7 +120,6 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-webhook-system/capz-serving-cert
     controller-gen.kubebuilder.io/version: v0.3.0
   creationTimestamp: null
   labels:
@@ -128,18 +127,6 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: azureclusters.infrastructure.cluster.x-k8s.io
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        caBundle: Cg==
-        service:
-          name: capz-webhook-service
-          namespace: capi-webhook-system
-          path: /convert
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -780,7 +767,6 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-webhook-system/capz-serving-cert
     controller-gen.kubebuilder.io/version: v0.3.0
   creationTimestamp: null
   labels:
@@ -788,18 +774,6 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: azuremachinepools.exp.infrastructure.cluster.x-k8s.io
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        caBundle: Cg==
-        service:
-          name: capz-webhook-service
-          namespace: system
-          path: /convert
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: exp.infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1186,7 +1160,6 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-webhook-system/capz-serving-cert
     controller-gen.kubebuilder.io/version: v0.3.0
   creationTimestamp: null
   labels:
@@ -1194,18 +1167,6 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: azuremachines.infrastructure.cluster.x-k8s.io
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        caBundle: Cg==
-        service:
-          name: capz-webhook-service
-          namespace: capi-webhook-system
-          path: /convert
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1675,7 +1636,6 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-webhook-system/capz-serving-cert
     controller-gen.kubebuilder.io/version: v0.3.0
   creationTimestamp: null
   labels:
@@ -1683,18 +1643,6 @@ metadata:
     cluster.x-k8s.io/v1alpha3: v1alpha3
   name: azuremachinetemplates.infrastructure.cluster.x-k8s.io
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        caBundle: Cg==
-        service:
-          name: capz-webhook-service
-          namespace: capi-webhook-system
-          path: /convert
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:

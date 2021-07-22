@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Add documentation for the silence.monitoring.giantswarm.io/v1alpha1 CRD.
+- Conversion webhook is removed from upstream CAPZ CRDs.
 
 ### Fixed
 
