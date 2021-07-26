@@ -70,8 +70,18 @@ type AppCatalogEntrySpec struct {
 	DateUpdated *metav1.Time `json:"dateUpdated"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	Description string `json:"description"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Keywords []string `json:"keywords"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Restrictions is metadata from Chart.yaml for this app and is used to validate app CRs.
 	Restrictions *AppCatalogEntrySpecRestrictions `json:"restrictions,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// UpstreamChartVersion is the version of upstream chart in this app.
+	UpstreamChartVersion string `json:"upstreamChartVersion"`
 	// Version is the version of the app chart for this entry.
 	// e.g. 1.9.2
 	Version string `json:"version"`
