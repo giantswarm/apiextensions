@@ -219,7 +219,7 @@ spec:
     schema:
       openAPIV3Schema:
         description: AWSCluster is the infrastructure provider referenced in upstream
-          CAPI Cluster CRs.
+          Cluster API CRs.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
