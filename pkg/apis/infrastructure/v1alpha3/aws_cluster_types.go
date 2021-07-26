@@ -37,7 +37,7 @@ func NewAWSClusterCR() *AWSCluster {
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
 // +k8s:openapi-gen=true
 
-// AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
+// AWSCluster is the infrastructure provider referenced in upstream Cluster API
 // CRs.
 type AWSCluster struct {
 	metav1.TypeMeta   `json:",inline"`

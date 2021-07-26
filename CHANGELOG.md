@@ -25,7 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add deprecation info to CRD docs metadata.
 
-
 ### Fixed
 
 - Set ownership of Silence CRD to Atlas.
