@@ -148,6 +148,11 @@ func (in *AppCatalogEntrySpec) DeepCopyInto(out *AppCatalogEntrySpec) {
 		in, out := &in.DateUpdated, &out.DateUpdated
 		*out = (*in).DeepCopy()
 	}
+	if in.Keywords != nil {
+		in, out := &in.Keywords, &out.Keywords
+		*out = make([]string, len(*in))
+		copy(*out, *in)
+	}
 	if in.Restrictions != nil {
 		in, out := &in.Restrictions, &out.Restrictions
 		*out = new(AppCatalogEntrySpecRestrictions)
