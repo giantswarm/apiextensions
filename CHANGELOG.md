@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `v1alpha3` GS AWS CRD's.
+- Add `v1alpha3` version for Giant Swarm AWS CRDs.
 
 ### Changed
 
