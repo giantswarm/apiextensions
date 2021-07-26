@@ -70,18 +70,8 @@ type AppCatalogEntrySpec struct {
 	DateUpdated *metav1.Time `json:"dateUpdated"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	Description string `json:"description"`
-	// +kubebuilder:validation:Optional
-	// +nullable
-	Keywords []string `json:"keywords"`
-	// +kubebuilder:validation:Optional
-	// +nullable
 	// Restrictions is metadata from Chart.yaml for this app and is used to validate app CRs.
 	Restrictions *AppCatalogEntrySpecRestrictions `json:"restrictions,omitempty"`
-	// +kubebuilder:validation:Optional
-	// +nullable
-	// UpstreamChartVersion is the version of upstream chart in this app.
-	UpstreamChartVersion string `json:"upstreamChartVersion"`
 	// Version is the version of the app chart for this entry.
 	// e.g. 1.9.2
 	Version string `json:"version"`
@@ -104,12 +94,22 @@ type AppCatalogEntrySpecChart struct {
 	APIVersion string `json:"apiVersion"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	Description string `json:"description"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Home is the URL of this projects home page.
 	Home string `json:"home,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Icon is a URL to an SVG or PNG image to be used as an icon.
 	Icon string `json:"icon,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Keywords []string `json:"keywords"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// UpstreamChartVersion is the original version of upstream chart in this app.
+	UpstreamChartVersion string `json:"upstreamChartVersion"`
 }
 
 // +k8s:openapi-gen=true
