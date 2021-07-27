@@ -95,7 +95,7 @@ type AppCatalogEntrySpecChart struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Description is the Helm chart description.
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Home is the URL of this projects home page.
@@ -107,11 +107,11 @@ type AppCatalogEntrySpecChart struct {
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Keywords is the keyword strings from the helm chart.
-	Keywords []string `json:"keywords"`
+	Keywords []string `json:"keywords,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// UpstreamChartVersion is the original version of upstream chart in this app.
-	UpstreamChartVersion string `json:"upstreamChartVersion"`
+	UpstreamChartVersion string `json:"upstreamChartVersion,omitempty"`
 }
 
 // +k8s:openapi-gen=true
