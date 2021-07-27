@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `v1alpha3` version for Giant Swarm AWS CRDs.
+
 ### Changed
 
 - Add documentation for the silence.monitoring.giantswarm.io/v1alpha1 CRD.
