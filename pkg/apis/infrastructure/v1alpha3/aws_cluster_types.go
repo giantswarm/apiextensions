@@ -1,4 +1,4 @@
-package v1alpha2
+package v1alpha3
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -32,11 +32,12 @@ func NewAWSClusterCR() *AWSCluster {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
 // +k8s:openapi-gen=true
 
-// AWSCluster is the infrastructure provider referenced in upstream CAPI Cluster
+// AWSCluster is the infrastructure provider referenced in upstream Cluster API
 // CRs.
 type AWSCluster struct {
 	metav1.TypeMeta   `json:",inline"`

@@ -1,4 +1,4 @@
-package v1alpha2
+package v1alpha3
 
 import (
 	corev1 "k8s.io/api/core/v1"
@@ -33,6 +33,7 @@ func NewG8sControlPlaneCR() *G8sControlPlane {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
 // +k8s:openapi-gen=true

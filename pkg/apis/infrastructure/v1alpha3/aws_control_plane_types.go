@@ -1,4 +1,4 @@
-package v1alpha2
+package v1alpha3
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -34,6 +34,7 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=aws;giantswarm
+// +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane

@@ -314,6 +314,176 @@ spec:
         - spec
         type: object
     served: true
+    storage: false
+    subresources:
+      status: {}
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        description: AWSCluster is the infrastructure provider referenced in upstream Cluster API CRs.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AWSClusterSpec is the spec part for the AWSCluster resource.
+            properties:
+              cluster:
+                description: Cluster specification details.
+                properties:
+                  description:
+                    description: User-friendly description that should explain the purpose of the cluster to humans.
+                    type: string
+                  dns:
+                    description: DNS configuration details.
+                    properties:
+                      domain:
+                        type: string
+                    required:
+                    - domain
+                    type: object
+                  kubeProxy:
+                    description: Flags passed to kube-proxy on each node.
+                    properties:
+                      conntrackMaxPerCore:
+                        description: Maximum number of NAT connections to track per CPU core (0 for default). Passed to kube-proxy as --conntrack-max-per-core.
+                        type: integer
+                    type: object
+                  oidc:
+                    description: Configuration for OpenID Connect (OIDC) authentication.
+                    properties:
+                      claims:
+                        description: AWSClusterSpecClusterOIDCClaims defines OIDC claims.
+                        properties:
+                          groups:
+                            type: string
+                          username:
+                            type: string
+                        type: object
+                      clientID:
+                        type: string
+                      issuerURL:
+                        type: string
+                    type: object
+                required:
+                - description
+                - dns
+                type: object
+              provider:
+                description: Provider-specific configuration details.
+                properties:
+                  credentialSecret:
+                    description: Location of a secret providing the ARN of AWS IAM identity to use with this cluster.
+                    properties:
+                      name:
+                        description: Name of the provider credential resoure.
+                        type: string
+                      namespace:
+                        description: Kubernetes namespace holding the provider credential.
+                        type: string
+                    required:
+                    - name
+                    - namespace
+                    type: object
+                  master:
+                    description: Master holds master node configuration details. Note that this attribute is being deprecated. The master node specification can now be found in the AWSControlPlane resource.
+                    properties:
+                      availabilityZone:
+                        description: AWS availability zone to place the master node in.
+                        type: string
+                      instanceType:
+                        description: AWS EC2 instance type to use for the master node.
+                        type: string
+                    type: object
+                  nodes:
+                    description: Node network configuration.
+                    properties:
+                      networkPool:
+                        description: NetworkPool represents a range of IP addresses to chose chunks from for master and worker node subnets.
+                        type: string
+                    type: object
+                  pods:
+                    description: Pod network configuration.
+                    properties:
+                      cidrBlock:
+                        description: IPv4 address block used for pods, in CIDR notation.
+                        type: string
+                      externalSNAT:
+                        description: When set to false, pod connections outside the VPC where the pod is located will be NATed through the node primary IP. When set to true, all connections will use the pod IP.
+                        type: boolean
+                    type: object
+                  region:
+                    description: AWS region the cluster is to be running in.
+                    type: string
+                required:
+                - region
+                type: object
+            required:
+            - cluster
+            - provider
+            type: object
+          status:
+            description: Spec part of the AWSCluster resource.
+            properties:
+              cluster:
+                description: Cluster-specific status details, including conditions and versions.
+                properties:
+                  conditions:
+                    description: One or several conditions that are currently applicable to the cluster.
+                    items:
+                      description: CommonClusterStatusCondition explains the current condition(s) of the cluster.
+                      properties:
+                        condition:
+                          description: Condition string, e. g. `Creating`, `Created`, `Upgraded`.
+                          type: string
+                        lastTransitionTime:
+                          description: Time the condition occurred.
+                          format: date-time
+                          type: string
+                      type: object
+                    type: array
+                  id:
+                    description: Identifier of the cluster.
+                    type: string
+                  versions:
+                    description: Workload cluster release versions the cluster used so far.
+                    items:
+                      description: CommonClusterStatusVersion informs which aws-operator version was/responsible for this cluster.
+                      properties:
+                        lastTransitionTime:
+                          description: Time the cluster assumed the given version.
+                          format: date-time
+                          type: string
+                        version:
+                          description: The aws-operator version responsible for handling the cluster.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              provider:
+                description: Provider-specific status details.
+                properties:
+                  network:
+                    description: Network-specific configuration details
+                    properties:
+                      cidr:
+                        description: IPv4 address block used by the workload cluster nodes, in CIDR notation.
+                        type: string
+                      vpcID:
+                        description: Identifier of the AWS Virtual Private Cloud (VPC) of the workload cluster, e.g. `vpc-1234567890abcdef0`.
+                        type: string
+                    type: object
+                type: object
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
     storage: true
     subresources:
       status: {}
@@ -373,6 +543,36 @@ spec:
         - spec
         type: object
     served: true
+    storage: false
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        description: AWSControlPlane is the infrastructure provider referenced in ControlPlane CRs. Represents the master nodes (also called Control Plane) of a workload cluster on AWS. Reconciled by aws-operator.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Specification part of the resource.
+            properties:
+              availabilityZones:
+                description: Configures which AWS availability zones to use by master nodes, as a list of availability zone names like e. g. `eu-central-1c`. We support either 1 or 3 availability zones.
+                items:
+                  type: string
+                type: array
+              instanceType:
+                description: EC2 instance type identifier to use for the master node(s).
+                type: string
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
     storage: true
 status:
   acceptedNames:
@@ -403,6 +603,129 @@ spec:
   scope: Namespaced
   versions:
   - name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        description: AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources. It contains provider-specific specification and status for a node pool. In use on AWS since workload cluster release v10.x.x and reconciled by aws-operator.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Contains the specification.
+            properties:
+              nodePool:
+                description: Specifies details of node pool and the worker nodes it should contain.
+                properties:
+                  description:
+                    description: User-friendly name or description of the purpose of the node pool.
+                    type: string
+                  machine:
+                    description: Specification of the worker node machine.
+                    properties:
+                      dockerVolumeSizeGB:
+                        description: 'Size of the volume reserved for Docker images and overlay file systems of Docker containers. Unit: 1 GB = 1,000,000,000 Bytes.'
+                        type: integer
+                      kubeletVolumeSizeGB:
+                        description: 'Size of the volume reserved for the kubelet, which can be used by Pods via volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.'
+                        type: integer
+                    required:
+                    - dockerVolumeSizeGB
+                    - kubeletVolumeSizeGB
+                    type: object
+                  scaling:
+                    description: Scaling settings for the node pool, configuring the cluster-autoscaler determining the number of nodes to have in this node pool.
+                    properties:
+                      max:
+                        description: Maximum number of worker nodes in this node pool.
+                        type: integer
+                      min:
+                        description: Minimum number of worker nodes in this node pool.
+                        type: integer
+                    required:
+                    - max
+                    - min
+                    type: object
+                required:
+                - description
+                - machine
+                - scaling
+                type: object
+              provider:
+                description: Contains AWS specific details.
+                properties:
+                  availabilityZones:
+                    description: Name(s) of the availability zone(s) to use for worker nodes. Using multiple availability zones results in higher resilience but can also result in higher cost due to network traffic between availability zones.
+                    items:
+                      type: string
+                    type: array
+                  instanceDistribution:
+                    description: Settings defining the distribution of on-demand and spot instances in the node pool.
+                    properties:
+                      onDemandBaseCapacity:
+                        default: 0
+                        description: Base capacity of on-demand instances to use for worker nodes in this pool. When this larger than 0, this value defines a number of worker nodes that will be created using on-demand EC2 instances, regardless of the value configured as `onDemandPercentageAboveBaseCapacity`.
+                        minimum: 0
+                        type: integer
+                      onDemandPercentageAboveBaseCapacity:
+                        description: Percentage of on-demand EC2 instances to use for worker nodes, instead of spot instances, for instances exceeding `onDemandBaseCapacity`. For example, to have half of the worker nodes use spot instances and half use on-demand, set this value to 50.
+                        maximum: 100
+                        minimum: 0
+                        type: integer
+                    type: object
+                  worker:
+                    description: Specification of worker nodes.
+                    properties:
+                      instanceType:
+                        description: AWS EC2 instance type name to use for the worker nodes in this node pool.
+                        type: string
+                      useAlikeInstanceTypes:
+                        default: false
+                        description: If true, certain instance types with specs similar to instanceType will be used.
+                        type: boolean
+                    required:
+                    - instanceType
+                    - useAlikeInstanceTypes
+                    type: object
+                required:
+                - worker
+                type: object
+            required:
+            - nodePool
+            - provider
+            type: object
+          status:
+            description: Holds status information.
+            properties:
+              provider:
+                description: Status specific to AWS.
+                properties:
+                  worker:
+                    description: Status of worker nodes.
+                    properties:
+                      instanceTypes:
+                        description: AWS EC2 instance types used for the worker nodes in this node pool.
+                        items:
+                          type: string
+                        type: array
+                      spotInstances:
+                        description: Number of EC2 spot instances used in this node pool.
+                        type: integer
+                    type: object
+                type: object
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: false
+    subresources:
+      status: {}
+  - name: v1alpha3
     schema:
       openAPIV3Schema:
         description: AWSMachineDeployment is the infrastructure provider referenced in Kubernetes Cluster API MachineDeployment resources. It contains provider-specific specification and status for a node pool. In use on AWS since workload cluster release v10.x.x and reconciled by aws-operator.
@@ -614,6 +937,157 @@ spec:
                 description: Total number of non-terminated machines targeted by this control plane (their labels match the selector).
                 format: int32
                 type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: false
+    subresources:
+      status: {}
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        description: The G8sControlPlane resource defines the Control Plane nodes (Kubernetes master nodes) of a Giant Swarm workload cluster. It is reconciled by cluster-operator.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Specification part.
+            properties:
+              infrastructureRef:
+                description: Reference to a provider-specific resource. On AWS, this would be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
+                properties:
+                  apiVersion:
+                    description: API version of the referent.
+                    type: string
+                  fieldPath:
+                    description: 'If referring to a piece of an object instead of an entire object, this string should contain a valid JSON/Go field access statement, such as desiredState.manifest.containers[2]. For example, if the object reference is to a container within a pod, this would take on a value like: "spec.containers{name}" (where "name" refers to the name of the container that triggered the event) or if no container name is specified "spec.containers[2]" (container with index 2 in this pod). This syntax is chosen only to have some well-defined way of referencing a part of an object. TODO: this design is not final and this field is subject to change in the future.'
+                    type: string
+                  kind:
+                    description: 'Kind of the referent. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+                    type: string
+                  name:
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                    type: string
+                  namespace:
+                    description: 'Namespace of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/'
+                    type: string
+                  resourceVersion:
+                    description: 'Specific resourceVersion to which this reference is made, if any. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#concurrency-control-and-consistency'
+                    type: string
+                  uid:
+                    description: 'UID of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#uids'
+                    type: string
+                type: object
+              replicas:
+                description: Number of master nodes.
+                enum:
+                - 1
+                - 3
+                type: integer
+            required:
+            - infrastructureRef
+            type: object
+          status:
+            description: Status information.
+            properties:
+              readyReplicas:
+                description: Total number of fully running and ready control plane machines.
+                format: int32
+                type: integer
+              replicas:
+                description: Total number of non-terminated machines targeted by this control plane (their labels match the selector).
+                format: int32
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.4
+  creationTimestamp: null
+  name: networkpools.infrastructure.giantswarm.io
+spec:
+  group: infrastructure.giantswarm.io
+  names:
+    categories:
+    - aws
+    - giantswarm
+    - cluster-api
+    kind: NetworkPool
+    listKind: NetworkPoolList
+    plural: networkpools
+    singular: networkpool
+  scope: Namespaced
+  versions:
+  - name: v1alpha2
+    schema:
+      openAPIV3Schema:
+        description: NetworkPool is the infrastructure provider referenced in upstream CAPI Cluster CRs.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NetworkPoolSpec is the spec part for the NetworkPool resource.
+            properties:
+              cidrBlock:
+                description: IPv4 address block in CIDR notation.
+                type: string
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: false
+    subresources:
+      status: {}
+  - name: v1alpha3
+    schema:
+      openAPIV3Schema:
+        description: NetworkPool is the infrastructure provider referenced in upstream CAPI Cluster CRs.
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: NetworkPoolSpec is the spec part for the NetworkPool resource.
+            properties:
+              cidrBlock:
+                description: IPv4 address block in CIDR notation.
+                type: string
             type: object
         required:
         - spec

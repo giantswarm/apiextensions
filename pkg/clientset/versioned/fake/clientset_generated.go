@@ -36,6 +36,8 @@ import (
 	fakeexamplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/example/v1alpha1/fake"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
 	fakeinfrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2/fake"
+	infrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha3"
+	fakeinfrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha3/fake"
 	monitoringv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/monitoring/v1alpha1"
 	fakemonitoringv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/monitoring/v1alpha1/fake"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/provider/v1alpha1"
@@ -113,6 +115,11 @@ func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 // ExampleV1alpha1 retrieves the ExampleV1alpha1Client
 func (c *Clientset) ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface {
 	return &fakeexamplev1alpha1.FakeExampleV1alpha1{Fake: &c.Fake}
+}
+
+// InfrastructureV1alpha3 retrieves the InfrastructureV1alpha3Client
+func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface {
+	return &fakeinfrastructurev1alpha3.FakeInfrastructureV1alpha3{Fake: &c.Fake}
 }
 
 // InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
