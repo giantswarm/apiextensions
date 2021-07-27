@@ -94,6 +94,7 @@ type AppCatalogEntrySpecChart struct {
 	APIVersion string `json:"apiVersion"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// Description is the Helm chart description.
 	Description string `json:"description"`
 	// +kubebuilder:validation:Optional
 	// +nullable
@@ -105,6 +106,7 @@ type AppCatalogEntrySpecChart struct {
 	Icon string `json:"icon,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// Keywords is the keyword strings from the helm chart.
 	Keywords []string `json:"keywords"`
 	// +kubebuilder:validation:Optional
 	// +nullable
