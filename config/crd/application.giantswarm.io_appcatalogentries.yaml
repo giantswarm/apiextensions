@@ -92,6 +92,7 @@ spec:
                     description: APIVersion is the Helm chart API version.
                     type: string
                   description:
+                    description: Description is the Helm chart description.
                     nullable: true
                     type: string
                   home:
@@ -104,6 +105,7 @@ spec:
                     nullable: true
                     type: string
                   keywords:
+                    description: Keywords is the keyword strings from the helm chart.
                     items:
                       type: string
                     nullable: true
