@@ -11,6 +11,7 @@ spec:
   group: infrastructure.giantswarm.io
   names:
     categories:
+    - aws
     - giantswarm
     - cluster-api
     kind: NetworkPool
