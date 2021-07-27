@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.29.0] - 2021-07-27
+
 ### Added
 
 - Add networkpool CR into Helm chart.
@@ -823,7 +825,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.28.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...HEAD
+[3.29.0]: https://github.com/giantswarm/apiextensions/compare/v3.28.0...v3.29.0
 [3.28.0]: https://github.com/giantswarm/apiextensions/compare/v3.27.3...v3.28.0
 [3.27.3]: https://github.com/giantswarm/apiextensions/compare/v3.27.2...v3.27.3
 [3.27.2]: https://github.com/giantswarm/apiextensions/compare/v3.27.1...v3.27.2
