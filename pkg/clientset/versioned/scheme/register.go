@@ -27,6 +27,8 @@ import (
 
 	applicationv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/application/v1alpha1"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/backup/v1alpha1"
+	capiexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/apis/capiexp/v1alpha3"
+	capzexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/apis/capzexp/v1alpha3"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/core/v1alpha1"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/apis/infrastructure/v1alpha2"
@@ -44,10 +46,12 @@ var ParameterCodec = runtime.NewParameterCodec(Scheme)
 var localSchemeBuilder = runtime.SchemeBuilder{
 	applicationv1alpha1.AddToScheme,
 	backupv1alpha1.AddToScheme,
+	capiexpv1alpha3.AddToScheme,
+	capzexpv1alpha3.AddToScheme,
 	corev1alpha1.AddToScheme,
 	examplev1alpha1.AddToScheme,
-	infrastructurev1alpha2.AddToScheme,
 	infrastructurev1alpha3.AddToScheme,
+	infrastructurev1alpha2.AddToScheme,
 	monitoringv1alpha1.AddToScheme,
 	providerv1alpha1.AddToScheme,
 	releasev1alpha1.AddToScheme,

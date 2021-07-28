@@ -30,6 +30,10 @@ import (
 	fakeapplicationv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/application/v1alpha1/fake"
 	backupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1"
 	fakebackupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1/fake"
+	capiexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/capiexp/v1alpha3"
+	fakecapiexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/capiexp/v1alpha3/fake"
+	capzexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/capzexp/v1alpha3"
+	fakecapzexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/capzexp/v1alpha3/fake"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1"
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1/fake"
 	examplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/example/v1alpha1"
@@ -107,6 +111,16 @@ func (c *Clientset) BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface {
 	return &fakebackupv1alpha1.FakeBackupV1alpha1{Fake: &c.Fake}
 }
 
+// CapiexpV1alpha3 retrieves the CapiexpV1alpha3Client
+func (c *Clientset) CapiexpV1alpha3() capiexpv1alpha3.CapiexpV1alpha3Interface {
+	return &fakecapiexpv1alpha3.FakeCapiexpV1alpha3{Fake: &c.Fake}
+}
+
+// CapzexpV1alpha3 retrieves the CapzexpV1alpha3Client
+func (c *Clientset) CapzexpV1alpha3() capzexpv1alpha3.CapzexpV1alpha3Interface {
+	return &fakecapzexpv1alpha3.FakeCapzexpV1alpha3{Fake: &c.Fake}
+}
+
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
 func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
@@ -117,14 +131,14 @@ func (c *Clientset) ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface {
 	return &fakeexamplev1alpha1.FakeExampleV1alpha1{Fake: &c.Fake}
 }
 
-// InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
-func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
-	return &fakeinfrastructurev1alpha2.FakeInfrastructureV1alpha2{Fake: &c.Fake}
-}
-
 // InfrastructureV1alpha3 retrieves the InfrastructureV1alpha3Client
 func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface {
 	return &fakeinfrastructurev1alpha3.FakeInfrastructureV1alpha3{Fake: &c.Fake}
+}
+
+// InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
+func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
+	return &fakeinfrastructurev1alpha2.FakeInfrastructureV1alpha2{Fake: &c.Fake}
 }
 
 // MonitoringV1alpha1 retrieves the MonitoringV1alpha1Client
