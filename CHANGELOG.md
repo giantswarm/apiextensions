@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `Chart.Description`, `Chart.Keywords` and `Chart.UpstreamChartVersion` metadata to `AppCatalogEntry` CRD.
+
 ## [3.29.0] - 2021-07-27
 
 ### Added

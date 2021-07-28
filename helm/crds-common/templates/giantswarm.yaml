@@ -77,12 +77,26 @@ spec:
                   apiVersion:
                     description: APIVersion is the Helm chart API version.
                     type: string
+                  description:
+                    description: Description is the Helm chart description.
+                    nullable: true
+                    type: string
                   home:
                     description: Home is the URL of this projects home page.
                     nullable: true
                     type: string
                   icon:
                     description: Icon is a URL to an SVG or PNG image to be used as an icon.
+                    nullable: true
+                    type: string
+                  keywords:
+                    description: Keywords is the keyword strings from the helm chart.
+                    items:
+                      type: string
+                    nullable: true
+                    type: array
+                  upstreamChartVersion:
+                    description: UpstreamChartVersion is the original version of upstream chart in this app.
                     nullable: true
                     type: string
                 required:
