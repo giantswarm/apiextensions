@@ -59,6 +59,12 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-provider-azure-app/tree/master/helm/cluster-api-provider-azure/templates
+func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
+	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
+	crd.Spec.Conversion = nil
+}
+
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/control-plane
 func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
@@ -145,5 +151,9 @@ var patches = map[string]crd.Patch{
 	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
 	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchEKSConfigWebhook,
 	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchEKSConfigWebhook,
+	"azureclusters.infrastructure.cluster.x-k8s.io":                  patchCAPZWebhook,
+	"azuremachines.infrastructure.cluster.x-k8s.io":                  patchCAPZWebhook,
+	"azuremachinetemplates.infrastructure.cluster.x-k8s.io":          patchCAPZWebhook,
+	"azuremachinepools.exp.infrastructure.cluster.x-k8s.io":          patchCAPZWebhook,
 	"releases.release.giantswarm.io":                                 patchReleaseValidation,
 }
