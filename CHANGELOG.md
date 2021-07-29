@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.30.0] - 2021-07-29
+
 ### Added
 
 - Add `Chart.Description`, `Chart.Keywords` and `Chart.UpstreamChartVersion` metadata to `AppCatalogEntry` CRD.
@@ -831,7 +833,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.30.0...HEAD
+[3.30.0]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...v3.30.0
 [3.29.0]: https://github.com/giantswarm/apiextensions/compare/v3.28.0...v3.29.0
 [3.28.0]: https://github.com/giantswarm/apiextensions/compare/v3.27.3...v3.28.0
 [3.27.3]: https://github.com/giantswarm/apiextensions/compare/v3.27.2...v3.27.3
