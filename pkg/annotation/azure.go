@@ -7,4 +7,4 @@ package annotation
 // documentation:
 //   This annotation allows reusing an existing public IP address for egress traffic of worker nodes.
 //   See [Setting an egress IP address on Azure](https://docs.giantswarm.io/advanced/egress-ip-address-azure/)
-const AzureWorkersEgressExternalPublicIP = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
+const AzureWorkersEgressExternalPublicIP = "giantswarm.io/workers-egress-external-public-ip"
