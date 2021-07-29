@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `Chart.Description`, `Chart.Keywords` and `Chart.UpstreamChartVersion` metadata to `AppCatalogEntry` CRD.
+- Add documentation of customer facing Azure annotations.
 
 ## [3.29.0] - 2021-07-27
 
