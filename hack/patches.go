@@ -11,7 +11,7 @@ import (
 func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -19,7 +19,7 @@ func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-core-unique-webhook",
+					Name:      "cluster-api-core",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -30,6 +30,13 @@ func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
 				"v1beta1",
 			},
 		},
+	}
+	for i, apiversion := range crd.Spec.Versions {
+		if apiversion.Name == "v1alpha3" {
+			crd.Spec.Versions[i].Storage = true
+		} else {
+			crd.Spec.Versions[i].Storage = false
+		}
 	}
 }
 
@@ -56,6 +63,13 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 				"v1beta1",
 			},
 		},
+	}
+	for i, apiversion := range crd.Spec.Versions {
+		if apiversion.Name == "v1alpha3" {
+			crd.Spec.Versions[i].Storage = true
+		} else {
+			crd.Spec.Versions[i].Storage = false
+		}
 	}
 }
 
@@ -96,6 +110,13 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
+	for i, apiversion := range crd.Spec.Versions {
+		if apiversion.Name == "v1alpha3" {
+			crd.Spec.Versions[i].Storage = true
+		} else {
+			crd.Spec.Versions[i].Storage = false
+		}
+	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/bootstrap
@@ -122,6 +143,13 @@ func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
+	for i, apiversion := range crd.Spec.Versions {
+		if apiversion.Name == "v1alpha3" {
+			crd.Spec.Versions[i].Storage = true
+		} else {
+			crd.Spec.Versions[i].Storage = false
+		}
+	}
 }
 
 // Kubebuilder comments can't add validation to metadata properties, so we manually specify the validation for release names here.
@@ -140,11 +168,11 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 }
 
 var patches = map[string]crd.Patch{
-	"clusters.cluster.x-k8s.io":                                      patchCAPIWebhook,
-	"machinedeployments.cluster.x-k8s.io":                            patchCAPIWebhook,
-	"machinehealthchecks.cluster.x-k8s.io":                           patchCAPIWebhook,
-	"machines.cluster.x-k8s.io":                                      patchCAPIWebhook,
-	"machinesets.cluster.x-k8s.io":                                   patchCAPIWebhook,
+	"clusters.cluster.x-k8s.io":                                      patchCAPZWebhook,
+	"machinedeployments.cluster.x-k8s.io":                            patchCAPZWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":                           patchCAPZWebhook,
+	"machines.cluster.x-k8s.io":                                      patchCAPZWebhook,
+	"machinesets.cluster.x-k8s.io":                                   patchCAPZWebhook,
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,
 	"awsclusters.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
