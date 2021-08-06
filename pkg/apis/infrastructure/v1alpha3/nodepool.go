@@ -4,6 +4,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	apiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
+	clusterv1 "sigs.k8s.io/cluster-api/api/v1alpha3"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
 	"github.com/giantswarm/apiextensions/v3/pkg/id"
@@ -123,11 +124,14 @@ func newMachineDeploymentCR(obj *AWSMachineDeployment, c NodePoolCRsConfig) *api
 				label.MachineDeployment:      c.MachineDeploymentID,
 				label.Organization:           c.Owner,
 				label.ReleaseVersion:         c.ReleaseVersion,
+				clusterv1.ClusterLabelName:   c.ClusterID,
 			},
 		},
 		Spec: apiv1alpha3.MachineDeploymentSpec{
+			ClusterName: c.ClusterID,
 			Template: apiv1alpha3.MachineTemplateSpec{
 				Spec: apiv1alpha3.MachineSpec{
+					ClusterName: c.ClusterID,
 					InfrastructureRef: corev1.ObjectReference{
 						APIVersion: obj.TypeMeta.APIVersion,
 						Kind:       obj.TypeMeta.Kind,
