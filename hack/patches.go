@@ -7,35 +7,23 @@ import (
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
+const (
+	v1alpha3 = "v1alpha3"
+)
+
 // Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
-	port := int32(9443)
-	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core"
-	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-core",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
-				},
-				CABundle: []byte("\n"),
-			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
-	}
-	for i, apiversion := range crd.Spec.Versions {
-		if apiversion.Name == "v1alpha3" {
-			crd.Spec.Versions[i].Storage = true
-		} else {
-			crd.Spec.Versions[i].Storage = false
+	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
+	crd.Spec.Conversion = nil
+
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
 		}
 	}
 }
@@ -64,11 +52,14 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
-	for i, apiversion := range crd.Spec.Versions {
-		if apiversion.Name == "v1alpha3" {
-			crd.Spec.Versions[i].Storage = true
-		} else {
-			crd.Spec.Versions[i].Storage = false
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
 		}
 	}
 }
@@ -77,11 +68,15 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
 	crd.Spec.Conversion = nil
-	for i, apiversion := range crd.Spec.Versions {
-		if apiversion.Name == "v1alpha3" {
-			crd.Spec.Versions[i].Storage = true
-		} else {
-			crd.Spec.Versions[i].Storage = false
+
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
 		}
 	}
 }
@@ -110,11 +105,14 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
-	for i, apiversion := range crd.Spec.Versions {
-		if apiversion.Name == "v1alpha3" {
-			crd.Spec.Versions[i].Storage = true
-		} else {
-			crd.Spec.Versions[i].Storage = false
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
 		}
 	}
 }
@@ -143,11 +141,14 @@ func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
-	for i, apiversion := range crd.Spec.Versions {
-		if apiversion.Name == "v1alpha3" {
-			crd.Spec.Versions[i].Storage = true
-		} else {
-			crd.Spec.Versions[i].Storage = false
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
 		}
 	}
 }
@@ -168,11 +169,16 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 }
 
 var patches = map[string]crd.Patch{
-	"clusters.cluster.x-k8s.io":                                      patchCAPZWebhook,
-	"machinedeployments.cluster.x-k8s.io":                            patchCAPZWebhook,
-	"machinehealthchecks.cluster.x-k8s.io":                           patchCAPZWebhook,
-	"machines.cluster.x-k8s.io":                                      patchCAPZWebhook,
-	"machinesets.cluster.x-k8s.io":                                   patchCAPZWebhook,
+	// capi
+	"clusters.cluster.x-k8s.io":                          patchCAPIWebhook,
+	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io": patchCAPIWebhook,
+	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIWebhook,
+	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIWebhook,
+	"machinedeployments.cluster.x-k8s.io":                patchCAPIWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":               patchCAPIWebhook,
+	"machines.cluster.x-k8s.io":                          patchCAPIWebhook,
+	"machinesets.cluster.x-k8s.io":                       patchCAPIWebhook,
+	// capa
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,
 	"awsclusters.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
@@ -186,14 +192,21 @@ var patches = map[string]crd.Patch{
 	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
 	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchEKSConfigWebhook,
 	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchEKSConfigWebhook,
-	"azureclusteridentities.infrastructure.cluster.x-k8s.io":         patchCAPZWebhook,
-	"azureclusters.infrastructure.cluster.x-k8s.io":                  patchCAPZWebhook,
-	"azuremachines.infrastructure.cluster.x-k8s.io":                  patchCAPZWebhook,
-	"azuremachinetemplates.infrastructure.cluster.x-k8s.io":          patchCAPZWebhook,
-	"azuremachinepools.exp.infrastructure.cluster.x-k8s.io":          patchCAPZWebhook,
-	"azuremachinepools.infrastructure.cluster.x-k8s.io":              patchCAPZWebhook,
-	"azuremanagedclusters.infrastructure.cluster.x-k8s.io":           patchCAPZWebhook,
-	"azuremanagedcontrolplanes.infrastructure.cluster.x-k8s.io":      patchCAPZWebhook,
-	"azuremanagedmachinepools.infrastructure.cluster.x-k8s.io":       patchCAPZWebhook,
-	"releases.release.giantswarm.io":                                 patchReleaseValidation,
+	// capz
+	"azureclusteridentities.infrastructure.cluster.x-k8s.io":    patchCAPZWebhook,
+	"azureidentities.aadpodidentity.k8s.io":                     patchCAPZWebhook,
+	"azureidentitybindings.aadpodidentity.k8s.io":               patchCAPZWebhook,
+	"azurepodidentityexceptions.aadpodidentity.k8s.io":          patchCAPZWebhook,
+	"azureassignedidentities.aadpodidentity.k8s.io":             patchCAPZWebhook,
+	"azureclusters.infrastructure.cluster.x-k8s.io":             patchCAPZWebhook,
+	"azuremachines.infrastructure.cluster.x-k8s.io":             patchCAPZWebhook,
+	"azuremachinetemplates.infrastructure.cluster.x-k8s.io":     patchCAPZWebhook,
+	"azuremachinepools.exp.infrastructure.cluster.x-k8s.io":     patchCAPZWebhook,
+	"azuremachinepools.infrastructure.cluster.x-k8s.io":         patchCAPZWebhook,
+	"azuremanagedclusters.infrastructure.cluster.x-k8s.io":      patchCAPZWebhook,
+	"azuremanagedcontrolplanes.infrastructure.cluster.x-k8s.io": patchCAPZWebhook,
+	"azuremanagedmachinepools.infrastructure.cluster.x-k8s.io":  patchCAPZWebhook,
+	"azuremachinepoolmachines.infrastructure.cluster.x-k8s.io":  patchCAPZWebhook,
+	// giantswarm
+	"releases.release.giantswarm.io": patchReleaseValidation,
 }
