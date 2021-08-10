@@ -42,6 +42,8 @@ spec:
               matchers:
                 items:
                   properties:
+                    isEqual:
+                      type: boolean
                     isRegex:
                       type: boolean
                     name:

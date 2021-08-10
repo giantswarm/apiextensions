@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add support for new matcher types in `silence.monitoring.giantswarm.io/v1alpha1` CRD
+
 ## [3.31.0] - 2021-08-06
 
 ### Added
