@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAppCatalog              = "AppCatalog"
-	appCatalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/appcatalogs.application.giantswarm.io/"
+	appCatalogDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/appcatalogs.application.giantswarm.io/"
 )
 
 func NewAppCatalogTypeMeta() metav1.TypeMeta {

@@ -8,7 +8,7 @@ import (
 
 const (
 	kindCatalog              = "Catalog"
-	catalogDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/catalogs.application.giantswarm.io/"
+	catalogDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/catalogs.application.giantswarm.io/"
 )
 
 func NewCatalogTypeMeta() metav1.TypeMeta {
