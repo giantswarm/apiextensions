@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAWSConfig              = "AWSConfig"
-	awsConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsconfigs.provider.giantswarm.io/"
+	awsConfigDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/awsconfigs.provider.giantswarm.io/"
 )
 
 // NewAWSClusterTypeMeta returns the populated metav1 metadata object for this CRD.

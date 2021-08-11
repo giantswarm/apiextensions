@@ -54,7 +54,7 @@ func newNetworkPoolCR(c NetworkPoolCRsConfig) *NetworkPool {
 			Name:      c.NetworkPoolID,
 			Namespace: c.Namespace,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/networkpools.infrastructure.giantswarm.io/",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/networkpools.infrastructure.giantswarm.io/",
 			},
 			Labels: map[string]string{
 				label.Organization: c.Owner,

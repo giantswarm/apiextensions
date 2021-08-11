@@ -8,7 +8,7 @@ import (
 
 const (
 	kindCertConfig              = "CertConfig"
-	certConfigDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/certconfigs.core.giantswarm.io/"
+	certConfigDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/certconfigs.core.giantswarm.io/"
 )
 
 // NewCertConfigTypeMeta returns the type part for the metadata section of a

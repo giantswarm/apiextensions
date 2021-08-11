@@ -8,7 +8,7 @@ import (
 
 const (
 	kindApp              = "App"
-	appDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/apps.application.giantswarm.io/"
+	appDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/apps.application.giantswarm.io/"
 )
 
 func NewAppTypeMeta() metav1.TypeMeta {

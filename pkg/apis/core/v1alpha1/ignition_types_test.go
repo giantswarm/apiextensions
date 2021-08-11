@@ -40,7 +40,7 @@ func Test_GenerateIgnitionYAML(t *testing.T) {
 				ObjectMeta: v1.ObjectMeta{
 					Name: "abc12-master",
 					Annotations: map[string]string{
-						annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/ignitions.core.giantswarm.io/",
+						annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/ignitions.core.giantswarm.io/",
 					},
 				},
 				Spec: IgnitionSpec{

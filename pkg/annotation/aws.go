@@ -33,8 +33,8 @@ const AWSCNIWarmIPTarget = "alpha.cni.aws.giantswarm.io/warm-ip-target"
 //   This annotation is used for configuring maximum batch size for instances termination during ASG update.
 //   The value can be either a whole number specifying the number of instances
 //   or a percentage of total instances as decimal number ie `0.3` for 30%.
-//   See [Fine Tuning Upgrades](https://docs.giantswarm.io/guides/fine-tuning-upgrade-disruption-on-aws/)
-//   and [AWS Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
+//   See [fine-tuning upgrade disruption](https://docs.giantswarm.io/advanced/upgrade-disruption/)
+//   and [AWS documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
 const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 
 // support:
@@ -47,8 +47,8 @@ const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 // documentation:
 //   This annotation is used for configuring time pause between rolling a single batch during ASG update.
 //   The value must be in ISO 8601 duration format, e. g. "PT5M" for five minutes or "PT10S" for 10 seconds.
-//   See [Fine Tuning Upgrades](https://docs.giantswarm.io/guides/fine-tuning-upgrade-disruption-on-aws/)
-//   and [AWS Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
+//   See [fine-tuning upgrade disruption](https://docs.giantswarm.io/advanced/upgrade-disruption/)
+//   and [AWS documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
 const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 
 //Not documented as it's not usable.

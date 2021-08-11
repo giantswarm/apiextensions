@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAWSCluster              = "AWSCluster"
-	awsClusterDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsclusters.infrastructure.giantswarm.io/"
+	awsClusterDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/awsclusters.infrastructure.giantswarm.io/"
 )
 
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
