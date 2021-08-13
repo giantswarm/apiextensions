@@ -9,6 +9,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azureclusteridentities.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -253,6 +266,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azureclusters.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1215,6 +1241,19 @@ metadata:
     cluster.x-k8s.io/provider: infrastructure-azure
   name: azureidentities.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzureIdentity
@@ -1310,6 +1349,19 @@ metadata:
     cluster.x-k8s.io/provider: infrastructure-azure
   name: azureidentitybindings.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzureIdentityBinding
@@ -1376,6 +1428,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremachinepoolmachines.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -1561,6 +1626,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremachinepools.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -2481,6 +2559,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremachines.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -3189,6 +3280,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremachinetemplates.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -3736,6 +3840,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremanagedclusters.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -3853,6 +3970,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremanagedcontrolplanes.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -4162,6 +4292,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azuremanagedmachinepools.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:
@@ -4299,6 +4442,19 @@ metadata:
     cluster.x-k8s.io/provider: infrastructure-azure
   name: azurepodidentityexceptions.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzurePodIdentityException
@@ -4358,6 +4514,19 @@ metadata:
   creationTimestamp: null
   name: azureassignedidentities.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzureAssignedIdentity
@@ -4526,6 +4695,19 @@ metadata:
   creationTimestamp: null
   name: azureidentities.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzureIdentity
@@ -4619,6 +4801,19 @@ metadata:
   creationTimestamp: null
   name: azureidentitybindings.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzureIdentityBinding
@@ -4682,6 +4877,19 @@ metadata:
   creationTimestamp: null
   name: azurepodidentityexceptions.aadpodidentity.k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: aadpodidentity.k8s.io
   names:
     kind: AzurePodIdentityException
