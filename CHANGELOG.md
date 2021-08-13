@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Restore missing category for NetworkPool which was causing non-deterministic generation.
+
 ### Changed
 
 - Updated URLs to CRD docs and release notes
