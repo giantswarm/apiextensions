@@ -690,7 +690,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -703,7 +703,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-core-unique-webhook
+          name: cluster-api-core
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -1197,7 +1197,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -1210,7 +1210,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-core-unique-webhook
+          name: cluster-api-core
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -1843,7 +1843,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -1856,7 +1856,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-core-unique-webhook
+          name: cluster-api-core
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -2871,7 +2871,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -2884,7 +2884,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-core-unique-webhook
+          name: cluster-api-core
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -3397,7 +3397,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -3410,7 +3410,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-core-unique-webhook
+          name: cluster-api-core
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -3928,7 +3928,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-kubeadm-bootstrap-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-bootstrap-provider-kubeadm-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -3943,7 +3943,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-kubeadm-bootstrap-unique-webhook
+          name: cluster-api-bootstrap-provider-kubeadm
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -5361,7 +5361,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-kubeadm-bootstrap-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-bootstrap-provider-kubeadm-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -5376,7 +5376,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-kubeadm-bootstrap-unique-webhook
+          name: cluster-api-bootstrap-provider-kubeadm
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -6708,7 +6708,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-controlplane-unique-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-controlplane-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -6723,7 +6723,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-controlplane-unique-webhook
+          name: cluster-api-controlplane
           namespace: giantswarm
           path: /convert
           port: 9443

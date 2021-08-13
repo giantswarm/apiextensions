@@ -493,7 +493,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-provider-azure-unique-webhook
+          name: cluster-api-provider-azure
           namespace: giantswarm
           path: /convert
           port: 9443

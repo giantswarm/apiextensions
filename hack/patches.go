@@ -15,7 +15,7 @@ const (
 func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -23,7 +23,7 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-core-unique-webhook",
+					Name:      "cluster-api-core",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -51,7 +51,7 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-kubeadm-bootstrap-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-bootstrap-provider-kubeadm-cert"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -59,7 +59,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-kubeadm-bootstrap-unique-webhook",
+					Name:      "cluster-api-bootstrap-provider-kubeadm",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -87,7 +87,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-controlplane-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-controlplane-cert"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -95,7 +95,7 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-controlplane-unique-webhook",
+					Name:      "cluster-api-controlplane",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -159,7 +159,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-cert"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -167,7 +167,7 @@ func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-azure-unique-webhook",
+					Name:      "cluster-api-provider-azure",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
