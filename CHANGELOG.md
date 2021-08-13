@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Restore missing category for NetworkPool which was causing non-deterministic generation.
 
+### Added
+
+- Add example CRs for `clusters.v1alpha3.cluster.x-k8s.io`, `machinepools.v1alpha3.exp.cluster.x-k8s.io`, `machinepools.v1alpha3.cluster.x-k8s.io` and `azuremachinepools.v1alpha3.infrastructure.cluster.x-k8s.io`.
+
 ### Changed
 
 - Updated URLs to CRD docs and release notes
