@@ -12,10 +12,101 @@ const (
 )
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
-func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
-	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
-	crd.Spec.Conversion = nil
+func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-core-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
+		}
+	}
+}
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
+func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-kubeadm-bootstrap-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-kubeadm-bootstrap-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+	// We only want to set v1alpha4 as not stored when there is also v1alpha3
+	if len(crd.Spec.Versions) > 1 {
+		for i, apiversion := range crd.Spec.Versions {
+			if apiversion.Name == v1alpha3 {
+				crd.Spec.Versions[i].Storage = true
+			} else {
+				crd.Spec.Versions[i].Storage = false
+			}
+		}
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
+func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-controlplane-unique-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-controlplane-unique-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3
 	if len(crd.Spec.Versions) > 1 {
 		for i, apiversion := range crd.Spec.Versions {
@@ -189,14 +280,14 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 
 var patches = map[string]crd.Patch{
 	// capi
-	"clusters.cluster.x-k8s.io":                          patchCAPIWebhook,
-	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io": patchCAPIWebhook,
-	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIWebhook,
-	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIWebhook,
-	"machinedeployments.cluster.x-k8s.io":                patchCAPIWebhook,
-	"machinehealthchecks.cluster.x-k8s.io":               patchCAPIWebhook,
-	"machines.cluster.x-k8s.io":                          patchCAPIWebhook,
-	"machinesets.cluster.x-k8s.io":                       patchCAPIWebhook,
+	"clusters.cluster.x-k8s.io":                          patchCAPICoreWebhook,
+	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
+	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
+	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIKubeadmBootstrapWebhook,
+	"machinedeployments.cluster.x-k8s.io":                patchCAPICoreWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":               patchCAPICoreWebhook,
+	"machines.cluster.x-k8s.io":                          patchCAPICoreWebhook,
+	"machinesets.cluster.x-k8s.io":                       patchCAPICoreWebhook,
 	// capa
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,

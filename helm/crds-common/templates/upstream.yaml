@@ -690,12 +690,26 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: clusters.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:
@@ -1183,12 +1197,26 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machinedeployments.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:
@@ -1815,12 +1843,26 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machinehealthchecks.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:
@@ -2829,12 +2871,26 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machines.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:
@@ -3341,12 +3397,26 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: cluster-api
   name: machinesets.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-core-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:
@@ -3858,6 +3928,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-kubeadm-bootstrap-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -3866,6 +3937,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: kubeadmconfigs.bootstrap.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-kubeadm-bootstrap-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: bootstrap.cluster.x-k8s.io
   names:
     categories:
@@ -5277,6 +5361,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-kubeadm-bootstrap-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -5285,6 +5370,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-kubeadm-bootstrap-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: bootstrap.cluster.x-k8s.io
   names:
     categories:
@@ -6610,6 +6708,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-controlplane-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -6618,6 +6717,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: kubeadmcontrolplanes.controlplane.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-controlplane-unique-webhook
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: controlplane.cluster.x-k8s.io
   names:
     categories:
