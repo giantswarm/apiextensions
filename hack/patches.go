@@ -66,7 +66,9 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-azure-app/tree/master/helm/cluster-api-provider-azure/templates
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
-	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-unique-webhook"
+	}
 	crd.Spec.Conversion = nil
 
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3

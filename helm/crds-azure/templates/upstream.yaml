@@ -245,6 +245,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-azure-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.1
   creationTimestamp: null
   labels:
@@ -1367,6 +1368,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-azure-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.1
   creationTimestamp: null
   labels:
@@ -1551,6 +1553,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-azure-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.1
   creationTimestamp: null
   labels:
@@ -2470,6 +2473,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-azure-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.1
   creationTimestamp: null
   labels:
@@ -3177,6 +3181,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-azure-unique-webhook
     controller-gen.kubebuilder.io/version: v0.6.1
   creationTimestamp: null
   labels:
