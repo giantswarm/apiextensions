@@ -9,7 +9,7 @@ import (
 
 const (
 	kindG8sControlPlane              = "G8sControlPlane"
-	g8sControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/g8scontrolplanes.infrastructure.giantswarm.io/"
+	g8sControlPlaneDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/g8scontrolplanes.infrastructure.giantswarm.io/"
 )
 
 func NewG8sControlPlaneTypeMeta() metav1.TypeMeta {
@@ -57,7 +57,7 @@ type G8sControlPlaneSpec struct {
 	// Number of master nodes.
 	Replicas int `json:"replicas,omitempty"`
 	// Reference to a provider-specific resource. On AWS, this would be of kind
-	// [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
+	// [AWSControlPlane](https://docs.giantswarm.io/ui-api/management-api/crd/awscontrolplanes.infrastructure.giantswarm.io/).
 	InfrastructureRef corev1.ObjectReference `json:"infrastructureRef"`
 }
 

@@ -4,6 +4,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	apiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
+	clusterv1 "sigs.k8s.io/cluster-api/api/v1alpha3"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
 	"github.com/giantswarm/apiextensions/v3/pkg/id"
@@ -79,13 +80,14 @@ func newAWSClusterCR(c ClusterCRsConfig) *AWSCluster {
 			Name:      c.ClusterID,
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/awsclusters.infrastructure.giantswarm.io",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/awsclusters.infrastructure.giantswarm.io/",
 			},
 			Labels: map[string]string{
-				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
-				label.Cluster:            c.ClusterID,
-				label.Organization:       c.Owner,
-				label.ReleaseVersion:     c.ReleaseVersion,
+				label.AWSOperatorVersion:   c.ReleaseComponents["aws-operator"],
+				label.Cluster:              c.ClusterID,
+				label.Organization:         c.Owner,
+				label.ReleaseVersion:       c.ReleaseVersion,
+				clusterv1.ClusterLabelName: c.ClusterID,
 			},
 		},
 		Spec: AWSClusterSpec{
@@ -134,7 +136,7 @@ func newAWSControlPlaneCR(c ClusterCRsConfig) *AWSControlPlane {
 			Name:      c.ControlPlaneID,
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/awscontrolplanes.infrastructure.giantswarm.io/",
 			},
 			Labels: map[string]string{
 				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
@@ -179,7 +181,7 @@ func newClusterCR(obj *AWSCluster, c ClusterCRsConfig) *apiv1alpha3.Cluster {
 			Name:      c.ClusterID,
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/clusters.cluster.x-k8s.io",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/clusters.cluster.x-k8s.io/",
 			},
 			Labels: clusterLabels,
 		},
@@ -206,7 +208,7 @@ func newG8sControlPlaneCR(obj *AWSControlPlane, c ClusterCRsConfig) *G8sControlP
 			Name:      c.ControlPlaneID,
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/g8scontrolplanes.infrastructure.giantswarm.io",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/g8scontrolplanes.infrastructure.giantswarm.io/",
 			},
 			Labels: map[string]string{
 				label.ClusterOperatorVersion: c.ReleaseComponents["cluster-operator"],

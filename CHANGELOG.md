@@ -7,6 +7,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Restore missing category for NetworkPool which was causing non-deterministic generation.
+
+### Added
+
+- Add example CRs for `clusters.v1alpha3.cluster.x-k8s.io`, `machinepools.v1alpha3.exp.cluster.x-k8s.io`, `machinepools.v1alpha3.cluster.x-k8s.io` and `azuremachinepools.v1alpha3.infrastructure.cluster.x-k8s.io`.
+
+### Changed
+
+- Updated URLs to CRD docs and release notes
+
+## [3.32.0] - 2021-08-10
+
+### Added
+
+- Add support for new matcher types in `silence.monitoring.giantswarm.io/v1alpha1` CRD
+
+## [3.31.0] - 2021-08-06
+
+### Added
+
+- Add required field `clusterName` and label `cluster.x-k8s.io/cluster-name` for `v1alpha3` CAPI CR's.
+
+## [3.30.0] - 2021-07-29
+
 ### Added
 
 - Add `Chart.Description`, `Chart.Keywords` and `Chart.UpstreamChartVersion` metadata to `AppCatalogEntry` CRD.
@@ -832,7 +858,10 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...HEAD
+[3.32.0]: https://github.com/giantswarm/apiextensions/compare/v3.31.0...v3.32.0
+[3.31.0]: https://github.com/giantswarm/apiextensions/compare/v3.30.0...v3.31.0
+[3.30.0]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...v3.30.0
 [3.29.0]: https://github.com/giantswarm/apiextensions/compare/v3.28.0...v3.29.0
 [3.28.0]: https://github.com/giantswarm/apiextensions/compare/v3.27.3...v3.28.0
 [3.27.3]: https://github.com/giantswarm/apiextensions/compare/v3.27.2...v3.27.3

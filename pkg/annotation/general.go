@@ -13,5 +13,5 @@ const Notes = "giantswarm.io/notes"
 
 // ReleaseNotesURL defines where to find release notes about the CR at hand.
 // The value is expected to be a URI, e. g.
-// "https://github.com/giantswarm/releases/tree/master/aws/v11.5.0".
+// "https://docs.giantswarm.io/changes/workload-cluster-releases-aws/releases/aws-v11.5.0/".
 const ReleaseNotesURL = "giantswarm.io/release-notes"

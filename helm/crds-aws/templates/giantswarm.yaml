@@ -893,7 +893,7 @@ spec:
             description: Specification part.
             properties:
               infrastructureRef:
-                description: Reference to a provider-specific resource. On AWS, this would be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
+                description: Reference to a provider-specific resource. On AWS, this would be of kind [AWSControlPlane](https://docs.giantswarm.io/ui-api/management-api/crd/awscontrolplanes.infrastructure.giantswarm.io/).
                 properties:
                   apiVersion:
                     description: API version of the referent.
@@ -962,7 +962,7 @@ spec:
             description: Specification part.
             properties:
               infrastructureRef:
-                description: Reference to a provider-specific resource. On AWS, this would be of kind [AWSControlPlane](https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/).
+                description: Reference to a provider-specific resource. On AWS, this would be of kind [AWSControlPlane](https://docs.giantswarm.io/ui-api/management-api/crd/awscontrolplanes.infrastructure.giantswarm.io/).
                 properties:
                   apiVersion:
                     description: API version of the referent.

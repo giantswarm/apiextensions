@@ -4,6 +4,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	apiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
+	clusterv1 "sigs.k8s.io/cluster-api/api/v1alpha3"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
 	"github.com/giantswarm/apiextensions/v3/pkg/id"
@@ -68,7 +69,7 @@ func newAWSMachineDeploymentCR(c NodePoolCRsConfig) *AWSMachineDeployment {
 			Name:      c.MachineDeploymentID,
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/awsmachinedeployments.infrastructure.giantswarm.io",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/awsmachinedeployments.infrastructure.giantswarm.io/",
 			},
 			Labels: map[string]string{
 				label.AWSOperatorVersion: c.ReleaseComponents["aws-operator"],
@@ -115,7 +116,7 @@ func newMachineDeploymentCR(obj *AWSMachineDeployment, c NodePoolCRsConfig) *api
 			Name:      c.MachineDeploymentID,
 			Namespace: metav1.NamespaceDefault,
 			Annotations: map[string]string{
-				annotation.Docs: "https://docs.giantswarm.io/reference/cp-k8s-api/machinedeployments.cluster.x-k8s.io",
+				annotation.Docs: "https://docs.giantswarm.io/ui-api/management-api/crd/machinedeployments.cluster.x-k8s.io/",
 			},
 			Labels: map[string]string{
 				label.Cluster:                c.ClusterID,
@@ -123,11 +124,14 @@ func newMachineDeploymentCR(obj *AWSMachineDeployment, c NodePoolCRsConfig) *api
 				label.MachineDeployment:      c.MachineDeploymentID,
 				label.Organization:           c.Owner,
 				label.ReleaseVersion:         c.ReleaseVersion,
+				clusterv1.ClusterLabelName:   c.ClusterID,
 			},
 		},
 		Spec: apiv1alpha3.MachineDeploymentSpec{
+			ClusterName: c.ClusterID,
 			Template: apiv1alpha3.MachineTemplateSpec{
 				Spec: apiv1alpha3.MachineSpec{
+					ClusterName: c.ClusterID,
 					InfrastructureRef: corev1.ObjectReference{
 						APIVersion: obj.TypeMeta.APIVersion,
 						Kind:       obj.TypeMeta.Kind,

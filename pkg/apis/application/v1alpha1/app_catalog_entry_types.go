@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAppCatalogEntry              = "AppCatalogEntry"
-	AppCatalogEntryDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/AppCatalogEntrys.application.giantswarm.io/"
+	AppCatalogEntryDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/appcatalogentries.application.giantswarm.io/"
 )
 
 func NewAppCatalogEntryTypeMeta() metav1.TypeMeta {
