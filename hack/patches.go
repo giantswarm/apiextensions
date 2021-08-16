@@ -17,24 +17,28 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
 	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-core",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
+
+	if crd.Spec.Conversion != nil {
+		crd.Spec.Conversion = &v1.CustomResourceConversion{
+			Strategy: v1.WebhookConverter,
+			Webhook: &v1.WebhookConversion{
+				ClientConfig: &v1.WebhookClientConfig{
+					Service: &v1.ServiceReference{
+						Namespace: "giantswarm",
+						Name:      "cluster-api-core",
+						Path:      to.StringP("/convert"),
+						Port:      &port,
+					},
+					CABundle: []byte("\n"),
 				},
-				CABundle: []byte("\n"),
+				ConversionReviewVersions: []string{
+					"v1",
+					"v1beta1",
+				},
 			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
+		}
 	}
+
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3
 	if len(crd.Spec.Versions) > 1 {
 		for i, apiversion := range crd.Spec.Versions {
@@ -53,24 +57,28 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-bootstrap-provider-kubeadm-cert"
 	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-bootstrap-provider-kubeadm",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
+
+	if crd.Spec.Conversion != nil {
+		crd.Spec.Conversion = &v1.CustomResourceConversion{
+			Strategy: v1.WebhookConverter,
+			Webhook: &v1.WebhookConversion{
+				ClientConfig: &v1.WebhookClientConfig{
+					Service: &v1.ServiceReference{
+						Namespace: "giantswarm",
+						Name:      "cluster-api-bootstrap-provider-kubeadm",
+						Path:      to.StringP("/convert"),
+						Port:      &port,
+					},
+					CABundle: []byte("\n"),
 				},
-				CABundle: []byte("\n"),
+				ConversionReviewVersions: []string{
+					"v1",
+					"v1beta1",
+				},
 			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
+		}
 	}
+
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3
 	if len(crd.Spec.Versions) > 1 {
 		for i, apiversion := range crd.Spec.Versions {
@@ -89,24 +97,28 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-controlplane-cert"
 	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-controlplane",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
+
+	if crd.Spec.Conversion != nil {
+		crd.Spec.Conversion = &v1.CustomResourceConversion{
+			Strategy: v1.WebhookConverter,
+			Webhook: &v1.WebhookConversion{
+				ClientConfig: &v1.WebhookClientConfig{
+					Service: &v1.ServiceReference{
+						Namespace: "giantswarm",
+						Name:      "cluster-api-controlplane",
+						Path:      to.StringP("/convert"),
+						Port:      &port,
+					},
+					CABundle: []byte("\n"),
 				},
-				CABundle: []byte("\n"),
+				ConversionReviewVersions: []string{
+					"v1",
+					"v1beta1",
+				},
 			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
+		}
 	}
+
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3
 	if len(crd.Spec.Versions) > 1 {
 		for i, apiversion := range crd.Spec.Versions {
@@ -125,6 +137,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-unique-webhook"
 	}
+
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
@@ -143,6 +156,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
+
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3
 	if len(crd.Spec.Versions) > 1 {
 		for i, apiversion := range crd.Spec.Versions {
@@ -161,24 +175,28 @@ func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-cert"
 	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-azure",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
+
+	if crd.Spec.Conversion != nil {
+		crd.Spec.Conversion = &v1.CustomResourceConversion{
+			Strategy: v1.WebhookConverter,
+			Webhook: &v1.WebhookConversion{
+				ClientConfig: &v1.WebhookClientConfig{
+					Service: &v1.ServiceReference{
+						Namespace: "giantswarm",
+						Name:      "cluster-api-provider-azure",
+						Path:      to.StringP("/convert"),
+						Port:      &port,
+					},
+					CABundle: []byte("\n"),
 				},
-				CABundle: []byte("\n"),
+				ConversionReviewVersions: []string{
+					"v1",
+					"v1beta1",
+				},
 			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
+		}
 	}
+
 	// We only want to set v1alpha4 as not stored when there is also v1alpha3
 	if len(crd.Spec.Versions) > 1 {
 		for i, apiversion := range crd.Spec.Versions {

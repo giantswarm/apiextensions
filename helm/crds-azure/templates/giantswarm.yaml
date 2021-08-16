@@ -487,19 +487,6 @@ metadata:
   creationTimestamp: null
   name: azuremachinepools.exp.infrastructure.cluster.x-k8s.io
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        caBundle: Cg==
-        service:
-          name: cluster-api-provider-azure
-          namespace: giantswarm
-          path: /convert
-          port: 9443
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: exp.infrastructure.cluster.x-k8s.io
   names:
     categories:
