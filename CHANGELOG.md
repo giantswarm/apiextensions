@@ -17,7 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated URLs to CRD docs and release notes
+- Updated URLs to CRD docs and release notes.
+- Remove referencing `unique` infix from any CRDs.
 
 ## [3.32.0] - 2021-08-10
 
