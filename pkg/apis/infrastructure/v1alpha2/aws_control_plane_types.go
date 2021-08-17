@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAWSControlPlane              = "AWSControlPlane"
-	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awscontrolplanes.infrastructure.giantswarm.io/"
+	awsControlPlaneDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/awscontrolplanes.infrastructure.giantswarm.io/"
 )
 
 func NewAWSControlPlaneTypeMeta() metav1.TypeMeta {
@@ -34,7 +34,6 @@ func NewAWSControlPlaneCR() *AWSControlPlane {
 // +genclient:noStatus
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:resource:categories=aws;giantswarm
-// +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 
 // AWSControlPlane is the infrastructure provider referenced in ControlPlane

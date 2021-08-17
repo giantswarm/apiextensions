@@ -1,8 +1,36 @@
 package v1alpha1
 
 import (
+	"encoding/json"
+
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+
+	"github.com/giantswarm/apiextensions/v3/pkg/annotation"
 )
+
+const (
+	kindSilence              = "Silence"
+	silenceDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/silences.monitoring.giantswarm.io/"
+)
+
+func NewSilenceTypeMeta() metav1.TypeMeta {
+	return metav1.TypeMeta{
+		APIVersion: SchemeGroupVersion.String(),
+		Kind:       kindSilence,
+	}
+}
+
+// NewSilenceCR returns an Silence Custom Resource.
+func NewSilenceCR() *Silence {
+	return &Silence{
+		ObjectMeta: metav1.ObjectMeta{
+			Annotations: map[string]string{
+				annotation.Docs: silenceDocumentationLink,
+			},
+		},
+		TypeMeta: NewSilenceTypeMeta(),
+	}
+}
 
 // +genclient
 // +genclient:noStatus
@@ -31,8 +59,23 @@ type TargetTag struct {
 
 type Matcher struct {
 	IsRegex bool   `json:"isRegex"`
+	IsEqual bool   `json:"isEqual,omitempty"`
 	Name    string `json:"name"`
 	Value   string `json:"value"`
+}
+
+func (m *Matcher) UnmarshalJSON(text []byte) error {
+	type innerMatcher Matcher
+
+	// We check for equality by default to keep the API
+	matcher := &innerMatcher{
+		IsEqual: true,
+	}
+	if err := json.Unmarshal(text, matcher); err != nil {
+		return err
+	}
+	*m = Matcher(*matcher)
+	return nil
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

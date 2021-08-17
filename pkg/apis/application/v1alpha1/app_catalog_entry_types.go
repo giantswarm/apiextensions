@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAppCatalogEntry              = "AppCatalogEntry"
-	AppCatalogEntryDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/AppCatalogEntrys.application.giantswarm.io/"
+	AppCatalogEntryDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/appcatalogentries.application.giantswarm.io/"
 )
 
 func NewAppCatalogEntryTypeMeta() metav1.TypeMeta {
@@ -94,12 +94,24 @@ type AppCatalogEntrySpecChart struct {
 	APIVersion string `json:"apiVersion"`
 	// +kubebuilder:validation:Optional
 	// +nullable
+	// Description is the Helm chart description.
+	Description string `json:"description,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Home is the URL of this projects home page.
 	Home string `json:"home,omitempty"`
 	// +kubebuilder:validation:Optional
 	// +nullable
 	// Icon is a URL to an SVG or PNG image to be used as an icon.
 	Icon string `json:"icon,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Keywords is the keyword strings from the helm chart.
+	Keywords []string `json:"keywords,omitempty"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// UpstreamChartVersion is the original version of upstream chart in this app.
+	UpstreamChartVersion string `json:"upstreamChartVersion,omitempty"`
 }
 
 // +k8s:openapi-gen=true

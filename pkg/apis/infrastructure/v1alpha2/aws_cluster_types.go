@@ -8,7 +8,7 @@ import (
 
 const (
 	kindAWSCluster              = "AWSCluster"
-	awsClusterDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/awsclusters.infrastructure.giantswarm.io/"
+	awsClusterDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/awsclusters.infrastructure.giantswarm.io/"
 )
 
 func NewAWSClusterTypeMeta() metav1.TypeMeta {
@@ -32,7 +32,6 @@ func NewAWSClusterCR() *AWSCluster {
 
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:storageversion
 // +kubebuilder:subresource:status
 // +kubebuilder:resource:categories=aws;cluster-api;giantswarm
 // +k8s:openapi-gen=true

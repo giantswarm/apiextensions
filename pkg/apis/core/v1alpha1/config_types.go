@@ -8,7 +8,7 @@ import (
 
 const (
 	kindConfig              = "Config"
-	configDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/configs." + group + "/"
+	configDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/configs.core.giantswarm.io/"
 )
 
 func NewConfigTypeMeta() metav1.TypeMeta {

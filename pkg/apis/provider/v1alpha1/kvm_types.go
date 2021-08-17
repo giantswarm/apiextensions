@@ -73,7 +73,10 @@ type KVMConfigSpecKVMNode struct {
 }
 
 type KVMConfigSpecKVMNodeHostVolumes struct {
+	// +kubebuilder:validation:MinLength=1
+	// +kubebuilder:validation:MaxLength=31
 	MountTag string `json:"mountTag"`
+	// +kubebuilder:validation:MinLength=1
 	HostPath string `json:"hostPath"`
 }
 

@@ -7,6 +7,99 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Restore missing category for NetworkPool which was causing non-deterministic generation.
+
+### Added
+
+- Add example CRs for `clusters.v1alpha3.cluster.x-k8s.io`, `machinepools.v1alpha3.exp.cluster.x-k8s.io`, `machinepools.v1alpha3.cluster.x-k8s.io` and `azuremachinepools.v1alpha3.infrastructure.cluster.x-k8s.io`.
+
+### Changed
+
+- Updated URLs to CRD docs and release notes.
+- Remove referencing `unique` infix from any CRDs.
+
+## [3.32.0] - 2021-08-10
+
+### Added
+
+- Add support for new matcher types in `silence.monitoring.giantswarm.io/v1alpha1` CRD
+
+## [3.31.0] - 2021-08-06
+
+### Added
+
+- Add required field `clusterName` and label `cluster.x-k8s.io/cluster-name` for `v1alpha3` CAPI CR's.
+
+## [3.30.0] - 2021-07-29
+
+### Added
+
+- Add `Chart.Description`, `Chart.Keywords` and `Chart.UpstreamChartVersion` metadata to `AppCatalogEntry` CRD.
+- Add documentation of customer facing Azure annotations.
+
+## [3.29.0] - 2021-07-27
+
+### Added
+
+- Add networkpool CR into Helm chart.
+
+## [3.28.0] - 2021-07-27
+
+### Added
+
+- Add `v1alpha3` version for Giant Swarm AWS CRDs.
+
+### Changed
+
+- Add documentation for the silence.monitoring.giantswarm.io/v1alpha1 CRD.
+- Conversion webhook is removed from upstream CAPZ CRDs.
+
+### Fixed
+
+- Add `kvm` as a valid provider in docs metadata.
+
+## [3.27.3] - 2021-07-20
+
+### Added
+
+- Add deprecation info to CRD docs metadata.
+
+### Fixed
+
+- Set ownership of Silence CRD to Atlas.
+
+## [3.27.2] - 2021-07-19
+
+### Added
+
+- Move CRD metadata for [docs.giantswarm.io](https://docs.giantswarm.io/ui-api/management-api/crd/) into this repository.
+
+### Fixed
+
+- Typo in certconfigs.core.giantswarm.io/v1alpha1
+
+## [3.27.1] - 2021-07-05
+
+### Changed
+
+- Add documentation for the certconfigs.core.giantswarm.io/v1alpha1 CRD.
+
+### Removed
+
+- Drop CRD v1beta1 support.
+
+## [3.27.0] - 2021-06-16
+
+### Added
+
+- Add validation for node host volumes definition in KVMConfig CRD.
+
+### Changed
+
+- Update `aad-pod-identity` upstream CRDs to v1.8.0.
+
 ## [3.26.0] - 2021-05-19
 
 ### Added
@@ -765,7 +858,16 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.26.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...HEAD
+[3.32.0]: https://github.com/giantswarm/apiextensions/compare/v3.31.0...v3.32.0
+[3.31.0]: https://github.com/giantswarm/apiextensions/compare/v3.30.0...v3.31.0
+[3.30.0]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...v3.30.0
+[3.29.0]: https://github.com/giantswarm/apiextensions/compare/v3.28.0...v3.29.0
+[3.28.0]: https://github.com/giantswarm/apiextensions/compare/v3.27.3...v3.28.0
+[3.27.3]: https://github.com/giantswarm/apiextensions/compare/v3.27.2...v3.27.3
+[3.27.2]: https://github.com/giantswarm/apiextensions/compare/v3.27.1...v3.27.2
+[3.27.1]: https://github.com/giantswarm/apiextensions/compare/v3.27.0...v3.27.1
+[3.27.0]: https://github.com/giantswarm/apiextensions/compare/v3.26.0...v3.27.0
 [3.26.0]: https://github.com/giantswarm/apiextensions/compare/v3.25.0...v3.26.0
 [3.25.0]: https://github.com/giantswarm/apiextensions/compare/v3.24.0...v3.25.0
 [3.24.0]: https://github.com/giantswarm/apiextensions/compare/v3.23.0...v3.24.0

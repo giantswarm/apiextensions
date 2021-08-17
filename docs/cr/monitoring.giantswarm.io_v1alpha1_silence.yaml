@@ -1,0 +1,14 @@
+apiVersion: monitoring.giantswarm.io/v1alpha1
+kind: Silence
+metadata:
+  creationTimestamp: null
+  name: custom-silence
+  namespace: default
+spec:
+  matchers:
+  - isRegex: false
+    name: cluster_id
+    value: my_cluster_id
+  targetTags:
+  - name: installation
+    value: my_installation_name

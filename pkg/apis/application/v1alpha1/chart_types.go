@@ -8,7 +8,7 @@ import (
 
 const (
 	kindChart              = "Chart"
-	chartDocumentationLink = "https://docs.giantswarm.io/reference/cp-k8s-api/charts.application.giantswarm.io/"
+	chartDocumentationLink = "https://docs.giantswarm.io/ui-api/management-api/crd/charts.application.giantswarm.io/"
 )
 
 func NewChartTypeMeta() metav1.TypeMeta {
