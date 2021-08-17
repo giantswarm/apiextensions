@@ -95,7 +95,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-controlplane-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-control-plane-cert"
 	}
 
 	if crd.Spec.Conversion != nil {
@@ -105,7 +105,7 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 				ClientConfig: &v1.WebhookClientConfig{
 					Service: &v1.ServiceReference{
 						Namespace: "giantswarm",
-						Name:      "cluster-api-controlplane",
+						Name:      "cluster-api-control-plane",
 						Path:      to.StringP("/convert"),
 						Port:      &port,
 					},
