@@ -2,6 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-azure-cert
     controller-gen.kubebuilder.io/version: v0.6.1
   creationTimestamp: null
   labels:
@@ -9,6 +10,19 @@ metadata:
     cluster.x-k8s.io/v1alpha4: v1alpha4
   name: azureclusteridentities.infrastructure.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-provider-azure
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: infrastructure.cluster.x-k8s.io
   names:
     categories:

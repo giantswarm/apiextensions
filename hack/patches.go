@@ -172,11 +172,11 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-azure-app/tree/master/helm/cluster-api-provider-azure/templates
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
-	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-cert"
 	}
 
-	if crd.Spec.Conversion != nil {
+	if crd.Spec.Conversion != nil || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
 		crd.Spec.Conversion = &v1.CustomResourceConversion{
 			Strategy: v1.WebhookConverter,
 			Webhook: &v1.WebhookConversion{
