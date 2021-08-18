@@ -7,10 +7,6 @@ import (
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
-const (
-	v1alpha3 = "v1alpha3"
-)
-
 // Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
@@ -36,17 +32,6 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 					"v1beta1",
 				},
 			},
-		}
-	}
-
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
 		}
 	}
 }
@@ -78,17 +63,6 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		}
 	}
-
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
-		}
-	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
@@ -118,17 +92,6 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		}
 	}
-
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
-		}
-	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates
@@ -155,17 +118,6 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 				"v1beta1",
 			},
 		},
-	}
-
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
-		}
 	}
 }
 
@@ -196,17 +148,6 @@ func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		}
 	}
-
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
-		}
-	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/control-plane
@@ -233,16 +174,6 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			},
 		},
 	}
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
-		}
-	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/bootstrap
@@ -268,16 +199,6 @@ func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 				"v1beta1",
 			},
 		},
-	}
-	// We only want to set v1alpha4 as not stored when there is also v1alpha3
-	if len(crd.Spec.Versions) > 1 {
-		for i, apiversion := range crd.Spec.Versions {
-			if apiversion.Name == v1alpha3 {
-				crd.Spec.Versions[i].Storage = true
-			} else {
-				crd.Spec.Versions[i].Storage = false
-			}
-		}
 	}
 }
 
