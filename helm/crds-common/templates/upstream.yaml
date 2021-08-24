@@ -6723,7 +6723,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-control-plane
+          name: cluster-api-controlplane
           namespace: giantswarm
           path: /convert
           port: 9443

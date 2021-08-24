@@ -79,7 +79,7 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 				ClientConfig: &v1.WebhookClientConfig{
 					Service: &v1.ServiceReference{
 						Namespace: "giantswarm",
-						Name:      "cluster-api-control-plane",
+						Name:      "cluster-api-controlplane",
 						Path:      to.StringP("/convert"),
 						Port:      &port,
 					},
