@@ -3969,6 +3969,21 @@ spec:
           spec:
             description: AzureManagedControlPlaneSpec defines the desired state of AzureManagedControlPlane.
             properties:
+              aadProfile:
+                description: AadProfile is Azure Active Directory configuration to integrate with AKS for aad authentication.
+                properties:
+                  adminGroupObjectIDs:
+                    description: AdminGroupObjectIDs - AAD group object IDs that will have admin role of the cluster.
+                    items:
+                      type: string
+                    type: array
+                  managed:
+                    description: Managed - Whether to enable managed AAD.
+                    type: boolean
+                required:
+                - adminGroupObjectIDs
+                - managed
+                type: object
               additionalTags:
                 additionalProperties:
                   type: string
@@ -4088,6 +4103,21 @@ spec:
           spec:
             description: AzureManagedControlPlaneSpec defines the desired state of AzureManagedControlPlane.
             properties:
+              aadProfile:
+                description: AadProfile is Azure Active Directory configuration to integrate with AKS for aad authentication.
+                properties:
+                  adminGroupObjectIDs:
+                    description: AdminGroupObjectIDs - AAD group object IDs that will have admin role of the cluster.
+                    items:
+                      type: string
+                    type: array
+                  managed:
+                    description: Managed - Whether to enable managed AAD.
+                    type: boolean
+                required:
+                - adminGroupObjectIDs
+                - managed
+                type: object
               additionalTags:
                 additionalProperties:
                   type: string

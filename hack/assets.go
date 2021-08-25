@@ -8,7 +8,7 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	{
 		Owner:    "kubernetes-sigs",
 		Repo:     "cluster-api",
-		Version:  "v0.4.1",
+		Version:  "v0.4.2",
 		Files:    []string{"cluster-api-components.yaml"},
 		Provider: "common",
 	},
@@ -26,7 +26,7 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	{
 		Owner:    "kubernetes-sigs",
 		Repo:     "cluster-api-provider-azure",
-		Version:  "v0.5.1",
+		Version:  "v0.5.2",
 		Files:    []string{"infrastructure-components.yaml"},
 		Provider: "azure",
 	},
