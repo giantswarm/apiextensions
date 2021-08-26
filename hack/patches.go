@@ -50,7 +50,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 				ClientConfig: &v1.WebhookClientConfig{
 					Service: &v1.ServiceReference{
 						Namespace: "giantswarm",
-						Name:      "cluster-api-bootstrap-provider-kubeadm",
+						Name:      "cluster-api-bootstrap",
 						Path:      to.StringP("/convert"),
 						Port:      &port,
 					},

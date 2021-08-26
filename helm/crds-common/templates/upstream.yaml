@@ -3945,7 +3945,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-bootstrap-provider-kubeadm
+          name: cluster-api-bootstrap
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -5378,7 +5378,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-bootstrap-provider-kubeadm
+          name: cluster-api-bootstrap
           namespace: giantswarm
           path: /convert
           port: 9443
