@@ -51,6 +51,24 @@ const AWSUpdateMaxBatchSize = "alpha.aws.giantswarm.io/update-max-batch-size"
 //   and [AWS documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatepolicy.html#cfn-attributes-updatepolicy-rollingupdate-maxbatchsize) for additional information.
 const AWSUpdatePauseTime = "alpha.aws.giantswarm.io/update-pause-time"
 
+// support:
+//   - crd: clusters.cluster.x-k8s.io
+//     apiversion: v1alpha3
+// documentation:
+//   This annotation is used to define the desired target release for a scheduled upgrade of the cluster.
+//   The upgrade to the specified version will be applied if the "update-schedule-target-time" annotation has been set
+//   and the time defined there has been reached. The value has to be only the desired release version, e.g "15.2.1".
+const AWSUpdateScheduleTargetRelease = "alpha.aws.giantswarm.io/update-schedule-target-release"
+
+// support:
+//   - crd: clusters.cluster.x-k8s.io
+//     apiversion: v1alpha3
+// documentation:
+//   This annotation is used to define the desired target time for a scheduled upgrade of the cluster.
+//   The upgrade will be applied at the specified time if the "update-schedule-target-release" annotation has been set
+//   to the target release version. The value has to be in RFC822 Format. e.g. "30 Jan 21 15:04 MST"
+const AWSUpdateScheduleTargetTime = "alpha.aws.giantswarm.io/update-schedule-target-time"
+
 //Not documented as it's not usable.
 //AWSMetadataV2 configures token usage for your AWS EC2 instance metadata requests.
 //If the value is 'optional', you can choose to retrieve instance metadata with or without a signed token
