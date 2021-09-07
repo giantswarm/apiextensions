@@ -37,7 +37,7 @@ func NewAppCatalogEntryCR() *AppCatalogEntry {
 // +kubebuilder:printcolumn:name="Age",type=date,JSONPath=`.spec.dateCreated`,description="Time since entry was first created"
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
-// +kubebuilder:resource:categories=common;giantswarm
+// +kubebuilder:resource:categories=common;giantswarm,shortName=ace;aces
 // +kubebuilder:storageversion
 // +k8s:openapi-gen=true
 
