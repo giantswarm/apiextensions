@@ -33,7 +33,7 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	{
 		Owner:    "kubernetes-sigs",
 		Repo:     "cluster-api-provider-vsphere",
-		Version:  "v0.7.6",
+		Version:  "v0.8.1",
 		Files:    []string{"infrastructure-components.yaml"},
 		Provider: "vmware",
 	},
