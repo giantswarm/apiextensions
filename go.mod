@@ -7,13 +7,12 @@ require (
 	github.com/giantswarm/to v0.3.0
 	github.com/google/go-cmp v0.5.6
 	github.com/google/go-github/v35 v35.3.0
-	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
-	golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4 // indirect
-	k8s.io/api v0.18.19
-	k8s.io/apiextensions-apiserver v0.18.19
-	k8s.io/apimachinery v0.18.19
-	k8s.io/client-go v0.18.19
-	sigs.k8s.io/cluster-api v0.3.13
+	golang.org/x/oauth2 v0.0.0-20210628180205-a41e5a781914
+	k8s.io/api v0.21.3
+	k8s.io/apiextensions-apiserver v0.21.3
+	k8s.io/apimachinery v0.21.3
+	k8s.io/client-go v0.21.3
+	sigs.k8s.io/cluster-api v0.4.2
 	sigs.k8s.io/yaml v1.2.0
 )
 
@@ -27,6 +26,4 @@ replace (
 	github.com/gogo/protobuf v1.3.1 => github.com/gogo/protobuf v1.3.2
 
 	github.com/gorilla/websocket v1.4.0 => github.com/gorilla/websocket v1.4.2
-
-	sigs.k8s.io/cluster-api => github.com/giantswarm/cluster-api v0.3.13-gs
 )
