@@ -45,10 +45,6 @@ func (c *FakeCoreV1alpha1) ChartConfigs(namespace string) v1alpha1.ChartConfigIn
 	return &FakeChartConfigs{c, namespace}
 }
 
-func (c *FakeCoreV1alpha1) Configs(namespace string) v1alpha1.ConfigInterface {
-	return &FakeConfigs{c, namespace}
-}
-
 func (c *FakeCoreV1alpha1) DrainerConfigs(namespace string) v1alpha1.DrainerConfigInterface {
 	return &FakeDrainerConfigs{c, namespace}
 }
