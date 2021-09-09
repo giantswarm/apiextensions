@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated URLs to CRD docs and release notes.
 - Remove referencing `unique` infix from any CRDs.
 - Remove App CR version label as its always defaulted.
+- Update CAPV CRDs to v1alpha4 (from upstream release v0.8.1).
 
 ## [3.32.0] - 2021-08-10
 
