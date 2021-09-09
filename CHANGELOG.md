@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.33.0] - 2021-09-09
+
 ### Fixed
 
 - Restore missing category for NetworkPool which was causing non-deterministic generation.
@@ -862,7 +864,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.33.0...HEAD
+[3.33.0]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...v3.33.0
 [3.32.0]: https://github.com/giantswarm/apiextensions/compare/v3.31.0...v3.32.0
 [3.31.0]: https://github.com/giantswarm/apiextensions/compare/v3.30.0...v3.31.0
 [3.30.0]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...v3.30.0
