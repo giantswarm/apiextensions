@@ -19,5 +19,5 @@ const UpdateScheduleTargetRelease = "alpha.giantswarm.io/update-schedule-target-
 // documentation:
 //   This annotation is used to define the desired target time for a scheduled upgrade of the cluster.
 //   The upgrade will be applied at the specified time if the "update-schedule-target-release" annotation has been set
-//   to the target release version. The value has to be in RFC822 Format. e.g. "30 Jan 21 15:04 MST"
+//   to the target release version. The value has to be in RFC822 Format and UTC time zone. e.g. "30 Jan 21 15:04 UTC"
 const UpdateScheduleTargetTime = "alpha.giantswarm.io/update-schedule-target-time"
