@@ -1,7 +1,7 @@
 package crd
 
 import (
-	"github.com/google/go-github/v35/github"
+	"github.com/google/go-github/v39/github"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
 
