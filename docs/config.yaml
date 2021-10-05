@@ -194,7 +194,7 @@ crds:
       - apps
   certconfigs.core.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-ludacris
+      - https://github.com/orgs/giantswarm/teams/team-cabbage
     topics:
       - managementcluster
       - workloadcluster
@@ -254,11 +254,7 @@ crds:
   haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
     hidden: true
   ignitions.core.giantswarm.io:
-    owner:
-      - https://github.com/orgs/giantswarm/teams/team-ludacris
-    topics:
-      - managementcluster
-      - workloadcluster
+    hidden: true
   ingressconfigs.core.giantswarm.io:
     hidden: true
   kubeadmconfigs.bootstrap.cluster.x-k8s.io:
@@ -325,7 +321,7 @@ crds:
     hidden: true
   releases.release.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-ludacris
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - managementcluster
       - workloadcluster
