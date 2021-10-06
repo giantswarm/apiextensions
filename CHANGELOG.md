@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Make KVM worker labels optional.
+
 ## [3.33.0] - 2021-09-10
 
 ### Fixed
