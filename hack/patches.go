@@ -160,6 +160,7 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 
 var patches = map[string]crd.Patch{
 	"clusters.cluster.x-k8s.io":                                      patchCAPIWebhook,
+	"clusterclasses.cluster.x-k8s.io":                                patchCAPIWebhook,
 	"machinedeployments.cluster.x-k8s.io":                            patchCAPIWebhook,
 	"machinehealthchecks.cluster.x-k8s.io":                           patchCAPIWebhook,
 	"machines.cluster.x-k8s.io":                                      patchCAPIWebhook,
