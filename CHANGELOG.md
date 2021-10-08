@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Split CAPI core CRDs by provider to enable independent versioning (e.g. v1alpha2 for AWS and v1alpha4 for Azure).
+- Rename VMWare provider to vSphere.
+- Configure webhook patch for ClusterClass CRD.
+
 ## [3.33.0] - 2021-09-10
 
 ### Fixed
