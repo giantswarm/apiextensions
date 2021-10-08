@@ -7,8 +7,53 @@ import (
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPIWebhook(crd *v1.CustomResourceDefinition) {
+	var isV1alpha4 bool
+	for _, v := range crd.Spec.Versions {
+		if v.Name == "v1alpha4" {
+			isV1alpha4 = true
+			break
+		}
+	}
+
+	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
+	// changed from cluster-api-core-app to cluster-api-app) so we check which versions are present and apply the correct
+	// patch.
+	if isV1alpha4 {
+		patchCAPIWebhookV1Alpha4(crd)
+	} else {
+		patchCAPIWebhookV1Alpha3(crd)
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/core
+func patchCAPIWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-core",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
+func patchCAPIWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-webhook"
