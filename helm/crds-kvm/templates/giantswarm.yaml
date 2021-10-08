@@ -235,6 +235,7 @@ spec:
                         labels:
                           additionalProperties:
                             type: string
+                          nullable: true
                           type: object
                         memorySizeGB:
                           format: double
@@ -244,7 +245,6 @@ spec:
                           type: number
                       required:
                       - id
-                      - labels
                       type: object
                     type: array
                 required:

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Make KVM worker labels optional.
 - Split CAPI core CRDs by provider to enable independent versioning (e.g. v1alpha2 for AWS and v1alpha4 for Azure).
 - Rename VMWare provider to vSphere.
 - Configure webhook patch for ClusterClass CRD.
