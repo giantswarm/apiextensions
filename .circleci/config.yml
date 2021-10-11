@@ -8,7 +8,7 @@ jobs:
     machine: true
     environment:
       KIND_VERSION: v0.11.1
-      KUBERNETES_VERSION: v1.21.5
+      KUBERNETES_VERSION: v1.21.2
     steps:
       - checkout
       - run:
@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Create cluster
           command: |
-            ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions 2> /dev/null
+            ./kind create cluster --image quay.io/giantswarm/kind-node:$KUBERNETES_VERSION --name apiextensions
       - run:
           name: Wait for the cluster node to be ready
           command: |
