@@ -40,7 +40,9 @@ type KVMClusterConfigSpecGuestMaster struct {
 // +k8s:openapi-gen=true
 type KVMClusterConfigSpecGuestWorker struct {
 	KVMClusterConfigSpecGuestNode `json:",inline"`
-	Labels                        map[string]string `json:"labels"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	Labels map[string]string `json:"labels"`
 }
 
 // TODO: change MemorySizeGB and StorageSizeGB to resource.Quantity
