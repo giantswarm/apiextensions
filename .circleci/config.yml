@@ -1,14 +1,14 @@
 version: 2.1
 
 orbs:
-  architect: giantswarm/architect@2.7.0
+  architect: giantswarm/architect@4.6.0
 
 jobs:
   test-install:
     machine: true
     environment:
-      KIND_VERSION: v0.10.0
-      KUBERNETES_VERSION: v1.20.2
+      KIND_VERSION: v0.11.1
+      KUBERNETES_VERSION: v1.21.5
     steps:
       - checkout
       - run:
