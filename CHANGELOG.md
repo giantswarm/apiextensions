@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Adjust name of CAPI certificate and service for v1alpha4.
+
 ### Changed
 
 - Make KVM worker labels optional.
