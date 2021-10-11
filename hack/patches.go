@@ -7,6 +7,9 @@ import (
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/blob/master/helm/cluster-api/templates/core/certificate.yaml
+const injectCAFromCoreV1alpha4 = "giantswarm/cluster-api-core-cert"
+
 func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	var isV1alpha4 bool
 	for _, v := range crd.Spec.Versions {
@@ -30,7 +33,7 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -77,7 +80,7 @@ func patchCAPIWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
 	}
 
 	if crd.Spec.Conversion != nil {
@@ -106,7 +109,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
 	}
 
 	if crd.Spec.Conversion != nil {
