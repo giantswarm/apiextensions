@@ -1061,7 +1061,6 @@ spec:
                         type: object
                       replicas:
                         description: Replicas is the number of control plane nodes. If the value is nil, the ControlPlane object is created without the number of Replicas and it's assumed that the control plane controller does not implement support for this field. When specified against a control plane provider that lacks support for this field, this value will be ignored.
-                        format: int32
                         type: integer
                     type: object
                   rolloutAfter:
@@ -1101,7 +1100,6 @@ spec:
                               type: string
                             replicas:
                               description: Replicas is the number of worker nodes belonging to this set. If the value is nil, the MachineDeployment is created without the number of Replicas (defaulting to zero) and it's assumed that an external entity (like cluster autoscaler) is responsible for the management of this value.
-                              format: int32
                               type: integer
                           required:
                           - class
@@ -8263,10 +8261,6 @@ spec:
                 format: date-time
                 type: string
               rolloutStrategy:
-                default:
-                  rollingUpdate:
-                    maxSurge: 1
-                  type: RollingUpdate
                 description: The RolloutStrategy to use to replace control plane machines with new ones.
                 properties:
                   rollingUpdate:
@@ -9117,10 +9111,6 @@ spec:
                         format: date-time
                         type: string
                       rolloutStrategy:
-                        default:
-                          rollingUpdate:
-                            maxSurge: 1
-                          type: RollingUpdate
                         description: The RolloutStrategy to use to replace control plane machines with new ones.
                         properties:
                           rollingUpdate:

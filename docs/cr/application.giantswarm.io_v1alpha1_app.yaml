@@ -2,8 +2,6 @@ apiVersion: application.giantswarm.io/v1alpha1
 kind: App
 metadata:
   creationTimestamp: null
-  labels:
-    app-operator.giantswarm.io/version: 1.0.0
   name: prometheus
   namespace: default
 spec:

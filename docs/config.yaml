@@ -24,7 +24,7 @@
 crds:
   appcatalogs.application.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-batman
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - apps
     deprecation:
@@ -33,12 +33,12 @@ crds:
         short_name: Catalog
   appcatalogentries.application.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-batman
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - apps
   apps.application.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-batman
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - apps
   awsclusters.infrastructure.cluster.x-k8s.io:
@@ -189,18 +189,18 @@ crds:
     hidden: true
   catalogs.application.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-batman
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - apps
   certconfigs.core.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-ludacris
+      - https://github.com/orgs/giantswarm/teams/team-cabbage
     topics:
       - managementcluster
       - workloadcluster
   charts.application.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-batman
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - apps
   chartconfigs.core.giantswarm.io:
@@ -254,11 +254,7 @@ crds:
   haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
     hidden: true
   ignitions.core.giantswarm.io:
-    owner:
-      - https://github.com/orgs/giantswarm/teams/team-ludacris
-    topics:
-      - managementcluster
-      - workloadcluster
+    hidden: true
   ingressconfigs.core.giantswarm.io:
     hidden: true
   kubeadmconfigs.bootstrap.cluster.x-k8s.io:
@@ -325,7 +321,7 @@ crds:
     hidden: true
   releases.release.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-ludacris
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - managementcluster
       - workloadcluster

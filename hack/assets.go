@@ -5,12 +5,13 @@ import (
 )
 
 var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
+	// aws
 	{
 		Owner:    "kubernetes-sigs",
 		Repo:     "cluster-api",
-		Version:  "v0.4.2",
+		Version:  "v0.3.22",
 		Files:    []string{"cluster-api-components.yaml"},
-		Provider: "common",
+		Provider: "aws",
 	},
 	{
 		Owner:   "kubernetes-sigs",
@@ -23,19 +24,20 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		},
 		Provider: "aws",
 	},
+	// azure
 	{
 		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api-provider-azure",
-		Version:  "v0.5.2",
-		Files:    []string{"infrastructure-components.yaml"},
+		Repo:     "cluster-api",
+		Version:  "v0.4.2",
+		Files:    []string{"cluster-api-components.yaml"},
 		Provider: "azure",
 	},
 	{
 		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api-provider-vsphere",
-		Version:  "v0.7.6",
+		Repo:     "cluster-api-provider-azure",
+		Version:  "v0.5.3",
 		Files:    []string{"infrastructure-components.yaml"},
-		Provider: "vmware",
+		Provider: "azure",
 	},
 	{
 		Owner:    "Azure",
@@ -43,5 +45,28 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Version:  "v1.8.0",
 		Files:    []string{"deployment.yaml"},
 		Provider: "azure",
+	},
+	// kvm
+	{
+		Owner:    "kubernetes-sigs",
+		Repo:     "cluster-api",
+		Version:  "v0.4.1",
+		Files:    []string{"cluster-api-components.yaml"},
+		Provider: "kvm",
+	},
+	// vsphere
+	{
+		Owner:    "kubernetes-sigs",
+		Repo:     "cluster-api",
+		Version:  "v0.4.1",
+		Files:    []string{"cluster-api-components.yaml"},
+		Provider: "vsphere",
+	},
+	{
+		Owner:    "kubernetes-sigs",
+		Repo:     "cluster-api-provider-vsphere",
+		Version:  "v0.8.1",
+		Files:    []string{"infrastructure-components.yaml"},
+		Provider: "vsphere",
 	},
 }

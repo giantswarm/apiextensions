@@ -7,32 +7,69 @@ import (
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
+	var isV1alpha4 bool
+	for _, v := range crd.Spec.Versions {
+		if v.Name == "v1alpha4" {
+			isV1alpha4 = true
+			break
+		}
+	}
+
+	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
+	// changed from cluster-api-core-app to cluster-api-app) so we check which versions are present and apply the correct
+	// patch.
+	if isV1alpha4 {
+		patchCAPIWebhookV1Alpha4(crd)
+	} else {
+		patchCAPIWebhookV1Alpha3(crd)
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/core
+func patchCAPIWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
 	}
-
-	if crd.Spec.Conversion != nil {
-		crd.Spec.Conversion = &v1.CustomResourceConversion{
-			Strategy: v1.WebhookConverter,
-			Webhook: &v1.WebhookConversion{
-				ClientConfig: &v1.WebhookClientConfig{
-					Service: &v1.ServiceReference{
-						Namespace: "giantswarm",
-						Name:      "cluster-api-core",
-						Path:      to.StringP("/convert"),
-						Port:      &port,
-					},
-					CABundle: []byte("\n"),
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-core",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
 				},
-				ConversionReviewVersions: []string{
-					"v1",
-					"v1beta1",
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
+func patchCAPIWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-core-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
 				},
 			},
-		}
+		},
 	}
 }
 
@@ -98,7 +135,33 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-webhook"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-provider-aws-webhook",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-provider-vsphere-app/tree/master/helm/cluster-api-provider-vsphere/templates
+func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-vsphere-webhook"
 	}
 
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
@@ -107,7 +170,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-aws-unique-webhook",
+					Name:      "cluster-api-provider-vsphere-webhook",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -154,7 +217,7 @@ func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-control-plane-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-control-plane-webhook"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -162,7 +225,7 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-aws-eks-control-plane-unique-webhook",
+					Name:      "cluster-api-provider-aws-eks-control-plane-webhook",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -180,7 +243,7 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-bootstrap-unique-webhook"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-bootstrap-webhook"
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -188,7 +251,7 @@ func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-aws-eks-bootstrap-unique-webhook",
+					Name:      "cluster-api-provider-aws-eks-bootstrap-webhook",
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -258,4 +321,12 @@ var patches = map[string]crd.Patch{
 	"azuremachinepoolmachines.infrastructure.cluster.x-k8s.io":  patchCAPZWebhook,
 	// giantswarm
 	"releases.release.giantswarm.io": patchReleaseValidation,
+	// capv
+	"vsphereclusters.infrastructure.cluster.x-k8s.io":         patchCAPVWebhook,
+	"vsphereclustertemplates.infrastructure.cluster.x-k8s.io": patchCAPVWebhook,
+	"vspheredeploymentzones.infrastructure.cluster.x-k8s.io":  patchCAPVWebhook,
+	"vspherefailuredomains.infrastructure.cluster.x-k8s.io":   patchCAPVWebhook,
+	"vspheremachines.infrastructure.cluster.x-k8s.io":         patchCAPVWebhook,
+	"vspheremachinetemplates.infrastructure.cluster.x-k8s.io": patchCAPVWebhook,
+	"vspherevms.infrastructure.cluster.x-k8s.io":              patchCAPVWebhook,
 }

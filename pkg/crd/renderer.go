@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/giantswarm/microerror"
-	"github.com/google/go-github/v35/github"
+	"github.com/google/go-github/v39/github"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"

@@ -9,15 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Adjust name of CAPI certificate and service for v1alpha4.
+
+### Changed
+
+- Make KVM worker labels optional.
+- Split CAPI core CRDs by provider to enable independent versioning (e.g. v1alpha2 for AWS and v1alpha4 for vSphere).
+- Rename VMWare provider to vSphere.
+- Configure webhook patch for ClusterClass CRD.
+
+## [3.33.0] - 2021-09-10
+
+### Fixed
+
 - Restore missing category for NetworkPool which was causing non-deterministic generation.
 
 ### Added
 
+- Add `alpha.giantswarm.io/update-schedule-target-release` and `alpha.giantswarm.io/update-schedule-target-time` annotations.
 - Add example CRs for `clusters.v1alpha3.cluster.x-k8s.io`, `machinepools.v1alpha3.exp.cluster.x-k8s.io`, `machinepools.v1alpha3.cluster.x-k8s.io` and `azuremachinepools.v1alpha3.infrastructure.cluster.x-k8s.io`.
+- Add shortnames `ace` and `aces` for CRD `appcatalogentries.application.giantswarm.io`.
 
 ### Changed
 
-- Updated URLs to CRD docs and release notes
+- Updated URLs to CRD docs and release notes.
+- Remove referencing `unique` infix from any CRDs.
+- Remove App CR version label as its always defaulted.
+- Update CAPV CRDs to v1alpha4 (from upstream release v0.8.1).
 
 ## [3.32.0] - 2021-08-10
 
@@ -858,7 +876,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.33.0...HEAD
+[3.33.0]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...v3.33.0
 [3.32.0]: https://github.com/giantswarm/apiextensions/compare/v3.31.0...v3.32.0
 [3.31.0]: https://github.com/giantswarm/apiextensions/compare/v3.30.0...v3.31.0
 [3.30.0]: https://github.com/giantswarm/apiextensions/compare/v3.29.0...v3.30.0
