@@ -69,7 +69,7 @@ spec:
                     description: Name is the name of the app catalog this entry belongs to. e.g. giantswarm-catalog
                     type: string
                   namespace:
-                    description: Namespace is the namespace of the catalog. It is empty while the appcatalog CRD is cluster scoped.
+                    description: Namespace is the namespace of the catalog.
                     type: string
                 required:
                 - name
