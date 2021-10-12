@@ -83,8 +83,7 @@ type AppCatalogEntrySpecCatalog struct {
 	// e.g. giantswarm-catalog
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
-	// Namespace is the namespace of the catalog. It is empty while the
-	// appcatalog CRD is cluster scoped.
+	// Namespace is the namespace of the catalog.
 	Namespace string `json:"namespace"`
 }
 
