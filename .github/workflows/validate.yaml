@@ -5,7 +5,7 @@ on: [push,pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: golang:1.16.3
+    container: golang:1.17.1
     steps:
       - id: go-cache-paths
         run: echo "::set-output name=go-mod::$(go env GOMODCACHE)"
