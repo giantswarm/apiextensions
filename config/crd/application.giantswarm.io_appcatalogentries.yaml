@@ -16,6 +16,9 @@ spec:
     kind: AppCatalogEntry
     listKind: AppCatalogEntryList
     plural: appcatalogentries
+    shortNames:
+    - ace
+    - aces
     singular: appcatalogentry
   scope: Namespaced
   versions:

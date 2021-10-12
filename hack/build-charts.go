@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/google/go-github/v35/github"
+	"github.com/google/go-github/v39/github"
 	"golang.org/x/oauth2"
 
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
@@ -31,7 +31,7 @@ func main() {
 		UpstreamAssets:    upstreamReleaseAssets,
 	}
 
-	for _, provider := range []string{"common", "aws", "azure", "kvm", "vmware"} {
+	for _, provider := range []string{"common", "aws", "azure", "kvm", "vsphere"} {
 		err := renderer.Render(ctx, provider)
 		if err != nil {
 			log.Fatal(err)

@@ -66,9 +66,6 @@ func newAppExampleCR() *App {
 	cr.ObjectMeta = metav1.ObjectMeta{
 		Name:      "prometheus",
 		Namespace: "default",
-		Labels: map[string]string{
-			"app-operator.giantswarm.io/version": "1.0.0",
-		},
 	}
 	cr.Spec = AppSpec{
 		Name:             "prometheus",
