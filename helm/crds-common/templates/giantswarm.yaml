@@ -29,13 +29,13 @@ spec:
       jsonPath: .spec.appName
       name: App Name
       type: string
-    - description: Upstream version of the app for this entry
-      jsonPath: .spec.appVersion
-      name: App Version
-      type: string
     - description: Version of the app for this entry
       jsonPath: .spec.version
       name: Version
+      type: string
+    - description: Upstream version of the app for this entry
+      jsonPath: .spec.appVersion
+      name: Upstream Version
       type: string
     - description: Time since entry was first created
       jsonPath: .spec.dateCreated
