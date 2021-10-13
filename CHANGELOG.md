@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename VMWare provider to vSphere.
 - Configure webhook patch for ClusterClass CRD.
 - Update CAPI core CRDs to v0.4.4 for improved defaulting and printer columns.
+- In the AppCatalogEntry CRD, rename the column `APP VERSION` to `UPSTREAM VERSION` and switch the order of `VERSION` and `UPSTREAM VERSION`. This affects the output of `kubectl get appcatalogentries`.
 - Update to go 1.17.
 - Remove reference to deprecated AppCatalog CRD from AppCatalogEntry CRD.
 

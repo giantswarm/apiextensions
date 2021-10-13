@@ -32,8 +32,8 @@ func NewAppCatalogEntryCR() *AppCatalogEntry {
 
 // +kubebuilder:printcolumn:name="Catalog",type=string,JSONPath=`.spec.catalog.name`,description="Catalog this entry belongs to"
 // +kubebuilder:printcolumn:name="App Name",type=string,JSONPath=`.spec.appName`,description="App this entry belongs to"
-// +kubebuilder:printcolumn:name="App Version",type=string,JSONPath=`.spec.appVersion`,description="Upstream version of the app for this entry"
 // +kubebuilder:printcolumn:name="Version",type=string,JSONPath=`.spec.version`,description="Version of the app for this entry"
+// +kubebuilder:printcolumn:name="Upstream Version",type=string,JSONPath=`.spec.appVersion`,description="Upstream version of the app for this entry"
 // +kubebuilder:printcolumn:name="Age",type=date,JSONPath=`.spec.dateCreated`,description="Time since entry was first created"
 // +genclient
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
