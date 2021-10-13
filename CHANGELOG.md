@@ -11,18 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Adjust name of CAPI certificate and service for v1alpha4.
+- Adjust name of Cluster API certificate and service for `v1alpha4`. The annotation `cert-manager.io/inject-ca-from` value changes from `giantswarm/cluster-api-core-webhook` to `giantswarm/cluster-api-core-cert` and the service name from `cluster-api-core-webhook` to `cluster-api-core`.
 
 ### Changed
 
-- Make KVM worker labels optional.
-- Split CAPI core CRDs by provider to enable independent versioning (e.g. v1alpha2 for AWS and v1alpha4 for vSphere).
-- Rename VMWare provider to vSphere.
-- Configure webhook patch for ClusterClass CRD.
-- Update CAPI core CRDs to v0.4.4 for improved defaulting and printer columns.
-- In the AppCatalogEntry CRD, rename the column `APP VERSION` to `UPSTREAM VERSION` and switch the order of `VERSION` and `UPSTREAM VERSION`. This affects the output of `kubectl get appcatalogentries`.
-- Update to go 1.17.
-- Remove reference to deprecated AppCatalog CRD from AppCatalogEntry CRD.
+- `KVMClusterConfig`: make worker node labels optional.
+- Rename provider `VMWare` to `vSphere`.
+- Split Cluster API core CRDs by provider, to enable independent versioning (e.g. `v1alpha2` for AWS and `v1alpha4` for vSphere).
+- Configure webhook patch for the `ClusterClass` CRD.
+- Update Cluster API core CRDs to `v0.4.4` for improved defaulting and printer columns.
+- In the `AppCatalogEntry` CRD, rename the printer column `APP VERSION` to `UPSTREAM VERSION` and switch the order of `VERSION` and `UPSTREAM VERSION`. This affects the output of `kubectl get appcatalogentries`.
+- Update repository to use go v1.17.
+- Remove reference to deprecated `AppCatalog` CRD from the `AppCatalogEntry` CRD.
 
 ## [3.33.0] - 2021-09-10
 
