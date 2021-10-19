@@ -313,7 +313,7 @@ crds:
       - workloadcluster
   organizations.security.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-biscuit
+      - https://github.com/orgs/giantswarm/teams/team-rainbow
     topics:
       - managementcluster
   releasecycles.release.giantswarm.io:
