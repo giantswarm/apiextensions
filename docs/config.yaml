@@ -221,7 +221,7 @@ crds:
       - workloadcluster
   configs.core.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-biscuit
+      - https://github.com/orgs/giantswarm/teams/team-honeybadger
     topics:
       - apps
       - managementcluster
