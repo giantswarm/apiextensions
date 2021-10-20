@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Use capz `v0.4.x` on Azure CRDs so that we have the experimental CRDs on their old api group.
+- Use correct service name and namespace for kubeadm CRD webhookas
 
 ### Changed
 

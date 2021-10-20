@@ -2932,8 +2932,8 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-bootstrap-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-bootstrap-provider-kubeadm-webhook
+          namespace: giantswarm
           path: /convert
       conversionReviewVersions:
       - v1
@@ -4242,8 +4242,8 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-bootstrap-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-bootstrap-provider-kubeadm-webhook
+          namespace: giantswarm
           path: /convert
       conversionReviewVersions:
       - v1
@@ -5497,8 +5497,8 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-control-plane-webhook-service
-          namespace: capi-webhook-system
+          name: cluster-api-control-plane-webhook
+          namespace: giantswarm
           path: /convert
       conversionReviewVersions:
       - v1
