@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.35.0] - 2021-10-20
+
 ### Fixed
 
 - Use capz `v0.4.x` on Azure CRDs so that we have the experimental CRDs on their old api group.
@@ -889,7 +891,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.34.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.35.0...HEAD
+[3.35.0]: https://github.com/giantswarm/apiextensions/compare/v3.34.0...v3.35.0
 [3.34.0]: https://github.com/giantswarm/apiextensions/compare/v3.33.0...v3.34.0
 [3.33.0]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...v3.33.0
 [3.32.0]: https://github.com/giantswarm/apiextensions/compare/v3.31.0...v3.32.0
