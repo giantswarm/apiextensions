@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Align AWS CAPI CRD webhooks name with `cluster-api-app`.
+
 ## [3.35.0] - 2021-10-20
 
 ### Fixed
