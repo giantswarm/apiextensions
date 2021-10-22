@@ -292,7 +292,7 @@ var patches = map[string]crd.Patch{
 	"azuremachinepools.infrastructure.cluster.x-k8s.io":        patchCAPZWebhook,
 	// giantswarm
 	"releases.release.giantswarm.io": patchReleaseValidation,
-	// capz
+	// capv
 	"vsphereclusters.infrastructure.cluster.x-k8s.io":         patchCAPVWebhook,
 	"vsphereclustertemplates.infrastructure.cluster.x-k8s.io": patchCAPVWebhook,
 	"vspheredeploymentzones.infrastructure.cluster.x-k8s.io":  patchCAPVWebhook,
