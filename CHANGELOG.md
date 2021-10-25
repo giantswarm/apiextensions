@@ -23,6 +23,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.34.0] - 2021-10-13
 
+### Added
+
+- Add metadata about additional vSphere CRDs for documentation.
+
 ### Fixed
 
 - Adjust name of Cluster API certificate and service for `v1alpha4`. The annotation `cert-manager.io/inject-ca-from` value changes from `giantswarm/cluster-api-core-webhook` to `giantswarm/cluster-api-core-cert` and the service name from `cluster-api-core-webhook` to `cluster-api-core`.

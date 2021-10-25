@@ -205,16 +205,6 @@ crds:
       - apps
   chartconfigs.core.giantswarm.io:
     hidden: true
-  clusterclasses.cluster.x-k8s.io:
-    owner:
-      - https://github.com/orgs/giantswarm/teams/team-phoenix
-      - https://github.com/orgs/giantswarm/teams/team-rocket
-    provider:
-      - aws
-      - azure
-      - vsphere
-    topics:
-      - workloadcluster
   clusterresourcesetbindings.addons.cluster.x-k8s.io:
     hidden: true
   clusterresourcesets.addons.cluster.x-k8s.io:
