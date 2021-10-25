@@ -29,13 +29,13 @@ spec:
       jsonPath: .spec.appName
       name: App Name
       type: string
-    - description: Upstream version of the app for this entry
-      jsonPath: .spec.appVersion
-      name: App Version
-      type: string
     - description: Version of the app for this entry
       jsonPath: .spec.version
       name: Version
+      type: string
+    - description: Upstream version of the app for this entry
+      jsonPath: .spec.appVersion
+      name: Upstream Version
       type: string
     - description: Time since entry was first created
       jsonPath: .spec.dateCreated
@@ -69,7 +69,7 @@ spec:
                     description: Name is the name of the app catalog this entry belongs to. e.g. giantswarm-catalog
                     type: string
                   namespace:
-                    description: Namespace is the namespace of the catalog. It is empty while the appcatalog CRD is cluster scoped.
+                    description: Namespace is the namespace of the catalog.
                     type: string
                 required:
                 - name
