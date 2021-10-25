@@ -10,19 +10,20 @@ import (
 // Keep in sync with https://github.com/giantswarm/cluster-api-app/blob/master/helm/cluster-api/templates/core/certificate.yaml
 const injectCAFromCoreV1alpha4 = "giantswarm/cluster-api-core-cert"
 
-func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
-	var isV1alpha4 bool
+func isV1alpha4(crd *v1.CustomResourceDefinition) bool {
 	for _, v := range crd.Spec.Versions {
 		if v.Name == "v1alpha4" {
-			isV1alpha4 = true
-			break
+			return true
 		}
 	}
+	return false
+}
 
+func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
 	// changed from cluster-api-core-app to cluster-api-app) so we check which versions are present and apply the correct
 	// patch.
-	if isV1alpha4 {
+	if isV1alpha4(crd) {
 		patchCAPIWebhookV1Alpha4(crd)
 	} else {
 		patchCAPIWebhookV1Alpha3(crd)
@@ -77,18 +78,10 @@ func patchCAPIWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 }
 
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
-	var isV1alpha4 bool
-	for _, v := range crd.Spec.Versions {
-		if v.Name == "v1alpha4" {
-			isV1alpha4 = true
-			break
-		}
-	}
-
 	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
 	// changed from cluster-api-bootstrap-provider-kubeadm-app to cluster-api-app) so we check which versions are present and apply the correct
 	// patch.
-	if isV1alpha4 {
+	if isV1alpha4(crd) {
 		patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd)
 	} else {
 		patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd)
@@ -127,18 +120,10 @@ func patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd *v1.CustomResourceDefinition) 
 }
 
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
-	var isV1alpha4 bool
-	for _, v := range crd.Spec.Versions {
-		if v.Name == "v1alpha4" {
-			isV1alpha4 = true
-			break
-		}
-	}
-
 	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
 	// changed from cluster-api-control-plane-app to cluster-api-app) so we check which versions are present and apply the correct
 	// patch.
-	if isV1alpha4 {
+	if isV1alpha4(crd) {
 		patchCAPIControlPlaneWebhookV1Alpha4(crd)
 	} else {
 		patchCAPIControlPlaneWebhookV1Alpha3(crd)
