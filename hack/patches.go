@@ -29,7 +29,6 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
-
 // Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/core
 func patchCAPIWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
