@@ -214,9 +214,11 @@ crds:
   clusters.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-rocket
     provider:
       - aws
       - azure
+      - vsphere
     topics:
       - workloadcluster
   configs.core.giantswarm.io:
@@ -259,14 +261,17 @@ crds:
   kubeadmconfigs.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-rocket
     hidden: true
   kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-rocket
     hidden: true
   kubeadmcontrolplanes.controlplane.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-rocket
     hidden: true
   kvmclusterconfigs.core.giantswarm.io:
     owner:
@@ -285,8 +290,10 @@ crds:
   machinedeployments.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-rocket
     provider:
       - aws
+      - vsphere
     topics:
       - workloadcluster
   machinehealthchecks.cluster.x-k8s.io:
@@ -340,11 +347,67 @@ crds:
     hidden: true
     topics:
       - managementcluster
+  vsphereclusteridentities.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
   vsphereclusters.infrastructure.cluster.x-k8s.io:
     hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
+  vsphereclustertemplates.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
+  vspheredeploymentzones.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
+  vspherefailuredomains.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
   vspheremachines.infrastructure.cluster.x-k8s.io:
     hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
   vspheremachinetemplates.infrastructure.cluster.x-k8s.io:
     hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
   vspherevms.infrastructure.cluster.x-k8s.io:
     hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - vsphere
+    topics:
+      - workloadcluster
