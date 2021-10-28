@@ -88,7 +88,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-bootstrap-provider-kubeadm-app/tree/main/helm/cluster-api-bootstrap-provider-kubeadm/templates
+// Keep in sync with https://github.com/giantswarm/cluster-api-bootstrap-provider-kubeadm-app/tree/master/helm/cluster-api-bootstrap-provider-kubeadm/templates/webhook
 func patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
@@ -114,7 +114,7 @@ func patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd *v1.CustomResourceDefinition) 
 	}
 }
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/bootstrap
 func patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 	// placeholder
 }
@@ -130,7 +130,7 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	}
 }
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-control-plane-app/tree/main/helm/cluster-api-control-plane/templates
+// Keep in sync with https://github.com/giantswarm/cluster-api-control-plane-app/tree/main/helm/cluster-api-control-plane/templates/webhook
 func patchCAPIControlPlaneWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
@@ -156,7 +156,7 @@ func patchCAPIControlPlaneWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 	}
 }
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/controlplane
 func patchCAPIControlPlaneWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 	// placeholder
 }
@@ -215,8 +215,31 @@ func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-azure-app/tree/master/helm/cluster-api-provider-azure/templates
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
-	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
-	crd.Spec.Conversion = nil
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-cert"
+	}
+
+	if crd.Spec.Conversion != nil || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
+		crd.Spec.Conversion = &v1.CustomResourceConversion{
+			Strategy: v1.WebhookConverter,
+			Webhook: &v1.WebhookConversion{
+				ClientConfig: &v1.WebhookClientConfig{
+					Service: &v1.ServiceReference{
+						Namespace: "giantswarm",
+						Name:      "cluster-api-provider-azure",
+						Path:      to.StringP("/convert"),
+						Port:      &port,
+					},
+					CABundle: []byte("\n"),
+				},
+				ConversionReviewVersions: []string{
+					"v1",
+					"v1beta1",
+				},
+			},
+		}
+	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/control-plane
@@ -288,15 +311,16 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 
 var patches = map[string]crd.Patch{
 	// capi
-	"clusters.cluster.x-k8s.io":                          patchCAPICoreWebhook,
-	"clusterclasses.cluster.x-k8s.io":                    patchCAPICoreWebhook,
-	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
-	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
-	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIKubeadmBootstrapWebhook,
-	"machinedeployments.cluster.x-k8s.io":                patchCAPICoreWebhook,
-	"machinehealthchecks.cluster.x-k8s.io":               patchCAPICoreWebhook,
-	"machines.cluster.x-k8s.io":                          patchCAPICoreWebhook,
-	"machinesets.cluster.x-k8s.io":                       patchCAPICoreWebhook,
+	"clusters.cluster.x-k8s.io":                                  patchCAPICoreWebhook,
+	"clusterclasses.cluster.x-k8s.io":                            patchCAPICoreWebhook,
+	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io":         patchCAPIControlPlaneWebhook,
+	"kubeadmcontrolplanetemplates.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
+	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":                  patchCAPIKubeadmBootstrapWebhook,
+	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
+	"machinedeployments.cluster.x-k8s.io":                        patchCAPICoreWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":                       patchCAPICoreWebhook,
+	"machines.cluster.x-k8s.io":                                  patchCAPICoreWebhook,
+	"machinesets.cluster.x-k8s.io":                               patchCAPICoreWebhook,
 	// capa
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,
