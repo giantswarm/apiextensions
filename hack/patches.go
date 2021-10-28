@@ -116,7 +116,28 @@ func patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd *v1.CustomResourceDefinition) 
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/bootstrap
 func patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
-	// placeholder
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-bootstrap",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
 }
 
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
@@ -158,7 +179,28 @@ func patchCAPIControlPlaneWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/controlplane
 func patchCAPIControlPlaneWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
-	// placeholder
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-controlplane",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates
