@@ -70,3 +70,13 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Provider: "vsphere",
 	},
 }
+
+var remoteRepositories = []crd.RemoteRepositoryDefinition{
+	{
+		Owner:    "giantswarm",
+		Path:     "config/crd",
+		Provider: "common",
+		Repo:     "silence-operator",
+		Version:  "drop-apiextensions",
+	},
+}

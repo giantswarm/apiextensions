@@ -24,11 +24,12 @@ func main() {
 	}
 
 	renderer := crd.Renderer{
-		GithubClient:      github.NewClient(httpClient),
-		LocalCRDDirectory: "../config/crd",
-		OutputDirectory:   "../helm",
-		Patches:           patches,
-		UpstreamAssets:    upstreamReleaseAssets,
+		GithubClient:       github.NewClient(httpClient),
+		LocalCRDDirectory:  "../config/crd",
+		OutputDirectory:    "../helm",
+		Patches:            patches,
+		UpstreamAssets:     upstreamReleaseAssets,
+		RemoteRepositories: remoteRepositories,
 	}
 
 	for _, provider := range []string{"common", "aws", "azure", "kvm", "vsphere"} {

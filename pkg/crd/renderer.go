@@ -1,10 +1,14 @@
 package crd
 
 import (
+	"bytes"
 	"context"
+	"encoding/base64"
+	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/giantswarm/microerror"
 	"github.com/google/go-github/v39/github"
@@ -27,13 +31,20 @@ var (
 // Render creates helm chart templates for the given provider by downloading upstream CRDs, merging them with local
 // CRDs, patching them, and writing them to the corresponding provider helm template directory.
 func (r Renderer) Render(ctx context.Context, provider string) error {
-	localCRDs, err := r.getLocalCRDs(provider)
+	internalCRDs, err := r.getLocalCRDs(provider)
 	if err != nil {
 		return microerror.Mask(err)
 	}
 
+	remoteCRDs, err := r.getRemoteCRDs(ctx, provider)
+	if err != nil {
+		return microerror.Mask(err)
+	}
+
+	internalCRDs = append(internalCRDs, remoteCRDs...)
+
 	giantswarmFilename := helmChartTemplateFile(r.OutputDirectory, provider, "giantswarm.yaml")
-	err = r.writeCRDsToFile(giantswarmFilename, localCRDs)
+	err = r.writeCRDsToFile(giantswarmFilename, internalCRDs)
 	if err != nil {
 		return microerror.Mask(err)
 	}
@@ -193,4 +204,81 @@ func (r Renderer) getLocalCRDs(category string) ([]runtime.Object, error) {
 	}
 
 	return crds, nil
+}
+
+// getRemoteCRDs returns all upstream CRDs for a provider based on the Renderer's upstream asset configuration.
+func (r Renderer) getRemoteCRDs(ctx context.Context, provider string) ([]runtime.Object, error) {
+	var crds []runtime.Object
+	for _, releaseAsset := range r.RemoteRepositories {
+		if releaseAsset.Provider != provider {
+			continue
+		}
+
+		releaseAssetCRDs, err := r.downloadRepositoryCRDs(ctx, releaseAsset)
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+
+		crds = append(crds, releaseAssetCRDs...)
+	}
+
+	return crds, nil
+}
+
+// downloadRepositoryCRDs returns a slice of CRDs by downloading the given GitHub release asset, parsing it as YAML,
+// and filtering for only CRD objects.
+func (r Renderer) downloadRepositoryCRDs(ctx context.Context, asset RemoteRepositoryDefinition) ([]runtime.Object, error) {
+	refString := fmt.Sprintf("tags/%s", asset.Version)
+	ref, response, err := r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
+	if err != nil && response.StatusCode == 404 {
+		refString = fmt.Sprintf("heads/%s", asset.Version)
+		ref, response, err = r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
+	}
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+
+	commit, _, err := r.GithubClient.Git.GetCommit(ctx, asset.Owner, asset.Repo, ref.Object.GetSHA())
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+
+	tree, _, err := r.GithubClient.Git.GetTree(ctx, asset.Owner, asset.Repo, commit.Tree.GetSHA(), true)
+	if err != nil {
+		return nil, microerror.Mask(err)
+	}
+
+	var targetEntries []*github.TreeEntry
+	for _, entry := range tree.Entries {
+		if entry.GetType() == "blob" && strings.HasPrefix(entry.GetPath(), asset.Path) {
+			targetEntries = append(targetEntries, entry)
+		}
+	}
+	if targetEntries == nil {
+		return nil, notFoundError
+	}
+
+	var allCrds []runtime.Object
+	for _, entry := range targetEntries {
+		blob, _, err := r.GithubClient.Git.GetBlob(ctx, asset.Owner, asset.Repo, entry.GetSHA())
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+
+		content, err := base64.StdEncoding.DecodeString(blob.GetContent())
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+
+		contentReader := bytes.NewReader(content)
+
+		crds, err := decodeCRDs(contentReader)
+		if err != nil {
+			return nil, microerror.Mask(err)
+		}
+
+		allCrds = append(allCrds, crds...)
+	}
+
+	return allCrds, nil
 }

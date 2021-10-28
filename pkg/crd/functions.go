@@ -16,23 +16,25 @@ import (
 	"k8s.io/client-go/kubernetes/scheme"
 )
 
-// decodeCRDs reads a slice of CRDs from multi-document YAML-formatted data provided by the given io.ReadCloser and
-// closes it when complete or an error occurs.
-func decodeCRDs(readCloser io.ReadCloser) ([]runtime.Object, error) {
-	reader := apiyaml.NewYAMLReader(bufio.NewReader(readCloser))
+// decodeCRDs reads a slice of CRDs from multi-document YAML-formatted data provided by the given io.Reader. If the
+// reader implements io.ReadCloser it will be closed when reading is complete or an error occurs.
+func decodeCRDs(reader io.Reader) ([]runtime.Object, error) {
+	yamlReader := apiyaml.NewYAMLReader(bufio.NewReader(reader))
 	decoder := scheme.Codecs.UniversalDecoder()
 
-	defer func(contentReader io.ReadCloser) {
-		err := readCloser.Close()
-		if err != nil {
-			panic(err)
-		}
-	}(readCloser)
+	if readCloser, ok := reader.(io.ReadCloser); ok {
+		defer func(contentReader io.ReadCloser) {
+			err := readCloser.Close()
+			if err != nil {
+				panic(err)
+			}
+		}(readCloser)
+	}
 
 	var crds []runtime.Object
 
 	for {
-		doc, err := reader.Read()
+		doc, err := yamlReader.Read()
 		if errors.Is(err, io.EOF) {
 			break
 		} else if err != nil {

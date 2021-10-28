@@ -15,11 +15,20 @@ type Renderer struct {
 
 	Patches map[string]Patch
 
-	UpstreamAssets []ReleaseAssetFileDefinition
+	UpstreamAssets     []ReleaseAssetFileDefinition
+	RemoteRepositories []RemoteRepositoryDefinition
 }
 
 type ReleaseAssetFileDefinition struct {
 	Files    []string
+	Owner    string
+	Provider string
+	Repo     string
+	Version  string
+}
+
+type RemoteRepositoryDefinition struct {
+	Path     string
 	Owner    string
 	Provider string
 	Repo     string

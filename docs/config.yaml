@@ -331,11 +331,6 @@ crds:
     topics:
       - managementcluster
       - workloadcluster
-  silences.monitoring.giantswarm.io:
-    owner:
-      - https://github.com/orgs/giantswarm/teams/team-atlas
-    topics:
-      - managementcluster
   sparks.core.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
