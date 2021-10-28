@@ -32,8 +32,6 @@ type DrainerConfigExpansion interface{}
 
 type FlannelConfigExpansion interface{}
 
-type IgnitionExpansion interface{}
-
 type KVMClusterConfigExpansion interface{}
 
 type SparkExpansion interface{}
