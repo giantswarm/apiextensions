@@ -232,7 +232,7 @@ func (r Renderer) downloadRepositoryCRDs(ctx context.Context, asset RemoteReposi
 	ref, response, err := r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
 	if err != nil && response.StatusCode == 404 {
 		refString = fmt.Sprintf("heads/%s", asset.Version)
-		ref, response, err = r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
+		ref, _, err = r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
 	}
 	if err != nil {
 		return nil, microerror.Mask(err)
