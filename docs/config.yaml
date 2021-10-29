@@ -256,36 +256,22 @@ crds:
       info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
     hidden: true
-<<<<<<< HEAD
-  ignitions.core.giantswarm.io:
-    hidden: true
-=======
->>>>>>> origin/master
   ingressconfigs.core.giantswarm.io:
     hidden: true
   kubeadmconfigs.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
-<<<<<<< HEAD
-=======
       - https://github.com/orgs/giantswarm/teams/team-rocket
->>>>>>> origin/master
     hidden: true
   kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
-<<<<<<< HEAD
-=======
       - https://github.com/orgs/giantswarm/teams/team-rocket
->>>>>>> origin/master
     hidden: true
   kubeadmcontrolplanes.controlplane.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
-<<<<<<< HEAD
-=======
       - https://github.com/orgs/giantswarm/teams/team-rocket
->>>>>>> origin/master
     hidden: true
   kvmclusterconfigs.core.giantswarm.io:
     owner:
@@ -304,10 +290,7 @@ crds:
   machinedeployments.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
-<<<<<<< HEAD
-=======
       - https://github.com/orgs/giantswarm/teams/team-rocket
->>>>>>> origin/master
     provider:
       - aws
       - vsphere

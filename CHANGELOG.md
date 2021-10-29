@@ -873,9 +873,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix CRD OpenAPISchemas for:
-    - App
-    - AppCatalog
-    - Chart
+  - App
+  - AppCatalog
+  - Chart
 
 
 
@@ -892,10 +892,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Fix CRD OpenAPISchemas for:
-    - AWSCluster
-    - AWSMachineDeployment
-    - AWSControlPlane
-    - G8SControlPlane
+  - AWSCluster
+  - AWSMachineDeployment
+  - AWSControlPlane
+  - G8SControlPlane
 
 
 
