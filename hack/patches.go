@@ -10,19 +10,20 @@ import (
 // Keep in sync with https://github.com/giantswarm/cluster-api-app/blob/master/helm/cluster-api/templates/core/certificate.yaml
 const injectCAFromCoreV1alpha4 = "giantswarm/cluster-api-core-cert"
 
-func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
-	var isV1alpha4 bool
+func isV1alpha4(crd *v1.CustomResourceDefinition) bool {
 	for _, v := range crd.Spec.Versions {
 		if v.Name == "v1alpha4" {
-			isV1alpha4 = true
-			break
+			return true
 		}
 	}
+	return false
+}
 
+func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
 	// changed from cluster-api-core-app to cluster-api-app) so we check which versions are present and apply the correct
 	// patch.
-	if isV1alpha4 {
+	if isV1alpha4(crd) {
 		patchCAPIWebhookV1Alpha4(crd)
 	} else {
 		patchCAPIWebhookV1Alpha3(crd)
@@ -76,61 +77,129 @@ func patchCAPIWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 	}
 }
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
-	port := int32(9443)
-	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
-	}
-
-	if crd.Spec.Conversion != nil {
-		crd.Spec.Conversion = &v1.CustomResourceConversion{
-			Strategy: v1.WebhookConverter,
-			Webhook: &v1.WebhookConversion{
-				ClientConfig: &v1.WebhookClientConfig{
-					Service: &v1.ServiceReference{
-						Namespace: "giantswarm",
-						Name:      "cluster-api-bootstrap",
-						Path:      to.StringP("/convert"),
-						Port:      &port,
-					},
-					CABundle: []byte("\n"),
-				},
-				ConversionReviewVersions: []string{
-					"v1",
-					"v1beta1",
-				},
-			},
-		}
+	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
+	// changed from cluster-api-bootstrap-provider-kubeadm-app to cluster-api-app) so we check which versions are present and apply the correct
+	// patch.
+	if isV1alpha4(crd) {
+		patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd)
+	} else {
+		patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd)
 	}
 }
 
-// Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
-func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+// Keep in sync with https://github.com/giantswarm/cluster-api-bootstrap-provider-kubeadm-app/tree/master/helm/cluster-api-bootstrap-provider-kubeadm/templates/webhook
+func patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-bootstrap-cert"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-bootstrap",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/bootstrap
+func patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
 	}
-
-	if crd.Spec.Conversion != nil {
-		crd.Spec.Conversion = &v1.CustomResourceConversion{
-			Strategy: v1.WebhookConverter,
-			Webhook: &v1.WebhookConversion{
-				ClientConfig: &v1.WebhookClientConfig{
-					Service: &v1.ServiceReference{
-						Namespace: "giantswarm",
-						Name:      "cluster-api-controlplane",
-						Path:      to.StringP("/convert"),
-						Port:      &port,
-					},
-					CABundle: []byte("\n"),
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-bootstrap",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
 				},
-				ConversionReviewVersions: []string{
-					"v1",
-					"v1beta1",
-				},
+				CABundle: []byte("\n"),
 			},
-		}
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
+	// changed from cluster-api-control-plane-app to cluster-api-app) so we check which versions are present and apply the correct
+	// patch.
+	if isV1alpha4(crd) {
+		patchCAPIControlPlaneWebhookV1Alpha4(crd)
+	} else {
+		patchCAPIControlPlaneWebhookV1Alpha3(crd)
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-control-plane-app/tree/main/helm/cluster-api-control-plane/templates/webhook
+func patchCAPIControlPlaneWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-controlplane-cert"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-controlplane",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
+}
+
+// Keep in sync with https://github.com/giantswarm/cluster-api-app/tree/master/helm/cluster-api/templates/controlplane
+func patchCAPIControlPlaneWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = injectCAFromCoreV1alpha4
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-controlplane",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
 	}
 }
 
@@ -166,7 +235,6 @@ func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-vsphere-webhook"
 	}
-
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
@@ -285,14 +353,16 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 
 var patches = map[string]crd.Patch{
 	// capi
-	"clusters.cluster.x-k8s.io":                          patchCAPICoreWebhook,
-	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
-	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
-	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIKubeadmBootstrapWebhook,
-	"machinedeployments.cluster.x-k8s.io":                patchCAPICoreWebhook,
-	"machinehealthchecks.cluster.x-k8s.io":               patchCAPICoreWebhook,
-	"machines.cluster.x-k8s.io":                          patchCAPICoreWebhook,
-	"machinesets.cluster.x-k8s.io":                       patchCAPICoreWebhook,
+	"clusters.cluster.x-k8s.io":                                  patchCAPICoreWebhook,
+	"clusterclasses.cluster.x-k8s.io":                            patchCAPICoreWebhook,
+	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io":         patchCAPIControlPlaneWebhook,
+	"kubeadmcontrolplanetemplates.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
+	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":                  patchCAPIKubeadmBootstrapWebhook,
+	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
+	"machinedeployments.cluster.x-k8s.io":                        patchCAPICoreWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":                       patchCAPICoreWebhook,
+	"machines.cluster.x-k8s.io":                                  patchCAPICoreWebhook,
+	"machinesets.cluster.x-k8s.io":                               patchCAPICoreWebhook,
 	// capa
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,

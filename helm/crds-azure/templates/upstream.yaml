@@ -2,7 +2,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -15,9 +15,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-webhook-service
-          namespace: capi-system
+          name: cluster-api-core
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -33,7 +34,12 @@ spec:
     singular: clusterclass
   scope: Namespaced
   versions:
-  - name: v1alpha4
+  - additionalPrinterColumns:
+    - description: Time duration since creation of ClusterClass
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha4
     schema:
       openAPIV3Schema:
         description: ClusterClass is a template which can be used to create managed topologies.
@@ -84,7 +90,7 @@ spec:
                     - ref
                     type: object
                   metadata:
-                    description: "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. This is a copy of customizable fields from metav1.ObjectMeta. \n ObjectMeta is embedded in `Machine.Spec`, `MachineDeployment.Template` and `MachineSet.Template`, which are not top-level Kubernetes objects. Given that metav1.ObjectMeta has lots of special cases and read-only fields which end up in the generated CRD validation, having it as a subset simplifies the API and some issues that can impact user experience. \n During the [upgrade to controller-tools@v2](https://github.com/kubernetes-sigs/cluster-api/pull/1054) for v1alpha2, we noticed a failure would occur running Cluster API test suite against the new CRDs, specifically `spec.metadata.creationTimestamp in body must be of type string: \"null\"`. The investigation showed that `controller-tools@v2` behaves differently than its previous version when handling types from [metav1](k8s.io/apimachinery/pkg/apis/meta/v1) package. \n In more details, we found that embedded (non-top level) types that embedded `metav1.ObjectMeta` had validation properties, including for `creationTimestamp` (metav1.Time). The `metav1.Time` type specifies a custom json marshaller that, when IsZero() is true, returns `null` which breaks validation because the field isn't marked as nullable. \n In future versions, controller-tools@v2 might allow overriding the type and validation for embedded types. When that happens, this hack should be revisited."
+                    description: "Metadata is the metadata applied to the machines of the ControlPlane. At runtime this metadata is merged with the corresponding metadata from the topology. \n This field is supported if and only if the control plane provider template referenced is Machine based."
                     properties:
                       annotations:
                         additionalProperties:
@@ -233,7 +239,7 @@ spec:
                               - ref
                               type: object
                             metadata:
-                              description: "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. This is a copy of customizable fields from metav1.ObjectMeta. \n ObjectMeta is embedded in `Machine.Spec`, `MachineDeployment.Template` and `MachineSet.Template`, which are not top-level Kubernetes objects. Given that metav1.ObjectMeta has lots of special cases and read-only fields which end up in the generated CRD validation, having it as a subset simplifies the API and some issues that can impact user experience. \n During the [upgrade to controller-tools@v2](https://github.com/kubernetes-sigs/cluster-api/pull/1054) for v1alpha2, we noticed a failure would occur running Cluster API test suite against the new CRDs, specifically `spec.metadata.creationTimestamp in body must be of type string: \"null\"`. The investigation showed that `controller-tools@v2` behaves differently than its previous version when handling types from [metav1](k8s.io/apimachinery/pkg/apis/meta/v1) package. \n In more details, we found that embedded (non-top level) types that embedded `metav1.ObjectMeta` had validation properties, including for `creationTimestamp` (metav1.Time). The `metav1.Time` type specifies a custom json marshaller that, when IsZero() is true, returns `null` which breaks validation because the field isn't marked as nullable. \n In future versions, controller-tools@v2 might allow overriding the type and validation for embedded types. When that happens, this hack should be revisited."
+                              description: Metadata is the metadata applied to the machines of the MachineDeployment. At runtime this metadata is merged with the corresponding metadata from the topology.
                               properties:
                                 annotations:
                                   additionalProperties:
@@ -260,6 +266,7 @@ spec:
         type: object
     served: true
     storage: true
+    subresources: {}
 status:
   acceptedNames:
     kind: ""
@@ -353,7 +360,12 @@ spec:
     storage: false
     subresources:
       status: {}
-  - name: v1alpha4
+  - additionalPrinterColumns:
+    - description: Time duration since creation of ClusterResourceSetBinding
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha4
     schema:
       openAPIV3Schema:
         description: ClusterResourceSetBinding lists all matching ClusterResourceSets with the cluster it belongs to.
@@ -562,7 +574,12 @@ spec:
     storage: false
     subresources:
       status: {}
-  - name: v1alpha4
+  - additionalPrinterColumns:
+    - description: Time duration since creation of ClusterResourceSet
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha4
     schema:
       openAPIV3Schema:
         description: ClusterResourceSet is the Schema for the clusterresourcesets API.
@@ -918,6 +935,10 @@ spec:
     subresources:
       status: {}
   - additionalPrinterColumns:
+    - description: Time duration since creation of Cluster
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: Cluster status such as Pending/Provisioning/Provisioned/Deleting/Failed
       jsonPath: .status.phase
       name: Phase
@@ -1046,7 +1067,7 @@ spec:
                     description: ControlPlane describes the cluster control plane.
                     properties:
                       metadata:
-                        description: "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. This is a copy of customizable fields from metav1.ObjectMeta. \n ObjectMeta is embedded in `Machine.Spec`, `MachineDeployment.Template` and `MachineSet.Template`, which are not top-level Kubernetes objects. Given that metav1.ObjectMeta has lots of special cases and read-only fields which end up in the generated CRD validation, having it as a subset simplifies the API and some issues that can impact user experience. \n During the [upgrade to controller-tools@v2](https://github.com/kubernetes-sigs/cluster-api/pull/1054) for v1alpha2, we noticed a failure would occur running Cluster API test suite against the new CRDs, specifically `spec.metadata.creationTimestamp in body must be of type string: \"null\"`. The investigation showed that `controller-tools@v2` behaves differently than its previous version when handling types from [metav1](k8s.io/apimachinery/pkg/apis/meta/v1) package. \n In more details, we found that embedded (non-top level) types that embedded `metav1.ObjectMeta` had validation properties, including for `creationTimestamp` (metav1.Time). The `metav1.Time` type specifies a custom json marshaller that, when IsZero() is true, returns `null` which breaks validation because the field isn't marked as nullable. \n In future versions, controller-tools@v2 might allow overriding the type and validation for embedded types. When that happens, this hack should be revisited."
+                        description: "Metadata is the metadata applied to the machines of the ControlPlane. At runtime this metadata is merged with the corresponding metadata from the ClusterClass. \n This field is supported if and only if the control plane provider template referenced in the ClusterClass is Machine based."
                         properties:
                           annotations:
                             additionalProperties:
@@ -1083,7 +1104,7 @@ spec:
                               description: Class is the name of the MachineDeploymentClass used to create the set of worker nodes. This should match one of the deployment classes defined in the ClusterClass object mentioned in the `Cluster.Spec.Class` field.
                               type: string
                             metadata:
-                              description: "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create. This is a copy of customizable fields from metav1.ObjectMeta. \n ObjectMeta is embedded in `Machine.Spec`, `MachineDeployment.Template` and `MachineSet.Template`, which are not top-level Kubernetes objects. Given that metav1.ObjectMeta has lots of special cases and read-only fields which end up in the generated CRD validation, having it as a subset simplifies the API and some issues that can impact user experience. \n During the [upgrade to controller-tools@v2](https://github.com/kubernetes-sigs/cluster-api/pull/1054) for v1alpha2, we noticed a failure would occur running Cluster API test suite against the new CRDs, specifically `spec.metadata.creationTimestamp in body must be of type string: \"null\"`. The investigation showed that `controller-tools@v2` behaves differently than its previous version when handling types from [metav1](k8s.io/apimachinery/pkg/apis/meta/v1) package. \n In more details, we found that embedded (non-top level) types that embedded `metav1.ObjectMeta` had validation properties, including for `creationTimestamp` (metav1.Time). The `metav1.Time` type specifies a custom json marshaller that, when IsZero() is true, returns `null` which breaks validation because the field isn't marked as nullable. \n In future versions, controller-tools@v2 might allow overriding the type and validation for embedded types. When that happens, this hack should be revisited."
+                              description: Metadata is the metadata applied to the machines of the MachineDeployment. At runtime this metadata is merged with the corresponding metadata from the ClusterClass.
                               properties:
                                 annotations:
                                   additionalProperties:
@@ -1111,7 +1132,6 @@ spec:
                     type: object
                 required:
                 - class
-                - controlPlane
                 - version
                 type: object
             type: object
@@ -1534,6 +1554,14 @@ spec:
         statusReplicasPath: .status.replicas
       status: {}
   - additionalPrinterColumns:
+    - description: Cluster
+      jsonPath: .spec.clusterName
+      name: Cluster
+      type: string
+    - description: Time duration since creation of MachineDeployment
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: MachineDeployment status such as ScalingUp/ScalingDown/Running/Failed/Unknown
       jsonPath: .status.phase
       name: Phase
@@ -2063,6 +2091,14 @@ spec:
     subresources:
       status: {}
   - additionalPrinterColumns:
+    - description: Cluster
+      jsonPath: .spec.clusterName
+      name: Cluster
+      type: string
+    - description: Time duration since creation of MachineHealthCheck
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: Maximum number of unhealthy machines allowed
       jsonPath: .spec.maxUnhealthy
       name: MaxUnhealthy
@@ -2604,6 +2640,10 @@ spec:
         statusReplicasPath: .status.replicas
       status: {}
   - additionalPrinterColumns:
+    - description: Time duration since creation of MachinePool
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: MachinePool replicas count
       jsonPath: .status.replicas
       name: Replicas
@@ -3126,6 +3166,14 @@ spec:
     subresources:
       status: {}
   - additionalPrinterColumns:
+    - description: Cluster
+      jsonPath: .spec.clusterName
+      name: Cluster
+      type: string
+    - description: Time duration since creation of Machine
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: Provider ID
       jsonPath: .spec.providerID
       name: ProviderID
@@ -3696,6 +3744,14 @@ spec:
         statusReplicasPath: .status.replicas
       status: {}
   - additionalPrinterColumns:
+    - description: Cluster
+      jsonPath: .spec.clusterName
+      name: Cluster
+      type: string
+    - description: Time duration since creation of MachineSet
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: Total number of non-terminated machines targeted by this machineset
       jsonPath: .status.replicas
       name: Replicas
@@ -3884,6 +3940,35 @@ spec:
                 description: The number of available replicas (ready for at least minReadySeconds) for this MachineSet.
                 format: int32
                 type: integer
+              conditions:
+                description: Conditions defines current service state of the MachineSet.
+                items:
+                  description: Condition defines an observation of a Cluster API resource operational state.
+                  properties:
+                    lastTransitionTime:
+                      description: Last time the condition transitioned from one status to another. This should be when the underlying condition changed. If that is not known, then using the time when the API field changed is acceptable.
+                      format: date-time
+                      type: string
+                    message:
+                      description: A human readable message indicating details about the transition. This field may be empty.
+                      type: string
+                    reason:
+                      description: The reason for the condition's last transition in CamelCase. The specific API may choose whether or not this field is considered a guaranteed API. This field may not be empty.
+                      type: string
+                    severity:
+                      description: Severity provides an explicit classification of Reason code, so the users or machines can immediately understand the current situation and act accordingly. The Severity field MUST be set only when Status=False.
+                      type: string
+                    status:
+                      description: Status of the condition, one of True, False, Unknown.
+                      type: string
+                    type:
+                      description: Type of condition in CamelCase or in foo.example.com/CamelCase. Many .condition.type values are consistent across resources like Available, but because arbitrary conditions can be useful (see .node.status.conditions), the ability to deconflict is important.
+                      type: string
+                  required:
+                  - status
+                  - type
+                  type: object
+                type: array
               failureMessage:
                 type: string
               failureReason:
@@ -4660,7 +4745,12 @@ spec:
     storage: false
     subresources:
       status: {}
-  - name: v1alpha4
+  - additionalPrinterColumns:
+    - description: Time duration since creation of KubeadmConfig
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha4
     schema:
       openAPIV3Schema:
         description: KubeadmConfig is the Schema for the kubeadmconfigs API.
@@ -6048,7 +6138,12 @@ spec:
         type: object
     served: true
     storage: false
-  - name: v1alpha4
+  - additionalPrinterColumns:
+    - description: Time duration since creation of KubeadmConfigTemplate
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha4
     schema:
       openAPIV3Schema:
         description: KubeadmConfigTemplate is the Schema for the kubeadmconfigtemplates API.
@@ -6698,6 +6793,7 @@ spec:
         type: object
     served: true
     storage: true
+    subresources: {}
 status:
   acceptedNames:
     kind: ""
@@ -7448,6 +7544,23 @@ spec:
                 description: Number of desired machines. Defaults to 1. When stacked etcd is used only odd numbers are permitted, as per [etcd best practice](https://etcd.io/docs/v3.3.12/faq/#why-an-odd-number-of-cluster-members). This is a pointer to distinguish between explicit zero and not specified.
                 format: int32
                 type: integer
+              rolloutStrategy:
+                description: The RolloutStrategy to use to replace control plane machines with new ones.
+                properties:
+                  rollingUpdate:
+                    description: Rolling update config params. Present only if RolloutStrategyType = RollingUpdate.
+                    properties:
+                      maxSurge:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        description: 'The maximum number of control planes that can be scheduled above or under the desired number of control planes. Value can be an absolute number 1 or 0. Defaults to 1. Example: when this is set to 1, the control plane can be scaled up immediately when the rolling update starts.'
+                        x-kubernetes-int-or-string: true
+                    type: object
+                  type:
+                    description: Type of rollout. Currently the only supported strategy is "RollingUpdate". Default is RollingUpdate.
+                    type: string
+                type: object
               upgradeAfter:
                 description: UpgradeAfter is a field to indicate an upgrade should be performed after the specified time even if no changes have been made to the KubeadmControlPlane
                 format: date-time
@@ -7538,6 +7651,10 @@ spec:
         statusReplicasPath: .status.replicas
       status: {}
   - additionalPrinterColumns:
+    - description: Time duration since creation of KubeadmControlPlane
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
     - description: This denotes whether or not the control plane has the uploaded kubeadm-config configmap
       jsonPath: .status.initialized
       name: Initialized
@@ -8383,7 +8500,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-kubeadm-control-plane-system/capi-kubeadm-control-plane-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.6.2
   creationTimestamp: null
   labels:
@@ -8398,9 +8515,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-control-plane-webhook-service
-          namespace: capi-kubeadm-control-plane-system
+          name: cluster-api-controlplane
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -8414,7 +8532,12 @@ spec:
     singular: kubeadmcontrolplanetemplate
   scope: Namespaced
   versions:
-  - name: v1alpha4
+  - additionalPrinterColumns:
+    - description: Time duration since creation of KubeadmControlPlaneTemplate
+      jsonPath: .metadata.creationTimestamp
+      name: Age
+      type: date
+    name: v1alpha4
     schema:
       openAPIV3Schema:
         description: KubeadmControlPlaneTemplate is the Schema for the kubeadmcontrolplanetemplates API.
@@ -9154,6 +9277,7 @@ spec:
         type: object
     served: true
     storage: true
+    subresources: {}
 status:
   acceptedNames:
     kind: ""
