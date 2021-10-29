@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove Ignition, AzureTool, and MemcachedConfig APIs and tooling and example groups.
+
+### Added
+
+- Add metadata about `clusterclasses.cluster.x-k8s.io` CRD for documentation.
+
 ### Changed
 
 - Align AWS CAPI CRD webhooks name with `cluster-api-app`.

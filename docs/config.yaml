@@ -183,10 +183,6 @@ crds:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
     hidden: true
-  azuretools.tooling.giantswarm.io:
-    owner:
-      - https://github.com/orgs/giantswarm/teams/team-phoenix
-    hidden: true
   catalogs.application.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-honeybadger
@@ -204,6 +200,8 @@ crds:
     topics:
       - apps
   chartconfigs.core.giantswarm.io:
+    hidden: true
+  clusterclasses.cluster.x-k8s.io:
     hidden: true
   clusterresourcesetbindings.addons.cluster.x-k8s.io:
     hidden: true
@@ -253,8 +251,6 @@ crds:
     deprecation:
       info: This CRD will be removed once Cluster API resources are used for all AWS workload clusters.
   haproxyloadbalancers.infrastructure.cluster.x-k8s.io:
-    hidden: true
-  ignitions.core.giantswarm.io:
     hidden: true
   ingressconfigs.core.giantswarm.io:
     hidden: true
@@ -308,8 +304,6 @@ crds:
   machines.cluster.x-k8s.io:
     hidden: true
   machinesets.cluster.x-k8s.io:
-    hidden: true
-  memcachedconfigs.example.giantswarm.io:
     hidden: true
   networkpools.infrastructure.giantswarm.io:
     owner:
