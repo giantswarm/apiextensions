@@ -201,6 +201,8 @@ crds:
       - apps
   chartconfigs.core.giantswarm.io:
     hidden: true
+  clusterclasses.cluster.x-k8s.io:
+    hidden: true
   clusterresourcesetbindings.addons.cluster.x-k8s.io:
     hidden: true
   clusterresourcesets.addons.cluster.x-k8s.io:
