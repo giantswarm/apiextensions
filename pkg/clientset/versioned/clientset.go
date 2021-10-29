@@ -30,6 +30,7 @@ import (
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
 	infrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha3"
+	monitoringv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/monitoring/v1alpha1"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/provider/v1alpha1"
 	releasev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/release/v1alpha1"
 	securityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/security/v1alpha1"
@@ -42,6 +43,7 @@ type Interface interface {
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
 	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface
+	MonitoringV1alpha1() monitoringv1alpha1.MonitoringV1alpha1Interface
 	ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface
 	ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface
 	SecurityV1alpha1() securityv1alpha1.SecurityV1alpha1Interface
@@ -56,6 +58,7 @@ type Clientset struct {
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
 	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
 	infrastructureV1alpha3 *infrastructurev1alpha3.InfrastructureV1alpha3Client
+	monitoringV1alpha1     *monitoringv1alpha1.MonitoringV1alpha1Client
 	providerV1alpha1       *providerv1alpha1.ProviderV1alpha1Client
 	releaseV1alpha1        *releasev1alpha1.ReleaseV1alpha1Client
 	securityV1alpha1       *securityv1alpha1.SecurityV1alpha1Client
@@ -84,6 +87,11 @@ func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.Infrastructu
 // InfrastructureV1alpha3 retrieves the InfrastructureV1alpha3Client
 func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface {
 	return c.infrastructureV1alpha3
+}
+
+// MonitoringV1alpha1 retrieves the MonitoringV1alpha1Client
+func (c *Clientset) MonitoringV1alpha1() monitoringv1alpha1.MonitoringV1alpha1Interface {
+	return c.monitoringV1alpha1
 }
 
 // ProviderV1alpha1 retrieves the ProviderV1alpha1Client
@@ -142,6 +150,10 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
+	cs.monitoringV1alpha1, err = monitoringv1alpha1.NewForConfig(&configShallowCopy)
+	if err != nil {
+		return nil, err
+	}
 	cs.providerV1alpha1, err = providerv1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
@@ -171,6 +183,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha3 = infrastructurev1alpha3.NewForConfigOrDie(c)
+	cs.monitoringV1alpha1 = monitoringv1alpha1.NewForConfigOrDie(c)
 	cs.providerV1alpha1 = providerv1alpha1.NewForConfigOrDie(c)
 	cs.releaseV1alpha1 = releasev1alpha1.NewForConfigOrDie(c)
 	cs.securityV1alpha1 = securityv1alpha1.NewForConfigOrDie(c)
@@ -187,6 +200,7 @@ func New(c rest.Interface) *Clientset {
 	cs.coreV1alpha1 = corev1alpha1.New(c)
 	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
 	cs.infrastructureV1alpha3 = infrastructurev1alpha3.New(c)
+	cs.monitoringV1alpha1 = monitoringv1alpha1.New(c)
 	cs.providerV1alpha1 = providerv1alpha1.New(c)
 	cs.releaseV1alpha1 = releasev1alpha1.New(c)
 	cs.securityV1alpha1 = securityv1alpha1.New(c)

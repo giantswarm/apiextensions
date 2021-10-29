@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/base64"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -270,7 +271,7 @@ func (r Renderer) downloadRepositoryCRDs(ctx context.Context, asset RemoteReposi
 			return nil, microerror.Mask(err)
 		}
 
-		contentReader := bytes.NewReader(content)
+		contentReader := io.NopCloser(bytes.NewReader(content))
 
 		crds, err := decodeCRDs(contentReader)
 		if err != nil {
