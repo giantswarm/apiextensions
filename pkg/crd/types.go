@@ -28,9 +28,9 @@ type ReleaseAssetFileDefinition struct {
 }
 
 type RemoteRepositoryDefinition struct {
-	Path     string
-	Owner    string
-	Provider string
-	Repo     string
-	Version  string
+	Path      string // path to CRDs in repo, usually "config/crd"
+	Owner     string // repo owner
+	Provider  string // provider the CRD should be added to in helm charts
+	Name      string // name of repo
+	Reference string // tag or branch of repo to list files from
 }

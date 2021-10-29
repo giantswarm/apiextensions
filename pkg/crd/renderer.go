@@ -29,7 +29,7 @@ var (
 )
 
 func (r Renderer) patchCRDs(crds []runtime.Object) ([]runtime.Object, error) {
-	var patchedCRDs []runtime.Object
+	patchedCRDs := make([]runtime.Object, 0, len(crds))
 	for _, crd := range crds {
 		if crdV1, ok := crd.(*v1.CustomResourceDefinition); ok {
 			var err error
@@ -189,7 +189,7 @@ func (r Renderer) getLocalCRDs(category string) ([]runtime.Object, error) {
 	return crds, nil
 }
 
-// getRemoteCRDs returns all upstream CRDs for a provider based on the Renderer's upstream asset configuration.
+// getRemoteCRDs returns all remote CRDs for a provider based on the Renderer's remote repository configuration.
 func (r Renderer) getRemoteCRDs(ctx context.Context, provider string) ([]runtime.Object, error) {
 	var crds []runtime.Object
 	for _, releaseAsset := range r.RemoteRepositories {
@@ -197,43 +197,43 @@ func (r Renderer) getRemoteCRDs(ctx context.Context, provider string) ([]runtime
 			continue
 		}
 
-		releaseAssetCRDs, err := r.downloadRepositoryCRDs(ctx, releaseAsset)
+		remoteCRDs, err := r.downloadRepositoryCRDs(ctx, releaseAsset)
 		if err != nil {
 			return nil, microerror.Mask(err)
 		}
 
-		crds = append(crds, releaseAssetCRDs...)
+		crds = append(crds, remoteCRDs...)
 	}
 
 	return crds, nil
 }
 
-// downloadRepositoryCRDs returns a slice of CRDs by downloading the given GitHub release asset, parsing it as YAML,
-// and filtering for only CRD objects.
-func (r Renderer) downloadRepositoryCRDs(ctx context.Context, asset RemoteRepositoryDefinition) ([]runtime.Object, error) {
-	refString := fmt.Sprintf("tags/%s", asset.Version)
-	ref, response, err := r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
+// downloadRepositoryCRDs returns a slice of CRDs by downloading the given GitHub repository tree, listing files in the
+// given path, parsing them as YAML, and filtering for only CRD objects.
+func (r Renderer) downloadRepositoryCRDs(ctx context.Context, repo RemoteRepositoryDefinition) ([]runtime.Object, error) {
+	refString := fmt.Sprintf("tags/%s", repo.Reference)
+	ref, response, err := r.GithubClient.Git.GetRef(ctx, repo.Owner, repo.Name, refString)
 	if err != nil && response.StatusCode == 404 {
-		refString = fmt.Sprintf("heads/%s", asset.Version)
-		ref, _, err = r.GithubClient.Git.GetRef(ctx, asset.Owner, asset.Repo, refString)
+		refString = fmt.Sprintf("heads/%s", repo.Reference)
+		ref, _, err = r.GithubClient.Git.GetRef(ctx, repo.Owner, repo.Name, refString)
 	}
 	if err != nil {
 		return nil, microerror.Mask(err)
 	}
 
-	commit, _, err := r.GithubClient.Git.GetCommit(ctx, asset.Owner, asset.Repo, ref.Object.GetSHA())
+	commit, _, err := r.GithubClient.Git.GetCommit(ctx, repo.Owner, repo.Name, ref.Object.GetSHA())
 	if err != nil {
 		return nil, microerror.Mask(err)
 	}
 
-	tree, _, err := r.GithubClient.Git.GetTree(ctx, asset.Owner, asset.Repo, commit.Tree.GetSHA(), true)
+	tree, _, err := r.GithubClient.Git.GetTree(ctx, repo.Owner, repo.Name, commit.Tree.GetSHA(), true)
 	if err != nil {
 		return nil, microerror.Mask(err)
 	}
 
 	var targetEntries []*github.TreeEntry
 	for _, entry := range tree.Entries {
-		if entry.GetType() == "blob" && strings.HasPrefix(entry.GetPath(), asset.Path) {
+		if entry.GetType() == "blob" && strings.HasPrefix(entry.GetPath(), repo.Path) {
 			targetEntries = append(targetEntries, entry)
 		}
 	}
@@ -243,7 +243,7 @@ func (r Renderer) downloadRepositoryCRDs(ctx context.Context, asset RemoteReposi
 
 	var allCrds []runtime.Object
 	for _, entry := range targetEntries {
-		blob, _, err := r.GithubClient.Git.GetBlob(ctx, asset.Owner, asset.Repo, entry.GetSHA())
+		blob, _, err := r.GithubClient.Git.GetBlob(ctx, repo.Owner, repo.Name, entry.GetSHA())
 		if err != nil {
 			return nil, microerror.Mask(err)
 		}

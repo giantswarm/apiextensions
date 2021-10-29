@@ -44,11 +44,11 @@ func Test_downloadReleaseAssetCRDs(t *testing.T) {
 func Test_downloadRepositoryCRDs(t *testing.T) {
 	renderer := buildTestRenderer()
 	crds, err := renderer.downloadRepositoryCRDs(context.Background(), RemoteRepositoryDefinition{
-		Path:     "config/crd",
-		Owner:    "giantswarm",
-		Provider: "common",
-		Repo:     "apiextensions",
-		Version:  "v3.35.0",
+		Path:      "config/crd",
+		Owner:     "giantswarm",
+		Provider:  "common",
+		Name:      "apiextensions",
+		Reference: "v3.35.0",
 	})
 	require.Nil(t, err, err)
 	require.Len(t, crds, 30)
