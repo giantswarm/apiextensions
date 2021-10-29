@@ -31,8 +31,6 @@ var knownTypes = []runtime.Object{
 	&KVMClusterConfigList{},
 	&FlannelConfig{},
 	&FlannelConfigList{},
-	&Ignition{},
-	&IgnitionList{},
 	&Spark{},
 	&SparkList{},
 	&StorageConfig{},

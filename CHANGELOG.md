@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove Ignition, AzureTool, and MemcachedConfig APIs and tooling and example groups.
+
+### Added
+
+- Add metadata about `clusterclasses.cluster.x-k8s.io` CRD for documentation.
+
 ### Changed
 
 - Align AWS CAPI CRD webhooks name with `cluster-api-app`.
@@ -23,6 +31,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.34.0] - 2021-10-13
 
+### Added
+
+- Add metadata about additional vSphere CRDs for documentation.
+
 ### Fixed
 
 - Adjust name of Cluster API certificate and service for `v1alpha4`. The annotation `cert-manager.io/inject-ca-from` value changes from `giantswarm/cluster-api-core-webhook` to `giantswarm/cluster-api-core-cert` and the service name from `cluster-api-core-webhook` to `cluster-api-core`.
@@ -37,19 +49,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - In the `AppCatalogEntry` CRD, rename the printer column `APP VERSION` to `UPSTREAM VERSION` and switch the order of `VERSION` and `UPSTREAM VERSION`. This affects the output of `kubectl get appcatalogentries`.
 - Update repository to use go v1.17.
 - Remove reference to deprecated `AppCatalog` CRD from the `AppCatalogEntry` CRD.
-
-## [3.33.0] - 2021-09-10
-
-### Fixed
-
-- Adjust name of CAPI certificate and service for v1alpha4.
-
-### Changed
-
-- Make KVM worker labels optional.
-- Split CAPI core CRDs by provider to enable independent versioning (e.g. v1alpha2 for AWS and v1alpha4 for vSphere).
-- Rename VMWare provider to vSphere.
-- Configure webhook patch for ClusterClass CRD.
 
 ## [3.33.0] - 2021-09-10
 
@@ -88,7 +87,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add `Chart.Description`, `Chart.Keywords` and `Chart.UpstreamChartVersion` metadata to `AppCatalogEntry` CRD.
 - Add documentation of customer facing Azure annotations.
-- Add experimental CRDs from CAPI and CAPZ as if they were our own, to help in the migration to the new v1alpha4 CRDs.
 
 ## [3.29.0] - 2021-07-27
 
@@ -487,7 +485,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Make optional fields not required for `Chart` CRD to avoid
-needing to enter empty strings.
+  needing to enter empty strings.
 - Make optional fields `omitempty` for `Chart` CRD.
 
 ## [2.0.0] - 2020-08-10
@@ -593,7 +591,7 @@ needing to enter empty strings.
 ### Changed
 
 - Make optional fields not required for `App` and `AppCatalog` CRDs to avoid
-needing to enter empty strings.
+  needing to enter empty strings.
 - Make optional fields `omitempty` for `App` and `AppCatalog` CRDs.
 
 
@@ -875,9 +873,9 @@ needing to enter empty strings.
 ### Fixed
 
 - Fix CRD OpenAPISchemas for:
-  - App
-  - AppCatalog
-  - Chart
+    - App
+    - AppCatalog
+    - Chart
 
 
 
@@ -894,10 +892,10 @@ needing to enter empty strings.
 ### Fixed
 
 - Fix CRD OpenAPISchemas for:
-  - AWSCluster
-  - AWSMachineDeployment
-  - AWSControlPlane
-  - G8SControlPlane
+    - AWSCluster
+    - AWSMachineDeployment
+    - AWSControlPlane
+    - G8SControlPlane
 
 
 

@@ -30,14 +30,12 @@ import (
 	capiexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/apis/capiexp/v1alpha3"
 	capzexpv1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/apis/capzexp/v1alpha3"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/core/v1alpha1"
-	examplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/example/v1alpha1"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/apis/infrastructure/v1alpha2"
 	infrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/apis/infrastructure/v1alpha3"
 	monitoringv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/monitoring/v1alpha1"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/provider/v1alpha1"
 	releasev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/release/v1alpha1"
 	securityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/security/v1alpha1"
-	toolingv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/apis/tooling/v1alpha1"
 )
 
 var scheme = runtime.NewScheme()
@@ -49,14 +47,12 @@ var localSchemeBuilder = runtime.SchemeBuilder{
 	capiexpv1alpha3.AddToScheme,
 	capzexpv1alpha3.AddToScheme,
 	corev1alpha1.AddToScheme,
-	examplev1alpha1.AddToScheme,
 	infrastructurev1alpha2.AddToScheme,
 	infrastructurev1alpha3.AddToScheme,
 	monitoringv1alpha1.AddToScheme,
 	providerv1alpha1.AddToScheme,
 	releasev1alpha1.AddToScheme,
 	securityv1alpha1.AddToScheme,
-	toolingv1alpha1.AddToScheme,
 }
 
 // AddToScheme adds all types of this clientset into the given scheme. This allows composition

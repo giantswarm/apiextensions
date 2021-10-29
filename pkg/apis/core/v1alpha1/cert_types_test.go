@@ -2,15 +2,23 @@ package v1alpha1
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"regexp"
+	goruntime "runtime"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/yaml"
+)
+
+var (
+	_, b, _, _ = goruntime.Caller(0)
+	root       = filepath.Dir(b)
+	update     = flag.Bool("update", false, "update generated YAMLs")
 )
 
 func Test_GenerateCertConfigYAML(t *testing.T) {
