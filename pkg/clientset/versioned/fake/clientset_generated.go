@@ -32,8 +32,6 @@ import (
 	fakebackupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1/fake"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1"
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1/fake"
-	examplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/example/v1alpha1"
-	fakeexamplev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/example/v1alpha1/fake"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
 	fakeinfrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2/fake"
 	infrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha3"
@@ -46,8 +44,6 @@ import (
 	fakereleasev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/release/v1alpha1/fake"
 	securityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/security/v1alpha1"
 	fakesecurityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/security/v1alpha1/fake"
-	toolingv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/tooling/v1alpha1"
-	faketoolingv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/tooling/v1alpha1/fake"
 )
 
 // NewSimpleClientset returns a clientset that will respond with the provided objects.
@@ -112,11 +108,6 @@ func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
 }
 
-// ExampleV1alpha1 retrieves the ExampleV1alpha1Client
-func (c *Clientset) ExampleV1alpha1() examplev1alpha1.ExampleV1alpha1Interface {
-	return &fakeexamplev1alpha1.FakeExampleV1alpha1{Fake: &c.Fake}
-}
-
 // InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
 func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
 	return &fakeinfrastructurev1alpha2.FakeInfrastructureV1alpha2{Fake: &c.Fake}
@@ -145,9 +136,4 @@ func (c *Clientset) ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface {
 // SecurityV1alpha1 retrieves the SecurityV1alpha1Client
 func (c *Clientset) SecurityV1alpha1() securityv1alpha1.SecurityV1alpha1Interface {
 	return &fakesecurityv1alpha1.FakeSecurityV1alpha1{Fake: &c.Fake}
-}
-
-// ToolingV1alpha1 retrieves the ToolingV1alpha1Client
-func (c *Clientset) ToolingV1alpha1() toolingv1alpha1.ToolingV1alpha1Interface {
-	return &faketoolingv1alpha1.FakeToolingV1alpha1{Fake: &c.Fake}
 }

@@ -34,7 +34,6 @@ type CoreV1alpha1Interface interface {
 	ConfigsGetter
 	DrainerConfigsGetter
 	FlannelConfigsGetter
-	IgnitionsGetter
 	KVMClusterConfigsGetter
 	SparksGetter
 	StorageConfigsGetter
@@ -71,10 +70,6 @@ func (c *CoreV1alpha1Client) DrainerConfigs(namespace string) DrainerConfigInter
 
 func (c *CoreV1alpha1Client) FlannelConfigs(namespace string) FlannelConfigInterface {
 	return newFlannelConfigs(c, namespace)
-}
-
-func (c *CoreV1alpha1Client) Ignitions(namespace string) IgnitionInterface {
-	return newIgnitions(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) KVMClusterConfigs(namespace string) KVMClusterConfigInterface {
