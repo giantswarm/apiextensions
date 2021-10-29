@@ -17,7 +17,6 @@ import (
 	"k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	"sigs.k8s.io/yaml"
 )
 
 var (
@@ -29,36 +28,63 @@ var (
 	}
 )
 
+func (r Renderer) patchCRDs(crds []runtime.Object) ([]runtime.Object, error) {
+	var patchedCRDs []runtime.Object
+	for _, crd := range crds {
+		if crdV1, ok := crd.(*v1.CustomResourceDefinition); ok {
+			var err error
+			crd, err = patchCRD(r.Patches, crdV1)
+			if err != nil {
+				return nil, microerror.Mask(err)
+			}
+		}
+		patchedCRDs = append(patchedCRDs, crd)
+	}
+	return patchedCRDs, nil
+}
+
 // Render creates helm chart templates for the given provider by downloading upstream CRDs, merging them with local
 // CRDs, patching them, and writing them to the corresponding provider helm template directory.
 func (r Renderer) Render(ctx context.Context, provider string) error {
-	internalCRDs, err := r.getLocalCRDs(provider)
-	if err != nil {
-		return microerror.Mask(err)
+	{
+		localCRDs, err := r.getLocalCRDs(provider)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		remoteCRDs, err := r.getRemoteCRDs(ctx, provider)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		internalCRDs, err := r.patchCRDs(append(localCRDs, remoteCRDs...))
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		giantswarmFilename := helmChartTemplateFile(r.OutputDirectory, provider, "giantswarm.yaml")
+		err = writeCRDsToFile(giantswarmFilename, internalCRDs)
+		if err != nil {
+			return microerror.Mask(err)
+		}
 	}
 
-	remoteCRDs, err := r.getRemoteCRDs(ctx, provider)
-	if err != nil {
-		return microerror.Mask(err)
-	}
+	{
+		upstreamCRDs, err := r.getUpstreamCRDs(ctx, provider)
+		if err != nil {
+			return microerror.Mask(err)
+		}
 
-	internalCRDs = append(internalCRDs, remoteCRDs...)
+		upstreamCRDs, err = r.patchCRDs(upstreamCRDs)
+		if err != nil {
+			return microerror.Mask(err)
+		}
 
-	giantswarmFilename := helmChartTemplateFile(r.OutputDirectory, provider, "giantswarm.yaml")
-	err = r.writeCRDsToFile(giantswarmFilename, internalCRDs)
-	if err != nil {
-		return microerror.Mask(err)
-	}
-
-	upstreamCRDs, err := r.getUpstreamCRDs(ctx, provider)
-	if err != nil {
-		return microerror.Mask(err)
-	}
-
-	upstreamFilename := helmChartTemplateFile(r.OutputDirectory, provider, "upstream.yaml")
-	err = r.writeCRDsToFile(upstreamFilename, upstreamCRDs)
-	if err != nil {
-		return microerror.Mask(err)
+		upstreamFilename := helmChartTemplateFile(r.OutputDirectory, provider, "upstream.yaml")
+		err = writeCRDsToFile(upstreamFilename, upstreamCRDs)
+		if err != nil {
+			return microerror.Mask(err)
+		}
 	}
 
 	return nil
@@ -121,54 +147,10 @@ func (r Renderer) getUpstreamCRDs(ctx context.Context, provider string) ([]runti
 	return crds, nil
 }
 
-func (r Renderer) writeCRDsToFile(filename string, crds []runtime.Object) error {
-	if len(crds) == 0 {
-		return nil
-	}
-
-	writeBuffer, err := os.OpenFile(filename, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0755)
-	if err != nil {
-		return microerror.Mask(err)
-	}
-
-	defer func() {
-		err = writeBuffer.Close()
-		if err != nil {
-			panic(microerror.JSON(microerror.Mask(err)))
-		}
-	}()
-
-	for _, crd := range crds {
-		if crdV1, ok := crd.(*v1.CustomResourceDefinition); ok {
-			crd, err = patchCRD(r.Patches, crdV1)
-			if err != nil {
-				return microerror.Mask(err)
-			}
-		}
-
-		crdBytes, err := yaml.Marshal(crd)
-		if err != nil {
-			return microerror.Mask(err)
-		}
-
-		_, err = writeBuffer.Write(crdBytes)
-		if err != nil {
-			return microerror.Mask(err)
-		}
-
-		_, err = writeBuffer.Write([]byte("\n---\n"))
-		if err != nil {
-			return microerror.Mask(err)
-		}
-	}
-
-	return nil
-}
-
 // getLocalCRDs reads the configured local directory and returns a slice of CRDs that have the given category.
 func (r Renderer) getLocalCRDs(category string) ([]runtime.Object, error) {
 	var crds []runtime.Object
-	err := filepath.WalkDir("../config/crd", func(path string, entry os.DirEntry, walkErr error) error {
+	err := filepath.WalkDir(r.LocalCRDDirectory, func(path string, entry os.DirEntry, walkErr error) error {
 		if walkErr != nil {
 			return microerror.Mask(walkErr)
 		}
