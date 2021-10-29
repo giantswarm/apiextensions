@@ -183,10 +183,6 @@ crds:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
     hidden: true
-  azuretools.tooling.giantswarm.io:
-    owner:
-      - https://github.com/orgs/giantswarm/teams/team-phoenix
-    hidden: true
   catalogs.application.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-honeybadger
