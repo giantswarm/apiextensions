@@ -24,6 +24,15 @@ spec:
       jsonPath: .spec.version
       name: Version
       type: string
+    - description: Version of the app
+      jsonPath: .status.version
+      name: Installed Version
+      priority: 1
+      type: string
+    - description: Time of app creation
+      jsonPath: .metadata.creationTimestamp
+      name: Created At
+      type: date
     - description: Time since last deployment
       jsonPath: .status.release.lastDeployed
       name: Last Deployed

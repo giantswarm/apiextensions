@@ -24,7 +24,7 @@ token will be loaded from the `GITHUB_TOKEN` environment variable if it exists. 
 ### Changing Existing Custom Resources
 
 - Make the desired changes in `pkg/apis/<group>/<version>`.
-- Update generated files by calling `make`.
+- Update generated files by calling `make generate`.
 - Review and commit all changes including generated code.
 
 #### Naming Convention
