@@ -173,11 +173,11 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 
 #### Upstream CRDs
 
-`apiextensions` generates Giant Swarm CRDs based on code in the `pkg/apis` directory and also aggregates upstream
-CRDs from various sources. Any repository that publishes CRDs as a YAML-formatted manifest of CRDs attached as
-an asset to a GitHub release can be used. The current set of upstream CRDs including target version is defined in
-`hack/assets.go` in the `upstreamReleaseAssets` map. Update the map and re-run `make` to update the upstream
-CRDs.
+`apiextensions` generates Giant Swarm CRDs based on code in the `pkg/apis` directory and also aggregates CRDs from
+various sources. Any repository that publishes CRDs as a YAML-formatted manifest of CRDs attached as an asset to a
+GitHub release ("upstream" CRDs) or in a source tree ("remote" CRDs) can be used. The current set of CRDs
+including target version is defined in `hack/assets.go` in the `upstreamReleaseAssets` and `remoteRepositories` variables
+for upstream and remote CRDs respectively. Update the values and re-run `make` to update the aggregated CRDs.
 
 #### Code Generation Tools
 
