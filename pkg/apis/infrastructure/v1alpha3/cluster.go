@@ -163,6 +163,7 @@ func newClusterCR(obj *AWSCluster, c ClusterCRsConfig) *apiv1alpha3.Cluster {
 		gsLabels := map[string]string{
 			label.ClusterOperatorVersion: c.ReleaseComponents["cluster-operator"],
 			label.Cluster:                c.ClusterID,
+			apiv1alpha3.ClusterLabelName: c.ClusterID,
 			label.Organization:           c.Owner,
 			label.ReleaseVersion:         c.ReleaseVersion,
 		}
