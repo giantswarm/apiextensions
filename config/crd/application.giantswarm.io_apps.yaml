@@ -20,14 +20,14 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - description: Version of the app
+    - description: Desired Version of the app
       jsonPath: .spec.version
-      name: Version
+      name: Desired Version
+      priority: 1
       type: string
-    - description: Version of the app
+    - description: Installed Version of the app
       jsonPath: .status.version
       name: Installed Version
-      priority: 1
       type: string
     - description: Time of app creation
       jsonPath: .metadata.creationTimestamp

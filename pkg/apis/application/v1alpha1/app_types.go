@@ -30,8 +30,8 @@ func NewAppCR() *App {
 	}
 }
 
-// +kubebuilder:printcolumn:name="Version",type=string,JSONPath=`.spec.version`,description="Version of the app"
-// +kubebuilder:printcolumn:name="Installed Version",type=string,priority=1,JSONPath=`.status.version`,description="Version of the app"
+// +kubebuilder:printcolumn:name="Desired Version",type=string,priority=1,JSONPath=`.spec.version`,description="Desired Version of the app"
+// +kubebuilder:printcolumn:name="Installed Version",type=string,JSONPath=`.status.version`,description="Installed Version of the app"
 // +kubebuilder:printcolumn:name="Created At",type=date,JSONPath=`.metadata.creationTimestamp`,description="Time of app creation"
 // +kubebuilder:printcolumn:name="Last Deployed",type=date,JSONPath=`.status.release.lastDeployed`,description="Time since last deployment"
 // +kubebuilder:printcolumn:name="Status",type=string,JSONPath=`.status.release.status`,description="Deployment status of the app"
