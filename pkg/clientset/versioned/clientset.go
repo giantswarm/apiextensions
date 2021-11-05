@@ -41,8 +41,8 @@ type Interface interface {
 	ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface
 	BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface
 	CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface
-	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface
+	InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface
 	MonitoringV1alpha1() monitoringv1alpha1.MonitoringV1alpha1Interface
 	ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface
 	ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface
@@ -56,8 +56,8 @@ type Clientset struct {
 	applicationV1alpha1    *applicationv1alpha1.ApplicationV1alpha1Client
 	backupV1alpha1         *backupv1alpha1.BackupV1alpha1Client
 	coreV1alpha1           *corev1alpha1.CoreV1alpha1Client
-	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
 	infrastructureV1alpha3 *infrastructurev1alpha3.InfrastructureV1alpha3Client
+	infrastructureV1alpha2 *infrastructurev1alpha2.InfrastructureV1alpha2Client
 	monitoringV1alpha1     *monitoringv1alpha1.MonitoringV1alpha1Client
 	providerV1alpha1       *providerv1alpha1.ProviderV1alpha1Client
 	releaseV1alpha1        *releasev1alpha1.ReleaseV1alpha1Client
@@ -79,14 +79,14 @@ func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return c.coreV1alpha1
 }
 
-// InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
-func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
-	return c.infrastructureV1alpha2
-}
-
 // InfrastructureV1alpha3 retrieves the InfrastructureV1alpha3Client
 func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface {
 	return c.infrastructureV1alpha3
+}
+
+// InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
+func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
+	return c.infrastructureV1alpha2
 }
 
 // MonitoringV1alpha1 retrieves the MonitoringV1alpha1Client
@@ -142,11 +142,11 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	if err != nil {
 		return nil, err
 	}
-	cs.infrastructureV1alpha2, err = infrastructurev1alpha2.NewForConfig(&configShallowCopy)
+	cs.infrastructureV1alpha3, err = infrastructurev1alpha3.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
-	cs.infrastructureV1alpha3, err = infrastructurev1alpha3.NewForConfig(&configShallowCopy)
+	cs.infrastructureV1alpha2, err = infrastructurev1alpha2.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -181,8 +181,8 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 	cs.applicationV1alpha1 = applicationv1alpha1.NewForConfigOrDie(c)
 	cs.backupV1alpha1 = backupv1alpha1.NewForConfigOrDie(c)
 	cs.coreV1alpha1 = corev1alpha1.NewForConfigOrDie(c)
-	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
 	cs.infrastructureV1alpha3 = infrastructurev1alpha3.NewForConfigOrDie(c)
+	cs.infrastructureV1alpha2 = infrastructurev1alpha2.NewForConfigOrDie(c)
 	cs.monitoringV1alpha1 = monitoringv1alpha1.NewForConfigOrDie(c)
 	cs.providerV1alpha1 = providerv1alpha1.NewForConfigOrDie(c)
 	cs.releaseV1alpha1 = releasev1alpha1.NewForConfigOrDie(c)
@@ -198,8 +198,8 @@ func New(c rest.Interface) *Clientset {
 	cs.applicationV1alpha1 = applicationv1alpha1.New(c)
 	cs.backupV1alpha1 = backupv1alpha1.New(c)
 	cs.coreV1alpha1 = corev1alpha1.New(c)
-	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
 	cs.infrastructureV1alpha3 = infrastructurev1alpha3.New(c)
+	cs.infrastructureV1alpha2 = infrastructurev1alpha2.New(c)
 	cs.monitoringV1alpha1 = monitoringv1alpha1.New(c)
 	cs.providerV1alpha1 = providerv1alpha1.New(c)
 	cs.releaseV1alpha1 = releasev1alpha1.New(c)
