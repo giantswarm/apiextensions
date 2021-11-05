@@ -292,12 +292,12 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - description: Desired Version of the app
+    - description: Desired version of the app
       jsonPath: .spec.version
       name: Desired Version
       priority: 1
       type: string
-    - description: Installed Version of the app
+    - description: Installed version of the app
       jsonPath: .status.version
       name: Installed Version
       type: string
