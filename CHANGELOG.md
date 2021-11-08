@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.36.0] - 2021-11-08
+
 ### Removed
 
 - Remove Ignition, AzureTool, and MemcachedConfig APIs and tooling and example groups.
@@ -909,7 +911,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.35.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.36.0...HEAD
+[3.36.0]: https://github.com/giantswarm/apiextensions/compare/v3.35.0...v3.36.0
 [3.35.0]: https://github.com/giantswarm/apiextensions/compare/v3.34.0...v3.35.0
 [3.34.0]: https://github.com/giantswarm/apiextensions/compare/v3.33.0...v3.34.0
 [3.33.0]: https://github.com/giantswarm/apiextensions/compare/v3.32.0...v3.33.0
