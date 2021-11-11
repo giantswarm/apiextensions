@@ -1839,7 +1839,7 @@ spec:
                 type: string
               state:
                 description: 'State indicates the availability of the release: deprecated, active, or wip.'
-                pattern: ^(active|deprecated|wip)$
+                pattern: ^(active|deprecated|wip|preview)$
                 type: string
             required:
             - apps

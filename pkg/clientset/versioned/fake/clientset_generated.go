@@ -108,14 +108,14 @@ func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
 }
 
-// InfrastructureV1alpha3 retrieves the InfrastructureV1alpha3Client
-func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface {
-	return &fakeinfrastructurev1alpha3.FakeInfrastructureV1alpha3{Fake: &c.Fake}
-}
-
 // InfrastructureV1alpha2 retrieves the InfrastructureV1alpha2Client
 func (c *Clientset) InfrastructureV1alpha2() infrastructurev1alpha2.InfrastructureV1alpha2Interface {
 	return &fakeinfrastructurev1alpha2.FakeInfrastructureV1alpha2{Fake: &c.Fake}
+}
+
+// InfrastructureV1alpha3 retrieves the InfrastructureV1alpha3Client
+func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.InfrastructureV1alpha3Interface {
+	return &fakeinfrastructurev1alpha3.FakeInfrastructureV1alpha3{Fake: &c.Fake}
 }
 
 // MonitoringV1alpha1 retrieves the MonitoringV1alpha1Client
