@@ -294,10 +294,19 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - description: Version of the app
+    - description: Desired version of the app
       jsonPath: .spec.version
-      name: Version
+      name: Desired Version
+      priority: 1
       type: string
+    - description: Installed version of the app
+      jsonPath: .status.version
+      name: Installed Version
+      type: string
+    - description: Time of app creation
+      jsonPath: .metadata.creationTimestamp
+      name: Created At
+      type: date
     - description: Time since last deployment
       jsonPath: .status.release.lastDeployed
       name: Last Deployed
@@ -1832,7 +1841,7 @@ spec:
                 type: string
               state:
                 description: 'State indicates the availability of the release: deprecated, active, or wip.'
-                pattern: ^(active|deprecated|wip)$
+                pattern: ^(active|deprecated|wip|preview)$
                 type: string
             required:
             - apps

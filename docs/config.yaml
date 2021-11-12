@@ -312,6 +312,38 @@ crds:
       - aws
     topics:
       - workloadcluster
+  openstackclusters.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - openstack
+    topics:
+      - workloadcluster
+  openstackclustertemplates.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - openstack
+    topics:
+      - workloadcluster
+  openstackmachines.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - openstack
+    topics:
+      - workloadcluster
+  openstackmachinetemplates.infrastructure.cluster.x-k8s.io:
+    hidden: true
+    owner:
+      - https://github.com/orgs/giantswarm/teams/team-rocket
+    provider:
+      - openstack
+    topics:
+      - workloadcluster
   organizations.security.giantswarm.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-rainbow

@@ -32,7 +32,7 @@ func main() {
 		RemoteRepositories: remoteRepositories,
 	}
 
-	for _, provider := range []string{"common", "aws", "azure", "kvm", "vsphere"} {
+	for _, provider := range []string{"common", "aws", "azure", "kvm", "openstack", "vsphere"} {
 		err := renderer.Render(ctx, provider)
 		if err != nil {
 			log.Fatal(err)
