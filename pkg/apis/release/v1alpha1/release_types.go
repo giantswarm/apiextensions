@@ -18,6 +18,7 @@ var (
 	StateActive     ReleaseState = "active"
 	StateDeprecated ReleaseState = "deprecated"
 	StateWIP        ReleaseState = "wip"
+	StatePreview    ReleaseState = "preview"
 )
 
 func (r ReleaseState) String() string {
@@ -86,7 +87,7 @@ type ReleaseSpec struct {
 	EndOfLifeDate *metav1.Time `json:"endOfLifeDate,omitempty"`
 
 	// +kubebuilder:validation:Type=string
-	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip)$`
+	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip|preview)$`
 	// State indicates the availability of the release: deprecated, active, or wip.
 	State ReleaseState `json:"state"`
 }

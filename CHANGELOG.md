@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add a 'preview' release state.
+
 ## [3.36.0] - 2021-11-08
 
 ### Removed
