@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add OpenStack Cluster API provider CRDs.
 
+## [3.37.0] - 2021-11-12
+
+### Added
+
+- Add a 'preview' release state.
+
 ## [3.36.0] - 2021-11-08
 
 ### Removed
@@ -915,7 +921,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.36.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.37.0...HEAD
+[3.37.0]: https://github.com/giantswarm/apiextensions/compare/v3.36.0...v3.37.0
 [3.36.0]: https://github.com/giantswarm/apiextensions/compare/v3.35.0...v3.36.0
 [3.35.0]: https://github.com/giantswarm/apiextensions/compare/v3.34.0...v3.35.0
 [3.34.0]: https://github.com/giantswarm/apiextensions/compare/v3.33.0...v3.34.0

@@ -53,7 +53,7 @@ $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 	&& go build -tags=tools -o $(GOIMPORTS) golang.org/x/tools/cmd/goimports
 
 .PHONY: generate
-generate:
+generate: clean-tools
 	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
