@@ -90,6 +90,10 @@ type ReleaseSpec struct {
 	// +kubebuilder:validation:Pattern=`^(active|deprecated|wip|preview)$`
 	// State indicates the availability of the release: deprecated, active, or wip.
 	State ReleaseState `json:"state"`
+
+	// +kubebuilder:validation:Optional
+	// Notice outlines anything worth being aware of in this release.
+	Notice string `json:"notice,omitempty"`
 }
 
 // +k8s:openapi-gen=true
