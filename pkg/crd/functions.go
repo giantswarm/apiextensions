@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"path/filepath"
 
 	"github.com/giantswarm/microerror"
@@ -14,6 +15,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	apiyaml "k8s.io/apimachinery/pkg/util/yaml"
 	"k8s.io/client-go/kubernetes/scheme"
+	"sigs.k8s.io/yaml"
 )
 
 // decodeCRDs reads a slice of CRDs from multi-document YAML-formatted data provided by the given io.ReadCloser and
@@ -96,4 +98,45 @@ func contains(s []string, str string) bool {
 	}
 
 	return false
+}
+
+func writeCRDs(writer io.Writer, crds []runtime.Object) error {
+	for _, crd := range crds {
+		_, err := writer.Write([]byte("\n---\n"))
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		crdBytes, err := yaml.Marshal(crd)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+
+		_, err = writer.Write(crdBytes)
+		if err != nil {
+			return microerror.Mask(err)
+		}
+	}
+
+	return nil
+}
+
+func writeCRDsToFile(filename string, crds []runtime.Object) error {
+	if len(crds) == 0 {
+		return nil
+	}
+
+	writeBuffer, err := os.OpenFile(filename, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0755)
+	if err != nil {
+		return microerror.Mask(err)
+	}
+
+	defer func() {
+		err = writeBuffer.Close()
+		if err != nil {
+			panic(microerror.JSON(microerror.Mask(err)))
+		}
+	}()
+
+	return writeCRDs(writeBuffer, crds)
 }

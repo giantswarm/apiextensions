@@ -7,6 +7,7 @@ require (
 	github.com/giantswarm/to v0.3.0
 	github.com/google/go-cmp v0.5.6
 	github.com/google/go-github/v39 v39.2.0
+	github.com/stretchr/testify v1.4.0
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
 	k8s.io/api v0.18.19
 	k8s.io/apiextensions-apiserver v0.18.19
@@ -42,6 +43,7 @@ require (
 	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.5.1 // indirect
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.9.1 // indirect

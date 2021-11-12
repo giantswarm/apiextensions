@@ -15,7 +15,8 @@ type Renderer struct {
 
 	Patches map[string]Patch
 
-	UpstreamAssets []ReleaseAssetFileDefinition
+	UpstreamAssets     []ReleaseAssetFileDefinition
+	RemoteRepositories []RemoteRepositoryDefinition
 }
 
 type ReleaseAssetFileDefinition struct {
@@ -24,4 +25,12 @@ type ReleaseAssetFileDefinition struct {
 	Provider string
 	Repo     string
 	Version  string
+}
+
+type RemoteRepositoryDefinition struct {
+	Path      string // path to CRDs in repo, usually "config/crd"
+	Owner     string // repo owner
+	Provider  string // provider the CRD should be added to in helm charts
+	Name      string // name of repo
+	Reference string // tag or branch of repo to list files from
 }
