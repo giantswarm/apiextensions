@@ -54,6 +54,21 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Files:    []string{"cluster-api-components.yaml"},
 		Provider: "kvm",
 	},
+	// openstack
+	{
+		Owner:    "kubernetes-sigs",
+		Repo:     "cluster-api",
+		Version:  "v0.4.4",
+		Files:    []string{"cluster-api-components.yaml"},
+		Provider: "openstack",
+	},
+	{
+		Owner:    "kubernetes-sigs",
+		Repo:     "cluster-api-provider-openstack",
+		Version:  "v0.4.0",
+		Files:    []string{"infrastructure-components.yaml"},
+		Provider: "openstack",
+	},
 	// vsphere
 	{
 		Owner:    "kubernetes-sigs",
