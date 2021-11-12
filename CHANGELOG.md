@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add OpenStack Cluster API provider CRDs.
 - Add support for aggregating CRDs from other repositories.
+- `Notice` property for Release CRDs.
 
 ## [3.37.0] - 2021-11-12
 
