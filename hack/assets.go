@@ -85,3 +85,5 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Provider: "vsphere",
 	},
 }
+
+var remoteRepositories []crd.RemoteRepositoryDefinition
