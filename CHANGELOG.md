@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.39.0] - 2021-11-26
+
 ### Added
 
 - Add AWSCNIPrefixDelegation annotation.
@@ -929,7 +931,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.38.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.39.0...HEAD
+[3.39.0]: https://github.com/giantswarm/apiextensions/compare/v3.38.0...v3.39.0
 [3.38.0]: https://github.com/giantswarm/apiextensions/compare/v3.37.0...v3.38.0
 [3.37.0]: https://github.com/giantswarm/apiextensions/compare/v3.36.0...v3.37.0
 [3.36.0]: https://github.com/giantswarm/apiextensions/compare/v3.35.0...v3.36.0
