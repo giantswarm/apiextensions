@@ -15,6 +15,15 @@ const AWSCNIMinimumIPTarget = "alpha.cni.aws.giantswarm.io/minimum-ip-target"
 // support:
 //   - crd: awsclusters.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
+//     release: Since 16.1.0
+// documentation:
+//   This annotation allows configuration of the ENABLE_PREFIX_DELEGATION parameter for AWS CNI.
+//   See [Enable Prefix Delegation](https://github.com/aws/amazon-vpc-cni-k8s#enable_prefix_delegation-v190)
+const AWSCNIPrefixDelegation = "alpha.cni.aws.giantswarm.io/prefix-delegation"
+
+// support:
+//   - crd: awsclusters.infrastructure.giantswarm.io
+//     apiversion: v1alpha2
 //     release: Since 14.0.0
 // documentation:
 //   This annotation allows configuration of the WARM_IP_TARGET parameter for AWS CNI.
