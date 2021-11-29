@@ -1,0 +1,115 @@
+apiVersion: provider.giantswarm.io/v1alpha1
+kind: AWSConfig
+metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/ui-api/management-api/crd/awsconfigs.provider.giantswarm.io/
+  creationTimestamp: null
+  name: l8zrw
+spec:
+  aws:
+    api:
+      elb:
+        idleTimeoutSeconds: 0
+      hostedZones: ""
+    availabilityZones: 1
+    az: eu-central-1a
+    credentialSecret:
+      name: credential-default
+      namespace: giantswarm
+    etcd:
+      elb:
+        idleTimeoutSeconds: 0
+      hostedZones: ""
+    hostedZones:
+      api:
+        name: gauss.eu-central-1.aws.gigantic.io
+      etcd:
+        name: gauss.eu-central-1.aws.gigantic.io
+      ingress:
+        name: gauss.eu-central-1.aws.gigantic.io
+    ingress:
+      elb:
+        idleTimeoutSeconds: 0
+      hostedZones: ""
+    masters:
+    - dockerVolumeSizeGB: 0
+      imageID: ami-90c152ff
+      instanceType: m4.xlarge
+    region: eu-central-1
+    vpc:
+      cidr: ""
+      peerId: vpc-02030541ba719061c
+      privateSubnetCidr: ""
+      publicSubnetCidr: ""
+      routeTableNames:
+      - gauss_private_0
+      - gauss_private_1
+      - gauss_private_2
+    workers:
+    - dockerVolumeSizeGB: 0
+      imageID: ami-90c152ff
+      instanceType: m4.xlarge
+    - dockerVolumeSizeGB: 0
+      imageID: ami-90c152ff
+      instanceType: m4.xlarge
+    - dockerVolumeSizeGB: 0
+      imageID: ami-90c152ff
+      instanceType: m4.xlarge
+  cluster:
+    calico:
+      cidr: 16
+      mtu: 1430
+      subnet: 10.2.0.0
+    customer:
+      id: acme
+    docker:
+      daemon:
+        cidr: 172.17.0.1/16
+    etcd:
+      altNames: ""
+      domain: etcd.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io
+      port: 2379
+      prefix: giantswarm.io
+    id: l8zrw
+    kubernetes:
+      api:
+        clusterIPRange: 172.31.0.0/16
+        domain: api.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io
+        securePort: 443
+      cloudProvider: aws
+      dns:
+        ip: 172.31.0.10
+      domain: cluster.local
+      ingressController:
+        docker:
+          image: quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11
+        domain: ingress.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io
+        insecurePort: 30010
+        securePort: 30011
+        wildcardDomain: ""
+      kubelet:
+        altNames: kubernetes,kubernetes.default,kubernetes.default.svc,kubernetes.default.svc.cluster.local
+        domain: worker.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io
+        labels: aws-operator.giantswarm.io/version=5.5.1-dev,giantswarm.io/provider=aws
+        port: 10250
+      networkSetup:
+        docker:
+          image: quay.io/giantswarm/k8s-setup-network-environment:1f4ffc52095ac368847ce3428ea99b257003d9b9
+        kubeProxy:
+          conntrackMaxPerCore: 1000
+      ssh:
+        userList:
+        - name: joe
+          publicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCuJvxy3FKGrfJ4XB5exEdKXiqqteXEPFzPtex6dC0lHyigtO7l+NXXbs9Lga2+Ifs0Tza92MRhg/FJ+6za3oULFo7+gDyt86DIkZkMFdnSv9+YxYe+g4zqakSV+bLVf2KP6krUGJb7t4Nb+gGH62AiUx+58Onxn5rvYC0/AXOYhkAiH8PydXTDJDPhSA/qWSWEeCQistpZEDFnaVi0e7uq/k3hWJ+v9Gz0q---SHORTENED---G7iIV0Y6o9w5gIHJxf6+8X70DCuVDx9OLHmjjMyGnd+1c3yTFMUdugtvmeiGW== joe
+    masters:
+    - id: 6t04n
+    scaling:
+      max: 3
+      min: 3
+    version: ""
+    workers:
+    - id: by3fd
+    - id: z4yi6
+    - id: mkpv8
+  versionBundle:
+    version: 5.5.1-dev

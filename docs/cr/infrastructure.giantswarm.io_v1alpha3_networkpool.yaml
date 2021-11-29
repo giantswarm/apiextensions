@@ -1,0 +1,12 @@
+apiVersion: infrastructure.giantswarm.io/v1alpha3
+kind: NetworkPool
+metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/ui-api/management-api/crd/networkpools.infrastructure.giantswarm.io/
+  creationTimestamp: null
+  labels:
+    giantswarm.io/organization: giantswarm
+  name: custom
+  namespace: default
+spec:
+  cidrBlock: 192.168.0.0/16
