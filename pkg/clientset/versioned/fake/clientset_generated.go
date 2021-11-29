@@ -26,24 +26,14 @@ import (
 	"k8s.io/client-go/testing"
 
 	clientset "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned"
-	applicationv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/application/v1alpha1"
-	fakeapplicationv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/application/v1alpha1/fake"
-	backupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1"
-	fakebackupv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/backup/v1alpha1/fake"
 	corev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1"
 	fakecorev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/core/v1alpha1/fake"
 	infrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2"
 	fakeinfrastructurev1alpha2 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha2/fake"
 	infrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha3"
 	fakeinfrastructurev1alpha3 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/infrastructure/v1alpha3/fake"
-	monitoringv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/monitoring/v1alpha1"
-	fakemonitoringv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/monitoring/v1alpha1/fake"
 	providerv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/provider/v1alpha1"
 	fakeproviderv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/provider/v1alpha1/fake"
-	releasev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/release/v1alpha1"
-	fakereleasev1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/release/v1alpha1/fake"
-	securityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/security/v1alpha1"
-	fakesecurityv1alpha1 "github.com/giantswarm/apiextensions/v3/pkg/clientset/versioned/typed/security/v1alpha1/fake"
 )
 
 // NewSimpleClientset returns a clientset that will respond with the provided objects.
@@ -93,16 +83,6 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 
 var _ clientset.Interface = &Clientset{}
 
-// ApplicationV1alpha1 retrieves the ApplicationV1alpha1Client
-func (c *Clientset) ApplicationV1alpha1() applicationv1alpha1.ApplicationV1alpha1Interface {
-	return &fakeapplicationv1alpha1.FakeApplicationV1alpha1{Fake: &c.Fake}
-}
-
-// BackupV1alpha1 retrieves the BackupV1alpha1Client
-func (c *Clientset) BackupV1alpha1() backupv1alpha1.BackupV1alpha1Interface {
-	return &fakebackupv1alpha1.FakeBackupV1alpha1{Fake: &c.Fake}
-}
-
 // CoreV1alpha1 retrieves the CoreV1alpha1Client
 func (c *Clientset) CoreV1alpha1() corev1alpha1.CoreV1alpha1Interface {
 	return &fakecorev1alpha1.FakeCoreV1alpha1{Fake: &c.Fake}
@@ -118,22 +98,7 @@ func (c *Clientset) InfrastructureV1alpha3() infrastructurev1alpha3.Infrastructu
 	return &fakeinfrastructurev1alpha3.FakeInfrastructureV1alpha3{Fake: &c.Fake}
 }
 
-// MonitoringV1alpha1 retrieves the MonitoringV1alpha1Client
-func (c *Clientset) MonitoringV1alpha1() monitoringv1alpha1.MonitoringV1alpha1Interface {
-	return &fakemonitoringv1alpha1.FakeMonitoringV1alpha1{Fake: &c.Fake}
-}
-
 // ProviderV1alpha1 retrieves the ProviderV1alpha1Client
 func (c *Clientset) ProviderV1alpha1() providerv1alpha1.ProviderV1alpha1Interface {
 	return &fakeproviderv1alpha1.FakeProviderV1alpha1{Fake: &c.Fake}
-}
-
-// ReleaseV1alpha1 retrieves the ReleaseV1alpha1Client
-func (c *Clientset) ReleaseV1alpha1() releasev1alpha1.ReleaseV1alpha1Interface {
-	return &fakereleasev1alpha1.FakeReleaseV1alpha1{Fake: &c.Fake}
-}
-
-// SecurityV1alpha1 retrieves the SecurityV1alpha1Client
-func (c *Clientset) SecurityV1alpha1() securityv1alpha1.SecurityV1alpha1Interface {
-	return &fakesecurityv1alpha1.FakeSecurityV1alpha1{Fake: &c.Fake}
 }
