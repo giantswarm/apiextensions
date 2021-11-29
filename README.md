@@ -9,9 +9,6 @@ This library provides generated Kubernetes clients for the Giant Swarm infrastru
 - [`pkg/apis`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc): Contains data structures for
     custom resources in `*.giantswarm.io` API groups. See full documentation
     [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/apis?tab=doc).
-- [`pkg/clientset/versioned`](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc):
-    Contains a clientset, a client for each custom resource, and a fake client for unit testing. See full documentation
-    [here](https://pkg.go.dev/github.com/giantswarm/apiextensions/pkg/clientset/versioned?tab=doc).
 
 ## Contributing
 
@@ -202,7 +199,6 @@ The `Makefile` at the root of the repository ensures that required tools (define
 `hack/tools/bin` and then runs each step of the code generation pipeline sequentially.
 
 The main code generation steps are as follows:
-- `generate-clientset`: Generates the clientset for accessing custom resources in a Kubernetes cluster.
 - `generate-deepcopy`: Generates `zz_generated.deepcopy.go` in each package in `pkg/apis` with deep copy functions.
 - `generate-manifests`: Generates CRDs in `config/crd` from CRs found in `pkg/apis`.
 - `imports`: Sorts imports in all source files under `./pkg`.
@@ -220,10 +216,6 @@ Extra commands are provided including:
 Tools are third-party executables which perform a particular action as part of the code generation pipeline. They are
 defined in `hack/tools` in separate directories. Versions for the tools are defined in the `go.mod` file in their
 respective directories. A common `go.mod` isn't used so that their dependencies don't interfere.
-
-#### [`client-gen`](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-api-machinery/generating-clientset.md)
-
-Generates a "client set" which provides CRUD interfaces for each custom resource.
 
 #### [`controller-gen`](https://book.kubebuilder.io/reference/controller-gen.html)
 
