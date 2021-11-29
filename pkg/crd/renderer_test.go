@@ -12,5 +12,5 @@ func Test_getLocalCRDs(t *testing.T) {
 	}
 	crds, err := renderer.getLocalCRDs("common")
 	require.Nil(t, err, err)
-	require.Len(t, crds, 15)
+	require.Len(t, crds, 5)
 }
