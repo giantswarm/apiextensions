@@ -244,7 +244,7 @@ func (r Renderer) downloadRepositoryCRDs(ctx context.Context, repo RemoteReposit
 	var allCrds []runtime.Object
 	for _, entry := range targetEntries {
 		blob, _, err := r.GithubClient.Git.GetBlob(ctx, repo.Owner, repo.Name, entry.GetSHA())
-		if err != nil {inv
+		if err != nil {
 			return nil, microerror.Mask(err)
 		}
 
