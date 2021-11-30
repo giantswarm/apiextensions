@@ -1,0 +1,9 @@
+apiVersion: security.giantswarm.io/v1alpha1
+kind: Organization
+metadata:
+  annotations:
+    giantswarm.io/docs: https://docs.giantswarm.io/reference/cp-k8s-api/organizations.security.giantswarm.io/
+  creationTimestamp: null
+  name: example-inc
+spec:
+  {}
