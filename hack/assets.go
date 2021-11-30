@@ -99,17 +99,15 @@ var remoteRepositories = []crd.RemoteRepositoryDefinition{
 		Owner:     "giantswarm",
 		Provider:  "common",
 		Name:      "release-operator",
-		Reference: "drop-apiextensions",
+		Reference: "v2.5.0",
 	},
-	/*
-		{
-			Path:      "config/crd",
-			Owner:     "giantswarm",
-			Provider:  "common",
-			Name:      "config-controller",
-			Reference: "v0.5.0",
-		},
-	*/
+	{
+		Path:      "config/crd",
+		Owner:     "giantswarm",
+		Provider:  "common",
+		Name:      "config-controller",
+		Reference: "v0.5.1",
+	},
 	{
 		Path:      "config/crd",
 		Owner:     "giantswarm",

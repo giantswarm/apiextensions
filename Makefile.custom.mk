@@ -1,6 +1,5 @@
 # Directories.
 APIS_DIR := pkg/apis
-CLIENTSET_DIR := pkg/clientset
 CRD_DIR := config/crd
 SCRIPTS_DIR := hack
 TOOLS_DIR := $(SCRIPTS_DIR)/tools
@@ -8,7 +7,6 @@ TOOLS_BIN_DIR := $(abspath $(TOOLS_DIR)/bin)
 
 # Binaries.
 # Need to use abspath so we can invoke these from subdirectories
-CLIENT_GEN := $(abspath $(TOOLS_BIN_DIR)/client-gen)
 CONTROLLER_GEN := $(abspath $(TOOLS_BIN_DIR)/controller-gen)
 GOIMPORTS := $(abspath $(TOOLS_BIN_DIR)/goimports)
 
@@ -18,9 +16,9 @@ NO_COLOR = ""
 
 ifneq (, $(shell command -v tput))
 ifeq ($(shell test `tput colors` -ge 8 && echo "yes"), yes)
-BUILD_COLOR = \033[0;34m
-GEN_COLOR = \033[0;32m
-NO_COLOR = \033[0m
+BUILD_COLOR=$(shell echo -e "\033[0;34m")
+GEN_COLOR=$(shell echo -e "\033[0;32m")
+NO_COLOR=$(shell echo -e "\033[0m")
 endif
 endif
 
@@ -30,17 +28,10 @@ BOILERPLATE = $(SCRIPTS_DIR)/boilerplate.go.txt
 PATCH_FILE = $(SCRIPTS_DIR)/generated.patch
 YEAR = $(shell date +'%Y')
 
-INPUT_DIRS := $(shell find ./$(APIS_DIR) -maxdepth 2 -mindepth 2 | sort | paste -s -d, -)
-GROUPS := $(shell find $(APIS_DIR) -maxdepth 2 -mindepth 2  | sed 's|pkg/apis/||' | sort | paste -s -d, -)
 DEEPCOPY_FILES := $(shell find $(APIS_DIR) -name $(DEEPCOPY_BASE).go)
-CHART_GENERATED_FILES := $(shell find helm -name '*.yaml' -depth 3)
+CHART_GENERATED_FILES := $(shell find helm -maxdepth 3 -mindepth 3 -name '*.yaml')
 
 all: generate
-
-$(CLIENT_GEN): $(TOOLS_DIR)/client-gen/go.mod
-	@echo "$(BUILD_COLOR)Building client-gen$(NO_COLOR)"
-	cd $(TOOLS_DIR)/client-gen \
-	&& go build -tags=tools -o $(CLIENT_GEN) k8s.io/code-generator/cmd/client-gen
 
 $(CONTROLLER_GEN): $(TOOLS_DIR)/controller-gen/go.mod
 	@echo "$(BUILD_COLOR)Building controller-gen$(NO_COLOR)"
@@ -54,7 +45,6 @@ $(GOIMPORTS): $(TOOLS_DIR)/goimports/go.mod
 
 .PHONY: generate
 generate: clean-tools
-	@$(MAKE) generate-clientset
 	@$(MAKE) generate-deepcopy
 	@$(MAKE) generate-manifests
 	@$(MAKE) local-imports
@@ -64,19 +54,6 @@ verify:
 	@$(MAKE) clean-generated
 	@$(MAKE) generate
 	git diff --exit-code
-
-.PHONY: generate-clientset
-generate-clientset: $(CLIENT_GEN)
-	@echo "$(GEN_COLOR)Generating clientset$(NO_COLOR)"
-	$(CLIENT_GEN) \
-	--clientset-name versioned \
-	--input $(GROUPS) \
-	--input-base $(MODULE)/$(APIS_DIR) \
-	--output-package $(MODULE)/$(CLIENTSET_DIR) \
-	--output-base $(SCRIPTS_DIR) \
-	--go-header-file $(BOILERPLATE)
-	cp -R $(SCRIPTS_DIR)/$(MODULE)/$(CLIENTSET_DIR)/versioned $(CLIENTSET_DIR)
-	rm -rf $(SCRIPTS_DIR)/github.com/
 
 .PHONY: generate-deepcopy
 generate-deepcopy: $(CONTROLLER_GEN)
@@ -104,7 +81,7 @@ patch:
 .PHONY: clean-generated
 clean-generated:
 	@echo "$(GEN_COLOR)Cleaning generated files$(NO_COLOR)"
-	rm -rf $(CRD_DIR) $(CLIENTSET_DIR)/versioned $(DEEPCOPY_FILES) $(CHART_GENERATED_FILES)
+	rm -rf $(CRD_DIR) $(DEEPCOPY_FILES) $(CHART_GENERATED_FILES)
 
 .PHONY: clean-tools
 clean-tools:

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Remove generated typed clients.
+
+### Fixed
+
+- Fix color output during makefile execution.
+
 ## [3.39.0] - 2021-11-26
 
 ### Added
