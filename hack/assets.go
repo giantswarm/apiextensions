@@ -18,8 +18,6 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Repo:    "cluster-api-provider-aws",
 		Version: "v1.2.0-gsalpha.1",
 		Files: []string{
-			"eks-bootstrap-components.yaml",
-			"eks-controlplane-components.yaml",
 			"infrastructure-components.yaml",
 		},
 		Provider: "aws",
