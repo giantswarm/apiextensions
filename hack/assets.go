@@ -6,24 +6,24 @@ import (
 
 var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	// aws
-	// {
-	// 	Owner:    "kubernetes-sigs",
-	// 	Repo:     "cluster-api",
-	// 	Version:  "v0.3.22",
-	// 	Files:    []string{"cluster-api-components.yaml"},
-	// 	Provider: "aws",
-	// },
-	// {
-	// 	Owner:   "kubernetes-sigs",
-	// 	Repo:    "cluster-api-provider-aws",
-	// 	Version: "v0.6.5",
-	// 	Files: []string{
-	// 		"eks-bootstrap-components.yaml",
-	// 		"eks-controlplane-components.yaml",
-	// 		"infrastructure-components.yaml",
-	// 	},
-	// 	Provider: "aws",
-	// },
+	{
+		Owner:    "giantswarm",
+		Repo:     "cluster-api",
+		Version:  "v1.1.0-gsalpha.1",
+		Files:    []string{"cluster-api-components.yaml"},
+		Provider: "aws",
+	},
+	{
+		Owner:   "giantswarm",
+		Repo:    "cluster-api-provider-aws",
+		Version: "v1.2.0-gsalpha.1",
+		Files: []string{
+			"eks-bootstrap-components.yaml",
+			"eks-controlplane-components.yaml",
+			"infrastructure-components.yaml",
+		},
+		Provider: "aws",
+	},
 	// azure
 	{
 		Owner:    "kubernetes-sigs",
@@ -86,19 +86,4 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	},
 }
 
-var remoteRepositories []crd.RemoteRepositoryDefinition = []crd.RemoteRepositoryDefinition{
-	{
-		Owner:     "giantswarm",
-		Name:      "cluster-api",
-		Provider:  "aws",
-		Path:      "config/crd",
-		Reference: "v1.1.0-gsalpha.1",
-	},
-	{
-		Owner:     "giantswarm",
-		Name:      "cluster-api-provider-aws",
-		Provider:  "aws",
-		Path:      "config/crd",
-		Reference: "v1.2.0-gsalpha.1",
-	},
-}
+var remoteRepositories []crd.RemoteRepositoryDefinition
