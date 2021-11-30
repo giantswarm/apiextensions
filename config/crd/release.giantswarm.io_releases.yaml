@@ -98,6 +98,12 @@ spec:
                       description: Catalog specifies the name of the app catalog that
                         this component belongs to.
                       type: string
+                    configReference:
+                      default: main
+                      description: ConfigReference specifies revision of giantswarm/config
+                        to be used for configuration generation. Accepts major version
+                        specification (v1) or branch names.
+                      type: string
                     name:
                       description: Name of the component.
                       type: string

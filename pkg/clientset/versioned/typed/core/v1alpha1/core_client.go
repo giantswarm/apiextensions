@@ -31,7 +31,6 @@ type CoreV1alpha1Interface interface {
 	AzureClusterConfigsGetter
 	CertConfigsGetter
 	ChartConfigsGetter
-	ConfigsGetter
 	DrainerConfigsGetter
 	FlannelConfigsGetter
 	KVMClusterConfigsGetter
@@ -58,10 +57,6 @@ func (c *CoreV1alpha1Client) CertConfigs(namespace string) CertConfigInterface {
 
 func (c *CoreV1alpha1Client) ChartConfigs(namespace string) ChartConfigInterface {
 	return newChartConfigs(c, namespace)
-}
-
-func (c *CoreV1alpha1Client) Configs(namespace string) ConfigInterface {
-	return newConfigs(c, namespace)
 }
 
 func (c *CoreV1alpha1Client) DrainerConfigs(namespace string) DrainerConfigInterface {

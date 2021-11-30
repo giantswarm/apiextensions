@@ -26,8 +26,6 @@ type CertConfigExpansion interface{}
 
 type ChartConfigExpansion interface{}
 
-type ConfigExpansion interface{}
-
 type DrainerConfigExpansion interface{}
 
 type FlannelConfigExpansion interface{}

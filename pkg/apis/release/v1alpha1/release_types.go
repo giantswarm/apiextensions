@@ -101,6 +101,12 @@ type ReleaseSpecComponent struct {
 	// +kubebuilder:default=control-plane-catalog
 	// Catalog specifies the name of the app catalog that this component belongs to.
 	Catalog string `json:"catalog,omitempty"`
+	// +kubebuilder:default=main
+	// +kubebuilder:validation:Optional
+	// ConfigReference specifies revision of giantswarm/config to be used for
+	// configuration generation. Accepts major version specification (v1) or
+	// branch names.
+	ConfigReference string `json:"configReference,omitempty"`
 	// Name of the component.
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
