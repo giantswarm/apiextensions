@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fix color output during makefile execution.
 
+### Changed
+
+- Update CAPI and CAPA versions that are used for CRD generation for AWS MCs (use our CAPI and CAPA forks).
+
 ## [3.39.0] - 2021-11-26
 
 ### Added
