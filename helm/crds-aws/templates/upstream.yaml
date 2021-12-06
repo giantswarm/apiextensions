@@ -672,7 +672,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -685,9 +685,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-webhook-service
-          namespace: capi-system
+          name: cluster-api-core
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -918,7 +919,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -931,9 +932,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-webhook-service
-          namespace: capi-system
+          name: cluster-api-core
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -4143,7 +4145,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-system/capi-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -4156,9 +4158,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-webhook-service
-          namespace: capi-system
+          name: cluster-api-core
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -7181,7 +7184,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-kubeadm-bootstrap-system/capi-kubeadm-bootstrap-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -7197,9 +7200,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-bootstrap-webhook-service
-          namespace: capi-kubeadm-bootstrap-system
+          name: cluster-api-bootstrap
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -9886,7 +9890,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-kubeadm-bootstrap-system/capi-kubeadm-bootstrap-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -9902,9 +9906,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-bootstrap-webhook-service
-          namespace: capi-kubeadm-bootstrap-system
+          name: cluster-api-bootstrap
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -12452,7 +12457,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-kubeadm-control-plane-system/capi-kubeadm-control-plane-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -12468,9 +12473,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-control-plane-webhook-service
-          namespace: capi-kubeadm-control-plane-system
+          name: cluster-api-controlplane
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -14989,7 +14995,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capi-kubeadm-control-plane-system/capi-kubeadm-control-plane-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-core-cert
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -15005,9 +15011,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capi-kubeadm-control-plane-webhook-service
-          namespace: capi-kubeadm-control-plane-system
+          name: cluster-api-controlplane
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -19540,7 +19547,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: capa-system/capa-serving-cert
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-webhook
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -19556,9 +19563,10 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: capa-webhook-service
-          namespace: capa-system
+          name: cluster-api-provider-aws-webhook
+          namespace: giantswarm
           path: /convert
+          port: 9443
       conversionReviewVersions:
       - v1
       - v1beta1
@@ -23723,7 +23731,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-eks-control-plane-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-webhook
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -23739,7 +23747,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-provider-aws-eks-control-plane-webhook
+          name: cluster-api-provider-aws-webhook
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -26872,7 +26880,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-eks-bootstrap-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-webhook
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -26888,7 +26896,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-provider-aws-eks-bootstrap-webhook
+          name: cluster-api-provider-aws-webhook
           namespace: giantswarm
           path: /convert
           port: 9443
@@ -27175,7 +27183,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-eks-bootstrap-webhook
+    cert-manager.io/inject-ca-from: giantswarm/cluster-api-provider-aws-webhook
     controller-gen.kubebuilder.io/version: v0.7.1-0.20211110210727-ab52f76cc7d1
   creationTimestamp: null
   labels:
@@ -27191,7 +27199,7 @@ spec:
       clientConfig:
         caBundle: Cg==
         service:
-          name: cluster-api-provider-aws-eks-bootstrap-webhook
+          name: cluster-api-provider-aws-webhook
           namespace: giantswarm
           path: /convert
           port: 9443

@@ -33,10 +33,10 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
-	var isV1alpha4 bool
+	var hasV1alpha4 bool
 	for _, v := range crd.Spec.Versions {
 		if v.Name == "v1alpha4" {
-			isV1alpha4 = true
+			hasV1alpha4 = true
 			break
 		}
 	}
@@ -44,7 +44,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 	// The name of the certificate and conversion webhook service changed between v1alpha3 and v1alpha4 (the app also
 	// changed from cluster-api-bootstrap-provider-kubeadm-app to cluster-api-app) so we check which versions are present and apply the correct
 	// patch.
-	if isV1alpha4 {
+	if hasV1alpha4 {
 		patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd)
 	} else {
 		patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd)
@@ -79,7 +79,28 @@ func patchCAPIKubeadmBootstrapWebhookV1Alpha3(crd *v1.CustomResourceDefinition) 
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
-	// placeholder
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-bootstrap",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
 }
 
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
@@ -129,7 +150,28 @@ func patchCAPIControlPlaneWebhookV1Alpha3(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-core-app/tree/main/helm/cluster-api-core/templates
 func patchCAPIControlPlaneWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
-	// placeholder
+	port := int32(9443)
+	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+	}
+	crd.Spec.Conversion = &v1.CustomResourceConversion{
+		Strategy: v1.WebhookConverter,
+		Webhook: &v1.WebhookConversion{
+			ClientConfig: &v1.WebhookClientConfig{
+				Service: &v1.ServiceReference{
+					Namespace: "giantswarm",
+					Name:      "cluster-api-controlplane",
+					Path:      to.StringP("/convert"),
+					Port:      &port,
+				},
+				CABundle: []byte("\n"),
+			},
+			ConversionReviewVersions: []string{
+				"v1",
+				"v1beta1",
+			},
+		},
+	}
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates
@@ -259,29 +301,34 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 
 var patches = map[string]crd.Patch{
 	// capi
-	"clusterclasses.cluster.x-k8s.io":                    patchCAPICoreWebhook,
-	"clusters.cluster.x-k8s.io":                          patchCAPICoreWebhook,
-	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
-	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
-	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIKubeadmBootstrapWebhook,
-	"machinedeployments.cluster.x-k8s.io":                patchCAPICoreWebhook,
-	"machinehealthchecks.cluster.x-k8s.io":               patchCAPICoreWebhook,
-	"machines.cluster.x-k8s.io":                          patchCAPICoreWebhook,
-	"machinesets.cluster.x-k8s.io":                       patchCAPICoreWebhook,
+	"clusterclasses.cluster.x-k8s.io":                            patchCAPICoreWebhook,
+	"clusters.cluster.x-k8s.io":                                  patchCAPICoreWebhook,
+	"clusterresourcesetbindings.addons.cluster.x-k8s.io":         patchCAPICoreWebhook,
+	"clusterresourcesets.addons.cluster.x-k8s.io":                patchCAPICoreWebhook,
+	"kubeadmcontrolplanes.controlplane.cluster.x-k8s.io":         patchCAPIControlPlaneWebhook,
+	"kubeadmcontrolplanetemplates.controlplane.cluster.x-k8s.io": patchCAPIControlPlaneWebhook,
+	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":                  patchCAPIKubeadmBootstrapWebhook,
+	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
+	"machinedeployments.cluster.x-k8s.io":                        patchCAPICoreWebhook,
+	"machinehealthchecks.cluster.x-k8s.io":                       patchCAPICoreWebhook,
+	"machinepools.cluster.x-k8s.io":                              patchCAPICoreWebhook,
+	"machines.cluster.x-k8s.io":                                  patchCAPICoreWebhook,
+	"machinesets.cluster.x-k8s.io":                               patchCAPICoreWebhook,
 	// capa
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,
 	"awsclusters.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
 	"awsclusterstaticidentities.infrastructure.cluster.x-k8s.io":     patchCAPAWebhook,
+	"awsclustertemplates.infrastructure.cluster.x-k8s.io":            patchCAPAWebhook,
 	"awsfargateprofiles.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
 	"awsmachinepools.infrastructure.cluster.x-k8s.io":                patchCAPAWebhook,
 	"awsmachines.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
 	"awsmachinetemplates.infrastructure.cluster.x-k8s.io":            patchCAPAWebhook,
 	"awsmanagedclusters.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
-	"awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io":          patchEKSControlPlaneWebhook,
+	"awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io":          patchCAPAWebhook,
 	"awsmanagedmachinepools.infrastructure.cluster.x-k8s.io":         patchCAPAWebhook,
-	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchEKSConfigWebhook,
-	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchEKSConfigWebhook,
+	"eksconfigs.bootstrap.cluster.x-k8s.io":                          patchCAPAWebhook,
+	"eksconfigtemplates.bootstrap.cluster.x-k8s.io":                  patchCAPAWebhook,
 	// capz
 	"azureclusteridentities.infrastructure.cluster.x-k8s.io":   patchCAPZWebhook,
 	"azureclusters.infrastructure.cluster.x-k8s.io":            patchCAPZWebhook,
