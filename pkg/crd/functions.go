@@ -140,7 +140,7 @@ func writeCRDsToDirectory(outputDirectory string, crds []v1.CustomResourceDefini
 
 	for _, crd := range crds {
 		filename := filepath.Join(outputDirectory, fmt.Sprintf("%s_%s.yaml", crd.Spec.Group, crd.Spec.Names.Plural))
-		if err := writeObjectsToFile(filename, []runtime.Object{&crd}); err != nil {
+		if err := writeObjectsToFile(filename, []runtime.Object{crd.DeepCopy()}); err != nil {
 			return microerror.Mask(err)
 		}
 	}
