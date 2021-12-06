@@ -63,7 +63,7 @@ status:
 
 func Test_writeCRDs(t *testing.T) {
 	var writer strings.Builder
-	err := writeCRDs(&writer, testCRDs)
+	err := writeObjects(&writer, testCRDs)
 	require.Nil(t, err, err)
 	require.Equal(t, writer.String(), testCRDsYAML)
 }
