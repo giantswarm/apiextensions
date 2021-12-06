@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Remove generated typed clients.
+- Move Release API into release-operator.
+- Move Config API into config-controller.
+- Move Silence API into silence-operator.
+- Move application.giantswarm.io API group into apiextensions-application.
 
 ### Fixed
 
