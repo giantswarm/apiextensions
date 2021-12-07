@@ -8,6 +8,11 @@ import (
 )
 
 func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
+	if len(crd.Spec.Versions) < 2 {
+		// If we don't have at least 2 versions, there is no need to have a conversion webhook.
+		return
+	}
+
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
@@ -33,6 +38,11 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
+	if len(crd.Spec.Versions) < 2 {
+		// If we don't have at least 2 versions, there is no need to have a conversion webhook.
+		return
+	}
+
 	var hasV1alpha4 bool
 	for _, v := range crd.Spec.Versions {
 		if v.Name == "v1alpha4" {
@@ -104,6 +114,11 @@ func patchCAPIKubeadmBootstrapWebhookV1Alpha4(crd *v1.CustomResourceDefinition) 
 }
 
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+	if len(crd.Spec.Versions) < 2 {
+		// If we don't have at least 2 versions, there is no need to have a conversion webhook.
+		return
+	}
+
 	var isV1alpha4 bool
 	for _, v := range crd.Spec.Versions {
 		if v.Name == "v1alpha4" {
@@ -176,6 +191,11 @@ func patchCAPIControlPlaneWebhookV1Alpha4(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates
 func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
+	if len(crd.Spec.Versions) < 2 {
+		// If we don't have at least 2 versions, there is no need to have a conversion webhook.
+		return
+	}
+
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-webhook"
@@ -202,6 +222,11 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-vsphere-app/tree/master/helm/cluster-api-provider-vsphere/templates
 func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
+	if len(crd.Spec.Versions) < 2 {
+		// If we don't have at least 2 versions, there is no need to have a conversion webhook.
+		return
+	}
+
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-vsphere-webhook"
@@ -230,58 +255,6 @@ func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 	delete(crd.Annotations, "cert-manager.io/inject-ca-from")
 	crd.Spec.Conversion = nil
-}
-
-// Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/control-plane
-func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
-	port := int32(9443)
-	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-control-plane-webhook"
-	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-aws-eks-control-plane-webhook",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
-				},
-				CABundle: []byte("\n"),
-			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
-	}
-}
-
-// Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/bootstrap
-func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
-	port := int32(9443)
-	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-bootstrap-webhook"
-	}
-	crd.Spec.Conversion = &v1.CustomResourceConversion{
-		Strategy: v1.WebhookConverter,
-		Webhook: &v1.WebhookConversion{
-			ClientConfig: &v1.WebhookClientConfig{
-				Service: &v1.ServiceReference{
-					Namespace: "giantswarm",
-					Name:      "cluster-api-provider-aws-eks-bootstrap-webhook",
-					Path:      to.StringP("/convert"),
-					Port:      &port,
-				},
-				CABundle: []byte("\n"),
-			},
-			ConversionReviewVersions: []string{
-				"v1",
-				"v1beta1",
-			},
-		},
-	}
 }
 
 // Kubebuilder comments can't add validation to metadata properties, so we manually specify the validation for release names here.
