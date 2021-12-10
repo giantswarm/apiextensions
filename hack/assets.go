@@ -14,9 +14,9 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Provider: "aws",
 	},
 	{
-		Owner:   "giantswarm",
+		Owner:   "kubernetes-sigs",
 		Repo:    "cluster-api-provider-aws",
-		Version: "v1.2.0-gsalpha.1",
+		Version: "v1.1.0",
 		Files: []string{
 			"infrastructure-components.yaml",
 		},
