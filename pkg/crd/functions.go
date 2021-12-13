@@ -20,7 +20,7 @@ import (
 
 // decodeCRDs reads a slice of CRDs from multi-document YAML-formatted data provided by the given io.ReadCloser and
 // closes it when complete or an error occurs.
-func decodeCRDs(readCloser io.ReadCloser) ([]runtime.Object, error) {
+func decodeCRDs(readCloser io.ReadCloser) ([]v1.CustomResourceDefinition, error) {
 	reader := apiyaml.NewYAMLReader(bufio.NewReader(readCloser))
 	decoder := scheme.Codecs.UniversalDecoder()
 
@@ -31,7 +31,7 @@ func decodeCRDs(readCloser io.ReadCloser) ([]runtime.Object, error) {
 		}
 	}(readCloser)
 
-	var crds []runtime.Object
+	var crds []v1.CustomResourceDefinition
 
 	for {
 		doc, err := reader.Read()
@@ -60,15 +60,11 @@ func decodeCRDs(readCloser io.ReadCloser) ([]runtime.Object, error) {
 				return nil, microerror.Mask(err)
 			}
 
-			crds = append(crds, &crd)
+			crds = append(crds, crd)
 		}
 	}
 
 	return crds, nil
-}
-
-func helmChartTemplateFile(helmDirectory, provider, templateFilename string) string {
-	return filepath.Join(helmChartDirectory(helmDirectory, provider), "templates", templateFilename)
 }
 
 func helmChartDirectory(helmDirectory, provider string) string {
@@ -78,7 +74,7 @@ func helmChartDirectory(helmDirectory, provider string) string {
 
 // patchCRD applies a patch function to a deep copy of the given CRD if defined in the given patch map. If no patch is
 // defined, the CRD will be returned unchanged.
-func patchCRD(patches map[string]Patch, crd *v1.CustomResourceDefinition) (*v1.CustomResourceDefinition, error) {
+func patchCRD(patches map[string]Patch, crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {
 	patch, ok := patches[crd.Name]
 	if !ok {
 		return crd, nil
@@ -87,7 +83,7 @@ func patchCRD(patches map[string]Patch, crd *v1.CustomResourceDefinition) (*v1.C
 	crdCopy := crd.DeepCopy()
 	patch(crdCopy)
 
-	return crdCopy, nil
+	return *crdCopy, nil
 }
 
 func contains(s []string, str string) bool {
@@ -100,14 +96,14 @@ func contains(s []string, str string) bool {
 	return false
 }
 
-func writeCRDs(writer io.Writer, crds []runtime.Object) error {
-	for _, crd := range crds {
+func writeObjects(writer io.Writer, objects []runtime.Object) error {
+	for _, object := range objects {
 		_, err := writer.Write([]byte("\n---\n"))
 		if err != nil {
 			return microerror.Mask(err)
 		}
 
-		crdBytes, err := yaml.Marshal(crd)
+		crdBytes, err := yaml.Marshal(object)
 		if err != nil {
 			return microerror.Mask(err)
 		}
@@ -121,11 +117,7 @@ func writeCRDs(writer io.Writer, crds []runtime.Object) error {
 	return nil
 }
 
-func writeCRDsToFile(filename string, crds []runtime.Object) error {
-	if len(crds) == 0 {
-		return nil
-	}
-
+func writeObjectsToFile(filename string, objects []runtime.Object) error {
 	writeBuffer, err := os.OpenFile(filename, os.O_WRONLY|os.O_TRUNC|os.O_CREATE, 0755)
 	if err != nil {
 		return microerror.Mask(err)
@@ -138,5 +130,20 @@ func writeCRDsToFile(filename string, crds []runtime.Object) error {
 		}
 	}()
 
-	return writeCRDs(writeBuffer, crds)
+	return writeObjects(writeBuffer, objects)
+}
+
+func writeCRDsToDirectory(outputDirectory string, crds []v1.CustomResourceDefinition) error {
+	if len(crds) == 0 {
+		return nil
+	}
+
+	for _, crd := range crds {
+		filename := filepath.Join(outputDirectory, fmt.Sprintf("%s_%s.yaml", crd.Spec.Group, crd.Spec.Names.Plural))
+		if err := writeObjectsToFile(filename, []runtime.Object{crd.DeepCopy()}); err != nil {
+			return microerror.Mask(err)
+		}
+	}
+
+	return nil
 }

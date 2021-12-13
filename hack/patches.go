@@ -257,6 +257,18 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 	}
 }
 
+// Upstream CRD contains a string which gitleaks detects as a leak. Applies the normal patchCAPAWebhook patch and then
+// edits the description to avoid the false positive.
+func patchAWSClusterStaticIdentities(crd *v1.CustomResourceDefinition) {
+	patchCAPAWebhook(crd)
+	version := crd.Spec.Versions[0]
+	schema := version.Schema.OpenAPIV3Schema
+	secretRef := schema.Properties["spec"].Properties["secretRef"]
+	secretRef.Description = "Reference to a secret containing the credentials. The secret should contain the following data keys:  AccessKeyID: <access key id>  SecretAccessKey: <secret access key>  SessionToken: Optional"
+	schema.Properties["spec"].Properties["secretRef"] = secretRef
+	crd.Spec.Versions[0] = version
+}
+
 var patches = map[string]crd.Patch{
 	// capi
 	"clusterclasses.cluster.x-k8s.io":                    patchCAPICoreWebhook,
@@ -272,7 +284,7 @@ var patches = map[string]crd.Patch{
 	"awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io": patchCAPAWebhook,
 	"awsclusterroleidentities.infrastructure.cluster.x-k8s.io":       patchCAPAWebhook,
 	"awsclusters.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,
-	"awsclusterstaticidentities.infrastructure.cluster.x-k8s.io":     patchCAPAWebhook,
+	"awsclusterstaticidentities.infrastructure.cluster.x-k8s.io":     patchAWSClusterStaticIdentities,
 	"awsfargateprofiles.infrastructure.cluster.x-k8s.io":             patchCAPAWebhook,
 	"awsmachinepools.infrastructure.cluster.x-k8s.io":                patchCAPAWebhook,
 	"awsmachines.infrastructure.cluster.x-k8s.io":                    patchCAPAWebhook,

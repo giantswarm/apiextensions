@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/giantswarm/microerror"
 	"github.com/google/go-github/v39/github"
 	"golang.org/x/oauth2"
 
@@ -35,7 +36,7 @@ func main() {
 	for _, provider := range []string{"common", "aws", "azure", "kvm", "openstack", "vsphere"} {
 		err := renderer.Render(ctx, provider)
 		if err != nil {
-			log.Fatal(err)
+			log.Fatal(microerror.JSON(err))
 		}
 	}
 }
