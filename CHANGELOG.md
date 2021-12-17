@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade k8s.io/api v0.18.19 to v0.20.12
+- Upgrade k8s.io/apiextensions-apiserver v0.18.19 to v0.20.12
+- Upgrade k8s.io/apimachinery v0.18.19 to v0.20.12
+- Upgrade k8s.io/client-go v0.18.19 to v0.20.12
+
 ### Removed
 
 - Remove generated typed clients.
