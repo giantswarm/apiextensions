@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgrade k8s.io/apiextensions-apiserver v0.18.19 to v0.20.12
 - Upgrade k8s.io/apimachinery v0.18.19 to v0.20.12
 - Upgrade k8s.io/client-go v0.18.19 to v0.20.12
+- Upgrade sigs.k8s.io/controller-runtime v0.6.3 to v0.8.3
 
 ### Removed
 
