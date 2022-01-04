@@ -5,12 +5,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capo-system/capo-serving-cert
-    controller-gen.kubebuilder.io/version: v0.5.0
+    controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: infrastructure-openstack
     cluster.x-k8s.io/v1alpha3: v1alpha3
     cluster.x-k8s.io/v1alpha4: v1alpha4
+    cluster.x-k8s.io/v1beta1: v1alpha4
   name: openstackmachinetemplates.infrastructure.cluster.x-k8s.io
 spec:
   conversion:
@@ -393,7 +394,7 @@ spec:
                               items:
                                 properties:
                                   filter:
-                                    description: Filters for optional network query
+                                    description: Filters for optional subnet query
                                     properties:
                                       cidr:
                                         type: string
@@ -439,12 +440,12 @@ spec:
                                         type: string
                                     type: object
                                   uuid:
-                                    description: The UUID of the network. Required if you omit the port attribute.
+                                    description: Optional UUID of the subnet. If specified this will not be validated prior to server creation. If specified, the enclosing `NetworkParam` must also be specified by UUID.
                                     type: string
                                 type: object
                               type: array
                             uuid:
-                              description: The UUID of the network. Required if you omit the port attribute.
+                              description: Optional UUID of the network. If specified this will not be validated prior to server creation. Required if `Subnets` specifies a subnet by UUID.
                               type: string
                           type: object
                         type: array
@@ -465,6 +466,9 @@ spec:
                               type: array
                             description:
                               type: string
+                            disablePortSecurity:
+                              description: DisablePortSecurity enables or disables the port security when set. When not set, it takes the value of the corresponding field at the network level.
+                              type: boolean
                             fixedIPs:
                               description: Specify pairs of subnet and/or IP address. These should be subnets of the network with the given NetworkID.
                               items:
@@ -488,14 +492,27 @@ spec:
                             networkId:
                               description: ID of the OpenStack network on which to create the port. If unspecified, create the port on the default cluster network.
                               type: string
+                            profile:
+                              additionalProperties:
+                                type: string
+                              description: A dictionary that enables the application running on the specified host to pass and receive virtual network interface (VIF) port-specific information to the plug-in.
+                              type: object
                             projectId:
                               type: string
                             securityGroups:
                               items:
                                 type: string
                               type: array
+                            tags:
+                              description: Tags applied to the port (and corresponding trunk, if a trunk is configured.) These tags are applied in addition to the instance's tags, which will also be applied to the port.
+                              items:
+                                type: string
+                              type: array
                             tenantId:
                               type: string
+                            trunk:
+                              description: Enables and disables trunk at port level. If not provided, openStackMachine.Spec.Trunk is inherited.
+                              type: boolean
                             vnicType:
                               description: The virtual network interface card (vNIC) type that is bound to the neutron port.
                               type: string

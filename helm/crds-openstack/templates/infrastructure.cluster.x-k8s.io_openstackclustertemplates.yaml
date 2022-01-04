@@ -5,12 +5,13 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cert-manager.io/inject-ca-from: capo-system/capo-serving-cert
-    controller-gen.kubebuilder.io/version: v0.5.0
+    controller-gen.kubebuilder.io/version: v0.7.0
   creationTimestamp: null
   labels:
     cluster.x-k8s.io/provider: infrastructure-openstack
     cluster.x-k8s.io/v1alpha3: v1alpha3
     cluster.x-k8s.io/v1alpha4: v1alpha4
+    cluster.x-k8s.io/v1beta1: v1alpha4
   name: openstackclustertemplates.infrastructure.cluster.x-k8s.io
 spec:
   conversion:
@@ -59,8 +60,14 @@ spec:
                   spec:
                     description: OpenStackClusterSpec defines the desired state of OpenStackCluster.
                     properties:
+                      allowAllInClusterTraffic:
+                        description: AllowAllInClusterTraffic is only used when managed security groups are in use. If set to true, the rules for the managed security groups are configured so that all ingress and egress between cluster nodes is permitted, allowing CNIs other than Calico to be used.
+                        type: boolean
+                      apiServerFixedIP:
+                        description: APIServerFixedIP is the fixed IP which will be associated with the API server. In the case where the API server has a floating IP but not a managed load balancer, this field is not used. If a managed load balancer is used and this field is not specified, a fixed IP will be dynamically allocated for the load balancer. If a managed load balancer is not used AND the API server floating IP is disabled, this field MUST be specified and should correspond to a pre-allocated port that holds the fixed IP to be used as a VIP.
+                        type: string
                       apiServerFloatingIP:
-                        description: APIServerFloatingIP is the floatingIP which will be associated to the APIServer. The floatingIP will be created if it not already exists.
+                        description: APIServerFloatingIP is the floatingIP which will be associated with the API server. The floatingIP will be created if it does not already exist. If not specified, a new floatingIP is allocated. This field is not used if DisableAPIServerFloatingIP is set to true.
                         type: string
                       apiServerLoadBalancerAdditionalPorts:
                         description: APIServerLoadBalancerAdditionalPorts adds additional ports to the APIServerLoadBalancer
@@ -160,7 +167,7 @@ spec:
                                       items:
                                         properties:
                                           filter:
-                                            description: Filters for optional network query
+                                            description: Filters for optional subnet query
                                             properties:
                                               cidr:
                                                 type: string
@@ -206,12 +213,12 @@ spec:
                                                 type: string
                                             type: object
                                           uuid:
-                                            description: The UUID of the network. Required if you omit the port attribute.
+                                            description: Optional UUID of the subnet. If specified this will not be validated prior to server creation. If specified, the enclosing `NetworkParam` must also be specified by UUID.
                                             type: string
                                         type: object
                                       type: array
                                     uuid:
-                                      description: The UUID of the network. Required if you omit the port attribute.
+                                      description: Optional UUID of the network. If specified this will not be validated prior to server creation. Required if `Subnets` specifies a subnet by UUID.
                                       type: string
                                   type: object
                                 type: array
@@ -232,6 +239,9 @@ spec:
                                       type: array
                                     description:
                                       type: string
+                                    disablePortSecurity:
+                                      description: DisablePortSecurity enables or disables the port security when set. When not set, it takes the value of the corresponding field at the network level.
+                                      type: boolean
                                     fixedIPs:
                                       description: Specify pairs of subnet and/or IP address. These should be subnets of the network with the given NetworkID.
                                       items:
@@ -255,14 +265,27 @@ spec:
                                     networkId:
                                       description: ID of the OpenStack network on which to create the port. If unspecified, create the port on the default cluster network.
                                       type: string
+                                    profile:
+                                      additionalProperties:
+                                        type: string
+                                      description: A dictionary that enables the application running on the specified host to pass and receive virtual network interface (VIF) port-specific information to the plug-in.
+                                      type: object
                                     projectId:
                                       type: string
                                     securityGroups:
                                       items:
                                         type: string
                                       type: array
+                                    tags:
+                                      description: Tags applied to the port (and corresponding trunk, if a trunk is configured.) These tags are applied in addition to the instance's tags, which will also be applied to the port.
+                                      items:
+                                        type: string
+                                      type: array
                                     tenantId:
                                       type: string
+                                    trunk:
+                                      description: Enables and disables trunk at port level. If not provided, openStackMachine.Spec.Trunk is inherited.
+                                      type: boolean
                                     vnicType:
                                       description: The virtual network interface card (vNIC) type that is bound to the neutron port.
                                       type: string
@@ -373,6 +396,9 @@ spec:
                         - host
                         - port
                         type: object
+                      disableAPIServerFloatingIP:
+                        description: DisableAPIServerFloatingIP determines whether or not to attempt to attach a floating IP to the API server. This allows for the creation of clusters when attaching a floating IP to the API server (and hence, in many cases, exposing the API server to the internet) is not possible or desirable, e.g. if using a shared VLAN for communication between management and workload clusters or when the management cluster is inside the project network. This option requires that the API server use a VIP on the cluster network so that the underlying machines can change without changing ControlPlaneEndpoint.Host. When using a managed load balancer, this VIP will be managed automatically. If not using a managed load balancer, cluster configuration will fail without additional configuration to manage the VIP on the control plane machines, which falls outside of the scope of this controller.
+                        type: boolean
                       disablePortSecurity:
                         description: DisablePortSecurity disables the port security of the network created for the Kubernetes cluster, which also disables SecurityGroups
                         type: boolean
@@ -395,7 +421,7 @@ spec:
                               description: The subnet in which the FixedIP is used for the Gateway of this router
                               properties:
                                 filter:
-                                  description: Filters for optional network query
+                                  description: Filters for optional subnet query
                                   properties:
                                     cidr:
                                       type: string
@@ -441,7 +467,7 @@ spec:
                                       type: string
                                   type: object
                                 uuid:
-                                  description: The UUID of the network. Required if you omit the port attribute.
+                                  description: Optional UUID of the subnet. If specified this will not be validated prior to server creation. If specified, the enclosing `NetworkParam` must also be specified by UUID.
                                   type: string
                               type: object
                           required:
@@ -463,10 +489,10 @@ spec:
                         - name
                         type: object
                       managedAPIServerLoadBalancer:
-                        description: 'ManagedAPIServerLoadBalancer defines whether a LoadBalancer for the APIServer should be created. If set to true the following properties are mandatory: APIServerFloatingIP, APIServerPort'
+                        description: ManagedAPIServerLoadBalancer defines whether a LoadBalancer for the APIServer should be created.
                         type: boolean
                       managedSecurityGroups:
-                        description: 'ManagedSecurityGroups defines that kubernetes manages the OpenStack security groups for now, that means that we''ll create security group allows traffic to/from machines belonging to that group based on Calico CNI plugin default network requirements: BGP and IP-in-IP for master node(s) and worker node(s) respectively. In the future, we could make this more flexible.'
+                        description: ManagedSecurityGroups determines whether OpenStack security groups for the cluster will be managed by the OpenStack provider or whether pre-existing security groups will be specified as part of the configuration. By default, the managed security groups have rules that allow the Kubelet, etcd, the Kubernetes API server and the Calico CNI plugin to function correctly.
                         type: boolean
                       network:
                         description: If NodeCIDR cannot be set this can be used to detect an existing network.
