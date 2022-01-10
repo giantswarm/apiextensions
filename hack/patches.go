@@ -7,10 +7,14 @@ import (
 	"github.com/giantswarm/apiextensions/v3/pkg/crd"
 )
 
+const (
+	InjectCaFromCertificate = "giantswarm/cluster-api-core-cert"
+)
+
 func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -36,7 +40,7 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
@@ -62,7 +66,7 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-core-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
 	}
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
