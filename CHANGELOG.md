@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Replaced gopkg.in/yaml.v2 versions below v2.2.8 with v2.2.8 to mitigate CVE-2019-11254
+
 ### Removed
 
 - Remove generated typed clients.
