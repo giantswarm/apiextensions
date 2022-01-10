@@ -142,9 +142,9 @@ func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-azure-app/tree/master/helm/cluster-api-provider-azure/templates
 func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
-	port := int32(9443)
+	port := int32(443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-azure-cert"
+		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/capz-serving-cert"
 	}
 
 	if crd.Spec.Conversion != nil || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
@@ -154,7 +154,7 @@ func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 				ClientConfig: &v1.WebhookClientConfig{
 					Service: &v1.ServiceReference{
 						Namespace: "giantswarm",
-						Name:      "cluster-api-provider-azure",
+						Name:      "capz-webhook-service",
 						Path:      to.StringP("/convert"),
 						Port:      &port,
 					},
