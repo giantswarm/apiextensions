@@ -10,14 +10,13 @@ import (
 const (
 	Azure                         = "azure"
 	InjectCaFromCertificateLegacy = "giantswarm/cluster-api-core-cert"
-	InjectCaFromCertificate       = "giantswarm/capi-serving-cert"
 )
 
 func patchCAPICoreWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		if provider == Azure {
-			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+			crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/capi-serving-cert"
 		} else {
 			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificateLegacy
 		}
@@ -54,7 +53,7 @@ func patchCAPIKubeadmBootstrapWebhook(provider string, crd *v1.CustomResourceDef
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		if provider == Azure {
-			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+			crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/capi-kubeadm-bootstrap-serving-cert"
 		} else {
 			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificateLegacy
 		}
@@ -91,7 +90,7 @@ func patchCAPIControlPlaneWebhook(provider string, crd *v1.CustomResourceDefinit
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		if provider == Azure {
-			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+			crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/capi-kubeadm-control-plane-serving-cert"
 		} else {
 			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificateLegacy
 		}
