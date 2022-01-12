@@ -26,10 +26,10 @@ var (
 	}
 )
 
-func (r Renderer) patchCRDs(crds []v1.CustomResourceDefinition) ([]v1.CustomResourceDefinition, error) {
+func (r Renderer) patchCRDs(provider string, crds []v1.CustomResourceDefinition) ([]v1.CustomResourceDefinition, error) {
 	patchedCRDs := make([]v1.CustomResourceDefinition, 0, len(crds))
 	for _, crd := range crds {
-		patched, err := patchCRD(r.Patches, crd)
+		patched, err := patchCRD(provider, r.Patches, crd)
 		if err != nil {
 			return nil, microerror.Mask(err)
 		}
@@ -54,7 +54,7 @@ func (r Renderer) Render(ctx context.Context, provider string) error {
 			return microerror.Mask(err)
 		}
 
-		internalCRDs, err := r.patchCRDs(append(localCRDs, remoteCRDs...))
+		internalCRDs, err := r.patchCRDs(provider, append(localCRDs, remoteCRDs...))
 		if err != nil {
 			return microerror.Mask(err)
 		}
@@ -71,7 +71,7 @@ func (r Renderer) Render(ctx context.Context, provider string) error {
 			return microerror.Mask(err)
 		}
 
-		upstreamCRDs, err = r.patchCRDs(upstreamCRDs)
+		upstreamCRDs, err = r.patchCRDs(provider, upstreamCRDs)
 		if err != nil {
 			return microerror.Mask(err)
 		}

@@ -8,21 +8,34 @@ import (
 )
 
 const (
-	InjectCaFromCertificate = "giantswarm/cluster-api-core-cert"
+	Azure                         = "azure"
+	InjectCaFromCertificateLegacy = "giantswarm/cluster-api-core-cert"
+	InjectCaFromCertificate       = "giantswarm/capi-serving-cert"
 )
 
-func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
+func patchCAPICoreWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+		if provider == Azure {
+			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+		} else {
+			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificateLegacy
+		}
 	}
+
+	webhookServiceName := "cluster-api-core"
+	if provider == Azure {
+		webhookServiceName = "capi-webhook-service"
+		port = int32(443)
+	}
+
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-core",
+					Name:      webhookServiceName,
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -37,18 +50,29 @@ func patchCAPICoreWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-bootstrap-provider-kubeadm-app/tree/main/helm/cluster-api-bootstrap-provider-kubeadm/templates
-func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
+func patchCAPIKubeadmBootstrapWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+		if provider == Azure {
+			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+		} else {
+			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificateLegacy
+		}
 	}
+
+	webhookServiceName := "cluster-api-bootstrap"
+	if provider == Azure {
+		webhookServiceName = "capi-kubeadm-bootstrap-webhook-service"
+		port = int32(443)
+	}
+
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-bootstrap",
+					Name:      webhookServiceName,
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -63,18 +87,29 @@ func patchCAPIKubeadmBootstrapWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-control-plane-app/tree/main/helm/cluster-api-control-plane/templates
-func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+func patchCAPIControlPlaneWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
-		crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+		if provider == Azure {
+			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificate
+		} else {
+			crd.Annotations["cert-manager.io/inject-ca-from"] = InjectCaFromCertificateLegacy
+		}
 	}
+
+	webhookServiceName := "cluster-api-controlplane"
+	if provider == Azure {
+		webhookServiceName = "capi-kubeadm-control-plane-webhook-service"
+		port = int32(443)
+	}
+
 	crd.Spec.Conversion = &v1.CustomResourceConversion{
 		Strategy: v1.WebhookConverter,
 		Webhook: &v1.WebhookConversion{
 			ClientConfig: &v1.WebhookClientConfig{
 				Service: &v1.ServiceReference{
 					Namespace: "giantswarm",
-					Name:      "cluster-api-controlplane",
+					Name:      webhookServiceName,
 					Path:      to.StringP("/convert"),
 					Port:      &port,
 				},
@@ -89,7 +124,7 @@ func patchCAPIControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates
-func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
+func patchCAPAWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-webhook"
@@ -115,7 +150,7 @@ func patchCAPAWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-vsphere-app/tree/master/helm/cluster-api-provider-vsphere/templates
-func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
+func patchCAPVWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-vsphere-webhook"
@@ -141,7 +176,7 @@ func patchCAPVWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-azure-app/tree/master/helm/cluster-api-provider-azure/templates
-func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
+func patchCAPZWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok || crd.Name == "azureclusteridentities.infrastructure.cluster.x-k8s.io" {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/capz-serving-cert"
@@ -170,7 +205,7 @@ func patchCAPZWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/control-plane
-func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
+func patchEKSControlPlaneWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-control-plane-webhook"
@@ -196,7 +231,7 @@ func patchEKSControlPlaneWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Keep in sync with https://github.com/giantswarm/cluster-api-provider-aws-app/tree/master/helm/cluster-api-provider-aws/templates/eks/bootstrap
-func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
+func patchEKSConfigWebhook(provider string, crd *v1.CustomResourceDefinition) {
 	port := int32(9443)
 	if _, ok := crd.Annotations["cert-manager.io/inject-ca-from"]; ok {
 		crd.Annotations["cert-manager.io/inject-ca-from"] = "giantswarm/cluster-api-provider-aws-eks-bootstrap-webhook"
@@ -222,7 +257,7 @@ func patchEKSConfigWebhook(crd *v1.CustomResourceDefinition) {
 }
 
 // Kubebuilder comments can't add validation to metadata properties, so we manually specify the validation for release names here.
-func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
+func patchReleaseValidation(provider string, crd *v1.CustomResourceDefinition) {
 	for i := range crd.Spec.Versions {
 		crd.Spec.Versions[i].Schema.OpenAPIV3Schema.Properties["metadata"] = v1.JSONSchemaProps{
 			Type: "object",
@@ -238,8 +273,8 @@ func patchReleaseValidation(crd *v1.CustomResourceDefinition) {
 
 // Upstream CRD contains a string which gitleaks detects as a leak. Applies the normal patchCAPAWebhook patch and then
 // edits the description to avoid the false positive.
-func patchAWSClusterStaticIdentities(crd *v1.CustomResourceDefinition) {
-	patchCAPAWebhook(crd)
+func patchAWSClusterStaticIdentities(provider string, crd *v1.CustomResourceDefinition) {
+	patchCAPAWebhook(provider, crd)
 	version := crd.Spec.Versions[0]
 	schema := version.Schema.OpenAPIV3Schema
 	secretRef := schema.Properties["spec"].Properties["secretRef"]

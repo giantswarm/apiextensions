@@ -74,14 +74,14 @@ func helmChartDirectory(helmDirectory, provider string) string {
 
 // patchCRD applies a patch function to a deep copy of the given CRD if defined in the given patch map. If no patch is
 // defined, the CRD will be returned unchanged.
-func patchCRD(patches map[string]Patch, crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {
+func patchCRD(provider string, patches map[string]Patch, crd v1.CustomResourceDefinition) (v1.CustomResourceDefinition, error) {
 	patch, ok := patches[crd.Name]
 	if !ok {
 		return crd, nil
 	}
 
 	crdCopy := crd.DeepCopy()
-	patch(crdCopy)
+	patch(provider, crdCopy)
 
 	return *crdCopy, nil
 }
