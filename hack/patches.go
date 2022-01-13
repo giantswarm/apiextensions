@@ -290,6 +290,7 @@ var patches = map[string]crd.Patch{
 	"kubeadmconfigs.bootstrap.cluster.x-k8s.io":          patchCAPIKubeadmBootstrapWebhook,
 	"kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io":  patchCAPIKubeadmBootstrapWebhook,
 	"machinedeployments.cluster.x-k8s.io":                patchCAPICoreWebhook,
+	"machinepools.cluster.x-k8s.io":                      patchCAPICoreWebhook,
 	"machinehealthchecks.cluster.x-k8s.io":               patchCAPICoreWebhook,
 	"machines.cluster.x-k8s.io":                          patchCAPICoreWebhook,
 	"machinesets.cluster.x-k8s.io":                       patchCAPICoreWebhook,
