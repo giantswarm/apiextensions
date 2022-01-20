@@ -22,9 +22,13 @@ type ETCDBackup struct {
 
 // +k8s:openapi-gen=true
 type ETCDBackupSpec struct {
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// GuestBackup is a boolean indicating if the workload clusters have to be backed up
 	GuestBackup bool `json:"guestBackup"`
 
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// ClusterNames is a list of cluster IDs that should be backed up. Can contain the special value 'ManagementCluster' to indicate the Management Cluster.
 	ClusterNames []string `json:"clusterNames,omitempty"`
 }
@@ -51,15 +55,27 @@ type ETCDBackupStatus struct {
 type ETCDInstanceBackupStatusIndex struct {
 	// Name of the workload cluster or management cluster
 	Name string `json:"name"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Status of the backup (can be 'Completed' or 'Failed')
+	Status string `json:"status"`
+	// +kubebuilder:validation:Optional
+	// +nullable
+	// Error details in case the backup is failed.
+	Error string `json:"error"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Status of the V2 backup for this instance
 	V2 ETCDInstanceBackupStatus `json:"v2"`
+	// +kubebuilder:validation:Optional
+	// +nullable
 	// Status of the V3 backup for this instance
 	V3 ETCDInstanceBackupStatus `json:"v3"`
 }
 
 // +k8s:openapi-gen=true
 type ETCDInstanceBackupStatus struct {
-	// Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+	// Status of this instance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
 	Status string `json:"status"`
 	// +kubebuilder:validation:Optional
 	// +nullable

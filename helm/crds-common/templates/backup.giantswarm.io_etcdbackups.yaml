@@ -37,12 +37,12 @@ spec:
                 description: ClusterNames is a list of cluster IDs that should be backed up. Can contain the special value 'ManagementCluster' to indicate the Management Cluster.
                 items:
                   type: string
+                nullable: true
                 type: array
               guestBackup:
                 description: GuestBackup is a boolean indicating if the workload clusters have to be backed up
+                nullable: true
                 type: boolean
-            required:
-            - guestBackup
             type: object
           status:
             properties:
@@ -54,11 +54,20 @@ spec:
               instances:
                 additionalProperties:
                   properties:
+                    error:
+                      description: Error details in case the backup is failed.
+                      nullable: true
+                      type: string
                     name:
                       description: Name of the workload cluster or management cluster
                       type: string
+                    status:
+                      description: Status of the backup (can be 'Completed' or 'Failed')
+                      nullable: true
+                      type: string
                     v2:
                       description: Status of the V2 backup for this instance
+                      nullable: true
                       properties:
                         backupFileSize:
                           description: Size of the backup file
@@ -97,6 +106,7 @@ spec:
                       type: object
                     v3:
                       description: Status of the V3 backup for this instance
+                      nullable: true
                       properties:
                         backupFileSize:
                           description: Size of the backup file
@@ -135,8 +145,6 @@ spec:
                       type: object
                   required:
                   - name
-                  - v2
-                  - v3
                   type: object
                 description: map containing the state of the backup for all instances
                 nullable: true
