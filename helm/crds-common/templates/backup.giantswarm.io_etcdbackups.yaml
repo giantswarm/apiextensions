@@ -33,6 +33,11 @@ spec:
             type: object
           spec:
             properties:
+              clusterNames:
+                description: ClusterNames is a list of cluster IDs that should be backed up. Can contain the special value 'ManagementCluster' to indicate the Management Cluster.
+                items:
+                  type: string
+                type: array
               guestBackup:
                 description: GuestBackup is a boolean indicating if the workload clusters have to be backed up
                 type: boolean

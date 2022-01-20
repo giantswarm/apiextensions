@@ -24,6 +24,9 @@ type ETCDBackup struct {
 type ETCDBackupSpec struct {
 	// GuestBackup is a boolean indicating if the workload clusters have to be backed up
 	GuestBackup bool `json:"guestBackup"`
+
+	// ClusterNames is a list of cluster IDs that should be backed up. Can contain the special value 'ManagementCluster' to indicate the Management Cluster.
+	ClusterNames []string `json:"clusterNames,omitempty"`
 }
 
 // +k8s:openapi-gen=true
