@@ -5,7 +5,7 @@ go 1.17
 require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/giantswarm/to v0.4.0
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.7
 	github.com/google/go-github/v39 v39.2.0
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
