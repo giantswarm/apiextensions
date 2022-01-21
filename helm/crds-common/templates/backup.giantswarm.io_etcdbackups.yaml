@@ -62,7 +62,7 @@ spec:
                       description: Name of the workload cluster or management cluster
                       type: string
                     status:
-                      description: Status of the backup (can be 'Completed' or 'Failed')
+                      description: Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
                       nullable: true
                       type: string
                     v2:
@@ -81,6 +81,10 @@ spec:
                           description: Time took by the backup encryption process
                           format: int64
                           type: integer
+                        filename:
+                          description: Filename is the name of the backup file.
+                          nullable: true
+                          type: string
                         finishedTimestamp:
                           description: Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
                           format: date-time
@@ -95,7 +99,7 @@ spec:
                           nullable: true
                           type: string
                         status:
-                          description: Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+                          description: Status of this instance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
                           type: string
                         uploadTime:
                           description: Time took by the backup upload process
@@ -120,6 +124,10 @@ spec:
                           description: Time took by the backup encryption process
                           format: int64
                           type: integer
+                        filename:
+                          description: Filename is the name of the backup file.
+                          nullable: true
+                          type: string
                         finishedTimestamp:
                           description: Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
                           format: date-time
@@ -134,7 +142,7 @@ spec:
                           nullable: true
                           type: string
                         status:
-                          description: Status of this isntance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+                          description: Status of this instance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
                           type: string
                         uploadTime:
                           description: Time took by the backup upload process
