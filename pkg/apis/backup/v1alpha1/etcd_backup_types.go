@@ -57,10 +57,6 @@ type ETCDInstanceBackupStatusIndex struct {
 	Name string `json:"name"`
 	// +kubebuilder:validation:Optional
 	// +nullable
-	// Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
-	Status string `json:"status"`
-	// +kubebuilder:validation:Optional
-	// +nullable
 	// Error details in case the backup is failed.
 	Error string `json:"error,omitempty"`
 	// +kubebuilder:validation:Optional

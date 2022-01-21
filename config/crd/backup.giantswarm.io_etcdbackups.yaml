@@ -69,11 +69,6 @@ spec:
                     name:
                       description: Name of the workload cluster or management cluster
                       type: string
-                    status:
-                      description: Status of the whole backup job (can be 'Pending',
-                        'Running'. 'Completed', 'Failed')
-                      nullable: true
-                      type: string
                     v2:
                       description: Status of the V2 backup for this instance
                       nullable: true
