@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.40.0] - 2022-01-21
+
 ### Added
 
 - Add `ClusterNames` field to `ETCDBackup.spec` to allow backing up specific clusters within an MC.
@@ -952,7 +954,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.39.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.40.0...HEAD
+[3.40.0]: https://github.com/giantswarm/apiextensions/compare/v3.39.0...v3.40.0
 [3.39.0]: https://github.com/giantswarm/apiextensions/compare/v3.38.0...v3.39.0
 [3.38.0]: https://github.com/giantswarm/apiextensions/compare/v3.37.0...v3.38.0
 [3.37.0]: https://github.com/giantswarm/apiextensions/compare/v3.36.0...v3.37.0
