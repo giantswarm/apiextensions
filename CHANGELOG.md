@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `ClusterNames` field to `ETCDBackup.spec` to allow backing up specific clusters within an MC.
+- Add a few new fields in `ETCDBackup.status` to give better visibility on the state of the backup.
 
 ### Changed
 
