@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Move etcd-backup to etcd-backup-operator.
+- Move backup.giantswarm.io CRDs to own repo.
 
 ## [3.40.0] - 2022-01-21
 
