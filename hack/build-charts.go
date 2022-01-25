@@ -12,7 +12,7 @@ import (
 	"github.com/google/go-github/v39/github"
 	"golang.org/x/oauth2"
 
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
+	"github.com/giantswarm/apiextensions/v4/pkg/crd"
 )
 
 func main() {
