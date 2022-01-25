@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2022-01-25
+
 ### Removed
 
 - Move backup.giantswarm.io CRDs to own repo.
@@ -958,7 +960,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.40.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/giantswarm/apiextensions/compare/v3.40.0...v4.0.0
 [3.40.0]: https://github.com/giantswarm/apiextensions/compare/v3.39.0...v3.40.0
 [3.39.0]: https://github.com/giantswarm/apiextensions/compare/v3.38.0...v3.39.0
 [3.38.0]: https://github.com/giantswarm/apiextensions/compare/v3.37.0...v3.38.0
