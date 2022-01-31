@@ -123,9 +123,12 @@ spec:
                 format: date-time
                 nullable: true
                 type: string
+              notice:
+                description: Notice outlines anything worth being aware of in this release.
+                type: string
               state:
                 description: 'State indicates the availability of the release: deprecated, active, or wip.'
-                pattern: ^(active|deprecated|wip)$
+                pattern: ^(active|deprecated|wip|preview)$
                 type: string
             required:
             - apps
