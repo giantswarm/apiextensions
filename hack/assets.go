@@ -106,7 +106,7 @@ var remoteRepositories = []crd.RemoteRepositoryDefinition{
 		Owner:     "giantswarm",
 		Provider:  "common",
 		Name:      "release-operator",
-		Reference: "v3.1.0",
+		Reference: "v3.2.0",
 	},
 	{
 		Path:      "config/crd",
