@@ -1,11 +1,11 @@
-module github.com/giantswarm/apiextensions/v3
+module github.com/giantswarm/apiextensions/v4
 
 go 1.17
 
 require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/giantswarm/to v0.4.0
-	github.com/google/go-cmp v0.5.6
+	github.com/google/go-cmp v0.5.7
 	github.com/google/go-github/v39 v39.2.0
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
@@ -91,6 +91,13 @@ replace (
 	github.com/gogo/protobuf v1.3.1 => github.com/gogo/protobuf v1.3.2
 
 	github.com/gorilla/websocket v1.4.0 => github.com/gorilla/websocket v1.4.2
+
+	// Mitigate a vulnerability in yaml.v1 < 2.2.8 (CVE-2019-11254)
+	gopkg.in/yaml.v2 v2.0.0-20170812160011-eb3733d160e7 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.2.1 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.2.2 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.2.4 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 v2.2.5 => gopkg.in/yaml.v2 v2.2.8
 
 	sigs.k8s.io/cluster-api => github.com/giantswarm/cluster-api v0.3.13-gs
 )

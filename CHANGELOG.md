@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 2022-01-25
+
+### Removed
+
+- Move backup.giantswarm.io CRDs to own repo.
+
+## [3.40.0] - 2022-01-21
+
+### Added
+
+- Add `ClusterNames` field to `ETCDBackup.spec` to allow backing up specific clusters within an MC.
+- Add a few new fields in `ETCDBackup.status` to give better visibility on the state of the backup.
+
+### Changed
+
+- Replaced gopkg.in/yaml.v2 versions below v2.2.8 with v2.2.8 to mitigate CVE-2019-11254
+
 ### Removed
 
 - Remove generated typed clients.
@@ -943,7 +960,9 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v3.39.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v4.0.0...HEAD
+[4.0.0]: https://github.com/giantswarm/apiextensions/compare/v3.40.0...v4.0.0
+[3.40.0]: https://github.com/giantswarm/apiextensions/compare/v3.39.0...v3.40.0
 [3.39.0]: https://github.com/giantswarm/apiextensions/compare/v3.38.0...v3.39.0
 [3.38.0]: https://github.com/giantswarm/apiextensions/compare/v3.37.0...v3.38.0
 [3.37.0]: https://github.com/giantswarm/apiextensions/compare/v3.36.0...v3.37.0

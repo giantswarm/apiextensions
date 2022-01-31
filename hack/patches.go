@@ -4,7 +4,7 @@ import (
 	"github.com/giantswarm/to"
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
+	"github.com/giantswarm/apiextensions/v4/pkg/crd"
 )
 
 const (

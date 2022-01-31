@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/giantswarm/apiextensions/v3/pkg/crd"
+	"github.com/giantswarm/apiextensions/v4/pkg/crd"
 )
 
 var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
@@ -114,5 +114,12 @@ var remoteRepositories = []crd.RemoteRepositoryDefinition{
 		Provider:  "common",
 		Name:      "config-controller",
 		Reference: "v0.5.1",
+	},
+	{
+		Path:      "config/crd",
+		Owner:     "giantswarm",
+		Provider:  "common",
+		Name:      "apiextensions-backup",
+		Reference: "v0.1.0",
 	},
 }
