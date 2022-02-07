@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade CAPI / CAPZ CRDs to `v1beta1` on Azure.
+
 ## [4.0.1] - 2022-01-31
 
 ### Fixed
