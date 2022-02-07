@@ -5,7 +5,7 @@ import (
 	v1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1"
 )
 
-type Patch func(crd *v1.CustomResourceDefinition)
+type Patch func(provider string, crd *v1.CustomResourceDefinition)
 
 type Renderer struct {
 	GithubClient *github.Client

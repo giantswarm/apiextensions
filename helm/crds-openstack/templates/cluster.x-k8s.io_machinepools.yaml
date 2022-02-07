@@ -10,6 +10,19 @@ metadata:
     cluster.x-k8s.io/provider: cluster-api
   name: machinepools.cluster.x-k8s.io
 spec:
+  conversion:
+    strategy: Webhook
+    webhook:
+      clientConfig:
+        caBundle: Cg==
+        service:
+          name: cluster-api-core
+          namespace: giantswarm
+          path: /convert
+          port: 9443
+      conversionReviewVersions:
+      - v1
+      - v1beta1
   group: cluster.x-k8s.io
   names:
     categories:

@@ -4,17 +4,16 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.3.0
+    controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
-  labels:
-    cluster.x-k8s.io/provider: infrastructure-azure
-    cluster.x-k8s.io/v1alpha3: v1alpha3
   name: azuremachinepools.exp.infrastructure.cluster.x-k8s.io
 spec:
   group: exp.infrastructure.cluster.x-k8s.io
   names:
     categories:
+    - azure
     - cluster-api
+    - giantswarm
     kind: AzureMachinePool
     listKind: AzureMachinePoolList
     plural: azuremachinepools
@@ -246,12 +245,8 @@ spec:
                     description: SpotVMOptions allows the ability to specify the Machine should use a Spot VM
                     properties:
                       maxPrice:
-                        anyOf:
-                        - type: integer
-                        - type: string
                         description: MaxPrice defines the maximum price the user is willing to pay for Spot VM instances
-                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                        x-kubernetes-int-or-string: true
+                        type: string
                     type: object
                   sshPublicKey:
                     description: SSHPublicKey is the SSH public key string base64 encoded to add to a Virtual Machine
