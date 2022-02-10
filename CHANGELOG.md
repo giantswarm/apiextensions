@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.1] - 2022-02-10
+
 ### Fixed
 
 - Bump go module major version to v5.
@@ -980,7 +982,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/giantswarm/compare/v5.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/giantswarm/compare/v5.0.1...HEAD
+[5.0.1]: https://github.com/giantswarm/giantswarm/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/giantswarm/giantswarm/compare/v4.0.1...v5.0.0
 [4.0.1]: https://github.com/giantswarm/giantswarm/compare/v4.0.0...v4.0.1
 [4.0.0]: https://github.com/giantswarm/apiextensions/compare/v3.40.0...v4.0.0
