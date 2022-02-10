@@ -6,9 +6,9 @@ import (
 	apiv1alpha3 "sigs.k8s.io/cluster-api/api/v1alpha3"
 	clusterv1 "sigs.k8s.io/cluster-api/api/v1alpha3"
 
-	"github.com/giantswarm/apiextensions/v4/pkg/annotation"
-	"github.com/giantswarm/apiextensions/v4/pkg/id"
-	"github.com/giantswarm/apiextensions/v4/pkg/label"
+	"github.com/giantswarm/apiextensions/v5/pkg/annotation"
+	"github.com/giantswarm/apiextensions/v5/pkg/id"
+	"github.com/giantswarm/apiextensions/v5/pkg/label"
 )
 
 const (
