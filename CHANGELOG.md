@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Don't ensure CAPI CRDs on AWS, we will deploy them from cluster-api-app.
+
 ## [5.1.0] - 2022-02-11
 
 ### Removed
