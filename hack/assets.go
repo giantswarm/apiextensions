@@ -7,13 +7,6 @@ import (
 var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 	// aws
 	{
-		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api",
-		Version:  "v0.3.22",
-		Files:    []string{"cluster-api-components.yaml"},
-		Provider: "aws",
-	},
-	{
 		Owner:   "kubernetes-sigs",
 		Repo:    "cluster-api-provider-aws",
 		Version: "v0.6.5",
