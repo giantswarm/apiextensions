@@ -20,10 +20,19 @@ spec:
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
-    - description: Version of the app
+    - description: Desired version of the app
       jsonPath: .spec.version
-      name: Version
+      name: Desired Version
+      priority: 1
       type: string
+    - description: Installed version of the app
+      jsonPath: .status.version
+      name: Installed Version
+      type: string
+    - description: Time of app creation
+      jsonPath: .metadata.creationTimestamp
+      name: Created At
+      type: date
     - description: Time since last deployment
       jsonPath: .status.release.lastDeployed
       name: Last Deployed
@@ -133,7 +142,7 @@ spec:
                 description: Name is the name of the app to be deployed. e.g. kubernetes-prometheus
                 type: string
               namespace:
-                description: Namespace is the namespace where the app should be deployed. e.g. monitoring
+                description: Namespace is the target namespace where the app should be deployed e.g. monitoring, it cannot be changed.
                 type: string
               namespaceConfig:
                 description: NamespaceConfig is the namespace config to be applied to the target namespace when the app is deployed.
