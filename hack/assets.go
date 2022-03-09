@@ -5,18 +5,6 @@ import (
 )
 
 var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
-	// aws
-	{
-		Owner:   "kubernetes-sigs",
-		Repo:    "cluster-api-provider-aws",
-		Version: "v0.6.5",
-		Files: []string{
-			"eks-bootstrap-components.yaml",
-			"eks-controlplane-components.yaml",
-			"infrastructure-components.yaml",
-		},
-		Provider: "aws",
-	},
 	// azure
 	{
 		Owner:    "kubernetes-sigs",
