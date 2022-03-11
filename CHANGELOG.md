@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Don't ensure CAPI and CAPA CRDs on AWS, we will deploy them from the apps.
 - Don't ensure CAPI CRDs on Azure, we will deploy them from the CAPI app.
 
+### Fixed
+
+- Actually remove `Cluster` CRD from KVM installations.
+
 ## [5.1.0] - 2022-02-11
 
 ### Removed
