@@ -20,36 +20,6 @@ var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{
 		Files:    []string{"deployment.yaml"},
 		Provider: "azure",
 	},
-	// openstack
-	{
-		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api",
-		Version:  "v0.4.4",
-		Files:    []string{"cluster-api-components.yaml"},
-		Provider: "openstack",
-	},
-	{
-		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api-provider-openstack",
-		Version:  "v0.4.0",
-		Files:    []string{"infrastructure-components.yaml"},
-		Provider: "openstack",
-	},
-	// vsphere
-	{
-		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api",
-		Version:  "v0.4.4",
-		Files:    []string{"cluster-api-components.yaml"},
-		Provider: "vsphere",
-	},
-	{
-		Owner:    "kubernetes-sigs",
-		Repo:     "cluster-api-provider-vsphere",
-		Version:  "v0.8.1",
-		Files:    []string{"infrastructure-components.yaml"},
-		Provider: "vsphere",
-	},
 }
 
 var remoteRepositories = []crd.RemoteRepositoryDefinition{

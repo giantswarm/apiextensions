@@ -1,6 +1,0 @@
-apiVersion: v1
-name: crds-vsphere
-version: [[ .Version ]]
-appVersion: master
-description: Giant Swarm CRDs for vSphere.
-home: https://github.com/giantswarm/apiextensions
