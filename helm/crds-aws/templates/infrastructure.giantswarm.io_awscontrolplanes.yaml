@@ -22,13 +22,19 @@ spec:
   - name: v1alpha2
     schema:
       openAPIV3Schema:
-        description: AWSControlPlane is the infrastructure provider referenced in ControlPlane CRs. Represents the master nodes (also called Control Plane) of a workload cluster on AWS. Reconciled by aws-operator.
+        description: AWSControlPlane is the infrastructure provider referenced in
+          ControlPlane CRs. Represents the master nodes (also called Control Plane)
+          of a workload cluster on AWS. Reconciled by aws-operator.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -36,7 +42,9 @@ spec:
             description: Specification part of the resource.
             properties:
               availabilityZones:
-                description: Configures which AWS availability zones to use by master nodes, as a list of availability zone names like e. g. `eu-central-1c`. We support either 1 or 3 availability zones.
+                description: Configures which AWS availability zones to use by master
+                  nodes, as a list of availability zone names like e. g. `eu-central-1c`.
+                  We support either 1 or 3 availability zones.
                 items:
                   type: string
                 type: array
@@ -52,13 +60,19 @@ spec:
   - name: v1alpha3
     schema:
       openAPIV3Schema:
-        description: AWSControlPlane is the infrastructure provider referenced in ControlPlane CRs. Represents the master nodes (also called Control Plane) of a workload cluster on AWS. Reconciled by aws-operator.
+        description: AWSControlPlane is the infrastructure provider referenced in
+          ControlPlane CRs. Represents the master nodes (also called Control Plane)
+          of a workload cluster on AWS. Reconciled by aws-operator.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -66,7 +80,9 @@ spec:
             description: Specification part of the resource.
             properties:
               availabilityZones:
-                description: Configures which AWS availability zones to use by master nodes, as a list of availability zone names like e. g. `eu-central-1c`. We support either 1 or 3 availability zones.
+                description: Configures which AWS availability zones to use by master
+                  nodes, as a list of availability zone names like e. g. `eu-central-1c`.
+                  We support either 1 or 3 availability zones.
                 items:
                   type: string
                 type: array

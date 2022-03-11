@@ -25,13 +25,18 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Organization represents schema for managed Kubernetes namespace. Reconciled by organization-operator.
+        description: Organization represents schema for managed Kubernetes namespace.
+          Reconciled by organization-operator.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -40,7 +45,8 @@ spec:
           status:
             properties:
               namespace:
-                description: Namespace is the namespace containing the resources for this organization.
+                description: Namespace is the namespace containing the resources for
+                  this organization.
                 type: string
             type: object
         required:

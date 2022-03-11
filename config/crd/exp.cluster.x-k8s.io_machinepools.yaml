@@ -164,7 +164,9 @@ spec:
                           could not be found in the time allotted, and the client
                           should retry (optionally after the time indicated in the
                           Retry-After header). \n Applied only if Name is not specified.
-                          More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency"
+                          More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#idempotency
+                          \n Deprecated: This field has no function and is going to
+                          be removed in a next release."
                         type: string
                       labels:
                         additionalProperties:
@@ -175,12 +177,14 @@ spec:
                           More info: http://kubernetes.io/docs/user-guide/labels'
                         type: object
                       name:
-                        description: 'Name must be unique within a namespace. Is required
+                        description: "Name must be unique within a namespace. Is required
                           when creating resources, although some resources may allow
                           a client to request the generation of an appropriate name
                           automatically. Name is primarily intended for creation idempotence
                           and configuration definition. Cannot be updated. More info:
-                          http://kubernetes.io/docs/user-guide/identifiers#names'
+                          http://kubernetes.io/docs/user-guide/identifiers#names \n
+                          Deprecated: This field has no function and is going to be
+                          removed in a next release."
                         type: string
                       namespace:
                         description: "Namespace defines the space within each name
@@ -189,15 +193,18 @@ spec:
                           representation. Not all objects are required to be scoped
                           to a namespace - the value of this field for those objects
                           will be empty. \n Must be a DNS_LABEL. Cannot be updated.
-                          More info: http://kubernetes.io/docs/user-guide/namespaces"
+                          More info: http://kubernetes.io/docs/user-guide/namespaces
+                          \n Deprecated: This field has no function and is going to
+                          be removed in a next release."
                         type: string
                       ownerReferences:
-                        description: List of objects depended by this object. If ALL
-                          objects in the list have been deleted, this object will
+                        description: "List of objects depended by this object. If
+                          ALL objects in the list have been deleted, this object will
                           be garbage collected. If this object is managed by a controller,
                           then an entry in this list will point to this controller,
                           with the controller field set to true. There cannot be more
-                          than one managing controller.
+                          than one managing controller. \n Deprecated: This field
+                          has no function and is going to be removed in a next release."
                         items:
                           description: OwnerReference contains enough information
                             to let you identify an owning object. An owning object
@@ -290,9 +297,8 @@ spec:
                           data:
                             description: "Data contains the bootstrap data, such as
                               cloud-init details scripts. If nil, the Machine should
-                              remain in the Pending state. \n Deprecated: This field
-                              has been deprecated in v1alpha3 and will be removed
-                              in a future version. Switch to DataSecretName."
+                              remain in the Pending state. \n Deprecated: Switch to
+                              DataSecretName."
                             type: string
                           dataSecretName:
                             description: DataSecretName is the name of the secret

@@ -23,20 +23,26 @@ spec:
         description: AzureIdentity is the specification of the identity data structure.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
           spec:
-            description: AzureIdentitySpec describes the credential specifications of an identity on Azure.
+            description: AzureIdentitySpec describes the credential specifications
+              of an identity on Azure.
             properties:
               adEndpoint:
                 type: string
               adResourceID:
-                description: For service principal. Option param for specifying the  AD details.
+                description: For service principal. Option param for specifying the  AD
+                  details.
                 type: string
               auxiliaryTenantIDs:
                 description: Service principal auxiliary tenant ids
@@ -51,10 +57,12 @@ spec:
                 description: Used for service principal
                 properties:
                   name:
-                    description: Name is unique within a namespace to reference a secret resource.
+                    description: Name is unique within a namespace to reference a
+                      secret resource.
                     type: string
                   namespace:
-                    description: Namespace defines the space within which the secret name must be unique.
+                    description: Namespace defines the space within which the secret
+                      name must be unique.
                     type: string
                 type: object
               metadata:

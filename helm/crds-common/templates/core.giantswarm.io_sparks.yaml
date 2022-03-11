@@ -22,18 +22,25 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Spark is a placeholder resource to allow for the creation of ignition templates in Azure workload clusters, as of workload cluster release v13.0.0. Reconciled by azure-operator.
+        description: Spark is a placeholder resource to allow for the creation of
+          ignition templates in Azure workload clusters, as of workload cluster release
+          v13.0.0. Reconciled by azure-operator.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
           spec:
-            description: SparkSpec is the interface which defines the input parameters for a newly rendered g8s ignition template.
+            description: SparkSpec is the interface which defines the input parameters
+              for a newly rendered g8s ignition template.
             properties:
               values:
                 additionalProperties:
@@ -45,25 +52,33 @@ spec:
             description: SparkStatus holds the rendering result.
             properties:
               dataSecretName:
-                description: DataSecretName is a name of the secret containing the rendered ignition once created.
+                description: DataSecretName is a name of the secret containing the
+                  rendered ignition once created.
                 type: string
               failureMessage:
-                description: FailureMessage is a longer message indicating the reason rendering failed (if it did).
+                description: FailureMessage is a longer message indicating the reason
+                  rendering failed (if it did).
                 type: string
               failureReason:
-                description: FailureReason is a short string indicating the reason rendering failed (if it did).
+                description: FailureReason is a short string indicating the reason
+                  rendering failed (if it did).
                 type: string
               ready:
-                description: Ready will be true when the referenced secret contains the rendered ignition and can be used for creating nodes.
+                description: Ready will be true when the referenced secret contains
+                  the rendered ignition and can be used for creating nodes.
                 type: boolean
               verification:
-                description: Verification is a hash of the rendered ignition to ensure that it has not been changed when loaded as a remote file by the bootstrap ignition. See https://coreos.com/ignition/docs/latest/configuration-v2_2.html
+                description: Verification is a hash of the rendered ignition to ensure
+                  that it has not been changed when loaded as a remote file by the
+                  bootstrap ignition. See https://coreos.com/ignition/docs/latest/configuration-v2_2.html
                 properties:
                   algorithm:
-                    description: The algorithm used for hashing. Must be sha512 for now.
+                    description: The algorithm used for hashing. Must be sha512 for
+                      now.
                     type: string
                   hash:
-                    description: The content of the full rendered ignition hashed by the corresponding algorithm.
+                    description: The content of the full rendered ignition hashed
+                      by the corresponding algorithm.
                     type: string
                 required:
                 - algorithm

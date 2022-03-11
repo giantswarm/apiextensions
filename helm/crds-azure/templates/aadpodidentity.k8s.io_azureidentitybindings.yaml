@@ -20,18 +20,25 @@ spec:
   - name: v1
     schema:
       openAPIV3Schema:
-        description: AzureIdentityBinding brings together the spec of matching pods and the identity which they can use.
+        description: AzureIdentityBinding brings together the spec of matching pods
+          and the identity which they can use.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
           spec:
-            description: AzureIdentityBindingSpec matches the pod with the Identity. Used to indicate the potential matches to look for between the pod/deployment and the identities present.
+            description: AzureIdentityBindingSpec matches the pod with the Identity.
+              Used to indicate the potential matches to look for between the pod/deployment
+              and the identities present.
             properties:
               azureIdentity:
                 type: string
@@ -40,7 +47,8 @@ spec:
               selector:
                 type: string
               weight:
-                description: Weight is used to figure out which of the matching identities would be selected.
+                description: Weight is used to figure out which of the matching identities
+                  would be selected.
                 type: integer
             type: object
           status:

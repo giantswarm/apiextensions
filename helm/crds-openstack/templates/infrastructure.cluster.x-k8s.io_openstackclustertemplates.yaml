@@ -40,38 +40,51 @@ spec:
   - name: v1alpha4
     schema:
       openAPIV3Schema:
-        description: OpenStackClusterTemplate is the Schema for the openstackclustertemplates API.
+        description: OpenStackClusterTemplate is the Schema for the openstackclustertemplates
+          API.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
           spec:
-            description: OpenStackClusterTemplateSpec defines the desired state of OpenStackClusterTemplate.
+            description: OpenStackClusterTemplateSpec defines the desired state of
+              OpenStackClusterTemplate.
             properties:
               template:
-                description: OpenStackClusterTemplateResource describes the data needed to create a OpenStackCluster from a template.
+                description: OpenStackClusterTemplateResource describes the data needed
+                  to create a OpenStackCluster from a template.
                 properties:
                   spec:
-                    description: OpenStackClusterSpec defines the desired state of OpenStackCluster.
+                    description: OpenStackClusterSpec defines the desired state of
+                      OpenStackCluster.
                     properties:
                       apiServerFloatingIP:
-                        description: APIServerFloatingIP is the floatingIP which will be associated to the APIServer. The floatingIP will be created if it not already exists.
+                        description: APIServerFloatingIP is the floatingIP which will
+                          be associated to the APIServer. The floatingIP will be created
+                          if it not already exists.
                         type: string
                       apiServerLoadBalancerAdditionalPorts:
-                        description: APIServerLoadBalancerAdditionalPorts adds additional ports to the APIServerLoadBalancer
+                        description: APIServerLoadBalancerAdditionalPorts adds additional
+                          ports to the APIServerLoadBalancer
                         items:
                           type: integer
                         type: array
                       apiServerPort:
-                        description: APIServerPort is the port on which the listener on the APIServer will be created
+                        description: APIServerPort is the port on which the listener
+                          on the APIServer will be created
                         type: integer
                       bastion:
-                        description: Bastion is the OpenStack instance to login the nodes
+                        description: Bastion is the OpenStack instance to login the
+                          nodes
                         properties:
                           availabilityZone:
                             type: string
@@ -81,39 +94,56 @@ spec:
                             description: Instance for the bastion itself
                             properties:
                               cloudName:
-                                description: The name of the cloud to use from the clouds secret
+                                description: The name of the cloud to use from the
+                                  clouds secret
                                 type: string
                               configDrive:
                                 description: Config Drive support
                                 type: boolean
                               flavor:
-                                description: The flavor reference for the flavor for your server instance.
+                                description: The flavor reference for the flavor for
+                                  your server instance.
                                 type: string
                               floatingIP:
-                                description: The floatingIP which will be associated to the machine, only used for master. The floatingIP should have been created and haven't been associated.
+                                description: The floatingIP which will be associated
+                                  to the machine, only used for master. The floatingIP
+                                  should have been created and haven't been associated.
                                 type: string
                               identityRef:
-                                description: IdentityRef is a reference to a identity to be used when reconciling this cluster
+                                description: IdentityRef is a reference to a identity
+                                  to be used when reconciling this cluster
                                 properties:
                                   kind:
-                                    description: Kind of the identity. Must be supported by the infrastructure provider and may be either cluster or namespace-scoped.
+                                    description: Kind of the identity. Must be supported
+                                      by the infrastructure provider and may be either
+                                      cluster or namespace-scoped.
                                     minLength: 1
                                     type: string
                                   name:
-                                    description: Name of the infrastructure identity to be used. Must be either a cluster-scoped resource, or namespaced-scoped resource the same namespace as the resource(s) being provisioned.
+                                    description: Name of the infrastructure identity
+                                      to be used. Must be either a cluster-scoped
+                                      resource, or namespaced-scoped resource the
+                                      same namespace as the resource(s) being provisioned.
                                     type: string
                                 required:
                                 - kind
                                 - name
                                 type: object
                               image:
-                                description: The name of the image to use for your server instance. If the RootVolume is specified, this will be ignored and use rootVolume directly.
+                                description: The name of the image to use for your
+                                  server instance. If the RootVolume is specified,
+                                  this will be ignored and use rootVolume directly.
                                 type: string
                               instanceID:
-                                description: InstanceID is the OpenStack instance ID for this machine.
+                                description: InstanceID is the OpenStack instance
+                                  ID for this machine.
                                 type: string
                               networks:
-                                description: A networks object. Required parameter when there are multiple networks defined for the tenant. When you do not specify both networks and ports parameters, the server attaches to the only network created for the current tenant.
+                                description: A networks object. Required parameter
+                                  when there are multiple networks defined for the
+                                  tenant. When you do not specify both networks and
+                                  ports parameters, the server attaches to the only
+                                  network created for the current tenant.
                                 items:
                                   properties:
                                     filter:
@@ -160,7 +190,8 @@ spec:
                                       items:
                                         properties:
                                           filter:
-                                            description: Filters for optional network query
+                                            description: Filters for optional network
+                                              query
                                             properties:
                                               cidr:
                                                 type: string
@@ -206,17 +237,23 @@ spec:
                                                 type: string
                                             type: object
                                           uuid:
-                                            description: The UUID of the network. Required if you omit the port attribute.
+                                            description: The UUID of the network.
+                                              Required if you omit the port attribute.
                                             type: string
                                         type: object
                                       type: array
                                     uuid:
-                                      description: The UUID of the network. Required if you omit the port attribute.
+                                      description: The UUID of the network. Required
+                                        if you omit the port attribute.
                                       type: string
                                   type: object
                                 type: array
                               ports:
-                                description: Ports to be attached to the server instance. They are created if a port with the given name does not already exist. When you do not specify both networks and ports parameters, the server attaches to the only network created for the current tenant.
+                                description: Ports to be attached to the server instance.
+                                  They are created if a port with the given name does
+                                  not already exist. When you do not specify both
+                                  networks and ports parameters, the server attaches
+                                  to the only network created for the current tenant.
                                 items:
                                   properties:
                                     adminStateUp:
@@ -233,7 +270,9 @@ spec:
                                     description:
                                       type: string
                                     fixedIPs:
-                                      description: Specify pairs of subnet and/or IP address. These should be subnets of the network with the given NetworkID.
+                                      description: Specify pairs of subnet and/or
+                                        IP address. These should be subnets of the
+                                        network with the given NetworkID.
                                       items:
                                         properties:
                                           ipAddress:
@@ -245,15 +284,20 @@ spec:
                                         type: object
                                       type: array
                                     hostId:
-                                      description: The ID of the host where the port is allocated
+                                      description: The ID of the host where the port
+                                        is allocated
                                       type: string
                                     macAddress:
                                       type: string
                                     nameSuffix:
-                                      description: Used to make the name of the port unique. If unspecified, instead the 0-based index of the port in the list is used.
+                                      description: Used to make the name of the port
+                                        unique. If unspecified, instead the 0-based
+                                        index of the port in the list is used.
                                       type: string
                                     networkId:
-                                      description: ID of the OpenStack network on which to create the port. If unspecified, create the port on the default cluster network.
+                                      description: ID of the OpenStack network on
+                                        which to create the port. If unspecified,
+                                        create the port on the default cluster network.
                                       type: string
                                     projectId:
                                       type: string
@@ -264,12 +308,14 @@ spec:
                                     tenantId:
                                       type: string
                                     vnicType:
-                                      description: The virtual network interface card (vNIC) type that is bound to the neutron port.
+                                      description: The virtual network interface card
+                                        (vNIC) type that is bound to the neutron port.
                                       type: string
                                   type: object
                                 type: array
                               providerID:
-                                description: ProviderID is the unique identifier as specified by the cloud provider.
+                                description: ProviderID is the unique identifier as
+                                  specified by the cloud provider.
                                 type: string
                               rootVolume:
                                 description: The volume metadata to boot from
@@ -284,11 +330,13 @@ spec:
                                     type: string
                                 type: object
                               securityGroups:
-                                description: The names of the security groups to assign to the instance
+                                description: The names of the security groups to assign
+                                  to the instance
                                 items:
                                   properties:
                                     filter:
-                                      description: Filters used to query security groups in openstack
+                                      description: Filters used to query security
+                                        groups in openstack
                                       properties:
                                         description:
                                           type: string
@@ -326,18 +374,22 @@ spec:
                                   type: object
                                 type: array
                               serverGroupID:
-                                description: The server group to assign the machine to
+                                description: The server group to assign the machine
+                                  to
                                 type: string
                               serverMetadata:
                                 additionalProperties:
                                   type: string
-                                description: Metadata mapping. Allows you to create a map of key value pairs to add to the server instance.
+                                description: Metadata mapping. Allows you to create
+                                  a map of key value pairs to add to the server instance.
                                 type: object
                               sshKeyName:
                                 description: The ssh key to inject in the instance
                                 type: string
                               subnet:
-                                description: UUID, IP address of a port from this subnet will be marked as AccessIPv4 on the created compute instance
+                                description: UUID, IP address of a port from this
+                                  subnet will be marked as AccessIPv4 on the created
+                                  compute instance
                                 type: string
                               tags:
                                 description: Machine tags Requires Nova api 2.52 minimum!
@@ -345,22 +397,26 @@ spec:
                                   type: string
                                 type: array
                               trunk:
-                                description: Whether the server instance is created on a trunk port or not.
+                                description: Whether the server instance is created
+                                  on a trunk port or not.
                                 type: boolean
                             required:
                             - flavor
                             type: object
                         type: object
                       cloudName:
-                        description: The name of the cloud to use from the clouds secret
+                        description: The name of the cloud to use from the clouds
+                          secret
                         type: string
                       controlPlaneAvailabilityZones:
-                        description: ControlPlaneAvailabilityZones is the az to deploy control plane to
+                        description: ControlPlaneAvailabilityZones is the az to deploy
+                          control plane to
                         items:
                           type: string
                         type: array
                       controlPlaneEndpoint:
-                        description: ControlPlaneEndpoint represents the endpoint used to communicate with the control plane.
+                        description: ControlPlaneEndpoint represents the endpoint
+                          used to communicate with the control plane.
                         properties:
                           host:
                             description: The hostname on which the API server is serving.
@@ -374,25 +430,35 @@ spec:
                         - port
                         type: object
                       disablePortSecurity:
-                        description: DisablePortSecurity disables the port security of the network created for the Kubernetes cluster, which also disables SecurityGroups
+                        description: DisablePortSecurity disables the port security
+                          of the network created for the Kubernetes cluster, which
+                          also disables SecurityGroups
                         type: boolean
                       dnsNameservers:
-                        description: DNSNameservers is the list of nameservers for OpenStack Subnet being created. Set this value when you need create a new network/subnet while the access through DNS is required.
+                        description: DNSNameservers is the list of nameservers for
+                          OpenStack Subnet being created. Set this value when you
+                          need create a new network/subnet while the access through
+                          DNS is required.
                         items:
                           type: string
                         type: array
                       externalNetworkId:
-                        description: ExternalNetworkID is the ID of an external OpenStack Network. This is necessary to get public internet to the VMs.
+                        description: ExternalNetworkID is the ID of an external OpenStack
+                          Network. This is necessary to get public internet to the
+                          VMs.
                         type: string
                       externalRouterIPs:
-                        description: ExternalRouterIPs is an array of externalIPs on the respective subnets. This is necessary if the router needs a fixed ip in a specific subnet.
+                        description: ExternalRouterIPs is an array of externalIPs
+                          on the respective subnets. This is necessary if the router
+                          needs a fixed ip in a specific subnet.
                         items:
                           properties:
                             fixedIP:
                               description: The FixedIP in the corresponding subnet
                               type: string
                             subnet:
-                              description: The subnet in which the FixedIP is used for the Gateway of this router
+                              description: The subnet in which the FixedIP is used
+                                for the Gateway of this router
                               properties:
                                 filter:
                                   description: Filters for optional network query
@@ -441,7 +507,8 @@ spec:
                                       type: string
                                   type: object
                                 uuid:
-                                  description: The UUID of the network. Required if you omit the port attribute.
+                                  description: The UUID of the network. Required if
+                                    you omit the port attribute.
                                   type: string
                               type: object
                           required:
@@ -449,27 +516,43 @@ spec:
                           type: object
                         type: array
                       identityRef:
-                        description: IdentityRef is a reference to a identity to be used when reconciling this cluster
+                        description: IdentityRef is a reference to a identity to be
+                          used when reconciling this cluster
                         properties:
                           kind:
-                            description: Kind of the identity. Must be supported by the infrastructure provider and may be either cluster or namespace-scoped.
+                            description: Kind of the identity. Must be supported by
+                              the infrastructure provider and may be either cluster
+                              or namespace-scoped.
                             minLength: 1
                             type: string
                           name:
-                            description: Name of the infrastructure identity to be used. Must be either a cluster-scoped resource, or namespaced-scoped resource the same namespace as the resource(s) being provisioned.
+                            description: Name of the infrastructure identity to be
+                              used. Must be either a cluster-scoped resource, or namespaced-scoped
+                              resource the same namespace as the resource(s) being
+                              provisioned.
                             type: string
                         required:
                         - kind
                         - name
                         type: object
                       managedAPIServerLoadBalancer:
-                        description: 'ManagedAPIServerLoadBalancer defines whether a LoadBalancer for the APIServer should be created. If set to true the following properties are mandatory: APIServerFloatingIP, APIServerPort'
+                        description: 'ManagedAPIServerLoadBalancer defines whether
+                          a LoadBalancer for the APIServer should be created. If set
+                          to true the following properties are mandatory: APIServerFloatingIP,
+                          APIServerPort'
                         type: boolean
                       managedSecurityGroups:
-                        description: 'ManagedSecurityGroups defines that kubernetes manages the OpenStack security groups for now, that means that we''ll create security group allows traffic to/from machines belonging to that group based on Calico CNI plugin default network requirements: BGP and IP-in-IP for master node(s) and worker node(s) respectively. In the future, we could make this more flexible.'
+                        description: 'ManagedSecurityGroups defines that kubernetes
+                          manages the OpenStack security groups for now, that means
+                          that we''ll create security group allows traffic to/from
+                          machines belonging to that group based on Calico CNI plugin
+                          default network requirements: BGP and IP-in-IP for master
+                          node(s) and worker node(s) respectively. In the future,
+                          we could make this more flexible.'
                         type: boolean
                       network:
-                        description: If NodeCIDR cannot be set this can be used to detect an existing network.
+                        description: If NodeCIDR cannot be set this can be used to
+                          detect an existing network.
                         properties:
                           adminStateUp:
                             type: boolean
@@ -505,10 +588,14 @@ spec:
                             type: string
                         type: object
                       nodeCidr:
-                        description: NodeCIDR is the OpenStack Subnet to be created. Cluster actuator will create a network, a subnet with NodeCIDR, and a router connected to this subnet. If you leave this empty, no network will be created.
+                        description: NodeCIDR is the OpenStack Subnet to be created.
+                          Cluster actuator will create a network, a subnet with NodeCIDR,
+                          and a router connected to this subnet. If you leave this
+                          empty, no network will be created.
                         type: string
                       subnet:
-                        description: If NodeCIDR cannot be set this can be used to detect an existing subnet.
+                        description: If NodeCIDR cannot be set this can be used to
+                          detect an existing subnet.
                         properties:
                           cidr:
                             type: string
