@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Actually remove `Cluster` CRD from KVM installations.
+- Actually remove all Cluster API CRDs from KVM installations.
 
 ## [5.1.0] - 2022-02-11
 
