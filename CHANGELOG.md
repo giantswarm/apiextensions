@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated CircleCI Ubuntu image to 20.04.
+
 ### Removed
 
 - Don't ensure CAPI and CAPA CRDs on AWS, we will deploy them from the apps.

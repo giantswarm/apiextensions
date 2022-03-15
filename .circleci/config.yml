@@ -5,7 +5,8 @@ orbs:
 
 jobs:
   test-install:
-    machine: true
+    machine:
+      image: ubuntu-2004:202010-01
     environment:
       KIND_VERSION: v0.11.1
       KUBERNETES_VERSION: v1.21.2
