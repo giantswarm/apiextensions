@@ -1,6 +1,0 @@
-apiVersion: v1
-name: crds-openstack
-version: [[ .Version ]]
-appVersion: master
-description: Giant Swarm CRDs for OpenStack.
-home: https://github.com/giantswarm/apiextensions
