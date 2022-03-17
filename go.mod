@@ -79,6 +79,8 @@ require (
 )
 
 replace (
+	// v0.8.7 requires kubernetes 1.13 that triggers nancy alerts.
+	github.com/Microsoft/hcsshim v0.8.7 => github.com/Microsoft/hcsshim v0.8.10
 	// v3.3.10 is required by spf13/viper. Can remove this replace when updated.
 	github.com/coreos/etcd v3.3.13+incompatible => github.com/coreos/etcd v3.3.25+incompatible
 
@@ -90,11 +92,7 @@ replace (
 	github.com/gorilla/websocket v1.4.0 => github.com/gorilla/websocket v1.4.2
 
 	// Mitigate a vulnerability in yaml.v1 < 2.2.8 (CVE-2019-11254)
-	gopkg.in/yaml.v2 v2.0.0-20170812160011-eb3733d160e7 => gopkg.in/yaml.v2 v2.2.8
-	gopkg.in/yaml.v2 v2.2.1 => gopkg.in/yaml.v2 v2.2.8
-	gopkg.in/yaml.v2 v2.2.2 => gopkg.in/yaml.v2 v2.2.8
-	gopkg.in/yaml.v2 v2.2.4 => gopkg.in/yaml.v2 v2.2.8
-	gopkg.in/yaml.v2 v2.2.5 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.8
 
 	sigs.k8s.io/cluster-api => sigs.k8s.io/cluster-api v1.0.4
 )
