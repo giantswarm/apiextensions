@@ -34,30 +34,38 @@ spec:
       openAPIV3Schema:
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
           spec:
             properties:
               clusterNames:
-                description: ClusterNames is a list of cluster IDs that should be backed up. Can contain the special value 'ManagementCluster' to indicate the Management Cluster.
+                description: ClusterNames is a list of cluster IDs that should be
+                  backed up. Can contain the special value 'ManagementCluster' to
+                  indicate the Management Cluster.
                 items:
                   type: string
                 nullable: true
                 type: array
               guestBackup:
-                description: GuestBackup is a boolean indicating if the workload clusters have to be backed up
+                description: GuestBackup is a boolean indicating if the workload clusters
+                  have to be backed up
                 nullable: true
                 type: boolean
             type: object
           status:
             properties:
               finishedTimestamp:
-                description: Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
+                description: Timestamp when the last (final) attempt was made (when
+                  the Phase became either 'Completed' or 'Failed'
                 format: date-time
                 nullable: true
                 type: string
@@ -92,7 +100,8 @@ spec:
                           nullable: true
                           type: string
                         finishedTimestamp:
-                          description: Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
+                          description: Timestamp when the last (final) attempt was
+                            made (when the Phase became either 'Completed' or 'Failed'
                           format: date-time
                           nullable: true
                           type: string
@@ -105,7 +114,8 @@ spec:
                           nullable: true
                           type: string
                         status:
-                          description: Status of this instance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+                          description: Status of this instance's backup job (can be
+                            'Pending', 'Running'. 'Completed', 'Failed')
                           type: string
                         uploadTime:
                           description: Time took by the backup upload process
@@ -135,7 +145,8 @@ spec:
                           nullable: true
                           type: string
                         finishedTimestamp:
-                          description: Timestamp when the last (final) attempt was made (when the Phase became either 'Completed' or 'Failed'
+                          description: Timestamp when the last (final) attempt was
+                            made (when the Phase became either 'Completed' or 'Failed'
                           format: date-time
                           nullable: true
                           type: string
@@ -148,7 +159,8 @@ spec:
                           nullable: true
                           type: string
                         status:
-                          description: Status of this instance's backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+                          description: Status of this instance's backup job (can be
+                            'Pending', 'Running'. 'Completed', 'Failed')
                           type: string
                         uploadTime:
                           description: Time took by the backup upload process
@@ -169,7 +181,8 @@ spec:
                 nullable: true
                 type: string
               status:
-                description: Status of the whole backup job (can be 'Pending', 'Running'. 'Completed', 'Failed')
+                description: Status of the whole backup job (can be 'Pending', 'Running'.
+                  'Completed', 'Failed')
                 type: string
             required:
             - status

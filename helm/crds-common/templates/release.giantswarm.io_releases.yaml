@@ -48,13 +48,18 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: Release is a Kubernetes resource (CR) representing a Giant Swarm workload cluster release.
+        description: Release is a Kubernetes resource (CR) representing a Giant Swarm
+          workload cluster release.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             properties:
@@ -70,7 +75,8 @@ spec:
                   properties:
                     catalog:
                       default: default
-                      description: Catalog specifies the name of the app catalog that this app belongs to.
+                      description: Catalog specifies the name of the app catalog that
+                        this app belongs to.
                       type: string
                     componentVersion:
                       description: Version of the upstream component used in the app.
@@ -93,16 +99,19 @@ spec:
                   properties:
                     catalog:
                       default: control-plane-catalog
-                      description: Catalog specifies the name of the app catalog that this component belongs to.
+                      description: Catalog specifies the name of the app catalog that
+                        this component belongs to.
                       type: string
                     name:
                       description: Name of the component.
                       type: string
                     reference:
-                      description: Reference is the component's version in the catalog (e.g. 1.2.3 or 1.2.3-abc8675309).
+                      description: Reference is the component's version in the catalog
+                        (e.g. 1.2.3 or 1.2.3-abc8675309).
                       type: string
                     releaseOperatorDeploy:
-                      description: ReleaseOperatorDeploy informs the release-operator that it should deploy the component.
+                      description: ReleaseOperatorDeploy informs the release-operator
+                        that it should deploy the component.
                       type: boolean
                     version:
                       description: Version of the component.
@@ -119,15 +128,19 @@ spec:
                 format: date-time
                 type: string
               endOfLifeDate:
-                description: EndOfLifeDate is the date and time when support for a workload cluster using this release ends. This may not be set at the time of release creation and can be specififed later.
+                description: EndOfLifeDate is the date and time when support for a
+                  workload cluster using this release ends. This may not be set at
+                  the time of release creation and can be specififed later.
                 format: date-time
                 nullable: true
                 type: string
               notice:
-                description: Notice outlines anything worth being aware of in this release.
+                description: Notice outlines anything worth being aware of in this
+                  release.
                 type: string
               state:
-                description: 'State indicates the availability of the release: deprecated, active, or wip.'
+                description: 'State indicates the availability of the release: deprecated,
+                  active, or wip.'
                 pattern: ^(active|deprecated|wip|preview)$
                 type: string
             required:
@@ -139,10 +152,12 @@ spec:
           status:
             properties:
               inUse:
-                description: InUse indicates whether a release is actually used by a cluster.
+                description: InUse indicates whether a release is actually used by
+                  a cluster.
                 type: boolean
               ready:
-                description: Ready indicates if all components of the release have been deployed.
+                description: Ready indicates if all components of the release have
+                  been deployed.
                 type: boolean
             type: object
         required:

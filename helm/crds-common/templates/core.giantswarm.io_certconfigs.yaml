@@ -22,13 +22,18 @@ spec:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: CertConfig specifies details for an X.509 certificate to be issued, handled by cert-operator.
+        description: CertConfig specifies details for an X.509 certificate to be issued,
+          handled by cert-operator.
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -46,7 +51,8 @@ spec:
                     nullable: true
                     type: array
                   clusterComponent:
-                    description: Host name of the service to create the certificate for.
+                    description: Host name of the service to create the certificate
+                      for.
                     type: string
                   clusterID:
                     description: Workload cluster ID to issue the certificate for.
@@ -58,7 +64,8 @@ spec:
                     description: If set, cert-operator will forbid updating this certificate.
                     type: boolean
                   ipSans:
-                    description: List of IP addresses to be set as SANs (Subject Alternative Names) in the certificate.
+                    description: List of IP addresses to be set as SANs (Subject Alternative
+                      Names) in the certificate.
                     items:
                       type: string
                     nullable: true
@@ -70,7 +77,8 @@ spec:
                     nullable: true
                     type: array
                   ttl:
-                    description: Expiry time as a Golang duration string, e. g. "1d" for one day.
+                    description: Expiry time as a Golang duration string, e. g. "1d"
+                      for one day.
                     type: string
                 required:
                 - allowBareDomains

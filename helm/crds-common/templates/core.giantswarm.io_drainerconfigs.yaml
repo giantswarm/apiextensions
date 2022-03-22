@@ -24,10 +24,14 @@ spec:
       openAPIV3Schema:
         properties:
           apiVersion:
-            description: 'APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
             type: string
           kind:
-            description: 'Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
             type: string
           metadata:
             type: object
@@ -46,7 +50,8 @@ spec:
                         - endpoint
                         type: object
                       id:
-                        description: ID is the workload cluster ID of which a node should be drained.
+                        description: ID is the workload cluster ID of which a node
+                          should be drained.
                         type: string
                     required:
                     - api
@@ -55,7 +60,12 @@ spec:
                   node:
                     properties:
                       name:
-                        description: "Name is the identifier of the workload cluster's master and worker nodes. In Kubernetes/Kubectl they are represented as node names. The names are manage in an abstracted way because of provider specific differences. \n     AWS: EC2 instance DNS.     Azure: VM name.     KVM: host cluster pod name."
+                        description: "Name is the identifier of the workload cluster's
+                          master and worker nodes. In Kubernetes/Kubectl they are
+                          represented as node names. The names are manage in an abstracted
+                          way because of provider specific differences. \n     AWS:
+                          EC2 instance DNS.     Azure: VM name.     KVM: host cluster
+                          pod name."
                         type: string
                     required:
                     - name
@@ -79,14 +89,17 @@ spec:
             properties:
               conditions:
                 items:
-                  description: DrainerConfigStatusCondition expresses a condition in which a node may is.
+                  description: DrainerConfigStatusCondition expresses a condition
+                    in which a node may is.
                   properties:
                     lastHeartbeatTime:
-                      description: LastHeartbeatTime is the last time we got an update on a given condition.
+                      description: LastHeartbeatTime is the last time we got an update
+                        on a given condition.
                       format: date-time
                       type: string
                     lastTransitionTime:
-                      description: LastTransitionTime is the last time the condition transitioned from one status to another.
+                      description: LastTransitionTime is the last time the condition
+                        transitioned from one status to another.
                       format: date-time
                       type: string
                     status:
