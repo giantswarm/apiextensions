@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.2.0] - 2022-03-21
+
+### Added
+
+- Add `alpha.aws.giantswarm.io/ebs-volume-throughput` annotation.
+- Add `alpha.aws.giantswarm.io/ebs-volume-iops` annotation.
+
 ### Changed
 
 - Updated CircleCI Ubuntu image to 20.04.
@@ -17,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Don't ensure CAPI and CAPZ CRDs on Azure, we will deploy them from the CAPI app.
 - Don't ensure CAPI CRDs on OpenStack and vSphere.
 - Remove templating functions and tests for old AWS CRDs.
+- Remove v1alpha2 legacy GiantSwarm APIs.
 
 ### Fixed
 
@@ -1003,7 +1011,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/giantswarm/compare/v5.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v5.2.0...HEAD
+[5.2.0]: https://github.com/giantswarm/apiextensions/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/giantswarm/compare/v5.0.1...v5.1.0
 [5.0.1]: https://github.com/giantswarm/giantswarm/compare/v5.0.0...v5.0.1
 [5.0.0]: https://github.com/giantswarm/giantswarm/compare/v4.0.1...v5.0.0
