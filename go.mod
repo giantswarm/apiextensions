@@ -9,10 +9,10 @@ require (
 	github.com/google/go-github/v39 v39.2.0
 	github.com/stretchr/testify v1.7.0
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8
-	k8s.io/api v0.18.19
-	k8s.io/apiextensions-apiserver v0.18.19
-	k8s.io/apimachinery v0.18.19
-	k8s.io/client-go v0.18.19
+	k8s.io/api v0.20.15
+	k8s.io/apiextensions-apiserver v0.20.15
+	k8s.io/apimachinery v0.20.15
+	k8s.io/client-go v0.20.15
 	sigs.k8s.io/cluster-api v0.3.14
 	sigs.k8s.io/cluster-api-provider-azure v0.4.15
 	sigs.k8s.io/yaml v1.2.0
