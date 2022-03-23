@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade CAPI to v1.0.4.
+- Upgrade CAPZ to v1.0.1.
+
+### Removed
+
+- Remove v1alpha2 legacy GiantSwarm APIs.
+
 ## [5.2.0] - 2022-03-21
 
 ### Added
@@ -24,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Don't ensure CAPI and CAPZ CRDs on Azure, we will deploy them from the CAPI app.
 - Don't ensure CAPI CRDs on OpenStack and vSphere.
 - Remove templating functions and tests for old AWS CRDs.
-- Remove v1alpha2 legacy GiantSwarm APIs.
 
 ### Fixed
 
