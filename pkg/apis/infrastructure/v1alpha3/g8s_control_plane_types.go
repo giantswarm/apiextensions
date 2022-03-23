@@ -4,7 +4,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/giantswarm/apiextensions/v5/pkg/annotation"
+	"github.com/giantswarm/apiextensions/v6/pkg/annotation"
 )
 
 const (

@@ -1,4 +1,4 @@
-module github.com/giantswarm/apiextensions/v5
+module github.com/giantswarm/apiextensions/v6
 
 go 1.17
 
