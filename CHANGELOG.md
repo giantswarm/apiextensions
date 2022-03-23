@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Upgrade CAPI to v1.0.4.
 - Upgrade CAPZ to v1.0.1.
+- Bump go module major version to v6.
 
 ### Removed
 

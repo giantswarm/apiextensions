@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/giantswarm/apiextensions/v5/pkg/crd"
+	"github.com/giantswarm/apiextensions/v6/pkg/crd"
 )
 
 var upstreamReleaseAssets = []crd.ReleaseAssetFileDefinition{}
