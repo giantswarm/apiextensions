@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.0.1] - 2022-03-30
+
 ### Changed
 
 - Replace all github.com/gogo/protobuf versions with v1.3.2
@@ -1026,7 +1028,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.0.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.0.1...HEAD
+[6.0.1]: https://github.com/giantswarm/apiextensions/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/giantswarm/apiextensions/compare/v5.2.0...v6.0.0
 [5.2.0]: https://github.com/giantswarm/apiextensions/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/giantswarm/giantswarm/compare/v5.0.1...v5.1.0
