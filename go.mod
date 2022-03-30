@@ -86,8 +86,8 @@ replace (
 
 	github.com/dgrijalva/jwt-go => github.com/form3tech-oss/jwt-go v3.2.1+incompatible
 
-	// Use v1.3.2 of gogo/protobuf to fix nancy alert.
-	github.com/gogo/protobuf v1.3.1 => github.com/gogo/protobuf v1.3.2
+	// Use v1.3.2 of gogo/protobuf to fix nancy alert for https://nvd.nist.gov/vuln/detail/CVE-2021-3121
+	github.com/gogo/protobuf => github.com/gogo/protobuf v1.3.2
 
 	github.com/gorilla/websocket v1.4.0 => github.com/gorilla/websocket v1.4.2
 
