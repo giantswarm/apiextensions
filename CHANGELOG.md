@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replace all github.com/gogo/protobuf versions with v1.3.2
 
+### Removed
+
+- Remove `Organization` API.
+
 ## [6.0.0] - 2022-03-23
 
 ### Changed
