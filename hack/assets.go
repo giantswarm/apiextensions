@@ -42,4 +42,11 @@ var remoteRepositories = []crd.RemoteRepositoryDefinition{
 		Name:      "apiextensions-backup",
 		Reference: "v0.2.0",
 	},
+	{
+		Path:      "config/crd",
+		Owner:     "giantswarm",
+		Provider:  "common",
+		Name:      "organization-operator",
+		Reference: "v1.0.0",
+	},
 }
