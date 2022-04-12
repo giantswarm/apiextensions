@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Replace all github.com/gogo/protobuf versions with v1.3.2
-- Update Silence CRD with changes from silence-operator v0.6.0
+- Update Silence CRD with changes from silence-operator v0.6.1
 
 ### Removed
 
