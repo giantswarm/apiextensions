@@ -19,7 +19,7 @@ var remoteRepositories = []crd.RemoteRepositoryDefinition{
 		Owner:     "giantswarm",
 		Provider:  "common",
 		Name:      "silence-operator",
-		Reference: "v0.4.0",
+		Reference: "v0.6.0",
 	},
 	{
 		Path:      "config/crd",
