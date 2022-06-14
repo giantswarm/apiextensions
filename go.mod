@@ -7,7 +7,7 @@ require (
 	github.com/giantswarm/to v0.4.0
 	github.com/google/go-cmp v0.5.8
 	github.com/google/go-github/v39 v39.2.0
-	github.com/stretchr/testify v1.7.0
+	github.com/stretchr/testify v1.7.2
 	golang.org/x/oauth2 v0.0.0-20220608161450-d0670ef3b1eb
 	k8s.io/api v0.24.1
 	k8s.io/apiextensions-apiserver v0.24.1
