@@ -55,6 +55,11 @@ spec:
                   type: string
                 nullable: true
                 type: array
+              clustersRegex:
+                description: ClustersRegex is a regexp string indicating which workload
+                  clusters have to be backed up
+                nullable: true
+                type: string
               guestBackup:
                 description: GuestBackup is a boolean indicating if the workload clusters
                   have to be backed up
