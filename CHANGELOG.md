@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.2.0] - 2022-06-15
+
 ### Changed
 
 - Upgrade `apiextensions-application` to v0.4.0, which includes changes to Catalog CR.
@@ -1041,7 +1043,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.1.0...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.2.0...HEAD
+[6.2.0]: https://github.com/giantswarm/apiextensions/compare/v6.1.0...v6.2.0
 [6.1.0]: https://github.com/giantswarm/apiextensions/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/giantswarm/apiextensions/compare/v5.2.0...v6.0.0
 [5.2.0]: https://github.com/giantswarm/apiextensions/compare/v5.1.0...v5.2.0
