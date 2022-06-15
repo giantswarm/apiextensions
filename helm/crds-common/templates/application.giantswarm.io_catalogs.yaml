@@ -94,9 +94,28 @@ spec:
                 description: LogoURL contains the links for logo image file for this
                   catalog
                 type: string
+              repositories:
+                description: Repositories is an array of objects defining catalog
+                  repositories.
+                items:
+                  properties:
+                    URL:
+                      description: URL is the link to where this Catalog's repository
+                        is located e.g. https://example.com/app-catalog/
+                      type: string
+                    type:
+                      description: Type indicates which repository type would be used
+                        for this Catalog. e.g. helm
+                      type: string
+                  required:
+                  - URL
+                  - type
+                  type: object
+                minItems: 1
+                type: array
               storage:
-                description: Storage references a map containing values that should
-                  be applied to the catalog.
+                description: Storage references an object defining catalog repository.
+                  Will be deprecated. Replaced by Repositories.
                 properties:
                   URL:
                     description: URL is the link to where this Catalog's repository
@@ -117,6 +136,7 @@ spec:
             required:
             - description
             - logoURL
+            - repositories
             - storage
             - title
             type: object

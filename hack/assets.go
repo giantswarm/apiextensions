@@ -12,7 +12,7 @@ var remoteRepositories = []crd.RemoteRepositoryDefinition{
 		Owner:     "giantswarm",
 		Provider:  "common",
 		Name:      "apiextensions-application",
-		Reference: "v0.3.1",
+		Reference: "v0.4.0",
 	},
 	{
 		Path:      "config/crd",

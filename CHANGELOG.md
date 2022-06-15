@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Upgrade `apiextensions-application` to v0.4.0, which includes changes to Catalog CR.
+
 ## [6.1.0] - 2022-06-14
 
 ### Added
