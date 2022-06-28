@@ -44,6 +44,7 @@ crds:
   awsclusters.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsclusters.infrastructure.giantswarm.io:
     owner:
@@ -61,14 +62,17 @@ crds:
   awsclustercontrolleridentities.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsclusterroleidentities.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsclusterstaticidentities.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsconfigs.provider.giantswarm.io:
     owner:
@@ -86,6 +90,7 @@ crds:
   awsfargateprofiles.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsmachinedeployments.infrastructure.giantswarm.io:
     owner:
@@ -97,38 +102,47 @@ crds:
   awsmachinepools.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsmachines.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsmachinetemplates.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsmanagedclusters.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsmanagedcontrolplanes.controlplane.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   awsmanagedmachinepools.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azureassignedidentities.aadpodidentity.k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azureclusteridentities.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azureclusters.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     provider:
       - azure
     topics:
@@ -144,14 +158,17 @@ crds:
   azureidentities.aadpodidentity.k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azureidentitybindings.aadpodidentity.k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azuremachinepools.exp.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     provider:
       - azure
     topics:
@@ -159,6 +176,7 @@ crds:
   azuremachines.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     provider:
       - azure
     topics:
@@ -166,22 +184,27 @@ crds:
   azuremachinetemplates.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azuremanagedclusters.exp.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azuremanagedcontrolplanes.exp.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azuremanagedmachinepools.exp.infrastructure.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   azurepodidentityexceptions.aadpodidentity.k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   catalogs.application.giantswarm.io:
     owner:
@@ -212,6 +235,7 @@ crds:
   clusters.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
       - https://github.com/orgs/giantswarm/teams/team-rocket
     provider:
       - aws
@@ -232,10 +256,12 @@ crds:
   eksconfigs.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   eksconfigtemplates.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     hidden: true
   flannelconfigs.core.giantswarm.io:
     hidden: true
@@ -255,16 +281,19 @@ crds:
   kubeadmconfigs.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
       - https://github.com/orgs/giantswarm/teams/team-rocket
     hidden: true
   kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
       - https://github.com/orgs/giantswarm/teams/team-rocket
     hidden: true
   kubeadmcontrolplanes.controlplane.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
       - https://github.com/orgs/giantswarm/teams/team-rocket
     hidden: true
   kvmclusterconfigs.core.giantswarm.io:
@@ -284,6 +313,7 @@ crds:
   machinedeployments.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
       - https://github.com/orgs/giantswarm/teams/team-rocket
     provider:
       - aws
@@ -295,6 +325,7 @@ crds:
   machinepools.exp.cluster.x-k8s.io:
     owner:
       - https://github.com/orgs/giantswarm/teams/team-phoenix
+      - https://github.com/orgs/giantswarm/teams/team-hydra
     provider:
       - azure
     topics:
