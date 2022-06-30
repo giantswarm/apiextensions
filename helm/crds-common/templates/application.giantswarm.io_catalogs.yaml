@@ -115,7 +115,7 @@ spec:
                 type: array
               storage:
                 description: Storage references an object defining catalog repository.
-                  Will be deprecated. Replaced by Repositories.
+                  This field is deprecated and replaced by Repositories.
                 properties:
                   URL:
                     description: URL is the link to where this Catalog's repository
