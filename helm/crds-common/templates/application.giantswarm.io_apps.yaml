@@ -109,6 +109,40 @@ spec:
                     - namespace
                     type: object
                 type: object
+              extraConfigs:
+                description: 'ExtraConfigs is a list of configurations to merge together
+                  based on the priority and order in the list. See: https://github.com/giantswarm/rfc/tree/main/multi-layer-app-config#enhancing-app-cr'
+                items:
+                  properties:
+                    kind:
+                      default: configMap
+                      description: Kind of configuration to look up that should be
+                        applied to the app when deployed.
+                      enum:
+                      - configMap
+                      - secret
+                      type: string
+                    name:
+                      description: Name of the resource of the given kind to look
+                        up.
+                      type: string
+                    namespace:
+                      description: Namespace where the resource with the given name
+                        and kind to look up is located.
+                      type: string
+                    priority:
+                      default: 25
+                      description: 'Priority is used to indicate at which stage the
+                        extra configuration should be merged. See: https://github.com/giantswarm/rfc/tree/main/multi-layer-app-config#enhancing-app-cr'
+                      maximum: 150
+                      minimum: 0
+                      type: integer
+                  required:
+                  - name
+                  - namespace
+                  type: object
+                nullable: true
+                type: array
               install:
                 description: Install is the config used when installing the app.
                 nullable: true
