@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Bump apiextensions-application to v0.5.1
+
 ## [6.3.0] - 2022-07-01
 
 - Bump apiextensions-application to v0.5.0
