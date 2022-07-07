@@ -135,7 +135,7 @@ spec:
                       description: 'Priority is used to indicate at which stage the
                         extra configuration should be merged. See: https://github.com/giantswarm/rfc/tree/main/multi-layer-app-config#enhancing-app-cr'
                       maximum: 150
-                      minimum: 0
+                      minimum: 1
                       type: integer
                   required:
                   - name
