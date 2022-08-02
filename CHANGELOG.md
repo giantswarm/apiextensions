@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.4.0] - 2022-08-02
+
 ### Added
 
 - Add `cilium.giantswarm.io/pod-cidr` annotation.
@@ -1059,7 +1061,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.3.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.4.0...HEAD
+[6.4.0]: https://github.com/giantswarm/apiextensions/compare/v6.3.1...v6.4.0
 [6.3.1]: https://github.com/giantswarm/apiextensions/compare/v6.3.0...v6.3.1
 [6.3.0]: https://github.com/giantswarm/apiextensions/compare/v6.2.0...v6.3.0
 [6.2.0]: https://github.com/giantswarm/apiextensions/compare/v6.1.0...v6.2.0
