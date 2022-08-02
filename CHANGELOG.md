@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add `cilium.giantswarm.io/pod-cidr` annotation.
+
 ## [6.3.1] - 2022-07-07
+
+### Changed
 
 - Bump apiextensions-application to v0.5.1
 
 ## [6.3.0] - 2022-07-01
+
+### Changed
 
 - Bump apiextensions-application to v0.5.0
 
