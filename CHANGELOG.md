@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Removed `etcdbackup` CRD (moved to `etcd-backup-operator`'s helm chart).
+
 ## [6.4.0] - 2022-08-02
 
 ### Added
