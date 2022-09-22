@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump apiextensions-application to v0.6.0
+
 ### Removed
 
 - Removed `etcdbackup` CRD (moved to `etcd-backup-operator`'s helm chart).
