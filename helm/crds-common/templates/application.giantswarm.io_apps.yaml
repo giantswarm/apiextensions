@@ -152,6 +152,11 @@ spec:
                       with the chart are not installed. Default: false.'
                     nullable: true
                     type: boolean
+                  timeout:
+                    description: Timeout for the Helm install. When not set the default
+                      timeout of 5 minutes is being enforced.
+                    pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m))+$
+                    type: string
                 type: object
               kubeConfig:
                 description: KubeConfig is the kubeconfig to connect to the cluster
@@ -218,6 +223,36 @@ spec:
                       target namespace.
                     nullable: true
                     type: object
+                type: object
+              rollback:
+                description: Rollback is the config used when rolling back the app.
+                nullable: true
+                properties:
+                  timeout:
+                    description: Timeout for the Helm rollback. When not set the default
+                      timeout of 5 minutes is being enforced.
+                    pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m))+$
+                    type: string
+                type: object
+              uninstall:
+                description: Uninstall is the config used when uninstalling the app.
+                nullable: true
+                properties:
+                  timeout:
+                    description: Timeout for the Helm uninstall. When not set the
+                      default timeout of 5 minutes is being enforced.
+                    pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m))+$
+                    type: string
+                type: object
+              upgrade:
+                description: Upgrade is the config used when upgrading the app.
+                nullable: true
+                properties:
+                  timeout:
+                    description: Timeout for the Helm upgrade. When not set the default
+                      timeout of 5 minutes is being enforced.
+                    pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m))+$
+                    type: string
                 type: object
               userConfig:
                 description: UserConfig is the user config to be applied when the
