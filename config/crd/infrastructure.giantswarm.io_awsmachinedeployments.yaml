@@ -64,9 +64,16 @@ spec:
                           which can be used by Pods via volumes of type EmptyDir.
                           Unit: 1 GB = 1,000,000,000 Bytes.'
                         type: integer
+                      loggingVolumeSizeGB:
+                        default: 100
+                        description: 'Size of the volume reserved for the logs. Mounted
+                          in /var/log by default. Unit: 1 GB = 1,000,000,000 Bytes.'
+                        minimum: 10
+                        type: integer
                     required:
                     - dockerVolumeSizeGB
                     - kubeletVolumeSizeGB
+                    - loggingVolumeSizeGB
                     type: object
                   scaling:
                     description: Scaling settings for the node pool, configuring the

@@ -51,6 +51,11 @@ type AWSMachineDeploymentSpecNodePoolMachine struct {
 	// Size of the volume reserved for the kubelet, which can be used by Pods via
 	// volumes of type EmptyDir. Unit: 1 GB = 1,000,000,000 Bytes.
 	KubeletVolumeSizeGB int `json:"kubeletVolumeSizeGB"`
+	// +kubebuilder:default=100
+	// +kubebuilder:validation:Minimum=10
+	// Size of the volume reserved for the logs.
+	// Mounted in /var/log by default. Unit: 1 GB = 1,000,000,000 Bytes.
+	LoggingVolumeSizeGB int `json:"loggingVolumeSizeGB"`
 }
 
 // +k8s:openapi-gen=true
