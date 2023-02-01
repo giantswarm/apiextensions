@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.5.0] - 2023-02-01
+
 ### Changed
 
 - Bump release-operator to v4.0.0.
@@ -1075,7 +1077,8 @@ needing to enter empty strings.
 
 
 
-[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.4.1...HEAD
+[Unreleased]: https://github.com/giantswarm/apiextensions/compare/v6.5.0...HEAD
+[6.5.0]: https://github.com/giantswarm/apiextensions/compare/v6.4.1...v6.5.0
 [6.4.1]: https://github.com/giantswarm/apiextensions/compare/v6.4.0...v6.4.1
 [6.4.0]: https://github.com/giantswarm/apiextensions/compare/v6.3.1...v6.4.0
 [6.3.1]: https://github.com/giantswarm/apiextensions/compare/v6.3.0...v6.3.1
