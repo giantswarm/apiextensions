@@ -121,10 +121,10 @@ const AWSSubnetSize = "alpha.aws.giantswarm.io/aws-subnet-size"
 // support:
 //   - crd: awscontrolplanes.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: Since 19.0.0
+//     release: Since 18.2.0
 //   - crd: awsmachinedeployments.infrastructure.giantswarm.io
 //     apiversion: v1alpha2
-//     release: Since 19.0.0
+//     release: Since 18.2.0
 //
 // documentation:
 //
