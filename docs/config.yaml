@@ -375,7 +375,7 @@ crds:
       - workloadcluster
   organizations.security.giantswarm.io:
     owner:
-      - https://github.com/orgs/giantswarm/teams/team-rainbow
+      - https://github.com/orgs/giantswarm/teams/team-bigmac
     topics:
       - managementcluster
   releasecycles.release.giantswarm.io:
