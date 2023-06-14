@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Remove hydra from the apiextensions ownerships
+
 ## [6.6.0] - 2023-06-01
 
 ### Added 
