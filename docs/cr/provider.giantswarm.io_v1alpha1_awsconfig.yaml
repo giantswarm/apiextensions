@@ -82,7 +82,7 @@ spec:
       domain: cluster.local
       ingressController:
         docker:
-          image: quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11
+          image: quay.io/giantswarm/ingress-nginx-controller:v1.8.1
         domain: ingress.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io
         insecurePort: 30010
         securePort: 30011

@@ -185,7 +185,7 @@ func newAWSConfigExampleCR() *AWSConfig {
 				Domain: "cluster.local",
 				IngressController: ClusterKubernetesIngressController{
 					Docker: ClusterKubernetesIngressControllerDocker{
-						Image: "quay.io/giantswarm/nginx-ingress-controller:0.9.0-beta.11",
+						Image: "quay.io/giantswarm/ingress-nginx-controller:v1.8.1",
 					},
 					Domain:       "ingress.l8zrw.k8s.gauss.eu-central-1.aws.gigantic.io",
 					InsecurePort: 30010,

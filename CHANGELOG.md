@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Remove hydra from the apiextensions ownerships
+- CRDs: Rename `nginx-ingress-controller-app` to `ingress-nginx`. ([#943](https://github.com/giantswarm/apiextensions/pull/943))
 
 ## [6.6.0] - 2023-06-01
 
