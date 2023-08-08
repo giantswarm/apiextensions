@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/apiextensions.svg?&style=shield)](https://circleci.com/gh/giantswarm/apiextensions)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/giantswarm/apiextensions/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/giantswarm/apiextensions/tree/master)
 
 # apiextensions
 
