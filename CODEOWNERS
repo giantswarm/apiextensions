@@ -1,8 +1,0 @@
-# This file defines ownership of specific parts of the project. Owner teams will automatically get added as reviewers
-# for pull requests which are modifying files owned by those teams. See official docs for more information
-# https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners.
-#
-# Files and directories can be owned by multiple teams, for example:
-# path/to/directory/ @giantswarm/team-x @giantswarm/team-y @giantswarm/team-z
-
-helm/crds-azure @giantswarm/team-celestial
