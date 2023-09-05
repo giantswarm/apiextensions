@@ -6,7 +6,7 @@ require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/giantswarm/to v0.4.0
 	github.com/google/go-cmp v0.5.9
-	github.com/google/go-github/v39 v39.2.0
+	github.com/google/go-github/v55 v55.0.0
 	github.com/stretchr/testify v1.8.3
 	golang.org/x/oauth2 v0.7.0
 	k8s.io/api v0.24.1
@@ -106,7 +106,7 @@ replace (
 	google.golang.org/grpc => google.golang.org/grpc v1.57.0
 
 	// Mitigate a vulnerability in yaml.v1 < 2.2.8 (CVE-2019-11254)
-	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v3 => gopkg.in/yaml.v2 v3.0.1
 
 	sigs.k8s.io/cluster-api => sigs.k8s.io/cluster-api v1.0.4
 )

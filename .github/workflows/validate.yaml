@@ -10,7 +10,7 @@ jobs:
       - id: go-cache-paths
         run: echo "::set-output name=go-mod::$(go env GOMODCACHE)"
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Go mod cache
         uses: actions/cache@v3
