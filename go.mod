@@ -5,10 +5,10 @@ go 1.17
 require (
 	github.com/giantswarm/microerror v0.4.0
 	github.com/giantswarm/to v0.4.0
-	github.com/google/go-cmp v0.5.9
+	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v39 v39.2.0
-	github.com/stretchr/testify v1.8.3
-	golang.org/x/oauth2 v0.7.0
+	github.com/stretchr/testify v1.8.4
+	golang.org/x/oauth2 v0.13.0
 	k8s.io/api v0.24.1
 	k8s.io/apiextensions-apiserver v0.24.1
 	k8s.io/apimachinery v0.24.1
@@ -48,7 +48,7 @@ require (
 	github.com/google/gnostic v0.6.9 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
-	github.com/google/uuid v1.3.0 // indirect
+	github.com/google/uuid v1.3.1 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -61,19 +61,19 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_golang v1.12.2 // indirect
-	github.com/prometheus/client_model v0.3.0 // indirect
+	github.com/prometheus/client_model v0.4.0 // indirect
 	github.com/prometheus/common v0.34.0 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/crypto v0.12.0 // indirect
-	golang.org/x/net v0.14.0 // indirect
+	golang.org/x/net v0.16.0 // indirect
 	golang.org/x/sys v0.12.0 // indirect
 	golang.org/x/term v0.12.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	gomodules.xyz/jsonpatch/v2 v2.2.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.30.0 // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
@@ -92,7 +92,7 @@ replace (
 	// v3.3.10 is required by spf13/viper. Can remove this replace when updated.
 	github.com/coreos/etcd v3.3.13+incompatible => github.com/coreos/etcd v3.3.25+incompatible
 
-	github.com/dgrijalva/jwt-go => github.com/form3tech-oss/jwt-go v3.2.1+incompatible
+	github.com/dgrijalva/jwt-go => github.com/form3tech-oss/jwt-go v3.2.5+incompatible
 
 	// Use v1.3.2 of gogo/protobuf to fix nancy alert for https://nvd.nist.gov/vuln/detail/CVE-2021-3121
 	github.com/gogo/protobuf => github.com/gogo/protobuf v1.3.2
@@ -103,10 +103,10 @@ replace (
 	golang.org/x/net => golang.org/x/net v0.14.0
 
 	// Mitigate CVE-2023-32731
-	google.golang.org/grpc => google.golang.org/grpc v1.57.0
+	google.golang.org/grpc => google.golang.org/grpc v1.59.0
 
 	// Mitigate a vulnerability in yaml.v1 < 2.2.8 (CVE-2019-11254)
-	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.4.0
 
 	sigs.k8s.io/cluster-api => sigs.k8s.io/cluster-api v1.0.4
 )
