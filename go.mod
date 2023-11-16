@@ -106,7 +106,7 @@ replace (
 	google.golang.org/grpc => google.golang.org/grpc v1.57.0
 
 	// Mitigate a vulnerability in yaml.v1 < 2.2.8 (CVE-2019-11254)
-	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.8
+	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.4.0
 
 	sigs.k8s.io/cluster-api => sigs.k8s.io/cluster-api v1.0.4
 )
