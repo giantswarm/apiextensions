@@ -66,11 +66,11 @@ spec:
             properties:
               appName:
                 description: AppName is the name of the app this entry belongs to.
-                  e.g. nginx-ingress-controller-app
+                  e.g. ingress-nginx
                 type: string
               appVersion:
                 description: AppVersion is the upstream version of the app for this
-                  entry. e.g. v0.35.0
+                  entry. e.g. v1.8.1
                 type: string
               catalog:
                 description: Catalog is the name of the app catalog this entry belongs
@@ -162,7 +162,7 @@ spec:
                 type: object
               version:
                 description: Version is the version of the app chart for this entry.
-                  e.g. 1.9.2
+                  e.g. 3.0.0
                 type: string
             required:
             - appName

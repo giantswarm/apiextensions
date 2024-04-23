@@ -143,6 +143,11 @@ spec:
                   type: object
                 nullable: true
                 type: array
+                x-kubernetes-list-map-keys:
+                - kind
+                - name
+                - namespace
+                x-kubernetes-list-type: map
               install:
                 description: Install is the config used when installing the app.
                 nullable: true
@@ -163,11 +168,11 @@ spec:
                   when deploying the app.
                 properties:
                   context:
-                    description: Context is the kubeconfig context.
+                    description: 'Deprecated: this field is no longer used.'
                     nullable: true
                     properties:
                       name:
-                        description: Name is the name of the kubeconfig context. e.g.
+                        description: Name is the name of the kubeconfig context e.g.
                           giantswarm-12345.
                         type: string
                     required:
