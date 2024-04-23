@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Update App and AppCatalogEntry CRDs.
+
 ### Changed
 
 - Remove hydra from the apiextensions ownerships
 
 ## [6.6.0] - 2023-06-01
 
-### Added 
+### Added
 
 - Annotation for EBS Volumes for Logging, Docker and Containerd.
 
