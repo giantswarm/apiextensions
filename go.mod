@@ -3,9 +3,9 @@ module github.com/giantswarm/apiextensions/v6
 go 1.17
 
 require (
-	github.com/giantswarm/microerror v0.4.0
+	github.com/giantswarm/microerror v0.4.1
 	github.com/giantswarm/to v0.4.0
-	github.com/google/go-cmp v0.5.9
+	github.com/google/go-cmp v0.6.0
 	github.com/google/go-github/v39 v39.2.0
 	github.com/stretchr/testify v1.8.3
 	golang.org/x/oauth2 v0.7.0
