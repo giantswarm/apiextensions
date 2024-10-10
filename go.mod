@@ -15,7 +15,7 @@ require (
 	k8s.io/client-go v0.24.1
 	sigs.k8s.io/cluster-api v1.1.4
 	sigs.k8s.io/cluster-api-provider-azure v1.3.2
-	sigs.k8s.io/yaml v1.3.0
+	sigs.k8s.io/yaml v1.4.0
 )
 
 require (
