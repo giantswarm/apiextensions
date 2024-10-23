@@ -13,8 +13,8 @@ require (
 	k8s.io/apiextensions-apiserver v0.24.1
 	k8s.io/apimachinery v0.24.1
 	k8s.io/client-go v0.24.1
-	sigs.k8s.io/cluster-api v1.1.4
-	sigs.k8s.io/cluster-api-provider-azure v1.3.2
+	sigs.k8s.io/cluster-api v1.8.4
+	sigs.k8s.io/cluster-api-provider-azure v1.17.1
 	sigs.k8s.io/yaml v1.3.0
 )
 
@@ -108,5 +108,5 @@ replace (
 	// Mitigate a vulnerability in yaml.v1 < 2.2.8 (CVE-2019-11254)
 	gopkg.in/yaml.v2 => gopkg.in/yaml.v2 v2.2.8
 
-	sigs.k8s.io/cluster-api => sigs.k8s.io/cluster-api v1.0.4
+	sigs.k8s.io/cluster-api => sigs.k8s.io/cluster-api v1.8.4
 )
